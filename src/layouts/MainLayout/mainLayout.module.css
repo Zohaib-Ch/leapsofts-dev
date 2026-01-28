@@ -1,0 +1,18 @@
+.layoutContainer {
+    position: relative;
+    width: 100%;
+}
+
+.mainContent {
+    /* Default Desktop: layout offset removed so backgrounds stretch */
+    padding-left: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Responsive Reset */
+@media (max-width: 1024px) {
+    .mainContent {
+        padding-left: 0;
+    }
+}

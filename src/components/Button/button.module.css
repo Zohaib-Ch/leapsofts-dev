@@ -1,0 +1,88 @@
+/* Dewford Style Button */
+.leap-btn {
+  --angle: 60deg;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--text-primary);
+  overflow: hidden;
+  isolation: isolate;
+  text-decoration: none;
+  transition: --angle 0.5s ease;
+  background: conic-gradient(from var(--angle), var(--btn-color-1, #114c23) 0deg, var(--btn-color-2, var(--color-white)));
+  z-index: 1;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.leap-btn:hover {
+  --angle: 240deg;
+}
+
+.leap-btn .btn-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.leap-btn .btn-text {
+  position: relative;
+  z-index: 2;
+}
+
+.leap-btn .btn-icon {
+  display: flex;
+  align-items: center;
+  transition: transform 0.4s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.leap-btn:hover .btn-icon {
+  transform: translateX(5px);
+}
+
+.leap-btn:active {
+  transform: scale(0.96);
+}
+
+/* Arrow SVG styles */
+.btn-arrow {
+  min-width: 18px;
+}
+
+.arrow-top {
+  fill: rgba(249, 250, 251, 0.5);
+  transition: fill 0.3s ease;
+}
+
+.arrow-bottom {
+  fill: rgba(255, 255, 255, 0.5);
+  transition: fill 0.3s ease;
+}
+
+.leap-btn:hover .arrow-top,
+.leap-btn:hover .arrow-bottom {
+  fill: #ffffff;
+}
+
+/* 
+@keyframes gradientShift {
+  0% {
+    background: conic-gradient(from 60deg, var(--btn-color-1, #114c23) 0deg, var(--btn-color-2, var(--color-white)) 360deg);
+  }
+
+  100% {
+    background: conic-gradient(from 180deg, var(--btn-color-1, #114c23) 0deg, var(--btn-color-2, var(--color-white)) 120deg);
+  }
+} */

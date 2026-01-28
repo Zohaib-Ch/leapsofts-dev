@@ -1,0 +1,257 @@
+.section {
+    width: 100%;
+    position: relative;
+    background-color: var(--bg-dark);
+    padding: 100px 0;
+    overflow: hidden;
+    color: white;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem 0 120px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Header Grid */
+.header {
+    margin-bottom: 60px;
+}
+
+.title {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.titleAccent {
+    color: var(--color-primary-light);
+    /* Pinkish from image */
+    font-weight: 300;
+    font-style: italic;
+    font-family: serif;
+    padding-left: 10px;
+}
+
+.description {
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 700px;
+}
+
+/* Swiper Styling */
+.swiperContainer {
+    width: 100%;
+    padding-bottom: 60px;
+    /* Space for pagination */
+}
+
+.slideContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: flex-start;
+}
+
+/* Left Side: Visual */
+.visualWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainImage {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    animation: float 6s ease-in-out infinite;
+    max-width: 600px;
+    border-radius: 20px;
+}
+
+/* Right Side: Text Content */
+.textContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.slideNumber {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-orange);
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    font-weight: 700;
+}
+
+.slideTitle {
+    font-size: 42px;
+    font-weight: 500;
+    margin-bottom: 40px;
+    color: var(--color-primary-light);
+    /* Pinkish */
+}
+
+.capabilitiesList {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.capabilityItem {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.arrowIcon {
+    margin-top: 5px;
+    flex-shrink: 0;
+    width: 12px;
+    height: 18px;
+    fill: var(--color-orange);
+    /* Pink Arrow */
+}
+
+.itemContent {
+    display: block;
+}
+
+.itemText {
+    font-size: 18px;
+    line-height: 1.6;
+    color: white;
+}
+
+.itemName {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-orange);
+    /* Green Accent */
+    font-style: italic;
+    display: inline;
+    margin-right: 5px;
+}
+
+/* Removed .itemDesc as it is no longer used */
+
+
+/* Navigation Buttons */
+.navigationWrapper {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-top: 20px;
+    position: relative;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.navBtn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--color-primary-light);
+}
+
+.navBtn:hover {
+    background: var(--color-primary-light);
+    color: white;
+    border-color: var(--color-primary-light);
+}
+
+/* Pagination Dots */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    z-index: 10;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: var(--color-orange);
+    /* Green active dot */
+    transform: scale(1.2);
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 1.5rem 0 30px;
+    }
+
+    .slideContent {
+        grid-template-columns: 1fr;
+        gap: 60px;
+        text-align: center;
+    }
+
+    .textContent {
+        align-items: center;
+    }
+
+    .capabilityItem {
+        text-align: left;
+    }
+
+    .navigationWrapper {
+        position: relative;
+        justify-content: center;
+        margin-top: 40px;
+        right: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    .title {
+        font-size: 36px;
+    }
+
+    .slideTitle {
+        font-size: 32px;
+    }
+}

@@ -1,0 +1,124 @@
+import { motion } from 'framer-motion';
+import styles from './PartnerHero.module.css';
+import Button from '../Button/Button';
+import { useContactModal } from '../../context/ContactModalContext';
+import { Users, Star } from 'lucide-react';
+
+const FloatingElements = () => {
+    return (
+        <div className={styles.floatingDecorations}>
+            {[...Array(6)].map((_, i) => (
+                <motion.div
+                    key={i}
+                    className={styles.decoration}
+                    initial={{
+                        x: Math.random() * 100 - 50 + "%",
+                        y: Math.random() * 100 - 50 + "%",
+                        opacity: 0
+                    }}
+                    animate={{
+                        y: ["-10%", "10%"],
+                        opacity: [0.1, 0.3, 0.1],
+                        rotate: [0, 180]
+                    }}
+                    transition={{
+                        duration: 5 + Math.random() * 5,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut"
+                    }}
+                    style={{
+                        width: 20 + Math.random() * 60,
+                        height: 2 + Math.random() * 10,
+                        background: 'var(--color-primary-light)',
+                        filter: 'blur(20px)',
+                        borderRadius: '100px',
+                        zIndex: 0
+                    }}
+                />
+            ))}
+        </div>
+    );
+};
+
+interface PartnerHeroProps {
+    title?: string;
+    description?: string;
+    videoSrc?: string;
+}
+
+const PartnerHero: React.FC<PartnerHeroProps> = ({
+    title = "Strategic Partnerships",
+    description = "Empowering business transformation by harnessing AI-driven strategic partnerships for bold global innovation and growth.",
+    videoSrc = "/bg_video/vid-4.mp4"
+}) => {
+    const { openContactModal } = useContactModal();
+
+    return (
+        <section className={styles.hero}>
+            <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className={styles.videoBackground}
+            >
+                <source src={videoSrc} type="video/mp4" />
+            </video>
+
+            <div className={styles.overlay}></div>
+            <FloatingElements />
+
+            <div className={styles.container}>
+                <motion.div
+                    className={styles.content}
+                    initial={{ x: -100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                >
+                    <h1 className={styles.title}>
+                        Leapsofts <span className={styles.highlight}>{title}</span>
+                    </h1>
+
+                    <p className={styles.description}>
+                        {description}
+                    </p>
+
+                    <div className={styles.badges}>
+                        <div className={styles.badge}>
+                            <Users size={16} /> <span>50+ Global Partners</span>
+                        </div>
+                        <div className={styles.badge}>
+                            <Star size={16} /> <span>AI-Driven Excellence</span>
+                        </div>
+                    </div>
+
+                    <div className={styles.actionArea}>
+                        <Button
+                            text="Become a Partner"
+                            color1="var(--color-primary)"
+                            color2="var(--color-primary-light)"
+                            onClick={openContactModal}
+                            hasIcon
+                        />
+                    </div>
+                </motion.div>
+
+                <motion.div
+                    className={styles.animationWrapper}
+                    initial={{ x: 100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+                >
+                    <img
+                        src="/hand-shake.png"
+                        alt="Strategic Partnership Collaboration"
+                        className={styles.heroImage}
+                    />
+                </motion.div>
+            </div>
+        </section>
+    );
+};
+
+export default PartnerHero;

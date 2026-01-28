@@ -1,0 +1,117 @@
+.summarySection {
+    width: 100%;
+    padding: clamp(60px, 10vw, 120px) 0;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Subtle background glow */
+.summarySection::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(600px, 100%);
+    height: min(600px, 100%);
+    background: radial-gradient(circle, rgba(var(--color-primary-rgb), 0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.title {
+    font-size: clamp(28px, 5vw, 38px);
+    font-weight: 800;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+    letter-spacing: -1px;
+    background: linear-gradient(to right, #fff, #888);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.description {
+    font-size: clamp(16px, 2vw, 19px);
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 850px;
+    margin-bottom: clamp(40px, 8vw, 70px);
+    font-weight: 400;
+}
+
+.detailsList {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.detailItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: clamp(20px, 4vw, 30px) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.detailItem:hover {
+    background: rgba(255, 255, 255, 0.02);
+    padding-left: clamp(10px, 3vw, 20px);
+    padding-right: clamp(10px, 3vw, 20px);
+    border-bottom-color: var(--color-primary-light);
+}
+
+.detailKey {
+    font-size: clamp(16px, 2vw, 18px);
+    font-weight: 600;
+    color: var(--text-primary);
+    opacity: 0.9;
+}
+
+.detailValue {
+    font-size: clamp(16px, 2vw, 18px);
+    color: var(--text-primary);
+    font-weight: 500;
+    text-align: right;
+    max-width: 60%;
+}
+
+@media (max-width: 768px) {
+    .detailItem {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .detailItem:hover {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .detailValue {
+        text-align: left;
+        max-width: 100%;
+        opacity: 0.8;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        letter-spacing: -0.5px;
+    }
+
+    .detailItem {
+        padding: 16px 0;
+    }
+}

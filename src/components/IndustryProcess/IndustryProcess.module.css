@@ -1,0 +1,186 @@
+.processSection {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .processSection {
+        padding: 80px 0;
+    }
+}
+
+.titleSection {
+    margin-bottom: 4rem;
+}
+
+.chartLabel {
+    color: var(--color-orange);
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+}
+
+.chartTitle {
+    color: white;
+    font-size: clamp(1.875rem, 5vw, 3rem);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.chartTitle span {
+    font-family: var(--font-mono);
+    font-style: italic;
+    color: var(--color-primary-light);
+}
+
+.chartDescription {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    max-width: 800px;
+    line-height: 1.6;
+}
+
+.chartWrapper {
+    width: 100%;
+    overflow-x: auto;
+    position: relative;
+    scrollbar-width: thin;
+}
+
+.chartContainer {
+    min-width: 1080px;
+    display: grid;
+    grid-template-columns: repeat(25, minmax(0, 1fr));
+    grid-template-rows: repeat(9, minmax(40px, 1fr));
+    gap: 0.25rem 0;
+    position: relative;
+}
+
+.categoryLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.02);
+    position: sticky;
+    left: 0;
+    z-index: 10;
+}
+
+.categoryText {
+    font-family: var(--font-mono);
+    font-style: italic;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    writing-mode: vertical-rl;
+    letter-spacing: 2px;
+    transform: rotate(180deg);
+    white-space: nowrap;
+}
+
+.stepItem {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 0.5rem;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.stepTitle {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+    z-index: 1;
+}
+
+.stepBar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.stepItem:hover .stepTitle {
+    color: white;
+}
+
+.stepItem:hover .stepBar {
+    height: 4px;
+}
+
+.monthLabel {
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.detailBox {
+    position: sticky;
+    right: 0;
+    top: 0;
+    grid-row: 1 / 4;
+    grid-column: 20 / 26;
+    width: 100%;
+    max-width: 300px;
+    padding: 1rem;
+    background: rgba(10, 10, 15, 0.4);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    pointer-events: none;
+    z-index: 20;
+    margin-left: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.detailBox.active {
+    opacity: 1;
+}
+
+.detailHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.detailIcon {
+    width: 20px;
+    height: 20px;
+    color: var(--color-orange);
+    flex-shrink: 0;
+}
+
+.detailTitle {
+    font-size: 1.25rem;
+    color: white;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.detailContent {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    line-height: 1.5;
+}

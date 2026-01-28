@@ -1,0 +1,214 @@
+.techSection {
+    width: 100%;
+    padding: clamp(60px, 8vw, 100px) 0;
+    position: relative;
+}
+
+.title {
+    font-size: clamp(28px, 5vw, 38px);
+    font-weight: 800;
+    margin-bottom: 30px;
+    color: var(--text-primary);
+    letter-spacing: -1px;
+    background: linear-gradient(to right, #fff, #888);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.itemsList {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stackItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: clamp(20px, 4vw, 30px) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stackItem:hover {
+    background: rgba(255, 255, 255, 0.02);
+    padding-left: clamp(10px, 3vw, 20px);
+    padding-right: clamp(10px, 3vw, 20px);
+    border-bottom-color: var(--color-orange);
+}
+
+.itemLabel {
+    font-size: clamp(16px, 2vw, 18px);
+    font-weight: 600;
+    color: var(--text-primary);
+    opacity: 0.9;
+}
+
+.techGroup {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: clamp(10px, 2vw, 20px);
+    max-width: 80%;
+}
+
+.techBadge {
+    display: flex;
+    align-items: center;
+}
+
+.hexagonWrapper {
+    width: 130px;
+    height: 110px;
+    position: relative;
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+.hexagonWrapper:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 15px 25px rgba(255, 138, 0, 0.25));
+    z-index: 10;
+}
+
+.hexagonBorder {
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-card);
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    transition: all 0.4s ease;
+}
+
+.hexagonWrapper:hover .hexagonBorder {
+    background: linear-gradient(135deg, var(--color-orange), var(--color-orange));
+    box-shadow: 0 0 30px rgba(112, 41, 134, 0.4);
+    border-color: var(--color-orange);
+}
+
+.hexagonBorder::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    background: var(--bg-dark);
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    z-index: -1;
+    opacity: 0.9;
+}
+
+.hexagonContent {
+    width: 98%;
+    height: 98%;
+    background: var(--bg-card);
+    backdrop-filter: blur(8px);
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px;
+    position: relative;
+}
+
+.techIcon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    filter: brightness(1.1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    z-index: 2;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hexagonWrapper:hover .techIcon {
+    transform: scale(1.15);
+}
+
+.itemValue {
+    font-size: 10px;
+    color: var(--text-primary);
+    font-weight: 700;
+    text-align: center;
+    z-index: 2;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.3s ease;
+}
+
+.hexagonWrapper:hover .itemValue {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Shimmer Animation */
+.hexagonContent::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(to bottom right,
+            transparent,
+            transparent,
+            rgba(255, 255, 255, 0.08),
+            transparent,
+            transparent);
+    transform: rotate(45deg) translateY(-100%);
+    animation: shimmer 6s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: rotate(45deg) translateY(-200%);
+    }
+
+    15%,
+    100% {
+        transform: rotate(45deg) translateY(200%);
+    }
+}
+
+@media (max-width: 1024px) {
+    .techGroup {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .stackItem {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .techGroup {
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    .hexagonWrapper {
+        width: 110px;
+        height: 95px;
+    }
+
+    .techIcon {
+        width: 26px;
+        height: 26px;
+    }
+
+    .itemValue {
+        font-size: 9px;
+    }
+}

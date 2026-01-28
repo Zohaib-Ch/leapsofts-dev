@@ -1,0 +1,1946 @@
+[
+  {
+    "country": "Afghanistan",
+    "iso2": "AF",
+    "code": "+93",
+    "exampleNational": "070 123 4567",
+    "exampleInternational": "+93 70 123 4567",
+    "nationalNumber": "701234567"
+  },
+  {
+    "country": "Åland Islands",
+    "iso2": "AX",
+    "code": "+358",
+    "exampleNational": "041 2345678",
+    "exampleInternational": "+358 41 2345678",
+    "nationalNumber": "412345678"
+  },
+  {
+    "country": "Albania",
+    "iso2": "AL",
+    "code": "+355",
+    "exampleNational": "067 212 3456",
+    "exampleInternational": "+355 67 212 3456",
+    "nationalNumber": "672123456"
+  },
+  {
+    "country": "Algeria",
+    "iso2": "DZ",
+    "code": "+213",
+    "exampleNational": "0551 23 45 67",
+    "exampleInternational": "+213 551 23 45 67",
+    "nationalNumber": "551234567"
+  },
+  {
+    "country": "American Samoa",
+    "iso2": "AS",
+    "code": "+1",
+    "exampleNational": "(684) 733-1234",
+    "exampleInternational": "+1 684 733 1234",
+    "nationalNumber": "6847331234"
+  },
+  {
+    "country": "Andorra",
+    "iso2": "AD",
+    "code": "+376",
+    "exampleNational": "312 345",
+    "exampleInternational": "+376 312 345",
+    "nationalNumber": "312345"
+  },
+  {
+    "country": "Angola",
+    "iso2": "AO",
+    "code": "+244",
+    "exampleNational": "923 123 456",
+    "exampleInternational": "+244 923 123 456",
+    "nationalNumber": "923123456"
+  },
+  {
+    "country": "Anguilla",
+    "iso2": "AI",
+    "code": "+1",
+    "exampleNational": "(264) 235-1234",
+    "exampleInternational": "+1 264 235 1234",
+    "nationalNumber": "2642351234"
+  },
+  {
+    "country": "Antigua and Barbuda",
+    "iso2": "AG",
+    "code": "+1",
+    "exampleNational": "(268) 464-1234",
+    "exampleInternational": "+1 268 464 1234",
+    "nationalNumber": "2684641234"
+  },
+  {
+    "country": "Argentina",
+    "iso2": "AR",
+    "code": "+54",
+    "exampleNational": "011 15-2345-6789",
+    "exampleInternational": "+54 9 11 2345 6789",
+    "nationalNumber": "91123456789"
+  },
+  {
+    "country": "Armenia",
+    "iso2": "AM",
+    "code": "+374",
+    "exampleNational": "077 123456",
+    "exampleInternational": "+374 77 123456",
+    "nationalNumber": "77123456"
+  },
+  {
+    "country": "Aruba",
+    "iso2": "AW",
+    "code": "+297",
+    "exampleNational": "560 1234",
+    "exampleInternational": "+297 560 1234",
+    "nationalNumber": "5601234"
+  },
+  {
+    "country": "Australia",
+    "iso2": "AU",
+    "code": "+61",
+    "exampleNational": "0412 345 678",
+    "exampleInternational": "+61 412 345 678",
+    "nationalNumber": "412345678"
+  },
+  {
+    "country": "Austria",
+    "iso2": "AT",
+    "code": "+43",
+    "exampleNational": "0664 123456",
+    "exampleInternational": "+43 664 123456",
+    "nationalNumber": "664123456"
+  },
+  {
+    "country": "Azerbaijan",
+    "iso2": "AZ",
+    "code": "+994",
+    "exampleNational": "040 123 45 67",
+    "exampleInternational": "+994 40 123 45 67",
+    "nationalNumber": "401234567"
+  },
+  {
+    "country": "Bahamas",
+    "iso2": "BS",
+    "code": "+1",
+    "exampleNational": "(242) 359-1234",
+    "exampleInternational": "+1 242 359 1234",
+    "nationalNumber": "2423591234"
+  },
+  {
+    "country": "Bahrain",
+    "iso2": "BH",
+    "code": "+973",
+    "exampleNational": "3600 1234",
+    "exampleInternational": "+973 3600 1234",
+    "nationalNumber": "36001234"
+  },
+  {
+    "country": "Bangladesh",
+    "iso2": "BD",
+    "code": "+880",
+    "exampleNational": "01812-345678",
+    "exampleInternational": "+880 1812 345678",
+    "nationalNumber": "1812345678"
+  },
+  {
+    "country": "Barbados",
+    "iso2": "BB",
+    "code": "+1",
+    "exampleNational": "(246) 250-1234",
+    "exampleInternational": "+1 246 250 1234",
+    "nationalNumber": "2462501234"
+  },
+  {
+    "country": "Belarus",
+    "iso2": "BY",
+    "code": "+375",
+    "exampleNational": "8 029 491-19-11",
+    "exampleInternational": "+375 29 491 19 11",
+    "nationalNumber": "294911911"
+  },
+  {
+    "country": "Belgium",
+    "iso2": "BE",
+    "code": "+32",
+    "exampleNational": "0470 12 34 56",
+    "exampleInternational": "+32 470 12 34 56",
+    "nationalNumber": "470123456"
+  },
+  {
+    "country": "Belize",
+    "iso2": "BZ",
+    "code": "+501",
+    "exampleNational": "622-1234",
+    "exampleInternational": "+501 622 1234",
+    "nationalNumber": "6221234"
+  },
+  {
+    "country": "Benin",
+    "iso2": "BJ",
+    "code": "+229",
+    "exampleNational": "01 95 12 34 56",
+    "exampleInternational": "+229 01 95 12 34 56",
+    "nationalNumber": "0195123456"
+  },
+  {
+    "country": "Bermuda",
+    "iso2": "BM",
+    "code": "+1",
+    "exampleNational": "(441) 370-1234",
+    "exampleInternational": "+1 441 370 1234",
+    "nationalNumber": "4413701234"
+  },
+  {
+    "country": "Bhutan",
+    "iso2": "BT",
+    "code": "+975",
+    "exampleNational": "17 12 34 56",
+    "exampleInternational": "+975 17 12 34 56",
+    "nationalNumber": "17123456"
+  },
+  {
+    "country": "Bolivia",
+    "iso2": "BO",
+    "code": "+591",
+    "exampleNational": "71234567",
+    "exampleInternational": "+591 71234567",
+    "nationalNumber": "71234567"
+  },
+  {
+    "country": "Bonaire, Sint Eustatius and Saba",
+    "iso2": "BQ",
+    "code": "+599",
+    "exampleNational": "318 1234",
+    "exampleInternational": "+599 318 1234",
+    "nationalNumber": "3181234"
+  },
+  {
+    "country": "Bosnia and Herzegovina",
+    "iso2": "BA",
+    "code": "+387",
+    "exampleNational": "061 123 456",
+    "exampleInternational": "+387 61 123 456",
+    "nationalNumber": "61123456"
+  },
+  {
+    "country": "Botswana",
+    "iso2": "BW",
+    "code": "+267",
+    "exampleNational": "71 123 456",
+    "exampleInternational": "+267 71 123 456",
+    "nationalNumber": "71123456"
+  },
+  {
+    "country": "Brazil",
+    "iso2": "BR",
+    "code": "+55",
+    "exampleNational": "(11) 96123-4567",
+    "exampleInternational": "+55 11 96123 4567",
+    "nationalNumber": "11961234567"
+  },
+  {
+    "country": "British Indian Ocean Territory",
+    "iso2": "IO",
+    "code": "+246",
+    "exampleNational": "380 1234",
+    "exampleInternational": "+246 380 1234",
+    "nationalNumber": "3801234"
+  },
+  {
+    "country": "Brunei Darussalam",
+    "iso2": "BN",
+    "code": "+673",
+    "exampleNational": "712 3456",
+    "exampleInternational": "+673 712 3456",
+    "nationalNumber": "7123456"
+  },
+  {
+    "country": "Bulgaria",
+    "iso2": "BG",
+    "code": "+359",
+    "exampleNational": "043 012 345",
+    "exampleInternational": "+359 43 012 345",
+    "nationalNumber": "43012345"
+  },
+  {
+    "country": "Burkina Faso",
+    "iso2": "BF",
+    "code": "+226",
+    "exampleNational": "70 12 34 56",
+    "exampleInternational": "+226 70 12 34 56",
+    "nationalNumber": "70123456"
+  },
+  {
+    "country": "Burundi",
+    "iso2": "BI",
+    "code": "+257",
+    "exampleNational": "79 56 12 34",
+    "exampleInternational": "+257 79 56 12 34",
+    "nationalNumber": "79561234"
+  },
+  {
+    "country": "Cambodia",
+    "iso2": "KH",
+    "code": "+855",
+    "exampleNational": "091 234 567",
+    "exampleInternational": "+855 91 234 567",
+    "nationalNumber": "91234567"
+  },
+  {
+    "country": "Cameroon",
+    "iso2": "CM",
+    "code": "+237",
+    "exampleNational": "6 71 23 45 67",
+    "exampleInternational": "+237 6 71 23 45 67",
+    "nationalNumber": "671234567"
+  },
+  {
+    "country": "Canada",
+    "iso2": "CA",
+    "code": "+1",
+    "exampleNational": "(506) 234-5678",
+    "exampleInternational": "+1 506 234 5678",
+    "nationalNumber": "5062345678"
+  },
+  {
+    "country": "Cape Verde",
+    "iso2": "CV",
+    "code": "+238",
+    "exampleNational": "991 12 34",
+    "exampleInternational": "+238 991 12 34",
+    "nationalNumber": "9911234"
+  },
+  {
+    "country": "Cayman Islands",
+    "iso2": "KY",
+    "code": "+1",
+    "exampleNational": "(345) 323-1234",
+    "exampleInternational": "+1 345 323 1234",
+    "nationalNumber": "3453231234"
+  },
+  {
+    "country": "Central African Republic",
+    "iso2": "CF",
+    "code": "+236",
+    "exampleNational": "70 01 23 45",
+    "exampleInternational": "+236 70 01 23 45",
+    "nationalNumber": "70012345"
+  },
+  {
+    "country": "Chad",
+    "iso2": "TD",
+    "code": "+235",
+    "exampleNational": "63 01 23 45",
+    "exampleInternational": "+235 63 01 23 45",
+    "nationalNumber": "63012345"
+  },
+  {
+    "country": "Chile",
+    "iso2": "CL",
+    "code": "+56",
+    "exampleNational": "(2) 2123 4567",
+    "exampleInternational": "+56 2 2123 4567",
+    "nationalNumber": "221234567"
+  },
+  {
+    "country": "Christmas Island",
+    "iso2": "CX",
+    "code": "+61",
+    "exampleNational": "0412 345 678",
+    "exampleInternational": "+61 412 345 678",
+    "nationalNumber": "412345678"
+  },
+  {
+    "country": "Cocos (Keeling) Islands",
+    "iso2": "CC",
+    "code": "+61",
+    "exampleNational": "0412 345 678",
+    "exampleInternational": "+61 412 345 678",
+    "nationalNumber": "412345678"
+  },
+  {
+    "country": "Colombia",
+    "iso2": "CO",
+    "code": "+57",
+    "exampleNational": "321 1234567",
+    "exampleInternational": "+57 321 1234567",
+    "nationalNumber": "3211234567"
+  },
+  {
+    "country": "Comoros",
+    "iso2": "KM",
+    "code": "+269",
+    "exampleNational": "321 23 45",
+    "exampleInternational": "+269 321 23 45",
+    "nationalNumber": "3212345"
+  },
+  {
+    "country": "Cook Islands",
+    "iso2": "CK",
+    "code": "+682",
+    "exampleNational": "71 234",
+    "exampleInternational": "+682 71 234",
+    "nationalNumber": "71234"
+  },
+  {
+    "country": "Costa Rica",
+    "iso2": "CR",
+    "code": "+506",
+    "exampleNational": "8312 3456",
+    "exampleInternational": "+506 8312 3456",
+    "nationalNumber": "83123456"
+  },
+  {
+    "country": "Cote d'Ivoire",
+    "iso2": "CI",
+    "code": "+225",
+    "exampleNational": "01 23 45 6789",
+    "exampleInternational": "+225 01 23 45 6789",
+    "nationalNumber": "0123456789"
+  },
+  {
+    "country": "Croatia",
+    "iso2": "HR",
+    "code": "+385",
+    "exampleNational": "092 123 4567",
+    "exampleInternational": "+385 92 123 4567",
+    "nationalNumber": "921234567"
+  },
+  {
+    "country": "Cuba",
+    "iso2": "CU",
+    "code": "+53",
+    "exampleNational": "05 1234567",
+    "exampleInternational": "+53 5 1234567",
+    "nationalNumber": "51234567"
+  },
+  {
+    "country": "Curaçao",
+    "iso2": "CW",
+    "code": "+599",
+    "exampleNational": "9 518 1234",
+    "exampleInternational": "+599 9 518 1234",
+    "nationalNumber": "95181234"
+  },
+  {
+    "country": "Cyprus",
+    "iso2": "CY",
+    "code": "+357",
+    "exampleNational": "96 123456",
+    "exampleInternational": "+357 96 123456",
+    "nationalNumber": "96123456"
+  },
+  {
+    "country": "Czech Republic",
+    "iso2": "CZ",
+    "code": "+420",
+    "exampleNational": "601 123 456",
+    "exampleInternational": "+420 601 123 456",
+    "nationalNumber": "601123456"
+  },
+  {
+    "country": "Democratic Republic of the Congo",
+    "iso2": "CD",
+    "code": "+243",
+    "exampleNational": "0991 234 567",
+    "exampleInternational": "+243 991 234 567",
+    "nationalNumber": "991234567"
+  },
+  {
+    "country": "Denmark",
+    "iso2": "DK",
+    "code": "+45",
+    "exampleNational": "34 41 23 45",
+    "exampleInternational": "+45 34 41 23 45",
+    "nationalNumber": "34412345"
+  },
+  {
+    "country": "Djibouti",
+    "iso2": "DJ",
+    "code": "+253",
+    "exampleNational": "77 83 10 01",
+    "exampleInternational": "+253 77 83 10 01",
+    "nationalNumber": "77831001"
+  },
+  {
+    "country": "Dominica",
+    "iso2": "DM",
+    "code": "+1",
+    "exampleNational": "(767) 225-1234",
+    "exampleInternational": "+1 767 225 1234",
+    "nationalNumber": "7672251234"
+  },
+  {
+    "country": "Dominican Republic",
+    "iso2": "DO",
+    "code": "+1",
+    "exampleNational": "(809) 234-5678",
+    "exampleInternational": "+1 809 234 5678",
+    "nationalNumber": "8092345678"
+  },
+  {
+    "country": "Ecuador",
+    "iso2": "EC",
+    "code": "+593",
+    "exampleNational": "099 123 4567",
+    "exampleInternational": "+593 99 123 4567",
+    "nationalNumber": "991234567"
+  },
+  {
+    "country": "Egypt",
+    "iso2": "EG",
+    "code": "+20",
+    "exampleNational": "010 01234567",
+    "exampleInternational": "+20 10 01234567",
+    "nationalNumber": "1001234567"
+  },
+  {
+    "country": "El Salvador",
+    "iso2": "SV",
+    "code": "+503",
+    "exampleNational": "7012 3456",
+    "exampleInternational": "+503 7012 3456",
+    "nationalNumber": "70123456"
+  },
+  {
+    "country": "Equatorial Guinea",
+    "iso2": "GQ",
+    "code": "+240",
+    "exampleNational": "222 123 456",
+    "exampleInternational": "+240 222 123 456",
+    "nationalNumber": "222123456"
+  },
+  {
+    "country": "Eritrea",
+    "iso2": "ER",
+    "code": "+291",
+    "exampleNational": "07 123 456",
+    "exampleInternational": "+291 7 123 456",
+    "nationalNumber": "7123456"
+  },
+  {
+    "country": "Estonia",
+    "iso2": "EE",
+    "code": "+372",
+    "exampleNational": "5123 4567",
+    "exampleInternational": "+372 5123 4567",
+    "nationalNumber": "51234567"
+  },
+  {
+    "country": "Eswatini",
+    "iso2": "SZ",
+    "code": "+268",
+    "exampleNational": "7612 3456",
+    "exampleInternational": "+268 7612 3456",
+    "nationalNumber": "76123456"
+  },
+  {
+    "country": "Ethiopia",
+    "iso2": "ET",
+    "code": "+251",
+    "exampleNational": "091 123 4567",
+    "exampleInternational": "+251 91 123 4567",
+    "nationalNumber": "911234567"
+  },
+  {
+    "country": "Falkland Islands (Malvinas)",
+    "iso2": "FK",
+    "code": "+500",
+    "exampleNational": "51234",
+    "exampleInternational": "+500 51234",
+    "nationalNumber": "51234"
+  },
+  {
+    "country": "Faroe Islands",
+    "iso2": "FO",
+    "code": "+298",
+    "exampleNational": "211234",
+    "exampleInternational": "+298 211234",
+    "nationalNumber": "211234"
+  },
+  {
+    "country": "Fiji",
+    "iso2": "FJ",
+    "code": "+679",
+    "exampleNational": "701 2345",
+    "exampleInternational": "+679 701 2345",
+    "nationalNumber": "7012345"
+  },
+  {
+    "country": "Finland",
+    "iso2": "FI",
+    "code": "+358",
+    "exampleNational": "041 2345678",
+    "exampleInternational": "+358 41 2345678",
+    "nationalNumber": "412345678"
+  },
+  {
+    "country": "France",
+    "iso2": "FR",
+    "code": "+33",
+    "exampleNational": "06 12 34 56 78",
+    "exampleInternational": "+33 6 12 34 56 78",
+    "nationalNumber": "612345678"
+  },
+  {
+    "country": "French Guiana",
+    "iso2": "GF",
+    "code": "+594",
+    "exampleNational": "0694 20 12 34",
+    "exampleInternational": "+594 694 20 12 34",
+    "nationalNumber": "694201234"
+  },
+  {
+    "country": "French Polynesia",
+    "iso2": "PF",
+    "code": "+689",
+    "exampleNational": "87 12 34 56",
+    "exampleInternational": "+689 87 12 34 56",
+    "nationalNumber": "87123456"
+  },
+  {
+    "country": "Gabon",
+    "iso2": "GA",
+    "code": "+241",
+    "exampleNational": "06 03 12 34",
+    "exampleInternational": "+241 06 03 12 34",
+    "nationalNumber": "06031234"
+  },
+  {
+    "country": "Georgia",
+    "iso2": "GE",
+    "code": "+995",
+    "exampleNational": "555 12 34 56",
+    "exampleInternational": "+995 555 12 34 56",
+    "nationalNumber": "555123456"
+  },
+  {
+    "country": "Germany",
+    "iso2": "DE",
+    "code": "+49",
+    "exampleNational": "01512 3456789",
+    "exampleInternational": "+49 1512 3456789",
+    "nationalNumber": "15123456789"
+  },
+  {
+    "country": "Ghana",
+    "iso2": "GH",
+    "code": "+233",
+    "exampleNational": "023 123 4567",
+    "exampleInternational": "+233 23 123 4567",
+    "nationalNumber": "231234567"
+  },
+  {
+    "country": "Gibraltar",
+    "iso2": "GI",
+    "code": "+350",
+    "exampleNational": "57123456",
+    "exampleInternational": "+350 57123456",
+    "nationalNumber": "57123456"
+  },
+  {
+    "country": "Greece",
+    "iso2": "GR",
+    "code": "+30",
+    "exampleNational": "691 234 5678",
+    "exampleInternational": "+30 691 234 5678",
+    "nationalNumber": "6912345678"
+  },
+  {
+    "country": "Greenland",
+    "iso2": "GL",
+    "code": "+299",
+    "exampleNational": "22 12 34",
+    "exampleInternational": "+299 22 12 34",
+    "nationalNumber": "221234"
+  },
+  {
+    "country": "Grenada",
+    "iso2": "GD",
+    "code": "+1",
+    "exampleNational": "(473) 403-1234",
+    "exampleInternational": "+1 473 403 1234",
+    "nationalNumber": "4734031234"
+  },
+  {
+    "country": "Guadeloupe",
+    "iso2": "GP",
+    "code": "+590",
+    "exampleNational": "0690 00 12 34",
+    "exampleInternational": "+590 690 00 12 34",
+    "nationalNumber": "690001234"
+  },
+  {
+    "country": "Guam",
+    "iso2": "GU",
+    "code": "+1",
+    "exampleNational": "(671) 300-1234",
+    "exampleInternational": "+1 671 300 1234",
+    "nationalNumber": "6713001234"
+  },
+  {
+    "country": "Guatemala",
+    "iso2": "GT",
+    "code": "+502",
+    "exampleNational": "5123 4567",
+    "exampleInternational": "+502 5123 4567",
+    "nationalNumber": "51234567"
+  },
+  {
+    "country": "Guernsey",
+    "iso2": "GG",
+    "code": "+44",
+    "exampleNational": "07781 123456",
+    "exampleInternational": "+44 7781 123456",
+    "nationalNumber": "7781123456"
+  },
+  {
+    "country": "Guinea",
+    "iso2": "GN",
+    "code": "+224",
+    "exampleNational": "601 12 34 56",
+    "exampleInternational": "+224 601 12 34 56",
+    "nationalNumber": "601123456"
+  },
+  {
+    "country": "Guinea-Bissau",
+    "iso2": "GW",
+    "code": "+245",
+    "exampleNational": "955 012 345",
+    "exampleInternational": "+245 955 012 345",
+    "nationalNumber": "955012345"
+  },
+  {
+    "country": "Guyana",
+    "iso2": "GY",
+    "code": "+592",
+    "exampleNational": "609 1234",
+    "exampleInternational": "+592 609 1234",
+    "nationalNumber": "6091234"
+  },
+  {
+    "country": "Haiti",
+    "iso2": "HT",
+    "code": "+509",
+    "exampleNational": "34 10 1234",
+    "exampleInternational": "+509 34 10 1234",
+    "nationalNumber": "34101234"
+  },
+  {
+    "country": "Holy See (Vatican City State)",
+    "iso2": "VA",
+    "code": "+39",
+    "exampleNational": "312 345 6789",
+    "exampleInternational": "+39 312 345 6789",
+    "nationalNumber": "3123456789"
+  },
+  {
+    "country": "Honduras",
+    "iso2": "HN",
+    "code": "+504",
+    "exampleNational": "9123-4567",
+    "exampleInternational": "+504 9123 4567",
+    "nationalNumber": "91234567"
+  },
+  {
+    "country": "Hong Kong",
+    "iso2": "HK",
+    "code": "+852",
+    "exampleNational": "5123 4567",
+    "exampleInternational": "+852 5123 4567",
+    "nationalNumber": "51234567"
+  },
+  {
+    "country": "Hungary",
+    "iso2": "HU",
+    "code": "+36",
+    "exampleNational": "06 20 123 4567",
+    "exampleInternational": "+36 20 123 4567",
+    "nationalNumber": "201234567"
+  },
+  {
+    "country": "Iceland",
+    "iso2": "IS",
+    "code": "+354",
+    "exampleNational": "611 1234",
+    "exampleInternational": "+354 611 1234",
+    "nationalNumber": "6111234"
+  },
+  {
+    "country": "India",
+    "iso2": "IN",
+    "code": "+91",
+    "exampleNational": "081234 56789",
+    "exampleInternational": "+91 81234 56789",
+    "nationalNumber": "8123456789"
+  },
+  {
+    "country": "Indonesia",
+    "iso2": "ID",
+    "code": "+62",
+    "exampleNational": "0812-345-678",
+    "exampleInternational": "+62 812 345 678",
+    "nationalNumber": "812345678"
+  },
+  {
+    "country": "Iraq",
+    "iso2": "IQ",
+    "code": "+964",
+    "exampleNational": "0791 234 5678",
+    "exampleInternational": "+964 791 234 5678",
+    "nationalNumber": "7912345678"
+  },
+  {
+    "country": "Ireland",
+    "iso2": "IE",
+    "code": "+353",
+    "exampleNational": "085 012 3456",
+    "exampleInternational": "+353 85 012 3456",
+    "nationalNumber": "850123456"
+  },
+  {
+    "country": "Islamic Republic of Iran",
+    "iso2": "IR",
+    "code": "+98",
+    "exampleNational": "0912 345 6789",
+    "exampleInternational": "+98 912 345 6789",
+    "nationalNumber": "9123456789"
+  },
+  {
+    "country": "Isle of Man",
+    "iso2": "IM",
+    "code": "+44",
+    "exampleNational": "07924 123456",
+    "exampleInternational": "+44 7924 123456",
+    "nationalNumber": "7924123456"
+  },
+  {
+    "country": "Israel",
+    "iso2": "IL",
+    "code": "+972",
+    "exampleNational": "050-234-5678",
+    "exampleInternational": "+972 50 234 5678",
+    "nationalNumber": "502345678"
+  },
+  {
+    "country": "Italy",
+    "iso2": "IT",
+    "code": "+39",
+    "exampleNational": "312 345 6789",
+    "exampleInternational": "+39 312 345 6789",
+    "nationalNumber": "3123456789"
+  },
+  {
+    "country": "Jamaica",
+    "iso2": "JM",
+    "code": "+1",
+    "exampleNational": "(876) 210-1234",
+    "exampleInternational": "+1 876 210 1234",
+    "nationalNumber": "8762101234"
+  },
+  {
+    "country": "Japan",
+    "iso2": "JP",
+    "code": "+81",
+    "exampleNational": "090-1234-5678",
+    "exampleInternational": "+81 90 1234 5678",
+    "nationalNumber": "9012345678"
+  },
+  {
+    "country": "Jersey",
+    "iso2": "JE",
+    "code": "+44",
+    "exampleNational": "07797 712345",
+    "exampleInternational": "+44 7797 712345",
+    "nationalNumber": "7797712345"
+  },
+  {
+    "country": "Jordan",
+    "iso2": "JO",
+    "code": "+962",
+    "exampleNational": "07 9012 3456",
+    "exampleInternational": "+962 7 9012 3456",
+    "nationalNumber": "790123456"
+  },
+  {
+    "country": "Kazakhstan",
+    "iso2": "KZ",
+    "code": "+7",
+    "exampleNational": "8 (771) 000 9998",
+    "exampleInternational": "+7 771 000 9998",
+    "nationalNumber": "7710009998"
+  },
+  {
+    "country": "Kenya",
+    "iso2": "KE",
+    "code": "+254",
+    "exampleNational": "0712 123456",
+    "exampleInternational": "+254 712 123456",
+    "nationalNumber": "712123456"
+  },
+  {
+    "country": "Kiribati",
+    "iso2": "KI",
+    "code": "+686",
+    "exampleNational": "72001234",
+    "exampleInternational": "+686 72001234",
+    "nationalNumber": "72001234"
+  },
+  {
+    "country": "Kosovo",
+    "iso2": "XK",
+    "code": "+383",
+    "exampleNational": "043 201 234",
+    "exampleInternational": "+383 43 201 234",
+    "nationalNumber": "43201234"
+  },
+  {
+    "country": "Kuwait",
+    "iso2": "KW",
+    "code": "+965",
+    "exampleNational": "500 12345",
+    "exampleInternational": "+965 500 12345",
+    "nationalNumber": "50012345"
+  },
+  {
+    "country": "Kyrgyzstan",
+    "iso2": "KG",
+    "code": "+996",
+    "exampleNational": "0700 123 456",
+    "exampleInternational": "+996 700 123 456",
+    "nationalNumber": "700123456"
+  },
+  {
+    "country": "Lao People's Democratic Republic",
+    "iso2": "LA",
+    "code": "+856",
+    "exampleNational": "020 23 123 456",
+    "exampleInternational": "+856 20 23 123 456",
+    "nationalNumber": "2023123456"
+  },
+  {
+    "country": "Latvia",
+    "iso2": "LV",
+    "code": "+371",
+    "exampleNational": "21 234 567",
+    "exampleInternational": "+371 21 234 567",
+    "nationalNumber": "21234567"
+  },
+  {
+    "country": "Lebanon",
+    "iso2": "LB",
+    "code": "+961",
+    "exampleNational": "71 123 456",
+    "exampleInternational": "+961 71 123 456",
+    "nationalNumber": "71123456"
+  },
+  {
+    "country": "Lesotho",
+    "iso2": "LS",
+    "code": "+266",
+    "exampleNational": "5012 3456",
+    "exampleInternational": "+266 5012 3456",
+    "nationalNumber": "50123456"
+  },
+  {
+    "country": "Liberia",
+    "iso2": "LR",
+    "code": "+231",
+    "exampleNational": "077 012 3456",
+    "exampleInternational": "+231 77 012 3456",
+    "nationalNumber": "770123456"
+  },
+  {
+    "country": "Libya",
+    "iso2": "LY",
+    "code": "+218",
+    "exampleNational": "091-2345678",
+    "exampleInternational": "+218 91 2345678",
+    "nationalNumber": "912345678"
+  },
+  {
+    "country": "Liechtenstein",
+    "iso2": "LI",
+    "code": "+423",
+    "exampleNational": "660 234 567",
+    "exampleInternational": "+423 660 234 567",
+    "nationalNumber": "660234567"
+  },
+  {
+    "country": "Lithuania",
+    "iso2": "LT",
+    "code": "+370",
+    "exampleNational": "(0-612) 34567",
+    "exampleInternational": "+370 612 34567",
+    "nationalNumber": "61234567"
+  },
+  {
+    "country": "Luxembourg",
+    "iso2": "LU",
+    "code": "+352",
+    "exampleNational": "628 123 456",
+    "exampleInternational": "+352 628 123 456",
+    "nationalNumber": "628123456"
+  },
+  {
+    "country": "Macao",
+    "iso2": "MO",
+    "code": "+853",
+    "exampleNational": "6612 3456",
+    "exampleInternational": "+853 6612 3456",
+    "nationalNumber": "66123456"
+  },
+  {
+    "country": "Madagascar",
+    "iso2": "MG",
+    "code": "+261",
+    "exampleNational": "032 12 345 67",
+    "exampleInternational": "+261 32 12 345 67",
+    "nationalNumber": "321234567"
+  },
+  {
+    "country": "Malawi",
+    "iso2": "MW",
+    "code": "+265",
+    "exampleNational": "0991 23 45 67",
+    "exampleInternational": "+265 991 23 45 67",
+    "nationalNumber": "991234567"
+  },
+  {
+    "country": "Malaysia",
+    "iso2": "MY",
+    "code": "+60",
+    "exampleNational": "012-345 6789",
+    "exampleInternational": "+60 12 345 6789",
+    "nationalNumber": "123456789"
+  },
+  {
+    "country": "Maldives",
+    "iso2": "MV",
+    "code": "+960",
+    "exampleNational": "771-2345",
+    "exampleInternational": "+960 771 2345",
+    "nationalNumber": "7712345"
+  },
+  {
+    "country": "Mali",
+    "iso2": "ML",
+    "code": "+223",
+    "exampleNational": "65 01 23 45",
+    "exampleInternational": "+223 65 01 23 45",
+    "nationalNumber": "65012345"
+  },
+  {
+    "country": "Malta",
+    "iso2": "MT",
+    "code": "+356",
+    "exampleNational": "9696 1234",
+    "exampleInternational": "+356 9696 1234",
+    "nationalNumber": "96961234"
+  },
+  {
+    "country": "Marshall Islands",
+    "iso2": "MH",
+    "code": "+692",
+    "exampleNational": "235-1234",
+    "exampleInternational": "+692 235 1234",
+    "nationalNumber": "2351234"
+  },
+  {
+    "country": "Martinique",
+    "iso2": "MQ",
+    "code": "+596",
+    "exampleNational": "0696 20 12 34",
+    "exampleInternational": "+596 696 20 12 34",
+    "nationalNumber": "696201234"
+  },
+  {
+    "country": "Mauritania",
+    "iso2": "MR",
+    "code": "+222",
+    "exampleNational": "22 12 34 56",
+    "exampleInternational": "+222 22 12 34 56",
+    "nationalNumber": "22123456"
+  },
+  {
+    "country": "Mauritius",
+    "iso2": "MU",
+    "code": "+230",
+    "exampleNational": "5251 2345",
+    "exampleInternational": "+230 5251 2345",
+    "nationalNumber": "52512345"
+  },
+  {
+    "country": "Mayotte",
+    "iso2": "YT",
+    "code": "+262",
+    "exampleNational": "0639 01 23 45",
+    "exampleInternational": "+262 639 01 23 45",
+    "nationalNumber": "639012345"
+  },
+  {
+    "country": "Mexico",
+    "iso2": "MX",
+    "code": "+52",
+    "exampleNational": "222 123 4567",
+    "exampleInternational": "+52 222 123 4567",
+    "nationalNumber": "2221234567"
+  },
+  {
+    "country": "Micronesia, Federated States of",
+    "iso2": "FM",
+    "code": "+691",
+    "exampleNational": "350 1234",
+    "exampleInternational": "+691 350 1234",
+    "nationalNumber": "3501234"
+  },
+  {
+    "country": "Moldova, Republic of",
+    "iso2": "MD",
+    "code": "+373",
+    "exampleNational": "0621 12 345",
+    "exampleInternational": "+373 621 12 345",
+    "nationalNumber": "62112345"
+  },
+  {
+    "country": "Monaco",
+    "iso2": "MC",
+    "code": "+377",
+    "exampleNational": "06 12 34 56 78",
+    "exampleInternational": "+377 6 12 34 56 78",
+    "nationalNumber": "612345678"
+  },
+  {
+    "country": "Mongolia",
+    "iso2": "MN",
+    "code": "+976",
+    "exampleNational": "8812 3456",
+    "exampleInternational": "+976 8812 3456",
+    "nationalNumber": "88123456"
+  },
+  {
+    "country": "Montenegro",
+    "iso2": "ME",
+    "code": "+382",
+    "exampleNational": "060 123 456",
+    "exampleInternational": "+382 60 123 456",
+    "nationalNumber": "60123456"
+  },
+  {
+    "country": "Montserrat",
+    "iso2": "MS",
+    "code": "+1",
+    "exampleNational": "(664) 492-3456",
+    "exampleInternational": "+1 664 492 3456",
+    "nationalNumber": "6644923456"
+  },
+  {
+    "country": "Morocco",
+    "iso2": "MA",
+    "code": "+212",
+    "exampleNational": "0650-123456",
+    "exampleInternational": "+212 650 123456",
+    "nationalNumber": "650123456"
+  },
+  {
+    "country": "Mozambique",
+    "iso2": "MZ",
+    "code": "+258",
+    "exampleNational": "82 123 4567",
+    "exampleInternational": "+258 82 123 4567",
+    "nationalNumber": "821234567"
+  },
+  {
+    "country": "Myanmar",
+    "iso2": "MM",
+    "code": "+95",
+    "exampleNational": "09 212 3456",
+    "exampleInternational": "+95 9 212 3456",
+    "nationalNumber": "92123456"
+  },
+  {
+    "country": "Namibia",
+    "iso2": "NA",
+    "code": "+264",
+    "exampleNational": "081 123 4567",
+    "exampleInternational": "+264 81 123 4567",
+    "nationalNumber": "811234567"
+  },
+  {
+    "country": "Nauru",
+    "iso2": "NR",
+    "code": "+674",
+    "exampleNational": "555 1234",
+    "exampleInternational": "+674 555 1234",
+    "nationalNumber": "5551234"
+  },
+  {
+    "country": "Nepal",
+    "iso2": "NP",
+    "code": "+977",
+    "exampleNational": "984-1234567",
+    "exampleInternational": "+977 984 1234567",
+    "nationalNumber": "9841234567"
+  },
+  {
+    "country": "Netherlands",
+    "iso2": "NL",
+    "code": "+31",
+    "exampleNational": "06 12345678",
+    "exampleInternational": "+31 6 12345678",
+    "nationalNumber": "612345678"
+  },
+  {
+    "country": "New Caledonia",
+    "iso2": "NC",
+    "code": "+687",
+    "exampleNational": "75.12.34",
+    "exampleInternational": "+687 75 12 34",
+    "nationalNumber": "751234"
+  },
+  {
+    "country": "New Zealand",
+    "iso2": "NZ",
+    "code": "+64",
+    "exampleNational": "021 123 4567",
+    "exampleInternational": "+64 21 123 4567",
+    "nationalNumber": "211234567"
+  },
+  {
+    "country": "Nicaragua",
+    "iso2": "NI",
+    "code": "+505",
+    "exampleNational": "8123 4567",
+    "exampleInternational": "+505 8123 4567",
+    "nationalNumber": "81234567"
+  },
+  {
+    "country": "Niger",
+    "iso2": "NE",
+    "code": "+227",
+    "exampleNational": "93 12 34 56",
+    "exampleInternational": "+227 93 12 34 56",
+    "nationalNumber": "93123456"
+  },
+  {
+    "country": "Nigeria",
+    "iso2": "NG",
+    "code": "+234",
+    "exampleNational": "0802 123 4567",
+    "exampleInternational": "+234 802 123 4567",
+    "nationalNumber": "8021234567"
+  },
+  {
+    "country": "Niue",
+    "iso2": "NU",
+    "code": "+683",
+    "exampleNational": "888 4012",
+    "exampleInternational": "+683 888 4012",
+    "nationalNumber": "8884012"
+  },
+  {
+    "country": "Norfolk Island",
+    "iso2": "NF",
+    "code": "+672",
+    "exampleNational": "3 81234",
+    "exampleInternational": "+672 3 81234",
+    "nationalNumber": "381234"
+  },
+  {
+    "country": "North Korea",
+    "iso2": "KP",
+    "code": "+850",
+    "exampleNational": "0192 123 4567",
+    "exampleInternational": "+850 192 123 4567",
+    "nationalNumber": "1921234567"
+  },
+  {
+    "country": "Northern Mariana Islands",
+    "iso2": "MP",
+    "code": "+1",
+    "exampleNational": "(670) 234-5678",
+    "exampleInternational": "+1 670 234 5678",
+    "nationalNumber": "6702345678"
+  },
+  {
+    "country": "Norway",
+    "iso2": "NO",
+    "code": "+47",
+    "exampleNational": "40 61 23 45",
+    "exampleInternational": "+47 40 61 23 45",
+    "nationalNumber": "40612345"
+  },
+  {
+    "country": "Oman",
+    "iso2": "OM",
+    "code": "+968",
+    "exampleNational": "9212 3456",
+    "exampleInternational": "+968 9212 3456",
+    "nationalNumber": "92123456"
+  },
+  {
+    "country": "Pakistan",
+    "iso2": "PK",
+    "code": "+92",
+    "exampleNational": "0301 2345678",
+    "exampleInternational": "+92 301 2345678",
+    "nationalNumber": "3012345678"
+  },
+  {
+    "country": "Palau",
+    "iso2": "PW",
+    "code": "+680",
+    "exampleNational": "620 1234",
+    "exampleInternational": "+680 620 1234",
+    "nationalNumber": "6201234"
+  },
+  {
+    "country": "Panama",
+    "iso2": "PA",
+    "code": "+507",
+    "exampleNational": "6123-4567",
+    "exampleInternational": "+507 6123 4567",
+    "nationalNumber": "61234567"
+  },
+  {
+    "country": "Papua New Guinea",
+    "iso2": "PG",
+    "code": "+675",
+    "exampleNational": "7012 3456",
+    "exampleInternational": "+675 7012 3456",
+    "nationalNumber": "70123456"
+  },
+  {
+    "country": "Paraguay",
+    "iso2": "PY",
+    "code": "+595",
+    "exampleNational": "0961 456789",
+    "exampleInternational": "+595 961 456789",
+    "nationalNumber": "961456789"
+  },
+  {
+    "country": "People's Republic of China",
+    "iso2": "CN",
+    "code": "+86",
+    "exampleNational": "131 2345 6789",
+    "exampleInternational": "+86 131 2345 6789",
+    "nationalNumber": "13123456789"
+  },
+  {
+    "country": "Peru",
+    "iso2": "PE",
+    "code": "+51",
+    "exampleNational": "912 345 678",
+    "exampleInternational": "+51 912 345 678",
+    "nationalNumber": "912345678"
+  },
+  {
+    "country": "Philippines",
+    "iso2": "PH",
+    "code": "+63",
+    "exampleNational": "0905 123 4567",
+    "exampleInternational": "+63 905 123 4567",
+    "nationalNumber": "9051234567"
+  },
+  {
+    "country": "Poland",
+    "iso2": "PL",
+    "code": "+48",
+    "exampleNational": "512 345 678",
+    "exampleInternational": "+48 512 345 678",
+    "nationalNumber": "512345678"
+  },
+  {
+    "country": "Portugal",
+    "iso2": "PT",
+    "code": "+351",
+    "exampleNational": "912 345 678",
+    "exampleInternational": "+351 912 345 678",
+    "nationalNumber": "912345678"
+  },
+  {
+    "country": "Puerto Rico",
+    "iso2": "PR",
+    "code": "+1",
+    "exampleNational": "(787) 234-5678",
+    "exampleInternational": "+1 787 234 5678",
+    "nationalNumber": "7872345678"
+  },
+  {
+    "country": "Qatar",
+    "iso2": "QA",
+    "code": "+974",
+    "exampleNational": "3312 3456",
+    "exampleInternational": "+974 3312 3456",
+    "nationalNumber": "33123456"
+  },
+  {
+    "country": "Republic of the Congo",
+    "iso2": "CG",
+    "code": "+242",
+    "exampleNational": "06 123 4567",
+    "exampleInternational": "+242 06 123 4567",
+    "nationalNumber": "061234567"
+  },
+  {
+    "country": "Republic of The Gambia",
+    "iso2": "GM",
+    "code": "+220",
+    "exampleNational": "301 2345",
+    "exampleInternational": "+220 301 2345",
+    "nationalNumber": "3012345"
+  },
+  {
+    "country": "Reunion",
+    "iso2": "RE",
+    "code": "+262",
+    "exampleNational": "0692 12 34 56",
+    "exampleInternational": "+262 692 12 34 56",
+    "nationalNumber": "692123456"
+  },
+  {
+    "country": "Romania",
+    "iso2": "RO",
+    "code": "+40",
+    "exampleNational": "0712 034 567",
+    "exampleInternational": "+40 712 034 567",
+    "nationalNumber": "712034567"
+  },
+  {
+    "country": "Russian Federation",
+    "iso2": "RU",
+    "code": "+7",
+    "exampleNational": "8 (912) 345-67-89",
+    "exampleInternational": "+7 912 345 67 89",
+    "nationalNumber": "9123456789"
+  },
+  {
+    "country": "Rwanda",
+    "iso2": "RW",
+    "code": "+250",
+    "exampleNational": "0720 123 456",
+    "exampleInternational": "+250 720 123 456",
+    "nationalNumber": "720123456"
+  },
+  {
+    "country": "Saint Barthélemy",
+    "iso2": "BL",
+    "code": "+590",
+    "exampleNational": "0690 00 12 34",
+    "exampleInternational": "+590 690 00 12 34",
+    "nationalNumber": "690001234"
+  },
+  {
+    "country": "Saint Helena",
+    "iso2": "SH",
+    "code": "+290",
+    "exampleNational": "51234",
+    "exampleInternational": "+290 51234",
+    "nationalNumber": "51234"
+  },
+  {
+    "country": "Saint Kitts and Nevis",
+    "iso2": "KN",
+    "code": "+1",
+    "exampleNational": "(869) 765-2917",
+    "exampleInternational": "+1 869 765 2917",
+    "nationalNumber": "8697652917"
+  },
+  {
+    "country": "Saint Lucia",
+    "iso2": "LC",
+    "code": "+1",
+    "exampleNational": "(758) 284-5678",
+    "exampleInternational": "+1 758 284 5678",
+    "nationalNumber": "7582845678"
+  },
+  {
+    "country": "Saint Martin (French part)",
+    "iso2": "MF",
+    "code": "+590",
+    "exampleNational": "0690 00 12 34",
+    "exampleInternational": "+590 690 00 12 34",
+    "nationalNumber": "690001234"
+  },
+  {
+    "country": "Saint Pierre and Miquelon",
+    "iso2": "PM",
+    "code": "+508",
+    "exampleNational": "055 12 34",
+    "exampleInternational": "+508 55 12 34",
+    "nationalNumber": "551234"
+  },
+  {
+    "country": "Saint Vincent and the Grenadines",
+    "iso2": "VC",
+    "code": "+1",
+    "exampleNational": "(784) 430-1234",
+    "exampleInternational": "+1 784 430 1234",
+    "nationalNumber": "7844301234"
+  },
+  {
+    "country": "Samoa",
+    "iso2": "WS",
+    "code": "+685",
+    "exampleNational": "72 12345",
+    "exampleInternational": "+685 72 12345",
+    "nationalNumber": "7212345"
+  },
+  {
+    "country": "San Marino",
+    "iso2": "SM",
+    "code": "+378",
+    "exampleNational": "66 66 12 12",
+    "exampleInternational": "+378 66 66 12 12",
+    "nationalNumber": "66661212"
+  },
+  {
+    "country": "Sao Tome and Principe",
+    "iso2": "ST",
+    "code": "+239",
+    "exampleNational": "981 2345",
+    "exampleInternational": "+239 981 2345",
+    "nationalNumber": "9812345"
+  },
+  {
+    "country": "Saudi Arabia",
+    "iso2": "SA",
+    "code": "+966",
+    "exampleNational": "051 234 5678",
+    "exampleInternational": "+966 51 234 5678",
+    "nationalNumber": "512345678"
+  },
+  {
+    "country": "Senegal",
+    "iso2": "SN",
+    "code": "+221",
+    "exampleNational": "70 123 45 67",
+    "exampleInternational": "+221 70 123 45 67",
+    "nationalNumber": "701234567"
+  },
+  {
+    "country": "Serbia",
+    "iso2": "RS",
+    "code": "+381",
+    "exampleNational": "060 1234567",
+    "exampleInternational": "+381 60 1234567",
+    "nationalNumber": "601234567"
+  },
+  {
+    "country": "Seychelles",
+    "iso2": "SC",
+    "code": "+248",
+    "exampleNational": "2 510 123",
+    "exampleInternational": "+248 2 510 123",
+    "nationalNumber": "2510123"
+  },
+  {
+    "country": "Sierra Leone",
+    "iso2": "SL",
+    "code": "+232",
+    "exampleNational": "(025) 123456",
+    "exampleInternational": "+232 25 123456",
+    "nationalNumber": "25123456"
+  },
+  {
+    "country": "Singapore",
+    "iso2": "SG",
+    "code": "+65",
+    "exampleNational": "8123 4567",
+    "exampleInternational": "+65 8123 4567",
+    "nationalNumber": "81234567"
+  },
+  {
+    "country": "Sint Maarten (Dutch part)",
+    "iso2": "SX",
+    "code": "+1",
+    "exampleNational": "(721) 520-5678",
+    "exampleInternational": "+1 721 520 5678",
+    "nationalNumber": "7215205678"
+  },
+  {
+    "country": "Slovakia",
+    "iso2": "SK",
+    "code": "+421",
+    "exampleNational": "0912 123 456",
+    "exampleInternational": "+421 912 123 456",
+    "nationalNumber": "912123456"
+  },
+  {
+    "country": "Slovenia",
+    "iso2": "SI",
+    "code": "+386",
+    "exampleNational": "031 234 567",
+    "exampleInternational": "+386 31 234 567",
+    "nationalNumber": "31234567"
+  },
+  {
+    "country": "Solomon Islands",
+    "iso2": "SB",
+    "code": "+677",
+    "exampleNational": "74 21234",
+    "exampleInternational": "+677 74 21234",
+    "nationalNumber": "7421234"
+  },
+  {
+    "country": "Somalia",
+    "iso2": "SO",
+    "code": "+252",
+    "exampleNational": "7 1123456",
+    "exampleInternational": "+252 7 1123456",
+    "nationalNumber": "71123456"
+  },
+  {
+    "country": "South Africa",
+    "iso2": "ZA",
+    "code": "+27",
+    "exampleNational": "071 123 4567",
+    "exampleInternational": "+27 71 123 4567",
+    "nationalNumber": "711234567"
+  },
+  {
+    "country": "South Korea",
+    "iso2": "KR",
+    "code": "+82",
+    "exampleNational": "010-2000-0000",
+    "exampleInternational": "+82 10 2000 0000",
+    "nationalNumber": "1020000000"
+  },
+  {
+    "country": "South Sudan",
+    "iso2": "SS",
+    "code": "+211",
+    "exampleNational": "0977 123 456",
+    "exampleInternational": "+211 977 123 456",
+    "nationalNumber": "977123456"
+  },
+  {
+    "country": "Spain",
+    "iso2": "ES",
+    "code": "+34",
+    "exampleNational": "612 34 56 78",
+    "exampleInternational": "+34 612 34 56 78",
+    "nationalNumber": "612345678"
+  },
+  {
+    "country": "Sri Lanka",
+    "iso2": "LK",
+    "code": "+94",
+    "exampleNational": "071 234 5678",
+    "exampleInternational": "+94 71 234 5678",
+    "nationalNumber": "712345678"
+  },
+  {
+    "country": "State of Palestine",
+    "iso2": "PS",
+    "code": "+970",
+    "exampleNational": "0599 123 456",
+    "exampleInternational": "+970 599 123 456",
+    "nationalNumber": "599123456"
+  },
+  {
+    "country": "Sudan",
+    "iso2": "SD",
+    "code": "+249",
+    "exampleNational": "091 123 1234",
+    "exampleInternational": "+249 91 123 1234",
+    "nationalNumber": "911231234"
+  },
+  {
+    "country": "Suriname",
+    "iso2": "SR",
+    "code": "+597",
+    "exampleNational": "741-2345",
+    "exampleInternational": "+597 741 2345",
+    "nationalNumber": "7412345"
+  },
+  {
+    "country": "Svalbard and Jan Mayen",
+    "iso2": "SJ",
+    "code": "+47",
+    "exampleNational": "41 23 45 67",
+    "exampleInternational": "+47 41 23 45 67",
+    "nationalNumber": "41234567"
+  },
+  {
+    "country": "Sweden",
+    "iso2": "SE",
+    "code": "+46",
+    "exampleNational": "070-123 45 67",
+    "exampleInternational": "+46 70 123 45 67",
+    "nationalNumber": "701234567"
+  },
+  {
+    "country": "Switzerland",
+    "iso2": "CH",
+    "code": "+41",
+    "exampleNational": "078 123 45 67",
+    "exampleInternational": "+41 78 123 45 67",
+    "nationalNumber": "781234567"
+  },
+  {
+    "country": "Syrian Arab Republic",
+    "iso2": "SY",
+    "code": "+963",
+    "exampleNational": "0944 567 890",
+    "exampleInternational": "+963 944 567 890",
+    "nationalNumber": "944567890"
+  },
+  {
+    "country": "Taiwan, Province of China",
+    "iso2": "TW",
+    "code": "+886",
+    "exampleNational": "0912 345 678",
+    "exampleInternational": "+886 912 345 678",
+    "nationalNumber": "912345678"
+  },
+  {
+    "country": "Tajikistan",
+    "iso2": "TJ",
+    "code": "+992",
+    "exampleNational": "91 712 3456",
+    "exampleInternational": "+992 91 712 3456",
+    "nationalNumber": "917123456"
+  },
+  {
+    "country": "Thailand",
+    "iso2": "TH",
+    "code": "+66",
+    "exampleNational": "081 234 5678",
+    "exampleInternational": "+66 81 234 5678",
+    "nationalNumber": "812345678"
+  },
+  {
+    "country": "The Republic of North Macedonia",
+    "iso2": "MK",
+    "code": "+389",
+    "exampleNational": "072 345 678",
+    "exampleInternational": "+389 72 345 678",
+    "nationalNumber": "72345678"
+  },
+  {
+    "country": "Timor-Leste",
+    "iso2": "TL",
+    "code": "+670",
+    "exampleNational": "7721 2345",
+    "exampleInternational": "+670 7721 2345",
+    "nationalNumber": "77212345"
+  },
+  {
+    "country": "Togo",
+    "iso2": "TG",
+    "code": "+228",
+    "exampleNational": "90 11 23 45",
+    "exampleInternational": "+228 90 11 23 45",
+    "nationalNumber": "90112345"
+  },
+  {
+    "country": "Tokelau",
+    "iso2": "TK",
+    "code": "+690",
+    "exampleNational": "7290",
+    "exampleInternational": "+690 7290",
+    "nationalNumber": "7290"
+  },
+  {
+    "country": "Tonga",
+    "iso2": "TO",
+    "code": "+676",
+    "exampleNational": "771 5123",
+    "exampleInternational": "+676 771 5123",
+    "nationalNumber": "7715123"
+  },
+  {
+    "country": "Trinidad and Tobago",
+    "iso2": "TT",
+    "code": "+1",
+    "exampleNational": "(868) 291-1234",
+    "exampleInternational": "+1 868 291 1234",
+    "nationalNumber": "8682911234"
+  },
+  {
+    "country": "Tunisia",
+    "iso2": "TN",
+    "code": "+216",
+    "exampleNational": "20 123 456",
+    "exampleInternational": "+216 20 123 456",
+    "nationalNumber": "20123456"
+  },
+  {
+    "country": "Türkiye",
+    "iso2": "TR",
+    "code": "+90",
+    "exampleNational": "0501 234 56 78",
+    "exampleInternational": "+90 501 234 56 78",
+    "nationalNumber": "5012345678"
+  },
+  {
+    "country": "Turkmenistan",
+    "iso2": "TM",
+    "code": "+993",
+    "exampleNational": "8 66 123456",
+    "exampleInternational": "+993 66 123456",
+    "nationalNumber": "66123456"
+  },
+  {
+    "country": "Turks and Caicos Islands",
+    "iso2": "TC",
+    "code": "+1",
+    "exampleNational": "(649) 231-1234",
+    "exampleInternational": "+1 649 231 1234",
+    "nationalNumber": "6492311234"
+  },
+  {
+    "country": "Tuvalu",
+    "iso2": "TV",
+    "code": "+688",
+    "exampleNational": "90 1234",
+    "exampleInternational": "+688 90 1234",
+    "nationalNumber": "901234"
+  },
+  {
+    "country": "Uganda",
+    "iso2": "UG",
+    "code": "+256",
+    "exampleNational": "0712 345678",
+    "exampleInternational": "+256 712 345678",
+    "nationalNumber": "712345678"
+  },
+  {
+    "country": "Ukraine",
+    "iso2": "UA",
+    "code": "+380",
+    "exampleNational": "050 123 4567",
+    "exampleInternational": "+380 50 123 4567",
+    "nationalNumber": "501234567"
+  },
+  {
+    "country": "United Arab Emirates",
+    "iso2": "AE",
+    "code": "+971",
+    "exampleNational": "050 123 4567",
+    "exampleInternational": "+971 50 123 4567",
+    "nationalNumber": "501234567"
+  },
+  {
+    "country": "United Kingdom",
+    "iso2": "GB",
+    "code": "+44",
+    "exampleNational": "07400 123456",
+    "exampleInternational": "+44 7400 123456",
+    "nationalNumber": "7400123456"
+  },
+  {
+    "country": "United Republic of Tanzania",
+    "iso2": "TZ",
+    "code": "+255",
+    "exampleNational": "0621 234 567",
+    "exampleInternational": "+255 621 234 567",
+    "nationalNumber": "621234567"
+  },
+  {
+    "country": "United States of America",
+    "iso2": "US",
+    "code": "+1",
+    "exampleNational": "(201) 555-0123",
+    "exampleInternational": "+1 201 555 0123",
+    "nationalNumber": "2015550123"
+  },
+  {
+    "country": "Uruguay",
+    "iso2": "UY",
+    "code": "+598",
+    "exampleNational": "094 231 234",
+    "exampleInternational": "+598 94 231 234",
+    "nationalNumber": "94231234"
+  },
+  {
+    "country": "Uzbekistan",
+    "iso2": "UZ",
+    "code": "+998",
+    "exampleNational": "91 234 56 78",
+    "exampleInternational": "+998 91 234 56 78",
+    "nationalNumber": "912345678"
+  },
+  {
+    "country": "Vanuatu",
+    "iso2": "VU",
+    "code": "+678",
+    "exampleNational": "591 2345",
+    "exampleInternational": "+678 591 2345",
+    "nationalNumber": "5912345"
+  },
+  {
+    "country": "Venezuela",
+    "iso2": "VE",
+    "code": "+58",
+    "exampleNational": "0412-1234567",
+    "exampleInternational": "+58 412 1234567",
+    "nationalNumber": "4121234567"
+  },
+  {
+    "country": "Vietnam",
+    "iso2": "VN",
+    "code": "+84",
+    "exampleNational": "0912 345 678",
+    "exampleInternational": "+84 912 345 678",
+    "nationalNumber": "912345678"
+  },
+  {
+    "country": "Virgin Islands, British",
+    "iso2": "VG",
+    "code": "+1",
+    "exampleNational": "(284) 300-1234",
+    "exampleInternational": "+1 284 300 1234",
+    "nationalNumber": "2843001234"
+  },
+  {
+    "country": "Virgin Islands, U.S.",
+    "iso2": "VI",
+    "code": "+1",
+    "exampleNational": "(340) 642-1234",
+    "exampleInternational": "+1 340 642 1234",
+    "nationalNumber": "3406421234"
+  },
+  {
+    "country": "Wallis and Futuna",
+    "iso2": "WF",
+    "code": "+681",
+    "exampleNational": "82 12 34",
+    "exampleInternational": "+681 82 12 34",
+    "nationalNumber": "821234"
+  },
+  {
+    "country": "Western Sahara",
+    "iso2": "EH",
+    "code": "+212",
+    "exampleNational": "0650-123456",
+    "exampleInternational": "+212 650 123456",
+    "nationalNumber": "650123456"
+  },
+  {
+    "country": "Yemen",
+    "iso2": "YE",
+    "code": "+967",
+    "exampleNational": "0712 345 678",
+    "exampleInternational": "+967 712 345 678",
+    "nationalNumber": "712345678"
+  },
+  {
+    "country": "Zambia",
+    "iso2": "ZM",
+    "code": "+260",
+    "exampleNational": "095 5123456",
+    "exampleInternational": "+260 95 5123456",
+    "nationalNumber": "955123456"
+  },
+  {
+    "country": "Zimbabwe",
+    "iso2": "ZW",
+    "code": "+263",
+    "exampleNational": "071 234 5678",
+    "exampleInternational": "+263 71 234 5678",
+    "nationalNumber": "712345678"
+  }
+]

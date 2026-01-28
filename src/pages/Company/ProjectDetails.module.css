@@ -1,0 +1,50 @@
+.detailsContainer {
+    display: flex;
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    align-items: flex-start;
+}
+
+.leftColumn {
+    flex: 1;
+    min-width: 0;
+}
+
+.rightColumn {
+    width: 450px;
+    position: sticky;
+    top: 100px;
+    flex-shrink: 0;
+}
+
+.notFound {
+    padding: 200px 20px;
+    text-align: center;
+}
+
+.pagePadding {
+    padding-top: 80px;
+}
+
+/* Specific styling for the sticky contact form variant */
+.stickyForm {
+    background: rgba(30, 41, 59, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(100, 116, 139, 0.2);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+@media (max-width: 1200px) {
+    .detailsContainer {
+        flex-direction: column;
+        padding: 40px 20px;
+    }
+
+    .rightColumn {
+        width: 100%;
+        position: static;
+    }
+}

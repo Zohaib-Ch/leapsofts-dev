@@ -1,0 +1,331 @@
+.servicesSection {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #050001 0%, #28033d 100%);
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem 0 120px;
+}
+
+.sectionHeader {
+    margin-bottom: 60px;
+}
+
+.title em {
+    font-style: italic;
+    font-family: serif;
+    color: var(--color-orange);
+}
+
+@media (max-width: 768px) {
+    .sectionHeader {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .container {
+        padding: 0 1.5rem 0 0px;
+    }
+}
+
+.label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-orange);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.title {
+    font-size: 48px;
+    font-weight: 700;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 32px;
+    }
+}
+
+/* Accordion Container */
+.accordion {
+    display: flex;
+    height: 600px;
+    gap: 8px;
+    width: 100%;
+}
+
+/* Individual Card */
+.card {
+    position: relative;
+    flex: 0 0 92px;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(20, 18, 128, 0.2) 0%, rgba(112, 41, 134, 0.4) 100%);
+    border-radius: 20px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: flex-basis 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+        flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.3s ease,
+        height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover:not(.active) {
+    flex-basis: 122px;
+    background: linear-gradient(135deg, rgba(20, 18, 128, 0.3) 0%, rgba(112, 41, 134, 0.5) 100%);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.active {
+    flex-grow: 1;
+    flex-basis: 0%;
+    background: linear-gradient(135deg, rgba(20, 18, 128, 0.4) 0%, rgba(112, 41, 134, 0.6) 100%);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Card Content - Common */
+.cardNumber {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-orange);
+    margin-bottom: 40px;
+    display: block;
+    flex-shrink: 0;
+}
+
+/* Card Content - Collapsed State (Desktop) */
+.cardTitleCollapsed {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transform-origin: left top;
+    transform: rotate(90deg) translateY(-100%);
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transition: opacity 0.3s ease;
+}
+
+.active .cardTitleCollapsed {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Card Content - Expanded State */
+.expandedContent {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+    transform: translateY(20px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.active .expandedContent {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.cardTitleExpanded {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--color-orange);
+    margin-bottom: 30px;
+    max-width: 500px;
+}
+
+.description {
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 40px;
+    max-width: 600px;
+}
+
+.subServices {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(250px, auto));
+    gap: 15px;
+}
+
+.subServiceItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    transition: transform 0.2s ease;
+}
+
+.subServiceItem:hover {
+    transform: translateX(5px);
+    color: var(--color-orange);
+}
+
+.arrowIcon {
+    color: var(--color-orange);
+}
+
+/* Footer Icon */
+.footerIcon {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.active .footerIcon {
+    left: initial;
+    right: 30px;
+    transform: translateX(0);
+    background-color: var(--color-orange);
+    border-color: var(--color-orange);
+}
+
+.footerIcon svg {
+    transition: transform 0.3s ease;
+}
+
+.active .footerIcon svg {
+    transform: rotate(-45deg);
+}
+
+/* Responsiveness Fixes (Mobile \u0026 Tablet) */
+@media (max-width: 1024px) {
+    .servicesSection {
+        padding: 60px 0;
+    }
+
+    .container {
+        padding: 0 1.5rem 0 30px;
+    }
+
+    .accordion {
+        flex-direction: column;
+        height: auto;
+        gap: 12px;
+    }
+
+    .card {
+        flex: 0 0 auto;
+        width: 100%;
+        height: auto;
+        max-height: 120px;
+        padding: 24px;
+        flex-direction: row;
+        align-items: center;
+        transition: max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+            background 0.3s ease;
+        overflow: hidden;
+    }
+
+    .active {
+        max-height: 1200px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 40px;
+    }
+
+    .cardNumber {
+        margin-bottom: 0;
+        margin-right: 20px;
+    }
+
+    .active .cardNumber {
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+
+    /* Title behavior on mobile */
+    .cardTitleCollapsed {
+        position: static;
+        transform: none;
+        font-size: 16px;
+        white-space: normal;
+        opacity: 1;
+        pointer-events: auto;
+        flex-grow: 1;
+        text-transform: none;
+        font-weight: 600;
+    }
+
+    .active .cardTitleCollapsed {
+        display: none;
+    }
+
+    /* Expanded Content */
+    .expandedContent {
+        width: 100%;
+        transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+        transform: translateY(20px);
+    }
+
+    .cardTitleExpanded {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .description {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    /* Footer Icon positioning on mobile */
+    .footerIcon {
+        position: static;
+        transform: none;
+        width: 32px;
+        height: 32px;
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+
+    .active .footerIcon {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+    }
+
+}
+@media (max-width: 580px) {
+    .subServices {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .cardTitleExpanded {
+        font-size: 24px;
+    }
+
+    .footerIcon {
+        display: none !important;
+    }
+    .subServices {
+        grid-template-columns: 1fr;
+    }
+}

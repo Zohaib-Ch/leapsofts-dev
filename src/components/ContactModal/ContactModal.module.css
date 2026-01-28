@@ -1,0 +1,288 @@
+/* =============================================
+   Contact Modal - Premium Dark Theme Styling
+   ============================================= */
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 4rem 2rem;
+    overflow: hidden;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Modal Container */
+.modal {
+    position: relative;
+    background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.95));
+    border-radius: 14px;
+    width: 100%;
+    max-width: 100%;
+    max-height: calc(100vh - 4rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-shadow:
+        0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Closing Animations */
+.overlayClosing {
+    animation: fadeOut 0.3s ease-out forwards;
+}
+
+.modalClosing {
+    animation: slideDown 0.3s ease-out forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+    }
+}
+
+/* Hide Scrollbar but keep scroll functionality */
+.modal {
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+}
+
+.modal::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Opera */
+}
+
+/* Close Button */
+.closeButton {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+}
+
+.closeButton:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    transform: rotate(90deg);
+}
+
+.closeButton:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 138, 0, 0.3);
+}
+
+/* Decorative Cubes */
+.decorativeCubeLeft {
+    position: absolute;
+    left: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.9;
+}
+
+.decorativeCubeRight {
+    position: absolute;
+    right: -40px;
+    bottom: 20px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.9;
+}
+
+.cubeImage {
+    width: 180px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 30px rgba(255, 0, 100, 0.3));
+    animation: float 6s ease-in-out infinite;
+}
+
+.decorativeCubeRight .cubeImage {
+    width: 150px;
+    animation-delay: -3s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* Modal Content */
+.modalContent {
+    position: relative;
+    z-index: 1;
+    padding: 1rem;
+}
+
+/* =============================================
+   Responsive Styles
+   ============================================= */
+
+@media screen and (max-width: 1200px) {
+    .decorativeCubeLeft {
+        left: -30px;
+    }
+
+    .cubeImage {
+        width: 140px;
+    }
+
+    .decorativeCubeRight .cubeImage {
+        width: 120px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .overlay {
+        padding: 1rem;
+    }
+
+    .modal {
+        max-height: 95vh;
+    }
+
+    .decorativeCubeLeft {
+        left: 0;
+        top: auto;
+        bottom: -40px;
+        transform: none;
+    }
+
+    .decorativeCubeRight {
+        right: 0;
+        bottom: -30px;
+    }
+
+    .cubeImage {
+        width: 100px;
+    }
+
+    .decorativeCubeRight .cubeImage {
+        width: 80px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .overlay {
+        padding: 0.5rem;
+    }
+
+    .modal {
+        max-height: 100vh;
+        border-radius: 12px;
+    }
+
+    .closeButton {
+        top: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+    }
+
+    .closeButton svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .decorativeCubeLeft,
+    .decorativeCubeRight {
+        display: none;
+    }
+
+    .modalContent {
+        padding: 0.5rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .overlay {
+        padding: 0;
+    }
+
+    .modal {
+        border-radius: 0;
+        max-height: 100vh;
+    }
+
+    .closeButton {
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 36px;
+        height: 36px;
+    }
+
+    .modalContent {
+        padding: 0.25rem;
+    }
+}
