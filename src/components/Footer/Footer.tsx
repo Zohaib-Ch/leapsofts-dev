@@ -36,13 +36,33 @@ const Footer = () => {
       <div className={styles["footer-content"]}>
         <div className={styles["footer-main"]}>
           <div className={styles["footer-brand"]}>
-          <Link to={'/'}>
-            <img className={styles["footer-logo"]} src="/logo/Leap-soft-w.png" alt="" />
+            <Link to="/">
+              <img className={styles["footer-logo"]} src="/logo/logo-white.png" alt="" />
             </Link>
-            <p className={styles["footer-description"]}>
-              Transforming ideas into powerful software solutions. We build
-              innovative products that help businesses thrive in the digital age.
-            </p>
+            <div className={styles["footer-contact-info"]}>
+              <div className={styles["contact-section"]}>
+                <h5 className={styles["contact-label"]}>Visit</h5>
+                <div className={styles["address-grid"]}>
+                  <div className={styles["address-item"]}>
+                    <span className={styles["office-name"]}>Austin Office</span>
+                    <p>5910 Courtyard Dr. STE 105</p>
+                    <p>Austin TX 78731</p>
+                  </div>
+                  <div className={styles["address-item"]}>
+                    <span className={styles["office-name"]}>Lahore Office</span>
+                    <p>Third Floor, Techub Pakistan</p>
+                    <p>Lahore</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles["contact-section"]}>
+                <h5 className={styles["contact-label"]}>Call</h5>
+                <p className={styles["contact-detail"]}>(512) 400-0056</p>
+                <p className={styles["contact-sub-detail"]}>Mon-Fri from 9am to 5pm CT</p>
+              </div>
+            </div>
+
             <div className={styles["social-links"]}>
               <a href="#" aria-label="LinkedIn" className={styles["social-link"]}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -99,7 +119,7 @@ const Footer = () => {
         </div>
 
         <div className={styles["footer-bottom"]}>
-          <p>&copy; {currentYear} Leapsofts. All rights reserved.</p>
+          <p>&copy; {currentYear} Dewford. All rights reserved.</p>
         </div>
       </div>
 

@@ -5,7 +5,7 @@
 }
 
 .footer-logo {
-    width: 150px;
+    width: 200px;
 }
 
 .footer-content {
@@ -42,11 +42,81 @@
     background-clip: text;
 }
 
-.footer-description {
-    color: rgba(255, 255, 255, 0.6);
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-    max-width: 350px;
+.footer-contact-info {
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.contact-label {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--color-white);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.25rem;
+}
+
+.address-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.address-item {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.address-item p {
+    margin: 0;
+}
+
+.office-name {
+    display: block;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+}
+
+.contact-detail {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.contact-sub-detail {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.contact-email {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    padding-bottom: 2px;
+    border-bottom: 2px solid rgba(124, 58, 237, 0.3);
+}
+
+.contact-email:hover {
+    color: #7c3aed;
+    border-bottom-color: #7c3aed;
 }
 
 .social-links {
@@ -102,7 +172,7 @@
 }
 
 .footer-column a:hover {
-    color: var(--color-orange);
+    color: var(--color-white);
 }
 
 .footer-bottom {
