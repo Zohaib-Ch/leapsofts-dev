@@ -6,19 +6,23 @@ import { useContactModal } from '../../context/ContactModalContext';
 
 interface IntroComponentProps {
     title: string;
+    title2?: string;
     description: string;
     videoSrc?: string;
     buttonText?: string;
     onButtonClick?: () => void;
     children?: ReactNode;
+    introDescription?: {text: string, bold: boolean}[];
 }
 
 const IntroComponent: React.FC<IntroComponentProps> = ({
     title,
+    title2,
     description,
     videoSrc = "/bg_video/vid-4.mp4",
-    buttonText = "Start your project",
+    buttonText = "Schedule a Consultation",
     onButtonClick,
+    introDescription,
 }) => {
 
     const { openContactModal } = useContactModal();
@@ -46,7 +50,14 @@ const IntroComponent: React.FC<IntroComponentProps> = ({
             <div className={styles.container}>
                 <div className={styles.content}>
                     <h1 className={styles.title}>{title}</h1>
-                    <p className={styles.subtitle}>{description}</p>
+                    <h1 className={styles.title}>{title2}</h1>
+                    <p className={styles.subtitle}>
+                        {introDescription?.map((item, index) => (
+                            <span key={index} className={item.bold ? styles.bold : ''}>
+                                {item.text}
+                            </span>
+                        ))}
+                    </p>
                     <Button
                         text={buttonText}
                         color1="var(--color-primary)"

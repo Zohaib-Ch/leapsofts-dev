@@ -7,7 +7,7 @@ interface StreamlineSuccessProps {
     titleMain: string;
     titleAccent?: string;
     titleEnd?: string;
-    description: string;
+    description: { text: string; bold: boolean }[];
     imageUrl: string;
 }
 
@@ -59,7 +59,13 @@ const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({ label, titleMain,
                         {titleMain}<span className={styles.accent}>{titleAccent}</span> {titleEnd}
                     </h2>
                     <p className={styles.description}>
-                        {description}
+                        {description.map((segment, index) => (
+                            segment.bold ? (
+                                <strong key={index}>{segment.text}</strong>
+                            ) : (
+                                <span key={index}>{segment.text}</span>
+                            )
+                        ))}
                     </p>
                     <div className={styles.buttonWrapper}>
                         <Button text=" Request Your Session" color1="var(--color-primary)" color2="var(--color-primary-light)" onClick={() => console.log('Button clicked')} hasIcon />

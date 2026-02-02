@@ -13,8 +13,24 @@ import Figures from './Figures/Figures';
 import IndustrySlider from '../../components/IndustrySlider/IndustrySlider';
 
 const Home = () => {
-  const title = "Custom Software Development That Launches Your Product in 6-12 Months";
-  const subtitle = "Leapsofts' custom software development services focus on your business goals, covering everything from proof of concept and software architecture to MVPs and AI-driven solutions that meet real-world needs.";
+  const title = "Custom Software Development Company";
+  const title2 = " Lauch your Product in 3-5 Months";
+  const subtitle = "Leapsofts offers enterprise-grade custom software development services designed to drive business transformation. From proof of concept (PoC) and scalable software architecture to MVP development and AI-powered enterprise solutions, we deliver robust, secure, and high-performance software tailored to meet complex organizational needs. Partner with us to turn innovative ideas into market-ready solutions that enhance efficiency, scalability, and business growth.";
+
+  const introDescription = [
+    { text: "Leapsofts offers ", bold: false },
+    { text: "enterprise-grade custom software development services ", bold: true },
+    { text: "designed to drive business transformation. From ", bold: false },
+    { text: "proof of concept (PoC) ", bold: true },
+    { text: "and ", bold: false },
+    { text: "scalable software architecture ", bold: true },
+    { text: "to ", bold: false },
+    { text: "MVP development ", bold: true },
+    { text: "and ", bold: false },
+    { text: "AI-powered enterprise solutions, ", bold: true },
+    { text: "we deliver robust, secure, and high-performance software tailored to meet complex organizational needs. Partner with us to turn innovative ideas into market-ready solutions that enhance efficiency, scalability, and business growth.", bold: false },
+
+  ]
   const processPhasesDefault: ProcessPhase[] = [
     {
       id: 1,
@@ -23,9 +39,21 @@ const Home = () => {
       description:
         "We dive deep into understanding your business needs, goals, and challenges.",
       features: [
-        "Requirements Gathering",
-        "Market Research & Analysis",
-        "Project Scope Definition",
+        {
+          title: "Business & Workflow Analysis",
+          description:
+            "Identify strategic goals, requirements, challenges, and operational gaps to set a clear vision and scope.",
+        },
+        {
+          title: "Market Research & Analysis",
+          description:
+            "Market and competitive analysis to inform decisions—trends, customer behavior, and regulatory factors.",
+        },
+        {
+          title: "Project Scope Definition",
+          description:
+            "Clear scope, methodology, deliverables, timeline, and cost for a structured execution roadmap.",
+        },
       ],
     },
     {
@@ -35,9 +63,21 @@ const Home = () => {
       description:
         "Comprehensive analysis to define the perfect solution architecture.",
       features: [
-        "Technical Feasibility Study",
-        "Solution Architecture Design",
-        "Risk Assessment & Mitigation",
+        {
+          title: "Software Requirements Specification (SRS)",
+          description:
+            "Functional and non-functional specs: performance, security, scalability, reliability, and compliance.",
+        },
+        {
+          title: "Technical Architecture",
+          description:
+            "Secure, scalable infrastructure with defined security controls and integration plans.",
+        },
+        {
+          title: "Risk Assessment",
+          description:
+            "Identify risks and operational challenges; define proactive mitigation and continuity plans.",
+        },
       ],
     },
     {
@@ -47,9 +87,21 @@ const Home = () => {
       description:
         "Building your solution with cutting-edge technologies and best practices.",
       features: [
-        "Dedicated Team",
-        "Business-Oriented Approach",
-        "Communication & Value-Driven Collaboration",
+        {
+          title: "Dedicated Team",
+          description:
+            "Full lifecycle delivery via SCRUM and Kanban—incremental, transparent, and on time.",
+        },
+        {
+          title: "Business-Oriented Approach",
+          description:
+            "Full-cycle development focused on measurable business outcomes and strategic alignment.",
+        },
+        {
+          title: "Communication & Value-Driven Collaboration",
+          description:
+            "Ongoing engagement, transparency, and alignment so stakeholders stay informed and decisions move fast.",
+        },
       ],
     },
     {
@@ -59,9 +111,26 @@ const Home = () => {
       description:
         "Seamless deployment and ongoing maintenance for your success.",
       features: [
-        "User Training Programs",
-        "24/7 Technical Support",
-        "Performance Monitoring & Optimization",
+        {
+          title: "Seamless Integration",
+          description:
+            "Connect new apps with existing systems for smooth data flow and minimal disruption.",
+        },
+        {
+          title: "Deployment & Testing",
+          description:
+            "Rigorous testing and structured deployment for a stable, risk-free launch.",
+        },
+        {
+          title: "User Training & Adoption",
+          description:
+            "Training so your teams use the software effectively and boost productivity.",
+        },
+        {
+          title: "Ongoing Support & System Evolution",
+          description:
+            "Continuous enhancements to match changing needs and keep long-term value.",
+        },
       ],
     },
   ];
@@ -72,12 +141,27 @@ const Home = () => {
     "ENGINEERING",
     "TRAINING & SUPPORT",
   ];
+
+  const streamlineDescription = [
+    { text: "Whether you're modernizing an ", bold: false },
+    { text: "existing enterprise software system ", bold: true },
+    { text: "or launching a ", bold: false },
+    { text: "new digital product", bold: true },
+    { text: ", Leapsofts offers a ", bold: false },
+    { text: "complimentary software strategy session ", bold: true },
+    { text: "designed to deliver value almost immediately. We take the time to understand your business objectives, technical landscape, and operational challenges then provide actionable insights on how ", bold: false },
+    { text: "bespoke, cost-effective custom software solutions ", bold: true },
+    { text: "can streamline workflows, improve efficiency, and support scalable growth.", bold: false },
+  ];
+
   return (
     <>
       <IntroComponent
         title={title}
+        title2={title2}
         description={subtitle}
         onButtonClick={() => console.log('Button clicked')}
+        introDescription={introDescription}
       />
 
       <div id="services">
@@ -97,7 +181,7 @@ const Home = () => {
           titleMain="Software "
           titleAccent="Strategy"
           titleEnd=" Session"
-          description="Whether it is an existing enterprise software system or a brand-new startup, we offer a no-charge strategy session, which can bring value to the table almost in real-time. We learn about your unique needs and share how to streamline your operations by using bespoke, cost-effective custom software solutions."
+          description={streamlineDescription}
           imageUrl="/streamline.png"
         />
         <IndustrySlider />
