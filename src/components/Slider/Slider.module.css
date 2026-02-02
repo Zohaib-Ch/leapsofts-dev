@@ -211,9 +211,10 @@
         height: 128px;
     }
 
-    .icon {
-        width: 48px;
-        height: 48px;
+    .hexagonContent img{
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
     }
 
     .title {

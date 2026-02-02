@@ -210,8 +210,9 @@
     font-size: 0.7rem;
     font-weight: 600;
     letter-spacing: 0.2em;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--color-orange);
     text-transform: uppercase;
+    font-family: "DM Mono", monospace;
     margin-bottom: 16px;
 }
 
@@ -275,7 +276,7 @@
 
 .featureHeader {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     gap: 14px;
 }
 
@@ -286,7 +287,7 @@
 }
 
 .featureIcon {
-    color: #00ff00;
+    color: var(--color-orange);
     /* Matching the green in the image */
     font-weight: 800;
     flex-shrink: 0;
@@ -479,9 +480,7 @@
 
 
 
-    .cardsWrapper {
-        min-height: 450px;
-    }
+   
 
     .cardContent {
         padding: 28px;
@@ -534,6 +533,16 @@
         font-size: 1.35rem;
     }
 
+}
+
+@media (max-width: 400px) {
+    .featureTitleText {
+        font-size: 14px;
+    }
+    .descriptionText {
+        font-size: 10px;
+        margin: 4px 0 8px 0;
+    }
 }
 
 @media (max-width: 335px) {

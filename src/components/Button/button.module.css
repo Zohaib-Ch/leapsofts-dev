@@ -76,6 +76,19 @@
   fill: #ffffff;
 }
 
+@media (max-width: 768px) {
+  .leap-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 425px) {
+  .leap-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
 /* 
 @keyframes gradientShift {
   0% {

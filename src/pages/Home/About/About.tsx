@@ -8,6 +8,15 @@ const About: React.FC = () => {
     const [spotlightPos, setSpotlightPos] = useState({ x: 50, y: 50 });
     const sectionRef = useRef<HTMLElement>(null);
     const visualRef = useRef<HTMLDivElement>(null);
+    const aboutDescription = [
+        { text: "Leapsofts can deliver a ", bold: false },
+        { text: "minimum viable product (MVP) in just 3 to 5 months ", bold: true },
+        { text: "thanks to our unique combination of ", bold: false },
+        { text: "process automation", bold: true },
+        { text: ", ", bold: false },
+        { text: "deep domain and product expertise, ", bold: true },
+        { text: "and a customer-centric culture. By leveraging automated workflows and proven methodologies, we accelerate development without compromising quality, enabling enterprises to bring innovative solutions to market faster and with greater efficiency.", bold: false },
+    ]
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -47,15 +56,18 @@ const About: React.FC = () => {
                     <div className={styles.brandContent}>
                         <span className={styles.label}>About Us</span>
                         <h2 className={styles.headline}>
-                            Succeed <em>faster</em> with LEAPSOFT
+                            Succeed <em>faster</em> with LEAPSOFTS
                         </h2>
                         <p className={styles.description}>
-                            How can Leapsoft deliver a minimal viable product in just 6 to 12 months?
-                            The level of process automation that we have at Leapsoft, multiplied by our domain
-                            and product-specific experience, all on the foundation of the culture to be helpful
-                            to our customers, is the foundation of our high efficiency.
+                            {aboutDescription.map((segment, index) => (
+                                segment.bold ? (
+                                    <strong key={index}>{segment.text}</strong>
+                                ) : (
+                                    <span key={index}>{segment.text}</span>
+                                )
+                            ))}
                         </p>
-                        <a href="#about" className={styles.readMore}>
+                        <a href="#figures" className={styles.readMore}>
                             Read more
                             <div className={styles.iconWrapper}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
