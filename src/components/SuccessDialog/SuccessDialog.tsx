@@ -11,7 +11,7 @@ const SuccessDialog: React.FC<SuccessDialogProps> = ({ isOpen, onClose }) => {
         if (isOpen) {
             const timer = setTimeout(() => {
                 onClose();
-            }, 3000);
+            }, 5000);
             return () => clearTimeout(timer);
         }
     }, [isOpen, onClose]);
@@ -21,6 +21,7 @@ const SuccessDialog: React.FC<SuccessDialogProps> = ({ isOpen, onClose }) => {
     return (
         <div className={styles.overlay} onClick={onClose}>
             <div className={styles.dialog} onClick={(e) => e.stopPropagation()}>
+                <div className={styles.glowEffect}></div>
                 <div className={styles.iconWrapper}>
                     <svg
                         className={styles.checkmark}
@@ -36,7 +37,15 @@ const SuccessDialog: React.FC<SuccessDialogProps> = ({ isOpen, onClose }) => {
                         />
                     </svg>
                 </div>
-                <h2 className={styles.title}>Message Sent!</h2>
+                <div className={styles.content}>
+                    <h2 className={styles.title}>Message Sent!</h2>
+                    <p className={styles.message}>
+                        Our team will reach out to you shortly.
+                    </p>
+                </div>
+                <button className={styles.closeBtn} onClick={onClose}>
+                    Got it
+                </button>
             </div>
         </div>
     );
