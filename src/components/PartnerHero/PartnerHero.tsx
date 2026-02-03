@@ -48,7 +48,7 @@ interface PartnerHeroProps {
 }
 
 const PartnerHero: React.FC<PartnerHeroProps> = ({
-    title = "Strategic Partnerships",
+    title = "Strategic",
     description = "Empowering business transformation by harnessing AI-driven strategic partnerships for bold global innovation and growth.",
     videoSrc = "/bg_video/vid-4.mp4"
 }) => {
@@ -77,7 +77,7 @@ const PartnerHero: React.FC<PartnerHeroProps> = ({
                     transition={{ duration: 0.8, ease: "easeOut" }}
                 >
                     <h1 className={styles.title}>
-                        Leapsofts <span className={styles.highlight}>{title}</span>
+                        Leapsofts <span className={styles.highlight}>{title}</span> Partners
                     </h1>
 
                     <p className={styles.description}>

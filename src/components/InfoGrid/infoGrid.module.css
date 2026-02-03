@@ -45,23 +45,36 @@
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 4rem 2rem;
+    align-items: stretch;
 }
 
 @media (min-width: 768px) {
     .grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 4rem 2rem;
+    }
+    /* Center single item in incomplete last row (2-col layout) */
+    .grid .card:last-child:nth-child(2n+1) {
+        grid-column: 1 / -1;
+        justify-self: center;
+        max-width: calc((100% - 2rem) / 2);
     }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1251px) {
     .grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 5rem 3rem;
     }
-}
-@media(max-width:1250px){
-    .grid{
-        grid-template-columns: repeat(2, 1fr);
+    /* Override 2-col centering; center single item in incomplete last row (3-col layout) */
+    .grid .card:last-child:nth-child(2n+1) {
+        grid-column: auto;
+        justify-self: stretch;
+        max-width: none;
+    }
+    .grid .card:last-child:nth-child(3n+1) {
+        grid-column: 2;
+        justify-self: start;
     }
 }
 
@@ -77,6 +90,7 @@
     backdrop-filter: blur(10px);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     height: 100%;
+    min-height: 180px;
     position: relative;
     overflow: hidden;
 }

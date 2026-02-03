@@ -76,14 +76,15 @@
     font-size: clamp(2.5rem, 6vw, 4.5rem);
     font-weight: 800;
     line-height: 1.1;
-    color: var(--color-primary-light);
+    color: var(--color-white);
     margin: 0;
-}
+} 
 
 .highlight {
     background: var(--color-primary-light);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-style: italic;
     background-clip: text;
 }
 

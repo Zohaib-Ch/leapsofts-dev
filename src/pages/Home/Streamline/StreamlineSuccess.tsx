@@ -8,10 +8,11 @@ interface StreamlineSuccessProps {
     titleAccent?: string;
     titleEnd?: string;
     description: { text: string; bold: boolean }[];
+    description2?: string;
     imageUrl: string;
 }
 
-const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({ label, titleMain, titleAccent, titleEnd, description, imageUrl }) => {
+const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({ label, titleMain, titleAccent, titleEnd, description, description2 = "", imageUrl }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [spotlightPos, setSpotlightPos] = useState({ x: 50, y: 50 });
     const sectionRef = useRef<HTMLElement>(null);
@@ -67,6 +68,9 @@ const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({ label, titleMain,
                             )
                         ))}
                     </p>
+                    {description2 && (
+                        <p className={styles.description}>{description2}</p>
+                    )}
                     <div className={styles.buttonWrapper}>
                         <Button text=" Request Your Session" color1="var(--color-primary)" color2="var(--color-primary-light)" onClick={() => console.log('Button clicked')} hasIcon />
                     </div>
