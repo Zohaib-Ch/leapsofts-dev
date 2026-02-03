@@ -54,6 +54,9 @@ const CardContent: React.FC<{ phase: ProcessPhase }> = ({ phase }) => {
                             className={styles.titleContainer}
                         >
                             <h3 className={styles.cardTitle}>{phase.title}</h3>
+                            {phase.description && (
+                                <p className={styles.phaseDescription}>{phase.description}</p>
+                            )}
                         </motion.div>
                     )}
                 </AnimatePresence>

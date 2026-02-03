@@ -225,6 +225,14 @@
     max-width: 85%;
 }
 
+.phaseDescription {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.55;
+    margin: 1rem 0 0;
+    max-width: 90%;
+}
+
 .divider {
     width: 100%;
     height: 1px;

@@ -88,11 +88,19 @@
     background-clip: text;
 }
 
+.descriptionBlock .description {
+    margin-bottom: 0;
+}
+
+.descriptionBlock .description + .description {
+    margin-top: 1rem;
+}
+
 .description {
     font-size: 1.25rem;
     line-height: 1.6;
     color: var(--text-secondary);
-    max-width: 600px;
+    /* max-width: 600px; */
 }
 
 .actionArea {
