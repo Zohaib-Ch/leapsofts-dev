@@ -45,6 +45,36 @@ const ourServicesData: EmergingTechProps['data'] = {
       title: 'Ready-Made & Custom AI Solutions',
       description:
         'Leverage ready-to-deploy AI solutions or opt for bespoke services tailored to your needs.'
+    },
+    {
+      icon: 'enterprise',
+      title: 'Analytics & Strategic Insight',
+      description:
+        'Scale your analytics with a data-centric strategy for tangible business impact.'
+    },
+    {
+      icon: 'product',
+      title: 'Enhanced Data Exploration',
+      description:
+        'Broaden customer understanding using additional data sources and predictive insights.'
+    },
+    {
+      icon: 'enterprise',
+      title: 'Strategic Data Handling',
+      description:
+        'Ensure governance, profitability, and regulatory compliance beyond data integration.'
+    },
+    {
+      icon: 'saas',
+      title: 'Empowering Data Utilization',
+      description:
+        'Equip teams with intuitive tools to harness data effectively and adopt AI smoothly.'
+    },
+    {
+      icon: 'product',
+      title: 'Ready-Made & Custom AI Solutions',
+      description:
+        'Leverage ready-to-deploy AI solutions or opt for bespoke services tailored to your needs.'
     }
   ]
 };

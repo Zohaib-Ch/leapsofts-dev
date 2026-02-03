@@ -37,7 +37,7 @@ const Footer = () => {
         <div className={styles["footer-main"]}>
           <div className={styles["footer-brand"]}>
             <Link to="/">
-              <img className={styles["footer-logo"]} src="/logo/  Leap-soft-w.png" alt="" />
+              <img className={styles["footer-logo"]} src="/logo/Leap-soft-w.png" alt="" />
             </Link>
             <div className={styles["footer-contact-info"]}>
               <div className={styles["contact-section"]}>
@@ -109,7 +109,7 @@ const Footer = () => {
         </div>
 
         <div className={styles["footer-bottom"]}>
-          <p>&copy; {currentYear} Dewford. All rights reserved.</p>
+          <p>&copy; {currentYear} Leapsofts. All rights reserved.</p>
         </div>
       </div>
 

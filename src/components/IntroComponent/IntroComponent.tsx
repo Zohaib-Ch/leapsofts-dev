@@ -26,7 +26,7 @@ const IntroComponent: React.FC<IntroComponentProps> = ({
 }) => {
 
     const { openContactModal } = useContactModal();
-
+    console.log(description);
     const handleClick = () => {
         openContactModal();
         onButtonClick && onButtonClick();
