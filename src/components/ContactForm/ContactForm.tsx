@@ -55,7 +55,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false }) => {
     const [errors, setErrors] = useState<FormErrors>({});
     const [touched, setTouched] = useState<Record<string, boolean>>({});
     const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
-
+    const now = new Date();
+    const projectDate = new Date(now.getFullYear(), now.getMonth() + 3, now.getDate());
     // Get the selected country's data
     const selectedCountry = useMemo(() => {
         return (countryPhonePatterns as CountryPattern[]).find(
@@ -207,7 +208,11 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false }) => {
                         </h2>
                         <p className={styles.subtitle}>
                             If you submit a request today, your MVP will be ready as early as{' '}
-                            <span className={styles.dateHighlight}>July 9, 2026</span>
+                            <span className={styles.dateHighlight}>
+                                {projectDate.getDate()}{' '}
+                                {projectDate.toLocaleDateString('en-GB', { month: 'long' })},{' '}
+                                {projectDate.getFullYear()}
+                            </span>
                         </p>
                     </div>
                     <div className={styles.arrowContainer}>
