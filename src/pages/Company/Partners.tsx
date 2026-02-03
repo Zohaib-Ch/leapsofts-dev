@@ -158,27 +158,38 @@ const Partners: React.FC = () => {
       <div id="partners" className="partners-page" style={{ background: 'var(--bg-dark)' }}>
         <PartnerHero
           title="Strategic"
-          description="Empowering business transformation by harnessing AI-driven strategic partnerships for bold global innovation and growth."
+          description={[
+            [
+              { text: "we empower organizations to achieve meaningful business transformation through ", bold: false },
+              { text: "AI-driven ", bold: true },
+              { text: "strategic partnerships and enterprise software development", bold: true },
+              { text: ". By combining advanced ", bold: false },
+              { text: "artificial intelligence", bold: true },
+              { text: ", ", bold: false },
+              { text: "custom software engineering", bold: true },
+              { text: ", and deep domain expertise, we help businesses design, build, and scale intelligent digital solutions that drive measurable impact.", bold: false },
+            ],
+            "Our approach extends beyond traditional software development. With 2 decades of software experience, from strategy and architecture to development, integration, and continuous optimization, every solution is engineered to align with long-term business objectives.",
+          ]}
         />
       </div>
       <div id="overview">
         <StreamlineSuccess
-          label="Product Delivery Excellence"
-          titleMain="Result "
-          titleAccent=" Oriented"
-          titleEnd=" Marketing"
+          label="STREAMLINE YOUR SUCCESS"
+          titleMain="Software "
+          titleAccent="Strategy"
+          titleEnd=" Session"
           description={[
-            { text: "We empower organizations to achieve meaningful business transformation through ", bold: false },
-            { text: "AI-driven strategic partnerships", bold: true },
-            { text: " and ", bold: false },
-            { text: "enterprise software development", bold: true },
-            { text: ". By combining advanced ", bold: false },
-            { text: "artificial intelligence", bold: true },
-            { text: ", ", bold: false },
-            { text: "custom software engineering", bold: true },
-            { text: ", and deep domain expertise, we help businesses design, build, and scale intelligent digital solutions that drive measurable impact. Our approach extends beyond traditional software development. With 2 decades of software experience, from strategy and architecture to development, integration, and continuous optimization, every solution is engineered to align with long-term business objectives.", bold: false },
+            { text: "Whether you're modernizing an ", bold: false },
+            { text: "existing enterprise software system ", bold: true },
+            { text: "or launching a ", bold: false },
+            { text: "new digital product", bold: true },
+            { text: ", Leapsofts offers a ", bold: false },
+            { text: "complimentary software strategy session ", bold: true },
+            { text: "designed to deliver value almost immediately. We take the time to understand your business objectives, technical landscape, and operational challenges then provide actionable insights on how ", bold: false },
+            { text: "bespoke, cost-effective custom software solutions ", bold: true },
+            { text: "can streamline workflows, improve efficiency, and support scalable growth.", bold: false },
           ]}
-          description2="Our approach extends beyond traditional software development. With 2 decades of software experience, from strategy and architecture to development, integration, and continuous optimization, every solution is engineered to align with long-term business objectives."
           imageUrl="/streamline.png"
         />
       </div>

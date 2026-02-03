@@ -41,11 +41,29 @@ const FloatingElements = () => {
     );
 };
 
+export type DescriptionSegment = { text: string; bold: boolean };
+export type PartnerHeroDescription =
+    | string
+    | (string | DescriptionSegment[])[];
+
 interface PartnerHeroProps {
     title?: string;
-    description?: string;
+    description?: PartnerHeroDescription;
     videoSrc?: string;
 }
+
+const renderParagraph = (content: string | DescriptionSegment[]) => {
+    if (typeof content === "string") {
+        return content;
+    }
+    return content.map((seg, i) =>
+        seg.bold ? (
+            <strong key={i}>{seg.text}</strong>
+        ) : (
+            <span key={i}>{seg.text}</span>
+        )
+    );
+};
 
 const PartnerHero: React.FC<PartnerHeroProps> = ({
     title = "Strategic",
@@ -53,6 +71,8 @@ const PartnerHero: React.FC<PartnerHeroProps> = ({
     videoSrc = "/bg_video/vid-4.mp4"
 }) => {
     const { openContactModal } = useContactModal();
+
+    const isMultiParagraph = Array.isArray(description);
 
     return (
         <section className={styles.hero}>
@@ -80,16 +100,26 @@ const PartnerHero: React.FC<PartnerHeroProps> = ({
                         Leapsofts <span className={styles.highlight}>{title}</span> Partners
                     </h1>
 
-                    <p className={styles.description}>
-                        {description}
-                    </p>
+                    {isMultiParagraph ? (
+                        <div className={styles.descriptionBlock}>
+                            {description.map((paragraph, i) => (
+                                <p key={i} className={styles.description}>
+                                    {renderParagraph(paragraph)}
+                                </p>
+                            ))}
+                        </div>
+                    ) : (
+                        <p className={styles.description}>
+                            {description}
+                        </p>
+                    )}
 
                     <div className={styles.badges}>
                         <div className={styles.badge}>
-                            <Users size={16} /> <span>50+ Global Partners</span>
+                            <Users size={16} /> <span>Product Delivery Excellence</span>
                         </div>
                         <div className={styles.badge}>
-                            <Star size={16} /> <span>AI-Driven Excellence</span>
+                            <Star size={16} /> <span>Result Oriented Marketing</span>
                         </div>
                     </div>
 
