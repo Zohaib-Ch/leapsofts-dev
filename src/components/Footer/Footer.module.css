@@ -133,6 +133,8 @@
 .social-links {
     display: flex;
     gap: 1rem;
+    justify-content: flex-start;
+    margin-top: 1rem;
 }
 
 .social-link {

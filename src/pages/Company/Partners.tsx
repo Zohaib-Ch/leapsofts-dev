@@ -15,33 +15,33 @@ const Partners: React.FC = () => {
     items: [
       {
         icon: '01',
-        title: 'Meet Clients Where They Buy',
+        title: 'Accelerated Innovation',
         description:
-          'Reach customers and drive new revenue through hyperscaler marketplaces and Agent Connect.'
+          'Strategic partnerships bring together complementary expertise and technologies, enabling faster innovation and the development of advanced, AI-driven software solutions.'
       },
       {
         icon: '02',
-        title: 'Maximize Your Earnings',
+        title: 'Enhanced Customer Acquisition',
         description:
-          'Simplified incentives that help you sell faster, close deals quicker, and grow.'
+          'Strategic partnerships expand market reach by leveraging shared networks, co-selling opportunities, and established client relationships—helping businesses acquire customers faster and more cost-effectively.'
       },
       {
         icon: '03',
-        title: 'Investing in Your Success',
+        title: 'Scalable Growth Opportunities',
         description:
-          'Cloud credits, expert support, and resources to help you succeed at every stage.'
+          'By sharing resources and market access, strategic partnerships enable scalable expansion into new regions and industries with reduced operational complexity.'
       },
       {
         icon: '04',
-        title: 'Unlock Demand',
+        title: 'Improved Operational Efficiency',
         description:
-          'Co-marketing and targeted content to accelerate sales and influence buyers earlier.'
+          'Aligned processes, automation, and collaborative execution models streamline operations, reduce costs, and improve overall delivery efficiency.'
       },
       {
         icon: '05',
-        title: 'AI-Driven Partner Experiences',
+        title: 'Reduced Risk and Faster Time-to-Market',
         description:
-          'Modern tools with real-time insights and AI recommendations for faster decisions.'
+          'Leveraging proven delivery frameworks and shared accountability minimizes risk while accelerating time-to-market for complex enterprise software initiatives.'
       }
     ]
   };
@@ -50,20 +50,24 @@ const Partners: React.FC = () => {
     {
       id: 1,
       phase: "PHASE 1: PARTNERSHIP INITIATION",
-      title: "Strategic Alignment",
-      description: "Align goals and define partnership direction.",
+      title: "Partnership Initiation",
+      description:
+        "Establishes the foundation for strategic collaboration by aligning vision, objectives, and success metrics while assessing mutual capabilities and long-term fit.",
       features: [
         {
           title: "Vision Alignment",
-          description: "Align strategic goals and shared success vision."
+          description:
+            "Establish a shared strategic vision by aligning business objectives, growth goals, and long-term success criteria for a strong partnership foundation.",
         },
         {
           title: "Capability Review",
-          description: "Assess technical strengths and partnership fit."
+          description:
+            "Evaluate technical expertise, domain strengths, and operational capabilities to confirm partnership fit and identify areas of synergy.",
         },
         {
           title: "Partnership Framework",
-          description: "Define roles, responsibilities, and structure."
+          description:
+            "Define the partnership structure with clear roles, responsibilities, governance models, and collaboration processes for effective execution.",
         },
       ],
     },
@@ -71,59 +75,71 @@ const Partners: React.FC = () => {
       id: 2,
       phase: "PHASE 2: INTEGRATION PLANNING",
       title: "Integration Planning",
-      description: "Plan technology and process collaboration.",
+      description:
+        "Ensures smooth alignment of systems, teams, and processes by defining integration strategy around technical architecture, data flows, security, and operational dependencies.",
       features: [
         {
           title: "Integration Strategy",
-          description: "Define APIs, data flow, and tech compatibility."
+          description:
+            "Define technical architecture, data flows, security requirements, and operational dependencies for seamless interoperability.",
         },
         {
           title: "Solution Roadmap",
-          description: "Plan joint solution development and timelines."
+          description:
+            "Plan joint solution development and timelines to minimize risk and reduce complexity across platforms.",
         },
         {
           title: "Team Setup",
-          description: "Allocate resources and establish teams."
+          description:
+            "Allocate resources and establish teams to support integration and collaboration.",
         },
       ],
     },
     {
       id: 3,
       phase: "PHASE 3: EXECUTION & CO-DELIVERY",
-      title: "Joint Execution",
-      description: "Deliver and launch joint solutions.",
+      title: "Execution & Co-Delivery",
+      description:
+        "Transforms strategic plans into measurable results through collaborative development, testing, and deployment of enterprise-grade solutions with shared accountability.",
       features: [
         {
           title: "Solution Delivery",
-          description: "Develop, test, and deploy jointly."
+          description:
+            "Collaboratively design, develop, test, and deploy enterprise-grade solutions using proven frameworks for quality, scalability, and timely execution.",
         },
         {
           title: "Market Launch",
-          description: "Execute co-marketing and go-to-market plans."
+          description:
+            "Execute coordinated go-to-market and co-marketing strategies for faster market entry, stronger positioning, and accelerated customer acquisition.",
         },
         {
           title: "Performance Tracking",
-          description: "Monitor KPIs and optimize outcomes."
+          description:
+            "Continuously monitor KPIs, delivery metrics, and business outcomes to optimize performance and maximize partnership value.",
         },
       ],
     },
     {
       id: 4,
       phase: "PHASE 4: GROWTH & EVOLUTION",
-      title: "Partnership Growth",
-      description: "Scale value and evolve collaboration.",
+      title: "Growth & Evolution",
+      description:
+        "Scales the partnership through strategic growth initiatives, governance reviews, and continuous innovation to sustain long-term value and competitive advantage.",
       features: [
         {
           title: "Growth Strategy",
-          description: "Identify expansion and new opportunities."
+          description:
+            "Develop and implement a strategic roadmap to expand partnership opportunities, enhance market reach, and maximize business impact over time.",
         },
         {
           title: "Governance Review",
-          description: "Review performance and strategic alignment."
+          description:
+            "Regularly assess and refine governance structures, roles, and collaboration processes for alignment, accountability, and operational efficiency.",
         },
         {
           title: "Continuous Innovation",
-          description: "Adapt, innovate, and evolve together."
+          description:
+            "Drive ongoing innovation by integrating emerging technologies, optimizing solutions, and adapting to evolving market trends for sustained growth.",
         },
       ],
     },
@@ -141,27 +157,28 @@ const Partners: React.FC = () => {
     <>
       <div id="partners" className="partners-page" style={{ background: 'var(--bg-dark)' }}>
         <PartnerHero
-          title="Strategic Partners"
+          title="Strategic"
           description="Empowering business transformation by harnessing AI-driven strategic partnerships for bold global innovation and growth."
         />
       </div>
       <div id="overview">
         <StreamlineSuccess
-          label="STREAMLINE YOUR SUCCESS"
-          titleMain="Software "
-          titleAccent="Strategy"
-          titleEnd=" Session"
+          label="Product Delivery Excellence"
+          titleMain="Result "
+          titleAccent=" Oriented"
+          titleEnd=" Marketing"
           description={[
-            { text: "Whether it is an ", bold: false },
-            { text: "existing enterprise software system ", bold: true },
-            { text: "or a ", bold: false },
-            { text: "brand-new startup", bold: true },
-            { text: ", we offer a ", bold: false },
-            { text: "no-charge strategy session", bold: true },
-            { text: ", which can bring value to the table almost in real-time. We learn about your unique needs and share how to streamline your operations by using ", bold: false },
-            { text: "bespoke, cost-effective custom software solutions", bold: true },
-            { text: ".", bold: false },
+            { text: "We empower organizations to achieve meaningful business transformation through ", bold: false },
+            { text: "AI-driven strategic partnerships", bold: true },
+            { text: " and ", bold: false },
+            { text: "enterprise software development", bold: true },
+            { text: ". By combining advanced ", bold: false },
+            { text: "artificial intelligence", bold: true },
+            { text: ", ", bold: false },
+            { text: "custom software engineering", bold: true },
+            { text: ", and deep domain expertise, we help businesses design, build, and scale intelligent digital solutions that drive measurable impact. Our approach extends beyond traditional software development. With 2 decades of software experience, from strategy and architecture to development, integration, and continuous optimization, every solution is engineered to align with long-term business objectives.", bold: false },
           ]}
+          description2="Our approach extends beyond traditional software development. With 2 decades of software experience, from strategy and architecture to development, integration, and continuous optimization, every solution is engineered to align with long-term business objectives."
           imageUrl="/streamline.png"
         />
       </div>

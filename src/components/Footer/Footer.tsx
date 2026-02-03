@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from './Footer.module.css';
+import { Linkedin } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -69,6 +70,17 @@ const Footer = () => {
                   </a>
                 </div>
               </div>
+              <div className={styles["social-links"]}>
+              <a
+                href="https://www.linkedin.com/company/leapsofts/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles["social-link"]}
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={20} />
+              </a>
+            </div>
             </div>
           </div>
 
