@@ -291,9 +291,9 @@ const Navbar = () => {
           <Link to="/projects" className={styles['mobile-link']} onClick={closeMobileMenu}>
             Case Studies
           </Link>
-          <Link to="/partners" className={styles['mobile-link']} onClick={closeMobileMenu}>
+          {/* <Link to="/partners" className={styles['mobile-link']} onClick={closeMobileMenu}>
             Strategic Partnerships
-          </Link>
+          </Link> */}
 
           {/* Get in Touch Button */}
           <div className={styles['mobile-cta']}>
