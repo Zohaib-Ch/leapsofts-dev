@@ -151,7 +151,17 @@ const Partners: React.FC = () => {
           titleMain="Software "
           titleAccent="Strategy"
           titleEnd=" Session"
-          description="Whether it is an existing enterprise software system or a brand-new startup, we offer a no-charge strategy session, which can bring value to the table almost in real-time. We learn about your unique needs and share how to streamline your operations by using bespoke, cost-effective custom software solutions."
+          description={[
+            { text: "Whether it is an ", bold: false },
+            { text: "existing enterprise software system ", bold: true },
+            { text: "or a ", bold: false },
+            { text: "brand-new startup", bold: true },
+            { text: ", we offer a ", bold: false },
+            { text: "no-charge strategy session", bold: true },
+            { text: ", which can bring value to the table almost in real-time. We learn about your unique needs and share how to streamline your operations by using ", bold: false },
+            { text: "bespoke, cost-effective custom software solutions", bold: true },
+            { text: ".", bold: false },
+          ]}
           imageUrl="/streamline.png"
         />
       </div>
