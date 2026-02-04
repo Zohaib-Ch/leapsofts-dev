@@ -8,7 +8,6 @@
 }
 
 .container {
-    margin: 0 44px;
     padding: 0 100px 0 120px;
     display: grid;
     grid-template-columns: 1fr 1fr;

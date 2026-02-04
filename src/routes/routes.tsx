@@ -40,6 +40,7 @@ import Energy from '../pages/IndustriesPages/Energy';
 import Projects from '../pages/Company/Projects';
 import Partners from '../pages/Company/Partners';
 import ProjectDetails from '../pages/Company/ProjectDetails';
+import Error from '../pages/ErrorPage/Error';
 
 const router = createBrowserRouter([
     {
@@ -217,9 +218,13 @@ const router = createBrowserRouter([
                         element: <ProjectDetails />
                     }
                 ]
+            },
+            {
+                path: '*',
+                element: <Error />
             }
         ],
-    },
+    }
 ]);
 
 export default router;

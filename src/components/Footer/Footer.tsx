@@ -70,17 +70,6 @@ const Footer = () => {
                   </a>
                 </div>
               </div>
-              <div className={styles["social-links"]}>
-              <a
-                href="https://www.linkedin.com/company/leapsofts/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles["social-link"]}
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={20} />
-              </a>
-            </div>
             </div>
           </div>
 
@@ -121,7 +110,18 @@ const Footer = () => {
         </div>
 
         <div className={styles["footer-bottom"]}>
-          <p>&copy; {currentYear} Leapsofts. All rights reserved.</p>
+          <p className={styles["copyright"]}>&copy; {currentYear} Leapsofts. All rights reserved.</p>
+          <div className={styles["social-links"]}>
+            <a
+              href="https://www.linkedin.com/company/leapsofts/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles["social-link"]}
+              aria-label="LinkedIn"
+            >
+              <Linkedin size={20} />
+            </a>
+          </div>
         </div>
       </div>
 
