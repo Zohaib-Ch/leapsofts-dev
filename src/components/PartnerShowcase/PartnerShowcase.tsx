@@ -3,12 +3,12 @@ import { motion, type Variants } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide, useSwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
-import Button from '../Button/Button';
+import type { Swiper as SwiperClass } from 'swiper';
+// import Button from '../Button/Button';
 import styles from './PartnerShowcase.module.css';
 
 // Import Swiper styles
 import 'swiper/css';
-// import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 interface TabData {
@@ -23,31 +23,48 @@ interface PartnerData {
         name: string;
         logo: string;
         description: string;
-        actionLabel: string;
-        actionUrl: string;
     };
-    highlight: string;
-    visualImg: string;
-    projectList?: string[];
+    highlight: Record<string, string[]>;
+    projectList: string[];
     brandVisualImg: string;
+    impact: {
+        title: string;
+        images: string[];
+    };
+    tabImages?: Record<string, string>;
     tabs: TabData[];
 }
 
 interface PartnerShowcaseProps {
     projects: PartnerData[];
+    activeProjectId?: string;
 }
 
-const PartnerShowcase: React.FC<PartnerShowcaseProps> = ({ projects }) => {
+const PartnerShowcase: React.FC<PartnerShowcaseProps> = ({ projects, activeProjectId }) => {
+    const swiperRef = useRef<SwiperClass | null>(null);
+
+    React.useEffect(() => {
+        if (activeProjectId && swiperRef.current) {
+            const index = projects.findIndex(p => p.id === activeProjectId);
+            if (index !== -1) {
+                swiperRef.current.slideToLoop(index);
+            }
+        }
+    }, [activeProjectId, projects]);
+
     return (
         <div className={styles.sliderWrapper}>
             <Swiper
                 modules={[Autoplay, Pagination]}
                 pagination={{ clickable: true, dynamicBullets: true }}
                 autoplay={{
-                    delay: 6000,
+                    delay: 8000,
                     disableOnInteraction: false,
                 }}
                 loop={true}
+                onSwiper={(swiper) => {
+                    swiperRef.current = swiper;
+                }}
                 className={styles.mainSwiper}
             >
                 {projects.map((project) => (
@@ -151,15 +168,6 @@ const ShowcaseItem: React.FC<{ data: PartnerData }> = ({ data }) => {
                             </motion.p>
                         </div>
 
-                        <motion.div custom={4} animate={animateState} initial="hidden" variants={dropVariants}>
-                            <Button
-                                color1="var(--color-primary)"
-                                color2="var(--color-primary-light)"
-                                text={data.brand.actionLabel}
-                                hasIcon={true}
-                                onClick={() => navigate(`/projects/${data.id}`)}
-                            />
-                        </motion.div>
                     </div>
 
                     <div className={styles.decorationBottom}>
@@ -173,6 +181,14 @@ const ShowcaseItem: React.FC<{ data: PartnerData }> = ({ data }) => {
                 <div className={styles.column}>
                     <motion.div
                         className={styles.insightCard}
+                        onClick={() => {
+                            const projects = data.highlight[data.tabs[activeIndex].id] || [];
+                            if (projects.length > 0) {
+                                const slug = projects[0].toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+                                navigate(`/projects/${slug}`);
+                            }
+                        }}
+                        style={{ cursor: 'pointer' }}
                         initial="hidden"
                         animate={animateState}
                         variants={{
@@ -190,38 +206,70 @@ const ShowcaseItem: React.FC<{ data: PartnerData }> = ({ data }) => {
                             }
                         }}
                     >
-                        <motion.p
-                            className={styles.insightText}
-                            variants={{
-                                hidden: { opacity: 0, y: 20, scale: 0.95 },
-                                visible: {
+                        <div className={styles.marqueeContainer}>
+                            <motion.div
+                                className={styles.marqueeContent}
+                                initial={{ opacity: 0, filter: "blur(8px)" }}
+                                animate={{
                                     opacity: 1,
-                                    y: 0,
-                                    scale: 1,
-                                    transition: { delay: 0.5, duration: 0.8, ease: "easeOut" }
-                                }
-                            }}
-                        >
-                            {data.highlight}
-                        </motion.p>
-                        <div className={styles.insightDecoration}>
-                            {[...Array(15)].map((_, i) => (
-                                <motion.div
-                                    key={`insight-bar-${i}`}
-                                    className={styles.bar}
-                                    initial={{ height: "10%" }}
-                                    animate={swiperSlide?.isActive ? {
-                                        height: ["20%", "90%", "30%", "100%", "40%", "70%"],
-                                        opacity: [0.3, 1, 0.4, 1, 0.5, 0.8],
-                                    } : { height: "10%", opacity: 0.3 }}
-                                    transition={{
-                                        duration: 1.5 + Math.random() * 2,
+                                    filter: "blur(0px)",
+                                    x: (data.highlight[data.tabs[activeIndex].id]?.length || 0) > 1 ? ["0%", "-50%"] : ["80%", "-80%"]
+                                }}
+                                transition={{
+                                    opacity: { duration: 0.6 },
+                                    filter: { duration: 0.8 },
+                                    x: {
+                                        duration: (data.highlight[data.tabs[activeIndex].id]?.length || 0) > 1 ? 25 : 12,
                                         repeat: Infinity,
-                                        ease: "easeInOut",
-                                        delay: i * 0.05
-                                    }}
+                                        ease: "linear"
+                                    }
+                                }}
+                                key={activeIndex} // Reset animation position when tab changes
+                            >
+                                {(() => {
+                                    const projects = data.highlight[data.tabs[activeIndex].id] || [];
+                                    const displayList = projects.length > 1 ? [...projects, ...projects] : projects;
+                                    return displayList.map((project, idx) => (
+                                        <div
+                                            key={idx}
+                                            className={styles.marqueeItem}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                const slug = project.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+                                                navigate(`/projects/${slug}`);
+                                            }}
+                                            style={{ cursor: 'pointer' }}
+                                        >
+                                            <span className={styles.projectDot}></span>
+                                            {project}
+                                        </div>
+                                    ));
+                                })()}
+                            </motion.div>
+                        </div>
+                        <div className={styles.imageRevealContainer}>
+                            <motion.div
+                                className={styles.thumbnailWrapper}
+                                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                                animate={animateState}
+                                variants={{
+                                    hidden: { opacity: 0, y: 20, scale: 0.95 },
+                                    visible: {
+                                        opacity: 1,
+                                        y: 0,
+                                        scale: 1,
+                                        transition: { delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+                                    }
+                                }}
+                            >
+                                <img
+                                    src={data.tabImages?.[data.tabs[activeIndex].id] || data.impact.images[0]}
+                                    alt={`${data.brand.name} feature`}
+                                    className={styles.insightThumbnail}
                                 />
-                            ))}
+                                <div className={styles.thumbnailOverlay}></div>
+                            </motion.div>
+                            <div className={styles.thumbnailDecoration}></div>
                         </div>
                     </motion.div>
 
@@ -235,42 +283,40 @@ const ShowcaseItem: React.FC<{ data: PartnerData }> = ({ data }) => {
                         }}
                     >
                         <div className={styles.dataShowcase}>
-                            <motion.h4
-                                animate={animateState}
-                                initial="hidden"
-                                variants={{
-                                    hidden: { opacity: 0, x: -20 },
-                                    visible: { opacity: 1, x: 0, transition: { delay: 0.6 } }
-                                }}
-                                className={styles.dataTitle}
-                            >
-                                Major Deliverables
-                            </motion.h4>
                             <div className={styles.projectGrid}>
-                                {(data.projectList || []).map((project, idx) => (
-                                    <motion.div
-                                        key={idx}
-                                        className={styles.projectDataItem}
-                                        animate={animateState}
-                                        initial="hidden"
-                                        variants={{
-                                            hidden: { opacity: 0, y: 15, x: -10 },
-                                            visible: {
-                                                opacity: 1,
-                                                y: 0,
-                                                x: 0,
-                                                transition: {
-                                                    delay: 0.7 + idx * 0.1,
-                                                    duration: 0.6,
-                                                    ease: [0.16, 1, 0.3, 1]
+                                {(data.projectList || []).map((project, idx) => {
+                                    const isActive = (data.highlight[data.tabs[activeIndex].id] || []).includes(project);
+                                    return (
+                                        <motion.div
+                                            key={idx}
+                                            className={`${styles.projectDataItem} ${isActive ? styles.activeProjectItem : ''}`}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                const slug = project.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+                                                navigate(`/projects/${slug}`);
+                                            }}
+                                            style={{ cursor: 'pointer' }}
+                                            animate={animateState}
+                                            initial="hidden"
+                                            variants={{
+                                                hidden: { opacity: 0, y: 15, x: -10 },
+                                                visible: {
+                                                    opacity: 1,
+                                                    y: 0,
+                                                    x: 0,
+                                                    transition: {
+                                                        delay: 0.7 + idx * 0.1,
+                                                        duration: 0.6,
+                                                        ease: [0.16, 1, 0.3, 1]
+                                                    }
                                                 }
-                                            }
-                                        }}
-                                    >
-                                        <span className={styles.projectDot}></span>
-                                        <p className={styles.projectLabel}>{project}</p>
-                                    </motion.div>
-                                ))}
+                                            }}
+                                        >
+                                            <span className={styles.projectDot}></span>
+                                            <p className={styles.projectLabel}>{project}</p>
+                                        </motion.div>
+                                    );
+                                })}
                             </div>
                         </div>
                     </motion.div>

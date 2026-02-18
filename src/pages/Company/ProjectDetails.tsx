@@ -5,7 +5,6 @@ import ImpactShowcase from '../../components/ImpactShowcase/ImpactShowcase';
 import ExecutiveSummary from '../../components/ExecutiveSummary/ExecutiveSummary';
 import TechStack from '../../components/TechStack/TechStack';
 import ContactForm from '../../components/ContactForm/ContactForm';
-import { Clock, Zap } from 'lucide-react';
 import styles from './ProjectDetails.module.css';
 
 const ProjectDetails: React.FC = () => {
@@ -24,18 +23,13 @@ const ProjectDetails: React.FC = () => {
         );
     }
 
-    // Map icon types to components
-    const statsWithIcons = projectData.impact.stats.map(stat => ({
-        ...stat,
-        icon: stat.iconType === 'clock' ? <Clock size={24} /> : <Zap size={24} />
-    }));
 
     return (
         <div className={styles.pagePadding}>
             <ImpactShowcase
                 title={projectData.impact.title}
-                stats={statsWithIcons}
                 images={projectData.impact.images}
+                deliverables={projectData.projectList}
             />
 
             <div className={styles.detailsContainer}>

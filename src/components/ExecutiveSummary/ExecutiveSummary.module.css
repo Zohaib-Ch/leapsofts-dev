@@ -80,6 +80,7 @@
 }
 
 .detailValue {
+    padding-right: 2rem;
     font-size: clamp(16px, 2vw, 18px);
     color: var(--text-primary);
     font-weight: 500;
@@ -107,6 +108,10 @@
 }
 
 @media (max-width: 480px) {
+    .container {
+        padding: 0rem;
+    }
+
     .title {
         letter-spacing: -0.5px;
     }

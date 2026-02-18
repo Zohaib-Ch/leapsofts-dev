@@ -1,24 +1,20 @@
-
 export interface ProjectData {
+    type: 'industry' | 'project';
     id: string;
     brand: {
         name: string;
         logo: string;
         description: string;
-        actionLabel: string;
-        actionUrl: string;
     };
-    highlight: string;
-    visualImg: string;
-    projectList?: string[];
+    highlight?: Record<string, string[]>;
+    projectList: string[];
     brandVisualImg: string;
-    tabs: { id: string; label: string; isActive?: boolean }[];
-    // Details for the detail page
+    tabs?: { id: string; label: string; isActive?: boolean }[];
     impact: {
         title: string;
-        stats: { id: number; value: string; label: string; iconType: 'clock' | 'zap' }[];
         images: string[];
     };
+    tabImages?: Record<string, string>;
     summary: {
         description: string;
         details: { label: string; value: string }[];
@@ -34,30 +30,33 @@ export interface ProjectData {
 
 export const projectsData: ProjectData[] = [
     {
+        type: 'industry',
         id: 'project-industry-0',
         brand: {
             name: 'Automotive',
             logo: '/icons/industries/automotive-link.svg',
             description: 'End-to-end orchestration for OEMs and dealers. Modular and scalable to unify showroom and online journeys into one seamless retail experience.',
-            actionLabel: 'View Case Study',
-            actionUrl: '/projects/project-industry-0',
         },
-        highlight: 'Auto retail redefined. Personalized paths, connected touchpoints and AI-driven precision.',
-        visualImg: '',
-        projectList: ['EV Fleet Orchestration', 'AI Showroom Assistant', 'Dealer 2.0 Portal'],
+        highlight: {
+            'tab-0-0': ['Agile Auto'],
+            'tab-0-1': ['Autoleap'],
+            'tab-0-2': ['Arabwheels']
+        },
+        projectList: ['Agile Auto', 'Autoleap', 'Arabwheels'],
         brandVisualImg: '/icons/industries/automotive-link.svg',
         tabs: [
-            { id: 'tab-0-0', label: 'Dealer groups' },
-            { id: 'tab-0-1', label: 'OEMs', isActive: true },
-            { id: 'tab-0-2', label: 'Independent dealers' }
+            { id: 'tab-0-0', label: 'Dealership network' },
+            { id: 'tab-0-1', label: 'Auto repair', isActive: true },
+            { id: 'tab-0-2', label: 'Used car marketplace' }
         ],
         impact: {
             title: "Revolutionizing Automotive Sales with AI Orchestration",
-            stats: [
-                { id: 1, value: "40%", label: "increase in lead conversion through AI showroom assistants", iconType: 'zap' },
-                { id: 2, value: "30%", label: "reduction in fleet management overhead", iconType: 'clock' }
-            ],
-            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+            images: ["/projectImages/agileauto.png", "/projectImages/autoleap.png"]
+        },
+        tabImages: {
+            'tab-0-0': '/projectImages/agileauto1.png',
+            'tab-0-1': '/projectImages/autoleap.png',
+            'tab-0-2': '/projectImages/arabwheel1.png'
         },
         summary: {
             description: "We implemented a comprehensive digital ecosystem for a leading automotive OEM, bridging the gap between digital discovery and physical showrooms.",
@@ -78,17 +77,19 @@ export const projectsData: ProjectData[] = [
         }
     },
     {
+        type: 'industry',
         id: 'project-industry-1',
         brand: {
             name: 'Finance',
             logo: '/icons/industries/finance-link.svg',
             description: 'Revolutionizing the banking sector with secure, AI-powered financial tools. We help institutions adapt to the digital-first economy with high-performance assets.',
-            actionLabel: 'View Case Study',
-            actionUrl: '/projects/project-industry-1',
         },
-        highlight: 'Fintech evolution. Real-time transaction monitoring, secure digital wallets and automated wealth management.',
-        visualImg: '',
-        projectList: ['NeoBank Core Engine', 'Secure Wallet SDK', 'AI Wealth Advisor'],
+        highlight: {
+            'tab-1-0': ['VaultGuard'],
+            'tab-1-1': ['InsurTech'],
+            'tab-1-2': ['WealthBot']
+        },
+        projectList: ['VaultGuard', 'InsurTech', 'WealthBot'],
         brandVisualImg: '/icons/industries/finance-link.svg',
         tabs: [
             { id: 'tab-1-0', label: 'Banking' },
@@ -97,11 +98,12 @@ export const projectsData: ProjectData[] = [
         ],
         impact: {
             title: "Securing the Future of Digital Finance",
-            stats: [
-                { id: 1, value: "99.9%", label: "uptime for NeoBank core engine transactions", iconType: 'zap' },
-                { id: 2, value: "60%", label: "faster wealth management assessment", iconType: 'clock' }
-            ],
             images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+        },
+        tabImages: {
+            'tab-1-0': '/vaultguard-hero.png',
+            'tab-1-1': '/insurtech-hero.png',
+            'tab-1-2': '/wealthbot-hero.png'
         },
         summary: {
             description: "Developing a next-generation banking core that enables traditional financial institutions to compete with agile fintech startups.",
@@ -122,17 +124,19 @@ export const projectsData: ProjectData[] = [
         }
     },
     {
+        type: 'industry',
         id: 'project-industry-2',
         brand: {
             name: 'Healthcare',
             logo: '/icons/industries/healthcare-link.svg',
             description: 'Advanced digital health platforms connecting patients and providers. Our solutions prioritize data security and seamless integration across healthcare ecosystems.',
-            actionLabel: 'View Case Study',
-            actionUrl: '/projects/project-industry-2',
         },
-        highlight: 'HealthTech innovation. Remote patient monitoring, encrypted health records and AI diagnostics.',
-        visualImg: '',
-        projectList: ['Patient Connect App', 'Smart EHR Sync', 'Remote Vitals Engine'],
+        highlight: {
+            'tab-2-0': ['Genpsych'],
+            'tab-2-1': ['Clinix'],
+            'tab-2-2': ['TeleHealth']
+        },
+        projectList: ['Genpsych', 'Clinix', 'TeleHealth'],
         brandVisualImg: '/icons/industries/healthcare-link.svg',
         tabs: [
             { id: 'tab-2-0', label: 'Hospitals' },
@@ -141,11 +145,12 @@ export const projectsData: ProjectData[] = [
         ],
         impact: {
             title: "Scaling Patient Care with Remote Monitoring",
-            stats: [
-                { id: 1, value: "50%", label: "faster emergency response through remote vitals", iconType: 'zap' },
-                { id: 2, value: "25%", label: "reduction in administrative paperwork", iconType: 'clock' }
-            ],
             images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+        },
+        tabImages: {
+            'tab-2-0': '/projectImages/hospital.png',
+            'tab-2-1': '/ai_team_collaboration_impact.png',
+            'tab-2-2': '/ai_workflow_slack_showcase.png'
         },
         summary: {
             description: "Connecting healthcare providers with patients through a secure, HIPAA-compliant platform that enables real-time monitoring and better health outcomes.",
@@ -166,17 +171,19 @@ export const projectsData: ProjectData[] = [
         }
     },
     {
+        type: 'industry',
         id: 'project-industry-3',
         brand: {
             name: 'Education',
             logo: '/icons/industries/education-link.svg',
             description: 'Empowering the next generation with interactive e-learning platforms. We build scalable educational tools that deliver personalized learning experiences.',
-            actionLabel: 'View Case Study',
-            actionUrl: '/projects/project-industry-3',
         },
-        highlight: 'EdTech transformation. Interactive curriculums, student tracking and gamified learning pathways.',
-        visualImg: '',
-        projectList: ['LMS Core Platform', 'Gamified Student Portal', 'SkillEdge Training'],
+        highlight: {
+            'tab-3-0': ['KidLearn'],
+            'tab-3-1': ['UniPortal'],
+            'tab-3-2': ['CorpTrain']
+        },
+        projectList: ['KidLearn', 'UniPortal', 'CorpTrain'],
         brandVisualImg: '/icons/industries/education-link.svg',
         tabs: [
             { id: 'tab-3-0', label: 'K-12' },
@@ -185,11 +192,12 @@ export const projectsData: ProjectData[] = [
         ],
         impact: {
             title: "Gamifying Education for Better Retention",
-            stats: [
-                { id: 1, value: "3x", label: "higher student engagement rates", iconType: 'zap' },
-                { id: 2, value: "45%", label: "faster curriculum deployment", iconType: 'clock' }
-            ],
             images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+        },
+        tabImages: {
+            'tab-3-0': '/ai_team_collaboration_impact.png',
+            'tab-3-1': '/ai_workflow_slack_showcase.png',
+            'tab-3-2': '/ai_team_collaboration_impact.png'
         },
         summary: {
             description: "Building an LMS that adapts to individual learning styles, providing a personalized education experience at scale.",
@@ -210,17 +218,19 @@ export const projectsData: ProjectData[] = [
         }
     },
     {
+        type: 'industry',
         id: 'project-industry-4',
         brand: {
             name: 'Construction',
             logo: '/icons/industries/construction-link.svg',
             description: 'Digital project management and BIM integration for large-scale construction. Streamline site operations and resource allocation with real-time data visualizers.',
-            actionLabel: 'View Case Study',
-            actionUrl: '/projects/project-industry-4',
         },
-        highlight: 'Build smart. Automated resource management, 3D site monitoring and safety compliance tracking.',
-        visualImg: '',
-        projectList: ['BIM Sync Dashboard', 'Smart Site Tracker', 'Asset Flow Control'],
+        highlight: {
+            'tab-4-0': ['DesignStudio'],
+            'tab-4-1': ['EngiX'],
+            'tab-4-2': ['SiteVision']
+        },
+        projectList: ['DesignStudio', 'EngiX', 'SiteVision'],
         brandVisualImg: '/icons/industries/construction-link.svg',
         tabs: [
             { id: 'tab-4-0', label: 'Architecture' },
@@ -229,10 +239,6 @@ export const projectsData: ProjectData[] = [
         ],
         impact: {
             title: "Optimizing Construction Workflows with BIM",
-            stats: [
-                { id: 1, value: "20%", label: "savings on material resource allocation", iconType: 'zap' },
-                { id: 2, value: "15%", label: "reduction in project timelines", iconType: 'clock' }
-            ],
             images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
         },
         summary: {
@@ -254,17 +260,19 @@ export const projectsData: ProjectData[] = [
         }
     },
     {
+        type: 'industry',
         id: 'project-industry-5',
         brand: {
             name: 'Energy',
             logo: '/icons/industries/energy-link.svg',
             description: 'Optimizing resource distribution with smart grid technology. Our energy solutions handle massive data streams to provide predictive maintenance and efficiency.',
-            actionLabel: 'View Case Study',
-            actionUrl: '/projects/project-industry-5',
         },
-        highlight: 'Sustainable power. Real-time grid monitoring, renewable integration and load optimization.',
-        visualImg: '',
-        projectList: ['Grid Optix AI', 'Solar Flow Connect', 'MeterLink Engine'],
+        highlight: {
+            'tab-5-0': ['SunStream'],
+            'tab-5-1': ['GridLock'],
+            'tab-5-2': ['MeterMate']
+        },
+        projectList: ['SunStream', 'GridLock', 'MeterMate'],
         brandVisualImg: '/icons/industries/energy-link.svg',
         tabs: [
             { id: 'tab-5-0', label: 'Renewables' },
@@ -273,10 +281,6 @@ export const projectsData: ProjectData[] = [
         ],
         impact: {
             title: "Intelligent Power Distribution for Smart Cities",
-            stats: [
-                { id: 1, value: "10x", label: "data processing speed for smart meters", iconType: 'zap' },
-                { id: 2, value: "35%", label: "improvement in predictive maintenance accuracy", iconType: 'clock' }
-            ],
             images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
         },
         summary: {
@@ -297,17 +301,19 @@ export const projectsData: ProjectData[] = [
         }
     },
     {
+        type: 'industry',
         id: 'project-industry-6',
         brand: {
             name: 'Compliance',
             logo: '/icons/industries/compliance-link.svg',
             description: 'Automated regulatory reporting and risk management. We provide the tools to ensure global compliance across multiple jurisdictions with immutable auditing.',
-            actionLabel: 'View Case Study',
-            actionUrl: '/projects/project-industry-6',
         },
-        highlight: 'Absolute integrity. Automated audit trails, risk assessment and global regulatory sync.',
-        visualImg: '',
-        projectList: ['ReguCheck Audit Tool', 'Risk Guard Dashboard', 'LexSync Engine'],
+        highlight: {
+            'tab-6-0': ['LegalEagle'],
+            'tab-6-1': ['AuditPro'],
+            'tab-6-2': ['BoardRoom']
+        },
+        projectList: ['LegalEagle', 'AuditPro', 'BoardRoom'],
         brandVisualImg: '/icons/industries/compliance-link.svg',
         tabs: [
             { id: 'tab-6-0', label: 'Legal' },
@@ -316,10 +322,6 @@ export const projectsData: ProjectData[] = [
         ],
         impact: {
             title: "Automating Compliance for Global Regulatory Sync",
-            stats: [
-                { id: 1, value: "100%", label: "audit trail immutability with blockchain integration", iconType: 'zap' },
-                { id: 2, value: "80%", label: "reduction in manual reporting time", iconType: 'clock' }
-            ],
             images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
         },
         summary: {
@@ -341,17 +343,19 @@ export const projectsData: ProjectData[] = [
         }
     },
     {
+        type: 'industry',
         id: 'project-industry-7',
         brand: {
             name: 'Startups',
             logo: '/icons/industries/startup-link.svg',
             description: 'Accelerating early-stage growth with agile software development. From MVP to scaling, we provide the technical foundation for the unicorns of tomorrow.',
-            actionLabel: 'View Case Study',
-            actionUrl: '/projects/project-industry-7',
         },
-        highlight: 'Scale fast. Rapid prototype development, cloud infrastructure and growth-centric software.',
-        visualImg: '',
-        projectList: ['MVP Build Engine', 'Cloud Scale Framework', 'Growth Hub Dashboard'],
+        highlight: {
+            'tab-7-0': ['IdeaPad'],
+            'tab-7-1': ['BuildIt'],
+            'tab-7-2': ['ScaleUp']
+        },
+        projectList: ['IdeaPad', 'BuildIt', 'ScaleUp'],
         brandVisualImg: '/icons/industries/startup-link.svg',
         tabs: [
             { id: 'tab-7-0', label: 'Ideation' },
@@ -360,10 +364,6 @@ export const projectsData: ProjectData[] = [
         ],
         impact: {
             title: "From MVP to Series A in Record Time",
-            stats: [
-                { id: 1, value: "2x", label: "faster time-to-market compared to industry average", iconType: 'zap' },
-                { id: 2, value: "50%", label: "lower initial infrastructure costs", iconType: 'clock' }
-            ],
             images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
         },
         summary: {
@@ -381,6 +381,216 @@ export const projectsData: ProjectData[] = [
                 { label: "Database", techs: [{ name: "Supabase", icon: "/technologies/postgresql.png" }] },
                 { label: "Frontend", techs: [{ name: "React", icon: "/technologies/html.png" }] },
                 { label: "Backend", techs: [{ name: "Laravel", icon: "/technologies/laravel.png" }] }
+            ]
+        }
+    },
+    // Sub-projects
+    {
+        type: 'project',
+        id: 'agile-auto',
+        brand: {
+            name: 'Agile Auto',
+            logo: '/icons/projects/agile-auto.svg',
+            description: 'Advanced dealership management system with real-time inventory tracking and AI sales forecasting.',
+        },
+        brandVisualImg: '/icons/projects/agile-auto.svg',
+        projectList: ['Real-time inventory synchronization', 'AI-driven sales forecasting engine', 'Digital showroom experience'],
+        impact: {
+            title: "Agile Auto",
+            images: ["/projectImages/agileauto.png", "/projectImages/agileauto1.png"]
+        },
+        summary: {
+            description: "Agile Auto is a next-generation platform for automotive dealerships, focusing on bridging the gap between digital browse and physical purchase.",
+            details: [
+                { label: "Industry", value: "Automotive" },
+                { label: "Project Type", value: "Dealership Network" },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+                { label: "Frontend", techs: [{ name: "Vue.js", icon: "/technologies/vuejs.png" }] },
+                { label: "Framework", techs: [{ name: "Laravel", icon: "/technologies/Laravel-Logo.wine.svg" }] },
+                { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] }
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'autoleap',
+        brand: {
+            name: 'Autoleap',
+            logo: '/icons/projects/autoleap.svg',
+            description: 'The definitive platform for modern auto repair shops. Manage appointments, parts, and customer communication in one place.',
+        },
+        brandVisualImg: '/icons/projects/autoleap.svg',
+        projectList: ['Multi-bay service scheduler', 'Automated parts ordering system', 'Direct customer messaging portal'],
+        impact: {
+            title: "Autoleap",
+            images: ["/projectImages/autoleap.png", "/projectImages/autoleap1.png"]
+        },
+        summary: {
+            description: "Autoleap provides a comprehensive suite of tools for auto repair shop owners, enabling complete digital transformation of service bays.",
+            details: [
+                { label: "Industry", value: "Automotive" },
+                { label: "Project Type", value: "Dealership Network" },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+                { label: "Frontend", techs: [{ name: "Vue.js", icon: "/technologies/vuejs.png" }] },
+                { label: "Framework", techs: [{ name: "Laravel", icon: "/technologies/Laravel-Logo.wine.svg" }] },
+                { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] }
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'arabwheels',
+        brand: {
+            name: 'ArabWheels',
+            logo: '/icons/projects/arabwheels.svg',
+            description: 'The Middle East\'s leading digital destination for automotive reviews, news, and classifieds.',
+        },
+        brandVisualImg: '/icons/projects/arabwheels.svg',
+        projectList: ['High-performance media delivery network', 'Real-time vehicle classifieds engine', 'Personalized news recommendation AI'],
+        impact: {
+            title: "ArabWheels",
+            images: ["/projectImages/arabwheel.png", "/projectImages/arabwheel1.png"]
+        },
+        summary: {
+            description: "ArabWheels is a high-traffic media and marketplace platform, optimized for the rapid growth of the Gulf automotive market.",
+            details: [
+                { label: "Industry", value: "Automotive" },
+                { label: "Project Type", value: "Used Car Marketplace" },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+                { label: "Frontend", techs: [{ name: "Vue.js", icon: "/technologies/vuejs.png" }] },
+                { label: "Framework", techs: [{ name: "Nest.js", icon: "/technologies/nestjs.png" }] },
+                { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] },
+                { label: "Backend", techs: [{ name: "Node.js", icon: "/technologies/nodejs.png" }] }
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'vaultguard',
+        brand: {
+            name: 'VaultGuard',
+            logo: '/icons/projects/vaultguard.svg',
+            description: 'Hyper-secure digital vault for enterprise asset management and private banking.',
+        },
+        brandVisualImg: '/icons/projects/vaultguard.svg',
+        projectList: ['Multi-sig enterprise vault', 'Zero-trust architecture framework', 'Private banking secure portal'],
+        impact: {
+            title: "Securing $10B+ in Digital Assets",
+            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+        },
+        summary: {
+            description: "VaultGuard is a zero-trust architecture platform designed for high-net-worth individuals and institutional investors.",
+            details: [
+                { label: "Industry", value: "Fintech" },
+                { label: "Compliance", value: "SOC2 Type II" }
+            ]
+        },
+        techStack: {
+            title: "Security Stack",
+            items: [
+                { label: "Encryption", techs: [{ name: "AES-256", icon: "/technologies/mixture.png" }] }
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'insurtech',
+        brand: {
+            name: 'InsurTech',
+            logo: '/icons/projects/insurtech.svg',
+            description: 'AI-driven claims processing and risk assessment for modern insurance providers.',
+        },
+        brandVisualImg: '/icons/projects/insurtech.svg',
+        projectList: ['AI damage assessment engine', 'Smart fraud detection system', 'Instant payout gateway integration'],
+        impact: {
+            title: "Automating 80% of Insurance Claims",
+            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+        },
+        summary: {
+            description: "Our InsurTech solution leverages machine learning to detect fraud and expedite legitimate claims, saving millions in operational costs.",
+            details: [
+                { label: "Domain", value: "Insurance" },
+                { label: "Focus", value: "Process Automation" }
+            ]
+        },
+        techStack: {
+            title: "ML Stack",
+            items: [
+                { label: "AI", techs: [{ name: "PyTorch", icon: "/technologies/pytorch.png" }] }
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'wealthbot',
+        brand: {
+            name: 'WealthBot',
+            logo: '/icons/projects/wealthbot.svg',
+            description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
+        },
+        brandVisualImg: '/icons/projects/wealthbot.svg',
+        projectList: ['Adaptive goal-based investing AI', 'Automated portfolio rebalancing', 'Real-time market sentiment analyzer'],
+        impact: {
+            title: "Scaling Automated Investing",
+            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+        },
+        summary: {
+            description: "WealthBot makes professional-grade investment strategies accessible to everyone through a simple, AI-guided interface.",
+            details: [
+                { label: "Type", value: "B2C Fintech" },
+                { label: "Reach", value: "Global" }
+            ]
+        },
+        techStack: {
+            title: "Wealth Stack",
+            items: [
+                { label: "Mobile", techs: [{ name: "Flutter", icon: "/technologies/flutter.png" }] }
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'genpsych',
+        brand: {
+            name: 'Genpsych',
+            logo: '/icons/projects/genpsych.svg',
+            description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
+        },
+        brandVisualImg: '/icons/projects/genpsych.svg',
+        projectList: ['Adaptive goal-based investing AI', 'Automated portfolio rebalancing', 'Real-time market sentiment analyzer'],
+        impact: {
+            title: "Genpsych",
+            images: ["/projectImages/hospital.png", "/projectImages/hospital1.png"]
+        },
+        summary: {
+            description: "Genpsych is a leading provider of mental health services, offering a range of programs and resources to help individuals achieve their mental health goals.",
+            details: [
+                { label: "Industry", value: "HealthCare" },
+                { label: "Project Type", value: "Hospital Management System" },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+                { label: "Frontend", techs: [{ name: "Angular", icon: "/technologies/angular.svg" }] },
+                { label: "Backend", techs: [{ name: "Dot Net", icon: "/technologies/dotnet.svg" }] },
+                { label: "Database", techs: [{ name: "SQL Server", icon: "/technologies/sql-server.svg" }] }
             ]
         }
     }

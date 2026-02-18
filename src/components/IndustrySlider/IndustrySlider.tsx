@@ -7,21 +7,28 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import styles from './IndustrySlider.module.css';
 
-const IndustrySlider: React.FC = () => {
+interface IndustrySliderProps {
+  onIndustryClick?: (name: string) => void;
+}
+
+const IndustrySlider: React.FC<IndustrySliderProps> = ({ onIndustryClick }) => {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
 
   const industries = [
-    { name: 'Finance', path: '/industries/finance', icon: '/icons/industries/finance-link.svg' },
-    { name: 'Healthcare', path: '/industries/healthcare', icon: '/icons/industries/healthcare-link.svg' },
-    { name: 'Mid-Sized Businesses', path: '/industries/mid-sized-businesses', icon: '/icons/industries/startup-link.svg' },
-    { name: 'Wholesale and Retail', path: '/industries/wholesale-retail', icon: '/icons/industries/energy-link.svg' },
+    { name: 'Automotive', path: '/industries/automotive', icon: '/icons/industries/automotive-link.svg' },
     { name: 'Education', path: '/industries/education', icon: '/icons/industries/education-link.svg' },
     { name: 'Construction', path: '/industries/construction', icon: '/icons/industries/construction-link.svg' },
+    { name: 'Finance', path: '/industries/finance', icon: '/icons/industries/finance-link.svg' },
+    { name: 'Healthcare', path: '/industries/healthcare', icon: '/icons/industries/healthcare-link.svg' },
+    { name: 'Energy', path: '/industries/energy', icon: '/icons/industries/energy-link.svg' },
+    { name: 'Compliance', path: '/industries/compliance', icon: '/icons/industries/compliance-link.svg' },
+    { name: 'Startups', path: '/industries/startups', icon: '/icons/industries/startup-link.svg' },
+    { name: 'Mid-Sized Businesses', path: '/industries/mid-sized-businesses', icon: '/icons/industries/startup-link.svg' },
+    { name: 'Wholesale and Retail', path: '/industries/wholesale-retail', icon: '/icons/industries/energy-link.svg' },
     { name: 'Entertainment', path: '/industries/entertainment', icon: '/icons/industries/finance-link.svg' },
     { name: 'Real Estate', path: '/industries/real-estate', icon: '/icons/industries/compliance-link.svg' },
     { name: 'Transportation', path: '/industries/transportation', icon: '/icons/industries/automotive-link.svg' },
-    { name: 'Energy', path: '/industries/energy', icon: '/icons/industries/energy-link.svg' },
   ];
 
   return (
@@ -61,13 +68,21 @@ const IndustrySlider: React.FC = () => {
           >
             {industries.map((industry, index) => (
               <SwiperSlide key={index} style={{ width: 'auto' }}>
-                <Link to={industry.path} className={styles.industryCard}>
+                <Link
+                  to={industry.path}
+                  className={styles.industryCard}
+                  onClick={(e) => {
+                    if (onIndustryClick) {
+                      e.preventDefault();
+                      onIndustryClick(industry.name);
+                    }
+                  }}
+                >
                   <img
                     src={industry.icon}
                     alt=""
                     className={styles.icon}
                     onError={(e) => {
-                      // Fallback icon style if SVG fails
                       (e.target as HTMLImageElement).style.display = 'none';
                     }}
                   />
