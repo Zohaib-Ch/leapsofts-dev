@@ -58,7 +58,7 @@ const PartnerShowcase: React.FC<PartnerShowcaseProps> = ({ projects, activeProje
                 modules={[Autoplay, Pagination]}
                 pagination={{ clickable: true, dynamicBullets: true }}
                 autoplay={{
-                    delay: 180000,
+                    delay: 8000,
                     disableOnInteraction: false,
                 }}
                 loop={true}
