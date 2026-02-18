@@ -192,21 +192,88 @@
     background-size: 15px 15px;
 }
 
-.insightText {
-    font-size: 16px;
-    line-height: 1.5;
-    color: var(--text-primary);
-    font-weight: 500;
-    text-align: center;
-    margin-bottom: 20px;
+.marqueeContainer {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 5px 0;
+    z-index: 2;
 }
 
-.insightDecoration {
+.marqueeContent {
     display: flex;
+    gap: 40px;
+    white-space: nowrap;
+    width: max-content;
+}
+
+.marqueeItem {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background: linear-gradient(to right, #ffffff, var(--color-primary-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.imageRevealContainer {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 5px;
-    height: 80px;
-    align-items: flex-end;
+    margin-top: 20px;
+    perspective: 1000px;
+}
+
+.thumbnailWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.insightThumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.thumbnailOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+    pointer-events: none;
+}
+
+.thumbnailDecoration {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, var(--color-primary-light) 0%, transparent 70%);
+    opacity: 0.3;
+    z-index: 1;
+    filter: blur(15px);
+    border-radius: 50%;
+}
+
+.insightCard:hover .insightThumbnail {
+    transform: scale(1.1);
 }
 
 /* Data Showcase Styles (Middle Column - Top) */
@@ -217,6 +284,18 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .dataShowcase {
+        padding: 60px 10px;
+    }
+}
+
+@media (max-width: 425px) {
+    .dataShowcase {
+        padding: 60px 10px;
+    }
 }
 
 .dataTitle {
@@ -265,6 +344,18 @@
     font-weight: 500;
     color: var(--text-primary);
     margin: 0;
+}
+
+.activeProjectItem {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: var(--color-primary-light) !important;
+    transform: translateX(5px);
+}
+
+.activeProjectItem .projectDot {
+    background: #fff;
+    box-shadow: 0 0 15px #fff;
+    transform: scale(1.2);
 }
 
 /* Right Column (Top) Industry Card */

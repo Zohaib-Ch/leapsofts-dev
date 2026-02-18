@@ -22,6 +22,7 @@ const Error: React.FC = () => {
             <div className={styles.overlay}></div>
 
             <div className={styles.container}>
+                <h1 className={styles.modernTitle}>Page Not Found</h1>
                 <div className={styles.errorCode}>404</div>
 
                 <div className={styles.terminal}>
