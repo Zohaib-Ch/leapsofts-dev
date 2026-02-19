@@ -248,10 +248,14 @@
     }
 
     .contact-detail {
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
 
     .contact-sub-detail {
-        font-size: 0.8rem;
+        font-size: 0.6rem;
+    }
+
+    .footer-logo {
+        width: 110px;
     }
 }

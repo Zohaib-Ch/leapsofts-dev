@@ -383,6 +383,99 @@ export const projectsData: ProjectData[] = [
                 { label: "Backend", techs: [{ name: "Laravel", icon: "/technologies/laravel.png" }] }
             ]
         }
+    },{
+        type: 'industry',
+        id: 'project-industry-8',
+        brand: {
+            name: 'EdTech',
+            logo: '/icons/industries/education-link.svg',
+            description: 'Transforming education with technology. We build learning platforms that adapt to individual student needs and empower educators with data-driven insights.',
+        },
+        highlight: {
+            'tab-8-0': ['POPM Global'],
+            'tab-8-1': ['GradeBook'],
+            'tab-8-2': ['CampusConnect']
+        },
+        projectList: ['POPM Global', 'GradeBook', 'CampusConnect'],
+        brandVisualImg: '/icons/industries/education-link.svg',
+        tabs: [
+            { id: 'tab-8-0', label: 'Learning Platforms' },
+            { id: 'tab-8-1', label: 'Assessment Tools', isActive: true },
+            { id: 'tab-8-2', label: 'Campus Management' }
+        ],
+        impact: {
+            title: "Transforming Education with Technology",
+            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+        },
+        tabImages: {
+            'tab-8-0': '/projectImages/pop.png',
+            'tab-8-1': '/projectImages/gradebook.png',
+            'tab-8-2': '/projectImages/campus_connect.png'
+        },
+        summary: {
+            description: "Partnering with educational institutions to create technology solutions that enhance learning outcomes and streamline administrative processes.",
+            details: [
+                { label: "Industry", value: "Education" },
+                { label: "Project Type", value: "Learning Platforms" },
+                { label: "Service", value: "Educational Technology" }
+            ]
+        },
+        techStack: {
+            title: "Tools and technologies",
+            items: [
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/html.png" }] },
+                { label: "Backend", techs: [{ name: "Laravel", icon: "/technologies/laravel.png" }] },
+                { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] },
+                { label: "Cloud", techs: [{ name: "AWS", icon: "/technologies/aws.png" }] }
+            ]
+        }
+    },
+    {
+        type: 'industry',
+        id: 'project-industry-9',
+        brand: {
+            name: 'Forensics',
+            logo: '/icons/industries/energy-link.svg',
+            description: 'Transforming education with technology. We build learning platforms that adapt to individual student needs and empower educators with data-driven insights.',
+        },
+        highlight: {
+            'tab-9-0': ['Monolith'],
+            'tab-9-1': ['ForensicTwo'],
+            'tab-9-2': ['ForensicThree']
+        },
+        projectList: ['Monolith', 'ForensicTwo', 'ForensicThree'],
+        brandVisualImg: '/icons/industries/energy-link.svg',
+        tabs: [
+            { id: 'tab-9-0', label: 'Forensics' },
+            { id: 'tab-9-1', label: 'Assessment Tools', isActive: true },
+            { id: 'tab-9-2', label: 'Campus Management' }
+        ],
+        impact: {
+            title: "Transforming Education with Technology",
+            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+        },
+        tabImages: {
+            'tab-9-0': '/projectImages/forensics.png',
+            'tab-9-1': '/projectImages/forensics/forensic-two.png',
+            'tab-9-2': '/projectImages/forensics/forensic-three.png'
+        },
+        summary: {
+            description: "Partnering with educational institutions to create technology solutions that enhance learning outcomes and streamline administrative processes.",
+            details: [
+                { label: "Industry", value: "Education" },
+                { label: "Project Type", value: "Learning Platforms" },
+                { label: "Service", value: "Educational Technology" }
+            ]
+        },
+        techStack: {
+            title: "Tools and technologies",
+            items: [
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/html.png" }] },
+                { label: "Backend", techs: [{ name: "Laravel", icon: "/technologies/laravel.png" }] },
+                { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] },
+                { label: "Cloud", techs: [{ name: "AWS", icon: "/technologies/aws.png" }] }
+            ]
+        }
     },
     // Sub-projects
     {
@@ -589,8 +682,68 @@ export const projectsData: ProjectData[] = [
             title: "Built with",
             items: [
                 { label: "Frontend", techs: [{ name: "Angular", icon: "/technologies/angular.svg" }] },
-                { label: "Backend", techs: [{ name: "Dot Net", icon: "/technologies/dotnet.svg" }] },
+                { label: "Backend", techs: [{ name: "Dot Net", icon: "/technologies/net-seeklogo.svg" }] },
                 { label: "Database", techs: [{ name: "SQL Server", icon: "/technologies/sql-server.svg" }] }
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'monolith',
+        brand: {
+            name: 'Monolith',
+            logo: '/icons/projects/monolith.svg',
+            description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
+        },
+        brandVisualImg: '/icons/projects/forensics.svg',
+        projectList: ['Adaptive goal-based investing AI', 'Automated portfolio rebalancing', 'Real-time market sentiment analyzer'],
+        impact: {
+            title: "Monolith Forensics",
+            images: ["/projectImages/forensics.png", "/projectImages/forensics1.png"]
+        },
+        summary: {
+            description: "Forensics is a leading provider of mental health services, offering a range of programs and resources to help individuals achieve their mental health goals.",
+            details: [
+                { label: "Industry", value: "Forensics" },
+                { label: "Project Type", value: "Forensic Software" },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/React.svg" }, { name: "ElectronJS", icon: "/technologies/electronjs.svg" }] },
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'popm-global',
+        brand: {
+            name: 'PopM Global',
+            logo: '/icons/projects/popm_global.svg',
+            description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
+        },
+        brandVisualImg: '/icons/projects/popm_global.svg',
+        projectList: ['Adaptive goal-based investing AI', 'Automated portfolio rebalancing', 'Real-time market sentiment analyzer'],
+        impact: {
+            title: "PopM Global",
+            images: ["/projectImages/pop.png", "/projectImages/pop1.png"]
+        },
+        summary: {
+            description: "PopM Global is a leading provider of mental health services, offering a range of programs and resources to help individuals achieve their mental health goals.",
+            details: [
+                { label: "Industry", value: "EdTech" },
+                { label: "Project Type", value: "Learning Management System" },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+                { label: "Frontend", techs: [{ name: "React Native", icon: "/technologies/React.svg" }, { name: "Vue Js", icon: "/technologies/vuejs.png" }] },
+                { label: "Backend", techs: [{ name: "Node Js", icon: "/technologies/nodejs.png" }] },
+                { label: "Database", techs: [{ name: "MongoDB", icon: "/technologies/mongodb.png" }, { name: "Firebase", icon: "/technologies/firebase.png" }] }
             ]
         }
     }

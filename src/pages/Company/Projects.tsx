@@ -29,6 +29,8 @@ const Projects: React.FC = () => {
       'Energy': 'project-industry-5',
       'Compliance': 'project-industry-6',
       'Automotive': 'project-industry-0',
+      'EdTech': 'project-industry-8',
+      'Forensics': 'project-industry-9',
     };
 
     const projectId = mapping[name];
