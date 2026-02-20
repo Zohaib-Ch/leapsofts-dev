@@ -2,140 +2,115 @@ import React from 'react'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
-import Services from '../Home/CompanyServices/Services'
-import IndustryProcess from '../../components/IndustryProcess/IndustryProcess'
-import ServiceFeatures from '../../components/ServiceFeatures/ServiceFeatures'
-import CommitmentSection from '../../components/CommitmentSection/CommitmentSection'
-
-const ourSolutionsData: EmergingTechProps['data'] = {
-    label: 'Our Solutions',
-    titleAccent: 'Our Solutions for',
-    titleMain: 'Financial Organizations',
-    description: 'We deliver tailored financial software solutions that enhance operational efficiency, strengthen customer experience, and ensure compliance across the financial sector. Whether you\re a bank, fintech startup, or investment firm, we build scalable tools that align with your business goals and regulatory needs.',
-    items: [
-        {
-            icon: 'legacy',
-            title: 'Update Legacy Systems',
-            description: 'Elevate aging systems to new, streamlined platforms.'
-        },
-        {
-            icon: 'enterprise',
-            title: 'DevOps Transformation',
-            description: 'Streamline your software delivery with efficient DevOps practices.'
-        },
-        {
-            icon: 'thirdParty',
-            title: 'Platform Upgrades',
-            description: 'Modernize your platforms to align with cutting edge technologies.'
-        },
-        {
-            icon: 'product',
-            title: 'Code Enhancement',
-            description: 'Optimize your codebase for better performance and easier maintenance.'
-        },
-        {
-            icon: 'saas',
-            title: 'UI/UX Design Overhaul',
-            description: 'Redesign your user interface for an improved user experience.'
-        },
-        {
-            icon: 'enterprise',
-            title: 'System Integration',
-            description: 'Merge separate systems to improve operational efficiency.'
-        },
-        {
-            icon: 'ecommerce',
-            title: 'Data Transfer',
-            description: 'Securely relocate your data with no loss of critical information.'
-        },
-        {
-            icon: 'saas',
-            title: 'Performance Boost',
-            description: 'Optimize application efficiency and uptime for superior performance.'
-        },
-        {
-            icon: 'mobile',
-            title: 'Mobile App Redesign',
-            description: 'Update your mobile applications to support the latest device capabilities.'
-        },
-        {
-            icon: 'thirdParty',
-            title: 'Seamless Cloud Transition',
-            description: 'Transition your applications seamlessly to the cloud for enhanced scalability.'
-        }
-    ]
-}
+import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
+import WhyChooseUs from '../../components/WhyChooseUs/WhyChooseUs'
 
 const ourTechInnovationsData: EmergingTechProps['data'] = {
     label: 'TECH INNOVATIONS TO CONSIDER',
     titleAccent: 'Tech innovations for',
     titleMain: 'FinTech solutions',
-    description: 'As a financial software development company, we bring cutting-edge technologies to every financial software development project to future-proof your solutions and enhance efficiency.',
+    description: 'We leverage cutting-edge technologies to future-proof your financial solutions and enhance operational efficiency.',
     items: [
         {
             icon: 'legacy',
-            title: 'Update Legacy Systems',
-            description: 'Elevate aging systems to new, streamlined platforms.'
+            title: 'Banking Digitization',
+            description: 'Integrate core financial services into digital ecosystems via cloud and mobile apps.'
         },
         {
             icon: 'enterprise',
-            title: 'DevOps Transformation',
-            description: 'Streamline your software delivery with efficient DevOps practices.'
+            title: 'Talent Retention',
+            description: 'Support secure remote work with VDI and zero-trust networks for efficiency and safety.'
         },
         {
             icon: 'thirdParty',
-            title: 'Platform Upgrades',
-            description: 'Modernize your platforms to align with cutting edge technologies.'
+            title: 'Blockchain Integration',
+            description: 'Use DLT for secure, transparent, and immutable cross-border payments and smart contracts.'
         },
         {
             icon: 'product',
-            title: 'Code Enhancement',
-            description: 'Optimize your codebase for better performance and easier maintenance.'
+            title: 'System Modernization',
+            description: 'Migrate monolithic systems to modular architectures to meet regulations and new tech.'
         },
         {
             icon: 'saas',
-            title: 'UI/UX Design Overhaul',
-            description: 'Redesign your user interface for an improved user experience.'
+            title: 'Process Optimization',
+            description: 'Use AI and BPM tools to automate procedures for faster, personalized, and efficient service.'
+        },
+        {
+            icon: 'legacy',
+            title: 'Banking Digitization',
+            description: 'Integrate core financial services into digital ecosystems via cloud and mobile apps.'
         },
         {
             icon: 'enterprise',
-            title: 'System Integration',
-            description: 'Merge separate systems to improve operational efficiency.'
-        },
-        {
-            icon: 'ecommerce',
-            title: 'Data Transfer',
-            description: 'Securely relocate your data with no loss of critical information.'
-        },
-        {
-            icon: 'saas',
-            title: 'Performance Boost',
-            description: 'Optimize application efficiency and uptime for superior performance.'
-        },
-        {
-            icon: 'mobile',
-            title: 'Mobile App Redesign',
-            description: 'Update your mobile applications to support the latest device capabilities.'
+            title: 'Talent Retention',
+            description: 'Support secure remote work with VDI and zero-trust networks for efficiency and safety.'
         },
         {
             icon: 'thirdParty',
-            title: 'Seamless Cloud Transition',
-            description: 'Transition your applications seamlessly to the cloud for enhanced scalability.'
+            title: 'Blockchain Integration',
+            description: 'Use DLT for secure, transparent, and immutable cross-border payments and smart contracts.'
+        },
+        {
+            icon: 'product',
+            title: 'System Modernization',
+            description: 'Migrate monolithic systems to modular architectures to meet regulations and new tech.'
+        },
+        {
+            icon: 'saas',
+            title: 'Process Optimization',
+            description: 'Use AI and BPM tools to automate procedures for faster, personalized, and efficient service.'
         }
     ]
 }
 
-
+const title = "LeapSofts Technologies Are Fintech Developers";
+const subtitle = ""
+const introDescription = [
+    { text: "Secure software solutions to enhance user experience in the new, digital landscape Allow Leapsofts Technologies to help you bring your financial services firm into the digital age with software that's as sharp as you are.", bold: false },
+]
+const commitmentData: CommitmentSectionProps['data'] = {
+    subtitle: "OUR COMMITMENT TO FINANCIAL ORGANIZATIONS",
+    title: "Bringing banking & finance into the digital age",
+    items: [
+        {
+            icon: '/industryicons/sphere.svg',
+            title: 'Cyber-Attack Protection',
+            description: "Preventing security compromises is paramount. We implement secure, compliant software architecture and continuous, real-time threat monitoring. This proactive defense strategy shields your reputation and protects high-value customer and institutional assets from increasingly sophisticated cyber threats."
+        },
+        {
+            icon: '/industryicons/bipiramida.svg',
+            title: 'Regulatory Compliance',
+            description: "Strict and ever-changing financial regulations often clog operational processes. We develop flexible systems that automate compliance checks, ensuring your organization remains fully compliant with regional and international mandates (e.g., GDPR, Basel III, KYC/AML) while preserving business agility.",
+        },
+        {
+            icon: '/industryicons/diamond.svg',
+            title: 'Data Management',
+            description: "Effectively organizing, securing, and utilizing high-stakes financial data is critical. Our solutions adhere to the most stringent international standards, implementing robust data governance frameworks to ensure data integrity, accessibility, and confidentiality across all platforms.",
+        },
+    ]
+}
+const whyChooseUsData = {
+    subtitle: 'Why Choose Us?',
+    title: 'Why Choose Leapsofts?',
+    items: [
+        'Leapsofts Technologies offers a full professional development team with a strong customer-focused approach.',
+        'Our expertise in diverse technologies and financial services enables us to deliver tailored, effective solutions.',
+        'Our UI/UX specialists create visually appealing, user-friendly apps that enhance customer experience for financial institutions.',
+        'We ensure bulletproof security through proactive prevention strategies and robust incident response to protect financial data.'
+    ]
+};
 
 const Finance: React.FC = () => {
+
     return (
         <>
             <IntroComponent
-                title="Software Solutions for Finance & Banking"
-                description="We build secure, scalable, and compliant financial software solutions that help you streamline operations, enhance security, and deliver superior customer experiences."
+                title={title}
+                description={subtitle}
+                introDescription={introDescription}
             />
-            <CommitmentSection />
-            <ServiceFeatures />
+            <CommitmentSection data={commitmentData} />
             <StreamlineSuccess
                 label="STREAMLINE YOUR SUCCESS"
                 titleMain="Software "
@@ -154,13 +129,11 @@ const Finance: React.FC = () => {
                 ]}
                 imageUrl="/strategy_session_dashboard.png"
             />
-            <EmergingTech data={ourSolutionsData} />
             <EmergingTech data={ourTechInnovationsData} />
-            <Services />
-            <IndustryProcess
-                titleMain="FinTech App Development"
-                titleAccent='Process'
-            />
+            <WhyChooseUs
+                subtitle={whyChooseUsData.subtitle}
+                title={whyChooseUsData.title}
+                items={whyChooseUsData.items} />
         </>
     )
 }

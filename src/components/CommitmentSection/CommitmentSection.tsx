@@ -1,28 +1,30 @@
 import React from 'react';
 import styles from './CommitmentSection.module.css';
 
-interface CommitmentItem {
+export interface CommitmentItem {
     icon: string; // URL to the SVG icon
     title: string;
     description: string;
 }
 
-interface CommitmentSectionProps {
-    subtitle?: string;
-    title?: string;
-    items?: CommitmentItem[];
+export interface CommitmentSectionProps {
+    data: {
+        subtitle?: string;
+        title?: string;
+        items?: CommitmentItem[];
+    };
 }
 
 const defaultItems: CommitmentItem[] = [
     {
         icon: '/industryicons/sphere.svg',
         title: 'Insight & Analysis',
-        description: 'Real-time financial reports to machine-learning-based predictive analytics, financial modeling, and algorithmic trading, Leapsofts\'s custom financial software development empowers financial organizations to do more - and more accurately - with their data.',
+        description: 'Real-time financial reports to machine-learning-based predictive analytics, financial modeling, and algorithmic trading, Dewford\'s custom financial software development empowers financial organizations to do more - and more accurately - with their data.',
     },
     {
         icon: '/industryicons/bipiramida.svg',
         title: 'Customer Experience',
-        description: 'Online and mobile banking offerings are critical in today\'s market, and Leapsofts\'s financial software experts know how to provide customers with convenient access to their banking needs without compromising security. Our UX experts ensure our software is easy to use.',
+        description: 'Online and mobile banking offerings are critical in today\'s market, and Dewford\'s financial software experts know how to provide customers with convenient access to their banking needs without compromising security. Our UX experts ensure our software is easy to use.',
     },
     {
         icon: '/industryicons/diamond.svg',
@@ -67,11 +69,13 @@ const Card: React.FC<CommitmentItemProps> = ({ icon, title, description, index }
     );
 };
 
-const CommitmentSection: React.FC<CommitmentSectionProps> = ({
-    subtitle = "OUR COMMITMENT TO FINANCIAL ORGANIZATIONS",
-    title = "Bringing banking & finance into the digital age",
-    items = defaultItems,
-}) => {
+const CommitmentSection: React.FC<CommitmentSectionProps> = ({ data }) => {
+    const {
+        subtitle = "OUR COMMITMENT TO FINANCIAL ORGANIZATIONS",
+        title = "Bringing banking & finance into the digital age",
+        items = defaultItems,
+    } = data || {};
+
     return (
         <section className={styles.commitmentSection}>
             <div className={styles.container}>
