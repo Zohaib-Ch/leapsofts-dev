@@ -1,0 +1,4 @@
+src/components/Button/button.module.css:/* Dewford Style Button */
+src/components/CommitmentSection/CommitmentSection.tsx:        description: 'Real-time financial reports to machine-learning-based predictive analytics, financial modeling, and algorithmic trading, Dewford\'s custom financial software development empowers financial organizations to do more - and more accurately - with their data.',
+src/components/CommitmentSection/CommitmentSection.tsx:        description: 'Online and mobile banking offerings are critical in today\'s market, and Dewford\'s financial software experts know how to provide customers with convenient access to their banking needs without compromising security. Our UX experts ensure our software is easy to use.',
+src/components/Partners/Partners.tsx:    'Dewford.png',
