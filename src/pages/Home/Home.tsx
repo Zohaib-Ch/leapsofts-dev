@@ -188,11 +188,11 @@ const Home = () => {
         <Slider />
       </div>
 
-      <Partners />
 
       <div id="process">
         <Processes title="OUR CUSTOM SOFTWARE DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
       </div>
+      <Partners />
 
       <div id="feedbacks">
         <Testimonials />
