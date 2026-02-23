@@ -14,7 +14,7 @@ import ServiceFeatures, { type ServiceFeatureItem } from '../../components/Servi
   ]
   const commitmentData: CommitmentSectionProps['data'] = {
     subtitle: "OUR COMMITMENT TO CONSTRUCTION SUCCESS",
-    title: "Three high-stakes commitments designed for builders and contractors.",
+    title: "Three Commitments for Builders & Contractors",
     items: [
         {
             icon: '/industryicons/sphere.svg',
@@ -35,7 +35,7 @@ import ServiceFeatures, { type ServiceFeatureItem } from '../../components/Servi
 }
 const servicesData: InfoGridProps['data'] = {
   label: 'Operational Modules — Engineering Project Success',
-  title: 'Refined from the "Leapsofts" data to focus on high-impact construction features.',
+  title: 'Built on Leapsofts data for construction excellence.',
   items: [
     {
       icon: '01',

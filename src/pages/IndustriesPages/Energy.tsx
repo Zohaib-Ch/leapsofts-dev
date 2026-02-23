@@ -7,7 +7,7 @@ import EmergingTech, { type EmergingTechProps } from '../../components/EmergingT
 
 const commitmentData: CommitmentSectionProps['data'] = {
     subtitle: "Our Commitments to Energy Innovation",
-    title: "Tailored commitments focusing on the Custom vs. Off-the-shelf and Scale data.",
+    title: "Build-Buy & Scale Focused Commitments",
     items: [
         {
             icon: '/industryicons/sphere.svg',
@@ -28,7 +28,7 @@ const commitmentData: CommitmentSectionProps['data'] = {
 }
 const servicesData: InfoGridProps['data'] = {
     label: 'Operational Modules — Powering the Energy Business',
-    title: 'Extracted from the "How Custom Software Can Power Your Business" section.',
+    title: 'Derived from the Custom Software insights',
     items: [
         {
             icon: '01',
@@ -83,7 +83,7 @@ const defaultItems: ServiceFeatureItem[] = [
 
 const ourTechInnovationsData: EmergingTechProps['data'] = {
     label: 'Sector Focus — Navigating the Digital Transition',
-    titleAccent: 'Industry-Specific',
+    titleAccent: 'Energy-Focused',
     titleMain: ' Solutions',
     description: 'Focusing on the specific energy verticals mentioned in your data.',
     items: [

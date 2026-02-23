@@ -8,7 +8,7 @@ import { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
 
 const commitmentData: CommitmentSectionProps['data'] = {
     subtitle: "Our Commitments to Media Innovation",
-    title: "Tailored commitments focusing on the Custom vs. Off-the-shelf and Scale data.",
+    title: "Customization & Scalability Commitments",
     items: [
         {
             icon: '/industryicons/sphere.svg',
@@ -29,8 +29,8 @@ const commitmentData: CommitmentSectionProps['data'] = {
 }
 const ourTechInnovationsData: EmergingTechProps['data'] = {
     label: 'TECH INNOVATIONS TO CONSIDER',
-    titleAccent: 'Industry-Specific',
-    titleMain: ' Solutions',
+    titleAccent: 'Entertainment-Focused',
+    titleMain: 'Solutions',
     description: 'Focusing on the diverse sectors covered in your data.',
     items: [
         {
@@ -97,7 +97,7 @@ const ourTechInnovationsData: EmergingTechProps['data'] = {
 }
 const servicesData: InfoGridProps['data'] = {
   label: 'Operational Modules — Engineering Project Success',
-  title: 'Refined from the "Leapsofts" data to focus on high-impact features.',
+  title: 'Entertainment impact, backed by Leapsofts insights.',
   items: [
     {
       icon: '01',
