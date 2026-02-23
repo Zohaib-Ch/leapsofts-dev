@@ -10,9 +10,9 @@ function ServicesLayout() {
 
 
       <Outlet />
+      <Partners />
       <About />
       <Technologies />
-      <Partners />
       <FAQs />
     </>
   )

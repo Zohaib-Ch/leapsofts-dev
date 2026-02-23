@@ -179,7 +179,7 @@ const router = createBrowserRouter([
                         element: <WholesaleRetail />
                     },
                     {
-                        path: 'education',
+                        path: 'ed-tech',
                         element: <Education />
                     },
                     {

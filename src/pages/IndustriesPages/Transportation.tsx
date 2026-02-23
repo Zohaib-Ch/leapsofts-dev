@@ -7,7 +7,7 @@ import ServiceFeatures, { type ServiceFeatureItem } from '../../components/Servi
 
 const commitmentData: CommitmentSectionProps['data'] = {
     subtitle: "Our Commitments to Logistics Excellence",
-    title: "Tailored commitments focusing on the Custom vs. Off-the-shelf and Scale data.",
+    title: "Built for Build-Buy Decisions & Scale",
     items: [
         {
             icon: '/industryicons/sphere.svg',
@@ -65,7 +65,7 @@ const servicesData: InfoGridProps['data'] = {
 };
 const ourTechInnovationsData: EmergingTechProps['data'] = {
     label: 'Industry Friction Points',
-    titleAccent: 'Industry-Specific',
+    titleAccent: 'Transportation-Focused',
     titleMain: ' Solutions',
     description: 'This section identifies the "Signs it’s Time for a New System" mentioned in your data',
     items: [

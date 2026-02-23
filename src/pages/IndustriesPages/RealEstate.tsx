@@ -8,7 +8,7 @@ import ServiceFeatures, { type ServiceFeatureItem } from '../../components/Servi
 
 const commitmentData: CommitmentSectionProps['data'] = {
     subtitle: "Our Commitments to Real Estate Leaders",
-    title: "Tailored commitments focusing on the Custom vs. Off-the-shelf and Scale data.",
+    title: "Tailored for build, buy, and scale",
     items: [
         {
             icon: '/industryicons/sphere.svg',
@@ -29,7 +29,7 @@ const commitmentData: CommitmentSectionProps['data'] = {
 }
 const servicesData: InfoGridProps['data'] = {
   label: 'Operational Modules — Total Territory Control',
-  title: 'Detailed features focused on both the manager and the resident experience',
+  title: 'Manager & Resident-Focused Features',
     items: [
         {
             icon: '01',
@@ -59,8 +59,8 @@ const servicesData: InfoGridProps['data'] = {
 };
 const ourTechInnovationsData: EmergingTechProps['data'] = {
     label: 'TECH INNOVATIONS TO CONSIDER',
-    titleAccent: 'Industry-Specific',
-    titleMain: ' Solutions',
+    titleAccent: 'Real Estate-Focused',
+    titleMain: 'Solutions',
     description: 'Focusing on the diverse sectors covered in your data.',
     items: [
         {
