@@ -23,7 +23,7 @@ const Footer = () => {
       { name: 'Healthcare', path: '/industries/healthcare' },
       { name: 'Mid-Sized Businesses', path: '/industries/mid-sized-businesses' },
       { name: 'Wholesale and Retail', path: '/industries/wholesale-retail' },
-      { name: 'Education', path: '/industries/education' },
+      { name: 'Ed-Tech', path: '/industries/ed-tech' },
       { name: 'Construction', path: '/industries/construction' },
       { name: 'Entertainment', path: '/industries/entertainment' },
       { name: 'Real Estate', path: '/industries/real-estate' },
