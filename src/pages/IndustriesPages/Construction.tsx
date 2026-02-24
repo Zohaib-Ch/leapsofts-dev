@@ -35,7 +35,7 @@ import ServiceFeatures, { type ServiceFeatureItem } from '../../components/Servi
 }
 const servicesData: InfoGridProps['data'] = {
   label: 'Operational Modules — Engineering Project Success',
-  title: 'Built on Leapsofts data for construction excellence.',
+  title: 'Tailored for the Construction Industry',
   items: [
     {
       icon: '01',

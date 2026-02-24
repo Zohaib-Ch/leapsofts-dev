@@ -29,7 +29,7 @@ const commitmentData: CommitmentSectionProps['data'] = {
 
 const servicesData: InfoGridProps['data'] = {
     label: 'Operational Modules — Powering the Fleet',
-    title: 'Refined from the "Leapsofts" features list',
+    title: 'Tailored for the Logistics Industry',
     items: [
         {
             icon: '01',
