@@ -247,8 +247,8 @@
 }
 
 .checkbox:checked {
-    background: #4ade80;
-    border-color: #4ade80;
+    background: var(--color-orange);
+    border-color: var(--color-orange);
 }
 
 .checkbox:checked::after {
