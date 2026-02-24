@@ -13,8 +13,7 @@ interface IndustrySliderProps {
 
 const industries = [
   { name: 'Automotive', path: '/industries/automotive', icon: '/icons/industries/automotive-link.svg' },
-  { name: 'Education', path: '/industries/education', icon: '/icons/industries/education-link.svg' },
-  { name: 'EdTech', path: '/industries/education', icon: '/icons/industries/education-link.svg' },
+  { name: 'EdTech', path: '/industries/edtech', icon: '/icons/industries/education-link.svg' },
   { name: 'Forensics', path: '/industries/forensics', icon: '/icons/industries/energy-link.svg' },
   { name: 'Construction', path: '/industries/construction', icon: '/icons/industries/construction-link.svg' },
   { name: 'Finance', path: '/industries/finance', icon: '/icons/industries/finance-link.svg' },

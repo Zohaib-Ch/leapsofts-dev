@@ -24,7 +24,6 @@ const Projects: React.FC = () => {
       'Finance': 'project-industry-1',
       'Healthcare': 'project-industry-2',
       'Startups': 'project-industry-7',
-      'Education': 'project-industry-3',
       'Construction': 'project-industry-4',
       'Energy': 'project-industry-5',
       'Compliance': 'project-industry-6',

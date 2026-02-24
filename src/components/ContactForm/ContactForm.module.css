@@ -237,6 +237,7 @@
     appearance: none;
     width: 20px;
     height: 20px;
+    flex-shrink: 0;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 4px;
     background: #1f1f3e;

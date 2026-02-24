@@ -172,53 +172,6 @@ export const projectsData: ProjectData[] = [
     },
     {
         type: 'industry',
-        id: 'project-industry-3',
-        brand: {
-            name: 'Education',
-            logo: '/icons/industries/education-link.svg',
-            description: 'Empowering the next generation with interactive e-learning platforms. We build scalable educational tools that deliver personalized learning experiences.',
-        },
-        highlight: {
-            'tab-3-0': ['KidLearn'],
-            'tab-3-1': ['UniPortal'],
-            'tab-3-2': ['CorpTrain']
-        },
-        projectList: ['KidLearn', 'UniPortal', 'CorpTrain'],
-        brandVisualImg: '/icons/industries/education-link.svg',
-        tabs: [
-            { id: 'tab-3-0', label: 'K-12' },
-            { id: 'tab-3-1', label: 'Higher Ed', isActive: true },
-            { id: 'tab-3-2', label: 'Corporate Training' }
-        ],
-        impact: {
-            title: "Gamifying Education for Better Retention",
-            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
-        },
-        tabImages: {
-            'tab-3-0': '/ai_team_collaboration_impact.png',
-            'tab-3-1': '/ai_workflow_slack_showcase.png',
-            'tab-3-2': '/ai_team_collaboration_impact.png'
-        },
-        summary: {
-            description: "Building an LMS that adapts to individual learning styles, providing a personalized education experience at scale.",
-            details: [
-                { label: "Industry", value: "Education" },
-                { label: "Project Type", value: "LMS & Gamified Learning" },
-                { label: "Service", value: "EdTech Development" }
-            ]
-        },
-        techStack: {
-            title: "Tools and technologies",
-            items: [
-                { label: "Video", techs: [{ name: "Node.js", icon: "/technologies/nodejs.png" }] },
-                { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] },
-                { label: "Cloud", techs: [{ name: "GCP", icon: "/technologies/gcp.png" }] },
-                { label: "Frontend", techs: [{ name: "Vue.js", icon: "/technologies/vuejs.png" }] }
-            ]
-        }
-    },
-    {
-        type: 'industry',
         id: 'project-industry-4',
         brand: {
             name: 'Construction',
@@ -503,9 +456,9 @@ export const projectsData: ProjectData[] = [
         techStack: {
             title: "Built with",
             items: [
-                { label: "Frontend", techs: [{ name: "Vue.js", icon: "/technologies/vuejs.png" }] },
-                { label: "Framework", techs: [{ name: "Laravel", icon: "/technologies/Laravel-Logo.wine.svg" }] },
-                { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] }
+                { label: "Frontend", techs: [{ name: "Angular", icon: "/technologies/angular.svg" }] },
+                { label: "Backend", techs: [{ name: "Express.js", icon: "/technologies/express_logo.png" }] },
+                { label: "Database", techs: [{ name: "MongoDB", icon: "/technologies/mongodb.png" }] }
             ]
         }
     },
@@ -518,7 +471,7 @@ export const projectsData: ProjectData[] = [
             description: 'The definitive platform for modern auto repair shops. Manage appointments, parts, and customer communication in one place.',
         },
         brandVisualImg: '/icons/projects/autoleap.svg',
-        projectList: ['Multi-bay service scheduler', 'Automated parts ordering system', 'Direct customer messaging portal'],
+        projectList: ['All-in-One Shop Management', 'Estimates and Invoicing', 'Digital Vehicle Inspections (DVI)'],
         impact: {
             title: "Autoleap",
             images: ["/projectImages/autoleap.png", "/projectImages/autoleap1.png"]
@@ -527,7 +480,7 @@ export const projectsData: ProjectData[] = [
             description: "Autoleap provides a comprehensive suite of tools for auto repair shop owners, enabling complete digital transformation of service bays.",
             details: [
                 { label: "Industry", value: "Automotive" },
-                { label: "Project Type", value: "Dealership Network" },
+                { label: "Project Type", value: "Auto-Repair" },
                 { label: "Service", value: "Custom Software Development" }
             ]
         },
@@ -535,8 +488,10 @@ export const projectsData: ProjectData[] = [
             title: "Built with",
             items: [
                 { label: "Frontend", techs: [{ name: "Vue.js", icon: "/technologies/vuejs.png" }] },
-                { label: "Framework", techs: [{ name: "Laravel", icon: "/technologies/Laravel-Logo.wine.svg" }] },
-                { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] }
+                { label: "Backend", techs: [{ name: "Laravel", icon: "/technologies/Laravel-Logo.wine.svg" }] },
+                { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] },
+                { label: "Cache", techs: [{ name: "Redis", icon: "/technologies/redis.svg" }] },
+                { label: "Testing", techs: [{ name: "PhpPest", icon: "/technologies/pest-logo.png" }] }
             ]
         }
     },
@@ -549,13 +504,13 @@ export const projectsData: ProjectData[] = [
             description: 'The Middle East\'s leading digital destination for automotive reviews, news, and classifieds.',
         },
         brandVisualImg: '/icons/projects/arabwheels.svg',
-        projectList: ['High-performance media delivery network', 'Real-time vehicle classifieds engine', 'Personalized news recommendation AI'],
+        projectList: ['Expert Reviews & Automotive Media', 'New Car Research Portal', 'Automotive Buying Guides'],
         impact: {
             title: "ArabWheels",
             images: ["/projectImages/arabwheel.png", "/projectImages/arabwheel1.png"]
         },
         summary: {
-            description: "ArabWheels is a high-traffic media and marketplace platform, optimized for the rapid growth of the Gulf automotive market.",
+            description: "ArabWheels is a digital automotive marketplace and media platform in the UAE that facilitates the buying and selling of new and used vehicles. It provides consumers with transparent pricing, technical specifications, and expert reviews to streamline the car ownership journey.",
             details: [
                 { label: "Industry", value: "Automotive" },
                 { label: "Project Type", value: "Used Car Marketplace" },
@@ -565,10 +520,10 @@ export const projectsData: ProjectData[] = [
         techStack: {
             title: "Built with",
             items: [
-                { label: "Frontend", techs: [{ name: "Vue.js", icon: "/technologies/vuejs.png" }] },
-                { label: "Framework", techs: [{ name: "Nest.js", icon: "/technologies/nestjs.png" }] },
-                { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] },
-                { label: "Backend", techs: [{ name: "Node.js", icon: "/technologies/nodejs.png" }] }
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/react1.svg" }] },
+                { label: "Backend", techs: [{ name: "Express.js", icon: "/technologies/express_logo.png" }] },
+                { label: "Database", techs: [{ name: "MongoDB", icon: "/technologies/mongodb.png" }] },
+                { label: "Storage", techs: [{ name: "AWS S3", icon: "/technologies/aws-s3.svg" }] }
             ]
         }
     },
@@ -665,13 +620,13 @@ export const projectsData: ProjectData[] = [
             description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
         },
         brandVisualImg: '/icons/projects/genpsych.svg',
-        projectList: ['Adaptive goal-based investing AI', 'Automated portfolio rebalancing', 'Real-time market sentiment analyzer'],
+        projectList: ['Partial Hospitalization Program (PHP)', 'Intensive Outpatient Program (IOP)', 'Medication-Assisted Treatment (MAT)'],
         impact: {
             title: "Genpsych",
             images: ["/projectImages/hospital.png", "/projectImages/hospital1.png"]
         },
         summary: {
-            description: "Genpsych is a leading provider of mental health services, offering a range of programs and resources to help individuals achieve their mental health goals.",
+            description: "GenPsych offers psychiatric evaluations, medication protocols, substance abuse treatment, military programs, group therapy, individual therapy, and family therapy. We operate a Partial Care Program (PCP), Intensive Outpatient Program (IOP) and an Ambulatory (Outpatient) Detox ",
             details: [
                 { label: "Industry", value: "HealthCare" },
                 { label: "Project Type", value: "Hospital Management System" },
@@ -682,7 +637,7 @@ export const projectsData: ProjectData[] = [
             title: "Built with",
             items: [
                 { label: "Frontend", techs: [{ name: "Angular", icon: "/technologies/angular.svg" }] },
-                { label: "Backend", techs: [{ name: "Dot Net", icon: "/technologies/net-seeklogo.svg" }] },
+                { label: "Backend", techs: [{ name: "Dot Net", icon: "/technologies/dotnet.svg" }] },
                 { label: "Database", techs: [{ name: "SQL Server", icon: "/technologies/sql-server.svg" }] }
             ]
         }
@@ -696,13 +651,13 @@ export const projectsData: ProjectData[] = [
             description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
         },
         brandVisualImg: '/icons/projects/forensics.svg',
-        projectList: ['Adaptive goal-based investing AI', 'Automated portfolio rebalancing', 'Real-time market sentiment analyzer'],
+        projectList: ['Relay Forensic Request Portal', 'Evidence and Storage Tracking', 'Customizable Reporting & Metrics'],
         impact: {
             title: "Monolith Forensics",
             images: ["/projectImages/forensics.png", "/projectImages/forensics1.png"]
         },
         summary: {
-            description: "Forensics is a leading provider of mental health services, offering a range of programs and resources to help individuals achieve their mental health goals.",
+            description: "Forensics case software designed to help clients to manage digital forensics labs, evidence, and casework. The company's platform offers features that include case tracking, evidence & document management, notes & task management, casework metrics management, task list creation, task assigning, inquiries management, clients management, digital storage management, report generation, and more, enabling clients to store and track cases from anywhere.",
             details: [
                 { label: "Industry", value: "Forensics" },
                 { label: "Project Type", value: "Forensic Software" },
@@ -725,13 +680,13 @@ export const projectsData: ProjectData[] = [
             description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
         },
         brandVisualImg: '/icons/projects/popm_global.svg',
-        projectList: ['Adaptive goal-based investing AI', 'Automated portfolio rebalancing', 'Real-time market sentiment analyzer'],
+        projectList: ['Competency Framework', 'Professional Progress Dashboard', 'Specialized Product Case Courses'],
         impact: {
             title: "PopM Global",
             images: ["/projectImages/pop.png", "/projectImages/pop1.png"]
         },
         summary: {
-            description: "PopM Global is a leading provider of mental health services, offering a range of programs and resources to help individuals achieve their mental health goals.",
+            description: "POPM GLOBAL is a web based educational service provider which delivers functionality just like a physical institution. Most LMSs provide common features like tracking and recording candidate progress and automates the functions of course content availability and student- teacher.",
             details: [
                 { label: "Industry", value: "EdTech" },
                 { label: "Project Type", value: "Learning Management System" },
