@@ -456,9 +456,11 @@ export const projectsData: ProjectData[] = [
         techStack: {
             title: "Built with",
             items: [
-                { label: "Frontend", techs: [{ name: "Angular", icon: "/technologies/angular.svg" }] },
-                { label: "Backend", techs: [{ name: "Express.js", icon: "/technologies/express_logo.png" }] },
-                { label: "Database", techs: [{ name: "MongoDB", icon: "/technologies/mongodb.png" }] }
+                { label: "Frontend", techs: [{ name: "Vue.js", icon: "/technologies/vuejs.png" }] },
+                { label: "Backend", techs: [{ name: "Laravel", icon: "/technologies/Laravel-Logo.wine.svg" }] },
+                { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] },
+                { label: "Cache", techs: [{ name: "Redis", icon: "/technologies/redis.svg" }] },
+                { label: "Testing", techs: [{ name: "PhpPest", icon: "/technologies/pest-logo.png" }] }
             ]
         }
     },
@@ -487,11 +489,9 @@ export const projectsData: ProjectData[] = [
         techStack: {
             title: "Built with",
             items: [
-                { label: "Frontend", techs: [{ name: "Vue.js", icon: "/technologies/vuejs.png" }] },
-                { label: "Backend", techs: [{ name: "Laravel", icon: "/technologies/Laravel-Logo.wine.svg" }] },
-                { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] },
-                { label: "Cache", techs: [{ name: "Redis", icon: "/technologies/redis.svg" }] },
-                { label: "Testing", techs: [{ name: "PhpPest", icon: "/technologies/pest-logo.png" }] }
+                { label: "Frontend", techs: [{ name: "Angular", icon: "/technologies/angular.svg" }] },
+                { label: "Backend", techs: [{ name: "Express.js", icon: "/technologies/express_logo.png" }] },
+                { label: "Database", techs: [{ name: "MongoDB", icon: "/technologies/mongodb.png" }] }
             ]
         }
     },
