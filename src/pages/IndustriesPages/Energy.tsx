@@ -28,7 +28,7 @@ const commitmentData: CommitmentSectionProps['data'] = {
 }
 const servicesData: InfoGridProps['data'] = {
     label: 'Operational Modules — Powering the Energy Business',
-    title: 'Derived from the Custom Software insights',
+    title: 'Our Core Capabilities',
     items: [
         {
             icon: '01',

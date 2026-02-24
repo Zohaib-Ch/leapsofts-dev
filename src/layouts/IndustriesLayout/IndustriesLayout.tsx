@@ -4,16 +4,18 @@ import About from '../../pages/Home/About/About'
 import Technologies from '../../components/Slider/Slider'
 import Partners from '../../components/Partners/Partners'
 import IndustryProcess from '../../components/IndustryProcess/IndustryProcess'
+import ContactForm from '../../components/ContactForm/ContactForm'
 
 const IndustriesLayout: React.FC = () => {
 
     return (
         <>
             <Outlet />
+            <Partners />
             <About />
             <Technologies />
-            <Partners />
             <IndustryProcess titleMain='Finance'/>
+            <ContactForm />
         </>
     )
 }

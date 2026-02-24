@@ -14,7 +14,7 @@ import ServiceFeatures, { type ServiceFeatureItem } from '../../components/Servi
   ]
   const commitmentData: CommitmentSectionProps['data'] = {
     subtitle: "OUR COMMITMENT TO CONSTRUCTION SUCCESS",
-    title: "Three Commitments for Builders & Contractors",
+    title: "Unwavering Standards for Builders",
     items: [
         {
             icon: '/industryicons/sphere.svg',

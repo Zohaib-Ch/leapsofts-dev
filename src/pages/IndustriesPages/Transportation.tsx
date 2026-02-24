@@ -29,7 +29,7 @@ const commitmentData: CommitmentSectionProps['data'] = {
 
 const servicesData: InfoGridProps['data'] = {
     label: 'Operational Modules — Powering the Fleet',
-    title: 'Tailored for the Logistics Industry',
+    title: 'Streamline Your Supply Chain',
     items: [
         {
             icon: '01',

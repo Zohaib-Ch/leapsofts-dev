@@ -8,7 +8,7 @@ import { type ServiceFeatureItem } from '../../components/ServiceFeatures/Servic
 
   const commitmentData: CommitmentSectionProps['data'] = {
         subtitle: "OUR COMMITMENT TO WHOLESALE AND RETAIL",
-        title: "Tailored software solutions for growing businesses",
+        title: "Accelerating Wholesale Growth with Bespoke Tech",
         items: [
             {
                 icon: '/industryicons/sphere.svg',

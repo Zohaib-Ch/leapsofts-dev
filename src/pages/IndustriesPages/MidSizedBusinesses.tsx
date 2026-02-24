@@ -107,7 +107,7 @@ const MidSizedBusinesses: React.FC = () => {
     };
     const commitmentData: CommitmentSectionProps['data'] = {
         subtitle: "OUR COMMITMENT TO MID-SIZED BUSINESSES",
-        title: "Tailored software solutions for growing businesses",
+        title: "Your Vision, Architected for Growth",
         items: [
             {
                 icon: '/industryicons/sphere.svg',
