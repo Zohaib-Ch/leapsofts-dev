@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useOutletContext } from 'react-router-dom'
+import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
@@ -145,6 +147,14 @@ const defaultItems: ServiceFeatureItem[] = [
   ]
 
 const Entertainment: React.FC = () => {
+        const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+    useEffect(() => {
+        setProcessTitle({
+            titleMain: "Entertainment Media Solutions",
+            titleAccent: "Process"
+        });
+    }, [setProcessTitle]);
     return (
         <>
              <IntroComponent

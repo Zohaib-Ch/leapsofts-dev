@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useOutletContext } from 'react-router-dom'
+import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
@@ -102,6 +104,14 @@ const whyChooseUsData = {
 };
 
 const Finance: React.FC = () => {
+        const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+    useEffect(() => {
+        setProcessTitle({
+            titleMain: "FinTech App Development",
+            titleAccent: "Process"
+        });
+    }, [setProcessTitle]);
 
     return (
         <>

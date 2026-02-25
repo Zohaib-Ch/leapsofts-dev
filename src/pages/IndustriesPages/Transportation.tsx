@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useOutletContext } from 'react-router-dom'
+import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
 import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid'
@@ -134,6 +136,15 @@ const introDescription = [
     { text: "Traditional routes are changing fast. We engineer, build, and maintain custom Transportation Management Systems (TMS) that automate your processes, improve operational efficiency, and drive scalability.", bold: false },
 ]
 const Transportation: React.FC = () => {
+       const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+    useEffect(() => {
+        setProcessTitle({
+            titleMain: "Logistics & Fleet Solutions",
+            titleAccent: "Process"
+        });
+    }, [setProcessTitle]);
+
     return (
         <>
             <IntroComponent

@@ -7,6 +7,7 @@ import ContactForm from '../../components/ContactForm/ContactForm'
 import Processes from '../../components/Processes/Processes'
 import { type ProcessPhase } from '../../components/Processes/Processes'
 import styles from './partners.module.css'
+import style from '../home/home.module.css'
 
 const Partners: React.FC = () => {
   const benefitsData: InfoGridProps['data'] = {
@@ -203,7 +204,7 @@ const Partners: React.FC = () => {
           phaseLabels={partnershipPhaseLabels}
         />
       </div>
-      <div id="consultation">
+      <div id="consultation" className={style.contactContainer}>
         <ContactForm />
       </div>
     </>

@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useOutletContext } from 'react-router-dom'
+import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import CommitmentSection from '../../components/CommitmentSection/CommitmentSection'
 import { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
@@ -6,6 +8,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
 import EmergingTech from '../../components/EmergingTech/EmergingTech'
 import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
 import Services from '../Home/CompanyServices/Services';
+import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 
 const commitmentData: CommitmentSectionProps['data'] = {
     subtitle: "OUR COMMITMENT TO HEALTHCARE",
@@ -87,6 +90,30 @@ const ourTechInnovationsData: EmergingTechProps['data'] = {
         }
     ]
 }
+const deliverMVPData = {
+    label: "WHY CHOOSE LEAPSOFTS",
+    title: "How Can We Deliver Your MVP in",
+    accentText: "3-5 months?",
+    description: "Leapsofts is a custom healthcare software development company that offers software products tailored to your unique business objectives. Leveraging our structured end-to-end processes, custom project management tool, agile methodology, and AI integration expertise, we solve complex business challenges, accelerate growth, and consistently deliver MVPs within 3 to 5 months, on time, every time.",
+    items: [
+        {
+            title: "Proven Methodologies & Processes.",
+            description: "We follow agile workflows, CI/CD pipelines, and DevOps practices to accelerate delivery while maintaining top-tier quality and compliance."
+        },
+        {
+            title: "Client-First Approach.",
+            description: "From discovery to post-launch support, we collaborate with your team and stakeholders to build solutions aligned with your specific needs and business workflows."
+        },
+        {
+            title: "Transparent Pricing Models.",
+            description: "Whether it's fixed-scope development or continuous product engineering, we provide clarity, flexibility, and no hidden costs."
+        },
+        {
+            title: "Healthcare Software Expertise.",
+            description: "With years of experience building healthcare applications, we understand the nuances of EMRs, patient engagement, HIPAA compliance, and third-party integrations."
+        }
+    ]
+};
   const streamlineDescription = [
     { text: "Whether you're modernizing an ", bold: false },
     { text: "existing enterprise software system ", bold: true },
@@ -105,6 +132,14 @@ const ourTechInnovationsData: EmergingTechProps['data'] = {
     ]
 
 const Healthcare: React.FC = () => {
+        const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+    useEffect(() => {
+        setProcessTitle({
+            titleMain: "Healthcare Product Development",
+            titleAccent: "Process"
+        });
+    }, [setProcessTitle]);
     return (
         <>
             <IntroComponent
@@ -123,6 +158,7 @@ const Healthcare: React.FC = () => {
             />
             <EmergingTech data={ourTechInnovationsData} />
             <Services />
+            <DeliverMVP data={deliverMVPData} />
             <EmergingTech data={ourTechInnovationsData} />
         </>
     )

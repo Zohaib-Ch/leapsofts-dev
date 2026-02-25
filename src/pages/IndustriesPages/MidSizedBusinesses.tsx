@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useOutletContext } from 'react-router-dom'
+import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
 import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
@@ -6,6 +8,15 @@ import EmergingTech, { type EmergingTechProps } from '../../components/EmergingT
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 
 const MidSizedBusinesses: React.FC = () => {
+        const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+    useEffect(() => {
+        setProcessTitle({
+            titleMain: "Enterprise Business Solutions",
+            titleAccent: "Process"
+        });
+    }, [setProcessTitle]);
+    
     const title = "Custom Solutions for Mid-Sized Businesses";
     const subtitle = ""
     const introDescription = [

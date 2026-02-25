@@ -486,10 +486,6 @@
         width: 90%;
     }
 
-
-
-   
-
     .cardContent {
         padding: 28px;
     }
@@ -523,8 +519,6 @@
         font-size: 10px;
     }
 
-
-
     .phaseTabs {
         width: 28px;
     }
@@ -539,6 +533,10 @@
 
     .cardTitle {
         font-size: 1.35rem;
+    }
+
+    .cardDescription {
+        font-size: 12px;
     }
 
 }

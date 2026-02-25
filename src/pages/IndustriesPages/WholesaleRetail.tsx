@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useOutletContext } from 'react-router-dom'
+import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
 import InfoGrid from '../../components/InfoGrid/InfoGrid'
@@ -88,6 +90,14 @@ const defaultItems: ServiceFeatureItem[] = [
     ]
 
 const WholesaleRetail: React.FC = () => {
+    const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  useEffect(() => {
+    setProcessTitle({
+      titleMain: "Retail & Commerce Platforms",
+      titleAccent: "Process"
+    });
+  }, [setProcessTitle]);
     return (
         <>
             <IntroComponent
