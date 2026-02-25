@@ -1,10 +1,1 @@
 /* Hero section styles moved to IntroComponent */
-.contactContainer {
-    padding-left: 100px;
-}
-
-@media (max-width: 1024px) {
-    .contactContainer {
-        padding-left: 0;
-    }
-}

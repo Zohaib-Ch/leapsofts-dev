@@ -5,7 +5,7 @@
 .contactSection {
     width: 100%;
     margin: 0 auto;
-    padding: 100px 0;
+    padding: 100px;
     position: relative;
     background-color: #0b0b1a;
     /* Very dark blue background */
@@ -304,7 +304,11 @@
         grid-template-columns: repeat(3, 1fr);
     }
 }
-
+@media (max-width: 1024px) {
+    .contactSection {
+        padding: 100px 30px;
+    }
+}
 @media (max-width: 768px) {
     .contactSection {
         padding: 60px 0;
