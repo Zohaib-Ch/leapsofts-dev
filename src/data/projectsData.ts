@@ -440,16 +440,16 @@ export const projectsData: ProjectData[] = [
             description: 'Advanced dealership management system with real-time inventory tracking and AI sales forecasting.',
         },
         brandVisualImg: '/icons/projects/agile-auto.svg',
-        projectList: ['Real-time inventory synchronization', 'AI-driven sales forecasting engine', 'Digital showroom experience'],
+        projectList: ['Real-time inventory synchronization', 'Data-driven sales forecasting engine', 'Digital showroom experience'],
         impact: {
             title: "Agile Auto",
             images: ["/projectImages/agileauto.png", "/projectImages/agileauto1.png"]
         },
         summary: {
-            description: "Agile Auto is a next-generation platform for automotive dealerships, focusing on bridging the gap between digital browse and physical purchase.",
+            description: "AgileAuto is a comprehensive automotive dealership management and analytics platform designed to help automotive retailers optimize their inventory, sales, and acquisition strategies through data-driven insights",
             details: [
                 { label: "Industry", value: "Automotive" },
-                { label: "Project Type", value: "Dealership Network" },
+                { label: "Project Type", value: "Dealership Management" },
                 { label: "Service", value: "Custom Software Development" }
             ]
         },
@@ -473,13 +473,13 @@ export const projectsData: ProjectData[] = [
             description: 'The definitive platform for modern auto repair shops. Manage appointments, parts, and customer communication in one place.',
         },
         brandVisualImg: '/icons/projects/autoleap.svg',
-        projectList: ['All-in-One Shop Management', 'Estimates and Invoicing', 'Digital Vehicle Inspections (DVI)'],
+        projectList: ['All-in-One Shop Management', 'AI Receptionist for Auto Shops', 'Digital Vehicle Inspections (DVI)'],
         impact: {
             title: "Autoleap",
             images: ["/projectImages/autoleap.png", "/projectImages/autoleap1.png"]
         },
         summary: {
-            description: "Autoleap provides a comprehensive suite of tools for auto repair shop owners, enabling complete digital transformation of service bays.",
+            description: "AutoLeap provides a complete automotive repair shop management solution for shop owners, service managers, and technicians to manage every aspect of their shop. Designed to help you work smarter, not harder, and grow your auto repair business, all from a single, easy-to-use platform.",
             details: [
                 { label: "Industry", value: "Automotive" },
                 { label: "Project Type", value: "Auto-Repair" },
@@ -660,7 +660,7 @@ export const projectsData: ProjectData[] = [
             description: "Forensics case software designed to help clients to manage digital forensics labs, evidence, and casework. The company's platform offers features that include case tracking, evidence & document management, notes & task management, casework metrics management, task list creation, task assigning, inquiries management, clients management, digital storage management, report generation, and more, enabling clients to store and track cases from anywhere.",
             details: [
                 { label: "Industry", value: "Forensics" },
-                { label: "Project Type", value: "Forensic Software" },
+                { label: "Project Type", value: "Forensics Software" },
                 { label: "Service", value: "Custom Software Development" }
             ]
         },
@@ -686,7 +686,7 @@ export const projectsData: ProjectData[] = [
             images: ["/projectImages/pop.png", "/projectImages/pop1.png"]
         },
         summary: {
-            description: "POPM GLOBAL is a web based educational service provider which delivers functionality just like a physical institution. Most LMSs provide common features like tracking and recording candidate progress and automates the functions of course content availability and student- teacher.",
+            description: "POPM GLOBAL is a web based educational service provider which delivers functionality just like a physical institution. Most LMSs provide common features like tracking and recording candidate progress and automates the functions of course content availability and student- teacher interactions. POPM GLOBAL level test delivers all the expected features of a Learning Management System. However the features that distinguish POPM GLOBAL from any other LMS are integrated Zoom and live Chatbot so the users can benefit from the services without having to change the platforms frequently.",
             details: [
                 { label: "Industry", value: "EdTech" },
                 { label: "Project Type", value: "Learning Management System" },
@@ -697,7 +697,7 @@ export const projectsData: ProjectData[] = [
             title: "Built with",
             items: [
                 { label: "Frontend", techs: [{ name: "React Native", icon: "/technologies/React.svg" }, { name: "Vue Js", icon: "/technologies/vuejs.png" }] },
-                { label: "Backend", techs: [{ name: "Node Js", icon: "/technologies/nodejs.png" }] },
+                { label: "Backend", techs: [{ name: "Express", icon: "/technologies/express_logo.png" }] },
                 { label: "Database", techs: [{ name: "MongoDB", icon: "/technologies/mongodb.png" }, { name: "Firebase", icon: "/technologies/firebase.png" }] }
             ]
         }
