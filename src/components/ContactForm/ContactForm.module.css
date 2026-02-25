@@ -5,7 +5,7 @@
 .contactSection {
     width: 100%;
     margin: 0 auto;
-    padding: 100px 0;
+    padding: 100px;
     position: relative;
     background-color: #0b0b1a;
     /* Very dark blue background */
@@ -90,7 +90,7 @@
 
 .headline .accent {
     font-family: 'Dancing Script', cursive;
-    color: #ff4d94;
+    color: var(--color-orange);
     font-size: 1.1em;
     font-weight: 700;
     margin: 0 5px;
@@ -103,7 +103,7 @@
 }
 
 .dateHighlight {
-    color: #4ade80;
+    color: var(--color-orange);
     /* Brighter green */
     font-family: 'Space Mono', monospace;
     font-weight: 600;
@@ -173,8 +173,47 @@
     gap: 10px;
 }
 
-.countrySelectWrapper {
+.countrySelectContainer {
+    position: relative;
     width: 85px;
+    display: flex;
+    align-items: center;
+}
+
+.selectedCountryCode {
+    position: absolute;
+    left: 18px;
+    color: #ffffff;
+    font-size: 15px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.countrySelect {
+    width: 100%;
+    padding: 14px 18px;
+    background: #1f1f3e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: transparent;
+    /* Hide the native selected text */
+    font-size: 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    appearance: none;
+    /* Remove default arrow to avoid overlap if needed, or keep for UX */
+    padding-left: 18px;
+}
+
+.countrySelect option {
+    background: #1f1f3e;
+    color: #ffffff;
+}
+
+.countrySelect:focus {
+    outline: none;
+    border-color: #ff4d94;
+    background: #2a2a4e;
 }
 
 .phoneInput {
@@ -198,6 +237,7 @@
     appearance: none;
     width: 20px;
     height: 20px;
+    flex-shrink: 0;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 4px;
     background: #1f1f3e;
@@ -207,8 +247,8 @@
 }
 
 .checkbox:checked {
-    background: #4ade80;
-    border-color: #4ade80;
+    background: var(--color-orange);
+    border-color: var(--color-orange);
 }
 
 .checkbox:checked::after {
@@ -264,7 +304,11 @@
         grid-template-columns: repeat(3, 1fr);
     }
 }
-
+@media (max-width: 1024px) {
+    .contactSection {
+        padding: 100px 30px;
+    }
+}
 @media (max-width: 768px) {
     .contactSection {
         padding: 60px 0;
@@ -284,7 +328,11 @@
 }
 
 @media (max-width: 480px) {
-    .countrySelectWrapper {
+    .countrySelectContainer {
         width: 70px;
+    }
+
+    .countrySelect {
+        font-size: 12px;
     }
 }

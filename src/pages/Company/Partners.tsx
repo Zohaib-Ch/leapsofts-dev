@@ -52,7 +52,7 @@ const Partners: React.FC = () => {
       phase: "PHASE 1: PARTNERSHIP INITIATION",
       title: "Partnership Initiation",
       description:
-        "Establishes the foundation for strategic collaboration by aligning vision, objectives, and success metrics while assessing mutual capabilities and long-term fit.",
+        "Partnership initiation establishes the foundation for a successful strategic collaboration. At Leapsofts, this phase focuses on aligning vision, objectives, and success metrics while assessing mutual capabilities and long-term fit.",
       features: [
         {
           title: "Vision Alignment",
@@ -76,7 +76,7 @@ const Partners: React.FC = () => {
       phase: "PHASE 2: INTEGRATION PLANNING",
       title: "Integration Planning",
       description:
-        "Ensures smooth alignment of systems, teams, and processes by defining integration strategy around technical architecture, data flows, security, and operational dependencies.",
+        "Integration planning ensures a smooth and efficient alignment between systems, teams, and processes at the early stages of the partnership. At Leapsofts, we define a clear integration strategy that addresses technical architecture, data flows, security requirements, and operational dependencies.",
       features: [
         {
           title: "Integration Strategy",
@@ -100,7 +100,7 @@ const Partners: React.FC = () => {
       phase: "PHASE 3: EXECUTION & CO-DELIVERY",
       title: "Execution & Co-Delivery",
       description:
-        "Transforms strategic plans into measurable results through collaborative development, testing, and deployment of enterprise-grade solutions with shared accountability.",
+        "Execution & Co-Delivery at Leapsofts transforms strategic plans into measurable results by collaboratively developing, testing, and deploying enterprise-grade solutions.",
       features: [
         {
           title: "Solution Delivery",
@@ -124,7 +124,7 @@ const Partners: React.FC = () => {
       phase: "PHASE 4: GROWTH & EVOLUTION",
       title: "Growth & Evolution",
       description:
-        "Scales the partnership through strategic growth initiatives, governance reviews, and continuous innovation to sustain long-term value and competitive advantage.",
+        "Growth & Evolution focuses on scaling the partnership by implementing strategic growth initiatives, expanding market opportunities, and maximizing business impact. Leapsofts ensures alignment and accountability through regular governance reviews, refining roles, responsibilities, and collaboration processes.",
       features: [
         {
           title: "Growth Strategy",

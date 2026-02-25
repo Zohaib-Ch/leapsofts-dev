@@ -261,7 +261,10 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false }) => {
                         <div className={styles.formGroup}>
                             <label htmlFor="phone" className={styles.label}>Phone number</label>
                             <div className={styles.phoneGroup}>
-                                <div className={styles.countrySelectWrapper}>
+                                <div className={styles.countrySelectContainer}>
+                                    <span className={styles.selectedCountryCode}>
+                                        {selectedCountry?.code}
+                                    </span>
                                     <select
                                         name="countryCode"
                                         className={styles.countrySelect}
@@ -270,7 +273,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false }) => {
                                     >
                                         {(countryPhonePatterns as CountryPattern[]).map((country) => (
                                             <option key={country.iso2} value={country.iso2}>
-                                                {country.iso2} +{country.code}
+                                                {country.country} ({country.code})
                                             </option>
                                         ))}
                                     </select>
@@ -369,8 +372,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false }) => {
 
                     <div className={styles.submitSection}>
                         <Button
-                            color1="#22c55e"
-                            color2="#16a34a"
+                            color1="var(--color-primary)"
+                            color2="var(--color-primary-light)"
                             text="Submit"
                             hasIcon={true}
                         />

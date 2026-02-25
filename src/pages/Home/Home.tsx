@@ -11,6 +11,7 @@ import ContactForm from '../../components/ContactForm/ContactForm';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import Figures from './Figures/Figures';
 import IndustrySlider from '../../components/IndustrySlider/IndustrySlider';
+import style from './home.module.css';
 
 const Home = () => {
   const title = "Custom Software Development Company";
@@ -198,7 +199,7 @@ const Home = () => {
         <Testimonials />
       </div>
 
-      <div id="contact">
+      <div id="contact" className={style.contactContainer} >
         <ContactForm />
       </div>
       <HashScroll />

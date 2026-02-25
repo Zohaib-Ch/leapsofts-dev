@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useOutletContext } from 'react-router-dom'
+import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
 import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid'
@@ -140,6 +142,15 @@ const introDescription = [
 ]
 
 const RealEstate: React.FC = () => {
+        const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+    useEffect(() => {
+        setProcessTitle({
+            titleMain: "Real Estate Tech Ecosystems",
+            titleAccent: "Process"
+        });
+    }, [setProcessTitle]);
+
     return (
         <>
             <IntroComponent

@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useOutletContext } from 'react-router-dom'
+import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
 import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid'
@@ -28,7 +30,7 @@ const commitmentData: CommitmentSectionProps['data'] = {
 }
 const servicesData: InfoGridProps['data'] = {
     label: 'Operational Modules — Powering the Energy Business',
-    title: 'Derived from the Custom Software insights',
+    title: 'Our Core Capabilities',
     items: [
         {
             icon: '01',
@@ -126,6 +128,14 @@ const introDescription = [
     { text: "The tides of change are moving faster than ever. We empower energy organizations with the flexibility, resilience, and agility needed to streamline operations and stay ahead of the competition.", bold: false },
 ]
 const Energy: React.FC = () => {
+        const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+    useEffect(() => {
+        setProcessTitle({
+            titleMain: "Energy System Modernization",
+            titleAccent: "Process"
+        });
+    }, [setProcessTitle]);
     return (
         <>
             <IntroComponent

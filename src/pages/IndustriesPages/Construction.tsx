@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useOutletContext } from 'react-router-dom'
+import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
 import InfoGrid from '../../components/InfoGrid/InfoGrid'
@@ -14,7 +16,7 @@ import ServiceFeatures, { type ServiceFeatureItem } from '../../components/Servi
   ]
   const commitmentData: CommitmentSectionProps['data'] = {
     subtitle: "OUR COMMITMENT TO CONSTRUCTION SUCCESS",
-    title: "Three Commitments for Builders & Contractors",
+    title: "Unwavering Standards for Builders",
     items: [
         {
             icon: '/industryicons/sphere.svg',
@@ -35,7 +37,7 @@ import ServiceFeatures, { type ServiceFeatureItem } from '../../components/Servi
 }
 const servicesData: InfoGridProps['data'] = {
   label: 'Operational Modules — Engineering Project Success',
-  title: 'Built on Leapsofts data for construction excellence.',
+  title: 'Tailored for the Construction Industry',
   items: [
     {
       icon: '01',
@@ -86,6 +88,14 @@ const whyChooseUsData = {
 };
 
 const Construction: React.FC = () => {
+      const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  useEffect(() => {
+    setProcessTitle({
+      titleMain: "Construction Management Software",
+      titleAccent: "Process"
+    });
+  }, [setProcessTitle]);
     return (
         <>
         <IntroComponent
