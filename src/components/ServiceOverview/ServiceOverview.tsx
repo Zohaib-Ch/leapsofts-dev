@@ -33,7 +33,7 @@ const ServiceOverview: React.FC<ServiceOverviewProps> = ({
                     <div className={styles.contentLeftDescription}>{description}</div>
                     <div className={styles.contentLeftCall}>
                         <p>
-                            <a href="#contact" className={styles.call}>Schedule a call </a>
+                            <span className={styles.call}>Schedule a call </span>
                             to talk about how we can prepare your software for the real world, or keep reading to learn more about our approach.
                         </p>
                     </div>

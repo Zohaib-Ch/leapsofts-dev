@@ -101,9 +101,9 @@ export const projectsData: ProjectData[] = [
             images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
         },
         tabImages: {
-            'tab-1-0': '/vaultguard-hero.png',
-            'tab-1-1': '/insurtech-hero.png',
-            'tab-1-2': '/wealthbot-hero.png'
+            'tab-1-0': '/ai_team_collaboration_impact.png',
+            'tab-1-1': '/ai_team_collaboration_impact.png',
+            'tab-1-2': '/ai_team_collaboration_impact.png'
         },
         summary: {
             description: "Developing a next-generation banking core that enables traditional financial institutions to compete with agile fintech startups.",
@@ -362,8 +362,8 @@ export const projectsData: ProjectData[] = [
         },
         tabImages: {
             'tab-8-0': '/projectImages/pop.png',
-            'tab-8-1': '/projectImages/gradebook.png',
-            'tab-8-2': '/projectImages/campus_connect.png'
+            'tab-8-1': '/ai_team_collaboration_impact.png',
+            'tab-8-2': '/ai_team_collaboration_impact.png'
         },
         summary: {
             description: "Partnering with educational institutions to create technology solutions that enhance learning outcomes and streamline administrative processes.",
@@ -409,8 +409,8 @@ export const projectsData: ProjectData[] = [
         },
         tabImages: {
             'tab-9-0': '/projectImages/forensics.png',
-            'tab-9-1': '/projectImages/forensics/forensic-two.png',
-            'tab-9-2': '/projectImages/forensics/forensic-three.png'
+            'tab-9-1': '/ai_team_collaboration_impact.png',
+            'tab-9-2': '/ai_team_collaboration_impact.png'
         },
         summary: {
             description: "Partnering with educational institutions to create technology solutions that enhance learning outcomes and streamline administrative processes.",
