@@ -178,7 +178,7 @@ const deliverMVPData = {
     label: "WHY CHOOSE LEAPSOFTS",
     title: "How Can We Deliver Your Mobile App in",
     accentText: "3-5 months?",
-    description: "Leapsofts is a custom software development company that offers software products tailored to your unique business objectives. Leveraging our structured end-to-end processes, custom project management tool, agile methodology, and AI integration expertise, we solve complex business challenges, accelerate growth, and consistently deliver MVPs within 3 to 5 months, on time, every time.",
+    description: "Leapsofts is a custom software development company that offers software products tailored to your unique business objectives. Leveraging our structured end-to-end processes, custom project management tool, agile methodology, and AI integration expertise, we solve complex business challenges, accelerate growth, and consistently deliver mobile apps within 3 to 5 months, on time, every time.",
     items: [
         {
             title: "Proven Methodologies & Processes.",
@@ -321,13 +321,21 @@ const deliverMVPData = {
     { text: "can streamline workflows, improve efficiency, and support scalable growth.", bold: false },
   ];
 
+  const title = "Mobile App Development Services";
+const subtitle = "";
+
+const introDescription = [
+    { text: "At Leapsofts, we specialize in delivering custom mobile app development services that align with your business goals. Whether you're a startup aiming to disrupt the market or an enterprise seeking digital transformation, our end-to-end solutions are designed to provide user-friendly, high-performance mobile experiences across iOS, Android, and cross-platform environments.", bold: false },
+]
+
 
 const MobileAppDevelopment: React.FC = () => {
   return (
     <>
       <IntroComponent
-        title="Mobile App Development Services"
-        description="At Leapsofts, we do more than just develop apps; we craft engaging digital experiences. With our rapid, agile, and scalable mobile app development approach, we position you at the forefront of innovation, swiftly propelling you ahead of the competition."
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
       />
       <ServiceOverview
       label='BRIEF OVERVIEW'
