@@ -321,7 +321,7 @@ const deliverMVPData = {
     { text: "can streamline workflows, improve efficiency, and support scalable growth.", bold: false },
   ];
 
-  const title = "Mobile App Development Services";
+const title = "Mobile App Development Services";
 const subtitle = "";
 
 const introDescription = [
