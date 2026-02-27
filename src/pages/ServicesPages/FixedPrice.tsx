@@ -1,43 +1,35 @@
-import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
-import EmergingTech from '../../components/EmergingTech/EmergingTech';
-import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
-import Processes from '../../components/Processes/Processes';
-import { type ProcessPhase } from '../../components/Processes/Processes';
-import InfoGrid from '../../components/InfoGrid/InfoGrid';
-import { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
+import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
+import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
+import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
+import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
+import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
+import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import laptopImg from "../../assets/about_laptop_3d.png";
+
+const serviceOverviewData = {
+  label: "FIXED PRICE MODEL",
+  titleMain: "Transparent &",
+  titleAccent: "Predictable",
+  titleEnd: "Delivery",
+  description: "Leapsofts offers a fixed-price engagement model that provides complete clarity on project scope, timelines, and costs. This model is ideal for well-defined projects where budget predictability and timely delivery are paramount.",
+  imagePath: laptopImg
+};
 
 const ourServicesData: EmergingTechProps['data'] = {
-  label: 'FIXED PRICE BENEFITS',
-  titleAccent: 'Unlock Your',
-  titleMain: ' Digital Advancement',
+  label: 'MODEL BENEFITS',
+  titleAccent: 'Fixed',
+  titleMain: 'Price Advantages',
   description:
-    'Discover the key advantages of choosing a fixed-price engagement model with LeapSofts.',
+    'Discover the key advantages of choosing a fixed-price engagement model with Leapsofts.',
   items: [
-    {
-      icon: 'product',
-      title: 'Accelerated Delivery Assurance',
-      description:
-        'Agile engineering practices and efficient development ensure fast, obstacle-free delivery.'
-    },
-    {
-      icon: 'enterprise',
-      title: 'Strategic Edge',
-      description:
-        'Save time and resources while scaling faster than competitors without excessive costs.'
-    },
-    {
-      icon: 'product',
-      title: 'Superior Product Assurance',
-      description:
-        'Continuous quality assurance throughout the project ensures all requirements are met.'
-    },
-    {
-      icon: 'hipaa',
-      title: 'Safety & Confidentiality',
-      description:
-        'All work is protected under strict NDAs, ensuring complete security and IP protection.'
-    }
+    { icon: 'product', title: 'Budget Certainty', description: 'Know your exact project costs upfront with no hidden surprises.' },
+    { icon: 'enterprise', title: 'Defined Scope', description: 'Clear documentation of all features and requirements before work begins.' },
+    { icon: 'product', title: 'Timely Execution', description: 'Committed deadlines ensure your product launches on schedule.' },
+    { icon: 'hipaa', title: 'Risk Mitigation', description: 'We take on the delivery risk, ensuring requirements are met within budget.' },
+    { icon: 'enterprise', title: 'Quality Focus', description: 'Rigorous QA processes to ensure the final product meets all standards.' },
+    { icon: 'mobile', title: 'Strategic Edge', description: 'Launch faster and more predictably than your competitors.' },
   ]
 };
 const processPhasesDefault: ProcessPhase[] = [
@@ -98,32 +90,86 @@ const phaseLabelsDefault = [
   'Continuous Support'
 ];
 const fixedPriceProcessData: InfoGridProps['data'] = {
-  label: 'DISCOVERY WORKSHOP',
-  title: 'Exploring Your Options',
+  label: 'WHY CHOOSE FIXED',
+  title: 'Predictability for Your Business',
   items: [
     {
       icon: '01',
-      title: 'Technical Analysis',
-      description:
-        'Identify and address high-risk technical challenges with well-evaluated, optimal solutions.'
+      title: 'No Hidden Costs',
+      description: 'The price we agree on is the price you pay, period.'
     },
     {
       icon: '02',
-      title: 'User Experience Narrative',
-      description:
-        'Develop a comprehensive product narrative outlining features, flows, and user interactions.'
+      title: 'Clear Deliverables',
+      description: 'You get exactly what is outlined in the project scope.'
     },
     {
       icon: '03',
-      title: 'Dynamic Prototype',
-      description:
-        'Create engaging UI/UX prototypes that visualize and validate the final product experience.'
+      title: 'Resource Planning',
+      description: 'Easily plan your internal resources around fixed milestones.'
     },
     {
       icon: '04',
-      title: 'Project Blueprint',
-      description:
-        'Define a clear delivery strategy including scope, timelines, and cost estimation.'
+      title: 'Project Accountability',
+      description: 'We are fully accountable for delivering the defined scope on time.'
+    }
+  ]
+};
+
+const streamlineDescription = [
+  { text: "Budget predictability shouldn't mean a ", bold: false },
+  { text: "lack of flexibility", bold: true },
+  { text: ". Leapsofts offers a ", bold: false },
+  { text: "complimentary fixed-price consultation ", bold: true },
+  { text: "to help you define a ", bold: false },
+  { text: "clear project roadmap ", bold: true },
+  { text: "that ensures quality and delivery within your specific budget constraints.", bold: false },
+];
+
+const serviceFeaturesData: ServiceFeatureItem[] = [
+  {
+    icon: '/industryicons/sphere.svg',
+    title: 'Scope Definition',
+    description: 'Detailed documentation of functional and technical requirements.'
+  },
+  {
+    icon: '/industryicons/bipiramida.svg',
+    title: 'Milestone Tracking',
+    description: 'Clear progress updates tied to pre-defined project stages.'
+  },
+  {
+    icon: '/industryicons/sphere.svg',
+    title: 'Fixed Timelines',
+    description: 'Commitment to specific start and end dates for your project.'
+  },
+  {
+    icon: '/industryicons/bipiramida.svg',
+    title: 'Turnkey Delivery',
+    description: 'A complete, ready-to-use product delivered on the agreed date.'
+  }
+];
+
+const deliverMVPData = {
+  label: "FIXED PRICE EXCELLENCE",
+  title: "Committed to",
+  accentText: "Predictable Delivery",
+  description: "Leapsofts provides dedicated project teams that are fully committed to your project's success. We focus on transparency, adherence to scope, and technical rigor.",
+  items: [
+    {
+      title: "Strict Scoping.",
+      description: "Ensuring every detail is captured before the project starts."
+    },
+    {
+      title: "Transparent Pricing.",
+      description: "Complete clarity on costs with no hidden fees or upgrades."
+    },
+    {
+      title: "Quality Benchmarks.",
+      description: "Hitting specific performance and security standards at every milestone."
+    },
+    {
+      title: "Experienced Management.",
+      description: "Senior PMs to ensure the project stays on track and within budget."
     }
   ]
 };
@@ -131,18 +177,39 @@ const fixedPriceProcessData: InfoGridProps['data'] = {
 
 
 const FixedPrice: React.FC = () => {
-    return (
-        <>
-            <IntroComponent
-                title="Enhanced, Swift Development"
-                description="Elevate your pace with LeapSofts’s comprehensive full stack software development offerings, delivered at a fixed cost while maintaining top-tier quality."
-            />
-            <EmergingTech data={ourServicesData}/>
-            <Processes title="OUR FIXED PRICE PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
-
-            <InfoGrid data={fixedPriceProcessData}/>
+  return (
+    <>
+      <IntroComponent
+        title="Predictable Development, Exceptional Results"
+        description="Get high-quality software development with fixed-price predictability."
+      />
+      <ServiceOverview
+        label={serviceOverviewData.label}
+        titleMain={serviceOverviewData.titleMain}
+        titleAccent={serviceOverviewData.titleAccent}
+        titleEnd={serviceOverviewData.titleEnd}
+        description={serviceOverviewData.description}
+        imagePath={serviceOverviewData.imagePath}
+      />
+      <EmergingTech data={ourServicesData} />
+      <InfoGrid data={fixedPriceProcessData} />
+      <StreamlineSuccess
+        label="STREAMLINE YOUR SUCCESS"
+        titleMain="Project "
+        titleAccent="Discovery"
+        titleEnd=" Session"
+        description={streamlineDescription}
+        imageUrl="/streamline.png"
+      />
+      <ServiceFeatures
+        title='Expert Services'
+        description='We deliver specialized services to support your fixed-price engagements.'
+        items={serviceFeaturesData}
+      />
+      <DeliverMVP data={deliverMVPData} />
+      <Processes title="OUR FIXED PRICE PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
-    );
+  );
 };
 
 export default FixedPrice;

@@ -1,147 +1,192 @@
-import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
-import EmergingTech from '../../components/EmergingTech/EmergingTech';
-import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
-import InfoGrid from '../../components/InfoGrid/InfoGrid';
-import { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
-import WhyChooseUs from '../../components/WhyChooseUs/WhyChooseUs';
+import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
+import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
+import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
+import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
+import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
+import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import laptopImg from "../../assets/about_laptop_3d.png";
+
+const serviceOverviewData = {
+  label: "IDEATION WORKSHOP",
+  titleMain: "Crystallize Your",
+  titleAccent: "Vision",
+  titleEnd: "into Reality",
+  description: "Leapsofts’s Ideation Workshop is a fast-paced, collaborative session designed to help you define your product’s core purpose, identify key user needs, and create a high-level roadmap for development. We turn abstract ideas into actionable project plans.",
+  imagePath: laptopImg
+};
 
 const ourServicesData: EmergingTechProps['data'] = {
-  label: 'DISCOVERY WORKSHOP',
-  titleAccent: 'Empowering Your',
-  titleMain: ' Creative Journey',
+  label: 'WORKSHOP FOCUS',
+  titleAccent: 'Collaborative',
+  titleMain: 'Ideation',
   description:
     'Our discovery workshops are designed to unlock creativity, validate ideas, and define a clear path from concept to execution.',
   items: [
-    {
-      icon: 'product',
-      title: 'Creative Ecosystem',
-      description:
-        'We foster an open, innovation-driven environment where ideas are encouraged, explored, and refined.'
-    },
-    {
-      icon: 'enterprise',
-      title: 'Expert Facilitation',
-      description:
-        'Experienced facilitators guide focused brainstorming sessions to harness collective intelligence.'
-    },
-    {
-      icon: 'product',
-      title: 'Customized Workshops',
-      description:
-        'Each workshop is tailored to your industry, goals, and project needs for maximum relevance.'
-    },
-    {
-      icon: 'hipaa',
-      title: 'Idea Validation',
-      description:
-        'Collaborative evaluation helps refine ideas into viable, development-ready concepts.'
-    },
-    {
-      icon: 'enterprise',
-      title: 'Ideation Techniques',
-      description:
-        'Proven tools and frameworks unlock creativity and drive innovative problem-solving.'
-    },
-    {
-      icon: 'product',
-      title: 'Roadmap Creation',
-      description:
-        'We deliver a clear post-workshop roadmap to guide ideas from concept to implementation.'
-    }
+    { icon: 'product', title: 'Creative Brainstorming', description: 'Foster an environment where ideas are encouraged and refined.' },
+    { icon: 'enterprise', title: 'Expert Facilitation', description: 'Guided sessions to harness collective intelligence and focus.' },
+    { icon: 'product', title: 'Tailored Workshops', description: 'Workshops designed specifically for your industry and goals.' },
+    { icon: 'hipaa', title: 'Concept Validation', description: 'Verify the technical and market feasibility of your ideas.' },
+    { icon: 'enterprise', title: 'Iterative Design', description: 'Rapidly sketch and refine user flows and interfaces.' },
+    { icon: 'product', title: 'Strategic Roadmap', description: 'Deliver a clear plan to guide your project from concept to launch.' },
   ]
 };
 
 const ideationProcessData: InfoGridProps['data'] = {
-  label: 'WORKING PROCESS',
-  title: 'The LeapSofts Ideation Workshop Process',
+  label: 'WORKSHOP OUTCOMES',
+  title: 'What You Gain',
   items: [
     {
       icon: '01',
-      title: 'Setting the Stage',
-      description:
-        'Lay the foundation by aligning objectives, expectations, and success criteria for the workshop.'
+      title: 'Concept Clarity',
+      description: 'A well-defined core value proposition for your product.'
     },
     {
       icon: '02',
-      title: 'Participant Selection',
-      description:
-        'Assemble a diverse, cross-functional team to bring balanced perspectives and expertise.'
+      title: 'Technical Feasibility',
+      description: 'Initial assessment of the technologies and architecture needed.'
     },
     {
       icon: '03',
-      title: 'Workshop Planning',
-      description:
-        'Design a structured agenda, tools, and activities to guide productive ideation.'
+      title: 'User Personas',
+      description: 'Clear understanding of who you are building for and why.'
     },
     {
       icon: '04',
-      title: 'Facilitation & Brainstorming',
-      description:
-        'Guide collaborative brainstorming sessions to generate innovative and actionable ideas.'
-    },
-    {
-      icon: '05',
-      title: 'Idea Exploration',
-      description:
-        'Refine, evaluate, and prioritize ideas to identify the most impactful opportunities.'
-    },
-    {
-      icon: '06',
-      title: 'Prototyping & Visualization',
-      description:
-        'Translate ideas into visual concepts or prototypes to validate feasibility and value.'
-    },
-    {
-      icon: '07',
-      title: 'Feedback & Iteration',
-      description:
-        'Incorporate feedback to improve concepts through continuous refinement.'
-    },
-    {
-      icon: '08',
       title: 'Actionable Roadmap',
-      description:
-        'Create a clear, step-by-step roadmap outlining execution timelines and milestones.'
-    },
-    {
-      icon: '09',
-      title: 'Follow-Up & Support',
-      description:
-        'Provide post-workshop guidance and support to ensure ideas progress toward implementation.'
+      description: 'A phased plan for development, testing, and launch.'
     }
   ]
 };
 
-const whyChooseUsData = {
-  subtitle: 'Empowering Innovation',
-  title: 'Why Choose LeapSofts?',
+const streamlineDescription = [
+  { text: "Great products start with a ", bold: false },
+  { text: "solid foundation", bold: true },
+  { text: ". Leapsofts offers a ", bold: false },
+  { text: "complimentary ideation strategy session ", bold: true },
+  { text: "to help you prepare for a full-scale ", bold: false },
+  { text: "discovery workshop ", bold: true },
+  { text: "that turns your vision into a successful digital reality.", bold: false },
+];
+
+const serviceFeaturesData: ServiceFeatureItem[] = [
+  {
+    icon: '/industryicons/sphere.svg',
+    title: 'Design Thinking',
+    description: 'Applying human-centered design to solve complex business problems.'
+  },
+  {
+    icon: '/industryicons/bipiramida.svg',
+    title: 'Rapid Prototyping',
+    description: 'Visualizing your ideas through wireframes and click-through models.'
+  },
+  {
+    icon: '/industryicons/sphere.svg',
+    title: 'Stakeholder Alignment',
+    description: 'Ensuring everyone is on the same page regarding project goals.'
+  },
+  {
+    icon: '/industryicons/bipiramida.svg',
+    title: 'Scope Optimization',
+    description: 'Defining a Minimum Viable Product (MVP) to get you to market faster.'
+  }
+];
+
+const deliverMVPData = {
+  label: "IDEATION EXCELLENCE",
+  title: "Committed to",
+  accentText: "Creative Success",
+  description: "Leapsofts provides expert facilitators and strategists who are fully committed to your project's success. We focus on innovation, collaboration, and strategic clarity.",
   items: [
-    'Creative breakthroughs that spark innovative and groundbreaking ideas',
-    'Collective genius through diverse perspectives and collaborative thinking',
-    'Speedy innovation that accelerates ideas from concept to viable solutions',
-    'Goal-focused creativity aligned with strategic business objectives'
+    {
+      title: "Open Collaboration.",
+      description: "Encouraging a flow of ideas between our experts and your team."
+    },
+    {
+      title: "Expert Insights.",
+      description: "Bringing decades of experience in product strategy to your session."
+    },
+    {
+      title: "Structured Approach.",
+      description: "Using proven frameworks to move from brainstorming to blueprints."
+    },
+    {
+      title: "Future-Facing.",
+      description: "Selecting technologies and strategies that ensure long-term relevance."
+    }
   ]
 };
+
+const processPhasesDefault: ProcessPhase[] = [
+  {
+    id: 1,
+    phase: "PHASE 1: PREPARATION",
+    title: "Project Goal Alignment",
+    description: "We align on the specific goals and expectations for the workshop.",
+    features: ["Stakeholder Interviews", "Market Overview", "Success Criteria Setup"],
+  },
+  {
+    id: 2,
+    phase: "PHASE 2: BRAINSTORMING",
+    title: "Creative Exploration",
+    description: "Intensive sessions to generate and explore wide-ranging ideas.",
+    features: ["Design Thinking Exercises", "User Flow Mapping", "Feature Analysis"],
+  },
+  {
+    id: 3,
+    phase: "PHASE 3: VALIDATION",
+    title: "Refinement & Feasibility",
+    description: "Pruning and refining ideas into a viable project concept.",
+    features: ["Technical Audit", "MVP Definition", "Resource Estimations"],
+  },
+  {
+    id: 4,
+    phase: "PHASE 4: BLUEPRINT",
+    title: "Actionable Roadmap",
+    description: "Finalizing the delivery plan and post-workshop next steps.",
+    features: ["Project Backlog Creation", "Timeline Mapping", "Budget Overview"],
+  }
+];
+
+const phaseLabelsDefault = ["PREPARATION", "BRAINSTORMING", "VALIDATION", "BLUEPRINT"];
 
 
 
 const IdeationWorkshop: React.FC = () => {
-    return (
-        <>
-            <IntroComponent
-                title="Unleashing Creativity, Shaping Your Vision"
-                description="Leapsofts’s Ideation Workshop is your launchpad to crystallize and refine your concepts. Engage with our experts to explore possibilities, define your vision, and sketch the blueprint of your future product."
-            />
-            <EmergingTech data={ourServicesData}/>
-            <InfoGrid data={ideationProcessData}/>
-            <WhyChooseUs
-                subtitle={whyChooseUsData.subtitle}
-                title={whyChooseUsData.title}
-                items={whyChooseUsData.items}
-            />
-        </>
-    );
+  return (
+    <>
+      <IntroComponent
+        title="Unleashing Creativity, Shaping Your Vision"
+        description="Leapsofts’s Ideation Workshop is your launchpad to crystallize and refine your concepts."
+      />
+      <ServiceOverview
+        label={serviceOverviewData.label}
+        titleMain={serviceOverviewData.titleMain}
+        titleAccent={serviceOverviewData.titleAccent}
+        titleEnd={serviceOverviewData.titleEnd}
+        description={serviceOverviewData.description}
+        imagePath={serviceOverviewData.imagePath}
+      />
+      <EmergingTech data={ourServicesData} />
+      <InfoGrid data={ideationProcessData} />
+      <StreamlineSuccess
+        label="STREAMLINE YOUR SUCCESS"
+        titleMain="Ideation "
+        titleAccent="Strategy"
+        titleEnd=" Session"
+        description={streamlineDescription}
+        imageUrl="/streamline.png"
+      />
+      <ServiceFeatures
+        title='Expert Services'
+        description='We deliver specialized services to support your ideation workshops.'
+        items={serviceFeaturesData}
+      />
+      <DeliverMVP data={deliverMVPData} />
+      <Processes title="OUR IDEATION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+    </>
+  );
 };
 
 export default IdeationWorkshop;

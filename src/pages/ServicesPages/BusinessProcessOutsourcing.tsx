@@ -1,141 +1,190 @@
-import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
+import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
-import WhyChooseUs from '../../components/WhyChooseUs/WhyChooseUs';
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
+import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
+import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
+import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import laptopImg from "../../assets/about_laptop_3d.png";
+
+const serviceOverviewData = {
+  label: "BPO SOLUTIONS",
+  titleMain: "Optimize Your",
+  titleAccent: "Business",
+  titleEnd: "Operations",
+  description: "Leapsofts provides comprehensive BPO services that allow you to focus on your core business while we handle the rest. Our technology-driven approach ensures high efficiency, cost-effectiveness, and superior quality across all outsourced processes.",
+  imagePath: laptopImg
+};
 
 const ourServicesData: EmergingTechProps['data'] = {
   label: 'BPO SERVICES',
-  titleAccent: 'BPO',
-  titleMain: ' Solutions',
+  titleAccent: 'Scale',
+  titleMain: 'Your Business',
   description:
     'Scalable BPO services designed to enhance efficiency, improve customer experience, and support business growth.',
   items: [
-    {
-      icon: 'enterprise',
-      title: 'Customer Engagement',
-      description:
-        'Manage customer interactions across phone, email, and live chat to handle inquiries, complaints, and feedback seamlessly.'
-    },
-    {
-      icon: 'enterprise',
-      title: 'Tech Support Excellence',
-      description:
-        'Deliver timely and effective technical support to resolve product and service-related challenges.'
-    },
-    {
-      icon: 'enterprise',
-      title: 'Administrative Efficiency',
-      description:
-        'Improve back-office operations with efficient data entry, processing, and administrative support.'
-    },
-    {
-      icon: 'product',
-      title: 'Software Solutions',
-      description:
-        'Develop and implement AI and ML-driven solutions to streamline processes and improve decision-making.'
-    },
-    {
-      icon: 'enterprise',
-      title: 'IT Infrastructure',
-      description:
-        'Ensure optimal performance of servers, networks, and IT systems for uninterrupted operations.'
-    },
-    {
-      icon: 'saas',
-      title: 'Chatbot Solutions',
-      description:
-        'Build intelligent chatbot solutions to enhance customer service and support automation.'
-    },
-    {
-      icon: 'product',
-      title: 'AI/ML Expertise',
-      description:
-        'Develop, test, and maintain advanced AI and ML applications tailored to business needs.'
-    },
-    {
-      icon: 'thirdParty',
-      title: 'Cloud Technology',
-      description:
-        'Enable secure and efficient cloud-based data and application management.'
-    },
-    {
-      icon: 'enterprise',
-      title: 'Business Growth Enablement',
-      description:
-        'Leverage specialized BPO services to transform and scale business operations effectively.'
-    }
+    { icon: 'enterprise', title: 'Customer Experience', description: 'Manage customer interactions across phone, email, and live chat seamlessly.' },
+    { icon: 'enterprise', title: 'Technical Support', description: 'Deliver timely and effective technical support to resolve challenges.' },
+    { icon: 'enterprise', title: 'Back-Office Operations', description: 'Improve efficiency with expert data entry and administrative support.' },
+    { icon: 'product', title: 'Managed IT Services', description: 'Ensure optimal performance of servers, networks, and systems.' },
+    { icon: 'saas', title: 'Quality Assurance', description: 'Rigorous testing and quality checks for your outsourced processes.' },
+    { icon: 'thirdParty', title: 'Cloud Management', description: 'Secure and efficient cloud-based data and application management.' },
   ]
 };
 const processData: InfoGridProps['data'] = {
-  label: 'WORKING PROCESS',
-  title: 'How We Work',
+  label: 'BENEFITS',
+  title: 'Why Outsource to Us',
   items: [
     {
       icon: '01',
-      title: 'Initial Consultation & Analysis',
-      description:
-        'Understand business needs, challenges, and objectives through detailed analysis.'
+      title: 'Cost Efficiency',
+      description: 'Significantly reduce overhead costs while maintaining high-quality output.'
     },
     {
       icon: '02',
-      title: 'Solution Design & Strategy',
-      description:
-        'Design a tailored solution and strategic roadmap aligned with business goals.'
+      title: 'Operational Focus',
+      description: 'Free up your internal resources to focus on core strategic initiatives.'
     },
     {
       icon: '03',
-      title: 'Technology Integration & Setup',
-      description:
-        'Integrate required technologies and set up systems for seamless operations.'
+      title: 'Access to Talent',
+      description: 'Gain immediate access to a pool of pre-vetted, highly skilled professionals.'
     },
     {
       icon: '04',
-      title: 'Staffing & Training',
-      description:
-        'Provide skilled resources and training to ensure smooth adoption and execution.'
-    },
-    {
-      icon: '05',
-      title: 'Process Implementation',
-      description:
-        'Execute and deploy processes efficiently according to the defined strategy.'
-    },
-    {
-      icon: '06',
-      title: 'Monitoring & Optimization',
-      description:
-        'Continuously monitor performance and optimize processes for better results.'
+      title: 'Scalable Growth',
+      description: 'Easily scale your operations up or down based on market demands.'
     }
   ]
 };
-const whyChooseUsData = {
-  subtitle: 'WHY CHOOSE US',
-  title: 'Why Choose Leapsofts?',
+
+const streamlineDescription = [
+  { text: "Scaling your operations shouldn't be a ", bold: false },
+  { text: "bottleneck ", bold: true },
+  { text: "for your business. Leapsofts offers a ", bold: false },
+  { text: "complimentary BPO strategy session ", bold: true },
+  { text: "to help you design an ", bold: false },
+  { text: "efficient delivery model ", bold: true },
+  { text: "that ensures seamless growth and operational excellence.", bold: false },
+];
+
+const serviceFeaturesData: ServiceFeatureItem[] = [
+  {
+    icon: '/industryicons/sphere.svg',
+    title: 'Project Management',
+    description: 'Dedicated managers to ensure timelines and quality standards are met.'
+  },
+  {
+    icon: '/industryicons/bipiramida.svg',
+    title: 'Tech Integration',
+    description: 'Implementing modern tools to automate and track outsourced tasks.'
+  },
+  {
+    icon: '/industryicons/sphere.svg',
+    title: 'Customized Teams',
+    description: 'Teams hand-picked to match your specific industry and technical needs.'
+  },
+  {
+    icon: '/industryicons/bipiramida.svg',
+    title: 'Data Security',
+    description: 'Rigorous protocols to ensure your sensitive business data stays protected.'
+  }
+];
+
+const deliverMVPData = {
+  label: "BPO EXCELLENCE",
+  title: "Committed to",
+  accentText: "Operational Success",
+  description: "Leapsofts provides high-performing BPO teams that are fully committed to your project's success. We focus on transparency, communication, and operational rigor.",
   items: [
-    'Expertise across multiple domains delivering proven industry solutions.',
-    'Technology-driven approaches focused on innovation and efficiency.',
-    'Customized and scalable solutions tailored to your business growth.'
+    {
+      title: "Performance Tracking.",
+      description: "Detailed metrics and reporting to ensure complete visibility into operations."
+    },
+    {
+      title: "Seamless Transition.",
+      description: "Structured onboarding to ensure our team integrates with your workflow."
+    },
+    {
+      title: "Continuous Improvement.",
+      description: "Regular feedback loops to optimize processes and increase efficiency."
+    },
+    {
+      title: "Global Standards.",
+      description: "Adhering to international quality standards for all outsourced services."
+    }
   ]
 };
 
+const processPhasesDefault: ProcessPhase[] = [
+  {
+    id: 1,
+    phase: "PHASE 1: ASSESSMENT",
+    title: "Process Identification",
+    description: "We analyze your current operations to identify ideal outsourcing candidates.",
+    features: ["Workflow Mapping", "Cost-Benefit Analysis", "Risk Assessment"],
+  },
+  {
+    id: 2,
+    phase: "PHASE 2: SETUP",
+    title: "Team & Tool Integration",
+    description: "Onboarding the right talent and setting up the communication infrastructure.",
+    features: ["Talent Sourcing", "SOP Development", "Tool Integration"],
+  },
+  {
+    id: 3,
+    phase: "PHASE 3: EXECUTION",
+    title: "Service Delivery",
+    description: "Official launch of outsourced operations with continuous management.",
+    features: ["Live Operations", "Quality Monitoring", "Performance Reporting"],
+  },
+  {
+    id: 4,
+    phase: "PHASE 4: OPTIMIZATION",
+    title: "Continuous Refinement",
+    description: "Ongoing process improvements to drive higher value and efficiency.",
+    features: ["Process Automation", "Feedback Integration", "Strategic Reviews"],
+  },
+];
+
+const phaseLabelsDefault = ["ASSESSMENT", "SETUP", "EXECUTION", "OPTIMIZATION"];
+
 
 const BusinessProcessOutsourcing: React.FC = () => {
-    return (
-        <>
-            <IntroComponent
-                title="Smart Operations, Results-Driven Approach."
-                description="Is your enterprise equipped for the future? Embrace this crucial moment to transform your business operations with intelligence through Leapsofts."
-            />
-            <EmergingTech data={ourServicesData} />
-            <InfoGrid data={processData} />
-            <WhyChooseUs
-                subtitle={whyChooseUsData.subtitle}
-                title={whyChooseUsData.title}
-                items={whyChooseUsData.items}
-            />
-        </>
-    );
+  return (
+    <>
+      <IntroComponent
+        title="Smart Operations, Results-Driven Approach."
+        description="Optimize your business operations with intelligence through Leapsofts."
+      />
+      <ServiceOverview
+        label={serviceOverviewData.label}
+        titleMain={serviceOverviewData.titleMain}
+        titleAccent={serviceOverviewData.titleAccent}
+        titleEnd={serviceOverviewData.titleEnd}
+        description={serviceOverviewData.description}
+        imagePath={serviceOverviewData.imagePath}
+      />
+      <EmergingTech data={ourServicesData} />
+      <InfoGrid data={processData} />
+      <StreamlineSuccess
+        label="STREAMLINE YOUR SUCCESS"
+        titleMain="Operations "
+        titleAccent="Strategy"
+        titleEnd=" Session"
+        description={streamlineDescription}
+        imageUrl="/streamline.png"
+      />
+      <ServiceFeatures
+        title='Core BPO Skills'
+        description='We deliver expert services across various business process domains.'
+        items={serviceFeaturesData}
+      />
+      <DeliverMVP data={deliverMVPData} />
+      <Processes title="OUR BPO PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+    </>
+  );
 };
 
 export default BusinessProcessOutsourcing;
