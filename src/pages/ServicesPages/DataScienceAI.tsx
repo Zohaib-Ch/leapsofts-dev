@@ -118,41 +118,41 @@ const processData: InfoGridProps['data'] = {
 }
 
 const defaultItems: ServiceFeatureItem[] = [
-    {
-        icon: '/industryicons/sphere.svg',
-        title: 'Retain',
-        description: 'Keeping select applications on-premises due to dependencies or compliance.'
-    },
-    {
-        icon: '/industryicons/bipiramida.svg',
-        title: 'Retire',
-        description: "Decommissioning outdated or unused systems."
-    },
-    {
-        icon: '/industryicons/sphere.svg',
-        title: 'Relocate',
-        description: "Moving infrastructure without major changes to cloud platforms."
-    },
-    {
-        icon: '/industryicons/bipiramida.svg',
-        title: 'Rehost (Lift and Shift)',
-        description: "Quickest way to move VMs or workloads to the cloud."
-    },
-    {
-        icon: '/industryicons/sphere.svg',
-        title: 'Replatform',
-        description: "Making minor optimizations without rewriting code."
-    },
-    {
-        icon: '/industryicons/bipiramida.svg',
-        title: 'Refactoring',
-        description: "Re-architecting for full cloud-native functionality."
-    },
-    {
-        icon: '/industryicons/sphere.svg',
-        title: 'Repurchase',
-        description: "Transitioning to a SaaS solution."
-    },
+  {
+    icon: '/industryicons/sphere.svg',
+    title: 'Retain',
+    description: 'Keeping select applications on-premises due to dependencies or compliance.'
+  },
+  {
+    icon: '/industryicons/bipiramida.svg',
+    title: 'Retire',
+    description: "Decommissioning outdated or unused systems."
+  },
+  {
+    icon: '/industryicons/sphere.svg',
+    title: 'Relocate',
+    description: "Moving infrastructure without major changes to cloud platforms."
+  },
+  {
+    icon: '/industryicons/bipiramida.svg',
+    title: 'Rehost (Lift and Shift)',
+    description: "Quickest way to move VMs or workloads to the cloud."
+  },
+  {
+    icon: '/industryicons/sphere.svg',
+    title: 'Replatform',
+    description: "Making minor optimizations without rewriting code."
+  },
+  {
+    icon: '/industryicons/bipiramida.svg',
+    title: 'Refactoring',
+    description: "Re-architecting for full cloud-native functionality."
+  },
+  {
+    icon: '/industryicons/sphere.svg',
+    title: 'Repurchase',
+    description: "Transitioning to a SaaS solution."
+  },
 ];
 const processPhasesDefault: ProcessPhase[] = [
   {
@@ -212,28 +212,28 @@ const phaseLabelsDefault = [
   "OPTIMIZATION & GOVERNANCE",
 ];
 const deliverMVPData = {
-    label: "WHY CHOOSE LEAPSOFTS",
+  label: "WHY CHOOSE LEAPSOFTS",
   title: "Why Choose Leapsofts for",
   accentText: "Data Science & AI Services",
   description: "Leapsofts is a cloud software development company that helps accelerate your digital transformation. Whether you're moving from on-premises systems or modernizing legacy applications, Leapsofts’s expert team delivers end-to-end cloud migration consulting designed to reduce downtime, enhance performance, and unlock long-term business value.",
-    items: [
-        {
-            title: "Proven Methodologies & Processes.",
-            description: "We follow tested cloud migration methodologies to ensure a seamless, low-risk transition tailored to your workloads and cloud environment."
-        },
-        {
-            title: "Client-First Approach.",
-            description: "Your business needs drive every step of the cloud journey. From discovery to post-migration support, we align our strategy with your goals, infrastructure, and compliance requirements."
-        },
-        {
-            title: "Transparent Pricing Models.",
-            description: "We offer clear pricing with no hidden fees. Whether it's fixed-scope development or continuous product engineering, you’ll get accurate forecasts for migration, optimization, and long-term cloud infrastructure costs.."
-        },
-        {
-            title: "Healthcare Software Expertise.",
-            description: "Our engineers bring deep experience across AWS, Microsoft Azure, and Google Cloud. Whether you're migrating SAP, modernizing applications, or managing hybrid cloud environments, we deliver scalable, high-performance cloud solutions."
-        }
-    ]
+  items: [
+    {
+      title: "Proven Methodologies & Processes.",
+      description: "We follow tested cloud migration methodologies to ensure a seamless, low-risk transition tailored to your workloads and cloud environment."
+    },
+    {
+      title: "Client-First Approach.",
+      description: "Your business needs drive every step of the cloud journey. From discovery to post-migration support, we align our strategy with your goals, infrastructure, and compliance requirements."
+    },
+    {
+      title: "Transparent Pricing Models.",
+      description: "We offer clear pricing with no hidden fees. Whether it's fixed-scope development or continuous product engineering, you’ll get accurate forecasts for migration, optimization, and long-term cloud infrastructure costs.."
+    },
+    {
+      title: "Healthcare Software Expertise.",
+      description: "Our engineers bring deep experience across AWS, Microsoft Azure, and Google Cloud. Whether you're migrating SAP, modernizing applications, or managing hybrid cloud environments, we deliver scalable, high-performance cloud solutions."
+    }
+  ]
 };
 const streamlineDescription = [
   { text: "Whether you're modernizing an ", bold: false },
@@ -249,37 +249,37 @@ const streamlineDescription = [
 
 
 const DataScienceAI: React.FC = () => {
-    return (
-        <>
-            <IntroComponent
-                title="Harness Data Accessibility"
-                description="LeapSofts constructs contemporary, secure, and scalable web apps to streamline your business operations."
-            />
-            <ServiceOverview
-                titleMain="Maximize"
-                titleAccent='Operational Agility'
-                titleEnd='with Data Science & AI'
-                description="Implementing Data Science & AI can be intricate, necessitating strategic planning and precision. It’s pivotal for refining your development and deployment cycles, thereby reducing mistakes, boosting efficiency, and elevating client contentment. To excel in a competitive landscape, enhance operational efficacy, and raise deployment standards, consider our expert Data Science & AI services. Our seasoned professionals are adept at guiding numerous firms through successful Data Science & AI adoptions, equipped to automate and regulate your infrastructure deployment processes."
-                imagePath="/icons/images/cloud.webp"
-            />
-            <EmergingTech data = {ourServicesData} />
-            <InfoGrid data = {processData} />
-            <StreamlineSuccess
-                label="STREAMLINE YOUR SUCCESS"
-                titleMain="Software "
-                titleAccent="Strategy"
-                titleEnd=" Session"
-                description={streamlineDescription}
+  return (
+    <>
+      <IntroComponent
+        title="Harness Data Accessibility"
+        description="LeapSofts constructs contemporary, secure, and scalable web apps to streamline your business operations."
+      />
+      <ServiceOverview
+        titleMain="Maximize"
+        titleAccent='Operational Agility'
+        titleEnd='with Data Science & AI'
+        description="Implementing Data Science & AI can be intricate, necessitating strategic planning and precision. It’s pivotal for refining your development and deployment cycles, thereby reducing mistakes, boosting efficiency, and elevating client contentment. To excel in a competitive landscape, enhance operational efficacy, and raise deployment standards, consider our expert Data Science & AI services. Our seasoned professionals are adept at guiding numerous firms through successful Data Science & AI adoptions, equipped to automate and regulate your infrastructure deployment processes."
+        imagePath="/icons/images/cloud.webp"
+      />
+      <InfoGrid data={processData} />
+      <StreamlineSuccess
+        label="STREAMLINE YOUR SUCCESS"
+        titleMain="Software "
+        titleAccent="Strategy"
+        titleEnd=" Session"
+        description={streamlineDescription}
         imageUrl="/streamline.png"
       />
       <ServiceFeatures
-      title='Types of'
-      description='Every business has different needs. Whether you are migrating Oracle, VMware, or PaaS applications, we tailor the migration tools and processes to fit your infrastructure.'
-       items={defaultItems} />
+        title='Types of'
+        description='Every business has different needs. Whether you are migrating Oracle, VMware, or PaaS applications, we tailor the migration tools and processes to fit your infrastructure.'
+        items={defaultItems} />
       <DeliverMVP data={deliverMVPData} />
+      <EmergingTech data={ourServicesData} />
       <Processes title="OUR CLOUD MIGRATION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
-        </>
-    );
+    </>
+  );
 };
 
 export default DataScienceAI;

@@ -168,7 +168,6 @@ const IdeationWorkshop: React.FC = () => {
         description={serviceOverviewData.description}
         imagePath={serviceOverviewData.imagePath}
       />
-      <EmergingTech data={ourServicesData} />
       <InfoGrid data={ideationProcessData} />
       <StreamlineSuccess
         label="STREAMLINE YOUR SUCCESS"
@@ -184,6 +183,7 @@ const IdeationWorkshop: React.FC = () => {
         items={serviceFeaturesData}
       />
       <DeliverMVP data={deliverMVPData} />
+      <EmergingTech data={ourServicesData} />
       <Processes title="OUR IDEATION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   );

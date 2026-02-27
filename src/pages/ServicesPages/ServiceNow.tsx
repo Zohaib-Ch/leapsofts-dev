@@ -168,7 +168,6 @@ const ServiceNow: React.FC = () => {
         description={serviceOverviewData.description}
         imagePath={serviceOverviewData.imagePath}
       />
-      <EmergingTech data={emergingTechData} />
       <InfoGrid data={reEngineeringProcessData} />
       <StreamlineSuccess
         label="STREAMLINE YOUR SUCCESS"
@@ -184,6 +183,7 @@ const ServiceNow: React.FC = () => {
         items={serviceFeaturesData}
       />
       <DeliverMVP data={deliverMVPData} />
+      <EmergingTech data={emergingTechData} />
       <Processes title="OUR SERVICENOW PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   )

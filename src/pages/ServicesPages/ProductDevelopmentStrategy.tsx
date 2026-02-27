@@ -165,7 +165,6 @@ const ProductDevelopmentStrategy: React.FC = () => {
         description={serviceOverviewData.description}
         imagePath={serviceOverviewData.imagePath}
       />
-      <EmergingTech data={ourServicesData} />
       <InfoGrid data={infoGridData} />
       <StreamlineSuccess
         label="STREAMLINE YOUR SUCCESS"
@@ -181,6 +180,7 @@ const ProductDevelopmentStrategy: React.FC = () => {
         items={serviceFeaturesData}
       />
       <DeliverMVP data={deliverMVPData} />
+      <EmergingTech data={ourServicesData} />
       <Processes title="OUR STRATEGIC PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   );

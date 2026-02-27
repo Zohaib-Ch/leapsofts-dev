@@ -194,7 +194,6 @@ const CloudEngineering: React.FC = () => {
                 description='We simplify cloud migration to help businesses reduce costs, boost performance, and stay future-ready. From planning and strategy to execution and ongoing support, we handle every step.'
                 imagePath={mobileAppImg}
             />
-            <EmergingTech data={ourSolutionsData} />
             <InfoGrid data={processData} />
             <StreamlineSuccess
                 label="STREAMLINE YOUR SUCCESS"
@@ -204,8 +203,9 @@ const CloudEngineering: React.FC = () => {
                 description={streamlineDescription}
                 imageUrl="/streamline.png"
             />
-        <DeliverMVP data={deliverMVPData} />
-        <Processes title="OUR CLOUD MIGRATION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+            <DeliverMVP data={deliverMVPData} />
+            <EmergingTech data={ourSolutionsData} />
+            <Processes title="OUR CLOUD MIGRATION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
         </>
     );
 };

@@ -165,7 +165,6 @@ const AWS: React.FC = () => {
         description={serviceOverviewData.description}
         imagePath={serviceOverviewData.imagePath}
       />
-      <EmergingTech data={emergingTechData} />
       <InfoGrid data={servicesData} />
       <StreamlineSuccess
         label="STREAMLINE YOUR SUCCESS"
@@ -181,6 +180,7 @@ const AWS: React.FC = () => {
         items={serviceFeaturesData}
       />
       <DeliverMVP data={deliverMVPData} />
+      <EmergingTech data={emergingTechData} />
       <Processes title="OUR AWS CLOUD PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   );

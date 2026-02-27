@@ -166,7 +166,6 @@ const DataGovernance: React.FC = () => {
                 description={serviceOverviewData.description}
                 imagePath={serviceOverviewData.imagePath}
             />
-            <EmergingTech data={emergingTechData} />
             <InfoGrid data={infoGridData} />
             <StreamlineSuccess
                 label="STREAMLINE YOUR SUCCESS"
@@ -182,6 +181,7 @@ const DataGovernance: React.FC = () => {
                 items={serviceFeaturesData}
             />
             <DeliverMVP data={deliverMVPData} />
+            <EmergingTech data={emergingTechData} />
             <Processes
                 title="OUR DATA GOVERNANCE PROCESS"
                 phaseLabels={phaseLabels}

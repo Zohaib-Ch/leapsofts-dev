@@ -210,7 +210,6 @@ const WebAppDevelopment: React.FC = () => {
         description={serviceOverviewData.description}
         imagePath={serviceOverviewData.imagePath}
       />
-      <EmergingTech data={emergingTechData} />
       <InfoGrid data={infoGridData} />
       <StreamlineSuccess
         label="STREAMLINE YOUR SUCCESS"
@@ -226,6 +225,7 @@ const WebAppDevelopment: React.FC = () => {
         items={serviceFeaturesData}
       />
       <DeliverMVP data={deliverMVPData} />
+      <EmergingTech data={emergingTechData} />
       <Processes title="OUR WEB APP DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   )

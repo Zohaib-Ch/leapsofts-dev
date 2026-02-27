@@ -233,7 +233,6 @@ const Azure: React.FC = () => {
         title="Our Azure Capabilities"
         defaultImage={capabilitiesImg}
       />
-      <EmergingTech data={emergingTechData} />
       <InfoGrid data={infoGridData} />
       <StreamlineSuccess
         label="STREAMLINE YOUR SUCCESS"
@@ -249,6 +248,7 @@ const Azure: React.FC = () => {
         items={serviceFeaturesData}
       />
       <DeliverMVP data={deliverMVPData} />
+      <EmergingTech data={emergingTechData} />
       <Processes title="OUR AZURE CLOUD PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   );

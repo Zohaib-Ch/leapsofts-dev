@@ -48,9 +48,9 @@ const servicesData: EmergingTechProps['data'] = {
 };
 const deliverMVPData = {
     label: "WHY CHOOSE LEAPSOFTS",
-  title: "Why Choose Leapsofts for",
-  accentText: "DevOps Services",
-  description: "Leapsofts is a cloud software development company that helps accelerate your digital transformation. Whether you're moving from on-premises systems or modernizing legacy applications, Leapsofts’s expert team delivers end-to-end cloud migration consulting designed to reduce downtime, enhance performance, and unlock long-term business value.",
+    title: "Why Choose Leapsofts for",
+    accentText: "DevOps Services",
+    description: "Leapsofts is a cloud software development company that helps accelerate your digital transformation. Whether you're moving from on-premises systems or modernizing legacy applications, Leapsofts’s expert team delivers end-to-end cloud migration consulting designed to reduce downtime, enhance performance, and unlock long-term business value.",
     items: [
         {
             title: "Proven Methodologies & Processes.",
@@ -71,61 +71,61 @@ const deliverMVPData = {
     ]
 };
 const processPhasesDefault: ProcessPhase[] = [
-  {
-    id: 1,
-    phase: "PHASE 1: DISCOVERY & ASSESSMENT",
-    title: "Objectives & Inventory Assessment",
-    description:
-      "We define cloud migration goals, assess current environments, and build a prioritized application inventory.",
-    features: [
-      "Migration Goals & Priority Definition",
-      "Application & Infrastructure Inventory",
-      "Portfolio Assessment & Readiness Scoring",
-    ],
-  },
-  {
-    id: 2,
-    phase: "PHASE 2: STRATEGY & ARCHITECTURE",
-    title: "Strategic Development & Analysis",
-    description:
-      "We design the migration strategy, evaluate costs, and select the right cloud model and target architecture.",
-    features: [
-      "Migration Criteria & Decision Framework",
-      "Cost Analysis & Savings Forecast",
-      "IaaS / PaaS / SaaS Selection Strategy",
-    ],
-  },
-  {
-    id: 3,
-    phase: "PHASE 3: MIGRATION EXECUTION",
-    title: "Execution, Integration & Security",
-    description:
-      "We implement migration waves, integrate required tools, and ensure continuity, security, and performance.",
-    features: [
-      "Migration Runbooks & Wave Planning",
-      "Tooling Integration & Automation Enablement",
-      "Security, Compliance & Business Continuity Setup",
-    ],
-  },
-  {
-    id: 4,
-    phase: "PHASE 4: OPTIMIZATION & GOVERNANCE",
-    title: "Refinement, Monitoring & Improvement",
-    description:
-      "We optimize the new cloud environment with continuous monitoring, governance, and ongoing enhancements.",
-    features: [
-      "Performance & Cost Optimization",
-      "Monitoring, Alerts & Operational Governance",
-      "Continuous Refinement & Process Improvement",
-    ],
-  },
+    {
+        id: 1,
+        phase: "PHASE 1: DISCOVERY & ASSESSMENT",
+        title: "Objectives & Inventory Assessment",
+        description:
+            "We define cloud migration goals, assess current environments, and build a prioritized application inventory.",
+        features: [
+            "Migration Goals & Priority Definition",
+            "Application & Infrastructure Inventory",
+            "Portfolio Assessment & Readiness Scoring",
+        ],
+    },
+    {
+        id: 2,
+        phase: "PHASE 2: STRATEGY & ARCHITECTURE",
+        title: "Strategic Development & Analysis",
+        description:
+            "We design the migration strategy, evaluate costs, and select the right cloud model and target architecture.",
+        features: [
+            "Migration Criteria & Decision Framework",
+            "Cost Analysis & Savings Forecast",
+            "IaaS / PaaS / SaaS Selection Strategy",
+        ],
+    },
+    {
+        id: 3,
+        phase: "PHASE 3: MIGRATION EXECUTION",
+        title: "Execution, Integration & Security",
+        description:
+            "We implement migration waves, integrate required tools, and ensure continuity, security, and performance.",
+        features: [
+            "Migration Runbooks & Wave Planning",
+            "Tooling Integration & Automation Enablement",
+            "Security, Compliance & Business Continuity Setup",
+        ],
+    },
+    {
+        id: 4,
+        phase: "PHASE 4: OPTIMIZATION & GOVERNANCE",
+        title: "Refinement, Monitoring & Improvement",
+        description:
+            "We optimize the new cloud environment with continuous monitoring, governance, and ongoing enhancements.",
+        features: [
+            "Performance & Cost Optimization",
+            "Monitoring, Alerts & Operational Governance",
+            "Continuous Refinement & Process Improvement",
+        ],
+    },
 ];
 
 const phaseLabelsDefault = [
-  "DISCOVERY & ASSESSMENT",
-  "STRATEGY & ARCHITECTURE",
-  "MIGRATION EXECUTION",
-  "OPTIMIZATION & GOVERNANCE",
+    "DISCOVERY & ASSESSMENT",
+    "STRATEGY & ARCHITECTURE",
+    "MIGRATION EXECUTION",
+    "OPTIMIZATION & GOVERNANCE",
 ];
 
 const strategyData: InfoGridProps['data'] = {
@@ -150,15 +150,15 @@ const strategyData: InfoGridProps['data'] = {
     ]
 };
 const streamlineDescription = [
-  { text: "Whether you're modernizing an ", bold: false },
-  { text: "existing enterprise software system ", bold: true },
-  { text: "or launching a ", bold: false },
-  { text: "new digital product", bold: true },
-  { text: ", Leapsofts offers a ", bold: false },
-  { text: "complimentary software strategy session ", bold: true },
-  { text: "designed to deliver value almost immediately. We take the time to understand your business objectives, technical landscape, and operational challenges then provide actionable insights on how ", bold: false },
-  { text: "bespoke, cost-effective custom software solutions ", bold: true },
-  { text: "can streamline workflows, improve efficiency, and support scalable growth.", bold: false },
+    { text: "Whether you're modernizing an ", bold: false },
+    { text: "existing enterprise software system ", bold: true },
+    { text: "or launching a ", bold: false },
+    { text: "new digital product", bold: true },
+    { text: ", Leapsofts offers a ", bold: false },
+    { text: "complimentary software strategy session ", bold: true },
+    { text: "designed to deliver value almost immediately. We take the time to understand your business objectives, technical landscape, and operational challenges then provide actionable insights on how ", bold: false },
+    { text: "bespoke, cost-effective custom software solutions ", bold: true },
+    { text: "can streamline workflows, improve efficiency, and support scalable growth.", bold: false },
 ];
 
 const DevOps: React.FC = () => {
@@ -175,7 +175,6 @@ const DevOps: React.FC = () => {
                 description="Implementing DevOps can be intricate, necessitating strategic planning and precision. It’s pivotal for refining your development and deployment cycles, thereby reducing mistakes, boosting efficiency, and elevating client contentment. To excel in a competitive landscape, enhance operational efficacy, and raise deployment standards, consider our expert DevOps services. Our seasoned professionals are adept at guiding numerous firms through successful DevOps adoptions, equipped to automate and regulate your infrastructure deployment processes."
                 imagePath="/icons/images/cloud.webp"
             />
-            <EmergingTech data={servicesData} />
             <InfoGrid data={strategyData} />
             <StreamlineSuccess
                 label="STREAMLINE YOUR SUCCESS"
@@ -183,13 +182,13 @@ const DevOps: React.FC = () => {
                 titleAccent="Strategy"
                 titleEnd=" Session"
                 description={streamlineDescription}
-        imageUrl="/streamline.png"
-      />
-       <DeliverMVP data={deliverMVPData} />
-        <Processes title="OUR DEVOPS PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+                imageUrl="/streamline.png"
+            />
+            <DeliverMVP data={deliverMVPData} />
+            <EmergingTech data={servicesData} />
+            <Processes title="OUR DEVOPS PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
         </>
     );
 };
 
 export default DevOps;
-

@@ -191,22 +191,22 @@ const Shopify: React.FC = () => {
         description={serviceOverviewData.description}
         imagePath={serviceOverviewData.imagePath}
       />
-      <EmergingTech data={emergingTechData} />
       <InfoGrid data={infoGridData} />
       <StreamlineSuccess
         label="STREAMLINE YOUR SUCCESS"
-        titleMain="Commerce "
+        titleMain="E-commerce "
         titleAccent="Audit"
         titleEnd=" Session"
         description={streamlineDescription}
         imageUrl="/streamline.png"
       />
       <ServiceFeatures
-        title='Expert E-Commerce Services'
-        description='We deliver specialized Shopify services to fuel your online growth.'
+        title='Expert E-comm Skills'
+        description='Our teams bring deep expertise in Shopify and modern e-commerce architectures.'
         items={serviceFeaturesData}
       />
       <DeliverMVP data={deliverMVPData} />
+      <EmergingTech data={emergingTechData} />
       <Processes title="OUR SHOPIFY DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   )

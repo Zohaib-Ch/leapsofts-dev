@@ -162,7 +162,6 @@ const AppReengineering: React.FC = () => {
         description={serviceOverviewData.description}
         imagePath={serviceOverviewData.imagePath}
       />
-      <EmergingTech data={ourServicesData} />
       <InfoGrid data={reEngineeringProcessData} />
       <StreamlineSuccess
         label="STREAMLINE YOUR SUCCESS"
@@ -178,6 +177,7 @@ const AppReengineering: React.FC = () => {
         items={serviceFeaturesData}
       />
       <DeliverMVP data={deliverMVPData} />
+      <EmergingTech data={ourServicesData} />
       <Processes title="OUR RE-ENGINEERING PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   )

@@ -191,7 +191,6 @@ const FixedPrice: React.FC = () => {
         description={serviceOverviewData.description}
         imagePath={serviceOverviewData.imagePath}
       />
-      <EmergingTech data={ourServicesData} />
       <InfoGrid data={fixedPriceProcessData} />
       <StreamlineSuccess
         label="STREAMLINE YOUR SUCCESS"
@@ -207,6 +206,7 @@ const FixedPrice: React.FC = () => {
         items={serviceFeaturesData}
       />
       <DeliverMVP data={deliverMVPData} />
+      <EmergingTech data={ourServicesData} />
       <Processes title="OUR FIXED PRICE PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   );

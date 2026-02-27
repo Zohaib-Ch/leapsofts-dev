@@ -199,7 +199,6 @@ const QualityAssurance: React.FC = () => {
                 description="Before your software goes live, let us put it through rigorous testing to ensure it's bulletproof. Our QA services cover everything from regression testing to performance analysis, ensuring reliable, high-quality outcomes meeting any quality standards."
                 imagePath={phoneImg}
             />
-            <EmergingTech data={ourServicesData} />
             <InfoGrid data={infoGridData} />
             <StreamlineSuccess
                 label="STREAMLINE YOUR SUCCESS"
@@ -215,6 +214,7 @@ const QualityAssurance: React.FC = () => {
                 items={serviceFeaturesData}
             />
             <DeliverMVP data={deliverMVPData} />
+            <EmergingTech data={ourServicesData} />
             <Processes
                 title="Software Verification & Validation Framework"
                 phaseLabels={phaseLabel}

@@ -166,7 +166,6 @@ const BusinessProcessOutsourcing: React.FC = () => {
         description={serviceOverviewData.description}
         imagePath={serviceOverviewData.imagePath}
       />
-      <EmergingTech data={ourServicesData} />
       <InfoGrid data={processData} />
       <StreamlineSuccess
         label="STREAMLINE YOUR SUCCESS"
@@ -182,6 +181,7 @@ const BusinessProcessOutsourcing: React.FC = () => {
         items={serviceFeaturesData}
       />
       <DeliverMVP data={deliverMVPData} />
+      <EmergingTech data={ourServicesData} />
       <Processes title="OUR BPO PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   );

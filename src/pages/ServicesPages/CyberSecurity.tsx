@@ -165,7 +165,6 @@ const CyberSecurity: React.FC = () => {
                 description={serviceOverviewData.description}
                 imagePath={serviceOverviewData.imagePath}
             />
-            <EmergingTech data={cyberSecurityData} />
             <InfoGrid data={infoGridData} />
             <StreamlineSuccess
                 label="STREAMLINE YOUR SUCCESS"
@@ -181,6 +180,7 @@ const CyberSecurity: React.FC = () => {
                 items={serviceFeaturesData}
             />
             <DeliverMVP data={deliverMVPData} />
+            <EmergingTech data={cyberSecurityData} />
             <Processes title="OUR CYBERSECURITY PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
         </>
     );

@@ -166,7 +166,6 @@ const DigitalEvolution: React.FC = () => {
         description={serviceOverviewData.description}
         imagePath={serviceOverviewData.imagePath}
       />
-      <EmergingTech data={emergingTechData} />
       <InfoGrid data={digitalEvolutionProcessData} />
       <StreamlineSuccess
         label="STREAMLINE YOUR SUCCESS"
@@ -182,6 +181,7 @@ const DigitalEvolution: React.FC = () => {
         items={serviceFeaturesData}
       />
       <DeliverMVP data={deliverMVPData} />
+      <EmergingTech data={emergingTechData} />
       <Processes title="OUR DIGITAL EVOLUTION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   );
