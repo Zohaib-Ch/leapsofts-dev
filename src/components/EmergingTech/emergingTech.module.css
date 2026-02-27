@@ -1,7 +1,7 @@
 .section {
     width: 100%;
     position: relative;
-    background-color: var(--bg-dark);
+    background-color: #050001;
     padding: 100px 0;
     overflow: hidden;
     color: white;
@@ -193,10 +193,6 @@
 @media (max-width: 1024px) {
     .container {
         padding: 0 1.5rem 0 30px;
-    }
-
-    .swiper {
-        /* transform: translateX(20%); */
     }
 
     .title {
