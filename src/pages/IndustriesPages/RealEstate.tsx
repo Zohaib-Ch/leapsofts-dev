@@ -3,146 +3,83 @@ import { useOutletContext } from 'react-router-dom'
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
-import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid'
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
-import WhyChooseUs from '../../components/WhyChooseUs/WhyChooseUs'
-import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures'
+import Services from '../Home/CompanyServices/Services';
 
 const commitmentData: CommitmentSectionProps['data'] = {
-    subtitle: "Our Commitments to Real Estate Leaders",
-    title: "Tailored for build, buy, and scale",
+    subtitle: "OUR COMMITMENTS TO REAL ESTATE LEADERS",
+    title: "Tailored for Build, Buy, and Scale",
     items: [
         {
             icon: '/industryicons/sphere.svg',
             title: 'Frictionless Management',
-            description: "We commit to building the 'Easy and Robust UI' your team deserves. We understand that property management involves juggling countless resident concerns. Our commitment is to provide intuitive interfaces that simplify daily tasks, ensuring that both your internal staff and your tenants have a seamless, frustration-free experience."
+            description: "We provide intuitive interfaces that simplify daily property management tasks, ensuring both internal staff and tenants have a seamless, frustration-free experience."
         },
         {
             icon: '/industryicons/bipiramida.svg',
             title: 'Scalable Asset Ownership',
-            description: "We commit to providing a framework you truly own. We don't believe in the limitations of off-the-shelf software. Our commitment is to deliver a proprietary system that grows with your portfolio, allowing you to add new properties, departments, and third-party integrations whenever your business demands it."
+            description: "Our proprietary systems grow with your portfolio, allowing you to add new properties, departments, and third-party integrations as your business demand grows."
         },
         {
             icon: '/industryicons/diamond.svg',
             title: 'Community-Centric Innovation',
-            description: "We commit to more than just property management, we commit to resident satisfaction. Our development focus includes building the social and communication tools needed to turn your units into communities. We promise to deliver the features that increase tenant retention and make your properties the preferred choice in the market."
+            description: "We build social and communication tools that turn units into communities, driving resident engagement and making your properties the preferred market choice."
         },
     ]
 }
-const servicesData: InfoGridProps['data'] = {
-  label: 'Operational Modules — Total Territory Control',
-  title: 'Manager & Resident-Focused Features',
-    items: [
-        {
-            icon: '01',
-            title: 'Seamless Application Processing',
-            description:
-                'Streamline the journey for new residents. From vetting rental applicants to supporting buyers through the mortgage process, we make onboarding effortless.'
-        },
-        {
-            icon: '02',
-            title: 'Maintenance & Asset Management',
-            description:
-                'Handle work orders for everything from major renovations to minor repairs. Coordinate subcontractors and track quality to keep properties in "as-new" condition.'
-        },
-        {
-            icon: '03',
-            title: 'Unified Billing & Accounting',
-            description:
-                'Execute mass charges for rent or HOA dues and manage vendor payments with ease. Full integration with CRMs and accounting platforms ensures every cent is tracked.'
-        },
-        {
-            icon: '04',
-            title: 'Tenant Satisfaction & Community',
-            description:
-                'Build more than just units—build communities. Features include conversation forums, neighbor reviews, and mass communication tools to drive resident engagement.'
-        },
-    ]
-};
-const ourTechInnovationsData: EmergingTechProps['data'] = {
-    label: 'TECH INNOVATIONS TO CONSIDER',
+
+const realEstateSolutionsData: EmergingTechProps['data'] = {
+    label: 'OUR SOLUTIONS',
     titleAccent: 'Real Estate-Focused',
-    titleMain: 'Solutions',
-    description: 'Focusing on the diverse sectors covered in your data.',
+    titleMain: ' Digital Ecosystems',
+    description: 'We build custom software that automates details, simplifies resident concerns, and optimizes property management for high-stakes portfolios.',
     items: [
         {
             icon: 'legacy',
-            title: 'Real Estate Development',
-            description: 'Custom tools for managing sales, buyer pipelines, and mortgage processing in new developments.'
-        },
-        {
-            icon: 'enterprise',
             title: 'Property Management',
             description: 'Robust platforms for long-term rental oversight, maintenance workflows, and tenant retention.'
         },
         {
-            icon: 'thirdParty',
-            title: 'HOA Software Solutions',
-            description: 'Specialized systems for Homeowners’ Associations to handle dues, community governance, and mass communication'
-        },
-        {
-            icon: 'legacy',
+            icon: 'enterprise',
             title: 'Real Estate Development',
             description: 'Custom tools for managing sales, buyer pipelines, and mortgage processing in new developments.'
         },
         {
-            icon: 'enterprise',
-            title: 'Property Management',
-            description: 'Robust platforms for long-term rental oversight, maintenance workflows, and tenant retention.'
-        },
-        {
             icon: 'thirdParty',
             title: 'HOA Software Solutions',
-            description: 'Specialized systems for Homeowners’ Associations to handle dues, community governance, and mass communication'
-        },
-               {
-            icon: 'legacy',
-            title: 'Real Estate Development',
-            description: 'Custom tools for managing sales, buyer pipelines, and mortgage processing in new developments.'
+            description: 'Specialized systems for Homeowners’ Associations to handle dues and community governance.'
         },
         {
-            icon: 'enterprise',
-            title: 'Property Management',
-            description: 'Robust platforms for long-term rental oversight, maintenance workflows, and tenant retention.'
+            icon: 'saas',
+            title: 'Maintenance Automation',
+            description: 'Streamline work orders, coordinate subcontractors, and track quality for property upkeep.'
         },
         {
-            icon: 'thirdParty',
-            title: 'HOA Software Solutions',
-            description: 'Specialized systems for Homeowners’ Associations to handle dues, community governance, and mass communication'
+            icon: 'product',
+            title: 'Unified Billing',
+            description: 'Manage mass charges for rent or HOA dues and vendor payments with full CRM integration.'
+        },
+        {
+            icon: 'mobile',
+            title: 'Tenant Portals',
+            description: 'Mobile-first applications for resident engagement, neighbor reviews, and mass communication.'
         }
     ]
 }
-const whyChooseUsData = {
-    subtitle: 'Custom vs. Off-the-Shelf Strategic Advantage',
-    title: 'Complete Ownership & Nuanced Solutions',
-    items: [
-        'Bespoke systems tailored to your unique property nuances and business needs.',
-        'Scalable frameworks you own, free from vendor lock-in or subscriptions.',
-        'Modernize legacy platforms with strategic system renovations and better workflows.',
-    ]
-};
 
-const defaultItems: ServiceFeatureItem[] = [
-    {
-        icon: '/industryicons/sphere.svg',
-        title: 'Robust UI/UX Design',
-        description: 'We deliver intuitive, visually appealing front-end and back-end interfaces, making it easy for both managers and tenants to navigate the platform.'
-    },
-    {
-        icon: '/industryicons/bipiramida.svg',
-        title: 'Ecosystem Harmonization',
-        description: "Eliminate data duplication. Our solutions integrate directly with your current CRMs, ERPs, inventory lists, and existing bookkeeping systems."
-    },
+const streamlineDescription = [
+    { text: "Transform your ", bold: false },
+    { text: "property portfolio ", bold: true },
+    { text: "with a robust technical foundation. Leapsofts offers a ", bold: false },
+    { text: "complimentary real estate strategy session ", bold: true },
+    { text: "to help you optimize ", bold: false },
+    { text: "management workflows ", bold: true },
+    { text: "and increase resident satisfaction.", bold: false },
 ];
-const title = "Custom Real Estate Management: Opening the Right Doors for Your Business";
-const subtitle = "";
-
-const introDescription = [
-    { text: "Real estate management is a complex, high-stakes adventure. We build custom software that automates the details, simplifies resident concerns, and makes every property feel like home.", bold: false },
-]
 
 const RealEstate: React.FC = () => {
-        const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+    const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
     useEffect(() => {
         setProcessTitle({
@@ -154,18 +91,28 @@ const RealEstate: React.FC = () => {
     return (
         <>
             <IntroComponent
-                title={title}
-                description={subtitle}
-                introDescription={introDescription}
+                title="Custom Real Estate Management Solutions"
+                description=""
+                introDescription={[
+                    { text: "Opening the right doors for your business with intelligent, automated property management software architected for scale and community engagement.", bold: false }
+                ]}
             />
             <CommitmentSection data={commitmentData} />
-            <InfoGrid data={servicesData} />
-            <EmergingTech data={ourTechInnovationsData} />
-            <WhyChooseUs
-                subtitle={whyChooseUsData.subtitle}
-                title={whyChooseUsData.title}
-                items={whyChooseUsData.items} />
-            <ServiceFeatures items={defaultItems} />
+            <StreamlineSuccess
+                label="STREAMLINE YOUR SUCCESS"
+                titleMain="Property "
+                titleAccent="Strategy"
+                titleEnd=" Session"
+                description={streamlineDescription}
+                imageUrl="/streamline.png"
+            />
+            <EmergingTech data={realEstateSolutionsData} />
+            <Services
+                label="OUR CAPABILITIES"
+                titleMain="How we "
+                titleAccent="empower"
+                titleEnd=" real estate businesses"
+            />
         </>
     )
 }

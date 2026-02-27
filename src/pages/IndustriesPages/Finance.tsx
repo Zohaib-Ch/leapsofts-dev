@@ -5,7 +5,7 @@ import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
-import WhyChooseUs from '../../components/WhyChooseUs/WhyChooseUs'
+import Services from '../Home/CompanyServices/Services';
 
 const ourTechInnovationsData: EmergingTechProps['data'] = {
     label: 'TECH INNOVATIONS TO CONSIDER',
@@ -92,19 +92,9 @@ const commitmentData: CommitmentSectionProps['data'] = {
         },
     ]
 }
-const whyChooseUsData = {
-    subtitle: 'Why Choose Us?',
-    title: 'Why Choose Leapsofts?',
-    items: [
-        'Leapsofts Technologies offers a full professional development team with a strong customer-focused approach.',
-        'Our expertise in diverse technologies and financial services enables us to deliver tailored, effective solutions.',
-        'Our UI/UX specialists create visually appealing, user-friendly apps that enhance customer experience for financial institutions.',
-        'We ensure bulletproof security through proactive prevention strategies and robust incident response to protect financial data.'
-    ]
-};
 
 const Finance: React.FC = () => {
-        const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+    const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
     useEffect(() => {
         setProcessTitle({
@@ -140,10 +130,12 @@ const Finance: React.FC = () => {
                 imageUrl="/strategy_session_dashboard.png"
             />
             <EmergingTech data={ourTechInnovationsData} />
-            <WhyChooseUs
-                subtitle={whyChooseUsData.subtitle}
-                title={whyChooseUsData.title}
-                items={whyChooseUsData.items} />
+            <Services
+                label="OUR CAPABILITIES"
+                titleMain="How we "
+                titleAccent="empower"
+                titleEnd=" financial businesses"
+            />
         </>
     )
 }

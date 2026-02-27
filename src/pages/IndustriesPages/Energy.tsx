@@ -3,132 +3,83 @@ import { useOutletContext } from 'react-router-dom'
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
-import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid'
-import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures'
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
+import Services from '../Home/CompanyServices/Services';
 
 const commitmentData: CommitmentSectionProps['data'] = {
-    subtitle: "Our Commitments to Energy Innovation",
+    subtitle: "OUR COMMITMENTS TO ENERGY INNOVATION",
     title: "Build-Buy & Scale Focused Commitments",
     items: [
         {
             icon: '/industryicons/sphere.svg',
             title: 'Absolute Operational Security',
-            description: "We commit to protecting your market share with high-security, low-risk technological solutions. In an industry where security and compliance are non-negotiable, we ensure every application we build adheres to the most stringent risk management standards, keeping your data and your infrastructure safe."
+            description: "We protect your market share with high-security, low-risk technological solutions that adhere to the most stringent risk management and compliance standards."
         },
         {
             icon: '/industryicons/bipiramida.svg',
             title: 'Real-Time System Visibility',
-            description: "We commit to preventing problems before they occur. By providing increased visibility into your networks and processes, our custom solutions allow for remote systems automation and operations monitoring. Our commitment is to give you the data-driven insights needed to increase productivity and eliminate lost revenue."
+            description: "By providing increased visibility into networks and processes, our solutions allow for remote automation and monitoring to prevent problems before they occur."
         },
         {
             icon: '/industryicons/diamond.svg',
             title: 'Sustainable Efficiency',
-            description: "We commit to making energy management effortless. From automated metering to detailed emissions reporting, we build the tools you need to operate more sustainably. Our commitment is to help you identify every opportunity for efficiency, enabling you to save money while advancing your sustainability goals."
+            description: "From automated metering to detailed emissions reporting, we build the tools you need to operate sustainably and identify every opportunity for efficiency."
         },
     ]
 }
-const servicesData: InfoGridProps['data'] = {
-    label: 'Operational Modules — Powering the Energy Business',
-    title: 'Our Core Capabilities',
+
+const energySolutionsData: EmergingTechProps['data'] = {
+    label: 'OUR SOLUTIONS',
+    titleAccent: 'Energy-Focused',
+    titleMain: ' Digital Solutions',
+    description: 'We empower energy organizations with the flexibility, resilience, and agility needed to streamline operations in a rapidly changing landscape.',
     items: [
         {
-            icon: '01',
-            title: 'IoT & Remote Automation',
-            description:
-                'Securely manage and adapt your IoT investments. Enable remote systems automation and real-time operations monitoring for autonomous and distributed assets.'
+            icon: 'legacy',
+            title: 'Smart Utilities & Management',
+            description: 'Digital tools that empower utilities to operate flexibly, minimize risks, and increase profits through connected data.'
         },
         {
-            icon: '02',
-            title: 'Sustainability & Emissions Reporting',
-            description:
-                'Automated metering of consumption and utility data collection. Generate sustainability reports and identify cost-saving opportunities through green energy practices.'
+            icon: 'enterprise',
+            title: 'Connected Oil & Gas',
+            description: 'High-security software for processing plants, pipelines, and labor forces to advance efficiency.'
         },
         {
-            icon: '03',
-            title: 'Workforce & Process Mechanization',
-            description:
-                'Automate hands-on management tasks to increase workforce productivity and prevent lost revenue caused by manual oversight.'
+            icon: 'thirdParty',
+            title: 'Energy IoT Infrastructure',
+            description: 'Systems designed to protect, monetize, and manage investments in smart lighting and autonomous rigs.'
         },
         {
-            icon: '04',
-            title: 'High-Security Risk Management',
-            description:
-                'Protect every facet of your business and market share with high-security, low-risk technological solutions designed for maximum compliance.'
+            icon: 'saas',
+            title: 'Emissions Reporting',
+            description: 'Automated metering and consumption data collection for comprehensive sustainability reporting.'
         },
         {
-            icon: '05',
-            title: 'Unified Network Infrastructure',
-            description:
-                'Minimize redundancy by supporting multiple devices, departments, and channels through a single platform that connects disparate applications.'
+            icon: 'product',
+            title: 'Grid Automation',
+            description: 'Intelligent systems for real-time operations monitoring and autonomous asset management.'
+        },
+        {
+            icon: 'mobile',
+            title: 'Field Workforce Tools',
+            description: 'Mobile applications that increase productivity and eliminate lost revenue from manual oversight.'
         }
     ]
-};
+}
 
-const defaultItems: ServiceFeatureItem[] = [
-    {
-        icon: '/industryicons/sphere.svg',
-        title: 'Own the System, Own the Future',
-        description: 'You own the framework and can cause changes as you evolve. In an industry where change is constant, custom software keeps you in the driver’s seat.'
-    },
-    {
-        icon: '/industryicons/bipiramida.svg',
-        title: 'Preventing Problems Before They Occur',
-        description: "Increased visibility into networks, systems, and processes allows you to identify and solve bottlenecks before they impact your operations."
-    },
-    {
-        icon: '/industryicons/bipiramida.svg',
-        title: 'Bleeding-Edge Technology Integration',
-        description: "We keep your core business applications up to date with the latest digital technologies, ensuring you never fall behind"
-    },
+const streamlineDescription = [
+    { text: "Lead the ", bold: false },
+    { text: "energy transition ", bold: true },
+    { text: "with a modernized technical infrastructure. Leapsofts offers a ", bold: false },
+    { text: "complimentary energy strategy session ", bold: true },
+    { text: "to help you optimize your ", bold: false },
+    { text: "operations and sustainability ", bold: true },
+    { text: "goals through custom software.", bold: false },
 ];
 
-const ourTechInnovationsData: EmergingTechProps['data'] = {
-    label: 'Sector Focus — Navigating the Digital Transition',
-    titleAccent: 'Energy-Focused',
-    titleMain: ' Solutions',
-    description: 'Focusing on the specific energy verticals mentioned in your data.',
-    items: [
-        {
-            icon: 'legacy',
-            title: 'Smart Utilities & Management',
-            description: 'Digital tools that empower utilities to operate flexibly, minimize risks, and increase profits through connected data.'
-        },
-        {
-            icon: 'enterprise',
-            title: 'Connected Oil & Gas',
-            description: 'High-security software for processing plants, pipelines, and labor forces to advance efficiency and raise the bottom line.'
-        },
-        {
-            icon: 'thirdParty',
-            title: 'Energy IoT Infrastructure',
-            description: 'Systems designed to protect, monetize, and manage investments in everything from smart lighting to autonomous oil rigs.'
-        },
-        {
-            icon: 'legacy',
-            title: 'Smart Utilities & Management',
-            description: 'Digital tools that empower utilities to operate flexibly, minimize risks, and increase profits through connected data.'
-        },
-        {
-            icon: 'enterprise',
-            title: 'Connected Oil & Gas',
-            description: 'High-security software for processing plants, pipelines, and labor forces to advance efficiency and raise the bottom line.'
-        },
-        {
-            icon: 'thirdParty',
-            title: 'Energy IoT Infrastructure',
-            description: 'Systems designed to protect, monetize, and manage investments in everything from smart lighting to autonomous oil rigs.'
-        }
-    ]
-}
-const title = "Custom Software Solutions for a Transformed Energy Landscape";
-const subtitle = "";
-
-const introDescription = [
-    { text: "The tides of change are moving faster than ever. We empower energy organizations with the flexibility, resilience, and agility needed to streamline operations and stay ahead of the competition.", bold: false },
-]
 const Energy: React.FC = () => {
-        const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+    const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
     useEffect(() => {
         setProcessTitle({
@@ -136,17 +87,32 @@ const Energy: React.FC = () => {
             titleAccent: "Process"
         });
     }, [setProcessTitle]);
+
     return (
         <>
             <IntroComponent
-                title={title}
-                description={subtitle}
-                introDescription={introDescription}
+                title="Custom Software for a Transformed Energy Landscape"
+                description=""
+                introDescription={[
+                    { text: "Empowering energy organizations with the flexibility and intelligence needed to streamline operations and stay ahead of the competition.", bold: false }
+                ]}
             />
             <CommitmentSection data={commitmentData} />
-            <InfoGrid data={servicesData} />
-            <EmergingTech data={ourTechInnovationsData} />
-            <ServiceFeatures items={defaultItems} />
+            <StreamlineSuccess
+                label="STREAMLINE YOUR SUCCESS"
+                titleMain="Energy "
+                titleAccent="Strategy"
+                titleEnd=" Session"
+                description={streamlineDescription}
+                imageUrl="/streamline.png"
+            />
+            <EmergingTech data={energySolutionsData} />
+            <Services
+                label="OUR CAPABILITIES"
+                titleMain="How we "
+                titleAccent="empower"
+                titleEnd=" energy organizations"
+            />
         </>
     )
 }

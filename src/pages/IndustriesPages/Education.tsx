@@ -3,10 +3,10 @@ import { useOutletContext } from 'react-router-dom'
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
-import InfoGrid from '../../components/InfoGrid/InfoGrid'
-import { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
-import ServiceFeatures from '../../components/ServiceFeatures/ServiceFeatures';
-import { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
+import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
+import Services from '../Home/CompanyServices/Services';
+
 const commitmentData: CommitmentSectionProps['data'] = {
     subtitle: "OUR COMMITMENT TO EDUCATIONAL INSTITUTIONS",
     title: "Secure, scalable, and student-centered digital solutions",
@@ -14,65 +14,72 @@ const commitmentData: CommitmentSectionProps['data'] = {
         {
             icon: '/industryicons/sphere.svg',
             title: 'Off-Campus Access',
-            description: "Secure, enterprise-grade applications and VDI solutions that permit students and faculty to access live educational sessions, collaborative tools, and all necessary resources anywhere, on any device (BYOD), while maintaining security."
+            description: "Secure, enterprise-grade applications and VDI solutions that permit students and faculty to access live educational sessions and collaborative tools anywhere, on any device."
         },
         {
             icon: '/industryicons/bipiramida.svg',
             title: 'Personalized Learning',
-            description: "Development of adaptive e-learning modules, Learning Management System (LMS) tools, and AI-driven tutoring features that engage students, allowing them to master material at their own pace and in their own preferred learning style."
+            description: "Development of adaptive e-learning modules, Learning Management System (LMS) tools, and AI-driven tutoring features that engage students and support self-paced mastery."
         },
         {
             icon: '/industryicons/diamond.svg',
             title: 'Data & Network Safety',
-            description: "Custom-built security solutions designed specifically to meet educational privacy laws (e.g., FERPA, COPPA), protecting sensitive institutional data, student records, and the privacy of every user on the platform."
+            description: "Custom-built security solutions designed specifically to meet educational privacy laws (FERPA, COPPA), protecting sensitive institutional data and student records."
         },
     ]
 }
-const servicesData: InfoGridProps['data'] = {
-    label: 'EDUCATIONAL SERVICES',
-    title: 'What We Offer',
+
+const educationSolutionsData: EmergingTechProps['data'] = {
+    label: 'OUR SOLUTIONS',
+    titleAccent: 'Our solutions for',
+    titleMain: 'EdTech & Learning',
+    description: 'We partner with educators and institutions to foster secure, dynamic digital learning environments that empower students and optimize administrative workflows.',
     items: [
         {
-            icon: '01',
-            title: 'Lesson Planning Automation',
-            description:
-                'Minimizing manual and repetitive administrative tasks by using AI to assist in compiling, organizing, and suggesting adjustments to lesson plans based on curriculum standards and student performance data.'
+            icon: 'legacy',
+            title: 'Custom LMS Development',
+            description: 'Scalable platforms for course management, student tracking, and collaborative learning.'
         },
         {
-            icon: '02',
-            title: 'Real-Time Collaboration',
-            description:
-                'Intuitive tools that make it simple for faculty and staff to stay organized, manage classroom activities, and foster transparent, real-time communication and progress-sharing with students and parents.'
+            icon: 'enterprise',
+            title: 'Lesson Planning AI',
+            description: 'Automate administrative tasks and assist in curriculum alignment using intelligent AI tools.'
         },
         {
-            icon: '03',
+            icon: 'thirdParty',
+            title: 'Collaborative Portals',
+            description: 'Real-time communication tools for faculty, students, and parents to foster transparent progress tracking.'
+        },
+        {
+            icon: 'product',
             title: 'Digital Content Delivery',
-            description:
-                'A platform for seamlessly converting traditional textbooks, physical materials, and laboratory resources into a rich, interactive computerized format, ensuring better accessibility and media integration.'
+            description: 'Convert traditional materials into interactive, computer-based formats with rich media integration.'
+        },
+        {
+            icon: 'saas',
+            title: 'Adaptive Learning Modules',
+            description: 'Personalized e-learning paths that adjust to student performance and learning styles.'
+        },
+        {
+            icon: 'mobile',
+            title: 'Remote Campus Access',
+            description: 'Secure VDI and VPN solutions for seamless access to institutional resources from any location.'
         }
     ]
-};
-const defaultItems: ServiceFeatureItem[] = [
-    {
-        icon: '/industryicons/sphere.svg',
-        title: 'E-Learning',
-        description: 'From independent learning modules to remote access to classroom resources, our e-learning solutions empower students to learn where they want, when they want, and how they want.'
-    },
-    {
-        icon: '/industryicons/bipiramida.svg',
-        title: 'Learning Management Systems',
-        description: "Leapsofts' custom applications make it easy for staff to stay organized and collaborate with students anytime, anywhere."
-    },
-];
-    const title = "Empowering Education Through Technology";
-    const subtitle = ""
-    const introDescription = [
-        { text: "We partner strategically with educators and institutions to foster the secure, dynamic digital learning environments needed to assist students in succeeding both inside and outside the traditional classroom setting.", bold: false },
-    ]
+}
 
+const streamlineDescription = [
+    { text: "Enhance your ", bold: false },
+    { text: "educational delivery ", bold: true },
+    { text: "with the right technology stack. Leapsofts offers a ", bold: false },
+    { text: "complimentary EdTech strategy session ", bold: true },
+    { text: "to help you design a ", bold: false },
+    { text: "digital learning ecosystem ", bold: true },
+    { text: "that ensures student success and administrative efficiency.", bold: false },
+];
 
 const Education: React.FC = () => {
-        const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+    const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
     useEffect(() => {
         setProcessTitle({
@@ -80,16 +87,32 @@ const Education: React.FC = () => {
             titleAccent: "Process"
         });
     }, [setProcessTitle]);
+
     return (
         <>
             <IntroComponent
-                title={title}
-                description={subtitle}
-                introDescription={introDescription}
+                title="Empowering Education Through Technology"
+                description=""
+                introDescription={[
+                    { text: "Partnering with global institutions to build secure, student-centric, and highly engaging digital learning environments.", bold: false }
+                ]}
             />
             <CommitmentSection data={commitmentData} />
-            <InfoGrid data={servicesData} />
-            <ServiceFeatures items={defaultItems} />
+            <StreamlineSuccess
+                label="STREAMLINE YOUR SUCCESS"
+                titleMain="Learning "
+                titleAccent="Strategy"
+                titleEnd=" Session"
+                description={streamlineDescription}
+                imageUrl="/streamline.png"
+            />
+            <EmergingTech data={educationSolutionsData} />
+            <Services
+                label="OUR CAPABILITIES"
+                titleMain="How we "
+                titleAccent="empower"
+                titleEnd=" educational institutions"
+            />
         </>
     )
 }

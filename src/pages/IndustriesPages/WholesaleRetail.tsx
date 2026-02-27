@@ -3,94 +3,82 @@ import { useOutletContext } from 'react-router-dom'
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
-import InfoGrid from '../../components/InfoGrid/InfoGrid'
-import { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
-import ServiceFeatures from '../../components/ServiceFeatures/ServiceFeatures';
-import { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
+import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
+import Services from '../Home/CompanyServices/Services';
 
-  const commitmentData: CommitmentSectionProps['data'] = {
-        subtitle: "OUR COMMITMENT TO WHOLESALE AND RETAIL",
-        title: "Accelerating Wholesale Growth with Bespoke Tech",
-        items: [
-            {
-                icon: '/industryicons/sphere.svg',
-                title: 'Total System Transparency',
-                description: "We commit to eliminating the blind spots in your operations. By integrating IoT sensors and real-time data feeds across your inventory and fleet, we ensure that you have a 360-degree view of your business at any moment. You will never have to make a critical decision based on outdated information."
-            },
-            {
-                icon: '/industryicons/bipiramida.svg',
-                title: 'Operational ROI',
-                description: "We don't just build software; we build efficiency engines. We commit to a development strategy that focuses on mechanizing your most repetitive manual tasks—from billing to onboarding. Our goal is to replicate the results of our top clients, who have seen overhead reductions and efficiency gains translating to a 250% return on their technology investment.",
-            },
-            {
-                icon: '/industryicons/diamond.svg',
-                title: 'Future-Proofing',
-                description: "We commit to building solutions that grow alongside your ambitions. By modernizing legacy systems and utilizing scalable cloud architecture, we ensure your software remains resilient against technological shifts. Our focus is on creating bleeding-edge systems that allow you to integrate new digital tools seamlessly, preventing your business from being held back by outdated technology.",
-            },
-        ]
-    }
-    const servicesData: InfoGridProps['data'] = {
-  label: 'OPERATIONAL MODULES',
-  title: 'Integrated Software for Efficiency',
+const commitmentData: CommitmentSectionProps['data'] = {
+  subtitle: "OUR COMMITMENT TO WHOLESALE AND RETAIL",
+  title: "Accelerating Wholesale Growth with Bespoke Tech",
   items: [
     {
-      icon: '01',
+      icon: '/industryicons/sphere.svg',
+      title: 'Total System Transparency',
+      description: "We eliminate operational blind spots by integrating real-time data feeds across your inventory and fleet, ensuring a 360-degree view of your business."
+    },
+    {
+      icon: '/industryicons/bipiramida.svg',
+      title: 'Operational ROI',
+      description: "We build efficiency engines that mechanize repetitive manual tasks—from billing to onboarding—aiming for significant overhead reductions and performance gains."
+    },
+    {
+      icon: '/industryicons/diamond.svg',
+      title: 'Future-Proofing',
+      description: "By modernizing legacy systems and utilizing scalable cloud architecture, we ensure your software remains resilient against technological shifts and integrates tools seamlessly."
+    },
+  ]
+}
+
+const retailSolutionsData: EmergingTechProps['data'] = {
+  label: 'OUR SOLUTIONS',
+  titleAccent: 'Retail-Focused',
+  titleMain: ' Digital Solutions',
+  description: 'We replace outdated legacy systems with modern, integrated technology designed to expand margins and automate complex logistics.',
+  items: [
+    {
+      icon: 'legacy',
       title: 'Inventory Management',
-      description:
-        'Provides real-time stock reports, multi-warehouse tracking, and predictive analytics to prevent stockouts, avoid overstocking, and optimize purchasing decisions.'
+      description: 'Real-time stock reports and multi-warehouse tracking with predictive analytics to optimize purchasing.'
     },
     {
-      icon: '02',
+      icon: 'enterprise',
       title: 'Order Fulfillment',
-      description:
-        'End-to-end tracking tools for customer orders, seamlessly leveraging purchase history to facilitate targeted, high-conversion upselling and cross-selling opportunities.'
+      description: 'End-to-end tracking tools leveraging purchase history for targeted upselling and cross-selling.'
     },
     {
-      icon: '03',
-      title: 'Fleet Management',
-      description:
-        'Sophisticated telematics and optimization tools focused on maximizing vehicle performance, ensuring driver safety, and increasing productivity throughout the entire vehicle lifecycle and delivery process.'
+      icon: 'thirdParty',
+      title: 'Fleet & Telematics',
+      description: 'Optimization tools focused on maximizing vehicle performance and delivery productivity.'
     },
     {
-      icon: '04',
+      icon: 'saas',
       title: 'Billing & Payments',
-      description:
-        'Integrates secure, seamless transaction cycles (e.g., e-invoicing, diverse payment gateways) to ensure a smooth, secure, and hassle-free final step in the customer and B2B journey.'
+      description: 'Secure, seamless transaction cycles with e-invoicing and diverse payment gateway integrations.'
     },
     {
-      icon: '05',
+      icon: 'product',
       title: 'Vendor & Client CRM',
-      description:
-        'A centralized platform for managing all vendor data, interaction history, contact information, and client sales pipelines, ensuring a single source of consistent and accurate data.'
+      description: 'A centralized platform for managing interaction history, contact info, and sales pipelines.'
     },
     {
-      icon: '06',
+      icon: 'mobile',
       title: 'Employee Onboarding',
-      description:
-        'A dedicated HR platform streamlining the entire process from automated recruiting and compliance checks to personalized training modules for more effective and rapid team coordination.'
+      description: 'HR platforms streamlining recruiting, compliance, and personalized training modules.'
     }
   ]
-};
-const defaultItems: ServiceFeatureItem[] = [
-    {
-        icon: '/industryicons/sphere.svg',
-        title: 'IoT & Smart Warehousing',
-        description: 'We integrate cutting-edge sensors for ambient warehouse condition monitoring and transportation tracking directly into your Enterprise Resource Planning (ERP) system, providing complete, real-time operational visibility.'
-    },
-    {
-        icon: '/industryicons/bipiramida.svg',
-        title: 'Third-Party Ecosystems',
-        description: 'We eliminate restrictive data silos by seamlessly integrating your custom software with all existing e-commerce platforms (e.g., Shopify, Magento), marketplace APIs, and specialized supply chain tools (e.g., 3PL systems).'
-    },
+}
+
+const streamlineDescription = [
+  { text: "Streamline your ", bold: false },
+  { text: "wholesale and retail operations ", bold: true },
+  { text: "with a modernized technical infrastructure. Leapsofts offers a ", bold: false },
+  { text: "complimentary retail strategy session ", bold: true },
+  { text: "to help you optimize your ", bold: false },
+  { text: "supply chain and customer engagement.", bold: true },
 ];
-    const title = "Custom CRM Software Development";
-    const subtitle = ""
-    const introDescription = [
-        { text: "Replace outdated legacy systems with modern, integrated technology designed specifically to expand operational margins, automate complex logistics, and significantly upgrade client relationships across the wholesale and retail sectors", bold: false },
-    ]
 
 const WholesaleRetail: React.FC = () => {
-    const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+  const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   useEffect(() => {
     setProcessTitle({
@@ -98,18 +86,34 @@ const WholesaleRetail: React.FC = () => {
       titleAccent: "Process"
     });
   }, [setProcessTitle]);
-    return (
-        <>
-            <IntroComponent
-                title={title}
-                description={subtitle}
-                introDescription={introDescription}
-            />
-            <CommitmentSection data={commitmentData} />
-            <InfoGrid data={servicesData} />
-            <ServiceFeatures items={defaultItems} />
-        </>
-    )
+
+  return (
+    <>
+      <IntroComponent
+        title="Modern Technology for Wholesale & Retail"
+        description=""
+        introDescription={[
+          { text: "Upgrading client relationships and automating complex logistics with custom-built retail and commerce software solutions.", bold: false }
+        ]}
+      />
+      <CommitmentSection data={commitmentData} />
+      <StreamlineSuccess
+        label="STREAMLINE YOUR SUCCESS"
+        titleMain="Retail "
+        titleAccent="Strategy"
+        titleEnd=" Session"
+        description={streamlineDescription}
+        imageUrl="/streamline.png"
+      />
+      <EmergingTech data={retailSolutionsData} />
+      <Services
+        label="OUR CAPABILITIES"
+        titleMain="How we "
+        titleAccent="empower"
+        titleEnd=" retail businesses"
+      />
+    </>
+  )
 }
 
 export default WholesaleRetail

@@ -29,6 +29,9 @@ const Footer = () => {
       { name: 'Real Estate', path: '/industries/real-estate' },
       { name: 'Transportation', path: '/industries/transportation' },
       { name: 'Energy', path: '/industries/energy' },
+      { name: 'Automotive', path: '/industries/automotive' },
+      { name: 'Compliance', path: '/industries/compliance' },
+      { name: 'Startups', path: '/industries/startups' },
     ],
   };
 

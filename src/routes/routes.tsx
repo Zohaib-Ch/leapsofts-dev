@@ -41,6 +41,9 @@ import Projects from '../pages/Company/Projects';
 import Partners from '../pages/Company/Partners';
 import ProjectDetails from '../pages/Company/ProjectDetails';
 import Error from '../pages/ErrorPage/Error';
+import Automotive from '../pages/IndustriesPages/Automotive';
+import Compliance from '../pages/IndustriesPages/Compliance';
+import Startups from '../pages/IndustriesPages/Startups';
 
 const router = createBrowserRouter([
     {
@@ -165,6 +168,18 @@ const router = createBrowserRouter([
                     {
                         path: 'finance',
                         element: <Finance />
+                    },
+                             {
+                        path: 'automotive',
+                        element: <Automotive />
+                    },
+                    {
+                        path: 'compliance',
+                        element: <Compliance />
+                    },
+                    {
+                        path: 'startups',
+                        element: <Startups />
                     },
                     {
                         path: 'healthcare',
