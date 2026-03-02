@@ -151,12 +151,20 @@ const processPhasesDefault: ProcessPhase[] = [
 const phaseLabelsDefault = ["ASSESSMENT", "SETUP", "EXECUTION", "OPTIMIZATION"];
 
 
+const title = "Smart Operations, Results-Driven Approach.";
+const subtitle = "";
+
+const introDescription = [
+  { text: "Optimize your business operations with intelligence through Leapsofts.", bold: false },
+]
+
 const BusinessProcessOutsourcing: React.FC = () => {
   return (
     <>
       <IntroComponent
-        title="Smart Operations, Results-Driven Approach."
-        description="Optimize your business operations with intelligence through Leapsofts."
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
       />
       <ServiceOverview
         label={serviceOverviewData.label}

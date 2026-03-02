@@ -221,12 +221,20 @@ const phaseLabelsDefault = [
 
 
 
+const title = "Elevate Your Business with Confidence";
+const subtitle = "";
+
+const introDescription = [
+    { text: "Explore new business ideas safely with detailed testing and project forecasts.", bold: false },
+]
+
 const ProofOfConceptDevelopment: React.FC = () => {
     return (
         <>
             <IntroComponent
-                title="Elevate Your Business with Confidence"
-                description="Explore new business ideas safely with detailed testing and project forecasts."
+                title={title}
+                description={subtitle}
+                introDescription={introDescription}
             />
             <ServiceOverview
                 label={serviceOverviewData.label}

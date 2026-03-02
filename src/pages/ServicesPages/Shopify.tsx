@@ -176,12 +176,20 @@ const phaseLabelsDefault = [
 
 
 
+const title = "Advancing Digital Commerce Evolution";
+const subtitle = "";
+
+const introDescription = [
+  { text: "Leapsofts enhances businesses with enterprise-level Shopify capabilities.", bold: false },
+]
+
 const Shopify: React.FC = () => {
   return (
     <>
       <IntroComponent
-        title="Advancing Digital Commerce Evolution"
-        description="Leapsofts enhances businesses with enterprise-level Shopify capabilities."
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
       />
       <ServiceOverview
         label={serviceOverviewData.label}

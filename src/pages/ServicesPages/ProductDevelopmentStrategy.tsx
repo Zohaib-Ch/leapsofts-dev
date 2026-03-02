@@ -150,12 +150,20 @@ const processPhasesDefault: ProcessPhase[] = [
 
 const phaseLabelsDefault = ["ANALYSIS", "DEFINITION", "BLUEPRINTING", "EXECUTION"];
 
+const title = "Master Your Market Presence";
+const subtitle = "";
+
+const introDescription = [
+  { text: "Our product development strategy service provides a clear blueprint, steering your product towards market leadership.", bold: false },
+]
+
 const ProductDevelopmentStrategy: React.FC = () => {
   return (
     <>
       <IntroComponent
-        title="Master Your Market Presence"
-        description="Our product development strategy service provides a clear blueprint, steering your product towards market leadership."
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
       />
       <ServiceOverview
         label={serviceOverviewData.label}

@@ -248,12 +248,20 @@ const streamlineDescription = [
 ];
 
 
+const title = "Harness Data Accessibility";
+const subtitle = "";
+
+const introDescription = [
+  { text: "Unlock the full potential of your data with Leapsofts' Data Science and AI services. We leverage advanced algorithms, machine learning, and predictive analytics to help you uncover hidden patterns, automate complex processes, and make data-driven decisions that propel your business forward.", bold: false },
+]
+
 const DataScienceAI: React.FC = () => {
   return (
     <>
       <IntroComponent
-        title="Harness Data Accessibility"
-        description="LeapSofts constructs contemporary, secure, and scalable web apps to streamline your business operations."
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
       />
       <ServiceOverview
         titleMain="Maximize"

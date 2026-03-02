@@ -150,12 +150,20 @@ const processPhasesDefault: ProcessPhase[] = [
 const phaseLabelsDefault = ["RECONNAISSANCE", "DESIGN", "DEPLOYMENT", "VIGILANCE"];
 
 
+const title = "Maintain a Lead in Cybersecurity";
+const subtitle = "";
+
+const introDescription = [
+    { text: "Leapsofts guides you through complex cybersecurity challenges, from strategy to effective response.", bold: false },
+]
+
 const CyberSecurity: React.FC = () => {
     return (
         <>
             <IntroComponent
-                title="Maintain a Lead in Cybersecurity"
-                description="Leapsofts guides you through complex cybersecurity challenges, from strategy to effective response."
+                title={title}
+                description={subtitle}
+                introDescription={introDescription}
             />
             <ServiceOverview
                 label={serviceOverviewData.label}

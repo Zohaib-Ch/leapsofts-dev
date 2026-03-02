@@ -186,12 +186,20 @@ const deliverMVPData = {
 
 
 
+const title = "Where Elite Tech Talent Thrives";
+const subtitle = "";
+
+const introDescription = [
+  { text: "Tech innovators adore our services and for good reason. We provide them with the finest tech talent in the industry.", bold: false },
+]
+
 const DedicatedTeams: React.FC = () => {
   return (
     <>
       <IntroComponent
-        title="Where Elite Tech Talent Thrives"
-        description="Tech innovators adore our services and for good reason. We provide them with the finest tech talent in the industry."
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
       />
       <ServiceOverview
         label={serviceOverviewData.label}

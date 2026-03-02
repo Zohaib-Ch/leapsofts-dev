@@ -281,12 +281,20 @@ const processPhasesDefault: ProcessPhase[] = [
 
 const phaseLabelsDefault = ["DISCOVERY", "DESIGN", "IMPLEMENTATION", "OPTIMIZATION"];
 
+const title = "Leading Salesforce Development Ally";
+const subtitle = "";
+
+const introDescription = [
+    { text: "Leapsofts covers every aspect of Salesforce development, from strategy to implementation.", bold: false },
+]
+
 const Salesforce: React.FC = () => {
     return (
         <>
             <IntroComponent
-                title="Leading Salesforce Development Ally"
-                description="Leapsofts covers every aspect of Salesforce development, from strategy to implementation."
+                title={title}
+                description={subtitle}
+                introDescription={introDescription}
             />
             <ServiceOverview
                 label={serviceOverviewData.label}

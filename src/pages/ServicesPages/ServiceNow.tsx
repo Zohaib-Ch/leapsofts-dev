@@ -153,12 +153,20 @@ const phaseLabelsDefault = ["ASSESSMENT", "FOUNDATION", "EXECUTION", "OPTIMIZATI
 
 
 
+const title = "ServiceNow: Empower Your Business";
+const subtitle = "";
+
+const introDescription = [
+  { text: "Revolutionize your operations with ServiceNow expertise that streamlines processes and boosts efficiency.", bold: false },
+]
+
 const ServiceNow: React.FC = () => {
   return (
     <>
       <IntroComponent
-        title="ServiceNow: Empower Your Business"
-        description="Revolutionize your operations with ServiceNow expertise that streamlines processes and boosts efficiency."
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
       />
       <ServiceOverview
         label={serviceOverviewData.label}

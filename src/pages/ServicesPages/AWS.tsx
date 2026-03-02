@@ -150,12 +150,20 @@ const processPhasesDefault: ProcessPhase[] = [
 const phaseLabelsDefault = ["ASSESSMENT", "DESIGN", "IMPLEMENTATION", "OPERATIONS"];
 
 
+const title = "Expand Boundlessly, Innovate Freely";
+const subtitle = "";
+
+const introDescription = [
+  { text: "Concentrate on acquiring customers and expanding your business, leaving infrastructure management to us.", bold: false },
+]
+
 const AWS: React.FC = () => {
   return (
     <>
       <IntroComponent
-        title="Expand Boundlessly, Innovate Freely"
-        description="Concentrate on acquiring customers and expanding your business, leaving infrastructure management to us."
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
       />
       <ServiceOverview
         label={serviceOverviewData.label}

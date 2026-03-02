@@ -153,12 +153,20 @@ const phaseLabelsDefault = ["PREPARATION", "BRAINSTORMING", "VALIDATION", "BLUEP
 
 
 
+const title = "Unleashing Creativity, Shaping Your Vision";
+const subtitle = "";
+
+const introDescription = [
+  { text: "Leapsofts’s Ideation Workshop is your launchpad to crystallize and refine your concepts.", bold: false },
+]
+
 const IdeationWorkshop: React.FC = () => {
   return (
     <>
       <IntroComponent
-        title="Unleashing Creativity, Shaping Your Vision"
-        description="Leapsofts’s Ideation Workshop is your launchpad to crystallize and refine your concepts."
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
       />
       <ServiceOverview
         label={serviceOverviewData.label}

@@ -151,12 +151,20 @@ const processesData: ProcessPhase[] = [
 
 const phaseLabels = ["ASSESSMENT", "FRAMEWORK", "INTEGRATION", "OPERATIONS"];
 
+const title = "Master Your Data Universe";
+const subtitle = "";
+
+const introDescription = [
+    { text: "Transform your data into a powerful asset with Leapsofts Data Governance services.", bold: false },
+]
+
 const DataGovernance: React.FC = () => {
     return (
         <>
             <IntroComponent
-                title="Master Your Data Universe"
-                description="Transform your data into a powerful asset with Leapsofts Data Governance services."
+                title={title}
+                description={subtitle}
+                introDescription={introDescription}
             />
             <ServiceOverview
                 label={serviceOverviewData.label}

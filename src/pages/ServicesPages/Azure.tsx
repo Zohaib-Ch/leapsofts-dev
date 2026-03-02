@@ -213,12 +213,20 @@ const processPhasesDefault: ProcessPhase[] = [
 
 const phaseLabelsDefault = ["DISCOVERY", "PLANNING", "EXECUTION", "MANAGEMENT"];
 
+const title = "Focus on What’s Essential with Your Cloud Strategy";
+const subtitle = "";
+
+const introDescription = [
+  { text: "Harness the potential of Microsoft Azure to drive business growth.", bold: false },
+]
+
 const Azure: React.FC = () => {
   return (
     <>
       <IntroComponent
-        title="Focus on What’s Essential with Your Cloud Strategy"
-        description="Harness the potential of Microsoft Azure to drive business growth."
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
       />
       <ServiceOverview
         label={serviceOverviewData.label}

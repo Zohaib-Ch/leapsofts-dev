@@ -184,12 +184,20 @@ const deliverMVPData = {
         }
     ]
 };
+const title = "Keep Bugs at Bay, Focus on Success";
+const subtitle = "";
+
+const introDescription = [
+    { text: "Minimize time spent on resolving problems and devote more to creating products that delight your users!", bold: false },
+]
+
 const QualityAssurance: React.FC = () => {
     return (
         <>
             <IntroComponent
-                title="Keep Bugs at Bay, Focus on Success"
-                description="Minimize time spent on resolving problems and devote more to creating products that delight your users!"
+                title={title}
+                description={subtitle}
+                introDescription={introDescription}
             />
             <ServiceOverview
                 label="BRIEF OVERVIEW"

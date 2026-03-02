@@ -176,12 +176,20 @@ const deliverMVPData = {
 
 
 
+const title = "Predictable Development, Exceptional Results";
+const subtitle = "";
+
+const introDescription = [
+  { text: "Get high-quality software development with fixed-price predictability.", bold: false },
+]
+
 const FixedPrice: React.FC = () => {
   return (
     <>
       <IntroComponent
-        title="Predictable Development, Exceptional Results"
-        description="Get high-quality software development with fixed-price predictability."
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
       />
       <ServiceOverview
         label={serviceOverviewData.label}

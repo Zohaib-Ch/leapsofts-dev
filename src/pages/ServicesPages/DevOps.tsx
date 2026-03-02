@@ -161,12 +161,20 @@ const streamlineDescription = [
     { text: "can streamline workflows, improve efficiency, and support scalable growth.", bold: false },
 ];
 
+const title = "Streamline, Unify & Accelerate Delivery";
+const subtitle = "";
+
+const introDescription = [
+    { text: "We’ll hasten your rollout, ease the update and upgrade process, and ensure enhanced availability.", bold: false },
+]
+
 const DevOps: React.FC = () => {
     return (
         <>
             <IntroComponent
-                title="Streamline, Unify & Accelerate Delivery"
-                description="We’ll hasten your rollout, ease the update and upgrade process, and ensure enhanced availability."
+                title={title}
+                description={subtitle}
+                introDescription={introDescription}
             />
             <ServiceOverview
                 titleMain="Maximize"

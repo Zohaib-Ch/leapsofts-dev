@@ -151,12 +151,20 @@ const processPhasesDefault: ProcessPhase[] = [
 const phaseLabelsDefault = ["DISCOVERY", "STRATEGY", "EXECUTION", "EXPANSION"];
 
 
+const title = "Digital Evolution: Evolve, Enhance & Excel";
+const subtitle = "";
+
+const introDescription = [
+  { text: "Evolve your organization for the modern digital era with Leapsofts.", bold: false },
+]
+
 const DigitalEvolution: React.FC = () => {
   return (
     <>
       <IntroComponent
-        title="Digital Evolution: Evolve, Enhance & Excel"
-        description="Evolve your organization for the modern digital era with Leapsofts."
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
       />
       <ServiceOverview
         label={serviceOverviewData.label}

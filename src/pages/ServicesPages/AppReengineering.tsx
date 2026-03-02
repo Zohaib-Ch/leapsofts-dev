@@ -150,10 +150,21 @@ const processPhasesDefault: ProcessPhase[] = [
 
 const phaseLabelsDefault = ["ASSESSMENT", "DESIGN", "DEVELOPMENT", "DEPLOYMENT"];
 
+const title = "Revamp Your Legacy Systems";
+const subtitle = "";
+
+const introDescription = [
+  { text: "Upgrade and enhance your old applications to triple performance efficiency and cut costs.", bold: false },
+]
+
 const AppReengineering: React.FC = () => {
   return (
     <>
-      <IntroComponent title="Revamp Your Legacy Systems" description="Upgrade and enhance your old applications to triple performance efficiency and cut costs." />
+      <IntroComponent
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
+      />
       <ServiceOverview
         label={serviceOverviewData.label}
         titleMain={serviceOverviewData.titleMain}

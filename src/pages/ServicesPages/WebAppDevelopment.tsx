@@ -195,12 +195,20 @@ const phaseLabelsDefault = [
   "CONTINUOUS SUPPORT",
 ];
 
+const title = "Advanced Web Applications";
+const subtitle = "";
+
+const introDescription = [
+  { text: "Scalable, secure, and modern web solutions designed to propel your business forward.", bold: false },
+]
+
 const WebAppDevelopment: React.FC = () => {
   return (
     <>
       <IntroComponent
-        title="Advanced Web Applications"
-        description="Scalable, secure, and modern web solutions designed to propel your business forward."
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
       />
       <ServiceOverview
         label={serviceOverviewData.label}
