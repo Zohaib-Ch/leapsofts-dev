@@ -1,11 +1,14 @@
-import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
+import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
+import Capabilities, { type CapabilitySlide } from '../../components/Capabilities/Capabilities';
+import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
+import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
+import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
+import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import capabilitiesImg from '../../assets/capabilities_3d.png';
 import platformImg from '../../assets/capabilities_platform.png';
-import { type CapabilitySlide } from '../../components/Capabilities/Capabilities';
-import Capabilities from '../../components/Capabilities/Capabilities';
-import Processes from '../../components/Processes/Processes';
-import { type ProcessPhase } from '../../components/Processes/Processes';
+import laptopImg from "../../assets/about_laptop_3d.png";
 const capabilitiesSlides: CapabilitySlide[] = [
     {
         id: 'consultation',
@@ -64,6 +67,100 @@ const capabilitiesSlides: CapabilitySlide[] = [
         ]
     }
 ];
+
+const serviceOverviewData = {
+    label: "POC DEVELOPMENT",
+    titleMain: "Validate Your",
+    titleAccent: "Innovation",
+    titleEnd: "Early",
+    description: "Leapsofts helps companies reduce technical and market risks through strategic Proof of Concept development. We turn your ambitious ideas into functional demonstrators, providing the technical evidence needed to secure stakeholder buy-in and investment.",
+    imagePath: laptopImg
+};
+
+const infoGridData: InfoGridProps['data'] = {
+    label: 'POC BENEFITS',
+    title: 'Why Start with a POC',
+    items: [
+        {
+            icon: '01',
+            title: 'Risk Mitigation',
+            description: 'Identify and address technical blockers before committing to full-scale development.'
+        },
+        {
+            icon: '02',
+            title: 'Cost Efficiency',
+            description: 'Spend less to validate core functionality than building a complete product.'
+        },
+        {
+            icon: '03',
+            title: 'Stakeholder Buy-in',
+            description: 'Prove the value of your idea with a tangible, working demonstration.'
+        },
+        {
+            icon: '04',
+            title: 'Faster Learning',
+            description: 'Gather user feedback early to refine your product roadmap.'
+        }
+    ]
+};
+
+const streamlineDescription = [
+    { text: "Don't leave your innovation to ", bold: false },
+    { text: "chance", bold: true },
+    { text: ". Leapsofts offers a ", bold: false },
+    { text: "complimentary POC feasibility session ", bold: true },
+    { text: "to help you identify the ", bold: false },
+    { text: "best path to validation ", bold: true },
+    { text: "for your most ambitious digital ideas.", bold: false },
+];
+
+const serviceFeaturesData: ServiceFeatureItem[] = [
+    {
+        icon: '/industryicons/sphere.svg',
+        title: 'Rapid Prototyping',
+        description: 'Building interactive UI mocks and click-through flows to test user experience.'
+    },
+    {
+        icon: '/industryicons/bipiramida.svg',
+        title: 'Technical Feasibility',
+        description: 'Coding core backend logic to prove complex integrations or algorithms.'
+    },
+    {
+        icon: '/industryicons/sphere.svg',
+        title: 'Architecture Blueprint',
+        description: 'Defining the tech stack and system design for future full-scale development.'
+    },
+    {
+        icon: '/industryicons/bipiramida.svg',
+        title: 'Market Testing',
+        description: 'Creating light versions of your product to test user engagement in the real world.'
+    }
+];
+
+const deliverMVPData = {
+    label: "POC EXCELLENCE",
+    title: "Committed to",
+    accentText: "Proven Success",
+    description: "Leapsofts provides senior technical advisors who are fully committed to your project's success. We focus on innovation, technical honesty, and strategic clarity.",
+    items: [
+        {
+            title: "Technical Rigor.",
+            description: "Answering the 'can it be done' question with clear technical evidence."
+        },
+        {
+            title: "Strategic Speed.",
+            description: "Delivering functional POCs in weeks, not months."
+        },
+        {
+            title: "Clear Roadmap.",
+            description: "Transitioning smoothly from successful POC to full-scale project planning."
+        },
+        {
+            title: "Honest Assessment.",
+            description: "Providing transparent feedback on feasibility and potential roadblocks."
+        }
+    ]
+};
 const processPhasesDefault: ProcessPhase[] = [
     {
         id: 1,
@@ -116,7 +213,7 @@ const processPhasesDefault: ProcessPhase[] = [
 ];
 
 const phaseLabelsDefault = [
-    "SOLUTION DESIGN & PLANNING",  
+    "SOLUTION DESIGN & PLANNING",
     "DEVELOPMENT & EXECUTION",
     "TESTING & VALIDATION",
     "DEPLOYMENT & MAINTENANCE",
@@ -124,21 +221,51 @@ const phaseLabelsDefault = [
 
 
 
+const title = "Elevate Your Business with Confidence";
+const subtitle = "";
+
+const introDescription = [
+    { text: "Explore new business ideas safely with detailed testing and project forecasts.", bold: false },
+]
+
 const ProofOfConceptDevelopment: React.FC = () => {
     return (
         <>
             <IntroComponent
-                title="Elevate Your Business with Confidence"
-                description="Explore new business ideas safely with detailed testing, accurate project forecasts, and expert advice."
+                title={title}
+                description={subtitle}
+                introDescription={introDescription}
+            />
+            <ServiceOverview
+                label={serviceOverviewData.label}
+                titleMain={serviceOverviewData.titleMain}
+                titleAccent={serviceOverviewData.titleAccent}
+                titleEnd={serviceOverviewData.titleEnd}
+                description={serviceOverviewData.description}
+                imagePath={serviceOverviewData.imagePath}
             />
             <Capabilities
                 title="Our Key Capabilities"
-                description="we offer end-to-end custom application development services across various platforms and business functions."
+                description="We offer end-to-end custom application development services."
                 slides={capabilitiesSlides}
                 defaultImage={capabilitiesImg}
             />
-            <Processes title="OUR PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
-
+            <InfoGrid data={infoGridData} />
+            <StreamlineSuccess
+                label="STREAMLINE YOUR SUCCESS"
+                titleMain="POC "
+                titleAccent="Feasibility"
+                titleEnd=" Session"
+                description={streamlineDescription}
+                imageUrl="/streamline.png"
+            />
+            <ServiceFeatures
+                title='Expert POC Services'
+                description='We deliver specialized services to validate your digital innovations.'
+                items={serviceFeaturesData}
+            />
+            <DeliverMVP data={deliverMVPData} />
+            <Processes title="OUR PROOF OF CONCEPT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
         </>
     );
 };

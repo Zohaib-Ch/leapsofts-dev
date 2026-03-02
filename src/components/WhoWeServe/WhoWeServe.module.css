@@ -1,7 +1,7 @@
 .whoSection {
     width: 100%;
     padding: 100px 0 60px;
-    background: var(--bg-dark);
+    background: #050001;
     display: flex;
     justify-content: center;
     align-items: center;

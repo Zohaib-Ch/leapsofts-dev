@@ -1,7 +1,7 @@
 .section {
     width: 100%;
     position: relative;
-    background: linear-gradient(180deg, rgba(112, 41, 134, 0.4), #1B0F28);
+    background: linear-gradient(180deg, #050001, rgba(67, 23, 81, 1), #050001);
     padding: 100px 0;
     overflow: hidden;
     z-index: 10;
@@ -41,7 +41,7 @@
 }
 
 .accent {
-    color: #d25da6;
+    color: var(--color-primary-light);
     font-style: italic;
 }
 

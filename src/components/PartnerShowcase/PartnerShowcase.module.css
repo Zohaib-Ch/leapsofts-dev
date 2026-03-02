@@ -1,9 +1,9 @@
 .sliderWrapper {
     width: 100%;
     position: relative;
-    background: var(--bg-dark);
+    background: #050001;
     padding-bottom: 0px;
-    margin-top: 40px;
+    padding-top: 40px;
 }
 
 .mainSwiper {

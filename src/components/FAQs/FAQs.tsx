@@ -84,6 +84,9 @@ const FAQs: React.FC<FAQsProps> = ({
                                             onClick={() => toggleQuestion(index)}
                                             aria-expanded={activeIndex === index}
                                         >
+                                            <div className={styles.numberWrapper}>
+                                                {index + 1}
+                                            </div>
                                             <span className={styles.questionText}>{faq.question}</span>
                                             <span className={`${styles.questionIcon} ${activeIndex === index ? styles.iconActive : ''}`}>
                                                 {activeIndex === index ? <Minus size={20} /> : <Plus size={20} />}

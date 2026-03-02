@@ -4,11 +4,13 @@ import EmergingTech from '../../components/EmergingTech/EmergingTech';
 import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import InfoGrid from '../../components/InfoGrid/InfoGrid';
 import { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
-import Capabilities from '../../components/Capabilities/Capabilities';
-import { type CapabilitySlide } from '../../components/Capabilities/Capabilities';
-import platformImg from '../../assets/capabilities_platform.png';
-import capabilitiesImg from '../../assets/capabilities_3d.png';
-import WhyChooseUs from '../../components/WhyChooseUs/WhyChooseUs';
+import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
+import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
+import Processes from '../../components/Processes/Processes';
+import { type ProcessPhase } from '../../components/Processes/Processes';
+import ServiceFeatures from '../../components/ServiceFeatures/ServiceFeatures';
+import { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 const ourServicesData: EmergingTechProps['data'] = {
   label: 'AI SERVICES',
   titleAccent: 'AI',
@@ -114,192 +116,178 @@ const processData: InfoGridProps['data'] = {
     }
   ]
 }
-const capabilitiesSlides: CapabilitySlide[] = [
+
+const defaultItems: ServiceFeatureItem[] = [
   {
-    id: 'advanced-data',
-    number: '< 01 >',
-    title: 'Advanced Data',
-    image: capabilitiesImg,
-    items: [
-      {
-        name: 'Data Integration & Preparation',
-        description:
-          'Combine, clean, and prepare data from multiple sources for reliable analytics and AI readiness.'
-      },
-      {
-        name: 'Custom Analytics (ML/DL)',
-        description:
-          'Build tailored machine learning and deep learning solutions for data-driven decision-making.'
-      },
-      {
-        name: 'Predictive Modeling & Forecasting',
-        description:
-          'Anticipate trends and outcomes using advanced AI-powered forecasting techniques.'
-      },
-      {
-        name: 'Dashboards & Visualizations',
-        description:
-          'Transform complex data into intuitive dashboards for faster insights.'
-      }
-    ]
+    icon: '/industryicons/sphere.svg',
+    title: 'Retain',
+    description: 'Keeping select applications on-premises due to dependencies or compliance.'
   },
   {
-    id: 'generative-ai',
-    number: '< 02 >',
-    title: 'Generative AI',
-    image: platformImg,
-    items: [
-      {
-        name: 'AI-Driven Innovation',
-        description:
-          'Integrate AI into business processes to drive innovation and competitive advantage.'
-      },
-      {
-        name: 'Creative Business Solutions',
-        description:
-          'Design inventive AI-powered strategies that solve complex business challenges.'
-      },
-      {
-        name: 'Data Augmentation',
-        description:
-          'Generate synthetic data to improve model performance and data availability.'
-      },
-      {
-        name: 'Explainable AI',
-        description:
-          'Ensure AI transparency with clear, interpretable, and trustworthy model outputs.'
-      }
-    ]
+    icon: '/industryicons/bipiramida.svg',
+    title: 'Retire',
+    description: "Decommissioning outdated or unused systems."
   },
   {
-    id: 'vision-speech',
-    number: '< 03 >',
-    title: 'Vision & Speech',
-    image: capabilitiesImg,
-    items: [
-      {
-        name: 'Image Classification & Detection',
-        description:
-          'Analyze and categorize visual data for automation and quality control.'
-      },
-      {
-        name: 'Image Segmentation',
-        description:
-          'Extract precise visual insights using advanced image segmentation techniques.'
-      },
-      {
-        name: 'Facial Recognition',
-        description:
-          'Enable secure identity verification and personalized experiences.'
-      },
-      {
-        name: 'Augmented Reality (AR)',
-        description:
-          'Integrate AR to create immersive, interactive digital experiences.'
-      },
-      {
-        name: 'Speech Recognition (ASR)',
-        description:
-          'Convert spoken language into accurate text for voice-driven systems.'
-      },
-      {
-        name: 'Custom Voice Interfaces',
-        description:
-          'Build personalized voice solutions for enhanced accessibility and engagement.'
-      }
-    ]
+    icon: '/industryicons/sphere.svg',
+    title: 'Relocate',
+    description: "Moving infrastructure without major changes to cloud platforms."
   },
   {
-    id: 'nlp',
-    number: '< 04 >',
-    title: 'Natural Language Processing',
-    image: platformImg,
-    items: [
-      {
-        name: 'Custom Chatbot Development',
-        description:
-          'Design intelligent chatbots tailored to specific business use cases.'
-      },
-      {
-        name: 'Custom NLP Solutions',
-        description:
-          'Develop AI models that understand, analyze, and generate human language.'
-      },
-      {
-        name: 'Sentiment Analysis & Q&A',
-        description:
-          'Extract insights from customer emotions and provide context-aware responses.'
-      },
-      {
-        name: 'Text-to-Speech',
-        description:
-          'Convert written content into natural, human-like speech.'
-      }
-    ]
+    icon: '/industryicons/bipiramida.svg',
+    title: 'Rehost (Lift and Shift)',
+    description: "Quickest way to move VMs or workloads to the cloud."
   },
   {
-    id: 'ai-consultation',
-    number: '< 05 >',
-    title: 'AI Consultation',
-    image: capabilitiesImg,
-    items: [
-      {
-        name: 'Assessment & Planning',
-        description:
-          'Evaluate AI readiness and define a clear adoption roadmap.'
-      },
-      {
-        name: 'Customized AI Solutions',
-        description:
-          'Design and implement AI strategies aligned with business goals.'
-      },
-      {
-        name: 'Skill Development & Training',
-        description:
-          'Upskill teams with hands-on AI training and best practices.'
-      }
-    ]
-  }
+    icon: '/industryicons/sphere.svg',
+    title: 'Replatform',
+    description: "Making minor optimizations without rewriting code."
+  },
+  {
+    icon: '/industryicons/bipiramida.svg',
+    title: 'Refactoring',
+    description: "Re-architecting for full cloud-native functionality."
+  },
+  {
+    icon: '/industryicons/sphere.svg',
+    title: 'Repurchase',
+    description: "Transitioning to a SaaS solution."
+  },
+];
+const processPhasesDefault: ProcessPhase[] = [
+  {
+    id: 1,
+    phase: "PHASE 1: DISCOVERY & ASSESSMENT",
+    title: "Objectives & Inventory Assessment",
+    description:
+      "We define cloud migration goals, assess current environments, and build a prioritized application inventory.",
+    features: [
+      "Migration Goals & Priority Definition",
+      "Application & Infrastructure Inventory",
+      "Portfolio Assessment & Readiness Scoring",
+    ],
+  },
+  {
+    id: 2,
+    phase: "PHASE 2: STRATEGY & ARCHITECTURE",
+    title: "Strategic Development & Analysis",
+    description:
+      "We design the migration strategy, evaluate costs, and select the right cloud model and target architecture.",
+    features: [
+      "Migration Criteria & Decision Framework",
+      "Cost Analysis & Savings Forecast",
+      "IaaS / PaaS / SaaS Selection Strategy",
+    ],
+  },
+  {
+    id: 3,
+    phase: "PHASE 3: MIGRATION EXECUTION",
+    title: "Execution, Integration & Security",
+    description:
+      "We implement migration waves, integrate required tools, and ensure continuity, security, and performance.",
+    features: [
+      "Migration Runbooks & Wave Planning",
+      "Tooling Integration & Automation Enablement",
+      "Security, Compliance & Business Continuity Setup",
+    ],
+  },
+  {
+    id: 4,
+    phase: "PHASE 4: OPTIMIZATION & GOVERNANCE",
+    title: "Refinement, Monitoring & Improvement",
+    description:
+      "We optimize the new cloud environment with continuous monitoring, governance, and ongoing enhancements.",
+    features: [
+      "Performance & Cost Optimization",
+      "Monitoring, Alerts & Operational Governance",
+      "Continuous Refinement & Process Improvement",
+    ],
+  },
 ];
 
-const whyChooseUsData = {
-  subtitle: 'WORKING PROCESS',
-  title: 'Our Methodology',
+const phaseLabelsDefault = [
+  "DISCOVERY & ASSESSMENT",
+  "STRATEGY & ARCHITECTURE",
+  "MIGRATION EXECUTION",
+  "OPTIMIZATION & GOVERNANCE",
+];
+const deliverMVPData = {
+  label: "WHY CHOOSE LEAPSOFTS",
+  title: "Why Choose Leapsofts for",
+  accentText: "Data Science & AI Services",
+  description: "Leapsofts is a cloud software development company that helps accelerate your digital transformation. Whether you're moving from on-premises systems or modernizing legacy applications, Leapsofts’s expert team delivers end-to-end cloud migration consulting designed to reduce downtime, enhance performance, and unlock long-term business value.",
   items: [
-    'Sift through data to inform and shape product strategy.',
-    'Clarify business challenges through expert-led definition.',
-    'Transition traditional processes into AI-driven operations.',
-    'Design scalable system blueprints tailored to business needs.',
-    'Engineer machine learning models for prediction and insight.',
-    'Integrate models via APIs to deliver seamless user experiences.'
+    {
+      title: "Proven Methodologies & Processes.",
+      description: "We follow tested cloud migration methodologies to ensure a seamless, low-risk transition tailored to your workloads and cloud environment."
+    },
+    {
+      title: "Client-First Approach.",
+      description: "Your business needs drive every step of the cloud journey. From discovery to post-migration support, we align our strategy with your goals, infrastructure, and compliance requirements."
+    },
+    {
+      title: "Transparent Pricing Models.",
+      description: "We offer clear pricing with no hidden fees. Whether it's fixed-scope development or continuous product engineering, you’ll get accurate forecasts for migration, optimization, and long-term cloud infrastructure costs.."
+    },
+    {
+      title: "Healthcare Software Expertise.",
+      description: "Our engineers bring deep experience across AWS, Microsoft Azure, and Google Cloud. Whether you're migrating SAP, modernizing applications, or managing hybrid cloud environments, we deliver scalable, high-performance cloud solutions."
+    }
   ]
 };
+const streamlineDescription = [
+  { text: "Whether you're modernizing an ", bold: false },
+  { text: "existing enterprise software system ", bold: true },
+  { text: "or launching a ", bold: false },
+  { text: "new digital product", bold: true },
+  { text: ", Leapsofts offers a ", bold: false },
+  { text: "complimentary software strategy session ", bold: true },
+  { text: "designed to deliver value almost immediately. We take the time to understand your business objectives, technical landscape, and operational challenges then provide actionable insights on how ", bold: false },
+  { text: "bespoke, cost-effective custom software solutions ", bold: true },
+  { text: "can streamline workflows, improve efficiency, and support scalable growth.", bold: false },
+];
 
+
+const title = "Harness Data Accessibility";
+const subtitle = "";
+
+const introDescription = [
+  { text: "Unlock the full potential of your data with Leapsofts' Data Science and AI services. We leverage advanced algorithms, machine learning, and predictive analytics to help you uncover hidden patterns, automate complex processes, and make data-driven decisions that propel your business forward.", bold: false },
+]
 
 const DataScienceAI: React.FC = () => {
-    return (
-        <>
-            <IntroComponent
-                title="Harness Data Accessibility"
-                description="LeapSofts constructs contemporary, secure, and scalable web apps to streamline your business operations."
-            />
-            <EmergingTech data = {ourServicesData} />
-            <InfoGrid data = {processData} />
-            <Capabilities
-            title="Our Key Capabilities"
-            description="We offer end-to-end custom application development services across various platforms and business functions."
-            slides={capabilitiesSlides}
-            defaultImage={capabilitiesImg}
-            />
-            <WhyChooseUs
-            subtitle={whyChooseUsData.subtitle}
-            title={whyChooseUsData.title}
-            items={whyChooseUsData.items}
-            />
-
-
-        </>
-    );
+  return (
+    <>
+      <IntroComponent
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
+      />
+      <ServiceOverview
+        titleMain="Maximize"
+        titleAccent='Operational Agility'
+        titleEnd='with Data Science & AI'
+        description="Implementing Data Science & AI can be intricate, necessitating strategic planning and precision. It’s pivotal for refining your development and deployment cycles, thereby reducing mistakes, boosting efficiency, and elevating client contentment. To excel in a competitive landscape, enhance operational efficacy, and raise deployment standards, consider our expert Data Science & AI services. Our seasoned professionals are adept at guiding numerous firms through successful Data Science & AI adoptions, equipped to automate and regulate your infrastructure deployment processes."
+        imagePath="/icons/images/cloud.webp"
+      />
+      <InfoGrid data={processData} />
+      <StreamlineSuccess
+        label="STREAMLINE YOUR SUCCESS"
+        titleMain="Software "
+        titleAccent="Strategy"
+        titleEnd=" Session"
+        description={streamlineDescription}
+        imageUrl="/streamline.png"
+      />
+      <ServiceFeatures
+        title='Types of'
+        description='Every business has different needs. Whether you are migrating Oracle, VMware, or PaaS applications, we tailor the migration tools and processes to fit your infrastructure.'
+        items={defaultItems} />
+      <DeliverMVP data={deliverMVPData} />
+      <EmergingTech data={ourServicesData} />
+      <Processes title="OUR CLOUD MIGRATION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+    </>
+  );
 };
 
 export default DataScienceAI;

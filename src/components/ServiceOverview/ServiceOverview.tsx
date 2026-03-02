@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './ServiceOverview.module.css'
+import { useContactModal } from '../../context/ContactModalContext';
 
 interface ServiceOverviewProps {
     label?: string;
@@ -18,6 +19,11 @@ const ServiceOverview: React.FC<ServiceOverviewProps> = ({
     description,
     imagePath
 }) => {
+     const { openContactModal } = useContactModal();
+
+    const handleClick = () => {
+        openContactModal();
+    };
     return (
         <div className={styles.container}>
             <div className={styles.title}>
@@ -33,7 +39,7 @@ const ServiceOverview: React.FC<ServiceOverviewProps> = ({
                     <div className={styles.contentLeftDescription}>{description}</div>
                     <div className={styles.contentLeftCall}>
                         <p>
-                            <a href="#contact" className={styles.call}>Schedule a call </a>
+                            <span onClick={handleClick} className={styles.call}>Schedule a call </span>
                             to talk about how we can prepare your software for the real world, or keep reading to learn more about our approach.
                         </p>
                     </div>

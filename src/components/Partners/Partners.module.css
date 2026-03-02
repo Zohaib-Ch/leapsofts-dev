@@ -2,6 +2,10 @@
   background: transparent;
 }
 
+.container {
+  background: #050001;
+}
+
 .partner-list {
   background: var(--bg-glass);
   padding: 3rem 100px 3rem 120px;
@@ -15,6 +19,7 @@
   font-size: 30px;
   font-weight: 800;
   color: var(--color-orange);
+  padding-top: 2rem;
 }
 
 .slider {

@@ -1,8 +1,12 @@
-import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
+import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
+import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
+import phoneImg from "../../assets/phones.webp";
 
 const ourServicesData: EmergingTechProps['data'] = {
     label: 'QA SERVICES',
@@ -95,25 +99,129 @@ const processesData: ProcessPhase[] = [
 ]
 
 const phaseLabel = processesData.map((process) => process.title);
+
+const infoGridData: InfoGridProps['data'] = {
+    label: 'QA BENEFITS',
+    title: 'Why Quality Assurance Matters',
+    items: [
+        {
+            icon: '01',
+            title: 'Cost Efficiency',
+            description: 'Identify and fix bugs early in the development cycle to reduce long-term maintenance costs.'
+        },
+        {
+            icon: '02',
+            title: 'User Satisfaction',
+            description: 'Ensure a seamless, bug-free experience that keeps your users engaged and satisfied.'
+        },
+        {
+            icon: '03',
+            title: 'Security Assurance',
+            description: 'Protect sensitive user data by identifying and patching vulnerabilities before launch.'
+        },
+        {
+            icon: '04',
+            title: 'Brand Reputation',
+            description: 'Deliver high-quality products that reinforce your brand’s commitment to excellence.'
+        }
+    ]
+};
+
+const streamlineDescription = [
+    { text: "Optimizing your ", bold: false },
+    { text: "software quality ", bold: true },
+    { text: "doesn't have to be complicated. At Leapsofts, we offer a ", bold: false },
+    { text: "complimentary QA strategy session ", bold: true },
+    { text: "to help you identify gaps in your testing process and implement ", bold: false },
+    { text: "automated solutions ", bold: true },
+    { text: "that accelerate your release cycles without compromising on standards.", bold: false },
+];
+
+const serviceFeaturesData: ServiceFeatureItem[] = [
+    {
+        icon: '/industryicons/sphere.svg',
+        title: 'Automation Testing',
+        description: 'Implementing robust automated test suites to speed up regression and repetitive testing tasks.'
+    },
+    {
+        icon: '/industryicons/bipiramida.svg',
+        title: 'Manual Testing',
+        description: 'Exhaustive human-led testing to uncover edge cases and evaluate user experience nuances.'
+    },
+    {
+        icon: '/industryicons/sphere.svg',
+        title: 'Performance Testing',
+        description: 'Stress-testing your application to ensure it remains stable under high traffic and heavy loads.'
+    },
+    {
+        icon: '/industryicons/bipiramida.svg',
+        title: 'Security Audits',
+        description: 'In-depth security analysis to identify potential threats and ensure data integrity.'
+    }
+];
+
+const deliverMVPData = {
+    label: "QA EXCELLENCE",
+    title: "Our Commitment to",
+    accentText: "Superior Quality",
+    description: "Leapsofts provides end-to-end quality assurance services that integrate seamlessly with your development workflow. Our goal is to ensure that every product we touch meets the highest industry standards for reliability, security, and performance.",
+    items: [
+        {
+            title: "Zero-Defect Policy.",
+            description: "We strive for perfection in every test cycle, ensuring that critical bugs are addressed before they reach production."
+        },
+        {
+            title: "Agile Integration.",
+            description: "Our QA teams work in parallel with developers, providing immediate feedback and ensuring continuous quality throughout the sprint."
+        },
+        {
+            title: "Advanced Tooling.",
+            description: "We leverage the latest testing frameworks and AI-driven tools to provide comprehensive coverage across web, mobile, and API platforms."
+        },
+        {
+            title: "User-Centric Testing.",
+            description: "Beyond just code, we test for usability and accessibility to ensure your product is inclusive and easy to navigate."
+        }
+    ]
+};
+const title = "Keep Bugs at Bay, Focus on Success";
+const subtitle = "";
+
+const introDescription = [
+    { text: "Minimize time spent on resolving problems and devote more to creating products that delight your users!", bold: false },
+]
+
 const QualityAssurance: React.FC = () => {
     return (
         <>
-            <div>
-                <IntroComponent
-                    title="Keep Bugs at Bay, Focus on Success"
-                    description="Minimize time spent on resolving problems and devote more to creating products that delight your users!"
-                />
-            </div>
-            <div>
-                <ServiceOverview
-                    label="BRIEF OVERVIEW"
-                    titleMain="Elevating"
-                    titleAccent="Software"
-                    titleEnd="Dependability"
-                    description="Before your software goes live, let us put it through rigorous testing to ensure it's bulletproof. Our QA services cover everything from regression testing to performance analysis, ensuring reliable, high-quality outcomes meeting any quality standards."
-                    imagePath="/icons/images/phone-and-flying-cubes-4.gif"
-                />
-            </div>
+            <IntroComponent
+                title={title}
+                description={subtitle}
+                introDescription={introDescription}
+            />
+            <ServiceOverview
+                label="BRIEF OVERVIEW"
+                titleMain="Elevating"
+                titleAccent="Software"
+                titleEnd="Dependability"
+                description="Before your software goes live, let us put it through rigorous testing to ensure it's bulletproof. Our QA services cover everything from regression testing to performance analysis, ensuring reliable, high-quality outcomes meeting any quality standards."
+                imagePath={phoneImg}
+            />
+            <InfoGrid data={infoGridData} />
+            <StreamlineSuccess
+                label="STREAMLINE YOUR SUCCESS"
+                titleMain="QA "
+                titleAccent="Strategy"
+                titleEnd=" Session"
+                description={streamlineDescription}
+                imageUrl="/streamline.png"
+            />
+            <ServiceFeatures
+                title='Our QA'
+                description='We offer specialized testing services tailored to your project requirements, ensuring robust performance and security.'
+                items={serviceFeaturesData}
+            />
+            <DeliverMVP data={deliverMVPData} />
             <EmergingTech data={ourServicesData} />
             <Processes
                 title="Software Verification & Validation Framework"

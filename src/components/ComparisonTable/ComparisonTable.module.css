@@ -1,0 +1,259 @@
+.section {
+    width: 100%;
+    position: relative;
+    background-color: #050001;
+    padding: 100px 0;
+    overflow: hidden;
+    color: white;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 0 50px 0 120px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Header */
+.header {
+    margin-bottom: 60px;
+}
+
+.label {
+    display: block;
+    font-family: var(--font-mono);
+    color: var(--color-orange);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    font-weight: 700;
+}
+
+.title {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 30px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--color-orange);
+}
+
+.titleAccent {
+    color: var(--color-primary-light);
+    font-weight: 400;
+    font-style: normal;
+    font-family: 'DM Sans', sans-serif;
+    margin-right: 15px;
+}
+
+.description {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 800px;
+}
+
+/* Desktop Table View */
+.desktopTable {
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tableHeader {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1.5fr;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px 40px;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.colFeature {
+    color: white;
+}
+
+.colCustom {
+    color: white;
+    text-align: center;
+}
+
+.colOff {
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.tableRow {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1.5fr;
+    padding: 25px 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.tableRow:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: scale(1.01);
+}
+
+.tableRow:last-child {
+    border-bottom: none;
+}
+
+.featureText {
+    font-style: italic;
+    font-family: var(--font-mono);
+    font-size: 18px;
+    color: white;
+}
+
+.tableRow .colCustom {
+    font-size: 16px;
+    line-height: 1.5;
+    color: white;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tableRow .colOff {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Mobile View */
+.mobileView {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 30px;
+    }
+
+    .title {
+        font-size: 42px;
+    }
+
+    .desktopTable {
+        display: none;
+    }
+
+    .mobileView {
+        display: block;
+        margin-top: 40px;
+    }
+
+    .mobileTabs {
+        display: flex;
+        position: relative;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50px;
+        margin-bottom: 30px;
+        padding: 5px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .tabButton {
+        flex: 1;
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        padding: 15px;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        z-index: 1;
+        transition: color 0.3s ease;
+    }
+
+    .activeTab {
+        color: white;
+    }
+
+    .tabIndicator {
+        position: absolute;
+        top: 5px;
+        bottom: 5px;
+        width: calc(50% - 5px);
+        background: linear-gradient(135deg, var(--color-orange), var(--color-primary-light));
+        border-radius: 50px;
+        transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mobileContentWrapper {
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .mobileContentInner {
+        display: flex;
+        width: 200%;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mobileColumn {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 5px;
+    }
+
+    .mobileCard {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 15px;
+        backdrop-filter: blur(5px);
+    }
+
+    .mobileFeatureTitle {
+        color: var(--color-orange);
+        font-family: var(--font-mono);
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+
+    .mobileFeatureValue {
+        color: white;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 32px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+
+    .tabButton {
+        font-size: 12px;
+        padding: 12px;
+    }
+}

@@ -1,10 +1,14 @@
-import React from 'react'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
-import Capabilities from '../../components/Capabilities/Capabilities'
-import WhyChooseUs from '../../components/WhyChooseUs/WhyChooseUs';
+import ServiceOverview from '../../components/ServiceOverview/ServiceOverview'
+import Capabilities, { type CapabilitySlide } from '../../components/Capabilities/Capabilities'
+import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid'
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
+import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures'
+import DeliverMVP from '../../components/DeliverMVP/DeliverMVP'
+import Processes, { type ProcessPhase } from '../../components/Processes/Processes'
 import capabilitiesImg from '../../assets/capabilities_3d.png';
 import platformImg from '../../assets/capabilities_platform.png';
-import { type CapabilitySlide } from '../../components/Capabilities/Capabilities';
+import laptopImg from "../../assets/about_laptop_3d.png";
 
 const capabilitiesSlides: CapabilitySlide[] = [
     {
@@ -150,33 +154,178 @@ const capabilitiesSlides: CapabilitySlide[] = [
 ];
 
 
-const whyChooseUsData = {
-    subtitle: "Outstanding in Our Field!",
-    title: "Why Opt for LeapSofts?",
+const serviceOverviewData = {
+    label: "SALESFORCE CRM",
+    titleMain: "Empower Your",
+    titleAccent: "Sales",
+    titleEnd: "Success",
+    description: "Leapsofts is your strategic partner for Salesforce development and optimization. We help you leverage the world's #1 CRM to streamline your sales, service, and marketing operations, driving higher efficiency and a better customer experience.",
+    imagePath: laptopImg
+};
+
+const infoGridData: InfoGridProps['data'] = {
+    label: 'SALESFORCE BENEFITS',
+    title: 'Why Choose Salesforce',
     items: [
-        "Accredited Salesforce Partner",
-        "Adoption of Tried-and-True Methods",
-        "Comprehensive Integration & Frequent Updates",
-        "Streamlining of Business Operations."
+        {
+            icon: '01',
+            title: '360° Customer View',
+            description: 'Gain a complete understanding of your customers across all touchpoints.'
+        },
+        {
+            icon: '02',
+            title: 'Automated Workflows',
+            description: 'Reduce manual tasks and increase productivity with powerful automation.'
+        },
+        {
+            icon: '03',
+            title: 'Data-Driven Insights',
+            description: 'Make smarter decisions with real-time analytics and predictive modeling.'
+        },
+        {
+            icon: '04',
+            title: 'Scalable Growth',
+            description: 'A platform that grows with your business, from startup to enterprise.'
+        }
     ]
 };
+
+const streamlineDescription = [
+    { text: "Your CRM should be your ", bold: false },
+    { text: "strongest asset", bold: true },
+    { text: ", not a hurdle. Leapsofts offers a ", bold: false },
+    { text: "complimentary Salesforce audit session ", bold: true },
+    { text: "to help you identify ", bold: false },
+    { text: "optimization opportunities ", bold: true },
+    { text: "that increase ROI and empower your sales team.", bold: false },
+];
+
+const serviceFeaturesData: ServiceFeatureItem[] = [
+    {
+        icon: '/industryicons/sphere.svg',
+        title: 'Custom Apex Development',
+        description: 'Building powerful, custom logic tailored to your specific business needs.'
+    },
+    {
+        icon: '/industryicons/bipiramida.svg',
+        title: 'LWC Development',
+        description: 'Creating modern, responsive user interfaces with Lightning Web Components.'
+    },
+    {
+        icon: '/industryicons/sphere.svg',
+        title: 'AppExchange Build',
+        description: 'Helping you develop and launch your own products on the Salesforce AppExchange.'
+    },
+    {
+        icon: '/industryicons/bipiramida.svg',
+        title: 'Managed Services',
+        description: 'Ongoing support and optimization to ensure your Salesforce stays peak-performing.'
+    }
+];
+
+const deliverMVPData = {
+    label: "SALESFORCE EXCELLENCE",
+    title: "Committed to",
+    accentText: "CRM Success",
+    description: "Leapsofts provides certified Salesforce specialists who are fully committed to your project's success. We focus on transparency, best practices, and technical rigor.",
+    items: [
+        {
+            title: "Certified Expertise.",
+            description: "Developers and consultants with extensive Salesforce certifications."
+        },
+        {
+            title: "Scalable Solutions.",
+            description: "Designing architectures that support your long-term business growth."
+        },
+        {
+            title: "Seamless Integration.",
+            description: "Connecting Salesforce with your existing tech stack for a unified experience."
+        },
+        {
+            title: "Agile Delivery.",
+            description: "Iterative development that ensures speed and alignment with your goals."
+        }
+    ]
+};
+
+const processPhasesDefault: ProcessPhase[] = [
+    {
+        id: 1,
+        phase: "PHASE 1: DISCOVERY",
+        title: "Needs & Process Audit",
+        description: "We analyze your current sales processes and business objectives.",
+        features: ["Stakeholder Workshops", "Process Mapping", "Gap Analysis"],
+    },
+    {
+        id: 2,
+        phase: "PHASE 2: DESIGN",
+        title: "Salesforce Blueprinting",
+        description: "Designing the custom objects, workflows, and integrations for your org.",
+        features: ["Solution Architecture", "Data Model Design", "Integration Planning"],
+    },
+    {
+        id: 3,
+        phase: "PHASE 3: IMPLEMENTATION",
+        title: "Development & Config",
+        description: "Building and configuring your Salesforce solution to specification.",
+        features: ["Apex & LWC Prep", "Flow Automation", "Sandbox Testing"],
+    },
+    {
+        id: 4,
+        phase: "PHASE 4: OPTIMIZATION",
+        title: "Launch & Training",
+        description: "Deploying the solution and ensuring your team knows how to use it.",
+        features: ["Production Go-Live", "User Training", "Post-Launch Support"],
+    },
+];
+
+const phaseLabelsDefault = ["DISCOVERY", "DESIGN", "IMPLEMENTATION", "OPTIMIZATION"];
+
+const title = "Leading Salesforce Development Ally";
+const subtitle = "";
+
+const introDescription = [
+    { text: "Leapsofts covers every aspect of Salesforce development, from strategy to implementation.", bold: false },
+]
 
 const Salesforce: React.FC = () => {
     return (
         <>
-            <IntroComponent title="Leading Salesforce Development Ally" description="LeapSofts covers every aspect of Salesforce development, from strategic planning to full-scale implementation!" />
+            <IntroComponent
+                title={title}
+                description={subtitle}
+                introDescription={introDescription}
+            />
+            <ServiceOverview
+                label={serviceOverviewData.label}
+                titleMain={serviceOverviewData.titleMain}
+                titleAccent={serviceOverviewData.titleAccent}
+                titleEnd={serviceOverviewData.titleEnd}
+                description={serviceOverviewData.description}
+                imagePath={serviceOverviewData.imagePath}
+            />
             <Capabilities
-                title="Salesforce Services Development"
-
-                description=""
+                title="Our Salesforce Capabilities"
+                description="We provide 360-degree Salesforce services to transform your business operations."
                 slides={capabilitiesSlides}
                 defaultImage={capabilitiesImg}
             />
-            <WhyChooseUs
-                subtitle={whyChooseUsData.subtitle}
-                title={whyChooseUsData.title}
-                items={whyChooseUsData.items}
+            <InfoGrid data={infoGridData} />
+            <StreamlineSuccess
+                label="STREAMLINE YOUR SUCCESS"
+                titleMain="Salesforce "
+                titleAccent="Audit"
+                titleEnd=" Session"
+                description={streamlineDescription}
+                imageUrl="/streamline.png"
             />
+            <ServiceFeatures
+                title='Expert CRM Services'
+                description='We deliver specialized Salesforce services to support your business ecosystem.'
+                items={serviceFeaturesData}
+            />
+            <DeliverMVP data={deliverMVPData} />
+            <Processes title="OUR SALESFORCE PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
         </>
     )
 }

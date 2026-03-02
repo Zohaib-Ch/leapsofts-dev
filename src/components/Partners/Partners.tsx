@@ -23,7 +23,8 @@ const Partners = () => {
 
   return (
     <>
-    <h2 className={styles["title"]}>Our Partners</h2>
+    <div className={styles["container"]}>
+      <h2 className={styles["title"]}>Our Partners</h2>
     <section className={styles["container"]}>
       <div className={styles["partner-list"]}>
         
@@ -73,6 +74,7 @@ const Partners = () => {
         </div>
       </div>
     </section>
+    </div>
     </>
   );
 };
