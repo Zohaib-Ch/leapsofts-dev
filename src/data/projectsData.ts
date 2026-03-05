@@ -100,7 +100,7 @@ export const projectsData: ProjectData[] = [
         },
         tabImages: {
             'tab-2-0': '/projectImages/hospital.png',
-            'tab-2-1': '/ai_workflow_slack_showcase.png',
+            'tab-2-1': '/projectImages/pinoyaya.png',
         },
         summary: {
             description: "Connecting healthcare providers with patients through a secure, HIPAA-compliant platform that enables real-time monitoring and better health outcomes.",
@@ -1035,7 +1035,7 @@ export const projectsData: ProjectData[] = [
         projectList: ['Verified Caregiver Marketplace', 'On-Demand Booking & Scheduling', 'Secure In-App Payment & Messaging'],
         impact: {
             title: "Pinoyaya",
-            images: ["/ai_team_collaboration_impact.png", "/ai_team_collaboration_impact.png"]
+            images: ["/projectImages/pinoyaya.png", "/projectImages/pinoyaya1.png"]
         },
         summary: {
             description: "Pinoyaya is babysitting platform. It is a platform that connects parents with babysitters who are vetted and trained to provide quality care for children. The platform is designed to provide a safe, reliable, and convenient way for parents to find and book babysitters for their children.",
@@ -1048,7 +1048,7 @@ export const projectsData: ProjectData[] = [
         techStack: {
             title: "Built with",
             items: [
-                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/React.svg" }] },
+                { label: "Frontend", techs: [{ name: "React Native", icon: "/technologies/React.svg" }] },
                 { label: "Backend", techs: [{ name: "Express.js", icon: "/technologies/express_logo.png" }] },
                 { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] }
             ]
@@ -1063,13 +1063,13 @@ export const projectsData: ProjectData[] = [
             description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
         },
         brandVisualImg: '/icons/projects/popm_global.svg',
-        projectList: ['AI-Driven Risk & Portfolio Engineering', 'Automated Wealth Management Suite', 'Digital Compliance & Onboarding Pipeline',],
+        projectList: ['Real-Time Interactive Wall Visualizer    ', 'Intelligent Object Color Detection', 'High-Fidelity Rendering Engine',],
         impact: {
             title: "Paint Visualizer",
             images: ["/projectImages/paint.png", "/projectImages/paint1.png"]
         },
         summary: {
-            description: "Paint Visualizer is a platform that allows users to visualize different paint colors on their walls. It is a web-based application that uses AI-driven algorithms to assess client risk tolerance, financial goals, and investment preferences to create customized investment portfolios. Key features include automated portfolio rebalancing, tax-loss harvesting, and real-time performance tracking. The platform also includes a comprehensive client onboarding process with automated KYC verification and risk profiling to ensure compliance with regulatory requirements.",
+        description: "An interactive Wall Paint Visualizer and Object Color Detection app that enables users to upload images and experiment with different wall colors in real time. The system maintains natural shading and lighting effects to produce realistic results, making it easier to test color combinations before painting.",
             details: [
                 { label: "Industry", value: "Retail" },
                 { label: "Project Type", value: "Product Building" },
