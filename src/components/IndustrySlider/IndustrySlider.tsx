@@ -16,7 +16,6 @@ const industries = [
   { name: 'EdTech', path: '/industries/edtech', icon: '/icons/industries/education-link.svg' },
   { name: 'Forensics', path: '/industries/forensics', icon: '/icons/industries/energy-link.svg' },
   { name: 'Construction', path: '/industries/construction', icon: '/icons/industries/construction-link.svg' },
-  { name: 'Finance', path: '/industries/finance', icon: '/icons/industries/finance-link.svg' },
   { name: 'Healthcare', path: '/industries/healthcare', icon: '/icons/industries/healthcare-link.svg' },
   { name: 'Energy', path: '/industries/energy', icon: '/icons/industries/energy-link.svg' },
   { name: 'Compliance', path: '/industries/compliance', icon: '/icons/industries/compliance-link.svg' },
@@ -27,6 +26,7 @@ const industries = [
   { name: 'Real Estate', path: '/industries/real-estate', icon: '/icons/industries/compliance-link.svg' },
   { name: 'Transportation', path: '/industries/transportation', icon: '/icons/industries/automotive-link.svg' },
   { name: 'FinTech', path: '/industries/fintech', icon: '/icons/industries/finance-link.svg' },
+  { name: 'AI & Automation', path: '/industries/ai-automation', icon: '/icons/industries/finance-link.svg' },
 ];
 
 const IndustrySlider: React.FC<IndustrySliderProps> = ({ onIndustryClick }) => {

@@ -86,15 +86,13 @@ export const projectsData: ProjectData[] = [
         },
         highlight: {
             'tab-2-0': ['Genpsych'],
-            'tab-2-1': ['Clinix'],
-            'tab-2-2': ['TeleHealth']
+            'tab-2-1': ['Pinoyaya'],
         },
-        projectList: ['Genpsych', 'Clinix', 'TeleHealth'],
+        projectList: ['Genpsych', 'Pinoyaya'],
         brandVisualImg: '/icons/industries/healthcare-link.svg',
         tabs: [
             { id: 'tab-2-0', label: 'Hospitals' },
-            { id: 'tab-2-1', label: 'Clinics', isActive: true },
-            { id: 'tab-2-2', label: 'Telemedicine' }
+            { id: 'tab-2-1', label: 'Pinoyaya', isActive: true },
         ],
         impact: {
             title: "Scaling Patient Care with Remote Monitoring",
@@ -102,8 +100,7 @@ export const projectsData: ProjectData[] = [
         },
         tabImages: {
             'tab-2-0': '/projectImages/hospital.png',
-            'tab-2-1': '/ai_team_collaboration_impact.png',
-            'tab-2-2': '/ai_workflow_slack_showcase.png'
+            'tab-2-1': '/ai_workflow_slack_showcase.png',
         },
         summary: {
             description: "Connecting healthcare providers with patients through a secure, HIPAA-compliant platform that enables real-time monitoring and better health outcomes.",
@@ -123,89 +120,89 @@ export const projectsData: ProjectData[] = [
             ]
         }
     },
-    {
-        type: 'industry',
-        id: 'project-industry-4',
-        brand: {
-            name: 'Construction',
-            logo: '/icons/industries/construction-link.svg',
-            description: 'Digital project management and BIM integration for large-scale construction. Streamline site operations and resource allocation with real-time data visualizers.',
-        },
-        highlight: {
-            'tab-4-0': ['DesignStudio'],
-            'tab-4-1': ['EngiX'],
-            'tab-4-2': ['SiteVision']
-        },
-        projectList: ['DesignStudio', 'EngiX', 'SiteVision'],
-        brandVisualImg: '/icons/industries/construction-link.svg',
-        tabs: [
-            { id: 'tab-4-0', label: 'Architecture' },
-            { id: 'tab-4-1', label: 'Engineering', isActive: true },
-            { id: 'tab-4-2', label: 'Site Tech' }
-        ],
-        impact: {
-            title: "Optimizing Construction Workflows with BIM",
-            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
-        },
-        summary: {
-            description: "Integrating real-time sensor data with 3D models to provide construction managers with unprecedented visibility into site operations.",
-            details: [
-                { label: "Industry", value: "Construction" },
-                { label: "Project Type", value: "Digital Twin & Site Management" },
-                { label: "Service", value: "ConTech Solutions" }
-            ]
-        },
-        techStack: {
-            title: "Tools and technologies",
-            items: [
-                { label: "IoT", techs: [{ name: "AWS IoT", icon: "/technologies/aws.png" }] },
-                { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] },
-                { label: "Infrastructure", techs: [{ name: "AWS", icon: "/technologies/aws.png" }] },
-                { label: "Backend", techs: [{ name: "NestJS", icon: "/technologies/nestjs.png" }] }
-            ]
-        }
-    },
-    {
-        type: 'industry',
-        id: 'project-industry-5',
-        brand: {
-            name: 'Energy',
-            logo: '/icons/industries/energy-link.svg',
-            description: 'Optimizing resource distribution with smart grid technology. Our energy solutions handle massive data streams to provide predictive maintenance and efficiency.',
-        },
-        highlight: {
-            'tab-5-0': ['SunStream'],
-            'tab-5-1': ['GridLock'],
-            'tab-5-2': ['MeterMate']
-        },
-        projectList: ['SunStream', 'GridLock', 'MeterMate'],
-        brandVisualImg: '/icons/industries/energy-link.svg',
-        tabs: [
-            { id: 'tab-5-0', label: 'Renewables' },
-            { id: 'tab-5-1', label: 'Power Grids', isActive: true },
-            { id: 'tab-5-2', label: 'Smart Metering' }
-        ],
-        impact: {
-            title: "Intelligent Power Distribution for Smart Cities",
-            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
-        },
-        summary: {
-            description: "Deploying AI-driven analytics to manage renewable energy integration and optimize grid stability across multi-regional distribution networks.",
-            details: [
-                { label: "Industry", value: "Energy" },
-                { label: "Project Type", value: "Smart Grid Analytics" },
-                { label: "Service", value: "EnergyTech Engineering" }
-            ]
-        },
-        techStack: {
-            title: "Tools and technologies",
-            items: [
-                { label: "AI/ML", techs: [{ name: "PyTorch", icon: "/technologies/pytorch.png" }, { name: "TensorFlow", icon: "/technologies/tensorflow.png" }] },
-                { label: "Cloud", techs: [{ name: "Azure", icon: "/technologies/azure.png" }] },
-                { label: "Big Data", techs: [{ name: "Firebase", icon: "/technologies/firebase.png" }] }
-            ]
-        }
-    },
+    // {
+    //     type: 'industry',
+    //     id: 'project-industry-4',
+    //     brand: {
+    //         name: 'Construction',
+    //         logo: '/icons/industries/construction-link.svg',
+    //         description: 'Digital project management and BIM integration for large-scale construction. Streamline site operations and resource allocation with real-time data visualizers.',
+    //     },
+    //     highlight: {
+    //         'tab-4-0': ['DesignStudio'],
+    //         'tab-4-1': ['EngiX'],
+    //         'tab-4-2': ['SiteVision']
+    //     },
+    //     projectList: ['DesignStudio', 'EngiX', 'SiteVision'],
+    //     brandVisualImg: '/icons/industries/construction-link.svg',
+    //     tabs: [
+    //         { id: 'tab-4-0', label: 'Architecture' },
+    //         { id: 'tab-4-1', label: 'Engineering', isActive: true },
+    //         { id: 'tab-4-2', label: 'Site Tech' }
+    //     ],
+    //     impact: {
+    //         title: "Optimizing Construction Workflows with BIM",
+    //         images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+    //     },
+    //     summary: {
+    //         description: "Integrating real-time sensor data with 3D models to provide construction managers with unprecedented visibility into site operations.",
+    //         details: [
+    //             { label: "Industry", value: "Construction" },
+    //             { label: "Project Type", value: "Digital Twin & Site Management" },
+    //             { label: "Service", value: "ConTech Solutions" }
+    //         ]
+    //     },
+    //     techStack: {
+    //         title: "Tools and technologies",
+    //         items: [
+    //             { label: "IoT", techs: [{ name: "AWS IoT", icon: "/technologies/aws.png" }] },
+    //             { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] },
+    //             { label: "Infrastructure", techs: [{ name: "AWS", icon: "/technologies/aws.png" }] },
+    //             { label: "Backend", techs: [{ name: "NestJS", icon: "/technologies/nestjs.png" }] }
+    //         ]
+    //     }
+    // },
+    // {
+    //     type: 'industry',
+    //     id: 'project-industry-5',
+    //     brand: {
+    //         name: 'Energy',
+    //         logo: '/icons/industries/energy-link.svg',
+    //         description: 'Optimizing resource distribution with smart grid technology. Our energy solutions handle massive data streams to provide predictive maintenance and efficiency.',
+    //     },
+    //     highlight: {
+    //         'tab-5-0': ['SunStream'],
+    //         'tab-5-1': ['GridLock'],
+    //         'tab-5-2': ['MeterMate']
+    //     },
+    //     projectList: ['SunStream', 'GridLock', 'MeterMate'],
+    //     brandVisualImg: '/icons/industries/energy-link.svg',
+    //     tabs: [
+    //         { id: 'tab-5-0', label: 'Renewables' },
+    //         { id: 'tab-5-1', label: 'Power Grids', isActive: true },
+    //         { id: 'tab-5-2', label: 'Smart Metering' }
+    //     ],
+    //     impact: {
+    //         title: "Intelligent Power Distribution for Smart Cities",
+    //         images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+    //     },
+    //     summary: {
+    //         description: "Deploying AI-driven analytics to manage renewable energy integration and optimize grid stability across multi-regional distribution networks.",
+    //         details: [
+    //             { label: "Industry", value: "Energy" },
+    //             { label: "Project Type", value: "Smart Grid Analytics" },
+    //             { label: "Service", value: "EnergyTech Engineering" }
+    //         ]
+    //     },
+    //     techStack: {
+    //         title: "Tools and technologies",
+    //         items: [
+    //             { label: "AI/ML", techs: [{ name: "PyTorch", icon: "/technologies/pytorch.png" }, { name: "TensorFlow", icon: "/technologies/tensorflow.png" }] },
+    //             { label: "Cloud", techs: [{ name: "Azure", icon: "/technologies/azure.png" }] },
+    //             { label: "Big Data", techs: [{ name: "Firebase", icon: "/technologies/firebase.png" }] }
+    //         ]
+    //     }
+    // },
     {
         type: 'industry',
         id: 'project-industry-6',
@@ -216,15 +213,13 @@ export const projectsData: ProjectData[] = [
         },
         highlight: {
             'tab-6-0': ['Compliance Vision'],
-            'tab-6-1': ['AuditPro'],
-            'tab-6-2': ['BoardRoom']
+            'tab-6-1': ['KYC Solutions'],
         },
-        projectList: ['Compliance Vision', 'AuditPro', 'BoardRoom'],
+        projectList: ['Compliance Vision', 'KYC Solutions'],
         brandVisualImg: '/icons/industries/compliance-link.svg',
         tabs: [
             { id: 'tab-6-0', label: 'Compliance Vision' },
-            { id: 'tab-6-1', label: 'AuditPro', isActive: true },
-            { id: 'tab-6-2', label: 'BoardRoom' }
+            { id: 'tab-6-1', label: 'KYC Solutions', isActive: true },
         ],
         impact: {
             title: "Automating Compliance for Global Regulatory Sync",
@@ -248,48 +243,49 @@ export const projectsData: ProjectData[] = [
             ]
         }
     },
+    // {
+    //     type: 'industry',
+    //     id: 'project-industry-7',
+    //     brand: {
+    //         name: 'Startups',
+    //         logo: '/icons/industries/startup-link.svg',
+    //         description: 'Accelerating early-stage growth with agile software development. From MVP to scaling, we provide the technical foundation for the unicorns of tomorrow.',
+    //     },
+    //     highlight: {
+    //         'tab-7-0': ['IdeaPad'],
+    //         'tab-7-1': ['BuildIt'],
+    //         'tab-7-2': ['ScaleUp']
+    //     },
+    //     projectList: ['IdeaPad', 'BuildIt', 'ScaleUp'],
+    //     brandVisualImg: '/icons/industries/startup-link.svg',
+    //     tabs: [
+    //         { id: 'tab-7-0', label: 'Ideation' },
+    //         { id: 'tab-7-1', label: 'MVP Development', isActive: true },
+    //         { id: 'tab-7-2', label: 'Series A+ Scaling' }
+    //     ],
+    //     impact: {
+    //         title: "From MVP to Series A in Record Time",
+    //         images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+    //     },
+    //     summary: {
+    //         description: "Partnering with founders to build scalable MVPs that not only prove product-market fit but are architecture-ready for rapid scaling.",
+    //         details: [
+    //             { label: "Industry", value: "Multi-domain" },
+    //             { label: "Project Type", value: "Venture Building & MVPs" },
+    //             { label: "Service", value: "Strategic Development" }
+    //         ]
+    //     },
+    //     techStack: {
+    //         title: "Tools and technologies",
+    //         items: [
+    //             { label: "PaaS", techs: [{ name: "AWS", icon: "/technologies/aws.png" }] },
+    //             { label: "Database", techs: [{ name: "Supabase", icon: "/technologies/postgresql.png" }] },
+    //             { label: "Frontend", techs: [{ name: "React", icon: "/technologies/html.png" }] },
+    //             { label: "Backend", techs: [{ name: "Laravel", icon: "/technologies/laravel.png" }] }
+    //         ]
+    //     }
+    // },
     {
-        type: 'industry',
-        id: 'project-industry-7',
-        brand: {
-            name: 'Startups',
-            logo: '/icons/industries/startup-link.svg',
-            description: 'Accelerating early-stage growth with agile software development. From MVP to scaling, we provide the technical foundation for the unicorns of tomorrow.',
-        },
-        highlight: {
-            'tab-7-0': ['IdeaPad'],
-            'tab-7-1': ['BuildIt'],
-            'tab-7-2': ['ScaleUp']
-        },
-        projectList: ['IdeaPad', 'BuildIt', 'ScaleUp'],
-        brandVisualImg: '/icons/industries/startup-link.svg',
-        tabs: [
-            { id: 'tab-7-0', label: 'Ideation' },
-            { id: 'tab-7-1', label: 'MVP Development', isActive: true },
-            { id: 'tab-7-2', label: 'Series A+ Scaling' }
-        ],
-        impact: {
-            title: "From MVP to Series A in Record Time",
-            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
-        },
-        summary: {
-            description: "Partnering with founders to build scalable MVPs that not only prove product-market fit but are architecture-ready for rapid scaling.",
-            details: [
-                { label: "Industry", value: "Multi-domain" },
-                { label: "Project Type", value: "Venture Building & MVPs" },
-                { label: "Service", value: "Strategic Development" }
-            ]
-        },
-        techStack: {
-            title: "Tools and technologies",
-            items: [
-                { label: "PaaS", techs: [{ name: "AWS", icon: "/technologies/aws.png" }] },
-                { label: "Database", techs: [{ name: "Supabase", icon: "/technologies/postgresql.png" }] },
-                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/html.png" }] },
-                { label: "Backend", techs: [{ name: "Laravel", icon: "/technologies/laravel.png" }] }
-            ]
-        }
-    },{
         type: 'industry',
         id: 'project-industry-8',
         brand: {
@@ -299,15 +295,11 @@ export const projectsData: ProjectData[] = [
         },
         highlight: {
             'tab-8-0': ['POPM Global'],
-            'tab-8-1': ['GradeBook'],
-            'tab-8-2': ['CampusConnect']
         },
-        projectList: ['POPM Global', 'GradeBook', 'CampusConnect'],
+        projectList: ['POPM Global'],
         brandVisualImg: '/icons/industries/education-link.svg',
         tabs: [
-            { id: 'tab-8-0', label: 'Learning Platforms' },
-            { id: 'tab-8-1', label: 'Assessment Tools', isActive: true },
-            { id: 'tab-8-2', label: 'Campus Management' }
+            { id: 'tab-8-0', label: 'Learning Platforms' }
         ],
         impact: {
             title: "Transforming Education with Technology",
@@ -315,8 +307,6 @@ export const projectsData: ProjectData[] = [
         },
         tabImages: {
             'tab-8-0': '/projectImages/pop.png',
-            'tab-8-1': '/ai_team_collaboration_impact.png',
-            'tab-8-2': '/ai_workflow_slack_showcase.png'
         },
         summary: {
             description: "Partnering with educational institutions to create technology solutions that enhance learning outcomes and streamline administrative processes.",
@@ -346,15 +336,11 @@ export const projectsData: ProjectData[] = [
         },
         highlight: {
             'tab-9-0': ['Monolith'],
-            'tab-9-1': ['ForensicTwo'],
-            'tab-9-2': ['ForensicThree']
         },
-        projectList: ['Monolith', 'ForensicTwo', 'ForensicThree'],
+        projectList: ['Monolith'],
         brandVisualImg: '/icons/industries/energy-link.svg',
         tabs: [
             { id: 'tab-9-0', label: 'Forensics' },
-            { id: 'tab-9-1', label: 'Assessment Tools', isActive: true },
-            { id: 'tab-9-2', label: 'Campus Management' }
         ],
         impact: {
             title: "Transforming Education with Technology",
@@ -362,8 +348,6 @@ export const projectsData: ProjectData[] = [
         },
         tabImages: {
             'tab-9-0': '/projectImages/forensics.png',
-            'tab-9-1': '/ai_workflow_slack_showcase.png',
-            'tab-9-2': '/ai_workflow_slack_showcase.png'
         },
         summary: {
             description: "Partnering with educational institutions to create technology solutions that enhance learning outcomes and streamline administrative processes.",
@@ -393,15 +377,11 @@ export const projectsData: ProjectData[] = [
         },
         highlight: {
             'tab-10-0': ['Payment Processor Limited'],
-            'tab-10-1': ['ForensicTwo'],
-            'tab-10-2': ['ForensicThree']
         },
-        projectList: ['Payment Processor Limited', 'ForensicTwo', 'ForensicThree'],
+        projectList: ['Payment Processor Limited'],
         brandVisualImg: '/icons/industries/energy-link.svg',
         tabs: [
-            { id: 'tab-10-0', label: 'Forensics' },
-            { id: 'tab-10-1', label: 'Assessment Tools', isActive: true },
-            { id: 'tab-10-2', label: 'Campus Management' }
+            { id: 'tab-10-0', label: 'Payment Processor Limited' },
         ],
         impact: {
             title: "Transforming Education with Technology",
@@ -409,8 +389,6 @@ export const projectsData: ProjectData[] = [
         },
         tabImages: {
             'tab-10-0': '/projectImages/payment.png',
-            'tab-10-1': '/ai_workflow_slack_showcase.png',
-            'tab-10-2': '/ai_workflow_slack_showcase.png'
         },
         summary: {
             description: "Partnering with educational institutions to create technology solutions that enhance learning outcomes and streamline administrative processes.",
@@ -440,15 +418,11 @@ export const projectsData: ProjectData[] = [
         },
         highlight: {
             'tab-11-0': ['Neblo Ai'],
-            'tab-11-1': ['Clinix'],
-            'tab-11-2': ['TeleHealth']
         },
-        projectList: ['Neblo Ai', 'Clinix', 'TeleHealth'],
+        projectList: ['Neblo Ai'],
         brandVisualImg: '/icons/industries/education-link.svg',
         tabs: [
             { id: 'tab-11-0', label: 'Neblo Ai' },
-            { id: 'tab-11-1', label: 'Clinix', isActive: true },
-            { id: 'tab-11-2', label: 'TeleHealth' }
         ],
         impact: {
             title: "Scaling Patient Care with Remote Monitoring",
@@ -456,8 +430,6 @@ export const projectsData: ProjectData[] = [
         },
         tabImages: {
             'tab-11-0': '/projectImages/neblo.png',
-            'tab-11-1': '/ai_team_collaboration_impact.png',
-            'tab-11-2': '/ai_workflow_slack_showcase.png'
         },
         summary: {
             description: "Developing a next-generation banking core that enables traditional financial institutions to compete with agile fintech startups.",
@@ -488,14 +460,12 @@ export const projectsData: ProjectData[] = [
         highlight: {
             'tab-12-0': ['Paint Visualizer'],
             'tab-12-1': ['Zilouet'],
-            'tab-12-2': ['TeleHealth']
         },
-        projectList: ['Paint Visualizer', 'Zilouet', 'TeleHealth'],
+        projectList: ['Paint Visualizer', 'Zilouet'],
         brandVisualImg: '/icons/industries/education-link.svg',
         tabs: [
             { id: 'tab-12-0', label: 'Paint Visualizer' },
             { id: 'tab-12-1', label: 'Zilouet', isActive: true },
-            { id: 'tab-12-2', label: 'TeleHealth' }
         ],
         impact: {
             title: "Scaling Patient Care with Remote Monitoring",
@@ -504,7 +474,53 @@ export const projectsData: ProjectData[] = [
         tabImages: {
             'tab-12-0': '/projectImages/paint.png',
             'tab-12-1': '/projectImages/zilouet.png',
-            'tab-12-2': '/ai_workflow_slack_showcase.png'
+        },
+        summary: {
+            description: "Developing a next-generation banking core that enables traditional financial institutions to compete with agile fintech startups.",
+            details: [
+                { label: "Industry", value: "Finance & Banking" },
+                { label: "Project Type", value: "NeoBank Core Infrastructure" },
+                { label: "Service", value: "Fintech Solutions" }
+            ]
+        },
+        techStack: {
+            title: "Tools and technologies",
+            items: [
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/html.png" }, { name: "Next.js", icon: "/technologies/nodejs.png" }] },
+                { label: "Cloud", techs: [{ name: "Azure", icon: "/technologies/azure.png" }] },
+                { label: "Database", techs: [{ name: "MongoDB", icon: "/technologies/mongodb.png" }] },
+                { label: "Backend", techs: [{ name: "TypeScript", icon: "/technologies/nodejs.png" }] }
+            ]
+        }
+    },
+       {
+        type: 'industry',
+        id: 'project-industry-13',
+        brand: {
+            name: 'AI & Automation',
+            logo: '/icons/industries/education-link.svg',
+            description: 'Advanced digital health platforms connecting patients and providers. Our solutions prioritize data security and seamless integration across healthcare ecosystems.',
+        },
+        highlight: {
+            'tab-13-0': ['Sales kik'],
+            'tab-13-1': ['Cypher Bot'],
+            'tab-13-2': ['Facia'],
+        },
+        projectList: ['Sales kik', 'Cypher Bot', 'Facia'],
+        brandVisualImg: '/icons/industries/education-link.svg',
+        tabs: [
+            { id: 'tab-13-0', label: 'Sales kik' },
+            { id: 'tab-13-1', label: 'Cypher Bot', isActive: true },
+            { id: 'tab-13-2', label: 'Facia' },
+        ],
+        impact: {
+            title: "Scaling Patient Care with Remote Monitoring",
+            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+        },
+        tabImages: {
+            'tab-13-0': '/ai_workflow_slack_showcase.png',
+            'tab-13-1': '/ai_team_collaboration_impact.png',
+            'tab-13-2': '/ai_team_collaboration_impact.png',
         },
         summary: {
             description: "Developing a next-generation banking core that enables traditional financial institutions to compete with agile fintech startups.",
@@ -874,7 +890,7 @@ export const projectsData: ProjectData[] = [
         summary: {
             description: "We developed an advanced AI-powered action detection and compliance monitoring system for a leading food & beverage manufacturing company. The platform uses real-time computer vision to monitor staff activities across the entire production facility, ensuring strict adherence to operational, hygiene, and safety standards.The system analyzes live CCTV feeds to detect predefined staff actions, identify non-compliance events, and generate instant alerts for supervisors. It maintains timestamped audit logs and structured reports, creating a fully traceable digital compliance layer for production operations.",
             details: [
-                { label: "Industry", value: "Manufacturing" },
+                { label: "Industry", value: "Compliance" },
                 { label: "Project Type", value: "Product Building" },
                 { label: "Service", value: "Custom Software Development" }
             ]
@@ -889,7 +905,7 @@ export const projectsData: ProjectData[] = [
     },
     {
         type: 'project',
-        id: 'saleskik',
+        id: 'sales-kik',
         brand: {
             name: 'SalesKik',
             logo: '/icons/projects/popm_global.svg',
@@ -904,7 +920,7 @@ export const projectsData: ProjectData[] = [
         summary: {
             description: "Saleskik is the AI-powered assistant designed to help top-performing orgnisations to reclaim their time, sharpen their focus and thrive without overwhelm, Records meetings, Document Meeting, Define KPIs and build custom chatsbots on each. User can communicate and find exact concerns from each note. ",
             details: [
-                { label: "Industry", value: "Task Automation Platform" },
+                { label: "Industry", value: "AI & Automation" },
                 { label: "Project Type", value: "Product Building" },
                 { label: "Service", value: "Custom Software Development" }
             ]
@@ -935,7 +951,7 @@ export const projectsData: ProjectData[] = [
         summary: {
             description: "The primary objective is to fine-tune lightweight AI models for efficient document classification, extraction, and analysis while ensuring strict data security protocols.The system automated the quantification summarisation of large volumes of textual data, such as technical manuals, classified reports, and operational guidelines. By implementing resource-efficient AI models and advanced quantization techniques, the project aims to enhance the US Military's document management and retrieval capabilities, ensuring faster decision-making and operational readiness. Focus: Ensuring the model is capable of processing sensitive, large-scale data effectively while being deployed securely in a local environment.",
             details: [
-                { label: "Industry", value: "Custom AI Agent for Defence" },
+                { label: "Industry", value: "AI & Automation" },
                 { label: "Project Type", value: "Product Building" },
                 { label: "Service", value: "Custom Software Development" }
             ]
@@ -951,7 +967,7 @@ export const projectsData: ProjectData[] = [
     },
     {
         type: 'project',
-        id: 'kyc-solution',
+        id: 'kyc-solutions',
         brand: {
             name: 'KYC Solution',
             logo: '/icons/projects/popm_global.svg',
@@ -966,7 +982,7 @@ export const projectsData: ProjectData[] = [
         summary: {
             description: "Our solution is a managed, AI-driven system designed to verify the authenticity of official documents — including government IDs, licenses, and certificates — while automatically extracting structured data for KYC and compliance workflows. It combines: Forensic-level image analysis to detect tampering, synthetic documents, deepfake-generated IDs, and template manipulation AI-based pattern recognition trained on real-world document variations across regions Cross-verification capabilities with trusted databases (where applicable) Automated data extraction (OCR + ML models) to convert unstructured document data into clean, structured records Audit-ready logging & traceability to support regulatory and compliance reviews",
             details: [
-                { label: "Industry", value: "Security and Compliance" },
+                { label: "Industry", value: "Compliance" },
                 { label: "Project Type", value: "Product Building" },
                 { label: "Service", value: "Custom Software Development" }
             ]
@@ -996,7 +1012,7 @@ export const projectsData: ProjectData[] = [
         summary: {
             description: "An advanced AI-powered fashion personalization platform designed to transform how customers discover and purchase fashion products. This solution uses computer vision and deep learning models to analyze facial features, skin tone, body structure, and personality attributes to generate highly accurate style recommendations. The system automatically classifies face shapes to recommend accessories such as glasses and facial wear, extracts skin tone to suggest complementary clothing colors, and analyzes body shapes (such as apple, pear, and other body types) to recommend the most flattering apparel styles. Additionally, it integrates personality-based styling insights and aesthetic balance concepts to provide a more holistic fashion recommendation experience.This solution is ideal for fashion brands and e-commerce platforms looking to increase customer engagement, reduce product return rates, and deliver personalized shopping experiences at scale through AI-driven intelligence. It can be deployed as a SaaS platform, API service, or integrated directly into existing digital retail systems.",
             details: [
-                { label: "Industry", value: "Market Place For Fashion" },
+                { label: "Industry", value: "Retail" },
                 { label: "Project Type", value: "Complete End to End development " },
                 { label: "Service", value: "Custom Software Development" }
             ]
@@ -1024,7 +1040,7 @@ export const projectsData: ProjectData[] = [
         summary: {
             description: "Pinoyaya is babysitting platform. It is a platform that connects parents with babysitters who are vetted and trained to provide quality care for children. The platform is designed to provide a safe, reliable, and convenient way for parents to find and book babysitters for their children.",
             details: [
-                { label: "Industry", value: "Babysitting" },
+                { label: "Industry", value: "Healthcare" },
                 { label: "Project Type", value: "Complete End to End development" },
                 { label: "Service", value: "Custom Software Development" }
             ]
@@ -1085,7 +1101,7 @@ export const projectsData: ProjectData[] = [
         summary: {
             description: "Facial recognition, liveness detection and biometrice solution.",
             details: [
-                { label: "Industry", value: "AI" },
+                { label: "Industry", value: "AI & Automation" },
                 { label: "Project Type", value: "Product Building" },
                 { label: "Service", value: "Custom Software Development" }
             ]
