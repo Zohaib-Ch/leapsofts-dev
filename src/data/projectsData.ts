@@ -78,53 +78,6 @@ export const projectsData: ProjectData[] = [
     },
     {
         type: 'industry',
-        id: 'project-industry-1',
-        brand: {
-            name: 'Finance',
-            logo: '/icons/industries/finance-link.svg',
-            description: 'Revolutionizing the banking sector with secure, AI-powered financial tools. We help institutions adapt to the digital-first economy with high-performance assets.',
-        },
-        highlight: {
-            'tab-1-0': ['VaultGuard'],
-            'tab-1-1': ['InsurTech'],
-            'tab-1-2': ['WealthBot']
-        },
-        projectList: ['VaultGuard', 'InsurTech', 'WealthBot'],
-        brandVisualImg: '/icons/industries/finance-link.svg',
-        tabs: [
-            { id: 'tab-1-0', label: 'Banking' },
-            { id: 'tab-1-1', label: 'Insurance', isActive: true },
-            { id: 'tab-1-2', label: 'Investments' }
-        ],
-        impact: {
-            title: "Securing the Future of Digital Finance",
-            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
-        },
-        tabImages: {
-            'tab-1-0': '/ai_team_collaboration_impact.png',
-            'tab-1-1': '/ai_team_collaboration_impact.png',
-            'tab-1-2': '/ai_team_collaboration_impact.png'
-        },
-        summary: {
-            description: "Developing a next-generation banking core that enables traditional financial institutions to compete with agile fintech startups.",
-            details: [
-                { label: "Industry", value: "Finance & Banking" },
-                { label: "Project Type", value: "NeoBank Core Infrastructure" },
-                { label: "Service", value: "Fintech Solutions" }
-            ]
-        },
-        techStack: {
-            title: "Tools and technologies",
-            items: [
-                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/html.png" }, { name: "Next.js", icon: "/technologies/nodejs.png" }] },
-                { label: "Cloud", techs: [{ name: "Azure", icon: "/technologies/azure.png" }] },
-                { label: "Database", techs: [{ name: "MongoDB", icon: "/technologies/mongodb.png" }] },
-                { label: "Backend", techs: [{ name: "TypeScript", icon: "/technologies/nodejs.png" }] }
-            ]
-        }
-    },
-    {
-        type: 'industry',
         id: 'project-industry-2',
         brand: {
             name: 'Healthcare',
@@ -262,16 +215,16 @@ export const projectsData: ProjectData[] = [
             description: 'Automated regulatory reporting and risk management. We provide the tools to ensure global compliance across multiple jurisdictions with immutable auditing.',
         },
         highlight: {
-            'tab-6-0': ['LegalEagle'],
+            'tab-6-0': ['Compliance Vision'],
             'tab-6-1': ['AuditPro'],
             'tab-6-2': ['BoardRoom']
         },
-        projectList: ['LegalEagle', 'AuditPro', 'BoardRoom'],
+        projectList: ['Compliance Vision', 'AuditPro', 'BoardRoom'],
         brandVisualImg: '/icons/industries/compliance-link.svg',
         tabs: [
-            { id: 'tab-6-0', label: 'Legal' },
-            { id: 'tab-6-1', label: 'Audit', isActive: true },
-            { id: 'tab-6-2', label: 'Governance' }
+            { id: 'tab-6-0', label: 'Compliance Vision' },
+            { id: 'tab-6-1', label: 'AuditPro', isActive: true },
+            { id: 'tab-6-2', label: 'BoardRoom' }
         ],
         impact: {
             title: "Automating Compliance for Global Regulatory Sync",
@@ -363,7 +316,7 @@ export const projectsData: ProjectData[] = [
         tabImages: {
             'tab-8-0': '/projectImages/pop.png',
             'tab-8-1': '/ai_team_collaboration_impact.png',
-            'tab-8-2': '/ai_team_collaboration_impact.png'
+            'tab-8-2': '/ai_workflow_slack_showcase.png'
         },
         summary: {
             description: "Partnering with educational institutions to create technology solutions that enhance learning outcomes and streamline administrative processes.",
@@ -409,8 +362,8 @@ export const projectsData: ProjectData[] = [
         },
         tabImages: {
             'tab-9-0': '/projectImages/forensics.png',
-            'tab-9-1': '/ai_team_collaboration_impact.png',
-            'tab-9-2': '/ai_team_collaboration_impact.png'
+            'tab-9-1': '/ai_workflow_slack_showcase.png',
+            'tab-9-2': '/ai_workflow_slack_showcase.png'
         },
         summary: {
             description: "Partnering with educational institutions to create technology solutions that enhance learning outcomes and streamline administrative processes.",
@@ -427,6 +380,147 @@ export const projectsData: ProjectData[] = [
                 { label: "Backend", techs: [{ name: "Laravel", icon: "/technologies/laravel.png" }] },
                 { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] },
                 { label: "Cloud", techs: [{ name: "AWS", icon: "/technologies/aws.png" }] }
+            ]
+        }
+    },
+    {
+        type: 'industry',
+        id: 'project-industry-10',
+        brand: {
+            name: 'FinTech',
+            logo: '/icons/industries/energy-link.svg',
+            description: 'Transforming education with technology. We build learning platforms that adapt to individual student needs and empower educators with data-driven insights.',
+        },
+        highlight: {
+            'tab-10-0': ['Payment Processor Limited'],
+            'tab-10-1': ['ForensicTwo'],
+            'tab-10-2': ['ForensicThree']
+        },
+        projectList: ['Payment Processor Limited', 'ForensicTwo', 'ForensicThree'],
+        brandVisualImg: '/icons/industries/energy-link.svg',
+        tabs: [
+            { id: 'tab-10-0', label: 'Forensics' },
+            { id: 'tab-10-1', label: 'Assessment Tools', isActive: true },
+            { id: 'tab-10-2', label: 'Campus Management' }
+        ],
+        impact: {
+            title: "Transforming Education with Technology",
+            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+        },
+        tabImages: {
+            'tab-10-0': '/projectImages/payment.png',
+            'tab-10-1': '/ai_workflow_slack_showcase.png',
+            'tab-10-2': '/ai_workflow_slack_showcase.png'
+        },
+        summary: {
+            description: "Partnering with educational institutions to create technology solutions that enhance learning outcomes and streamline administrative processes.",
+            details: [
+                { label: "Industry", value: "Education" },
+                { label: "Project Type", value: "Learning Platforms" },
+                { label: "Service", value: "Educational Technology" }
+            ]
+        },
+        techStack: {
+            title: "Tools and technologies",
+            items: [
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/html.png" }] },
+                { label: "Backend", techs: [{ name: "Laravel", icon: "/technologies/laravel.png" }] },
+                { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] },
+                { label: "Cloud", techs: [{ name: "AWS", icon: "/technologies/aws.png" }] }
+            ]
+        }
+    },
+    {
+        type: 'industry',
+        id: 'project-industry-11',
+        brand: {
+            name: 'Transportation',
+            logo: '/icons/industries/education-link.svg',
+            description: 'Advanced digital health platforms connecting patients and providers. Our solutions prioritize data security and seamless integration across healthcare ecosystems.',
+        },
+        highlight: {
+            'tab-11-0': ['Neblo Ai'],
+            'tab-11-1': ['Clinix'],
+            'tab-11-2': ['TeleHealth']
+        },
+        projectList: ['Neblo Ai', 'Clinix', 'TeleHealth'],
+        brandVisualImg: '/icons/industries/education-link.svg',
+        tabs: [
+            { id: 'tab-11-0', label: 'Neblo Ai' },
+            { id: 'tab-11-1', label: 'Clinix', isActive: true },
+            { id: 'tab-11-2', label: 'TeleHealth' }
+        ],
+        impact: {
+            title: "Scaling Patient Care with Remote Monitoring",
+            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+        },
+        tabImages: {
+            'tab-11-0': '/projectImages/neblo.png',
+            'tab-11-1': '/ai_team_collaboration_impact.png',
+            'tab-11-2': '/ai_workflow_slack_showcase.png'
+        },
+        summary: {
+            description: "Developing a next-generation banking core that enables traditional financial institutions to compete with agile fintech startups.",
+            details: [
+                { label: "Industry", value: "Finance & Banking" },
+                { label: "Project Type", value: "NeoBank Core Infrastructure" },
+                { label: "Service", value: "Fintech Solutions" }
+            ]
+        },
+        techStack: {
+            title: "Tools and technologies",
+            items: [
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/html.png" }, { name: "Next.js", icon: "/technologies/nodejs.png" }] },
+                { label: "Cloud", techs: [{ name: "Azure", icon: "/technologies/azure.png" }] },
+                { label: "Database", techs: [{ name: "MongoDB", icon: "/technologies/mongodb.png" }] },
+                { label: "Backend", techs: [{ name: "TypeScript", icon: "/technologies/nodejs.png" }] }
+            ]
+        }
+    },
+    {
+        type: 'industry',
+        id: 'project-industry-12',
+        brand: {
+            name: 'Wholesale and Retail',
+            logo: '/icons/industries/education-link.svg',
+            description: 'Advanced digital health platforms connecting patients and providers. Our solutions prioritize data security and seamless integration across healthcare ecosystems.',
+        },
+        highlight: {
+            'tab-12-0': ['Paint Visualizer'],
+            'tab-12-1': ['Zilouet'],
+            'tab-12-2': ['TeleHealth']
+        },
+        projectList: ['Paint Visualizer', 'Zilouet', 'TeleHealth'],
+        brandVisualImg: '/icons/industries/education-link.svg',
+        tabs: [
+            { id: 'tab-12-0', label: 'Paint Visualizer' },
+            { id: 'tab-12-1', label: 'Zilouet', isActive: true },
+            { id: 'tab-12-2', label: 'TeleHealth' }
+        ],
+        impact: {
+            title: "Scaling Patient Care with Remote Monitoring",
+            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+        },
+        tabImages: {
+            'tab-12-0': '/projectImages/paint.png',
+            'tab-12-1': '/projectImages/zilouet.png',
+            'tab-12-2': '/ai_workflow_slack_showcase.png'
+        },
+        summary: {
+            description: "Developing a next-generation banking core that enables traditional financial institutions to compete with agile fintech startups.",
+            details: [
+                { label: "Industry", value: "Finance & Banking" },
+                { label: "Project Type", value: "NeoBank Core Infrastructure" },
+                { label: "Service", value: "Fintech Solutions" }
+            ]
+        },
+        techStack: {
+            title: "Tools and technologies",
+            items: [
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/html.png" }, { name: "Next.js", icon: "/technologies/nodejs.png" }] },
+                { label: "Cloud", techs: [{ name: "Azure", icon: "/technologies/azure.png" }] },
+                { label: "Database", techs: [{ name: "MongoDB", icon: "/technologies/mongodb.png" }] },
+                { label: "Backend", techs: [{ name: "TypeScript", icon: "/technologies/nodejs.png" }] }
             ]
         }
     },
@@ -637,7 +731,7 @@ export const projectsData: ProjectData[] = [
             title: "Built with",
             items: [
                 { label: "Frontend", techs: [{ name: "Angular", icon: "/technologies/angular.svg" }] },
-                { label: "Backend", techs: [{ name: "Dot Net", icon: "/technologies/dotnet.svg" }] },
+                { label: "Backend", techs: [{ name: "Dot Net", icon: "/technologies/net-seeklogo.svg" }] },
                 { label: "Database", techs: [{ name: "SQL Server", icon: "/technologies/sql-server.svg" }] }
             ]
         }
@@ -699,6 +793,307 @@ export const projectsData: ProjectData[] = [
                 { label: "Frontend", techs: [{ name: "React Native", icon: "/technologies/React.svg" }, { name: "Vue Js", icon: "/technologies/vuejs.png" }] },
                 { label: "Backend", techs: [{ name: "Express", icon: "/technologies/express_logo.png" }] },
                 { label: "Database", techs: [{ name: "MongoDB", icon: "/technologies/mongodb.png" }, { name: "Firebase", icon: "/technologies/firebase.png" }] }
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'payment-processor-limited',
+        brand: {
+            name: 'Payment Processor Limited',
+            logo: '/icons/projects/popm_global.svg',
+            description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
+        },
+        brandVisualImg: '/icons/projects/popm_global.svg',
+        projectList: ['End-to-End Automated Payment Engine', 'Hierarchical Finance & Employee Portal', 'Automated Audit & Compliance Dashboard'],
+        impact: {
+            title: "Payment Processor Limited",
+            images: ["/projectImages/payment.png", "/projectImages/payment1.png"]
+        },
+        summary: {
+            description: "Payment Processor is a procurement ERP platform which facilitates B2B with 1link integration in it. Also facilities the People to make end to end payments automatedly without hustling of tracking banking details, record keeping and an employee management portal with features of creating hierarches related to finance management. It’s a solution to clear and corruption free environment to SME’s",
+            details: [
+                { label: "Industry", value: "FinTech" },
+                { label: "Project Type", value: "Procurement ERP Platform" },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/React.svg" }] },
+                { label: "Backend", techs: [{ name: "Express", icon: "/technologies/express_logo.png" }] },
+                { label: "Database", techs: [{ name: "SQL Server", icon: "/technologies/sql-server.svg" }] }
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'neblo-ai',
+        brand: {
+            name: 'Neblo AI',
+            logo: '/icons/projects/popm_global.svg',
+            description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
+        },
+        brandVisualImg: '/icons/projects/popm_global.svg',
+        projectList: ['Intelligent Load Discovery Dashboard', 'Autonomous Negotiation & Booking Engine', 'Automated Dispatch & Route Optimizer',],
+        impact: {
+            title: "Neblo AI",
+            images: ["/projectImages/neblo.png", "/projectImages/neblo1.png"]
+        },
+        summary: {
+            description: "Neblo AI is an intelligent freight automation company reimagining the $190B U.S. spot freight market through purpose-built AI. platform leverages advanced reasoning models and custom LLM frameworks to automate how loads are discovered, booked, and dispatched—cutting through operational noise across fragmented broker and carrier networks.",
+            details: [
+                { label: "Industry", value: "Transportation" },
+                { label: "Project Type", value: "Product Building" },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/React.svg" }] },
+                { label: "Backend", techs: [{ name: "Python", icon: "/technologies/python.svg" }, { name: "Django", icon: "/technologies/django.png" }],  }
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'compliance-vision',
+        brand: {
+            name: 'Compliance Vision',
+            logo: '/icons/projects/popm_global.svg',
+            description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
+        },
+        brandVisualImg: '/icons/projects/popm_global.svg',
+        projectList: ['Real-Time Computer Vision Monitoring', 'Automated Non-Compliance Alerting', 'Traceable Digital Audit Layer'],
+        impact: {
+            title: "Compliance Vision",
+            images: ["/ai_team_collaboration_impact.png", "/ai_team_collaboration_impact.png"]
+        },
+        summary: {
+            description: "We developed an advanced AI-powered action detection and compliance monitoring system for a leading food & beverage manufacturing company. The platform uses real-time computer vision to monitor staff activities across the entire production facility, ensuring strict adherence to operational, hygiene, and safety standards.The system analyzes live CCTV feeds to detect predefined staff actions, identify non-compliance events, and generate instant alerts for supervisors. It maintains timestamped audit logs and structured reports, creating a fully traceable digital compliance layer for production operations.",
+            details: [
+                { label: "Industry", value: "Manufacturing" },
+                { label: "Project Type", value: "Product Building" },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/React.svg" }] },
+                { label: "Backend", techs: [{ name: "Python", icon: "/technologies/python.svg" }, { name: "Django", icon: "/technologies/django.png" }] }
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'saleskik',
+        brand: {
+            name: 'SalesKik',
+            logo: '/icons/projects/popm_global.svg',
+            description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
+        },
+        brandVisualImg: '/icons/projects/popm_global.svg',
+        projectList: ['Autonomous Meeting Intelligence & Documentation', 'Custom AI Knowledge Base & Chatbots', 'Strategic KPI & Performance Tracking',],
+        impact: {
+            title: "SalesKik",
+            images: ["/projectImages/sales.png", "/projectImages/sale1.png"]
+        },
+        summary: {
+            description: "Saleskik is the AI-powered assistant designed to help top-performing orgnisations to reclaim their time, sharpen their focus and thrive without overwhelm, Records meetings, Document Meeting, Define KPIs and build custom chatsbots on each. User can communicate and find exact concerns from each note. ",
+            details: [
+                { label: "Industry", value: "Task Automation Platform" },
+                { label: "Project Type", value: "Product Building" },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/React.svg" }] },
+                { label: "Backend", techs: [{ name: "Node.js", icon: "/technologies/nodejs.png" }] },
+                { label: "AI/ML", techs: [{ name: "Python", icon: "/technologies/python.svg" }] }
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'cypher-bot',
+        brand: {
+            name: 'Cypher Bot',
+            logo: '/icons/projects/popm_global.svg',
+            description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
+        },
+        brandVisualImg: '/icons/projects/popm_global.svg',
+        projectList: ['Localized High-Security Document Processing', 'Automated Technical Quantification & Summarization', 'Rapid Retrieval & Operational Intelligence'],
+        impact: {
+            title: "Cypher Bot",
+            images: ["/ai_team_collaboration_impact.png", "/ai_team_collaboration_impact.png"]
+        },
+        summary: {
+            description: "The primary objective is to fine-tune lightweight AI models for efficient document classification, extraction, and analysis while ensuring strict data security protocols.The system automated the quantification summarisation of large volumes of textual data, such as technical manuals, classified reports, and operational guidelines. By implementing resource-efficient AI models and advanced quantization techniques, the project aims to enhance the US Military's document management and retrieval capabilities, ensuring faster decision-making and operational readiness. Focus: Ensuring the model is capable of processing sensitive, large-scale data effectively while being deployed securely in a local environment.",
+            details: [
+                { label: "Industry", value: "Custom AI Agent for Defence" },
+                { label: "Project Type", value: "Product Building" },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/React.svg" }] },
+                { label: "Backend", techs: [{ name: "Node.js", icon: "/technologies/nodejs.png" }] },
+                { label: "AI/ML", techs: [{ name: "Python", icon: "/technologies/python.svg" }] }
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'kyc-solution',
+        brand: {
+            name: 'KYC Solution',
+            logo: '/icons/projects/popm_global.svg',
+            description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
+        },
+        brandVisualImg: '/icons/projects/popm_global.svg',
+        projectList: ['Forensic Identity Verification Engine', 'Automated KYC Data Extraction', 'Audit-Ready Compliance Vault',],
+        impact: {
+            title: "KYC Solution",
+            images: ["/ai_team_collaboration_impact.png", "/ai_team_collaboration_impact.png"]
+        },
+        summary: {
+            description: "Our solution is a managed, AI-driven system designed to verify the authenticity of official documents — including government IDs, licenses, and certificates — while automatically extracting structured data for KYC and compliance workflows. It combines: Forensic-level image analysis to detect tampering, synthetic documents, deepfake-generated IDs, and template manipulation AI-based pattern recognition trained on real-world document variations across regions Cross-verification capabilities with trusted databases (where applicable) Automated data extraction (OCR + ML models) to convert unstructured document data into clean, structured records Audit-ready logging & traceability to support regulatory and compliance reviews",
+            details: [
+                { label: "Industry", value: "Security and Compliance" },
+                { label: "Project Type", value: "Product Building" },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/React.svg" }] },
+                { label: "Backend", techs: [{ name: "Node.js", icon: "/technologies/nodejs.png" }, { name: "Python", icon: "/technologies/python.svg" }] }
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'zilouet',
+        brand: {
+            name: 'Zilouet',
+            logo: '/icons/projects/popm_global.svg',
+            description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
+        },
+        brandVisualImg: '/icons/projects/popm_global.svg',
+        projectList: ['AI-Driven Physical Attribute Analysis', 'Holistic Style & Personality Engine', 'Scalable Retail Intelligence API'],
+        impact: {
+            title: "Zilouet",
+            images: ["/projectImages/zilouet.png", "/projectImages/zilouet1.png"]
+        },
+        summary: {
+            description: "An advanced AI-powered fashion personalization platform designed to transform how customers discover and purchase fashion products. This solution uses computer vision and deep learning models to analyze facial features, skin tone, body structure, and personality attributes to generate highly accurate style recommendations. The system automatically classifies face shapes to recommend accessories such as glasses and facial wear, extracts skin tone to suggest complementary clothing colors, and analyzes body shapes (such as apple, pear, and other body types) to recommend the most flattering apparel styles. Additionally, it integrates personality-based styling insights and aesthetic balance concepts to provide a more holistic fashion recommendation experience.This solution is ideal for fashion brands and e-commerce platforms looking to increase customer engagement, reduce product return rates, and deliver personalized shopping experiences at scale through AI-driven intelligence. It can be deployed as a SaaS platform, API service, or integrated directly into existing digital retail systems.",
+            details: [
+                { label: "Industry", value: "Market Place For Fashion" },
+                { label: "Project Type", value: "Complete End to End development " },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'pinoyaya',
+        brand: {
+            name: 'Pinoyaya',
+            logo: '/icons/projects/popm_global.svg',
+            description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
+        },
+        brandVisualImg: '/icons/projects/popm_global.svg',
+        projectList: ['Verified Caregiver Marketplace', 'On-Demand Booking & Scheduling', 'Secure In-App Payment & Messaging'],
+        impact: {
+            title: "Pinoyaya",
+            images: ["/ai_team_collaboration_impact.png", "/ai_team_collaboration_impact.png"]
+        },
+        summary: {
+            description: "Pinoyaya is babysitting platform. It is a platform that connects parents with babysitters who are vetted and trained to provide quality care for children. The platform is designed to provide a safe, reliable, and convenient way for parents to find and book babysitters for their children.",
+            details: [
+                { label: "Industry", value: "Babysitting" },
+                { label: "Project Type", value: "Complete End to End development" },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/React.svg" }] },
+                { label: "Backend", techs: [{ name: "Express.js", icon: "/technologies/express_logo.png" }] },
+                { label: "Database", techs: [{ name: "PostgreSQL", icon: "/technologies/postgresql.png" }] }
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'paint-visualizer',
+        brand: {
+            name: 'Paint Visualizer',
+            logo: '/icons/projects/popm_global.svg',
+            description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
+        },
+        brandVisualImg: '/icons/projects/popm_global.svg',
+        projectList: ['AI-Driven Risk & Portfolio Engineering', 'Automated Wealth Management Suite', 'Digital Compliance & Onboarding Pipeline',],
+        impact: {
+            title: "Paint Visualizer",
+            images: ["/projectImages/paint.png", "/projectImages/paint1.png"]
+        },
+        summary: {
+            description: "Paint Visualizer is a platform that allows users to visualize different paint colors on their walls. It is a web-based application that uses AI-driven algorithms to assess client risk tolerance, financial goals, and investment preferences to create customized investment portfolios. Key features include automated portfolio rebalancing, tax-loss harvesting, and real-time performance tracking. The platform also includes a comprehensive client onboarding process with automated KYC verification and risk profiling to ensure compliance with regulatory requirements.",
+            details: [
+                { label: "Industry", value: "Retail" },
+                { label: "Project Type", value: "Product Building" },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/React.svg" }] },
+                { label: "Backend", techs: [{ name: "Python", icon: "/technologies/python.svg" }] },
+            ]
+        }
+    },
+    {
+        type: 'project',
+        id: 'facia',
+        brand: {
+            name: 'Facia',
+            logo: '/icons/projects/popm_global.svg',
+            description: 'Personalized rob-advisory platform for retail investors, focused on long-term wealth building.',
+        },
+        brandVisualImg: '/icons/projects/popm_global.svg',
+        projectList: ['High-Accuracy Facial Recognition & Matching', 'Anti-Spoofing & Liveness Detection', 'Multi-Modal Biometric Authentication',],
+        impact: {
+            title: "Facia",
+            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+        },
+        summary: {
+            description: "Facial recognition, liveness detection and biometrice solution.",
+            details: [
+                { label: "Industry", value: "AI" },
+                { label: "Project Type", value: "Product Building" },
+                { label: "Service", value: "Custom Software Development" }
+            ]
+        },
+        techStack: {
+            title: "Built with",
+            items: [
+                { label: "Frontend", techs: [{ name: "Vue.js", icon: "/technologies/vuejs.png" }] },
             ]
         }
     }

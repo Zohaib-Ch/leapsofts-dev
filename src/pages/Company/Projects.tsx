@@ -21,7 +21,6 @@ const Projects: React.FC = () => {
   const handleIndustryClick = (name: string) => {
     // Map industry slider names to projectsData IDs
     const mapping: Record<string, string> = {
-      'Finance': 'project-industry-1',
       'Healthcare': 'project-industry-2',
       'Startups': 'project-industry-7',
       'Construction': 'project-industry-4',
@@ -30,6 +29,9 @@ const Projects: React.FC = () => {
       'Automotive': 'project-industry-0',
       'EdTech': 'project-industry-8',
       'Forensics': 'project-industry-9',
+      'FinTech': 'project-industry-10',
+      'Transportation': 'project-industry-11',
+      'Wholesale and Retail': 'project-industry-12',
     };
 
     const projectId = mapping[name];

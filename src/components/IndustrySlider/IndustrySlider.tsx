@@ -26,6 +26,7 @@ const industries = [
   { name: 'Entertainment', path: '/industries/entertainment', icon: '/icons/industries/finance-link.svg' },
   { name: 'Real Estate', path: '/industries/real-estate', icon: '/icons/industries/compliance-link.svg' },
   { name: 'Transportation', path: '/industries/transportation', icon: '/icons/industries/automotive-link.svg' },
+  { name: 'FinTech', path: '/industries/fintech', icon: '/icons/industries/finance-link.svg' },
 ];
 
 const IndustrySlider: React.FC<IndustrySliderProps> = ({ onIndustryClick }) => {
