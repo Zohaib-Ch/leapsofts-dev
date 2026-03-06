@@ -518,9 +518,9 @@ export const projectsData: ProjectData[] = [
             images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
         },
         tabImages: {
-            'tab-13-0': '/ai_workflow_slack_showcase.png',
+            'tab-13-0': '/projectImages/sales.png',
             'tab-13-1': '/ai_team_collaboration_impact.png',
-            'tab-13-2': '/ai_team_collaboration_impact.png',
+            'tab-13-2': '/projectImages/facia1.png',
         },
         summary: {
             description: "Developing a next-generation banking core that enables traditional financial institutions to compete with agile fintech startups.",
@@ -1096,7 +1096,7 @@ export const projectsData: ProjectData[] = [
         projectList: ['High-Accuracy Facial Recognition & Matching', 'Anti-Spoofing & Liveness Detection', 'Multi-Modal Biometric Authentication',],
         impact: {
             title: "Facia",
-            images: ["/ai_workflow_slack_showcase.png", "/ai_team_collaboration_impact.png"]
+            images: ["/projectImages/facia1.png", "/projectImages/facia.png"]
         },
         summary: {
             description: "Facial recognition, liveness detection and biometrice solution.",
