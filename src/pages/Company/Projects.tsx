@@ -55,7 +55,10 @@ const Projects: React.FC = () => {
           activeProjectId={activeIndustryId}
         />
       </div>
-      <IndustrySlider onIndustryClick={handleIndustryClick} />
+        <IndustrySlider
+        onIndustryClick={handleIndustryClick}
+        excludeIndustries={['Mid-Sized Businesses', 'Entertainment', 'Startups', 'Construction', 'Energy', 'Real Estate']}
+      />
       <WhoWeServe
         description="Orchestrating commerce, intelligence and innovation across asset finance, retail and advisory ecosystems."
       />

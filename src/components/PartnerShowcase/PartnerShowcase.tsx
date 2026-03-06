@@ -118,11 +118,6 @@ const ShowcaseItem: React.FC<{ data: PartnerData }> = ({ data }) => {
         }
     };
 
-    const descWords = data.brand.description.split(' ');
-    const midPoint = Math.ceil(descWords.length / 2);
-    const descPart1 = descWords.slice(0, midPoint).join(' ');
-    const descPart2 = descWords.slice(midPoint).join(' ');
-
     const dropVariants: Variants = {
         hidden: { opacity: 0, y: -60 },
         visible: (custom: number) => ({
@@ -161,10 +156,7 @@ const ShowcaseItem: React.FC<{ data: PartnerData }> = ({ data }) => {
 
                         <div className={styles.descriptionWrapper}>
                             <motion.p className={styles.brandDescription} custom={2} animate={animateState} initial="hidden" variants={dropVariants}>
-                                {descPart1}
-                            </motion.p>
-                            <motion.p className={styles.brandDescription} custom={3} animate={animateState} initial="hidden" variants={dropVariants}>
-                                {descPart2}
+                                {data.brand.description}
                             </motion.p>
                         </div>
 
