@@ -35,7 +35,7 @@ export const projectsData: ProjectData[] = [
         brand: {
             name: 'Automotive',
             logo: '/icons/industries/automotive-link.svg',
-            description: 'End-to-end orchestration for OEMs and dealers. Modular and scalable to unify showroom and online journeys into one seamless retail experience.',
+            description: 'From smart manufacturing to connected vehicle ecosystems, we build the proprietary software that allows automotive leaders to innovate faster and operate with unprecedented efficiency.',
         },
         highlight: {
             'tab-0-0': ['Agile Auto'],
@@ -82,7 +82,7 @@ export const projectsData: ProjectData[] = [
         brand: {
             name: 'Healthcare',
             logo: '/icons/industries/healthcare-link.svg',
-            description: 'Advanced digital health platforms connecting patients and providers. Our solutions prioritize data security and seamless integration across healthcare ecosystems.',
+            description: 'Leapsofts provides end-to-end healthcare technology solutions, ensuring HIPAA compliance and delivering patient-centric digital experiences.',
         },
         highlight: {
             'tab-2-0': ['Genpsych'],
@@ -209,7 +209,7 @@ export const projectsData: ProjectData[] = [
         brand: {
             name: 'Compliance',
             logo: '/icons/industries/compliance-link.svg',
-            description: 'Automated regulatory reporting and risk management. We provide the tools to ensure global compliance across multiple jurisdictions with immutable auditing.',
+            description: 'Regulatory landscapes are shifting faster than ever. We build the secure, scalable, and automated solutions that allow organizations to navigate complexity with confidence and focus on their core mission.',
         },
         highlight: {
             'tab-6-0': ['Compliance Vision'],
@@ -291,7 +291,7 @@ export const projectsData: ProjectData[] = [
         brand: {
             name: 'EdTech',
             logo: '/icons/industries/education-link.svg',
-            description: 'Transforming education with technology. We build learning platforms that adapt to individual student needs and empower educators with data-driven insights.',
+            description: 'We partner strategically with educators and institutions to foster the secure, dynamic digital learning environments needed to assist students in succeeding both inside and outside the traditional classroom setting.',
         },
         highlight: {
             'tab-8-0': ['POPM Global'],
@@ -332,7 +332,7 @@ export const projectsData: ProjectData[] = [
         brand: {
             name: 'Forensics',
             logo: '/icons/industries/energy-link.svg',
-            description: 'Transforming education with technology. We build learning platforms that adapt to individual student needs and empower educators with data-driven insights.',
+            description: 'Forensics is a platform that helps law enforcement agencies to collect and analyze digital evidence.',
         },
         highlight: {
             'tab-9-0': ['Monolith'],
@@ -373,7 +373,7 @@ export const projectsData: ProjectData[] = [
         brand: {
             name: 'FinTech',
             logo: '/icons/industries/energy-link.svg',
-            description: 'Transforming education with technology. We build learning platforms that adapt to individual student needs and empower educators with data-driven insights.',
+            description: 'Secure software solutions to enhance user experience in the new, digital landscape Allow Leapsofts to help you bring your financial services firm into the digital age with software that is as sharp as you are.',
         },
         highlight: {
             'tab-10-0': ['Payment Processor Limited'],
@@ -414,7 +414,7 @@ export const projectsData: ProjectData[] = [
         brand: {
             name: 'Transportation',
             logo: '/icons/industries/education-link.svg',
-            description: 'Advanced digital health platforms connecting patients and providers. Our solutions prioritize data security and seamless integration across healthcare ecosystems.',
+            description: 'Traditional routes are changing fast. We engineer, build, and maintain custom Transportation Management Systems (TMS) that automate your processes, improve operational efficiency, and drive scalability.',
         },
         highlight: {
             'tab-11-0': ['Neblo Ai'],
@@ -455,7 +455,7 @@ export const projectsData: ProjectData[] = [
         brand: {
             name: 'Wholesale and Retail',
             logo: '/icons/industries/education-link.svg',
-            description: 'Advanced digital health platforms connecting patients and providers. Our solutions prioritize data security and seamless integration across healthcare ecosystems.',
+            description: 'Replace outdated legacy systems with integrated technology designed specifically to expand operational margins, automate complex logistics, and significantly upgrade client relationships across the wholesale and retail sectors.',
         },
         highlight: {
             'tab-12-0': ['Paint Visualizer'],
@@ -499,7 +499,7 @@ export const projectsData: ProjectData[] = [
         brand: {
             name: 'AI & Automation',
             logo: '/icons/industries/education-link.svg',
-            description: 'Advanced digital health platforms connecting patients and providers. Our solutions prioritize data security and seamless integration across healthcare ecosystems.',
+            description: 'AI and Automation are transforming industries by automating repetitive tasks, providing intelligent insights, and enabling smarter decision-making. Our solutions help businesses enhance efficiency, reduce costs, and unlock new opportunities for growth.',
         },
         highlight: {
             'tab-13-0': ['Sales kik'],
