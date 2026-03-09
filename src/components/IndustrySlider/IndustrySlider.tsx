@@ -9,6 +9,7 @@ import styles from './IndustrySlider.module.css';
 
 interface IndustrySliderProps {
   onIndustryClick?: (name: string) => void;
+  excludeIndustries?: string[];
 }
 
 const industries = [
@@ -29,9 +30,13 @@ const industries = [
   { name: 'AI & Automation', path: '/industries/ai-automation', icon: '/icons/industries/finance-link.svg' },
 ];
 
-const IndustrySlider: React.FC<IndustrySliderProps> = ({ onIndustryClick }) => {
+const IndustrySlider: React.FC<IndustrySliderProps> = ({ onIndustryClick, excludeIndustries = [] }) => {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
+
+  const filteredIndustries = excludeIndustries.length > 0
+    ? industries.filter((industry) => !excludeIndustries.includes(industry.name))
+    : industries;
 
   return (
     <section className={styles.sliderSection}>
@@ -51,7 +56,7 @@ const IndustrySlider: React.FC<IndustrySliderProps> = ({ onIndustryClick }) => {
             modules={[Navigation, Autoplay]}
             spaceBetween={20}
             slidesPerView="auto"
-            loop={true}
+            loop={filteredIndustries.length > 5}
             speed={800}
             autoplay={{
               delay: 3000,
@@ -68,7 +73,7 @@ const IndustrySlider: React.FC<IndustrySliderProps> = ({ onIndustryClick }) => {
             }}
             className={styles.swiper}
           >
-            {industries.map((industry) => (
+            {filteredIndustries.map((industry) => (
               <SwiperSlide key={industry.name} style={{ width: 'auto' }}>
                 <Link
                   to={industry.path}
