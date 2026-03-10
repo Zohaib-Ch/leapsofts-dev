@@ -19,7 +19,7 @@ const IntroComponent: React.FC<IntroComponentProps> = ({
     title,
     title2,
     description,
-    videoSrc = "/bg_video/vid-4.mp4",
+    videoSrc = "/bg_video/leapsofts.mp4",
     buttonText = "Schedule a Consultation",
     onButtonClick,
     introDescription,
