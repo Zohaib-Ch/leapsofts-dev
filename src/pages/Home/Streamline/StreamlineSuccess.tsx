@@ -72,7 +72,7 @@ const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({ label, titleMain,
                         <p className={styles.description}>{description2}</p>
                     )}
                     <div className={styles.buttonWrapper}>
-                        <Button text=" Request Your Session" color1="var(--color-primary)" color2="var(--color-primary-light)" onClick={() => console.log('Button clicked')} hasIcon />
+                        <Button text="Claim Strategy Session" color1="var(--color-primary)" color2="var(--color-primary-light)" onClick={() => console.log('Button clicked')} hasIcon />
                     </div>
                 </div>
 

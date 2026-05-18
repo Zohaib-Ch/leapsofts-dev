@@ -90,8 +90,8 @@ const STEPS: ProcessStep[] = [
     },
 ];
 
-const MONTHS = Array.from({ length: 12 }, (_, i) => ({
-    label: `Month ${i + 1}`,
+const WEEKS = Array.from({ length: 12 }, (_, i) => ({
+    label: `Week ${i + 1}`,
     gridColumn: `${(i * 2) + 2} / ${(i * 2) + 4}`,
 }));
 
@@ -202,18 +202,18 @@ const IndustryProcess: React.FC<IndustryProcessProps> = ({ titleMain, titleAccen
                             )}
                         </AnimatePresence>
 
-                        {/* Months */}
-                        {MONTHS.map((month, idx) => (
+                        {/* Weeks */}
+                        {WEEKS.map((week, idx) => (
                             <motion.div
-                                key={month.label}
-                                className={styles.monthLabel}
-                                style={{ gridRowStart: 9, gridColumn: month.gridColumn }}
+                                key={week.label}
+                                className={styles.timelineLabel}
+                                style={{ gridRowStart: 9, gridColumn: week.gridColumn }}
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: 0.5 + (idx * 0.05) }}
                             >
-                                <span>{month.label}</span>
+                                <span>{week.label}</span>
                             </motion.div>
                         ))}
                     </div>

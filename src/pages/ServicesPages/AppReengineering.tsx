@@ -8,13 +8,12 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP'
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes'
 import laptopImg from "../../assets/about_laptop_3d.png";
 
-
 const serviceOverviewData = {
   label: "RE-ENGINEERING",
   titleMain: "Modernize Your",
   titleAccent: "Legacy",
   titleEnd: "Systems",
-  description: "Leapsofts specializes in transforming outdated applications into modern, high-performance systems. Our re-engineering process enhances scalability, improves security, and reduces maintenance costs while preserving your core business logic.",
+  description: "At Leapsofts, we engineer systematic modernization strategies that safeguard your business logic while upgrading your operational capacity. By auditing existing code, refactoring relational database models, and migrating legacy services to containerized AWS, Azure, or GCP environments, we help organizations transition from costly, high-risk systems to secure, agile, and modular platforms that support modern growth.",
   imagePath: laptopImg
 };
 
@@ -24,95 +23,120 @@ const ourServicesData: EmergingTechProps['data'] = {
   titleMain: 'Revamp Services',
   description: 'Comprehensive application re-engineering services to modernize your digital infrastructure and drive business growth.',
   items: [
-    { icon: 'legacy', title: 'Legacy System Update', description: 'Elevate aging systems to new, streamlined platforms.' },
-    { icon: 'enterprise', title: 'DevOps Integration', description: 'Streamline your software delivery with efficient DevOps practices.' },
-    { icon: 'thirdParty', title: 'Platform Upgrades', description: 'Modernize your platforms to align with cutting edge technologies.' },
-    { icon: 'product', title: 'Code Optimization', description: 'Optimize your codebase for better performance and easier maintenance.' },
-    { icon: 'saas', title: 'UI/UX Redesign', description: 'Redesign your user interface for an improved user experience.' },
-    { icon: 'enterprise', title: 'System Consolidation', description: 'Merge separate systems to improve operational efficiency.' },
+    {
+      icon: 'legacy' as const,
+      title: 'Legacy Modernization & Code Refactoring',
+      description: 'Upgrading aging codebases (e.g., .NET Framework, older Java, PHP) into modern languages (TypeScript, Node.js, C# .NET Core) for greater stability.'
+    },
+    {
+      icon: 'enterprise' as const,
+      title: 'Automated DevOps & Infrastructure as Code',
+      description: 'Establishing reliable CI/CD pipelines, containerizing workloads (Docker, Kubernetes), and defining infrastructure configurations via Terraform.'
+    },
+    {
+      icon: 'thirdParty' as const,
+      title: 'Zero-Downtime Cloud Migrations & Architecture',
+      description: 'Migrating on-premise servers and legacy systems to highly scalable multi-region cloud infrastructures with zero operational downtime.'
+    },
+    {
+      icon: 'product' as const,
+      title: 'Algorithmic Tuning & SQL Query Optimization',
+      description: 'Debugging performance bottlenecks, refactoring nested loops, and optimizing database queries and indexes to achieve rapid execution times.'
+    },
+    {
+      icon: 'saas' as const,
+      title: 'High-Fidelity Interface Re-Engineering',
+      description: 'Redesigning archaic, complex screens into intuitive, modern, and accessible user flows that enhance operational productivity and user adoption.'
+    },
+    {
+      icon: 'enterprise' as const,
+      title: 'Microservices Decoupling & API Integrations',
+      description: 'Breaking down complex monoliths into modular microservices with structured GraphQL or RESTful API gateways for fluid interoperability.'
+    },
   ]
 }
+
 const reEngineeringProcessData: InfoGridProps['data'] = {
   label: 'BENEFITS',
   title: 'Why Re-Engineer Now',
   items: [
     {
       icon: '01',
-      title: 'Cost Reduction',
-      description: 'Lower maintenance and operational costs by moving to modern infrastructures.'
+      title: 'Infrastructure & Operational Cost Reduction',
+      description: 'Eliminate expensive maintenance overhead, license lock-in fees, and fragile server resources by migrating to serverless, pay-as-you-go cloud architectures.'
     },
     {
       icon: '02',
-      title: 'Scale & Performance',
-      description: 'Handle increased loads with modern cloud-native architectures.'
+      title: 'Elastic Scalability & Resource Balancing',
+      description: 'Prepare your applications to handle high transaction volumes and sudden user growth through containerized cloud clusters and edge caching.'
     },
     {
       icon: '03',
-      title: 'Security Compliance',
-      description: 'Ensure your systems meet the latest security standards and regulations.'
+      title: 'Zero-Trust Compliance & Database Security',
+      description: 'Upgrade legacy data security structures to support modern compliance controls including TLS data-at-rest encryption, OAuth2 verification, HIPAA, and SOC2 guidelines.'
     },
     {
       icon: '04',
-      title: 'Better UX',
-      description: 'Provide your users with a fast, responsive, and intuitive experience.'
+      title: 'Optimized Interface Speeds & Fluid User Flows',
+      description: 'Replace sluggish, multi-click processes with instant-action web and mobile user interfaces that accelerate daily tasks and reduce employee fatigue.'
     }
   ]
 }
 
 const streamlineDescription = [
-  { text: "Legacy systems shouldn't hold back your ", bold: false },
-  { text: "business growth", bold: true },
-  { text: ". Leapsofts offers a ", bold: false },
-  { text: "complimentary system audit session ", bold: true },
-  { text: "to help you identify ", bold: false },
-  { text: "modernization opportunities ", bold: true },
-  { text: "that deliver immediate ROI and long-term stability.", bold: false },
+  { text: "Whether modernizing a complex ", bold: false },
+  { text: "legacy enterprise web portal ", bold: true },
+  { text: "or engineering a ", bold: false },
+  { text: "new modern infrastructure", bold: true },
+  { text: ", our experts deliver immediate technical clarity. We conduct a deep-dive analysis of your current systems, map out dependency parameters, evaluate legacy software codebases, and formulate a ", bold: false },
+  { text: "highly efficient, zero-downtime re-engineering plan ", bold: true },
+  { text: "built to unlock massive digital growth and streamline user retention.", bold: false }
 ];
 
 const serviceFeaturesData: ServiceFeatureItem[] = [
   {
     icon: '/industryicons/sphere.svg',
     title: 'Cloud Migration',
-    description: 'Transitioning legacy workloads to AWS, Azure, or GCP seamlessly.'
+    description: 'Transitioning legacy workloads to secure, multi-region AWS, Azure, or GCP instances with structured rolling updates.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
     title: 'Microservices',
-    description: 'Breaking down monoliths into manageable, scalable micro-services.'
+    description: 'Deconstructing tight monolith dependencies into decoupled, containerized service units utilizing Docker and Kubernetes.'
   },
   {
     icon: '/industryicons/sphere.svg',
     title: 'Database Refactoring',
-    description: 'Migrating and optimizing your data for better speed and reliability.'
+    description: 'Upgrading legacy SQL schemas, migrating data structures, and optimizing distributed indexing systems for fast performance.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
     title: 'API Modernization',
-    description: 'Building robust APIs to enable modern integrations and mobile access.'
+    description: 'Designing secure RESTful and GraphQL API bridges with structured schemas and API gateways to optimize third-party integrations.'
   }
 ];
 
 const deliverMVPData = {
-  label: "REVAMP EXCELLENCE",
-  title: "Committed to",
-  accentText: "System Success",
-  description: "Leapsofts provides high-performing re-engineering teams that are fully committed to your project's success. We focus on transparency, communication, and technical rigor.",
+  label: "RE-ENGINEERING EXCELLENCE",
+  title: "How Can We Modernize Your System in",
+  accentText: "3-5 months?",
+  description: "Leapsofts is an elite legacy modernization partner. By combining fully integrated CI/CD, pre-built modular code frameworks, and dedicated re-engineering pods, we refactor and deploy enterprise-ready modernized systems within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
-      title: "Analysis & Planning.",
-      description: "Deep dive into your existing code to ensure a smooth transition."
+      title: "Extensive Codebase Scans.",
+      description: "Performing extensive codebase scans, dependency maps, and architectural audits to identify performance anomalies before writing any code."
     },
     {
-      title: "Zero Downtime.",
-      description: "Strategies to ensure your business stays running during the update."
+      title: "Zero Operational Downtime.",
+      description: "Formulating systematic data synchronization pipelines and canary release models to ensure continuity during the transition."
     },
     {
-      title: "Future-Proofing.",
-      description: "Using technologies that ensure your system stays relevant for years."
+      title: "Modern Framework Future-Proofing.",
+      description: "Developing applications using modern framework structures (TypeScript, .NET Core) and modular databases that scale with long-term goals."
     },
     {
-      title: "Expert Execution.",
-      description: "Senior developers with decades of experience in legacy transformation."
+      title: "Senior Legacy Architects.",
+      description: "Deploying cross-functional engineering pods led by senior developers who specialize in code refactoring and cloud orchestration."
     }
   ]
 };
@@ -120,41 +144,116 @@ const deliverMVPData = {
 const processPhasesDefault: ProcessPhase[] = [
   {
     id: 1,
-    phase: "PHASE 1: ASSESSMENT",
-    title: "Codebase & Architecture Audit",
-    description: "We evaluate your current system to identify bottlenecks and risks.",
-    features: ["Performance Profiling", "Security Vulnerability Scan", "Technical Debt Analysis"],
+    phase: "PHASE 1: LEGACY SYSTEM AUDIT & DEPENDENCY PROFILING",
+    title: "Codebase & Schema Auditing",
+    description:
+      "We evaluate historical codebases, map complex dependencies, and identify database bottleneck profiles before refactoring.",
+    features: [
+      {
+        title: "Monolithic Technical Debt Discovery",
+        description:
+          "Parse legacy code elements (.NET Framework, older Java, PHP) to map active APIs and find memory leak boundaries."
+      },
+      {
+        title: "Entity Schema Dependency Mapping",
+        description:
+          "Audit relational database layouts, indexing methods, and stored routines to map transactional paths."
+      },
+      {
+        title: "Migration Stack Blueprinting",
+        description:
+          "Select the modern web stack (Zustand, React, Next.js, Node.js) and draft the migration route."
+      }
+    ]
   },
   {
     id: 2,
-    phase: "PHASE 2: DESIGN",
-    title: "Modern Blueprinting",
-    description: "Creating a roadmap for transformation without breaking core logic.",
-    features: ["New Architecture Design", "Migration Strategy", "Component Mapping"],
+    phase: "PHASE 2: DECOUPLING & ZERO-DOWNTIME SPECIFICATION",
+    title: "Microservices & Sync Blueprinting",
+    description:
+      "Designing container models, transaction sync gates, and detailed rollback protocols.",
+    features: [
+      {
+        title: "Monolith Decoupling Architectures",
+        description:
+          "Establish boundaries to isolate monolithic business logic into manageable, serverless microservice units."
+      },
+      {
+        title: "Data Replication Synchronization",
+        description:
+          "Plan secure replication pipelines using Change Data Capture (CDC) to keep databases synchronized during rebuilds."
+      },
+      {
+        title: "Fail-Safe Rollback Specifications",
+        description:
+          "Establish robust server rollback specifications and system validation checks to ensure zero business interruption."
+      }
+    ]
   },
   {
     id: 3,
-    phase: "PHASE 3: DEVELOPMENT",
-    title: "Iterative Modernization",
-    description: "Rewriting and refactoring code in modular stages.",
-    features: ["Incremental Rollouts", "Refactoring & Testing", "Integration Checks"],
+    phase: "PHASE 3: INCREMENTAL SYSTEM REBUILD & STAGING REPLICATION",
+    title: "Agile Refactoring & Pipeline Audits",
+    description:
+      "Rewriting system elements modularly and executing transaction parity checks.",
+    features: [
+      {
+        title: "Incremental Microservice Coding",
+        description:
+          "Refactor monolithic modules into high-concurrency Node.js or C# backend services in bi-weekly agile cycles."
+      },
+      {
+        title: "CDC Data Synchronization",
+        description:
+          "Maintain active, secure real-time data syncs, feeding legacy entries into new normalized database schemas."
+      },
+      {
+        title: "Logical Parity Verification",
+        description:
+          "Run automated E2E browser tests and integration tests to verify modernized scripts match the legacy logic."
+      }
+    ]
   },
   {
     id: 4,
-    phase: "PHASE 4: DEPLOYMENT",
-    title: "Final Transition & Support",
-    description: "Final switch to the new system with ongoing maintenance.",
-    features: ["Live Production Switch", "User Training", "Post-Launch Monitoring"],
-  },
+    phase: "PHASE 4: CANARY DEPLOYMENT & SYSTEMS EVOLUTION",
+    title: "Canary Rollouts & Cloud Scaling",
+    description:
+      "Gradual canary system rollouts, legacy servers shutdown, and cloud resource scaling.",
+    features: [
+      {
+        title: "Canary Release Deployments",
+        description:
+          "Route active web sessions gradually (e.g. 5% -> 50% -> 100%) to verify performance under production loads."
+      },
+      {
+        title: "Legacy Infrastructure Decommission",
+        description:
+          "Shut down costly on-premise servers and license overheads to reduce ongoing TCO."
+      },
+      {
+        title: "Continuous Database Tuning",
+        description:
+          "Audit database memory limits, adjust edge cache setups, and scale cloud configurations dynamically."
+      }
+    ]
+  }
 ];
 
-const phaseLabelsDefault = ["ASSESSMENT", "DESIGN", "DEVELOPMENT", "DEPLOYMENT"];
+const phaseLabelsDefault = [
+  "LEGACY AUDITING",
+  "DECOUPLING SPECS",
+  "AGILE REBUILD",
+  "CANARY EVOLUTION",
+];
 
-const title = "Revamp Your Legacy Systems";
+const title = "Legacy Software & Architecture Re-Engineering";
 const subtitle = "";
 
 const introDescription = [
-  { text: "Upgrade and enhance your old applications to triple performance efficiency and cut costs.", bold: false },
+  { text: "We modernize aging, brittle, and monolithic ", bold: false },
+  { text: "legacy enterprise applications ", bold: true },
+  { text: "into high-performance, cloud-native systems. By refactoring complex database schemas, decoupling core service dependencies into secure microservices, and eliminating historical technical debt, we deliver resilient architectures engineered for double execution velocity and reduced operational overhead.", bold: false }
 ]
 
 const AppReengineering: React.FC = () => {
@@ -175,10 +274,10 @@ const AppReengineering: React.FC = () => {
       />
       <InfoGrid data={reEngineeringProcessData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="System "
-        titleAccent="Audit"
-        titleEnd=" Session"
+        label="COMPLIMENTARY STRATEGY SESSION"
+        titleMain="Map your "
+        titleAccent="modernization"
+        titleEnd=" roadmap."
         description={streamlineDescription}
         imageUrl="/streamline.png"
       />
@@ -189,7 +288,7 @@ const AppReengineering: React.FC = () => {
       />
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={ourServicesData} />
-      <Processes title="OUR RE-ENGINEERING PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <Processes title="OUR SYSTEM RE-ENGINEERING PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   )
 }

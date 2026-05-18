@@ -9,14 +9,14 @@ const About: React.FC = () => {
     const sectionRef = useRef<HTMLElement>(null);
     const visualRef = useRef<HTMLDivElement>(null);
     const aboutDescription = [
-        { text: "Leapsofts can deliver a ", bold: false },
-        { text: "minimum viable product (MVP) in just 3 to 5 months ", bold: true },
-        { text: "thanks to our unique combination of ", bold: false },
+        { text: "At Leapsofts, we engineer and deliver fully-realized ", bold: false },
+        { text: "minimum viable products (MVPs) in just 3 to 5 months", bold: true },
+        { text: " by unifying ", bold: false },
         { text: "process automation", bold: true },
         { text: ", ", bold: false },
-        { text: "deep domain and product expertise, ", bold: true },
-        { text: "and a customer-centric culture. By leveraging automated workflows and proven methodologies, we accelerate development without compromising quality, enabling enterprises to bring innovative solutions to market faster and with greater efficiency.", bold: false },
-    ]
+        { text: "deep domain intelligence", bold: true },
+        { text: ", and a culture built on absolute technical excellence. By bypassing standard agency overhead and leveraging pre-built modular architectures, we accelerate development without compromising quality, enabling global enterprises and ambitious startups to bring innovative solutions to market faster and with greater budget efficiency.", bold: false }
+    ];
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -56,7 +56,7 @@ const About: React.FC = () => {
                     <div className={styles.brandContent}>
                         <span className={styles.label}>About Us</span>
                         <h2 className={styles.headline}>
-                            Succeed <em>faster</em> with LEAPSOFTS
+                            Engineered for <em>execution</em>. Scale without friction.
                         </h2>
                         <p className={styles.description}>
                             {aboutDescription.map((segment, index) => (

@@ -10,10 +10,10 @@ import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
   label: "SHOPIFY DEVELOPMENT",
-  titleMain: "Elevate Your",
-  titleAccent: "E-Commerce",
-  titleEnd: "Store",
-  description: "Leapsofts is your comprehensive partner for building, customizing, integrating, and scaling Shopify-based e-commerce solutions. We focus on creating high-converting, visually stunning, and technically robust online stores that drive business growth.",
+  titleMain: "Engineering Scalable",
+  titleAccent: "Headless Store",
+  titleEnd: "Systems",
+  description: "At Leapsofts, we customize and engineer robust Shopify Plus architectures designed to unlock measurable commerce success. By configuring custom theme layers, designing decoupled frontends using Shopify's Hydrogen framework, and building robust API connections to sync ERPs, inventory records, and payment systems, we help major retail brands achieve rapid loading speeds, superior mobile layouts, and seamless checkout operations.",
   imagePath: laptopImg
 };
 
@@ -24,163 +24,237 @@ const emergingTechData: EmergingTechProps['data'] = {
   description:
     'Your comprehensive partner for building, customizing, integrating, and scaling Shopify-based e-commerce solutions.',
   items: [
-    { icon: 'ecommerce', title: 'Store Creation', description: 'Quick and efficient setup of your Shopify online store for a speedy launch.' },
-    { icon: 'product', title: 'Theme Personalization', description: 'Deep customization focusing on unique mobile and web user experiences.' },
-    { icon: 'thirdParty', title: 'System Integration', description: 'Seamlessly connecting Shopify with your ERP, CRM, and marketing tools.' },
-    { icon: 'saas', title: 'Custom App Development', description: 'Building bespoke Shopify apps to add unique functionality to your store.' },
-    { icon: 'enterprise', title: 'Shopify Plus', description: 'Scalable solutions for high-volume merchants and enterprise brands.' },
-    { icon: 'legacy', title: 'Seamless Migration', description: 'Securely transitioning your store from other platforms to Shopify.' },
+    {
+      icon: 'ecommerce' as const,
+      title: 'Shopify Store Setup & Design Customization',
+      description: 'Building new online stores from custom design specifications, implementing modular theme components, and seeding checkout workflows.'
+    },
+    {
+      icon: 'product' as const,
+      title: 'Liquid Template Development & Layout Tuning',
+      description: 'Writing complex Liquid logic, custom sections schema parameters, and optimizing front-end assets to protect mobile conversion.'
+    },
+    {
+      icon: 'thirdParty' as const,
+      title: 'Enterprise ERP & Inventory API Bridges',
+      description: 'Connecting your storefront with back-office databases, ERP systems, and warehouse inventories via secure REST/GraphQL integrations.'
+    },
+    {
+      icon: 'saas' as const,
+      title: 'Bespoke Custom Shopify App Engineering',
+      description: 'Developing custom private apps using Node.js or Ruby on Rails to automate complex operational and customer loyalty tasks.'
+    },
+    {
+      icon: 'enterprise' as const,
+      title: 'Shopify Plus Upgrade & Enterprise Systems',
+      description: 'Scoping and customizing enterprise attributes like Shopify Functions, Checkout Extensibility, and advanced B2B portals.'
+    },
+    {
+      icon: 'legacy' as const,
+      title: 'Zero-Loss Database E-Commerce Migration',
+      description: 'Migrating product datasets, transaction records, customer vaults, and SEO metadata from legacy platforms (WooCommerce/Magento) with zero downtime.'
+    },
   ]
 };
+
 const infoGridData: InfoGridProps['data'] = {
   label: 'ADVANTAGES',
   title: 'Why Choose Leapsofts for Shopify',
   items: [
     {
       icon: '01',
-      title: 'Smooth Operations',
-      description: 'Guaranteeing uninterrupted store functionality and high availability.'
+      title: 'Uninterrupted Transactional Operations',
+      description: 'Guarantee continuous database read/write speeds, high-velocity cart caching, and robust security safeguards.'
     },
     {
       icon: '02',
-      title: 'Conversion Focused',
-      description: 'Designing user journeys specifically optimized to drive sales.'
+      title: 'Conversion-Engineered Checkout Paths',
+      description: 'Construct highly accessible visual layouts and rapid checkout actions optimized to maximize average order value.'
     },
     {
       icon: '03',
-      title: 'Swift Market Entry',
-      description: 'Accelerated development timelines for faster store launches.'
+      title: 'High-Velocity Agile Launch Sprints',
+      description: 'Package, configure, and release customized e-commerce storefronts inside an accelerated agile roadmap.'
     },
     {
       icon: '04',
-      title: 'Secure & Scalable',
-      description: 'Enterprise-grade security and architecture that grows with you.'
+      title: 'Enterprise Shopify Plus Resilience',
+      description: 'Scale smoothly during peak holiday traffic events, managing thousands of concurrent checkouts without operational delays.'
     }
   ]
 };
 
 const streamlineDescription = [
-  { text: "Your e-commerce success depends on a ", bold: false },
-  { text: "seamless user experience", bold: true },
-  { text: ". Leapsofts offers a ", bold: false },
-  { text: "complimentary Shopify audit session ", bold: true },
-  { text: "to help you identify ", bold: false },
-  { text: "conversion bottlenecks ", bold: true },
-  { text: "and growth opportunities for your online presence.", bold: false },
+  { text: "Whether modernizing a complex ", bold: false },
+  { text: "legacy enterprise web portal ", bold: true },
+  { text: "or engineering a ", bold: false },
+  { text: "new Shopify Plus ecosystem", bold: true },
+  { text: ", our experts deliver immediate technical clarity. We conduct a deep-dive analysis of your current settings, map out custom applications, evaluate checkout features, and formulate a ", bold: false },
+  { text: "highly efficient, optimized Liquid/Hydrogen engineering plan ", bold: true },
+  { text: "built to unlock massive sales growth and streamline customer conversion.", bold: false }
 ];
 
 const serviceFeaturesData: ServiceFeatureItem[] = [
   {
     icon: '/industryicons/sphere.svg',
     title: 'Custom Liquid Dev',
-    description: 'Expert Liquid coding for complex theme logic and layout needs.'
+    description: 'Writing custom Liquid syntax, sections, and blocks to execute advanced layout modifications.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
     title: 'Headless Commerce',
-    description: 'Building decoupled Shopify storefronts using Hydrogen or custom frameworks.'
+    description: 'Deploying decoupled Shopify frontends using Hydrogen and React hosted on Shopify Oxygen edge nodes.'
   },
   {
     icon: '/industryicons/sphere.svg',
     title: 'Performance Tuning',
-    description: 'Optimizing page load speeds and Core Web Vitals for better SEO.'
+    description: 'Tracing page-load bottlenecks, compressing images, and optimizing JavaScript execution to achieve near-perfect core web vitals.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
     title: 'SEO & Marketing',
-    description: 'Ensuring your store is built for visibility and effective marketing.'
+    description: 'Structuring semantic schema markups, configuring localized sitemaps, and establishing clean redirect paths.'
   }
 ];
 
 const deliverMVPData = {
   label: "SHOPIFY EXCELLENCE",
-  title: "Committed to",
-  accentText: "Commerce Success",
-  description: "Leapsofts provides dedicated e-commerce specialists who are fully committed to your project's success. We focus on conversion, scalability, and technical excellence.",
+  title: "Our Commitment to Deliver Your Commerce Setup in",
+  accentText: "3-5 months?",
+  description: "Leapsofts is an elite custom e-commerce engineering partner. By combining fully integrated CI/CD, certified Shopify developers, and dedicated agile pods, we implement and deploy enterprise-ready Shopify storefronts within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
       title: "Expert Developers.",
-      description: "A team with deep experience in the Shopify ecosystem and APIs."
+      description: "Accessing senior engineers with extensive experience building in the Shopify Plus ecosystem."
     },
     {
       title: "High Performance.",
-      description: "Building stores that handle high traffic and transactions smoothly."
+      description: "Developing stores that handle high transaction metrics and heavy holiday traffic peaks without operational delays."
     },
     {
       title: "User-Centric Design.",
-      description: "Interfaces that guide users naturally from arrival to checkout."
+      description: "Formulating visual checkout wireframes, touch-optimized product grids, and accessible interfaces."
     },
     {
       title: "Long-term Support.",
-      description: "Ongoing maintenance to keep your store updated and competitive."
+      description: "Providing continuous maintenance upgrades, theme checks, security updates, and performance tuning."
     }
   ]
 };
+
 const processPhasesDefault: ProcessPhase[] = [
   {
     id: 1,
-    phase: "PHASE 1: REQUIREMENT ANALYSIS",
-    title: "Understanding Business Needs",
+    phase: "PHASE 1: SHOPIFY STRATEGY & ORG DISCOVERY",
+    title: "E-Commerce Strategy & Analysis",
     description:
-      "We clarify objectives, document requirements, and align expectations before execution.",
+      "We audit your target transaction requirements, checkout limits, and legacy system integration fits.",
     features: [
-      "Business & Technical Requirement Gathering",
-      "Stakeholder Discussions",
-      "Initial Design & Roadmap Planning",
-    ],
+      {
+        title: "Target Market & Discovery Audit",
+        description:
+          "Analyze customer touchpoints, average order volume objectives, and current operational workflow blocks."
+      },
+      {
+        title: "Platform & Integration Fit Scoping",
+        description:
+          "Scope customized application requirements, Liquid theme parameters, and headless Hydrogen specifications."
+      },
+      {
+        title: "Roadmap & Inventory Planning",
+        description:
+          "Formulate custom timelines, backend inventory pipelines, payment setups, and migration pathways."
+      }
+    ]
   },
   {
     id: 2,
-    phase: "PHASE 2: SOLUTION DESIGN",
-    title: "Architecture & UX Planning",
+    phase: "PHASE 2: UX WIREFRAMING & API SCHEMA DESIGN",
+    title: "Interface Prototyping & Schema Modeling",
     description:
-      "Transform requirements into a scalable, user-focused solution blueprint.",
+      "Drafting responsive layouts, secure API endpoints, and private app configurations.",
     features: [
-      "System Architecture Design",
-      "UI/UX Wireframes & Prototypes",
-      "Technology Stack Finalization",
-    ],
+      {
+        title: "Mobile-First Touch Grid Wireframes",
+        description:
+          "Design visual store layouts, category navigation systems, and conversion-focused product grids."
+      },
+      {
+        title: "GraphQL & RESTful Endpoint Design",
+        description:
+          "Model secure API mappings to sync backend ERP, inventory, CRM, and order fulfillment systems."
+      },
+      {
+        title: "Custom Apps Architecture Scoping",
+        description:
+          "Design customized database parameters and API triggers for private Shopify applications."
+      }
+    ]
   },
   {
     id: 3,
-    phase: "PHASE 3: DEVELOPMENT & EVALUATION",
-    title: "Agile Development & Quality Assurance",
+    phase: "PHASE 3: HIGH-VELOCITY HEADLESS & LIQUID CODING",
+    title: "Liquid/Hydrogen Coding & Parity Checks",
     description:
-      "We build, test, and refine the product through iterative development cycles.",
+      "Building high-performance storefront layouts and secure background synchronizations in agile pods.",
     features: [
-      "Frontend & Backend Development",
-      "Agile SCRUM with Weekly Reviews",
-      "QA Testing & Performance Validation",
-    ],
+      {
+        title: "High-Performance Storefront Coding",
+        description:
+          "Construct optimized Liquid layouts or React-based headless storefronts hosted on Shopify Oxygen edge nodes."
+      },
+      {
+        title: "Real-Time Systems Integrations",
+        description:
+          "Code real-time database gateways syncing checkout activities directly into warehouse inventories."
+      },
+      {
+        title: "Automated Core Web Vitals Audits",
+        description:
+          "Run automated E2E browser tests (Playwright) and performance checks to guarantee high loading speeds."
+      }
+    ]
   },
   {
     id: 4,
-    phase: "PHASE 4: CONTINUOUS SUPPORT",
-    title: "Launch, Support & Maintenance",
+    phase: "PHASE 4: PRODUCT MIGRATION & LAUNCH EVOLUTION",
+    title: "Customer Database Rollout & Live Support",
     description:
-      "Ensuring smooth deployment with long-term operational reliability.",
+      "Seamless product data imports, payment activation, and continuous operational optimizations.",
     features: [
-      "Production Deployment",
-      "SLA-Based L3 & Operational Support",
-      "Ongoing Maintenance & Enhancements",
-    ],
-  },
+      {
+        title: "Zero-Loss E-Commerce Database Import",
+        description:
+          "Migrate product files, customer details, sitemap paths, and SEO metadata into the live store securely."
+      },
+      {
+        title: "Payment Routing & Domain Sync",
+        description:
+          "Activate payment gateways, configure secure checkout profiles, and deploy active DNS routes."
+      },
+      {
+        title: "Continuous Commerce Scaling",
+        description:
+          "Deliver continuous theme upgrades, regular security checks, performance tunings, and marketing adjustments."
+      }
+    ]
+  }
 ];
 
 const phaseLabelsDefault = [
-  "REQUIREMENT ANALYSIS",
-  "SOLUTION DESIGN",
-  "DEVELOPMENT & EVALUATION",
-  "CONTINUOUS SUPPORT",
+  "STRATEGY & DISCOVERY",
+  "UX & API DESIGN",
+  "HEADLESS & LIQUID CODING",
+  "MIGRATION & SUPPORT",
 ];
 
-
-
-const title = "Advancing Digital Commerce Evolution";
+const title = "Enterprise Headless Shopify Development & E-Commerce Engineering";
 const subtitle = "";
 
 const introDescription = [
-  { text: "Leapsofts enhances businesses with enterprise-level Shopify capabilities.", bold: false },
+  { text: "We engineer highly optimized, high-converting ", bold: false },
+  { text: "headless Shopify storefronts using Hydrogen & Oxygen", bold: true },
+  { text: ", custom private App installations, and secure ERP/inventory integrations. By leveraging advanced Liquid customizations, Shopify Plus API layers, and secure payment pathways, we deliver fast, conversion-optimized e-commerce sites constructed for heavy transactional loads.", bold: false }
 ]
 
 const Shopify: React.FC = () => {
@@ -201,10 +275,10 @@ const Shopify: React.FC = () => {
       />
       <InfoGrid data={infoGridData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="E-commerce "
-        titleAccent="Audit"
-        titleEnd=" Session"
+        label="COMPLIMENTARY STRATEGY SESSION"
+        titleMain="Map your "
+        titleAccent="e-commerce"
+        titleEnd=" roadmap."
         description={streamlineDescription}
         imageUrl="/streamline.png"
       />
@@ -215,7 +289,7 @@ const Shopify: React.FC = () => {
       />
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={emergingTechData} />
-      <Processes title="OUR SHOPIFY DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <Processes title="OUR CUSTOM SHOPIFY DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   )
 }

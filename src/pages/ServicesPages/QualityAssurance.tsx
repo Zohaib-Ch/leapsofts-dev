@@ -15,90 +15,163 @@ const ourServicesData: EmergingTechProps['data'] = {
     description: 'We offer a comprehensive suite of quality assurance services designed to identify issues early and ensure your software meets the highest standards of performance and security.',
     items: [
         {
-            icon: 'product',
-            title: "Functionality Checks",
-            description: "Assess software for functionality, usability, and compatibility."
+            icon: 'product' as const,
+            title: "Comprehensive Functional & Regression Audits",
+            description: "Validating UI elements, state transitions, and core user actions against technical specifications using automated and structured manual testing."
         },
         {
-            icon: 'product',
-            title: "Non-Functional Evaluation",
-            description: "Examine performance, security, and other non-functional elements of the software."
+            icon: 'product' as const,
+            title: "Non-Functional & Security Vulnerability Scanning",
+            description: "Analyzing API response times, memory leak thresholds, and cross-site scripting (XSS) vectors to guarantee system durability."
         },
         {
-            icon: 'enterprise',
-            title: "Component Testing",
-            description: "Test individual units like functions and methods for efficacy."
+            icon: 'enterprise' as const,
+            title: "Isolated Unit & Component Testing",
+            description: "Writing modular, isolated unit tests using Jest, Vitest, or JUnit to verify isolated functions, classes, and logic layers."
         },
         {
-            icon: 'enterprise',
-            title: "Integration Review",
-            description: "Confirm the proper integration of software components."
+            icon: 'enterprise' as const,
+            title: "Automated Integration & API Test Suites",
+            description: "Testing communication schemas between distributed microservices and database read/write nodes via Postman and custom scripts."
         },
         {
-            icon: 'hipaa',
-            title: "System Examination",
-            description: "Ensure the entire software system aligns with specified requirements."
+            icon: 'hipaa' as const,
+            title: "End-to-End (E2E) Browser Automation",
+            description: "Simulating complex, multi-step customer journeys using Playwright and Cypress to identify frontend rendering anomalies."
         },
         {
-            icon: 'enterprise',
-            title: "Customer Approval Testing",
-            description: "Validate the software against customer acceptance standards."
+            icon: 'enterprise' as const,
+            title: "User Acceptance Testing (UAT) Governance",
+            description: "Formulating structured staging trials and test cases to verify the platform meets user objectives before official deployment."
         },
         {
-            icon: 'enterprise',
-            title: "Update and Change Verification",
-            description: "Guarantee that updates do not introduce new issues."
+            icon: 'enterprise' as const,
+            title: "Continuous Regression Shielding",
+            description: "Integrating automated regression shields into active Git hooks to verify code modifications do not disrupt legacy functions."
         },
         {
-            icon: 'hipaa',
-            title: "Load Performance Analysis",
-            description: "Test software behavior under various loads and environments."
+            icon: 'hipaa' as const,
+            title: "High-Concurrency Stress & Load Audits",
+            description: "Leveraging k6 and JMeter to simulate thousands of concurrent user queries, monitoring CPU boundaries and database indexing limits."
         },
         {
-            icon: 'hipaa',
-            title: "Security Assessment",
-            description: "Identify and address potential security vulnerabilities."
+            icon: 'hipaa' as const,
+            title: "Penetration Testing & SOC2/HIPAA Audits",
+            description: "Conducting systematic penetration checks, evaluating OAuth2 keychain protocols, and auditing data encryption standards."
         },
         {
-            icon: 'hipaa',
-            title: "End-User Experience Testing",
-            description: "Determine if the software fulfills the end-user's requirements."
+            icon: 'hipaa' as const,
+            title: "Accessibility (WCAG) & Usability Audits",
+            description: "Evaluating user interface components against Web Content Accessibility Guidelines (WCAG 2.1) to ensure full digital inclusivity."
         }
     ]
 };
 
 const processesData: ProcessPhase[] = [
-    {
-        id: 1,
-        phase: "Phase 1: Discovery Phase",
-        title: "Discovery Phase",
-        description: "Define the scope and methodology for testing, establishing a foundation for quality assurance in any digital product.",
-        features: ["Scope Definition", "Methodology Setup", "QA Foundation"]
-    },
-    {
-        id: 2,
-        phase: "Phase 2: Strategy Formulation",
-        title: "Strategy Formulation",
-        description: "Determine testing methods and procedures to shape the execution strategy.",
-        features: ["Testing Methods", "Procedures Definition", "Execution Strategy"]
-    },
-    {
-        id: 3,
-        phase: "Phase 3: Implementation Phase",
-        title: "Implementation Phase",
-        description: "Run the final code and evaluate its performance against expected outcomes.",
-        features: ["Code Execution", "Performance Evaluation", "Outcome Matching"]
-    },
-    {
-        id: 4,
-        phase: "Phase 4: Analysis & Feedbook",
-        title: "Analysis & Feedback",
-        description: "Deliver a comprehensive test report offering insights into the software's code quality.",
-        features: ["Comprehensive Reporting", "Quality Insights", "Feedback Delivery"]
-    }
-]
+  {
+    id: 1,
+    phase: "PHASE 1: TEST SCENARIOS MAPPING & SDLC GOVERNANCE",
+    title: "Test Mapping & Environment Scoping",
+    description:
+      "We scrutinize specifications for functional criteria, establish test parameters, and prepare staging environments.",
+    features: [
+      {
+        title: "Requirement Validation Analysis",
+        description:
+          "Audit software design documentation and user stories to map unambiguous functional acceptance criteria."
+      },
+      {
+        title: "Test Automation Strategy Planning",
+        description:
+          "Define the absolute test boundaries, structuring the precise split between automation scripts and human execution."
+      },
+      {
+        title: "Staging Network Configuration",
+        description:
+          "Setup isolated staging networks, seed mock transactional databases, and configure API response mocks."
+      }
+    ]
+  },
+  {
+    id: 2,
+    phase: "PHASE 2: AUTOMATION FRAMEWORK & CRITERIA CONFIG",
+    title: "Framework Coding & Static Setup",
+    description:
+      "Constructing automated E2E browser setups, static checking files, and load stress criteria.",
+    features: [
+      {
+        title: "Core Playwright/Cypress Frameworks",
+        description:
+          "Write robust automation architectures leveraging page-object models, headless configurations, and reliable locators."
+      },
+      {
+        title: "k6 Distributed Performance Mapping",
+        description:
+          "Script k6 stress scenarios to execute concurrent requests, mapping CPU targets and database connection bounds."
+      },
+      {
+        title: "Static Lint & SonarQube Controls",
+        description:
+          "Configure SonarQube dashboards, ESLint rules, and TypeScript compilation conditions to audit code quality."
+      }
+    ]
+  },
+  {
+    id: 3,
+    phase: "PHASE 3: HIGH-VELOCITY SCRIPT EXECUTION & STRESS",
+    title: "Automated Runs & Destructive Audits",
+    description:
+      "Executing regression sweeps on CI/CD pipelines, destructive manual tests, and thread leak monitoring.",
+    features: [
+      {
+        title: "Continuous CI/CD Pipeline Runs",
+        description:
+          "Run automated E2E and component suites automatically on every code commit and pull request."
+      },
+      {
+        title: "Destructive Edge Case Exploits",
+        description:
+          "Perform intensive manual testing, input injection attempts, and layout boundary checks to break components."
+      },
+      {
+        title: "Distributed Load Simulations",
+        description:
+          "Simulate sustained concurrent user sessions, tracing API latencies, system memory charts, and connection pools."
+      }
+    ]
+  },
+  {
+    id: 4,
+    phase: "PHASE 4: RELEASE SIGN-OFF & DEFECT SHIELDING",
+    title: "Metrics Reporting & Live Protection",
+    description:
+      "Providing detailed test metrics dashboards, git integration shields, and live system monitoring.",
+    features: [
+      {
+        title: "Test Coverage Report Dashboards",
+        description:
+          "Deliver detailed code coverage logs, open-bug statistics, and release health metrics before launching."
+      },
+      {
+        title: "Continuous Regression Shielding",
+        description:
+          "Integrate automated regression guards inside codebases to verify new changes do not break legacy parameters."
+      },
+      {
+        title: "Live Production Alert Mappings",
+        description:
+          "Configure real-time production error triggers to execute rollback scripts if system anomalies exceed bounds."
+      }
+    ]
+  }
+];
 
-const phaseLabel = processesData.map((process) => process.title);
+const phaseLabelsDefault = [
+  "TEST MAPPING",
+  "FRAMEWORK SETUP",
+  "VELOCITY EXECUTION",
+  "RELEASE SHIELDS",
+];
 
 const infoGridData: InfoGridProps['data'] = {
     label: 'QA BENEFITS',
@@ -106,89 +179,92 @@ const infoGridData: InfoGridProps['data'] = {
     items: [
         {
             icon: '01',
-            title: 'Cost Efficiency',
-            description: 'Identify and fix bugs early in the development cycle to reduce long-term maintenance costs.'
+            title: 'Early-Stage Defect Cost Mitigation',
+            description: 'Fix software issues early in the design and development sprints to lower overall debugging overhead and accelerate launch speeds.'
         },
         {
             icon: '02',
-            title: 'User Satisfaction',
-            description: 'Ensure a seamless, bug-free experience that keeps your users engaged and satisfied.'
+            title: 'Defect-Free Retention & Experience Parity',
+            description: 'Deliver smooth, high-fidelity application sessions across all browsers and screens to foster user trust and improve active retention.'
         },
         {
             icon: '03',
-            title: 'Security Assurance',
-            description: 'Protect sensitive user data by identifying and patching vulnerabilities before launch.'
+            title: 'Zero-Trust Threat Vector Shielding',
+            description: 'Protect high-value customer records and financial ledgers by discovering and patching security vulnerabilities before launch.'
         },
         {
             icon: '04',
-            title: 'Brand Reputation',
-            description: 'Deliver high-quality products that reinforce your brand’s commitment to excellence.'
+            title: 'Sustainable Product Integrity & Trust',
+            description: 'Maintain elite product releases that reinforce your enterprise’s market authority and guarantee seamless system performance.'
         }
     ]
 };
 
 const streamlineDescription = [
-    { text: "Optimizing your ", bold: false },
-    { text: "software quality ", bold: true },
-    { text: "doesn't have to be complicated. At Leapsofts, we offer a ", bold: false },
-    { text: "complimentary QA strategy session ", bold: true },
-    { text: "to help you identify gaps in your testing process and implement ", bold: false },
-    { text: "automated solutions ", bold: true },
-    { text: "that accelerate your release cycles without compromising on standards.", bold: false },
+  { text: "Whether modernizing a complex ", bold: false },
+  { text: "legacy enterprise web portal ", bold: true },
+  { text: "or engineering a ", bold: false },
+  { text: "new custom automation suite", bold: true },
+  { text: ", our experts deliver immediate technical clarity. We conduct a deep-dive analysis of your current systems, map out testing parameters, evaluate code coverage criteria, and formulate a ", bold: false },
+  { text: "highly efficient, high-coverage validation plan ", bold: true },
+  { text: "built to unlock massive digital growth and streamline user retention.", bold: false }
 ];
 
 const serviceFeaturesData: ServiceFeatureItem[] = [
     {
         icon: '/industryicons/sphere.svg',
         title: 'Automation Testing',
-        description: 'Implementing robust automated test suites to speed up regression and repetitive testing tasks.'
+        description: 'Deploying Cypress, Playwright, and Selenium test infrastructure to automate repetitive UI and database validation tasks.'
     },
     {
         icon: '/industryicons/bipiramida.svg',
         title: 'Manual Testing',
-        description: 'Exhaustive human-led testing to uncover edge cases and evaluate user experience nuances.'
+        description: 'Rigorous human-led edge case analysis, destructive testing scenarios, and high-fidelity visual layout checks.'
     },
     {
         icon: '/industryicons/sphere.svg',
         title: 'Performance Testing',
-        description: 'Stress-testing your application to ensure it remains stable under high traffic and heavy loads.'
+        description: 'Simulating heavy concurrent loads using k6 to monitor network latency, server memory bounds, and database connection pools.'
     },
     {
         icon: '/industryicons/bipiramida.svg',
         title: 'Security Audits',
-        description: 'In-depth security analysis to identify potential threats and ensure data integrity.'
+        description: 'In-depth scanning for security threats, auditing TLS encryption methods, and checking token verification settings.'
     }
 ];
 
 const deliverMVPData = {
     label: "QA EXCELLENCE",
-    title: "Our Commitment to",
-    accentText: "Superior Quality",
-    description: "Leapsofts provides end-to-end quality assurance services that integrate seamlessly with your development workflow. Our goal is to ensure that every product we touch meets the highest industry standards for reliability, security, and performance.",
+    title: "Our Commitment to Deliver Your Verification in",
+    accentText: "3-5 months?",
+    description: "Leapsofts is an elite custom QA and engineering partner. By combining fully integrated CI/CD, pre-built modular testing templates, and dedicated QA pods, we deliver high-coverage, verified systems within an accelerated 3 to 5 month timeline—on time, every time.",
     items: [
         {
-            title: "Zero-Defect Policy.",
-            description: "We strive for perfection in every test cycle, ensuring that critical bugs are addressed before they reach production."
+            title: "Zero-Defect Policy Goals.",
+            description: "We establish strict quality checks at every level of the pipeline, blocking regression code before it reaches staging."
         },
         {
-            title: "Agile Integration.",
-            description: "Our QA teams work in parallel with developers, providing immediate feedback and ensuring continuous quality throughout the sprint."
+            title: "Agile Daily SCRUM Integration.",
+            description: "Deploying integrated QA testers inside our daily SCRUM pods to review code builds alongside active development."
         },
         {
-            title: "Advanced Tooling.",
-            description: "We leverage the latest testing frameworks and AI-driven tools to provide comprehensive coverage across web, mobile, and API platforms."
+            title: "Advanced E2E Tooling.",
+            description: "Leveraging AI-driven test generators, mock database generators, and headless browser clusters for complete test coverage."
         },
         {
-            title: "User-Centric Testing.",
-            description: "Beyond just code, we test for usability and accessibility to ensure your product is inclusive and easy to navigate."
+            title: "User-Centric Visual Testing.",
+            description: "Auditing mobile responsiveness, localized font layouts, and screen reader compatibility to protect user retention."
         }
     ]
 };
-const title = "Keep Bugs at Bay, Focus on Success";
+
+const title = "Enterprise Quality Assurance & Test Engineering";
 const subtitle = "";
 
 const introDescription = [
-    { text: "Minimize time spent on resolving problems and devote more to creating products that delight your users!", bold: false },
+  { text: "We deliver systematic, high-coverage ", bold: false },
+  { text: "quality assurance and test automation ", bold: true },
+  { text: "engineered to eliminate functional regressions, stress-test database limits, and secure critical API networks. By integrating automated end-to-end testing frameworks into your active CI/CD pipelines, we ensure your software platforms run flawlessly under extreme loads with zero downtime.", bold: false }
 ]
 
 const QualityAssurance: React.FC = () => {
@@ -200,24 +276,24 @@ const QualityAssurance: React.FC = () => {
                 introDescription={introDescription}
             />
             <ServiceOverview
-                label="BRIEF OVERVIEW"
-                titleMain="Elevating"
-                titleAccent="Software"
-                titleEnd="Dependability"
-                description="Before your software goes live, let us put it through rigorous testing to ensure it's bulletproof. Our QA services cover everything from regression testing to performance analysis, ensuring reliable, high-quality outcomes meeting any quality standards."
+                label="QUALITY ENGINEERING"
+                titleMain="Continuous "
+                titleAccent="Validation & "
+                titleEnd="Security"
+                description="At Leapsofts, we establish strict software validation layers that identify system vulnerabilities and logical errors long before production deployment. By combining automated regression suites, localized API integration mocks, and intensive cloud-native load testing setups, we ensure your applications achieve absolute performance reliability, robust SOC2 compliance, and optimal core web vitals."
                 imagePath={phoneImg}
             />
             <InfoGrid data={infoGridData} />
             <StreamlineSuccess
-                label="STREAMLINE YOUR SUCCESS"
-                titleMain="QA "
-                titleAccent="Strategy"
-                titleEnd=" Session"
+                label="COMPLIMENTARY STRATEGY SESSION"
+                titleMain="Map your "
+                titleAccent="testing"
+                titleEnd=" roadmap."
                 description={streamlineDescription}
                 imageUrl="/streamline.png"
             />
             <ServiceFeatures
-                title='Our QA'
+                title='Our QA Services'
                 description='We offer specialized testing services tailored to your project requirements, ensuring robust performance and security.'
                 items={serviceFeaturesData}
             />
@@ -225,7 +301,7 @@ const QualityAssurance: React.FC = () => {
             <EmergingTech data={ourServicesData} />
             <Processes
                 title="Software Verification & Validation Framework"
-                phaseLabels={phaseLabel}
+                phaseLabels={phaseLabelsDefault}
                 processPhases={processesData}
             />
         </>

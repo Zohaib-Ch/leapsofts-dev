@@ -9,53 +9,53 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
-  label: "PRODUCT STRATEGY",
-  titleMain: "Master Your",
-  titleAccent: "Market",
-  titleEnd: "Presence",
-  description: "Leapsofts provides a clear architectural and strategic blueprint for your product’s journey. Our development strategy focuses on market leadership, feature prioritization, and scalable growth from day one.",
+  label: "PRODUCT ARCHITECTURE & STRATEGY",
+  titleMain: "Orchestrating Elite",
+  titleAccent: "Product Development",
+  titleEnd: "Blueprints",
+  description: "At Leapsofts, we help modern enterprises and fast-growing startups map comprehensive software development strategies that balance technical scalability with rapid business results. Our senior product strategists and system architects perform rigorous risk assessments, define optimal tech stacks, and configure JIRA/GitHub sprint roadmaps designed for sustained product evolution.",
   imagePath: laptopImg
 };
 
 const infoGridData: InfoGridProps['data'] = {
   label: 'STRATEGIC PILLARS',
-  title: 'Built for Success',
+  title: 'Why Build Your Product Strategy With Leapsofts',
   items: [
     {
       icon: '01',
-      title: 'Market Analysis',
-      description: 'Identify trends, customer needs, and competitive opportunities to gain an edge.'
+      title: 'Laser-Focused Market Fit',
+      description: 'Verify real product demand and customer workflows using data-backed user persona profiles and competitive analysis.'
     },
     {
       icon: '02',
-      title: 'Actionable Roadmaps',
-      description: 'Clear milestones that guide your product from initial concept to official launch.'
+      title: 'Clear Release Timelines',
+      description: 'Mitigate execution delay using strict functional requirement specifications (SRS) and modular milestone paths.'
     },
     {
       icon: '03',
-      title: 'Feature Prioritization',
-      description: 'Focus on high-value features that align with your business goals and user needs.'
+      title: 'Scalable System Foundation',
+      description: 'Establish clean, decoupled software architectures, type-safe API boundaries, and optimized cloud platforms.'
     },
     {
       icon: '04',
-      title: 'Iterative Design',
-      description: 'Prototype and test ideas early to gather feedback and refine your product vision.'
+      title: 'Optimized Resource Allocation',
+      description: 'Ensure development teams focus exclusively on high-value features, maximizing capital performance.'
     }
   ]
 };
+
 const ourServicesData: EmergingTechProps['data'] = {
-  label: 'CORE STRATEGY',
-  titleAccent: 'Impactful',
-  titleMain: 'Product Design',
-  description:
-    'Our product development approach drives innovation, accelerates delivery, and ensures long-term business growth.',
+  label: 'STRATEGY CAPABILITIES',
+  titleAccent: 'Enterprise',
+  titleMain: 'Product Strategy',
+  description: 'Our product development approach drives innovation, accelerates delivery, and ensures long-term business growth.',
   items: [
-    { icon: 'product', title: 'Cultivate Innovation', description: 'Embed creative problem-solving at every stage of the development process.' },
-    { icon: 'enterprise', title: 'Time-to-Market', description: 'Leverage agile frameworks to launch your product efficiently and competitively.' },
-    { icon: 'hipaa', title: 'Scalable Growth', description: 'Build products designed for continuous evolution and long-term profitability.' },
-    { icon: 'legacy', title: 'Tech Stack Strategy', description: 'Selecting the right tools and architectures to support your product’s future.' },
-    { icon: 'mobile', title: 'User Experience', description: 'Ensuring your strategy is rooted in delivering exceptional value to your end-users.' },
-    { icon: 'saas', title: 'Risk Management', description: 'Proactively identifying and mitigating potential technical and market risks.' },
+    { icon: 'product' as const, title: 'Scalable Tech Stack Selection', description: 'Selecting optimal programming languages, database structures, and cloud infrastructures designed for long-term growth.' },
+    { icon: 'enterprise' as const, title: 'Strict MVP Scope Mapping', description: 'Isolating core functional requirements to build highly focused, fast-to-market digital products.' },
+    { icon: 'hipaa' as const, title: 'Technical Risk Assessments', description: 'Proactively identifying code-level dependencies, third-party API limits, and platform security threats.' },
+    { icon: 'legacy' as const, title: 'High-Velocity Sprint Roadmaps', description: 'Structuring predictable development sprint plans, agile backlog epics, and release checkpoints.' },
+    { icon: 'mobile' as const, title: 'Data-Led System Designs', description: 'Designing robust user telemetry frameworks, database models, and analytics metrics from day one.' },
+    { icon: 'saas' as const, title: 'Go-To-Market Technical Playbooks', description: 'Structuring secure, zero-downtime canary release steps and cloud monitoring tools.' },
   ]
 };
 
@@ -94,25 +94,25 @@ const serviceFeaturesData: ServiceFeatureItem[] = [
 
 const deliverMVPData = {
   label: "STRATEGY EXCELLENCE",
-  title: "Committed to",
-  accentText: "Product Growth",
-  description: "Leapsofts provides elite product strategists who are fully committed to your project's success. We focus on market fit, scalability, and technical excellence.",
+  title: "Our Commitment to Deliver Your Strategic Product Roadmap in",
+  accentText: "3-5 months?",
+  description: "Leapsofts is a premier software product engineering and strategic consultation partner. By combining fully integrated automated tooling, certified technical scoping experts, and dedicated agile engineering pods, we define, blueprint, and deliver launch-ready software products within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
-      title: "Data-Driven Decisions.",
-      description: "Using market research and user data to guide your product's direction."
+      title: "Analytical Market Fit.",
+      description: "Evaluating market demand, competitor features matrices, and customer workflow benchmarks using dynamic telemetry audits."
     },
     {
-      title: "Agile Flexibility.",
-      description: "A strategy that adapts to market changes and user feedback rapidly."
+      title: "Decoupled Stack Architecture.",
+      description: "Selecting optimal serverless languages, high-concurrency database setups, and type-safe API boundaries."
     },
     {
-      title: "Technical Foresight.",
-      description: "Selecting technologies that support your product’s long-term evolution."
+      title: "Agile Sprint Backlogs.",
+      description: "Configuring predictable agile development sprint plans, backlog epics, and strict scoping guardrails."
     },
     {
-      title: "Value Focused.",
-      description: "Ensuring every feature adds real value to your business and users."
+      title: "Canary Release Blueprints.",
+      description: "Designing automated CI/CD deployment runners to support secure, zero-downtime rolling upgrades."
     }
   ]
 };
@@ -120,42 +120,96 @@ const deliverMVPData = {
 const processPhasesDefault: ProcessPhase[] = [
   {
     id: 1,
-    phase: "PHASE 1: ANALYSIS",
-    title: "Market & User Research",
-    description: "We dive deep into your target market and user needs to find opportunities.",
-    features: ["Competitive Audits", "User Persona Profiling", "Trend Analysis"],
+    phase: "PHASE 1: AGILE DISCOVERY & MARKET RESEARCH",
+    title: "Technical Audits & Competitive Studies",
+    description: "We evaluate current technical assets, track spaghetti dependency code files, and score system maturity.",
+    features: [
+      {
+        title: "Legacy Codebase Readiness",
+        description: "Verify dependencies, catalog server components, check database models, and active port limits."
+      },
+      {
+        title: "Competitive API Benchmarks",
+        description: "Analyze competitor platform features, database speeds, connection APIs, and integrations."
+      },
+      {
+        title: "User Persona Empathy Sprints",
+        description: "Draft structural interaction workflows, identify user friction steps, and capture user actions."
+      }
+    ]
   },
   {
     id: 2,
-    phase: "PHASE 2: DEFINITION",
-    title: "Value Proposition",
-    description: "Defining what makes your product unique and how it will succeed.",
-    features: ["Core Feature Mapping", "Revenue Model Design", "Success Metrics Setup"],
+    phase: "PHASE 2: IAC DESIGN & TECH STACK BLUEPRINT",
+    title: "Tech Stack Strategy & API Structures",
+    description: "Selecting optimal cloud models, serverless frameworks, database engines, and language constructs.",
+    features: [
+      {
+        title: "Modular IaC Bicep/Terraform",
+        description: "Author type-safe cloud environment scripts to isolate staging layers and database gateways."
+      },
+      {
+        title: "API Schema Specifications",
+        description: "Configure Swagger REST specs, design GraphQL routes, and isolate key database tables."
+      },
+      {
+        title: "Central Secret Management",
+        description: "Establish centralized Key Vault storage, enforce granular role divisions (IAM), and trace access."
+      }
+    ]
   },
   {
     id: 3,
-    phase: "PHASE 3: BLUEPRINTING",
-    title: "Development Roadmap",
-    description: "Creating the technical and business plan for project execution.",
-    features: ["MVP Definition", "Tech Architecture Design", "Timeline & Budgeting"],
+    phase: "PHASE 3: HIGH-VELOCITY SPRINT PLAN",
+    title: "MoSCoW Backlogs & Canary Release Mappings",
+    description: "Categorizing project requirements into Must-Haves, Should-Haves, and Could-Haves.",
+    features: [
+      {
+        title: "MoSCoW Prioritization Matrices",
+        description: "Isolate software features to establish highly defined, low-risk MVP development scopes."
+      },
+      {
+        title: "JIRA Backlog Epics Maps",
+        description: "Draft clean development sprint tasks, Epic divisions, and checklist cards for engineers."
+      },
+      {
+        title: "Canary Deployment Blueprints",
+        description: "Design automated CI/CD runners to execute rolling upgrades with zero service downtime."
+      }
+    ]
   },
   {
     id: 4,
-    phase: "PHASE 4: EXECUTION",
-    title: "Strategic Oversight",
-    description: "Ongoing guidance to ensure development stays aligned with the strategy.",
-    features: ["Agile Management", "Feedback Integration", "GTM Launch Support"],
-  },
+    phase: "PHASE 4: CONTINUOUS OBSERVABILITY & RELEASE",
+    title: "Telemetry Ingestion & SLA-Driven Support",
+    description: "Deploying central dashboard telemetries, trace response latency monitors, and auto-scale configurations.",
+    features: [
+      {
+        title: "Prometheus & Grafana Ingestion",
+        description: "Orchestrate central dashboard telemetries, configure query speeds monitors, and enable slack alerts."
+      },
+      {
+        title: "SLA-Driven Systems support",
+        description: "Set L2/L3 support rules, patch update schedules, and environment scaling review loops."
+      },
+      {
+        title: "Instance Schedule Optimization",
+        description: "Deploy automated cron scripts to shut down inactive clusters and auto-scale active transaction pools."
+      }
+    ]
+  }
 ];
 
-const phaseLabelsDefault = ["ANALYSIS", "DEFINITION", "BLUEPRINTING", "EXECUTION"];
+const phaseLabelsDefault = ["MARKET RESEARCH", "TECH STACK DESIGN", "SPRINT BACKLOGS", "TELEMETRY & LAUNCH"];
 
-const title = "Master Your Market Presence";
+const title = "Product Development Strategy, Technical Blueprints & High-Velocity Roadmaps";
 const subtitle = "";
 
 const introDescription = [
-  { text: "Our product development strategy service provides a clear blueprint, steering your product towards market leadership.", bold: false },
-]
+  { text: "We engineer highly analytical, high-velocity ", bold: false },
+  { text: "product development strategies and cloud architecture blueprints", bold: true },
+  { text: ", transforming ambitious ideas into structured, release-ready technical specifications. By combining data-backed market analysis, type-safe tech stack blueprints, and strict MVP scoping controls, we mitigate execution risk and accelerate your product’s journey to market leadership.", bold: false }
+];
 
 const ProductDevelopmentStrategy: React.FC = () => {
   return (
@@ -175,10 +229,10 @@ const ProductDevelopmentStrategy: React.FC = () => {
       />
       <InfoGrid data={infoGridData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Product "
-        titleAccent="Strategy"
-        titleEnd=" Session"
+        label="COMPLIMENTARY STRATEGY SESSION"
+        titleMain="Map your "
+        titleAccent="product roadmap"
+        titleEnd=" strategy."
         description={streamlineDescription}
         imageUrl="/streamline.png"
       />

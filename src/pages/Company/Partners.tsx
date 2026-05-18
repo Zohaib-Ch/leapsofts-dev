@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PartnerHero from '../../components/PartnerHero/PartnerHero'
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
 import InfoGrid from '../../components/InfoGrid/InfoGrid'
@@ -9,6 +9,96 @@ import { type ProcessPhase } from '../../components/Processes/Processes'
 import styles from './partners.module.css'
 
 const Partners: React.FC = () => {
+  useEffect(() => {
+    // Set document title
+    const prevTitle = document.title;
+    document.title = 'Strategic Alliances & Software Partnerships | Leapsofts';
+
+    // Manage meta description
+    let metaDescription = document.querySelector('meta[name="description"]');
+    let prevDescription = '';
+    if (metaDescription) {
+      prevDescription = metaDescription.getAttribute('content') || '';
+      metaDescription.setAttribute('content', 'Discover premium strategic partnerships, custom software co-development models, and AI-driven enterprise software joint ventures with Leapsofts to accelerate business transformation.');
+    } else {
+      metaDescription = document.createElement('meta');
+      metaDescription.setAttribute('name', 'description');
+      metaDescription.setAttribute('content', 'Discover premium strategic partnerships, custom software co-development models, and AI-driven enterprise software joint ventures with Leapsofts to accelerate business transformation.');
+      document.head.appendChild(metaDescription);
+    }
+
+    // Manage meta keywords
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    let prevKeywords = '';
+    if (metaKeywords) {
+      prevKeywords = metaKeywords.getAttribute('content') || '';
+      metaKeywords.setAttribute('content', 'software partnerships, strategic alliances, custom software co-delivery, enterprise software ventures, AI development partners, Leapsofts partnerships');
+    } else {
+      metaKeywords = document.createElement('meta');
+      metaKeywords.setAttribute('name', 'keywords');
+      metaKeywords.setAttribute('content', 'software partnerships, strategic alliances, custom software co-delivery, enterprise software ventures, AI development partners, Leapsofts partnerships');
+      document.head.appendChild(metaKeywords);
+    }
+
+    // Manage Open Graph Title
+    let ogTitle = document.querySelector('meta[property="og:title"]');
+    let prevOgTitle = '';
+    if (ogTitle) {
+      prevOgTitle = ogTitle.getAttribute('content') || '';
+      ogTitle.setAttribute('content', 'Strategic Alliances & Software Partnerships | Leapsofts');
+    } else {
+      ogTitle = document.createElement('meta');
+      ogTitle.setAttribute('property', 'og:title');
+      ogTitle.setAttribute('content', 'Strategic Alliances & Software Partnerships | Leapsofts');
+      document.head.appendChild(ogTitle);
+    }
+
+    // Manage Open Graph Description
+    let ogDesc = document.querySelector('meta[property="og:description"]');
+    let prevOgDesc = '';
+    if (ogDesc) {
+      prevOgDesc = ogDesc.getAttribute('content') || '';
+      ogDesc.setAttribute('content', 'Accelerate your digital evolution with Leapsofts strategic software alliances, mutual co-delivery, and advanced artificial intelligence partnerships.');
+    } else {
+      ogDesc = document.createElement('meta');
+      ogDesc.setAttribute('property', 'og:description');
+      ogDesc.setAttribute('content', 'Accelerate your digital evolution with Leapsofts strategic software alliances, mutual co-delivery, and advanced artificial intelligence partnerships.');
+      document.head.appendChild(ogDesc);
+    }
+
+    return () => {
+      document.title = prevTitle;
+      if (metaDescription) {
+        if (prevDescription) {
+          metaDescription.setAttribute('content', prevDescription);
+        } else {
+          metaDescription.remove();
+        }
+      }
+      if (metaKeywords) {
+        if (prevKeywords) {
+          metaKeywords.setAttribute('content', prevKeywords);
+        } else {
+          metaKeywords.remove();
+        }
+      }
+      if (ogTitle) {
+        if (prevOgTitle) {
+          ogTitle.setAttribute('content', prevOgTitle);
+        } else {
+          ogTitle.remove();
+        }
+      }
+      if (ogDesc) {
+        if (prevOgDesc) {
+          ogDesc.setAttribute('content', prevOgDesc);
+        } else {
+          ogDesc.remove();
+        }
+      }
+    };
+  }, []);
+
   const benefitsData: InfoGridProps['data'] = {
     label: 'BENEFITS',
     title: 'Simplified incentives, smarter tools, greater impact.',

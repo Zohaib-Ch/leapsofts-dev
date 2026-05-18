@@ -14,160 +14,150 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import ServiceFeatures from '../../components/ServiceFeatures/ServiceFeatures';
 import { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
+
 const defaultItems: ServiceFeatureItem[] = [
   {
     icon: '/industryicons/sphere.svg',
     title: 'Retain',
-    description: 'Keeping select applications on-premises due to dependencies or compliance.'
+    description: 'Keeping select applications on-premises due to complex dependencies or strict compliance rules.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
     title: 'Retire',
-    description: "Decommissioning outdated or unused systems."
+    description: "Decommissioning outdated or redundant systems to optimize operational budgets."
   },
   {
     icon: '/industryicons/sphere.svg',
     title: 'Relocate',
-    description: "Moving infrastructure without major changes to cloud platforms."
+    description: "Moving virtualized container workloads without major changes directly to managed cloud instances."
   },
   {
     icon: '/industryicons/bipiramida.svg',
     title: 'Rehost (Lift and Shift)',
-    description: "Quickest way to move VMs or workloads to the cloud."
+    description: "Quickest migration route to shift server images and VMs directly to cloud computing compute nodes."
   },
   {
     icon: '/industryicons/sphere.svg',
     title: 'Replatform',
-    description: "Making minor optimizations without rewriting code."
+    description: "Executing minor optimizations (like upgrading database engines) without rewriting primary application code."
   },
   {
     icon: '/industryicons/bipiramida.svg',
     title: 'Refactoring',
-    description: "Re-architecting for full cloud-native functionality."
+    description: "Re-architecting software modules for full, microservices-based cloud-native functionality."
   },
   {
     icon: '/industryicons/sphere.svg',
     title: 'Repurchase',
-    description: "Transitioning to a SaaS solution."
+    description: "Transitioning custom internal legacy modules directly to enterprise SaaS cloud tools."
   },
 ];
+
 const deliverMVPData = {
-  label: "WHY CHOOSE LEAPSOFTS",
-  title: "Why Choose Leapsofts for",
-  accentText: "Cloud Migration Services",
-  description: "Leapsofts is a cloud software development company that helps accelerate your digital transformation. Whether you're moving from on-premises systems or modernizing legacy applications, Leapsofts’s expert team delivers end-to-end cloud migration consulting designed to reduce downtime, enhance performance, and unlock long-term business value.",
+  label: "CLOUD EXCELLENCE",
+  title: "Our Commitment to Deliver Your Cloud Migration in",
+  accentText: "3-5 months?",
+  description: "Leapsofts is a premier enterprise cloud migration partner. By combining fully integrated automated tooling, certified cloud architects, and dedicated DevOps engineers, we relocate, optimize, and hand over complex enterprise workloads within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
-      title: "Proven Methodologies & Processes.",
-      description: "We follow tested cloud migration methodologies to ensure a seamless, low-risk transition tailored to your workloads and cloud environment."
+      title: "AWS MGN Relocations.",
+      description: "Executing low-risk physical server migrations directly into AWS EC2 with near-zero software changes."
     },
     {
-      title: "Client-First Approach.",
-      description: "Your business needs drive every step of the cloud journey. From discovery to post-migration support, we align our strategy with your goals, infrastructure, and compliance requirements."
+      title: "DMS sync channels.",
+      description: "Running zero-downtime AWS Database Migration Service (DMS) tasks to replicate active production databases."
     },
     {
-      title: "Transparent Pricing Models.",
-      description: "We offer clear pricing with no hidden fees. Whether it's fixed-scope development or continuous product engineering, you’ll get accurate forecasts for migration, optimization, and long-term cloud infrastructure costs.."
+      title: "Offline Snowball Transfers.",
+      description: "Moving petabyte-scale local datasets into S3 buckets securely using offline Snowball Edge devices."
     },
     {
-      title: "Healthcare Software Expertise.",
-      description: "Our engineers bring deep experience across AWS, Microsoft Azure, and Google Cloud. Whether you're migrating SAP, modernizing applications, or managing hybrid cloud environments, we deliver scalable, high-performance cloud solutions."
+      title: "IPsec VPN secure tunnels.",
+      description: "Configuring high-bandwidth site-to-site IPsec VPN networks and transit gateway routers for hybrid setups."
     }
   ]
 };
 
 const cloudMigrationProcessData: InfoGridProps['data'] = {
-  label: 'Value for the client',
+  label: 'MIGRATION VALUE',
   title: 'Discover the Benefits of Migrating On-Premises Infrastructure to a Scalable Cloud Environment',
   items: [
     {
       icon: '01',
-      title: 'Virtual Infrastructure',
-      description:
-        'Besides taking up valuable space, on-premises hosting infrastructure requires significant maintenance and limits developer capabilities. But cloud computing is a fully automated environment that allows businesses to outsource logistics and focus their resources on growth.'
+      title: 'Zero Physical Datacenter Footprint',
+      description: 'Eliminate physical server space, power supplies, cooling costs, and expensive on-site system maintenance fees.'
     },
     {
       icon: '02',
-      title: 'Disaster Recovery',
-      description:
-        'Cloud-based hosting is fully resilient and redundant, and storage backup, risk management, and disaster protocols are just table stakes. With content cached in data centers all over the world, your applications will stay online no matter what.'
+      title: 'Instant Disaster Redundancy',
+      description: 'Deploy automated server images backup and multi-region recovery protocols to keep systems operational.'
     },
     {
       icon: '03',
-      title: 'Scalability',
-      description:
-        'While traditional systems require businesses to pay for full servers whether they use their entire capacity or not, cloud-based services are designed to empower clients to grow and flex, adding or removing capacity as needed, week by week, day by day, or minute by minute.'
+      title: 'Flexible Operational Expenses',
+      description: 'Transition capital asset expenses into flexible, pay-as-you-go cloud service rates, reducing licensing overheads.'
     }
   ]
 };
 
 const capabilitiesSlides: CapabilitySlide[] = [
   {
-    id: 'iaas',
+    id: 'rehost',
     number: '< 01 >',
-    title: 'IaaS (Infrastructure as a Service)',
+    title: 'Workload Rehosting & Replatforming',
     image: capabilitiesImg,
     items: [
       {
-        name: 'Provider Infrastructure Access',
-        description:
-          'Access on-demand computing resources such as servers, storage, and networking via cloud providers.'
+        name: 'Lift-and-Shift Migrations',
+        description: 'Rehosting physical servers and VMs directly to cloud compute instances using AWS Application Migration Service (MGN).'
       },
       {
-        name: 'Flexible Resource Control',
-        description:
-          'Maintain control over infrastructure while eliminating the need for physical data centers.'
+        name: 'Operating System Upgrades',
+        description: 'Replatforming database and web servers to modern operating systems and managed runtime systems to improve performance.'
       },
       {
-        name: 'Ideal for Hosted Applications',
-        description:
-          'Best suited for businesses comfortable running applications in third-party cloud environments.'
+        name: 'Cloud-Ready Refactoring',
+        description: 'Upgrading legacy applications to utilize cloud-native managed databases and scalable file systems.'
       }
     ]
   },
   {
-    id: 'paas',
+    id: 'relocation',
     number: '< 02 >',
-    title: 'PaaS (Platform as a Service)',
+    title: 'Zero-Downtime Data Relocation',
     image: platformImg,
     items: [
       {
-        name: 'Rapid Application Development',
-        description:
-          'Accelerate application development, deployment, and management through cloud platforms.'
+        name: 'Database Migration Services',
+        description: 'Replicating critical relational schemas with zero-data-loss pipelines using AWS DMS or Azure Database Migration Service.'
       },
       {
-        name: 'Built-in Development Tools',
-        description:
-          'Leverage ready-to-use tools for building, testing, and scaling applications.'
+        name: 'Large-Scale Offline Transfers',
+        description: 'Moving petabyte-scale datastores securely using offline transfer systems like AWS Snowball Edge.'
       },
       {
-        name: 'Reduced Infrastructure Overhead',
-        description:
-          'Focus on development while the platform manages infrastructure and runtime.'
+        name: 'Real-Time Data Syncing',
+        description: 'Configuring continuous transaction logs capture (CDC) to keep cloud datastores perfectly synced with active local nodes.'
       }
     ]
   },
   {
-    id: 'saas',
+    id: 'hybrid',
     number: '< 03 >',
-    title: 'SaaS (Software as a Service)',
+    title: 'Hybrid Cloud Integration',
     image: capabilitiesImg,
     items: [
       {
-        name: 'Cloud-Hosted Software',
-        description:
-          'Access software applications through the web or APIs without installation.'
+        name: 'Dedicated Express Interconnects',
+        description: 'Establishing secure, high-bandwidth connections using AWS Direct Connect or Azure ExpressRoute.'
       },
       {
-        name: 'Subscription-Based Model',
-        description:
-          'Use scalable, pay-as-you-go software services with minimal maintenance effort.'
+        name: 'High-Performance VPN Tunnels',
+        description: 'Deploying site-to-site IPsec VPN tunnels with redundant gateways to ensure absolute hybrid network security.'
       },
       {
-        name: 'Business-Ready Solutions',
-        description:
-          'Ideal for organizations seeking quick adoption and ease of use.'
+        name: 'Active Directory Federation',
+        description: 'Synchronizing on-premises user credentials and permissions with cloud directories using Entra ID.'
       }
     ]
   }
@@ -176,52 +166,84 @@ const capabilitiesSlides: CapabilitySlide[] = [
 const processPhasesDefault: ProcessPhase[] = [
   {
     id: 1,
-    phase: "PHASE 1: DISCOVERY & ASSESSMENT",
-    title: "Objectives & Inventory Assessment",
-    description:
-      "We define cloud migration goals, assess current environments, and build a prioritized application inventory.",
+    phase: "PHASE 1: AGILE DISCOVERY & PORTFOLIO ASSESSMENT",
+    title: "Resource Audits & Workload Discovery",
+    description: "We scan existing server nodes, profile security rules, and catalog database volumes.",
     features: [
-      "Migration Goals & Priority Definition",
-      "Application & Infrastructure Inventory",
-      "Portfolio Assessment & Readiness Scoring",
-    ],
+      {
+        title: "On-Premises Inventory Scans",
+        description: "Scan active ports, operating systems configurations, and directory relationships."
+      },
+      {
+        title: "SLA Capacity Assessments",
+        description: "Analyze peak traffic loads, read/write database ratios, and latency thresholds."
+      },
+      {
+        title: "Target Cloud Blueprints",
+        description: "Draft initial topology diagrams, database mappings, and multi-stage migration tracks."
+      }
+    ]
   },
   {
     id: 2,
-    phase: "PHASE 2: STRATEGY & ARCHITECTURE",
-    title: "Strategic Development & Analysis",
-    description:
-      "We design the migration strategy, evaluate costs, and select the right cloud model and target architecture.",
+    phase: "PHASE 2: IAC DEVELOPMENT & SECURE VPC DESIGN",
+    title: "Infrastructure as Code & Security Hardening",
+    description: "Writing robust Terraform structures, designing transit pipelines, and configuring IAM boundaries.",
     features: [
-      "Migration Criteria & Decision Framework",
-      "Cost Analysis & Savings Forecast",
-      "IaaS / PaaS / SaaS Selection Strategy",
-    ],
+      {
+        title: "Modular Terraform Codebase",
+        description: "Author repeatable IaC scripts to provision VPCs, routing configurations, and computing clusters."
+      },
+      {
+        title: "VPC Networking Layouts",
+        description: "Design secure public and private subnets, transit connections, and internet access gateways."
+      },
+      {
+        title: "Zero-Trust IAM Directories",
+        description: "Enforce granular role boundaries, encrypt database keys via KMS, and activate multi-factor checks."
+      }
+    ]
   },
   {
     id: 3,
-    phase: "PHASE 3: MIGRATION EXECUTION",
-    title: "Execution, Integration & Security",
-    description:
-      "We implement migration waves, integrate required tools, and ensure continuity, security, and performance.",
+    phase: "PHASE 3: HIGH-VELOCITY WAVE MIGRATION & TESTING",
+    title: "Database Relocations & Container Deployments",
+    description: "Executing live wave migrations, containerizing app nodes, and executing load tests.",
     features: [
-      "Migration Runbooks & Wave Planning",
-      "Tooling Integration & Automation Enablement",
-      "Security, Compliance & Business Continuity Setup",
-    ],
+      {
+        title: "Zero-Downtime Data Relocations",
+        description: "Migrate active databases using replication services to prevent transactional interruptions."
+      },
+      {
+        title: "Kubernetes Pod Containerization",
+        description: "Package software microservices into Docker containers and deploy pods on AWS EKS or GKE clusters."
+      },
+      {
+        title: "Stress Telemetry Sweeps",
+        description: "Execute automated performance tests via k6 under peak load configurations to verify target SLA speeds."
+      }
+    ]
   },
   {
     id: 4,
-    phase: "PHASE 4: OPTIMIZATION & GOVERNANCE",
-    title: "Refinement, Monitoring & Improvement",
-    description:
-      "We optimize the new cloud environment with continuous monitoring, governance, and ongoing enhancements.",
+    phase: "PHASE 4: CONTINUOUS OPTIMIZATION & TELEMETRY",
+    title: "Prometheus Monitoring & Rolling Upgrades",
+    description: "Deploying central logging structures, optimizing infrastructure costs, and configuring GitOps releases.",
     features: [
-      "Performance & Cost Optimization",
-      "Monitoring, Alerts & Operational Governance",
-      "Continuous Refinement & Process Improvement",
-    ],
-  },
+      {
+        title: "Prometheus & Grafana Telemetry",
+        description: "Orchestrate real-time metrics dashboards, configure query speeds telemetry, and enable automated alerting channels."
+      },
+      {
+        title: "Automated cost-optimization",
+        description: "Deploy automated instance scaling guidelines, rightsizing recommendations, and spot-instances pools."
+      },
+      {
+        title: "GitOps Continuous Upgrades",
+        description: "Configure GitOps delivery loops (ArgoCD) to execute zero-downtime rolling upgrades across microservices."
+      }
+    ]
+  }
 ];
 
 const phaseLabelsDefault = [
@@ -230,23 +252,25 @@ const phaseLabelsDefault = [
   "MIGRATION EXECUTION",
   "OPTIMIZATION & GOVERNANCE",
 ];
+
 const streamlineDescription = [
-  { text: "Whether you're modernizing an ", bold: false },
-  { text: "existing enterprise software system ", bold: true },
-  { text: "or launching a ", bold: false },
-  { text: "new digital product", bold: true },
-  { text: ", Leapsofts offers a ", bold: false },
-  { text: "complimentary software strategy session ", bold: true },
-  { text: "designed to deliver value almost immediately. We take the time to understand your business objectives, technical landscape, and operational challenges then provide actionable insights on how ", bold: false },
-  { text: "bespoke, cost-effective custom software solutions ", bold: true },
-  { text: "can streamline workflows, improve efficiency, and support scalable growth.", bold: false },
+  { text: "Whether modernizing a complex ", bold: false },
+  { text: "legacy enterprise web portal ", bold: true },
+  { text: "or engineering a ", bold: false },
+  { text: "new multi-region cloud cluster", bold: true },
+  { text: ", our experts deliver immediate technical clarity. We conduct a deep-dive analysis of your current infrastructure setups, map out potential network latencies, evaluate compliance directories, and formulate a ", bold: false },
+  { text: "highly efficient, customized cloud migration plan ", bold: true },
+  { text: "built to unlock massive scale and streamline infrastructure costs.", bold: false }
 ];
-const title = "Cloud Migration Services";
+
+const title = "Enterprise Cloud Migration Services & Legacy Workload Relocation";
 const subtitle = "";
 
 const introDescription = [
-    { text: "Accelerate your digital transformation with secure, scalable, and cost-efficient cloud migration services.", bold: false },
-]
+  { text: "We execute complex, low-risk ", bold: false },
+  { text: "enterprise cloud migrations", bold: true },
+  { text: ", transitioning legacy on-premises servers, Oracle databases, and virtualized VMware environments into modern cloud platforms. By deploying AWS Database Migration Services (DMS), secure VPN tunnels, and automated data validation scripts, we guarantee a zero-data-loss migration path designed to minimize downtime.", bold: false }
+];
 
 const CloudMigration: React.FC = () => {
   return (
@@ -256,39 +280,38 @@ const CloudMigration: React.FC = () => {
         description={subtitle}
         introDescription={introDescription}
       />
-       <ServiceOverview
-      label='BRIEF OVERVIEW'
-      titleMain='Ready for the Cloud?'
-      titleAccent='Fast-forward'
-      titleEnd='to our solution:'
-      description='We simplify cloud migration to help businesses reduce costs, boost performance, and stay future-ready. From strategy to execution and ongoing support, we handle every step of the process.'
-      imagePath={mobileAppImg}
+      <ServiceOverview
+        label='WORKLOAD TRANSITION'
+        titleMain='Executing Secure'
+        titleAccent='Legacy-to-Cloud'
+        titleEnd='Migrations'
+        description='At Leapsofts, we systematically assess, plan, and execute enterprise cloud migrations, moving heavy workloads with minimal business interruption. By utilizing automated cloud readiness scoring, configuring multi-stage data replication pipelines, and mapping complex application dependencies, our certified engineers safely transfer your critical assets to public, private, or hybrid cloud environments.'
+        imagePath={mobileAppImg}
       />
       <Capabilities
         title="Streamlined Cloud Adoption"
         description=''
         slides={capabilitiesSlides}
-        defaultImage={capabilitiesImg} />
-
+        defaultImage={capabilitiesImg}
+      />
       <InfoGrid
         data={cloudMigrationProcessData}
       />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Software "
-        titleAccent="Strategy"
-        titleEnd=" Session"
+        label="COMPLIMENTARY STRATEGY SESSION"
+        titleMain="Map your "
+        titleAccent="workload migration"
+        titleEnd=" roadmap."
         description={streamlineDescription}
         imageUrl="/streamline.png"
       />
       <ServiceFeatures
         title='Types of Cloud Migration'
         description='Every business has different needs. Whether you are migrating Oracle, VMware, or PaaS applications, we tailor the migration tools and processes to fit your infrastructure.'
-        items={defaultItems} />
+        items={defaultItems}
+      />
       <DeliverMVP data={deliverMVPData} />
-
       <Processes title="OUR CLOUD MIGRATION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
-
     </>
   );
 };

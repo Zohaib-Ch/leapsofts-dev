@@ -1,122 +1,138 @@
-import React, { useEffect } from 'react'
-import { useOutletContext } from 'react-router-dom'
-import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout'
-import IntroComponent from '../../components/IntroComponent/IntroComponent'
-import CommitmentSection from '../../components/CommitmentSection/CommitmentSection'
-import { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
-import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
-import EmergingTech from '../../components/EmergingTech/EmergingTech'
-import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
+import React, { useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
+import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
+import IntroComponent from '../../components/IntroComponent/IntroComponent';
+import CommitmentSection from '../../components/CommitmentSection/CommitmentSection';
+import { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
+import EmergingTech from '../../components/EmergingTech/EmergingTech';
+import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
 
 const commitmentData: CommitmentSectionProps['data'] = {
-    subtitle: "OUR COMMITMENT TO AUTOMOTIVE",
-    title: "Driving innovation with smart automotive software solutions",
-    items: [
-        {
-            icon: '/industryicons/sphere.svg',
-            title: 'Precision',
-            description: "From supply chain optimization to manufacturing automation, our custom automotive software solutions ensure high precision and reduced time-to-market."
-        },
-        {
-            icon: '/industryicons/bipiramida.svg',
-            title: 'Connectivity',
-            description: "Enable seamless connectivity between vehicles, drivers, and infrastructure through advanced IoT and telematics integrations."
-        },
-        {
-            icon: '/industryicons/diamond.svg',
-            title: 'Safety',
-            description: "Developing robust software for ADAS and autonomous driving features that prioritize safety and reliability on every journey."
-        },
-    ]
-}
+  subtitle: "OUR COMMITMENT TO AUTOMOTIVE",
+  title: "Driving mobility innovation with intelligent automotive software architectures",
+  items: [
+    {
+      icon: '/industryicons/sphere.svg',
+      title: 'Precision Manufacturing & Assembly',
+      description: "Automating factory diagnostic sensors, scheduling machine maintenance repairs based on real-time vibration analytics, and optimizing assembly components to accelerate time-to-market."
+    },
+    {
+      icon: '/industryicons/bipiramida.svg',
+      title: 'Secure Connected V2X Gateways',
+      description: "Building robust, low-latency messaging gateways to securely aggregate high-frequency engine metrics, real-time GPS locations, and active driver diagnostic logs using V2X protocols."
+    },
+    {
+      icon: '/industryicons/diamond.svg',
+      title: 'ADAS & Functional Software Safety',
+      description: "Writing robust C++ routines complying with rigorous MISRA standards, containerizing firmware deployments, and executing comprehensive simulation runs against sensor pipelines to support autonomous driving."
+    }
+  ]
+};
 
 const automotiveSolutionsData: EmergingTechProps['data'] = {
-    label: 'OUR SOLUTIONS',
-    titleAccent: 'Our solutions for',
-    titleMain: 'Automotive Enterprises',
-    description: 'We help automotive companies navigate the transition to electric, autonomous, and connected vehicles with cutting-edge software engineering.',
-    items: [
-        {
-            icon: 'legacy',
-            title: 'Supply Chain Digitization',
-            description: 'Optimize parts tracking and logistics with integrated digital platforms.'
-        },
-        {
-            icon: 'enterprise',
-            title: 'Manufacturing AI',
-            description: 'Implement predictive maintenance and quality control on the factory floor.'
-        },
-        {
-            icon: 'thirdParty',
-            title: 'EV Charging Networks',
-            description: 'Build and manage scalable infrastructure for electric vehicle charging stations.'
-        },
-        {
-            icon: 'product',
-            title: 'Fleet Management',
-            description: 'Real-time tracking and optimization for commercial and enterprise fleets.'
-        },
-        {
-            icon: 'saas',
-            title: 'Dealer Portals',
-            description: 'Streamline sales and service operations with custom dealer management systems.'
-        },
-        {
-            icon: 'mobile',
-            title: 'Connected Car Apps',
-            description: 'Enhance driver experience with mobile apps for remote control and diagnostics.'
-        }
-    ]
-}
+  label: 'OUR SOLUTIONS',
+  titleAccent: 'Our solutions for',
+  titleMain: 'Automotive Enterprises',
+  description: 'We help automotive companies navigate the transition to electric, autonomous, and connected vehicles with cutting-edge software engineering.',
+  items: [
+    {
+      icon: 'legacy',
+      title: 'Supply Chain Digitization',
+      description: "Tracing assembly components and optimizing manufacturing warehouse logistics using active RFID tags, barcode scanners, and real-time cloud inventory monitors."
+    },
+    {
+      icon: 'enterprise',
+      title: 'Smart Factory Predict AI',
+      description: "Collecting structural vibration and temperature metrics from factory machines to trigger scheduled maintenance dispatches before assembly lines encounter downtime."
+    },
+    {
+      icon: 'thirdParty',
+      title: 'EV Charging Grid Control',
+      description: "Developing scalable telemetry pipelines to balance electrical charging currents, manage charge port authentication grids, and forecast grid load requirements."
+    },
+    {
+      icon: 'saas',
+      title: 'High-Telemetry Fleet Tracker',
+      description: "Plotting real-time coordinate positions, generating predictive fuel consumption curves, and aggregating cabin cameras telemetry for driver fatigue alert alerts."
+    },
+    {
+      icon: 'product',
+      title: 'Bespoke Dealer CRM Hubs',
+      description: "Streamlining inventory ordering flows, integrating customer repair schedules with active workshop queues, and managing new car loan pre-approvals."
+    },
+    {
+      icon: 'mobile',
+      title: 'Connected Driver Mobiles',
+      description: "Configuring cross-platform React Native apps allowing drivers to remotely lock/unlock vehicle cabin doors, start engines, and trace real-time tire pressure readings."
+    },
+    {
+      icon: 'product',
+      title: 'Secure OTA Firmware Vaults',
+      description: "Architecting double-buffered over-the-air (OTA) firmware delivery tunnels with encrypted hashes to update automotive ECUs securely without brick risks."
+    },
+    {
+      icon: 'enterprise',
+      title: 'Connected In-Car Infotainment',
+      description: "Developing custom HTML5/Android Automotive infotainment dashboards showing interactive maps, media playback panels, and local weather forecasts."
+    }
+  ]
+};
 
 const streamlineDescription = [
-    { text: "Accelerate your ", bold: false },
-    { text: "automotive innovation ", bold: true },
-    { text: "with a focused approach. Leapsofts offers a ", bold: false },
-    { text: "complimentary strategy session ", bold: true },
-    { text: "to help you define your ", bold: false },
-    { text: "digital roadmap ", bold: true },
-    { text: "for the next generation of mobility solutions.", bold: false },
+  { text: "Accelerate your ", bold: false },
+  { text: "automotive innovation ", bold: true },
+  { text: "with a focused approach. Leapsofts offers a ", bold: false },
+  { text: "complimentary strategy session ", bold: true },
+  { text: "to help you define your ", bold: false },
+  { text: "digital roadmap ", bold: true },
+  { text: "for the next generation of mobility and connected car solutions.", bold: false },
+];
+
+const title = "Automotive Software Development, Connected Car Telematics & V2X IoT Systems";
+const subtitle = "";
+const introDescription = [
+  { text: "At Leapsofts, we engineer highly performant, safety-critical ", bold: false },
+  { text: "automotive software architectures, high-telemetry connected car systems, and predictive manufacturing IoT portals ", bold: true },
+  { text: "designed to power the next generation of electric and autonomous vehicles. By integrating real-time vehicle-to-everything (V2X) messaging pipelines, compiling safety-compliant ADAS sensor suites, and constructing smart logistics trackers, we help global automotive manufacturers scale their operations with absolute precision and low-latency metrics delivery.", bold: false }
 ];
 
 const Automotive: React.FC = () => {
-    const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+  const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
-    useEffect(() => {
-        setProcessTitle({
-            titleMain: "Automotive Product Development",
-            titleAccent: "Process"
-        });
-    }, [setProcessTitle]);
+  useEffect(() => {
+    setProcessTitle({
+      titleMain: "Automotive Product Development",
+      titleAccent: "Process"
+    });
+  }, [setProcessTitle]);
 
-    return (
-        <>
-            <IntroComponent
-                title="Automotive Software Engineering"
-                description=""
-                introDescription={[
-                    { text: "Empowering the future of mobility with scalable, secure, and intelligent automotive software solutions.", bold: false }
-                ]}
-            />
-            <CommitmentSection data={commitmentData} />
-            <StreamlineSuccess
-                label="STREAMLINE YOUR SUCCESS"
-                titleMain="Automotive "
-                titleAccent="Strategy"
-                titleEnd=" Session"
-                description={streamlineDescription}
-                imageUrl="/streamline.png"
-            />
-            <EmergingTech data={automotiveSolutionsData} />
-            <Services
-                label="OUR CAPABILITIES"
-                titleMain="How we "
-                titleAccent="empower"
-                titleEnd=" automotive businesses"
-            />
-        </>
-    )
-}
+  return (
+    <>
+      <IntroComponent
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
+      />
+      <CommitmentSection data={commitmentData} />
+      <StreamlineSuccess
+        label="STREAMLINE YOUR SUCCESS"
+        titleMain="Automotive "
+        titleAccent="Strategy"
+        titleEnd=" Session"
+        description={streamlineDescription}
+        imageUrl="/streamline.png"
+      />
+      <EmergingTech data={automotiveSolutionsData} />
+      <Services
+        label="OUR CAPABILITIES"
+        titleMain="How we "
+        titleAccent="empower"
+        titleEnd=" automotive businesses"
+      />
+    </>
+  );
+};
 
-export default Automotive
+export default Automotive;

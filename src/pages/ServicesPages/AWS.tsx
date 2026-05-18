@@ -7,53 +7,54 @@ import ServiceFeatures, { type ServiceFeatureItem } from '../../components/Servi
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import cloudImg from "../../assets/about_laptop_3d.png";
+
 const serviceOverviewData = {
-  label: "AWS CLOUD",
-  titleMain: "Master Your",
-  titleAccent: "Infrastructure",
-  titleEnd: "with AWS",
-  description: "Leapsofts helps you leverage the full power of Amazon Web Services to build, deploy, and scale applications with ease. Our AWS experts provide end-to-end cloud solutions that optimize costs, enhance security, and ensure high availability for your business-critical workloads.",
+  label: "AWS CLOUD ARCHITECTURE",
+  titleMain: "Orchestrating Highly Secure",
+  titleAccent: "Enterprise AWS",
+  titleEnd: "Environments",
+  description: "At Leapsofts, we help modern enterprises maximize their infrastructure performance, scale computing capacity automatically, and reduce resource costs on Amazon Web Services. Our AWS-certified solutions architects construct custom AWS CDK blueprints, deploy high-availability Kubernetes systems via Amazon EKS, and build fault-tolerant databases that meet strict SOC2 and HIPAA compliance requirements.",
   imagePath: cloudImg
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
-  label: 'AWS ECOSYSTEM',
-  titleAccent: 'Cloud Innovation',
-  titleMain: 'AWS Services',
+  label: 'AWS CAPABILITIES',
+  titleAccent: 'Advanced AWS',
+  titleMain: 'Service Integrations',
   description: 'We integrate a wide range of AWS services to build robust, scalable, and intelligent cloud solutions tailored to your business needs.',
   items: [
-    { icon: 'enterprise' as const, title: 'AWS Lambda', description: 'Serverless computing for building highly scalable and cost-effective applications.' },
-    { icon: 'saas' as const, title: 'Amazon EC2', description: 'Reliable and resizable compute capacity in the cloud for any workload.' },
-    { icon: 'hipaa' as const, title: 'Amazon RDS', description: 'Managed relational databases that are easy to set up, operate, and scale.' },
-    { icon: 'ecommerce' as const, title: 'Amazon S3', description: 'Highly durable and scalable object storage for all your data needs.' },
-    { icon: 'mobile' as const, title: 'AWS CloudFormation', description: 'Infrastructure as code for automated and consistent resource provisioning.' },
-    { icon: 'legacy' as const, title: 'AWS IAM', description: 'Fine-grained access control to manage your AWS resources securely.' },
+    { icon: 'enterprise' as const, title: 'AWS Lambda Serverless', description: 'Deploying event-driven, microsecond-billing serverless pipelines to build highly scalable backend functions.' },
+    { icon: 'saas' as const, title: 'Amazon ECS & EKS (Kubernetes)', description: 'Orchestrating containerized backend nodes and microservices utilizing AWS Fargate or managed Amazon EKS clusters.' },
+    { icon: 'hipaa' as const, title: 'Amazon Aurora Serverless v2', description: 'Configuring auto-scaling, highly resilient relational databases (PostgreSQL/MySQL) with active multi-region replicas.' },
+    { icon: 'ecommerce' as const, title: 'Amazon DynamoDB Global Tables', description: 'Building globally distributed NoSQL datastores with sub-10ms latency capabilities and active-active replication.' },
+    { icon: 'mobile' as const, title: 'AWS Cloud Development Kit (CDK)', description: 'Enforcing Infrastructure as Code (IaC) version-control using type-safe TypeScript CDK constructs.' },
+    { icon: 'legacy' as const, title: 'AWS IAM & KMS Security', description: 'Hardening platform boundaries utilizing fine-grained IAM roles, AWS Organizations SCPs, and KMS key envelope encryption.' },
   ]
 };
 
 const servicesData: InfoGridProps['data'] = {
-  label: 'AWS BENEFITS',
-  title: 'Why Choose AWS Cloud',
+  label: 'AWS VALUE ADVANTAGE',
+  title: 'Why Build Your Digital Workloads on AWS',
   items: [
     {
       icon: '01',
-      title: 'Global Reach',
-      description: 'Deploy applications globally in minutes with AWS’s extensive network of data centers.'
+      title: 'Multi-Zone Disaster Redundancy',
+      description: 'Deploy workloads across multiple geographical zones to protect applications from isolated datacenter failure events.'
     },
     {
       icon: '02',
-      title: 'Scalability',
-      description: 'Scale your resources up or down automatically based on demand to optimize performance.'
+      title: 'Instant Auto-Scaling Elasticity',
+      description: 'Configure EC2 Auto Scaling groups and serverless triggers to dynamically expand computing resources under heavy user load.'
     },
     {
       icon: '03',
-      title: 'Cost Savings',
-      description: 'Pay only for what you use with AWS’s flexible pricing models and cost management tools.'
+      title: 'Optimized Resource Expenditure',
+      description: 'Transition capital asset expenses into flexible, pay-as-you-go cloud service rates, reducing operational overheads.'
     },
     {
       icon: '04',
-      title: 'Innovation',
-      description: 'Access the latest technologies in AI, ML, IoT, and more to drive your business forward.'
+      title: 'Advanced AI & ML Services',
+      description: 'Deploy custom machine learning models and text embeddings utilizing managed Amazon SageMaker and Bedrock services.'
     }
   ]
 };
@@ -93,25 +94,25 @@ const serviceFeaturesData: ServiceFeatureItem[] = [
 
 const deliverMVPData = {
   label: "AWS EXCELLENCE",
-  title: "Partnering for",
-  accentText: "Cloud Success",
-  description: "Leapsofts is dedicated to delivering high-quality AWS solutions that drive business value. We focus on reliability, security, and performance to ensure your cloud journey is a success.",
+  title: "Our Commitment to Deliver Your AWS Infrastructure in",
+  accentText: "3-5 months?",
+  description: "Leapsofts is an elite AWS consulting and infrastructure advisory partner. By combining fully integrated automated tooling, certified AWS solutions architects, and dedicated DevOps engineers, we design, build, and hand over production-ready AWS environments within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
-      title: "Expert Consultation.",
-      description: "Deep expertise in AWS architectures to guide your cloud strategy."
+      title: "AWS CDK constructs.",
+      description: "Building fully automated virtual private clouds and secure compute layers using type-safe AWS CDK constructs."
     },
     {
-      title: "Security by Design.",
-      description: "Implementing best practices to protect your data and infrastructure."
+      title: "Aurora Serverless scale.",
+      description: "Configuring high-concurrency Aurora database instances and Global DynamoDB tables to support massive traffic."
     },
     {
-      title: "Operational Excellence.",
-      description: "Structured processes for managing and optimizing cloud workloads."
+      title: "WAF Guard Shields.",
+      description: "Enforcing KMS encryptions, Shield DDoS mitigations, and IAM role hierarchies to satisfy SOC2 compliance standards."
     },
     {
-      title: "Continuous Improvement.",
-      description: "Regular reviews and enhancements to keep your cloud setup peak-performing."
+      title: "Fargate computing clusters.",
+      description: "Deploying stateless containerized workloads across isolated Fargate environments to optimize compute costs."
     }
   ]
 };
@@ -119,43 +120,101 @@ const deliverMVPData = {
 const processPhasesDefault: ProcessPhase[] = [
   {
     id: 1,
-    phase: "PHASE 1: ASSESSMENT",
-    title: "Readiness & Gap Analysis",
-    description: "We evaluate your current infrastructure and define a roadmap for AWS adoption.",
-    features: ["Infrastructure Review", "Cost Estimation", "Migration Strategy Planning"],
+    phase: "PHASE 1: AGILE DISCOVERY & READINESS ASSESSMENT",
+    title: "Well-Architected Reviews & Discoveries",
+    description: "We evaluate your current workloads against the six pillars of the AWS Well-Architected Framework.",
+    features: [
+      {
+        title: "AWS Well-Architected Audits",
+        description: "Analyze security, performance efficiency, cost optimizations, and operational excellence gaps."
+      },
+      {
+        title: "Workload Discovery Scans",
+        description: "Catalog on-premises databases, computing systems dependencies, and active ports."
+      },
+      {
+        title: "Target Cloud Blueprinting",
+        description: "Draft structural VPC layouts, private subnets mappings, NAT gateways, and cost projections."
+      }
+    ]
   },
   {
     id: 2,
-    phase: "PHASE 2: DESIGN",
-    title: "Well-Architected Framework",
-    description: "Designing a secure, high-performing, and cost-efficient AWS architecture.",
-    features: ["VPC & Network Design", "Security Groups & IAM Setup", "Storage & Compute Selection"],
+    phase: "PHASE 2: IAC DEVELOPMENT & SECURE VPC DESIGN",
+    title: "AWS CDK Provisions & IAM Hardening",
+    description: "Writing reusable CDK constructs and configuring secure VPC routing rules.",
+    features: [
+      {
+        title: "Modular AWS CDK Codebase",
+        description: "Author type-safe TypeScript CDK modules to provision environments with absolute consistency."
+      },
+      {
+        title: "VPC Networking Architecture",
+        description: "Configure secure public and private subnets, transit gateways, and routing configurations."
+      },
+      {
+        title: "Zero-Trust IAM Schemes",
+        description: "Harden identity permissions, manage KMS encryption keys, and set up cloud access logging."
+      }
+    ]
   },
   {
     id: 3,
-    phase: "PHASE 3: IMPLEMENTATION",
-    title: "Deployment & Migration",
-    description: "Executing the migration and setting up the AWS environment with automation.",
-    features: ["Data Migration", "Infrastructure Provisioning", "CI/CD Setup"],
+    phase: "PHASE 3: HIGH-VELOCITY WORKLOAD DEPLOYMENT",
+    title: "Database Syncing & Container Runs",
+    description: "Syncing relational data databases with zero downtime using automated replication waves.",
+    features: [
+      {
+        title: "Zero-Loss Database Migrations",
+        description: "Migrate active transactions securely using AWS DMS with zero application interruptions."
+      },
+      {
+        title: "Fargate Container Orchestrations",
+        description: "Orchestrate application pods on AWS Fargate serverless containers or EKS Kubernetes clusters."
+      },
+      {
+        title: "Transaction Stress Sprints",
+        description: "Run automated k6 performance checks to verify AWS cluster responsiveness under high traffic."
+      }
+    ]
   },
   {
     id: 4,
-    phase: "PHASE 4: OPERATIONS",
-    title: "Monitoring & Optimization",
-    description: "Providing ongoing support and continuous improvement of your AWS setup.",
-    features: ["24/7 Monitoring", "Performance Tweaks", "Cost Optimization Reviews"],
-  },
+    phase: "PHASE 4: CONTINUOUS OBSERVABILITY & COST OPTIMIZATION",
+    title: "CloudWatch Telemetry & Cost Scripts",
+    description: "Deploying central logging structures, optimizing infrastructure costs, and configuring GitOps releases.",
+    features: [
+      {
+        title: "CloudWatch Metrics Observability",
+        description: "Deploy real-time cloud dashboard telemetries, trace response latencies, and configure email alerts."
+      },
+      {
+        title: "Instance Schedule Rightsizing",
+        description: "Implement automated script schedulers to shut down staging pools and activate Spot instances."
+      },
+      {
+        title: "Continuous DevOps Sweeps",
+        description: "Conduct regular server OS patching, security boundary scans, and database maintenance checks."
+      }
+    ]
+  }
 ];
 
-const phaseLabelsDefault = ["ASSESSMENT", "DESIGN", "IMPLEMENTATION", "OPERATIONS"];
+const phaseLabelsDefault = [
+    "READINESS ASSESSMENT",
+    "CDK & VPC DESIGN",
+    "WORKLOAD DEPLOYMENT",
+    "TELEMETRY & GOVERNANCE",
+];
 
-
-const title = "Expand Boundlessly, Innovate Freely";
+const title = "AWS Consulting Services, Serverless Scaling & Multi-Region Cloud Architecture";
 const subtitle = "";
 
 const introDescription = [
-  { text: "Concentrate on acquiring customers and expanding your business, leaving infrastructure management to us.", bold: false },
-]
+  { text: "We design and deploy highly secure, robust ", bold: false },
+  { text: "Amazon Web Services (AWS) cloud platform topologies", bold: true },
+  { text: ", leveraging serverless microservices, modular AWS Cloud Development Kit (CDK) constructs, and automated containerization. By integrating multi-region Amazon Aurora relational datastores, AWS Transit Gateways, and WAF shields, we build elite digital architectures designed to handle extreme global scaling with maximum durability.", bold: false }
+];
 
 const AWS: React.FC = () => {
   return (
@@ -175,10 +234,10 @@ const AWS: React.FC = () => {
       />
       <InfoGrid data={servicesData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="AWS "
-        titleAccent="Strategy"
-        titleEnd=" Session"
+        label="COMPLIMENTARY STRATEGY SESSION"
+        titleMain="Map your "
+        titleAccent="AWS architecture"
+        titleEnd=" roadmap."
         description={streamlineDescription}
         imageUrl="/streamline.png"
       />

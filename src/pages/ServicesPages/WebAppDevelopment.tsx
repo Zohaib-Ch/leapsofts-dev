@@ -13,7 +13,7 @@ const serviceOverviewData = {
   titleMain: "Building Scalable",
   titleAccent: "Modern",
   titleEnd: "Web Applications",
-  description: "Leapsofts designs and develops high-performance web applications tailored to your business needs. From complex enterprise systems to innovative SaaS platforms, we leverage the latest technologies to ensure your web presence is secure, scalable, and user-centric.",
+  description: "At Leapsofts, we engineer highly performant web applications that bridge strategic business objectives with robust tech execution. By leveraging containerized microservices, distributed data management systems, and advanced browser rendering patterns, we deliver enterprise SaaS platforms, secure portals, and interactive dashboards engineered for absolute speed, strict security compliance, and effortless scalability.",
   imagePath: laptopImg
 };
 
@@ -25,33 +25,33 @@ const emergingTechData: EmergingTechProps['data'] = {
   items: [
     {
       icon: 'enterprise' as const,
-      title: 'User Experience Craftsmanship',
-      description: 'LeapSofts deep rooted knowledge in UI/UX design and frontend development enables us to forge exceptional user experiences.'
+      title: 'User Interface (UI) Design & Client Side Rendering',
+      description: 'Designing intuitive, accessible web interfaces that optimize user flows, using atomic design principles and modern state management to deliver instant response times.'
     },
     {
       icon: 'saas' as const,
-      title: ' Frontend Innovation',
-      description: 'LeapSofts provides comprehensive frontend development, focusing on creating intuitive, user focused web and solutions.'
+      title: 'Dynamic Single Page Applications (SPA) & Server Side Rendering (SSR)',
+      description: 'Building blazing-fast frontends using React, Next.js, and TypeScript, utilizing advanced routing, asset lazy loading, and edge rendering to achieve high core web vitals.'
     },
     {
       icon: 'hipaa' as const,
-      title: 'Backend Engineering',
-      description: 'LeapSofts specializes in creating backend systems that are adaptable, scalable, and straightforward to manage.'
+      title: 'Scalable RESTful & GraphQL Microservice Backends',
+      description: 'Architecting secure, distributed backends utilizing Node.js, Python, and C# to manage complex business logic, transactional database reads/writes, and zero-trust API layers.'
     },
     {
       icon: 'ecommerce' as const,
-      title: 'Ecommerce Website Creation',
-      description: 'LeapSofts excels in developing ecommerce web applications, encompassing online storefronts and payment integrations.'
+      title: 'High-Volume Transactional & Payment Portals',
+      description: 'Developing enterprise-grade e-commerce ecosystems and customized transactional platforms integrated with secure stripe networks, billing ledgers, and inventory systems.'
     },
     {
       icon: 'mobile' as const,
-      title: 'Web Application Support',
-      description: 'Postlaunch, LeapSofts offers maintenance and update services for web apps, addressing bug fixes and performance.'
+      title: 'Ongoing Performance Tuning & System Maintenance',
+      description: 'Providing proactive post-launch maintenance, cloud environment audits, runtime memory analysis, and dependency upgrades to guarantee constant performance and stability.'
     },
     {
       icon: 'legacy' as const,
-      title: 'Web App Quality Assurance',
-      description: 'LeapSofts conducts thorough testing of web applications prior to release, ensuring they are free from defects.'
+      title: 'Rigorous Automated Testing & Security Audits',
+      description: 'Conducting comprehensive functional, end-to-end (Playwright/Cypress), load testing, and static analysis checks to guarantee zero defects and SOC2 database compliance before launch.'
     },
   ]
 }
@@ -62,81 +62,81 @@ const infoGridData: InfoGridProps['data'] = {
   items: [
     {
       icon: '01',
-      title: 'Global Accessibility',
-      description: 'Reach your users anywhere with web solutions optimized for all devices and browsers.'
+      title: 'Global Accessibility & Device Agnostic Optimization',
+      description: 'Reach your customer base globally with web applications that are fully responsive, mobile-optimized, and verified across all browsers and viewport sizes.'
     },
     {
       icon: '02',
-      title: 'Real-time Updates',
-      description: 'Deploy updates seamlessly without requiring users to download new versions.'
+      title: 'Zero-Downtime Hot Reloads & Continuous Deployment',
+      description: 'Ship critical system updates, platform features, and hotfixes seamlessly using CI/CD pipelines without interrupting the user session or requiring updates.'
     },
     {
       icon: '03',
-      title: 'Scalable Infrastructure',
-      description: 'Built on cloud-native architectures that grow as your user base expands.'
+      title: 'Auto-Scaling Cloud Serverless Infrastructure',
+      description: 'Deploy onto resilient cloud environments (AWS/Azure) utilizing serverless computing, edge databases, and content delivery networks (CDNs) that expand on demand.'
     },
     {
       icon: '04',
-      title: 'Cost Efficiency',
-      description: 'Reduce operational overhead with efficient development cycles and managed services.'
+      title: 'Optimized Infrastructure Costs & Reduced TCO',
+      description: 'Achieve significant operational cost reductions by leveraging headless services, microservice reusability, and automated resource allocations.'
     }
   ]
 };
 
 const streamlineDescription = [
-  { text: "Transform your ", bold: false },
-  { text: "digital vision ", bold: true },
-  { text: "into reality. Leapsofts offers a ", bold: false },
-  { text: "complimentary web strategy session ", bold: true },
-  { text: "to help you design a ", bold: false },
-  { text: "modern architecture ", bold: true },
-  { text: "that ensures long-term success and rapid market entry.", bold: false },
+  { text: "Whether modernizing a complex ", bold: false },
+  { text: "legacy enterprise web portal ", bold: true },
+  { text: "or engineering a ", bold: false },
+  { text: "new SaaS web platform", bold: true },
+  { text: ", our experts deliver immediate technical clarity. We conduct a deep-dive analysis of your current systems, map out front-end components, evaluate serverless and container options, and formulate a ", bold: false },
+  { text: "highly efficient, core-web-vitals optimized engineering plan ", bold: true },
+  { text: "built to unlock massive digital growth and streamline user retention.", bold: false }
 ];
 
 const serviceFeaturesData: ServiceFeatureItem[] = [
   {
     icon: '/industryicons/sphere.svg',
     title: 'React & Next.js',
-    description: 'Building fast, SEO-friendly frontends with the most popular modern frameworks.'
+    description: 'Blazing-fast, SEO-optimized frontends leveraging React 19, Next.js, and static site generation (SSG) to achieve maximum performance scores.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
     title: 'Node.js & Python',
-    description: 'Scalable backend services designed for high availability and performance.'
+    description: 'High-concurrency backend services designed for real-time data flows, rapid API integrations, and robust memory allocations.'
   },
   {
     icon: '/industryicons/sphere.svg',
     title: 'PWA Development',
-    description: 'Creating progressive web apps that offer app-like experiences in the browser.'
+    description: 'Progressive Web Apps utilizing service workers and local caching layers to deliver fully responsive, offline-capable app experiences.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
     title: 'Microservices',
-    description: 'Architecting modular systems that allow for independent scaling and maintenance.'
+    description: 'Architecting loosely coupled, modular service patterns that permit continuous local deployments and isolate system dependencies.'
   }
 ];
 
 const deliverMVPData = {
   label: "WEB EXCELLENCE",
-  title: "Committed to",
-  accentText: "Seamless Execution",
-  description: "Leapsofts delivers high-performing web applications that are fully committed to your project's success. We focus on transparency, communication, and technical rigor to deliver results that exceed expectations.",
+  title: "How Can We Deliver Your Web App in",
+  accentText: "3-5 months?",
+  description: "Leapsofts is an elite custom web engineering partner. By combining automated Vercel/AWS deployments, pre-built high-performance web modules, and dedicated agile squads, we deploy custom enterprise web applications within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
-      title: "Agile Development.",
-      description: "Iterative sprints focused on delivering functional value early and often."
+      title: "Agile Sprint Delivery.",
+      description: "Leveraging iterative bi-weekly sprint cycles and transparent task dashboards to deliver incremental value and maintain visual alignment."
     },
     {
-      title: "Security First.",
-      description: "Implementing industry-standard security protocols to protect your data and users."
+      title: "Comprehensive Security.",
+      description: "Integrating SOC2 database controls, SSL encryption, OAuth2 verification, and strict cross-origin resource sharing (CORS) rules to secure all transactions."
     },
     {
-      title: "UX-Driven Design.",
-      description: "Every feature is designed with the end-user in mind to ensure maximum engagement."
+      title: "UX-Driven Responsive Architecture.",
+      description: "Drafting technical wireframes, interactive user maps, and accessible UI grids that ensure friction-free task execution across mobile and desktop."
     },
     {
-      title: "Post-Launch Support.",
-      description: "Continuous monitoring and updates to keep your application running at peak performance."
+      title: "Post-Launch Web Support.",
+      description: "Proactive system upgrades, cloud resource balancing, security patch audits, and performance tuning to secure long-term digital authority."
     }
   ]
 };
@@ -144,62 +144,116 @@ const deliverMVPData = {
 const processPhasesDefault: ProcessPhase[] = [
   {
     id: 1,
-    phase: "PHASE 1: REQUIREMENT ANALYSIS",
-    title: "Understanding Business Needs",
-    description: "We clarify objectives, document requirements, and align expectations before execution.",
+    phase: "PHASE 1: WEB VIEWPORT DESIGN & SYSTEM PROTOTYPING",
+    title: "Web Prototype & Layout Design",
+    description:
+      "We plan the interface hierarchies, viewport grids, and select rendering models designed to scale with your user demands.",
     features: [
-      "Business & Technical Requirement Gathering",
-      "Stakeholder Discussions",
-      "Initial Design & Roadmap Planning",
-    ],
+      {
+        title: "Atomic Responsive Wireframing",
+        description:
+          "Create fluid UI layouts and navigation flows across multiple screen sizes to eliminate interface friction."
+      },
+      {
+        title: "Rendering Mode Architecture",
+        description:
+          "Define Next.js/React rendering models (SSR, SSG, or Client-Side Hydration) to balance initial load speeds and search engine indices."
+      },
+      {
+        title: "API Data Schema Mapping",
+        description:
+          "Design lightweight REST and GraphQL communications bridges that connect user actions with backend databases."
+      }
+    ]
   },
   {
     id: 2,
-    phase: "PHASE 2: DISCOVERY",
-    title: "Blueprinting a Scalable & Secure Solution",
-    description: "Transform requirements into a scalable, user-focused solution blueprint.",
+    phase: "PHASE 2: CLIENT-STATE & SECURE API SPECIFICATION",
+    title: "State & Endpoint Configuration",
+    description:
+      "Formulating strict browser caching architectures, cloud networks, and transaction security rules.",
     features: [
-      "Software Requirements Specification (SRS)",
-      "Technical Architecture Design",
-      "Risk Management & Mitigation Strategy",
-    ],
+      {
+        title: "Browser Caching & Global Store",
+        description:
+          "Architect robust, normalized global states using Zustand or Redux alongside intelligent local caching rules."
+      },
+      {
+        title: "CDN & Edge Topologies",
+        description:
+          "Configure cloud networks utilizing edge servers (Vercel/Cloudflare CDNs) to host static asset distributions with zero latency."
+      },
+      {
+        title: "Zero-Trust Security Controls",
+        description:
+          "Define secure cookie headers, strict Cross-Origin Resource Sharing (CORS) configurations, and TLS encryption parameters."
+      }
+    ]
   },
   {
     id: 3,
-    phase: "PHASE 3: DEVELOPMENT & EVALUATION",
-    title: "Agile Development & Quality Assurance",
-    description: "We build, test, and refine the product through iterative development cycles.",
+    phase: "PHASE 3: HIGH-VELOCITY RESPONSIVE CODING",
+    title: "Responsive Development & E2E Testing",
+    description:
+      "Building your high-performance frontend interfaces and secure backend routines in parallel agile cycles.",
     features: [
-      "Frontend & Backend Engineering",
-      "Agile SCRUM with Weekly Reviews",
-      "QA Testing & Performance Validation",
-    ],
+      {
+        title: "Blazing-Fast UI Construction",
+        description:
+          "Write optimized React 19/TypeScript components achieving near-perfect Google Lighthouse performance metrics."
+      },
+      {
+        title: "High-Concurrency Routing",
+        description:
+          "Develop server routes and backend services using high-concurrency Node.js or Python systems."
+      },
+      {
+        title: "Automated E2E Testing Runs",
+        description:
+          "Integrate automated Playwright and Cypress end-to-end browser simulators to capture bugs before compilation."
+      }
+    ]
   },
   {
     id: 4,
-    phase: "PHASE 4: CONTINUOUS SUPPORT",
-    title: "Launch, Support & Maintenance",
-    description: "Ensuring smooth deployment with long-term operational reliability.",
+    phase: "PHASE 4: EDGE DEPLOYMENT & VITALS EVOLUTION",
+    title: "Deployment & Vitals Tuning",
+    description:
+      "Seamless edge releases, continuous performance log tracking, and framework upgrades for ongoing security.",
     features: [
-      "Production Deployment & Rollout",
-      "SLA-Based Operational Support",
-      "Ongoing Maintenance & Enhancements",
-    ],
-  },
+      {
+        title: "Zero-Downtime Deployment Pipelines",
+        description:
+          "Establish continuous integration pipelines that deploy live upgrades with rolling releases and zero session disruption."
+      },
+      {
+        title: "Core Web Vitals Tracking",
+        description:
+          "Monitor real-time system metrics (LCP, FID, CLS) and database indexes to sustain fast page response speeds."
+      },
+      {
+        title: "Continuous Systems Evolution",
+        description:
+          "Implement react/framework patch sets, dependency upgrades, and security renewals to support ongoing SaaS growth."
+      }
+    ]
+  }
 ];
 
 const phaseLabelsDefault = [
-  "REQUIREMENT ANALYSIS",
-  "SOLUTION DESIGN",
-  "DEVELOPMENT & EVALUATION",
-  "CONTINUOUS SUPPORT",
+  "VIEWPORT DESIGN",
+  "STATE & API SETUP",
+  "RESPONSIVE CODING",
+  "DEPLOYMENT & TUNING",
 ];
 
-const title = "Advanced Web Applications";
+const title = "Enterprise Web Application Engineering";
 const subtitle = "";
 
 const introDescription = [
-  { text: "Scalable, secure, and modern web solutions designed to propel your business forward.", bold: false },
+  { text: "We engineer high-performance, responsive ", bold: false },
+  { text: "enterprise web applications ", bold: true },
+  { text: "designed to streamline operational complexity and support global user scale. Leveraging modern frontend rendering and secure backend microservices, we build reliable SaaS platforms and digital products that eliminate latency and scale seamlessly with your growth.", bold: false }
 ]
 
 const WebAppDevelopment: React.FC = () => {
@@ -220,10 +274,10 @@ const WebAppDevelopment: React.FC = () => {
       />
       <InfoGrid data={infoGridData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Web "
-        titleAccent="Strategy"
-        titleEnd=" Session"
+        label="COMPLIMENTARY STRATEGY SESSION"
+        titleMain="Map your "
+        titleAccent="web"
+        titleEnd=" architecture."
         description={streamlineDescription}
         imageUrl="/streamline.png"
       />

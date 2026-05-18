@@ -18,24 +18,24 @@ const capabilitiesSlides: CapabilitySlide[] = [
         image: capabilitiesImg,
         items: [
             {
-                name: 'Implementation Advisory',
+                name: 'Custom Salesforce Architecture Advisory',
                 description:
-                    "LeapSoft’s Salesforce consulting enhances scalability, customization, and creates intuitive applications."
+                    "Structuring scalable CRM foundations, custom metadata strategies, and robust data isolation models to secure operations."
             },
             {
-                name: 'Comprehensive Management',
+                name: 'Certified Salesforce Administration & Support',
                 description:
-                    'Providing total CRM administration and upkeep, along with scalable solutions.'
+                    'Providing complete multi-tenant administration, user permissions profiles management, and sandbox release governance.'
             },
             {
-                name: 'CRM Integration',
+                name: 'Enterprise Systems & ERP Integrations',
                 description:
-                    "LeapSoft’s integration services streamline your marketing, sales, and customer service through automation."
+                    "Integrating Salesforce with external tools, billing pipelines, and email marketing databases via secure APIs."
             },
             {
-                name: 'Migration Assistance',
+                name: 'Zero-Loss Database CRM Migration',
                 description:
-                    'We guide your transition from existing CRM systems to Salesforce, tailoring the process to your specific requirements.'
+                    'Extracting, normalizing, and migrating large legacy CRM databases into Salesforce without data loss or downtime.'
             }
         ]
     },
@@ -46,24 +46,24 @@ const capabilitiesSlides: CapabilitySlide[] = [
         image: platformImg,
         items: [
             {
-                name: 'Salesforce Personalization',
+                name: 'Lightning Layout Personalization & Views',
                 description:
-                    'Develop tailored Salesforce solutions that align with business objectives and optimize returns.'
+                    'Configuring custom page layouts, dynamic Lightning record views, and custom permissions maps to optimize workflows.'
             },
             {
-                name: 'Streamlined Dashboards',
+                name: 'Advanced Reporting & Tableau Dashboards',
                 description:
-                    'Facilitate effortless sales and marketing reporting with simplified data analysis and smart reporting tools.'
+                    'Building highly intuitive Salesforce reports, dashboard indicators, and interactive Tableau metrics to drive sales insights.'
             },
             {
-                name: 'Tailored Solutions',
+                name: 'Tailored Apex Trigger Configurations',
                 description:
-                    'Adapt and enhance existing Salesforce solutions with custom development to fit your business requirements.'
+                    'Creating custom validation gates, Apex trigger events, and complex flow automation rules to align with operations.'
             },
             {
-                name: 'Advanced Data Handling',
+                name: 'Dynamic Bulk Data Orchestration',
                 description:
-                    'Create innovative Salesforce data management solutions for clients, ensuring secure and fluid data integration.'
+                    'Designing enterprise bulk data management solutions, handling millions of records safely using Salesforce Bulk APIs.'
             }
         ]
     },
@@ -74,24 +74,24 @@ const capabilitiesSlides: CapabilitySlide[] = [
         image: capabilitiesImg,
         items: [
             {
-                name: 'Sales & Marketing Automation',
+                name: 'Automated Sales Engagement Workflows',
                 description:
-                    'Optimize sales and marketing workflows for enhanced ROI and productivity.'
+                    'Automating lead scoring mechanics, opportunity transitions, and email flows using Salesforce Flow Builder.'
             },
             {
-                name: 'Enhanced Service Cloud',
+                name: 'Omni-Channel Customer Service Architecture',
                 description:
-                    'Boost customer loyalty and engagement for partner businesses and entities.'
+                    'Setting up case routing rules, live chat routing parameters, and support desk portals to elevate retention.'
             },
             {
-                name: 'Financial Services Advancement',
+                name: 'Financial Services Cloud Customization',
                 description:
-                    'Utilize integrated CRM cloud solutions to double your business growth rate.'
+                    'Customizing FSC tools to model complex client wealth files, policy records, and secure transactions.'
             },
             {
-                name: 'Sales Cloud Solutions',
+                name: 'Custom Sales Cloud Implementations',
                 description:
-                    'Enhance and automate your sales process with advanced sales cloud implementations.'
+                    'Deploying custom Sales Cloud parameters, opportunity pipelines, and quota tracking engines to support operations.'
             }
         ]
     },
@@ -102,24 +102,24 @@ const capabilitiesSlides: CapabilitySlide[] = [
         image: platformImg,
         items: [
             {
-                name: 'Agile Salesforce Methodology',
+                name: 'Feature-Driven Agile Release Sprints',
                 description:
-                    'Adopt a flexible approach to Salesforce development for deeper customer insights.'
+                    'Organizing release cycles around scrum pods, using modern Salesforce DX tools for code deployment.'
             },
             {
-                name: 'AppExchange Support',
+                name: 'End-to-End AppExchange Product Design',
                 description:
-                    'Transition your products to AppExchange and enhance them with our specialized technical assistance.'
+                    'Designing, building, and security-reviewing custom software packages for successful AppExchange launches.'
             },
             {
-                name: 'Force.com Solutions',
+                name: 'Custom Force.com Cloud Development',
                 description:
-                    'Deliver comprehensive Force.com development services for simplifying intricate business operations.'
+                    'Writing bespoke logic on the Force.com platform to automate core industrial systems and client portal APIs.'
             },
             {
-                name: 'Seamless Integration & Transfer',
+                name: 'Cross-Org System Synchronizations',
                 description:
-                    'Aid businesses in smoothing data processes and synchronization through app integration and migration.'
+                    'Enabling automated real-time synchronizations between parent and child Salesforce orgs with complete security.'
             }
         ]
     },
@@ -130,36 +130,35 @@ const capabilitiesSlides: CapabilitySlide[] = [
         image: capabilitiesImg,
         items: [
             {
-                name: 'Third-Party App Integration',
+                name: 'High-Speed REST/SOAP Integration Bridges',
                 description:
-                    'Link Salesforce with external applications using REST, SOAP APIs, and tailored web services.'
+                    'Linking Salesforce with external applications using REST, SOAP APIs, and tailored web services.'
             },
             {
-                name: 'Financial Sync',
+                name: 'Billing & Accounting System Sync',
                 description:
-                    'Merge Salesforce accounting for insightful data analysis, invoice management, and client profiling.'
+                    'Syncing Salesforce account entries with tools like QuickBooks, NetSuite, or Stripe for instant invoicing.'
             },
             {
-                name: 'Database Synchronization',
+                name: 'External Data Lake Sync Managers',
                 description:
-                    'Assist businesses in automating marketing and deriving potent data insights.'
+                    'Configuring daily bulk data pipelines to replicate CRM tables into secure cloud data warehouses (Snowflake/BigQuery).'
             },
             {
-                name: 'Marketing Strategy Automation',
+                name: 'Marketing Cloud Journey Integrations',
                 description:
-                    'Facilitate Salesforce integration with automation platforms for crafting customer journeys and cultivating leads.'
+                    'Syncing Salesforce records with Marketing Cloud or Pardot platforms to coordinate sophisticated customer journeys.'
             }
         ]
     }
 ];
 
-
 const serviceOverviewData = {
     label: "SALESFORCE CRM",
-    titleMain: "Empower Your",
-    titleAccent: "Sales",
-    titleEnd: "Success",
-    description: "Leapsofts is your strategic partner for Salesforce development and optimization. We help you leverage the world's #1 CRM to streamline your sales, service, and marketing operations, driving higher efficiency and a better customer experience.",
+    titleMain: "Unifying Your",
+    titleAccent: "Enterprise",
+    titleEnd: "Ecosystem",
+    description: "At Leapsofts, we engineer highly customized Salesforce environments that transform raw data pipelines into strategic business tools. By writing optimized, secure Apex controllers, designing high-fidelity Lightning Web Components, and integrating third-party marketing and billing channels, we help organizations automate client interactions, enforce security compliances, and establish a single source of truth across their entire CRM operation.",
     imagePath: laptopImg
 };
 
@@ -169,123 +168,198 @@ const infoGridData: InfoGridProps['data'] = {
     items: [
         {
             icon: '01',
-            title: '360° Customer View',
-            description: 'Gain a complete understanding of your customers across all touchpoints.'
+            title: 'Unified 360° Data Aggregation',
+            description: 'Synthesize customer touchpoints, database interactions, and support tickets into one singular dashboard view.'
         },
         {
             icon: '02',
-            title: 'Automated Workflows',
-            description: 'Reduce manual tasks and increase productivity with powerful automation.'
+            title: 'Apex & LWC Workflow Automation',
+            description: 'Eradicate manual entry errors and double sales speed by automating opportunity pipelines and security controls.'
         },
         {
             icon: '03',
-            title: 'Data-Driven Insights',
-            description: 'Make smarter decisions with real-time analytics and predictive modeling.'
+            title: 'Real-Time Predictive Data Metrics',
+            description: 'Equip your management with real-time sales forecasting dashboards and smart predictive metrics.'
         },
         {
             icon: '04',
-            title: 'Scalable Growth',
-            description: 'A platform that grows with your business, from startup to enterprise.'
+            title: 'Resilient Enterprise Cloud Architecture',
+            description: 'A highly scalable CRM framework that adjusts smoothly as your company grows, ensuring robust performance under high user loads.'
         }
     ]
 };
 
 const streamlineDescription = [
-    { text: "Your CRM should be your ", bold: false },
-    { text: "strongest asset", bold: true },
-    { text: ", not a hurdle. Leapsofts offers a ", bold: false },
-    { text: "complimentary Salesforce audit session ", bold: true },
-    { text: "to help you identify ", bold: false },
-    { text: "optimization opportunities ", bold: true },
-    { text: "that increase ROI and empower your sales team.", bold: false },
+  { text: "Whether modernizing a complex ", bold: false },
+  { text: "legacy enterprise web portal ", bold: true },
+  { text: "or engineering a ", bold: false },
+  { text: "new Salesforce ecosystem", bold: true },
+  { text: ", our experts deliver immediate technical clarity. We conduct a deep-dive analysis of your current org, map out metadata components, evaluate API integrations, and formulate a ", bold: false },
+  { text: "highly efficient, customized Apex/LWC engineering plan ", bold: true },
+  { text: "built to unlock massive sales growth and streamline client retention.", bold: false }
 ];
 
 const serviceFeaturesData: ServiceFeatureItem[] = [
     {
         icon: '/industryicons/sphere.svg',
         title: 'Custom Apex Development',
-        description: 'Building powerful, custom logic tailored to your specific business needs.'
+        description: 'Writing robust, optimized Apex triggers, controllers, and batch jobs to handle complex custom business logic.'
     },
     {
         icon: '/industryicons/bipiramida.svg',
         title: 'LWC Development',
-        description: 'Creating modern, responsive user interfaces with Lightning Web Components.'
+        description: 'Building modern, lightning-fast Lightning Web Components with responsive designs and local state caches.'
     },
     {
         icon: '/industryicons/sphere.svg',
         title: 'AppExchange Build',
-        description: 'Helping you develop and launch your own products on the Salesforce AppExchange.'
+        description: 'Engineering, packaging, and guiding your custom application through the strict Salesforce Security Review process.'
     },
     {
         icon: '/industryicons/bipiramida.svg',
         title: 'Managed Services',
-        description: 'Ongoing support and optimization to ensure your Salesforce stays peak-performing.'
+        description: 'Providing ongoing sandbox support, metadata cleanups, and system health checks to keep your CRM peak-performing.'
     }
 ];
 
 const deliverMVPData = {
     label: "SALESFORCE EXCELLENCE",
-    title: "Committed to",
-    accentText: "CRM Success",
-    description: "Leapsofts provides certified Salesforce specialists who are fully committed to your project's success. We focus on transparency, best practices, and technical rigor.",
+    title: "Our Commitment to Deliver Your Salesforce Setup in",
+    accentText: "3-5 months?",
+    description: "Leapsofts is an elite custom Salesforce development partner. By combining fully integrated CI/CD, certified Salesforce developers, and dedicated agile pods, we implement and deploy enterprise-ready Salesforce solutions within an accelerated 3 to 5 month timeline—on time, every time.",
     items: [
         {
             title: "Certified Expertise.",
-            description: "Developers and consultants with extensive Salesforce certifications."
+            description: "Accessing senior developers and architects holding advanced Salesforce certs (Apex, LWC, Integration)."
         },
         {
             title: "Scalable Solutions.",
-            description: "Designing architectures that support your long-term business growth."
+            description: "Designing customizable metadata models and database limits that scale with high transaction metrics."
         },
         {
             title: "Seamless Integration.",
-            description: "Connecting Salesforce with your existing tech stack for a unified experience."
+            description: "Syncing Salesforce with legacy platforms, databases, and third-party APIs using secure REST controllers."
         },
         {
-            title: "Agile Delivery.",
-            description: "Iterative development that ensures speed and alignment with your goals."
+            title: "Agile Sandbox Delivery.",
+            description: "Deploying SCRUM pods to build, test, and release clean configurations inside secure sandbox spaces."
         }
     ]
 };
 
 const processPhasesDefault: ProcessPhase[] = [
-    {
-        id: 1,
-        phase: "PHASE 1: DISCOVERY",
-        title: "Needs & Process Audit",
-        description: "We analyze your current sales processes and business objectives.",
-        features: ["Stakeholder Workshops", "Process Mapping", "Gap Analysis"],
-    },
-    {
-        id: 2,
-        phase: "PHASE 2: DESIGN",
-        title: "Salesforce Blueprinting",
-        description: "Designing the custom objects, workflows, and integrations for your org.",
-        features: ["Solution Architecture", "Data Model Design", "Integration Planning"],
-    },
-    {
-        id: 3,
-        phase: "PHASE 3: IMPLEMENTATION",
-        title: "Development & Config",
-        description: "Building and configuring your Salesforce solution to specification.",
-        features: ["Apex & LWC Prep", "Flow Automation", "Sandbox Testing"],
-    },
-    {
-        id: 4,
-        phase: "PHASE 4: OPTIMIZATION",
-        title: "Launch & Training",
-        description: "Deploying the solution and ensuring your team knows how to use it.",
-        features: ["Production Go-Live", "User Training", "Post-Launch Support"],
-    },
+  {
+    id: 1,
+    phase: "PHASE 1: SALESFORCE DISCOVERY & ORG ANALYSIS",
+    title: "Needs & Org Performance Analysis",
+    description:
+      "We analyze your active CRM settings, map existing pipelines, and locate metadata bottlenecks.",
+    features: [
+      {
+        title: "Active Org Configuration Audit",
+        description:
+          "Parse current profiles, validation rules, and Apex triggers to locate performance leaks."
+      },
+      {
+        title: "Workflow Strategy Workshops",
+        description:
+          "Coordinate with team leads to define target conversion metrics and map out required custom cloud flows."
+      },
+      {
+        title: "Sandbox Release Blueprinting",
+        description:
+          "Draft a comprehensive schema migration plan, data isolation model, and technology configuration roadmap."
+      }
+    ]
+  },
+  {
+    id: 2,
+    phase: "PHASE 2: ARCHITECTURE & DATA MODEL SPECIFICATION",
+    title: "Schema Modeling & Sync Rules Setup",
+    description:
+      "Modeling customized relational schemas, API connection gates, and secure permissions matrices.",
+    features: [
+      {
+        title: "Custom Entity Relationship Diagrams",
+        description:
+          "Map secure custom objects, child-to-parent relationships, and custom metadata indexes."
+      },
+      {
+        title: "Integration Schema Mappings",
+        description:
+          "Design lightweight endpoints and synchronization frequencies using REST/SOAP Salesforce APIs."
+      },
+      {
+        title: "Zero-Trust Sharing Policies",
+        description:
+          "Draft strict sharing rules, field-level security configurations, and user profile parameters."
+      }
+    ]
+  },
+  {
+    id: 3,
+    phase: "PHASE 3: HIGH-VELOCITY APEX & LWC DEVELOPMENT",
+    title: "Bespoke Apex Coding & Component Building",
+    description:
+      "Writing optimized Apex logic triggers, responsive Lightning layouts, and running sandbox tests.",
+    features: [
+      {
+        title: "Advanced Apex Triggers & batch",
+        description:
+          "Code highly efficient Apex controllers, database batch processes, and custom event handlers."
+      },
+      {
+        title: "Lightning Web Component Grids",
+        description:
+          "Build modern Lightning Web Components with responsive interfaces and smart local page caching."
+      },
+      {
+        title: "90%+ Unit Test Validation",
+        description:
+          "Maintain strict unit testing parameters and sandbox deployments to prevent regression issues."
+      }
+    ]
+  },
+  {
+    id: 4,
+    phase: "PHASE 4: SANDBOX TRANSITION & CRM EVOLUTION",
+    title: "Production Migration & Team Onboarding",
+    description:
+      "Seamless Change Sets rollouts, dynamic dashboards onboarding, and proactive metadata maintenance.",
+    features: [
+      {
+        title: "Change Set Deployment Rollout",
+        description:
+          "Deploy custom code packages safely from Sandbox to Production using robust release gates."
+      },
+      {
+        title: "Dashboards Interactive Activation",
+        description:
+          "Deliver dynamic reporting setups and interactive onboarding sessions to accelerate user CRM adoption."
+      },
+      {
+        title: "Proactive CRM Health Governance",
+        description:
+          "Perform systematic Salesforce version reviews, custom metadata pruning, and database query optimizations."
+      }
+    ]
+  }
 ];
 
-const phaseLabelsDefault = ["DISCOVERY", "DESIGN", "IMPLEMENTATION", "OPTIMIZATION"];
+const phaseLabelsDefault = [
+  "ORG ANALYSIS",
+  "SCHEMA & SYNC SPECS",
+  "APEX & LWC CODING",
+  "PRODUCTION EVOLUTION",
+];
 
-const title = "Leading Salesforce Development Ally";
+const title = "Enterprise Salesforce Development & Cloud Architecture";
 const subtitle = "";
 
 const introDescription = [
-    { text: "Leapsofts covers every aspect of Salesforce development, from strategy to implementation.", bold: false },
+  { text: "We deliver advanced Salesforce customization, custom ", bold: false },
+  { text: "Apex & Lightning Web Components (LWC) development", bold: true },
+  { text: ", and secure third-party ERP/CRM database integrations. By streamlining Sales Cloud workflows, custom Service Cloud setups, and AppExchange packaging, we engineer cohesive data systems that optimize client pipeline conversion and reduce operational friction.", bold: false }
 ]
 
 const Salesforce: React.FC = () => {
@@ -312,10 +386,10 @@ const Salesforce: React.FC = () => {
             />
             <InfoGrid data={infoGridData} />
             <StreamlineSuccess
-                label="STREAMLINE YOUR SUCCESS"
-                titleMain="Salesforce "
-                titleAccent="Audit"
-                titleEnd=" Session"
+                label="COMPLIMENTARY STRATEGY SESSION"
+                titleMain="Map your "
+                titleAccent="Salesforce"
+                titleEnd=" roadmap."
                 description={streamlineDescription}
                 imageUrl="/streamline.png"
             />
@@ -325,7 +399,7 @@ const Salesforce: React.FC = () => {
                 items={serviceFeaturesData}
             />
             <DeliverMVP data={deliverMVPData} />
-            <Processes title="OUR SALESFORCE PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+            <Processes title="OUR CUSTOM SALESFORCE PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
         </>
     )
 }

@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
-import { useOutletContext } from 'react-router-dom'
-import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout'
-import IntroComponent from '../../components/IntroComponent/IntroComponent'
-import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection'
-import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
-import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
+import React, { useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
+import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
+import IntroComponent from '../../components/IntroComponent/IntroComponent';
+import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
+import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
 
 const commitmentData: CommitmentSectionProps['data'] = {
@@ -14,20 +14,20 @@ const commitmentData: CommitmentSectionProps['data'] = {
     {
       icon: '/industryicons/sphere.svg',
       title: 'Total System Transparency',
-      description: "We eliminate operational blind spots by integrating real-time data feeds across your inventory and fleet, ensuring a 360-degree view of your business."
+      description: "Eliminating operational blind spots by linking active stock metrics with dispatch telematics, providing teams with a real-time, 360-degree view of your supply chain network."
     },
     {
       icon: '/industryicons/bipiramida.svg',
-      title: 'Operational ROI',
-      description: "We build efficiency engines that mechanize repetitive manual tasks—from billing to onboarding—aiming for significant overhead reductions and performance gains."
+      title: 'Accelerated Operational ROI',
+      description: "We build intelligent optimization engines that mechanize repetitive processing, order routing, and client billing procedures to cut manual overheads."
     },
     {
       icon: '/industryicons/diamond.svg',
-      title: 'Future-Proofing',
-      description: "By modernizing legacy systems and utilizing scalable cloud architecture, we ensure your software remains resilient against technological shifts and integrates tools seamlessly."
-    },
+      title: 'Dynamic Scalability',
+      description: "Modernizing monolithic inventory databases to modular, cloud-native container platforms to support high seasonal peaks without site latency or transaction drops."
+    }
   ]
-}
+};
 
 const retailSolutionsData: EmergingTechProps['data'] = {
   label: 'OUR SOLUTIONS',
@@ -37,36 +37,46 @@ const retailSolutionsData: EmergingTechProps['data'] = {
   items: [
     {
       icon: 'legacy',
-      title: 'Inventory Management',
-      description: 'Real-time stock reports and multi-warehouse tracking with predictive analytics to optimize purchasing.'
+      title: 'Predictive Inventory Control',
+      description: 'Deploying multi-warehouse inventory systems featuring real-time stock counts, automated replenishment thresholds, and machine-learning-driven seasonal demand forecasting.'
     },
     {
       icon: 'enterprise',
-      title: 'Order Fulfillment',
-      description: 'End-to-end tracking tools leveraging purchase history for targeted upselling and cross-selling.'
+      title: 'Omnichannel Checkout Gateways',
+      description: 'Integrating secure transaction processors, localized regional payment routes, and unified cart flows across mobile, web, and physical POS networks.'
     },
     {
       icon: 'thirdParty',
-      title: 'Fleet & Telematics',
-      description: 'Optimization tools focused on maximizing vehicle performance and delivery productivity.'
+      title: 'Smart Order Orchestration',
+      description: 'Automating checkout fulfillment paths using advanced route algorithms to dispatch orders from the closest warehouse holding adequate stock.'
     },
     {
       icon: 'saas',
-      title: 'Billing & Payments',
-      description: 'Secure, seamless transaction cycles with e-invoicing and diverse payment gateway integrations.'
+      title: 'Fleet Telematics & Routing',
+      description: 'Enabling high-frequency GPS coordinate mapping, dynamic transit route calculations, and vehicle diagnostic logging to guarantee delivery SLA speeds.'
     },
     {
       icon: 'product',
-      title: 'Vendor & Client CRM',
-      description: 'A centralized platform for managing interaction history, contact info, and sales pipelines.'
+      title: 'B2B Wholesaler Portals',
+      description: 'Building dedicated self-service wholesale client dashboards with customizable bulk pricing tables, credit line parameters, and instant invoice tracking.'
     },
     {
-      icon: 'mobile',
-      title: 'Employee Onboarding',
-      description: 'HR platforms streamlining recruiting, compliance, and personalized training modules.'
+      icon: 'legacy',
+      title: 'Supplier Relationship CRM',
+      description: 'Centralizing supplier contract directories, performance SLAs, item fulfillment metrics, and automated purchase requisition cycles.'
+    },
+    {
+      icon: 'product',
+      title: 'Dynamic Price Calculators',
+      description: 'Configuring real-time calculation engines that adjust wholesale pricing tiers based on order volume, customer loyalty scores, and current inventory thresholds.'
+    },
+    {
+      icon: 'enterprise',
+      title: 'Retail Staff Onboarding',
+      description: 'Streamlining multi-branch employee training tracking, security check verifications, and shift schedules updates through integrated employee platforms.'
     }
   ]
-}
+};
 
 const streamlineDescription = [
   { text: "Streamline your ", bold: false },
@@ -75,6 +85,14 @@ const streamlineDescription = [
   { text: "complimentary retail strategy session ", bold: true },
   { text: "to help you optimize your ", bold: false },
   { text: "supply chain and customer engagement.", bold: true },
+];
+
+const title = "Wholesale & Retail Software Development, Omnichannel E-commerce & Smart Logistics";
+const subtitle = "";
+const introDescription = [
+  { text: "At Leapsofts, we engineer highly performant, security-first ", bold: false },
+  { text: "wholesale distribution systems, omnichannel retail engines, and multi-channel inventory management platforms ", bold: true },
+  { text: "tailored to clear supply chain complexities and expand profit margins. By integrating automated stock replenishment workflows, optimizing multi-warehouse coordinate routing, and deploying unified e-commerce checkout paths, we empower retail brands and wholesale distributors to achieve global scale with absolute operational efficiency.", bold: false }
 ];
 
 const WholesaleRetail: React.FC = () => {
@@ -90,11 +108,9 @@ const WholesaleRetail: React.FC = () => {
   return (
     <>
       <IntroComponent
-        title="Modern Technology for Wholesale & Retail"
-        description=""
-        introDescription={[
-          { text: "Upgrading client relationships and automating complex logistics with custom-built retail and commerce software solutions.", bold: false }
-        ]}
+        title={title}
+        description={subtitle}
+        introDescription={introDescription}
       />
       <CommitmentSection data={commitmentData} />
       <StreamlineSuccess
@@ -113,7 +129,7 @@ const WholesaleRetail: React.FC = () => {
         titleEnd=" retail businesses"
       />
     </>
-  )
-}
+  );
+};
 
-export default WholesaleRetail
+export default WholesaleRetail;

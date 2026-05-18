@@ -3,12 +3,12 @@ import styles from './figures.module.css';
 import AnimatedCounter from '../../../components/AnimatedCounter/AnimatedCounter';
 
 const highlightsData = [
-    { number: 21, suffix: '', text: 'years delivering reliable, high-impact software solutions' },
-    { number: 250, suffix: '', text: 'strong engineering team ready to scale your vision with speed and precision' },
-    { number: 5, suffix: '', text: 'Lead by our U.A.E headquarters, operating in 5 Countries supporting business internationally' },
-    { number: 150, suffix: '+', text: 'clients served, from Fortune 200 leaders to innovative startups' },
-    { number: 94, suffix: '%', text: 'client retention thanks to consistent results and partnership focus' },
-    { number: 3, suffix: '', text: 'months average time-to-market to deliver an MVP' },
+    { number: 21, suffix: '', text: 'years of engineering dependable, high-impact digital products' },
+    { number: 250, suffix: '+', text: 'software specialists ready to scale your product vision with precision' },
+    { number: 5, suffix: '', text: 'strategic offices globally, led by our UAE headquarters to support international scale' },
+    { number: 150, suffix: '+', text: 'products launched across Fortune 200 enterprises and hyper-growth startups' },
+    { number: 94, suffix: '%', text: 'client retention powered by sustained technical execution and clear communication' },
+    { number: 3, suffix: '', text: 'months average timeline to deploy a fully-functional, market-ready MVP' },
 ];
 
 const Figures: React.FC = () => {

@@ -13,63 +13,111 @@ import laptopImg from "../../assets/about_laptop_3d.png";
 const processPhasesDefault: ProcessPhase[] = [
   {
     id: 1,
-    phase: "PHASE 1: TEAM ALIGNMENT & DISCOVERY",
-    title: "Requirement Understanding & Team Formation",
-    description: "We align business objectives with the right talent by understanding scope, goals, and technical needs.",
+    phase: "PHASE 1: AGILE POD STRATEGY & DISCOVERY",
+    title: "Resource Audits & Team Structure Scoping",
+    description: "We align key product goals with technical resources by scoping scope constraints, language specs, and senior positions.",
     features: [
-      "Business & Technical Requirement Analysis",
-      "Role Definition & Skill Mapping",
-      "Dedicated Team Composition",
-    ],
+      {
+        title: "Staff Deficit Discovery Scans",
+        description:
+          "Audit active pipeline targets and existing staff levels to map critical talent constraints."
+      },
+      {
+        title: "Pod Seniority Matrix Profiling",
+        description:
+          "Define precise technical profiles (backend language fluencies, React experience scales, and system security credentials)."
+      },
+      {
+        title: "Agile Pod Blueprint Delivery",
+        description:
+          "Draft initial team sizes, sprint delivery speeds, budget forecasts, and sandbox onboarding blueprints."
+      }
+    ]
   },
   {
     id: 2,
-    phase: "PHASE 2: PROJECT INITIATION",
-    title: "Onboarding & Execution Planning",
-    description: "Seamless onboarding of the dedicated team with clear workflows, tools, and delivery expectations.",
+    phase: "PHASE 2: POD ONBOARDING & PIPELINE SYNCHRONIZATION",
+    title: "Structured Transition & Communication Setups",
+    description: "Seamless synchronization of developer pods with your repository rules, daily tasks, and shared workspaces.",
     features: [
-      "Knowledge Transfer & Environment Setup",
-      "Process & Communication Framework",
-      "Milestone & Delivery Planning",
-    ],
+      {
+        title: "System Architecture Deep-Dives",
+        description:
+          "Review historical codebases, data mapping rules, API connections, and documentation structures."
+      },
+      {
+        title: "Development Sandboxes Provisioning",
+        description:
+          "Configure secure local instances, developer Git directory permissions, and credential access keys."
+      },
+      {
+        title: "Daily Scrum Stand-Ups Sync",
+        description:
+          "Define communication boundaries inside Slack/Teams and establish daily stand-up meeting guidelines."
+      }
+    ]
   },
   {
     id: 3,
-    phase: "PHASE 3: DELIVERY & COLLABORATION",
-    title: "Agile Execution & Team Coordination",
-    description: "Our dedicated team works as an extension of yours, delivering consistently through agile practices.",
+    phase: "PHASE 3: HIGH-VELOCITY SPRINT DEVELOPMENT",
+    title: "Agile Feature Construction & Continuous QA Gates",
+    description: "Our developers function natively inside your sprints, creating secure code and verifying visual criteria.",
     features: [
-      "Sprint-Based Development",
-      "Continuous Collaboration & Reporting",
-      "Quality Assurance & Performance Tracking",
-    ],
+      {
+        title: "Sprint-Based Coding Cycles",
+        description:
+          "Code modular UI components, optimize database queries, and author clean, robust branch pull-requests."
+      },
+      {
+        title: "Continuous Automated Testing Gates",
+        description:
+          "Run static analysis checks via SonarQube and verify front-end components using Playwright browser scripts."
+      },
+      {
+        title: "CI/CD Staging Deliveries",
+        description:
+          "Trigger automated build releases directly to staging environments for quick visual validation by stakeholders."
+      }
+    ]
   },
   {
     id: 4,
-    phase: "PHASE 4: SCALING & CONTINUITY",
-    title: "Optimization, Support & Team Scaling",
-    description: "We ensure long-term success with ongoing optimization, scalability, and operational stability.",
+    phase: "PHASE 4: CAPACITY EVOLUTION & LONG-TERM SUPPORT",
+    title: "Elastic Pod Adjustments & Telemetry Audits",
+    description: "Ongoing developer scaling, performance metric scans, and server maintenance sweeps.",
     features: [
-      "Team Scaling & Resource Optimization",
-      "Ongoing Support & Maintenance",
-      "Process Improvement & Long-Term Engagement",
-    ],
-  },
+      {
+        title: "Elastic Team Scaling Adjustments",
+        description:
+          "Dynamically scale active pod allocations to align with commercial launch waves and feature priority changes."
+      },
+      {
+        title: "Scrum Velocity Telemetry Audits",
+        description:
+          "Monitor daily burn-down charts, code delivery metrics, and overall process qualities."
+      },
+      {
+        title: "Continuous Platform Maintenance",
+        description:
+          "Provide regular security reviews, operating systems upgrades, and database performance tuning sweeps."
+      }
+    ]
+  }
 ];
 
 const phaseLabelsDefault = [
-  "TEAM ALIGNMENT",
-  "PROJECT INITIATION",
-  "DELIVERY & COLLABORATION",
-  "SCALING & CONTINUITY",
+  "STRATEGY & DISCOVERY",
+  "TEAM ONBOARDING",
+  "SPRINT CODING & QA",
+  "CAPACITY EVOLUTION",
 ];
 
 const serviceOverviewData = {
   label: "DEDICATED TEAMS",
-  titleMain: "Scale Your",
-  titleAccent: "Engineering",
-  titleEnd: "Capabilities",
-  description: "Build your product with a dedicated team of experts that integrates seamlessly into your workflow. Our dedicated teams provide the scalability and specialized skills needed to accelerate development and maintain high-quality standards.",
+  titleMain: "Scaling Your",
+  titleAccent: "Enterprise",
+  titleEnd: "Thruput",
+  description: "At Leapsofts, we specialize in curating and managing dedicated engineering teams designed to accelerate product development cycles and tackle complex architecture milestones. By hand-picking senior backend developers, frontend React specialists, and certified DevOps engineers who align with your tech stack, we construct highly cohesive agile pods that work natively inside your Jira boards, Slack channels, and code repositories with complete operational alignment.",
   imagePath: laptopImg
 };
 
@@ -79,20 +127,20 @@ const capabilitiesData: CapabilitySlide[] = [
     number: '01',
     title: 'Full-Stack Development',
     items: [
-      { name: 'Frontend Excellence', description: 'Specialized in building responsive, high-performance user interfaces with React and Next.js.' },
-      { name: 'Robust Backend', description: 'Developing scalable architectures using Node.js, Python, and cloud-native services.' },
-      { name: 'DevOps & CI/CD', description: 'Automating deployment pipelines for faster and more reliable releases.' }
+      { name: 'React & Next.js Interface Engineering', description: 'Developing high-fidelity, fluid layouts utilizing React, Next.js, and advanced CSS frameworks, optimized for Core Web Vitals.' },
+      { name: 'High-Concurrency Backend Abstractions', description: 'Engineering resilient backend services using Node.js, Go, or Python with secure PostgreSQL or Redis datastores.' },
+      { name: 'Automated DevOps & Multi-Stage Pipelines', description: 'Constructing Docker-based release environments and automated GitHub Actions CI/CD to accelerate releases safely.' }
     ],
     image: capabilitiesImg
   },
   {
     id: '2',
     number: '02',
-    title: 'Specialized Expertise',
+    title: 'Specialized Engineering',
     items: [
-      { name: 'AI & Data Science', description: 'Integrating intelligent features and data-driven insights into your products.' },
-      { name: 'Cybersecurity', description: 'Ensuring your application is secure and compliant with industry standards.' },
-      { name: 'Cloud Engineering', description: 'Optimizing infrastructure for performance, cost, and reliability.' }
+      { name: 'Applied Machine Learning Pipelines', description: 'Deploying custom PyTorch models, text embeddings, and vector database indexing directly into active software structures.' },
+      { name: 'Continuous Vulnerability Auditing', description: 'Enforcing strict Zero-Trust directory configurations, static code scans (SAST), and compliance shielding.' },
+      { name: 'Scale Infrastructure & Serverless', description: 'Configuring auto-scaling cloud clusters, serverless API routers, and secure multi-region databases on AWS or Azure.' }
     ],
     image: platformImg
   }
@@ -100,97 +148,96 @@ const capabilitiesData: CapabilitySlide[] = [
 
 const infoGridData: InfoGridProps['data'] = {
   label: 'BENEFITS',
-  title: 'Why Choose Dedicated Teams',
+  title: 'Why Choose Dedicated Teams Now',
   items: [
     {
       icon: '01',
-      title: 'Immediate Onboarding',
-      description: 'Quickly scale your team with pre-vetted experts ready to contribute from day one.'
+      title: 'Rapid 14-Day Team Onboarding',
+      description: 'Assemble customized engineering squads and start active coding within two weeks with pre-vetted specialists.'
     },
     {
       icon: '02',
-      title: 'Technical Excellence',
-      description: 'Access top-tier talent with deep expertise in the latest technologies and best practices.'
+      title: 'Top-Tier Senior Talent Pool',
+      description: 'Gain access to senior programmers and technical leads holding advanced industry certifications.'
     },
     {
       icon: '03',
-      title: 'Seamless Integration',
-      description: 'Our teams follow your processes and tools, acting as a natural extension of your internal staff.'
+      title: 'Native Code & Tools Integration',
+      description: 'Our engineers fit natively inside your daily Scrum processes, Git branches, and communication portals.'
     },
     {
       icon: '04',
-      title: 'Cost-Effective Scaling',
-      description: 'Reduce overhead costs associated with hiring and training while maintaining high productivity.'
+      title: 'Optimized Resource Efficiency',
+      description: 'Substantially reduce recruitment fees, employee training costs, and database overheads.'
     }
   ]
 };
 
 const streamlineDescription = [
-  { text: "Need to scale your ", bold: false },
-  { text: "technical capacity ", bold: true },
-  { text: "without the hiring headache? Leapsofts offers a ", bold: false },
-  { text: "complimentary team strategy session ", bold: true },
-  { text: "to help you identify the right roles and ", bold: false },
-  { text: "expert talent ", bold: true },
-  { text: "required to meet your project milestones on time and within budget.", bold: false },
+  { text: "Whether modernizing a complex ", bold: false },
+  { text: "legacy enterprise web portal ", bold: true },
+  { text: "or engineering a ", bold: false },
+  { text: "new custom product architecture", bold: true },
+  { text: ", our experts deliver immediate technical clarity. We conduct a deep-dive analysis of your current developer footprints, map out active resource bottlenecks, evaluate tech stack profiles, and formulate a ", bold: false },
+  { text: "highly efficient, customized team scaling plan ", bold: true },
+  { text: "built to unlock massive digital growth and streamline agile velocity.", bold: false }
 ];
 
 const serviceFeaturesData: ServiceFeatureItem[] = [
   {
     icon: '/industryicons/sphere.svg',
     title: 'Project Management',
-    description: 'Dedicated Scrum Masters to ensure agile workflows and consistent delivery.'
+    description: 'Deploying dedicated Scrum Masters to optimize sprint velocities and coordinate stand-up check-ins.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
     title: 'Quality Engineering',
-    description: 'Integrated QA experts to maintain high code quality and product reliability.'
+    description: 'Integrating QA automation specialists to run Playwright E2E browser tests and unit checks.'
   },
   {
     icon: '/industryicons/sphere.svg',
     title: 'Product Strategy',
-    description: 'Working closely with stakeholders to align technical execution with business goals.'
+    description: 'Collaborating with product owners to convert commercial goals into clear technical task backlogs.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
     title: 'Continuous Support',
-    description: 'Ongoing technical support and maintenance to ensure long-term stability.'
+    description: 'Delivering around-the-clock maintenance, bug resolution tasks, and regular software performance reviews.'
   }
 ];
 
 const deliverMVPData = {
   label: "TEAM EXCELLENCE",
-  title: "Partnering for",
-  accentText: "Technical Success",
-  description: "Leapsofts provides high-performing dedicated teams that are fully committed to your project's success. We focus on transparency, communication, and technical rigor to deliver results that exceed expectations.",
+  title: "Our Commitment to Deliver Your Technical Launch in",
+  accentText: "3-5 months?",
+  description: "Leapsofts is an elite custom dedicated teams and agile staffing partner. By combining fully integrated CI/CD, certified Scrum Masters, and dedicated engineering pods, we launch and deploy highly stable software products within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
       title: "Crystal-Clear Communication.",
-      description: "Regular updates, stand-ups, and documentation ensure everyone is aligned and informed."
+      description: "Conducting daily stand-up check-ins, dynamic sprint reviews, and writing complete technical document logs."
     },
     {
       title: "Tailored Team Structure.",
-      description: "We hand-pick experts whose skills and experience perfectly match your project requirements."
+      description: "Hand-picking dedicated developers whose technical backgrounds precisely match your target architecture guidelines."
     },
     {
       title: "Agile Adaptability.",
-      description: "Our teams are trained in agile methodologies, allowing for rapid pivots and iterative improvements."
+      description: "Leveraging iterative sprint cycles and continuous testing steps to enable quick features pivots."
     },
     {
       title: "Long-Term Partnership.",
-      description: "We don't just provide resources; we build long-term relationships focused on sustainable growth."
+      description: "Providing continuous support, capacity scaling adjustments, and ongoing strategic technology consulting."
     }
   ]
 };
 
-
-
-
-const title = "Where Elite Tech Talent Thrives";
+const title = "Elite Dedicated Engineering Teams & Elastic Agile Pods";
 const subtitle = "";
 
 const introDescription = [
-  { text: "Tech innovators adore our services and for good reason. We provide them with the finest tech talent in the industry.", bold: false },
+  { text: "We deliver highly integrated agile pods, custom ", bold: false },
+  { text: "dedicated engineering teams", bold: true },
+  { text: ", and secure remote governance structures. By streamlining continuous knowledge transfer, Git-based workflows, and integrated automated testing scripts, we assemble elite talent pods designed to act as a seamless extension of your internal technical department.", bold: false }
 ]
 
 const DedicatedTeams: React.FC = () => {
@@ -216,20 +263,20 @@ const DedicatedTeams: React.FC = () => {
       />
       <InfoGrid data={infoGridData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Team "
-        titleAccent="Scaling"
-        titleEnd=" Session"
+        label="COMPLIMENTARY STRATEGY SESSION"
+        titleMain="Map your "
+        titleAccent="dedicated team"
+        titleEnd=" roadmap."
         description={streamlineDescription}
         imageUrl="/streamline.png"
       />
       <ServiceFeatures
-        title='Core Services'
+        title='Expert Engineering Pods'
         description='Our dedicated teams offer a full spectrum of engineering and management services to support your product lifecycle.'
         items={serviceFeaturesData}
       />
       <DeliverMVP data={deliverMVPData} />
-      <Processes title="OUR DEDICATED TEAMS PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <Processes title="OUR CUSTOM DEDICATED TEAMS PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   );
 };

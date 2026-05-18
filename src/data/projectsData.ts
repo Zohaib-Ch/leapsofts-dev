@@ -377,13 +377,11 @@ export const projectsData: ProjectData[] = [
         },
         highlight: {
             'tab-10-0': ['Payment Processor Limited'],
-            'tab-10-1': ['Simplera']
         },
-        projectList: ['Payment Processor Limited', 'Simplera'],
+        projectList: ['Payment Processor Limited'],
         brandVisualImg: '/icons/industries/energy-link.svg',
         tabs: [
             { id: 'tab-10-0', label: 'Payment Processor Limited' },
-            { id: 'tab-10-1', label: 'Simplera'}
         ],
         impact: {
             title: "Transforming Education with Technology",
@@ -391,7 +389,6 @@ export const projectsData: ProjectData[] = [
         },
         tabImages: {
             'tab-10-0': '/projectImages/payment.png',
-            'tab-10-1': '/projectImages/simplera.png'
         },
         summary: {
             description: "Partnering with educational institutions to create technology solutions that enhance learning outcomes and streamline administrative processes.",
@@ -496,7 +493,7 @@ export const projectsData: ProjectData[] = [
             ]
         }
     },
-       {
+    {
         type: 'industry',
         id: 'project-industry-13',
         brand: {
@@ -507,8 +504,7 @@ export const projectsData: ProjectData[] = [
         highlight: {
             'tab-13-0': ['Sales kik'],
             'tab-13-1': ['Cypher Bot'],
-            'tab-13-2': ['Facia'],
-            'tab-13-3': ['Instrat360']
+            'tab-13-2': ['Facia']
         },
         projectList: ['Sales kik', 'Cypher Bot', 'Facia', 'Instrat360'],
         brandVisualImg: '/icons/industries/education-link.svg',
@@ -516,7 +512,6 @@ export const projectsData: ProjectData[] = [
             { id: 'tab-13-0', label: 'Sales kik' },
             { id: 'tab-13-1', label: 'Cypher Bot', isActive: true },
             { id: 'tab-13-2', label: 'Facia' },
-            { id: 'tab-13-3', label: 'Instrat360'}
         ],
         impact: {
             title: "Scaling Patient Care with Remote Monitoring",
@@ -526,7 +521,6 @@ export const projectsData: ProjectData[] = [
             'tab-13-0': '/projectImages/sales.png',
             'tab-13-1': '/ai_team_collaboration_impact.png',
             'tab-13-2': '/projectImages/facia1.png',
-            'tab-13-3': '/projectImages/Instrat360.png'
         },
         summary: {
             description: "Developing a next-generation banking core that enables traditional financial institutions to compete with agile fintech startups.",
@@ -875,7 +869,7 @@ export const projectsData: ProjectData[] = [
             title: "Built with",
             items: [
                 { label: "Frontend", techs: [{ name: "React", icon: "/technologies/React.svg" }] },
-                { label: "Backend", techs: [{ name: "Python", icon: "/technologies/python.svg" }, { name: "Django", icon: "/technologies/django.png" }],  }
+                { label: "Backend", techs: [{ name: "Python", icon: "/technologies/python.svg" }, { name: "Django", icon: "/technologies/django.png" }], }
             ]
         }
     },
@@ -1075,7 +1069,7 @@ export const projectsData: ProjectData[] = [
             images: ["/projectImages/paint.png", "/projectImages/paint1.png"]
         },
         summary: {
-        description: "An interactive Wall Paint Visualizer and Object Color Detection app that enables users to upload images and experiment with different wall colors in real time. The system maintains natural shading and lighting effects to produce realistic results, making it easier to test color combinations before painting.",
+            description: "An interactive Wall Paint Visualizer and Object Color Detection app that enables users to upload images and experiment with different wall colors in real time. The system maintains natural shading and lighting effects to produce realistic results, making it easier to test color combinations before painting.",
             details: [
                 { label: "Industry", value: "Retail" },
                 { label: "Project Type", value: "Product Building" },
@@ -1119,62 +1113,62 @@ export const projectsData: ProjectData[] = [
             ]
         }
     },
-    {
-        type: 'project',
-        id: 'instrat360',
-        brand: {
-            name: 'Instrat360',
-            logo: '/icons/projects/instrat360.svg',
-            description: 'An AI-powered enterprise platform designed to bridge the gap between strategic planning and business execution with governed agentic workflows.',
-        },
-        brandVisualImg: '/icons/projects/instrat360.svg',
-        projectList: ['Strategy Operating Systems', 'Capability App Marketplace', 'Governed AI & Agentic Workflows'],
-        impact: {
-            title: "Instrat360",
-            images: ["/projectImages/Instrat360.png", "/projectImages/Instrat3601.png"]
-        },
-        summary: {
-            description: "INSTRAT360 provides a complete strategy execution and AI-assisted workflow solution for enterprise leaders and business teams. Designed to eliminate strategic drift and automate complex corporate workflows, it turns abstract plans into measurable business outcomes all from a single, secure platform.",
-            details: [
-                { label: "Industry", value: "AI & Automation" },
-                { label: "Project Type", value: "Enterprise Software" },
-                { label: "Service", value: "Custom Software Development" }
-            ]
-        },
-        techStack: {
-            title: "Built with",
-            items: [
-                { label: "Frontend", techs: [{ name: "Next.js", icon: "/technologies/nextjs-2.svg" }] }
-            ]
-        }
-    },
-    {
-        type: 'project',
-        id: 'simplera',
-        brand: {
-            name: 'Simplera',
-            logo: '/icons/projects/simplera.svg',
-            description: 'A smart B2B FinTech platform that helps businesses optimize fixed costs, manage utility contracts, and streamline invoicing.',
-        },
-        brandVisualImg: '/icons/projects/simplera.svg',
-        projectList: ['Cost Optimization', 'Invoice Consolidation', 'Contract Monitoring'],
-        impact: {
-            title: "Simplera",
-            images: ["/projectImages/simplera.png", "/projectImages/simplera1.png"]
-        },
-        summary: {
-            description: "Simplera provides a comprehensive cost management solution for businesses to analyze, reduce, and monitor their operational expenses like energy and telecom. It simplifies corporate accounting by consolidating multiple vendor invoices into a single, transparent overview.",
-            details: [
-                { label: "Industry", value: "FinTech" },
-                { label: "Project Type", value: "Cost Management Platform" },
-                { label: "Service", value: "Custom Software Development" }
-            ]
-        },
-        techStack: {
-            title: "Built with",
-            items: [
-                { label: "Frontend", techs: [{ name: "React", icon: "/technologies/react1.svg" }] },
-            ]
-        }
-    },
+    // {
+    //     type: 'project',
+    //     id: 'instrat360',
+    //     brand: {
+    //         name: 'Instrat360',
+    //         logo: '/icons/projects/instrat360.svg',
+    //         description: 'An AI-powered enterprise platform designed to bridge the gap between strategic planning and business execution with governed agentic workflows.',
+    //     },
+    //     brandVisualImg: '/icons/projects/instrat360.svg',
+    //     projectList: ['Strategy Operating Systems', 'Capability App Marketplace', 'Governed AI & Agentic Workflows'],
+    //     impact: {
+    //         title: "Instrat360",
+    //         images: ["/projectImages/Instrat360.png", "/projectImages/Instrat3601.png"]
+    //     },
+    //     summary: {
+    //         description: "INSTRAT360 provides a complete strategy execution and AI-assisted workflow solution for enterprise leaders and business teams. Designed to eliminate strategic drift and automate complex corporate workflows, it turns abstract plans into measurable business outcomes all from a single, secure platform.",
+    //         details: [
+    //             { label: "Industry", value: "AI & Automation" },
+    //             { label: "Project Type", value: "Enterprise Software" },
+    //             { label: "Service", value: "Custom Software Development" }
+    //         ]
+    //     },
+    //     techStack: {
+    //         title: "Built with",
+    //         items: [
+    //             { label: "Frontend", techs: [{ name: "Next.js", icon: "/technologies/nextjs-2.svg" }] }
+    //         ]
+    //     }
+    // },
+    // {
+    //     type: 'project',
+    //     id: 'simplera',
+    //     brand: {
+    //         name: 'Simplera',
+    //         logo: '/icons/projects/simplera.svg',
+    //         description: 'A smart B2B FinTech platform that helps businesses optimize fixed costs, manage utility contracts, and streamline invoicing.',
+    //     },
+    //     brandVisualImg: '/icons/projects/simplera.svg',
+    //     projectList: ['Cost Optimization', 'Invoice Consolidation', 'Contract Monitoring'],
+    //     impact: {
+    //         title: "Simplera",
+    //         images: ["/projectImages/simplera.png", "/projectImages/simplera1.png"]
+    //     },
+    //     summary: {
+    //         description: "Simplera provides a comprehensive cost management solution for businesses to analyze, reduce, and monitor their operational expenses like energy and telecom. It simplifies corporate accounting by consolidating multiple vendor invoices into a single, transparent overview.",
+    //         details: [
+    //             { label: "Industry", value: "FinTech" },
+    //             { label: "Project Type", value: "Cost Management Platform" },
+    //             { label: "Service", value: "Custom Software Development" }
+    //         ]
+    //     },
+    //     techStack: {
+    //         title: "Built with",
+    //         items: [
+    //             { label: "Frontend", techs: [{ name: "React", icon: "/technologies/react1.svg" }] },
+    //         ]
+    //     }
+    // },
 ];
