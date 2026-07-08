@@ -506,7 +506,7 @@ export const projectsData: ProjectData[] = [
             'tab-13-1': ['Cypher Bot'],
             'tab-13-2': ['Facia']
         },
-        projectList: ['Sales kik', 'Cypher Bot', 'Facia', 'Instrat360'],
+        projectList: ['Sales kik', 'Cypher Bot', 'Facia'],
         brandVisualImg: '/icons/industries/education-link.svg',
         tabs: [
             { id: 'tab-13-0', label: 'Sales kik' },
