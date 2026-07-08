@@ -15,16 +15,16 @@ const capabilitiesSlides: CapabilitySlide[] = [
     image: capabilitiesImg,
     items: [
       {
-        name: 'We understand your business',
-        description: 'We understand how important software stability is to your business. Our goal is to make your program as stable as possible for long-term success.'
+        name: 'Architectural Integrity & Stability',
+        description: 'We prioritize system durability and database normalization at every stage. Our engineering team designs clean, highly testable codebases that protect your enterprise workflows against scalability bottlenecks and legacy regressions.'
       },
       {
-        name: 'Fast and Effective Responses',
-        description: '24/7 support from our worldwide team of qualified staff. Count on us to respond quickly and effectively to any problem.'
+        name: 'High-Availability SLA Guarantees',
+        description: 'Benefit from proactive, 24/7 technical support managed by our global engineering squads. We implement real-time system logging, anomaly detection, and automated hotfixes to ensure continuous operational uptime.'
       },
       {
-        name: 'Established & Proven Procedures',
-        description: 'Our experts ensure your application functions properly while providing you with a superior customer experience.'
+        name: 'Standardized Security & SDLC Workflows',
+        description: 'Our developers operate under strict Software Development Life Cycle (SDLC) models, integrating automated unit tests, strict linters, and regular code reviews to ensure top-tier software delivery.'
       }
     ]
   },
@@ -35,8 +35,8 @@ const capabilitiesSlides: CapabilitySlide[] = [
     image: platformImg,
     items: [
       {
-        name: 'Customer-Friendly Expertise',
-        description: 'Our experts ensure your application functions properly while providing you with a superior customer experience that sets us apart.'
+        name: 'Cloud-Native & API Orchestration',
+        description: 'We specialize in building secure cloud-native environments and complex API integration topologies. From containerized microservices managed via Kubernetes to distributed cache layers (like Redis) and robust database schemes, we ensure zero friction in data flows.'
       },
     ]
   },
@@ -46,7 +46,7 @@ const comparisonData = {
   label: 'VALUE FOR THE CLIENT',
   titleAccent: 'Custom App Development',
   titleMain: 'vs. Off-The-Shelf Solution',
-  description: 'Choosing custom application development over off-the-shelf software provides numerous benefits:',
+  description: 'Choosing custom application development over off-the-shelf software provides numerous strategic benefits:',
   headers: {
     feature: 'Feature',
     custom: 'Custom Software',
@@ -55,183 +55,186 @@ const comparisonData = {
   items: [
     {
       feature: 'Tailored Functionality',
-      custom: 'Designed to meet specific business needs',
-      offTheShelf: 'Generic features for a broad audience'
+      custom: 'Custom software is engineered from the ground up to support your specific regulatory, data model, and workflow requirements.',
+      offTheShelf: 'Packaged platforms rely on generic, opinionated structures that force your teams to adapt their workflows to the software.'
     },
     {
       feature: 'Scalability',
-      custom: 'Easily adaptable to business growth',
-      offTheShelf: 'Limited scalability options'
+      custom: 'Built on microservices and dynamic cloud databases that scale automatically alongside your transaction and user volume.',
+      offTheShelf: 'Constrained by strict multi-tenant limits, rigid licensing bounds, and high fees for custom databases.'
     },
     {
       feature: 'Integration',
-      custom: 'Seamless integration with existing systems',
-      offTheShelf: 'Potential compatibility issues'
+      custom: 'Bespoke API mappings and data connectors built to sync with your existing legacy systems without downtime.',
+      offTheShelf: 'Dependent on static, fragile plugins that frequently break during core software and library updates.'
     },
     {
       feature: 'Cost Efficiency',
-      custom: 'Long-term savings with no licensing fees',
-      offTheShelf: 'Ongoing licensing and upgrade costs'
+      custom: 'Strategic long-term asset value with zero ongoing licensing, seat-based overhead, or vendor lock-in fees.',
+      offTheShelf: 'Predictable immediate setup but high, compounding licensing fees and mandatory paid feature add-ons.'
     },
     {
       feature: 'Competitive Advantage',
-      custom: 'Unique solutions providing market edge',
-      offTheShelf: 'Limited differentiation'
+      custom: 'Proprietary intellectual property (IP) that delivers exclusive functional capabilities, keeping you ahead of the market.',
+      offTheShelf: 'Common infrastructure shared directly with your primary market competitors, leaving zero room for product differentiation.'
     }
   ]
 };
+
 const processPhasesDefault: ProcessPhase[] = [
   {
     id: 1,
-    phase: "PHASE 1: INITIAL ASSESSMENT & IDEATION",
+    phase: "PHASE 1: DISCOVERY & ARCHITECTURE PLANNING",
     title: "Discovery & Planning",
     description:
-      "We dive deep into understanding your business needs, goals, and challenges.",
+      "We isolate key strategic operational gaps, align project scope with target market demands, and define a clear software roadmap.",
     features: [
       {
-        title: "Business & Workflow Analysis",
+        title: "Business & Workflow Discovery",
         description:
-          "Identify strategic goals, requirements, challenges, and operational gaps to set a clear vision and scope.",
+          "Analyze existing operations, technical dependencies, and workflow blockages to align the software scope with target outcomes."
       },
       {
-        title: "Market Research & Analysis",
+        title: "Strategic Product Mapping",
         description:
-          "Market and competitive analysis to inform decisions—trends, customer behavior, and regulatory factors.",
+          "Conduct deep technical feasibility studies, evaluate data models, and select the optimal modern stack to scale with future demands."
       },
       {
-        title: "Project Scope Definition",
+        title: "Roadmap & Budget Definition",
         description:
-          "Clear scope, methodology, deliverables, timeline, and cost for a structured execution roadmap.",
-      },
-    ],
+          "Deliver an exhaustive, milestone-driven execution plan, resource allocation map, and transparent investment breakdown."
+      }
+    ]
   },
   {
     id: 2,
-    phase: "PHASE 2: DISCOVERY",
+    phase: "PHASE 2: SECURE SYSTEM SPECIFICATION",
     title: "Research & Strategy",
     description:
-      "Comprehensive analysis to define the perfect solution architecture.",
+      "Comprehensive technical analysis to formulate strict functional requirements covering security controls, cloud scalability, and regulatory compliance.",
     features: [
       {
-        title: "Software Requirements Specification (SRS)",
+        title: "Architectural Design & SRS",
         description:
-          "Functional and non-functional specs: performance, security, scalability, reliability, and compliance.",
+          "Produce detailed Software Requirements Specifications (SRS) covering data flow schemas, API endpoints, security protocols, and compliance criteria."
       },
       {
-        title: "Technical Architecture",
+        title: "Infrastructure & Tech Stack",
         description:
-          "Secure, scalable infrastructure with defined security controls and integration plans.",
+          "Map out a zero-trust, resilient cloud infrastructure topology, detailing secure multi-tenant settings and integrations."
       },
       {
-        title: "Risk Assessment",
+        title: "Strategic Risk Mitigation",
         description:
-          "Identify risks and operational challenges; define proactive mitigation and continuity plans.",
-      },
-    ],
+          "Conduct extensive threat vector profiling, establish data isolation guidelines, and draft proactive business continuity protocols."
+      }
+    ]
   },
   {
     id: 3,
-    phase: "PHASE 3: ENGINEERING",
-    title: "Agile or Fixed-Cost Custom Software Development",
+    phase: "PHASE 3: AGILE HIGH-VELOCITY ENGINEERING",
+    title: "Agile Custom Software Development",
     description:
-      "Building your solution with cutting-edge technologies and best practices.",
+      "Building your enterprise solution with premium modern technologies, clean structures, and strict automated code auditing.",
     features: [
       {
-        title: "Dedicated Team",
+        title: "Dedicated Agile Pods",
         description:
-          "Full lifecycle delivery via SCRUM and Kanban—incremental, transparent, and on time.",
+          "Deploy highly integrated, cross-functional squads utilizing SCRUM and Kanban workflows for total execution transparency."
       },
       {
-        title: "Business-Oriented Approach",
+        title: "Architecture-First Coding",
         description:
-          "Full-cycle development focused on measurable business outcomes and strategic alignment.",
+          "Maintain robust, self-documenting code bases leveraging automated unit tests, strict linters, and multi-peer pull request reviews."
       },
       {
-        title: "Communication & Value-Driven Collaboration",
+        title: "Continuous Value Delivery",
         description:
-          "Ongoing engagement, transparency, and alignment so stakeholders stay informed and decisions move fast.",
-      },
-    ],
+          "Deliver functional weekly builds alongside transparent sprint dashboards, keeping key stakeholders closely aligned with progress."
+      }
+    ]
   },
   {
     id: 4,
-    phase: "PHASE 4: TRAINING & SUPPORT",
+    phase: "PHASE 4: SYSTEM DEPLOYMENT & SYSTEMS EVOLUTION",
     title: "Launch & Continuous Support",
     description:
-      "Seamless deployment and ongoing maintenance for your success.",
+      "Seamless secure deployment, continuous architectural upgrades, and proactive scaling to maintain long-term digital superiority.",
     features: [
       {
-        title: "Seamless Integration",
+        title: "Integrated Ecosystem Sync",
         description:
-          "Connect new apps with existing systems for smooth data flow and minimal disruption.",
+          "Integrate new platforms and systems with legacy databases and client APIs securely with zero operational downtime."
       },
       {
-        title: "Deployment & Testing",
+        title: "Pre-Launch QA & Deployment",
         description:
-          "Rigorous testing and structured deployment for a stable, risk-free launch.",
+          "Perform exhaustive automated load testing, secure penetration audits, and structured cloud deployment with rolling updates."
       },
       {
-        title: "User Training & Adoption",
+        title: "User Training & Activation",
         description:
-          "Training so your teams use the software effectively and boost productivity.",
+          "Conduct intensive interactive onboarding and training sessions so your internal teams adopt and utilize the software efficiently."
       },
       {
-        title: "Ongoing Support & System Evolution",
+        title: "Continuous Systems Evolution",
         description:
-          "Continuous enhancements to match changing needs and keep long-term value.",
-      },
-    ],
-  },
+          "Provide ongoing architectural scaling, framework updates, security patch integrations, and feature expansions."
+      }
+    ]
+  }
 ];
 
 const phaseLabelsDefault = [
-  "INITIAL ASSESSMENT & IDEATION",
-  "DISCOVERY",
+  "DISCOVERY & ARCHITECTURE",
+  "SPECIFICATION",
   "ENGINEERING",
-  "TRAINING & SUPPORT",
+  "DEPLOYMENT & EVOLUTION",
 ];
 
 const deliverMVPData = {
   label: "WHY CHOOSE LEAPSOFTS",
-  title: "How Can We Deliver Your Mobile App in",
+  title: "Our Commitment to Deliver Your Custom Software in",
   accentText: "3-5 months?",
-  description: "Leapsofts is a custom software development company that offers software products tailored to your unique business objectives. Leveraging our structured end-to-end processes, custom project management tool, agile methodology, and AI integration expertise, we solve complex business challenges, accelerate growth, and consistently deliver MVPs within 3 to 5 months, on time, every time.",
+  description: "Leapsofts is an elite custom software engineering partner. By combining fully integrated CI/CD pipelines, pre-built modular code repositories, and dedicated agile engineering pods, we build and deploy enterprise-ready MVPs within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
-      title: "Proven Methodologies & Processes.",
-      description: "We follow agile workflows, CI/CD pipelines, and DevOps practices to accelerate delivery while maintaining top-tier quality and compliance."
+      title: "Microservice Decoupling.",
+      description: "Designing resilient, isolated service components to eliminate single points of failure across system networks."
     },
     {
-      title: "Client-First Approach.",
-      description: "From discovery to post-launch support, we collaborate with your team and stakeholders to build solutions aligned with your specific needs and business workflows."
+      title: "High-Concurrency SLAs.",
+      description: "Configuring elastic load balancing, caching networks, and multi-region database replication to maintain 99.99% uptime."
     },
     {
-      title: "Transparent Pricing Models.",
-      description: "Whether it's fixed-scope development or continuous product engineering, we provide clarity, flexibility, and no hidden costs."
+      title: "Automated Auditing Suites.",
+      description: "Integrating static code linters and vulnerability scanners directly inside developer commit loops."
     },
     {
-      title: "Healthcare Software Expertise.",
-      description: "With years of experience building healthcare applications, we understand the nuances of EMRs, patient engagement, HIPAA compliance, and third-party integrations."
+      title: "Self-Documenting Codebases.",
+      description: "Building with clean OOP structures, comprehensive API swagger documentation, and unit-tested functions."
     }
   ]
 };
+
 const streamlineDescription = [
-  { text: "Whether you're modernizing an ", bold: false },
-  { text: "existing enterprise software system ", bold: true },
-  { text: "or launching a ", bold: false },
-  { text: "new digital product", bold: true },
-  { text: ", Leapsofts offers a ", bold: false },
-  { text: "complimentary software strategy session ", bold: true },
-  { text: "designed to deliver value almost immediately. We take the time to understand your business objectives, technical landscape, and operational challenges then provide actionable insights on how ", bold: false },
-  { text: "bespoke, cost-effective custom software solutions ", bold: true },
-  { text: "can streamline workflows, improve efficiency, and support scalable growth.", bold: false },
+  { text: "Whether modernizing a complex ", bold: false },
+  { text: "legacy enterprise platform ", bold: true },
+  { text: "or engineering a ", bold: false },
+  { text: "new SaaS ecosystem", bold: true },
+  { text: ", our experts deliver immediate technical clarity. We conduct a deep-dive analysis of your current systems, map out code dependencies, identify performance bottlenecks, and formulate a ", bold: false },
+  { text: "highly efficient, cost-optimized engineering plan ", bold: true },
+  { text: "built to unlock measurable product growth and streamline operational efficiency.", bold: false }
 ];
-const title = "Bring Your Business Dreams to Life with Our Custom Application Development Services";
+
+const title = "Enterprise Custom Software Development Engineered to Scale";
 const subtitle = "";
 
 const introDescription = [
-    { text: "From the straightforward to the never-before-seen, we have substantial experience in delivering high-quality, scalable, and AI-powered custom application development services tailored to the specific business needs of our clients. Our solutions leverage cutting-edge technologies like machine learning, natural language processing (NLP), and automation to streamline workflows, enhance decision-making, and drive business growth.", bold: false },
-]
+  { text: "We design and deliver highly performant, security-first ", bold: false },
+  { text: "custom application development services ", bold: true },
+  { text: "tailored to the complex operational demands of modern enterprises. By combining resilient microservice architectures, secure cloud database models, and intelligent process automation, we build scalable software systems that eliminate technical debt and drive sustainable business growth.", bold: false }
+];
 
 function CustomSoftwareDevelopment() {
   return (
@@ -249,17 +252,17 @@ function CustomSoftwareDevelopment() {
       />
       <ComparisonTable data={comparisonData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Software "
-        titleAccent="Strategy"
-        titleEnd=" Session"
+        label="COMPLIMENTARY STRATEGY SESSION"
+        titleMain="Map your "
+        titleAccent="technical"
+        titleEnd=" roadmap."
         description={streamlineDescription}
         imageUrl="/streamline.png"
       />
       <DeliverMVP data={deliverMVPData} />
       <Processes title="OUR CUSTOM SOFTWARE DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
-  )
+  );
 }
 
-export default CustomSoftwareDevelopment
+export default CustomSoftwareDevelopment;

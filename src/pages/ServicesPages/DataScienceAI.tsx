@@ -11,248 +11,271 @@ import Processes from '../../components/Processes/Processes';
 import { type ProcessPhase } from '../../components/Processes/Processes';
 import ServiceFeatures from '../../components/ServiceFeatures/ServiceFeatures';
 import { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
+import laptopImg from "../../assets/about_laptop_3d.png";
+
 const ourServicesData: EmergingTechProps['data'] = {
   label: 'AI SERVICES',
-  titleAccent: 'AI',
-  titleMain: ' Pathway',
+  titleAccent: 'AI &',
+  titleMain: ' Data Science',
   description:
     'End-to-end AI services designed to unlock insights, improve decision-making, and accelerate intelligent transformation.',
   items: [
     {
-      icon: 'enterprise',
-      title: 'Analytics & Strategic Insight',
+      icon: 'enterprise' as const,
+      title: 'Natural Language Processing & LLM Tuning',
       description:
-        'Scale your analytics with a data-centric strategy for tangible business impact.'
+        'Fine-tuning custom LLMs (e.g. Llama-3, Mistral) via LoRA/QLoRA methods and building secure RAG (Retrieval-Augmented Generation) architectures for semantic data retrieval.'
     },
     {
-      icon: 'product',
-      title: 'Enhanced Data Exploration',
+      icon: 'product' as const,
+      title: 'Predictive Modeling & Statistical Forecasting',
       description:
-        'Broaden customer understanding using additional data sources and predictive insights.'
+        'Designing multi-variable regression, classification, and time-series forecasting scripts using Scikit-Learn, XGBoost, and Prophet to anticipate supply chain and pricing movements.'
     },
     {
-      icon: 'enterprise',
-      title: 'Strategic Data Handling',
+      icon: 'enterprise' as const,
+      title: 'Computer Vision & Edge Image Processing',
       description:
-        'Ensure governance, profitability, and regulatory compliance beyond data integration.'
+        'Building high-velocity convolutional networks (CNNs) using PyTorch and YOLO for real-time object identification, video analysis, and quality inspections.'
     },
     {
-      icon: 'saas',
-      title: 'Empowering Data Utilization',
+      icon: 'saas' as const,
+      title: 'Distributed Data Processing & Lakehouses',
       description:
-        'Equip teams with intuitive tools to harness data effectively and adopt AI smoothly.'
+        'Orchestrating large-scale data cleansing and aggregation pipelines using Apache Spark, Databricks, and dbt to feed machine learning schemas.'
     },
     {
-      icon: 'product',
-      title: 'Ready-Made & Custom AI Solutions',
+      icon: 'product' as const,
+      title: 'MLOps & Continuous Model Deployment',
       description:
-        'Leverage ready-to-deploy AI solutions or opt for bespoke services tailored to your needs.'
+        'Implementing continuous integration for machine learning (CT/CD), registry tracking via MLflow, and high-concurrency model serving on Kubernetes via Triton or BentoML.'
     },
     {
-      icon: 'enterprise',
-      title: 'Analytics & Strategic Insight',
+      icon: 'enterprise' as const,
+      title: 'Recommendation Engines & User Profiling',
       description:
-        'Scale your analytics with a data-centric strategy for tangible business impact.'
-    },
-    {
-      icon: 'product',
-      title: 'Enhanced Data Exploration',
-      description:
-        'Broaden customer understanding using additional data sources and predictive insights.'
-    },
-    {
-      icon: 'enterprise',
-      title: 'Strategic Data Handling',
-      description:
-        'Ensure governance, profitability, and regulatory compliance beyond data integration.'
-    },
-    {
-      icon: 'saas',
-      title: 'Empowering Data Utilization',
-      description:
-        'Equip teams with intuitive tools to harness data effectively and adopt AI smoothly.'
-    },
-    {
-      icon: 'product',
-      title: 'Ready-Made & Custom AI Solutions',
-      description:
-        'Leverage ready-to-deploy AI solutions or opt for bespoke services tailored to your needs.'
+        'Crafting collaborative and content-based recommendation systems to personalize digital layouts, boosting customer average order value (AOV).'
     }
   ]
 };
+
 const processData: InfoGridProps['data'] = {
   label: 'WORKING PROCESS',
   title: 'AI Implementation Pathway',
   items: [
     {
       icon: '01',
-      title: 'Cloud & Edge-First Strategy',
+      title: 'High-Throughput Model Inference',
       description:
-        'Adopt a cloud-native, edge-centric methodology for sustained efficiency and immediate responsiveness.'
+        'Guarantee sub-100ms model inference speeds under high transactional request volumes.'
     },
     {
       icon: '02',
-      title: 'ML Model Creation',
+      title: 'Algorithmic Bias & Safety Governance',
       description:
-        'Craft powerful machine learning models for optimal outcomes and improved functionality.'
+        'Enforcing strict model validation controls, feature drift audits, and data privacy safeguards (HIPAA/GDPR).'
     },
     {
       icon: '03',
-      title: 'AI-Driven Big Data',
+      title: 'Decoupled Lakehouse Pipelines',
       description:
-        'Conceptualize, build, and implement big data infrastructures enhanced by AI.'
+        'Integrating scalable ETL data extraction that structures dirty enterprise logs cleanly for model training.'
     },
     {
       icon: '04',
-      title: 'Accelerating AI Adoption',
+      title: 'Robust Real-World MLOps Scaling',
       description:
-        'Identify business use cases and opportunities, and define a strategic AI adoption roadmap.'
-    },
-    {
-      icon: '05',
-      title: 'Seamless AI Integrations',
-      description:
-        'Enable system connectivity through integrations with AI-ready'
+        'Keeping systems secure and peak-performing via continuous feature tracking, automated drift alerts, and containerized rollouts.'
     }
   ]
-}
+};
 
 const defaultItems: ServiceFeatureItem[] = [
   {
     icon: '/industryicons/sphere.svg',
-    title: 'Retain',
-    description: 'Keeping select applications on-premises due to dependencies or compliance.'
+    title: 'Bespoke LLM Fine-Tuning',
+    description: 'Adapting open-source foundational models to specific company datasets using PEFT/LoRA techniques.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
-    title: 'Retire',
-    description: "Decommissioning outdated or unused systems."
+    title: 'RAG Database Systems',
+    description: "Constructing highly accurate vector databases (Pinecone, pgvector) to enable context-aware AI query actions."
   },
   {
     icon: '/industryicons/sphere.svg',
-    title: 'Relocate',
-    description: "Moving infrastructure without major changes to cloud platforms."
+    title: 'Computer Vision Architectures',
+    description: "Setting up custom PyTorch pipelines to process visual feeds, locate anomalies, and index images."
   },
   {
     icon: '/industryicons/bipiramida.svg',
-    title: 'Rehost (Lift and Shift)',
-    description: "Quickest way to move VMs or workloads to the cloud."
+    title: 'High-Scale Feature Stores',
+    description: "Configuring centralized feature registries (Feast) to share structured training records across multiple active ML models."
   },
   {
     icon: '/industryicons/sphere.svg',
-    title: 'Replatform',
-    description: "Making minor optimizations without rewriting code."
+    title: 'Distributed Data Wrangling',
+    description: "Deploying PySpark and Databricks clusters to parse, transform, and clean multi-terabyte raw datasets."
   },
   {
     icon: '/industryicons/bipiramida.svg',
-    title: 'Refactoring',
-    description: "Re-architecting for full cloud-native functionality."
+    title: 'Inference API Optimization',
+    description: "Packaging trained models inside lightweight Docker containers optimized for high-velocity API access."
   },
   {
     icon: '/industryicons/sphere.svg',
-    title: 'Repurchase',
-    description: "Transitioning to a SaaS solution."
-  },
-];
-const processPhasesDefault: ProcessPhase[] = [
-  {
-    id: 1,
-    phase: "PHASE 1: DISCOVERY & ASSESSMENT",
-    title: "Objectives & Inventory Assessment",
-    description:
-      "We define cloud migration goals, assess current environments, and build a prioritized application inventory.",
-    features: [
-      "Migration Goals & Priority Definition",
-      "Application & Infrastructure Inventory",
-      "Portfolio Assessment & Readiness Scoring",
-    ],
-  },
-  {
-    id: 2,
-    phase: "PHASE 2: STRATEGY & ARCHITECTURE",
-    title: "Strategic Development & Analysis",
-    description:
-      "We design the migration strategy, evaluate costs, and select the right cloud model and target architecture.",
-    features: [
-      "Migration Criteria & Decision Framework",
-      "Cost Analysis & Savings Forecast",
-      "IaaS / PaaS / SaaS Selection Strategy",
-    ],
-  },
-  {
-    id: 3,
-    phase: "PHASE 3: MIGRATION EXECUTION",
-    title: "Execution, Integration & Security",
-    description:
-      "We implement migration waves, integrate required tools, and ensure continuity, security, and performance.",
-    features: [
-      "Migration Runbooks & Wave Planning",
-      "Tooling Integration & Automation Enablement",
-      "Security, Compliance & Business Continuity Setup",
-    ],
-  },
-  {
-    id: 4,
-    phase: "PHASE 4: OPTIMIZATION & GOVERNANCE",
-    title: "Refinement, Monitoring & Improvement",
-    description:
-      "We optimize the new cloud environment with continuous monitoring, governance, and ongoing enhancements.",
-    features: [
-      "Performance & Cost Optimization",
-      "Monitoring, Alerts & Operational Governance",
-      "Continuous Refinement & Process Improvement",
-    ],
+    title: 'Continuous Model Monitoring',
+    description: "Installing automated monitoring tools to track data drift, conceptual changes, and accuracy drops in production."
   },
 ];
 
-const phaseLabelsDefault = [
-  "DISCOVERY & ASSESSMENT",
-  "STRATEGY & ARCHITECTURE",
-  "MIGRATION EXECUTION",
-  "OPTIMIZATION & GOVERNANCE",
+const processPhasesDefault: ProcessPhase[] = [
+  {
+    id: 1,
+    phase: "PHASE 1: DATA PROFILING & USE-CASE ALIGNMENT",
+    title: "Needs Maturity & Data Auditing",
+    description:
+      "We analyze database cardinality, clean missing entries, and audit data bias risk parameters.",
+    features: [
+      {
+        title: "Active Data Quality Auditing",
+        description:
+          "Parse customer history logs, catalog matrices, and relational tables to evaluate feature density."
+      },
+      {
+        title: "Model Output Scoping",
+        description:
+          "Coordinate with team leads to define target conversion metrics (F1-score, accuracy) and prediction boundaries."
+      },
+      {
+        title: "Tech Stack & MLOps Blueprinting",
+        description:
+          "Select optimal frameworks (PyTorch, TensorFlow, Hugging Face), vector DBs, and sandbox deployment roadmaps."
+      }
+    ]
+  },
+  {
+    id: 2,
+    phase: "PHASE 2: MODEL ARCHITECTURE & RAG PIPELINE DESIGN",
+    title: "Feature Pipelines & Vector Schemas",
+    description:
+      "Designing vector databases, chunking parameters, and high-concurrency ingestion schedules.",
+    features: [
+      {
+        title: "Custom RAG Database Schemas",
+        description:
+          "Configure secure vector indexes (HNSW, flat) inside pgvector or Pinecone for context-aware queries."
+      },
+      {
+        title: "Continuous Ingestion Pipelines",
+        description:
+          "Design real-time Apache Spark ETL jobs to clean, transform, and extract inputs into Feast Feature Stores."
+      },
+      {
+        title: "Data Security Profiling",
+        description:
+          "Set up field-level encryption, role mappings, and anonymization pipelines to secure training records."
+      }
+    ]
+  },
+  {
+    id: 3,
+    phase: "PHASE 3: HIGH-VELOCITY MODEL TRAINING & TUNING",
+    title: "Agile Model Training & ATF Validation",
+    description:
+      "Iterative training, hyperparameter optimization, and strict evaluation validations in agile sprints.",
+    features: [
+      {
+        title: "Distributed Model Training Sprints",
+        description:
+          "Train neural networks, tune weights, and adjust deep learning layers using GPU-accelerated cloud nodes."
+      },
+      {
+        title: "Strict Performance Verification",
+        description:
+          "Run regression tests and validation matrices against test sets to verify accuracy and avoid overfitting issues."
+      },
+      {
+        title: "Inference API Packaging",
+        description:
+          "Package trained models inside lightweight Docker containers using FastAPI or Triton Server frameworks."
+      }
+    ]
+  },
+  {
+    id: 4,
+    phase: "PHASE 4: MLOPS INFERENCE & SYSTEM EVOLUTION",
+    title: "Model Server Deployments & Retraining Hubs",
+    description:
+      "Seamless Kubernetes API rollouts, continuous drift tracking, and automated retraining pipelines.",
+    features: [
+      {
+        title: "Scalable Model Serving Rollouts",
+        description:
+          "Deploy custom inference APIs on secure Kubernetes clusters equipped with automated scaling triggers."
+      },
+      {
+        title: "Real-Time Accuracy Monitoring",
+        description:
+          "Configure automated alerts to track data drift, conceptual changes, and accuracy anomalies in live traffic."
+      },
+      {
+        title: "Automated Retraining Integration",
+        description:
+          "Deploy orchestration scripts to trigger automatic model retraining cycles utilizing newly updated active databases."
+      }
+    ]
+  }
 ];
+
+const phaseLabelsDefault = [
+  "STRATEGY & DISCOVERY",
+  "RAG & PIPELINE DESIGN",
+  "MODEL TRAINING & TUNING",
+  "MLOPS INFERENCE & GOVERNANCE",
+];
+
 const deliverMVPData = {
   label: "WHY CHOOSE LEAPSOFTS",
   title: "Why Choose Leapsofts for",
   accentText: "Data Science & AI Services",
-  description: "Leapsofts is a cloud software development company that helps accelerate your digital transformation. Whether you're moving from on-premises systems or modernizing legacy applications, Leapsofts’s expert team delivers end-to-end cloud migration consulting designed to reduce downtime, enhance performance, and unlock long-term business value.",
+  description: "Leapsofts is an elite custom machine learning and applied AI partner. By combining fully integrated CI/CD, certified data scientists, and dedicated MLOps engineering pods, we build and deploy enterprise-ready AI models within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
-      title: "Proven Methodologies & Processes.",
-      description: "We follow tested cloud migration methodologies to ensure a seamless, low-risk transition tailored to your workloads and cloud environment."
+      title: "Rigorous Data Auditing.",
+      description: "Performing extensive data health audits, source profiling, and cardinality checks before training any model."
     },
     {
-      title: "Client-First Approach.",
-      description: "Your business needs drive every step of the cloud journey. From discovery to post-migration support, we align our strategy with your goals, infrastructure, and compliance requirements."
+      title: "Scalable MLOps Architectures.",
+      description: "Building resilient model registries and serving pipelines using Docker, MLflow, and Kubernetes."
     },
     {
-      title: "Transparent Pricing Models.",
-      description: "We offer clear pricing with no hidden fees. Whether it's fixed-scope development or continuous product engineering, you’ll get accurate forecasts for migration, optimization, and long-term cloud infrastructure costs.."
+      title: "Advanced Deep Learning Stack.",
+      description: "Writing optimized algorithms using Python, PyTorch, TensorFlow, and Hugging Face libraries."
     },
     {
-      title: "Healthcare Software Expertise.",
-      description: "Our engineers bring deep experience across AWS, Microsoft Azure, and Google Cloud. Whether you're migrating SAP, modernizing applications, or managing hybrid cloud environments, we deliver scalable, high-performance cloud solutions."
+      title: "Continuous Accuracy Tracking.",
+      description: "Configuring automated drift tracking systems to verify model prediction health in live production."
     }
   ]
 };
+
 const streamlineDescription = [
-  { text: "Whether you're modernizing an ", bold: false },
-  { text: "existing enterprise software system ", bold: true },
-  { text: "or launching a ", bold: false },
-  { text: "new digital product", bold: true },
-  { text: ", Leapsofts offers a ", bold: false },
-  { text: "complimentary software strategy session ", bold: true },
-  { text: "designed to deliver value almost immediately. We take the time to understand your business objectives, technical landscape, and operational challenges then provide actionable insights on how ", bold: false },
-  { text: "bespoke, cost-effective custom software solutions ", bold: true },
-  { text: "can streamline workflows, improve efficiency, and support scalable growth.", bold: false },
+  { text: "Whether modernizing a complex ", bold: false },
+  { text: "legacy enterprise web portal ", bold: true },
+  { text: "or engineering a ", bold: false },
+  { text: "new applied AI model", bold: true },
+  { text: ", our experts deliver immediate technical clarity. We conduct a deep-dive analysis of your current datasets, map out machine learning parameters, evaluate feature registries, and formulate a ", bold: false },
+  { text: "highly efficient, optimized MLOps engineering plan ", bold: true },
+  { text: "built to unlock massive predictive growth and streamline data retention.", bold: false }
 ];
 
-
-const title = "Harness Data Accessibility";
+const title = "Enterprise Data Science & Applied AI Engineering";
 const subtitle = "";
 
 const introDescription = [
-  { text: "Unlock the full potential of your data with Leapsofts' Data Science and AI services. We leverage advanced algorithms, machine learning, and predictive analytics to help you uncover hidden patterns, automate complex processes, and make data-driven decisions that propel your business forward.", bold: false },
+  { text: "We engineer production-grade machine learning pipelines, custom ", bold: false },
+  { text: "Large Language Model (LLM) fine-tuning configurations", bold: true },
+  { text: ", and predictive analytics algorithms. By combining high-velocity Apache Spark data processing with robust MLOps orchestration (MLflow, Triton Server), we help organizations deploy resilient AI systems that automate decision mechanics and optimize user actions.", bold: false }
 ]
 
 const DataScienceAI: React.FC = () => {
@@ -264,28 +287,30 @@ const DataScienceAI: React.FC = () => {
         introDescription={introDescription}
       />
       <ServiceOverview
-        titleMain="Maximize"
-        titleAccent='Operational Agility'
-        titleEnd='with Data Science & AI'
-        description="Implementing Data Science & AI can be intricate, necessitating strategic planning and precision. It’s pivotal for refining your development and deployment cycles, thereby reducing mistakes, boosting efficiency, and elevating client contentment. To excel in a competitive landscape, enhance operational efficacy, and raise deployment standards, consider our expert Data Science & AI services. Our seasoned professionals are adept at guiding numerous firms through successful Data Science & AI adoptions, equipped to automate and regulate your infrastructure deployment processes."
-        imagePath="/icons/images/cloud.webp"
+        label="PREDICTIVE SYSTEMS & APPLIED AI"
+        titleMain="Transforming Raw Data into"
+        titleAccent="Predictive "
+        titleEnd="Intelligence"
+        description="At Leapsofts, we bridge the gap between academic AI research and reliable, scalable production systems. By building secure data pipelines inside modern lakehouses (Databricks, Snowflake), training custom deep learning models for NLP and computer vision, and establishing robust MLOps governance gates, we empower enterprises to forecast market trends, automate document analysis, and deploy high-performance generative AI systems with complete algorithmic transparency."
+        imagePath={laptopImg}
       />
       <InfoGrid data={processData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Software "
-        titleAccent="Strategy"
-        titleEnd=" Session"
+        label="COMPLIMENTARY STRATEGY SESSION"
+        titleMain="Map your "
+        titleAccent="Applied AI"
+        titleEnd=" roadmap."
         description={streamlineDescription}
         imageUrl="/streamline.png"
       />
       <ServiceFeatures
-        title='Types of'
-        description='Every business has different needs. Whether you are migrating Oracle, VMware, or PaaS applications, we tailor the migration tools and processes to fit your infrastructure.'
-        items={defaultItems} />
+        title='Core AI Capabilities'
+        description='Every business has different needs. Whether you are building private LLM applications, time-series forecasting, or edge computer vision pipelines, we customize the ML architecture to fit your enterprise.'
+        items={defaultItems}
+      />
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={ourServicesData} />
-      <Processes title="OUR CLOUD MIGRATION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <Processes title="OUR Applied AI PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   );
 };

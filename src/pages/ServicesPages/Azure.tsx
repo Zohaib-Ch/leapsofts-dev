@@ -16,67 +16,59 @@ const capabilitiesSlides: CapabilitySlide[] = [
   {
     id: 'azure-data-ai',
     number: '< 01 >',
-    title: 'Azure Data & AI',
+    title: 'Azure Data & Enterprise Analytics',
     image: capabilitiesImg,
     items: [
       {
-        name: 'Azure Databricks',
-        description:
-          'Accelerate AI scaling and data value realization with efficient cloud modernization.'
+        name: 'Azure Databricks Spark Engine',
+        description: 'Deploying managed Apache Spark environments and automated ETL pipelines to process large-scale data streams.'
       },
       {
-        name: 'Azure Synapse Optimization',
-        description:
-          'Unify data lakes and warehouses to deliver faster, reliable analytics across enterprises.'
+        name: 'Azure Synapse Integrations',
+        description: 'Orchestrating enterprise data warehouses and unified analytics layers to process complex operational intelligence queries.'
       },
       {
-        name: 'AI & Machine Learning on Azure',
-        description:
-          'Enable advanced analytics, scalable ML experiments, and efficient model deployment.'
+        name: 'Azure Cosmos DB Global Scaling',
+        description: 'Configuring multi-model, globally distributed NoSQL databases with guaranteed single-digit millisecond latency speeds.'
       },
       {
-        name: 'Azure Cognitive Services',
-        description:
-          'Enhance apps with vision, language, and intelligent decision-making capabilities.'
+        name: 'Azure OpenAI & ML Services',
+        description: 'Deploying custom machine learning networks and natural language engines using managed Azure OpenAI models.'
       }
     ]
   },
   {
     id: 'azure-platform-security',
     number: '< 02 >',
-    title: 'Azure Platform & Security',
+    title: 'Azure Identity & Security Hardening',
     image: platformImg,
     items: [
       {
-        name: 'Azure SQL Database Solutions',
-        description:
-          'Build high-performance apps using Azure SQL with integrated analytics and AI.'
+        name: 'Microsoft Entra ID Directories',
+        description: 'Enforcing secure enterprise identity control, single sign-on access, and multi-factor conditional rules.'
       },
       {
-        name: 'Azure Stack Hybrid Cloud',
-        description:
-          'Deliver seamless hybrid cloud experiences across on-prem and cloud environments.'
+        name: 'Microsoft Sentinel SIEM Threat Hunting',
+        description: 'Deploying cloud-native Security Information and Event Management (SIEM) systems to detect and intercept threat actors.'
       },
       {
-        name: 'Azure Cognitive Search',
-        description:
-          'Transform data into actionable insights using AI-powered semantic search.'
+        name: 'Azure Key Vault Key Protection',
+        description: 'Managing central application secret lockers, automated SSH key rotations, and KMS envelope encryption.'
       },
       {
-        name: 'Robust Azure Security',
-        description:
-          'Protect data and infrastructure with advanced threat detection across hybrid environments.'
+        name: 'Azure Policy Compliance Shields',
+        description: 'Enforcing corporate governance rules, automated resource limits, and real-time environment isolation metrics.'
       }
     ]
   }
 ];
 
 const serviceOverviewData = {
-  label: "AZURE CLOUD",
-  titleMain: "Accelerate Your",
-  titleAccent: "Cloud Journey",
-  titleEnd: "with Azure",
-  description: "Leapsofts empowers businesses with Microsoft Azure to build scalable, hybrid cloud solutions. From data analytics to AI-driven applications, our Azure experts provide the strategic guidance and technical implementation needed to optimize your cloud environment and drive innovation.",
+  label: "AZURE CLOUD SYSTEMS",
+  titleMain: "Orchestrating Scalable",
+  titleAccent: "Hybrid Azure",
+  titleEnd: "Environments",
+  description: "At Leapsofts, we help modern enterprises maximize their infrastructure efficiency, automate software releases, and optimize operating costs on Microsoft Azure. Our Microsoft-certified engineers develop modular Azure Bicep blueprints, deploy containerized microservices via Azure Kubernetes Service (AKS), and design robust data repositories that satisfy strict SOC2, HIPAA, and GDPR compliance rules.",
   imagePath: laptopImg
 };
 
@@ -89,35 +81,35 @@ const emergingTechData: EmergingTechProps['data'] = {
     { icon: 'enterprise' as const, title: 'Azure Virtual Machines', description: 'Scalable compute capacity to run your applications in the cloud.' },
     { icon: 'saas' as const, title: 'Azure App Service', description: 'Quickly build, deploy, and scale web apps and APIs on your terms.' },
     { icon: 'hipaa' as const, title: 'Azure Cosmos DB', description: 'Globally distributed, multi-model database service for any scale.' },
-    { icon: 'ecommerce' as const, title: 'Azure Kubernetes Service', description: 'Deploy and manage containerized applications with ease.' },
-    { icon: 'mobile' as const, title: 'Azure Active Directory', description: 'Enterprise-grade identity and access management for secure cloud apps.' },
-    { icon: 'legacy' as const, title: 'Azure Monitor', description: 'Full observability into your applications, infrastructure, and network.' },
+    { icon: 'ecommerce' as const, title: 'Azure Kubernetes Service (AKS)', description: 'Deploy and manage containerized applications with ease.' },
+    { icon: 'mobile' as const, title: 'Microsoft Entra ID Access', description: 'Enterprise-grade identity and access management for secure cloud apps.' },
+    { icon: 'legacy' as const, title: 'Azure Monitor Logs', description: 'Full observability into your applications, infrastructure, and network.' },
   ]
 };
 
 const infoGridData: InfoGridProps['data'] = {
-  label: 'AZURE BENEFITS',
-  title: 'Why Choose Microsoft Azure',
+  label: 'AZURE VALUE ADVANTAGE',
+  title: 'Why Build Your Digital Workloads on Azure',
   items: [
     {
       icon: '01',
-      title: 'Hybrid Capability',
-      description: 'Seamlessly integrate your on-premises data and apps with the Azure cloud environment.'
+      title: 'Seamless Hybrid Synergy',
+      description: 'Connect your on-premises datacenters directly to the cloud using Azure ExpressRoute and Azure Arc systems.'
     },
     {
       icon: '02',
-      title: 'Trust & Security',
-      description: 'Benefit from Microsoft’s industry-leading security and compliance offerings.'
+      title: 'Enterprise-Grade Data Shielding',
+      description: 'Benefit from Microsoft’s multi-billion dollar security investments and comprehensive industry compliance stamps.'
     },
     {
       icon: '03',
-      title: 'Developer Productivity',
-      description: 'Accelerate development with integrated tools and services designed for rapid delivery.'
+      title: 'Rapid Developer Pipelines',
+      description: 'Accelerate software release schedules utilizing fully integrated Azure DevOps runners and automated pipelines.'
     },
     {
       icon: '04',
-      title: 'AI & Data Insights',
-      description: 'Unlock the value of your data with advanced analytics and AI services on Azure.'
+      title: 'Advanced Analytics Clusters',
+      description: 'Analyze petabytes of unstructured operational data using integrated synapse pipelines and data lake storage clusters.'
     }
   ]
 };
@@ -157,25 +149,25 @@ const serviceFeaturesData: ServiceFeatureItem[] = [
 
 const deliverMVPData = {
   label: "AZURE EXCELLENCE",
-  title: "Partnering for",
-  accentText: "Enterprise Success",
-  description: "Leapsofts is committed to delivering top-tier Azure solutions that meet the demands of modern enterprises. We focus on scalability, security, and integration to ensure your cloud strategy is effective.",
+  title: "Our Commitment to Deliver Your Azure Infrastructure in",
+  accentText: "3-5 months?",
+  description: "Leapsofts is an elite Microsoft Azure consulting and cloud optimization partner. By combining fully integrated automated tooling, certified Azure solutions architects, and dedicated DevOps engineers, we build, secure, and deliver enterprise-ready Azure release infrastructures within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
-      title: "Microsoft Cloud Expertise.",
-      description: "Deep knowledge of Microsoft technologies to optimize your Azure setup."
+      title: "Azure Synapse Warehouses.",
+      description: "Aggregating enterprise big data streams into unified Synapse and Cosmos DB structures for predictive analysis."
     },
     {
-      title: "Hybrid Strategy.",
-      description: "Expertise in designing and managing complex hybrid cloud environments."
+      title: "Bicep IaC automation.",
+      description: "Writing modular Azure Bicep code constructs to build secure, repeatable cloud virtual network systems."
     },
     {
-      title: "Security & Compliance.",
-      description: "Ensuring your Azure workloads meet strict regulatory and security standards."
+      title: "Entra ID Access Rules.",
+      description: "Enforcing conditional security boundaries, multi-factor triggers, and Sentinel SIEM security analytics."
     },
     {
-      title: "End-to-End Delivery.",
-      description: "From strategy to implementation and management, we handle the entire lifecycle."
+      title: "Databricks Engine Runs.",
+      description: "Deploying Spark computing nodes to execute real-time business telemetry scans at lightning-fast speeds."
     }
   ]
 };
@@ -183,42 +175,101 @@ const deliverMVPData = {
 const processPhasesDefault: ProcessPhase[] = [
   {
     id: 1,
-    phase: "PHASE 1: DISCOVERY",
-    title: "Project Scope & Assessment",
-    description: "We evaluate your current environment and business goals for Azure adoption.",
-    features: ["Infrastructure Audits", "Application Readiness Scoring", "Business Objective Alignment"],
+    phase: "PHASE 1: AGILE DISCOVERY & ARCHITECTURE ASSESSMENT",
+    title: "Well-Architected Reviews & Discoveries",
+    description: "We evaluate your current workloads against the six pillars of the Microsoft Azure Well-Architected Framework.",
+    features: [
+      {
+        title: "Azure Well-Architected Audits",
+        description: "Analyze security, performance efficiency, cost optimizations, and operational excellence gaps."
+      },
+      {
+        title: "Workload Discovery Scans",
+        description: "Catalog on-premises databases, computing systems dependencies, and active ports."
+      },
+      {
+        title: "Target Cloud Blueprinting",
+        description: "Draft structural virtual network layouts, private subnets mappings, NAT gateways, and cost projections."
+      }
+    ]
   },
   {
     id: 2,
-    phase: "PHASE 2: PLANNING",
-    title: "Strategy & Architecture",
-    description: "Defining the right Azure architecture and migration strategy for your needs.",
-    features: ["Azure Tenant Setup", "Network Topologies Design", "Security & Governance Implementation"],
+    phase: "PHASE 2: IAC DEVELOPMENT & SECURE VPC DESIGN",
+    title: "Azure Bicep Provisions & IAM Hardening",
+    description: "Writing reusable Bicep or Terraform constructs and configuring secure virtual routing rules.",
+    features: [
+      {
+        title: "Modular Azure Bicep Codebase",
+        description: "Author type-safe Bicep modules to provision environments with absolute consistency."
+      },
+      {
+        title: "VNet Networking Architecture",
+        description: "Configure secure public and private subnets, transit tunnels, ExpressRoute endpoints, and routing."
+      },
+      {
+        title: "Entra ID Identity Schemes",
+        description: "Harden directory permissions, manage Key Vault secret storages, and set up cloud access logging."
+      }
+    ]
   },
   {
     id: 3,
-    phase: "PHASE 3: EXECUTION",
-    title: "Migration & Modernization",
-    description: "Moving workloads to Azure and modernizing applications for the cloud.",
-    features: ["Data & App Migration", "Cloud-Native Re-platforming", "DevOps Pipeline Integration"],
+    phase: "PHASE 3: HIGH-VELOCITY WORKLOAD DEPLOYMENT",
+    title: "Database Syncing & Container Runs",
+    description: "Syncing relational data databases with zero downtime using automated replication waves.",
+    features: [
+      {
+        title: "Zero-Loss Database Migrations",
+        description: "Migrate active transactions securely using Azure DMS with zero application interruptions."
+      },
+      {
+        title: "AKS Kubernetes Container Deployments",
+        description: "Orchestrate application pods on Azure Kubernetes Service (AKS) clusters with private subnets."
+      },
+      {
+        title: "Transaction Stress Sprints",
+        description: "Run automated k6 performance checks to verify Azure AKS cluster responsiveness under high traffic."
+      }
+    ]
   },
   {
     id: 4,
-    phase: "PHASE 4: MANAGEMENT",
-    title: "Monitoring & Support",
-    description: "Providing ongoing management and support to ensure Azure environment health.",
-    features: ["Cost & Resource Monitoring", "Security Response", "Performance Optimization Reviews"],
-  },
+    phase: "PHASE 4: CONTINUOUS OBSERVABILITY & COST OPTIMIZATION",
+    title: "Azure Monitor Telemetry & Cost Scripts",
+    description: "Deploying central logging structures, optimizing infrastructure costs, and configuring GitOps releases.",
+    features: [
+      {
+        title: "Azure Monitor Metrics Observability",
+        description: "Deploy real-time cloud dashboard telemetries, trace response latencies, and configure email alerts."
+      },
+      {
+        title: "Instance Schedule Rightsizing",
+        description: "Implement automated script schedulers to shut down staging pools and activate Spot instances."
+      },
+      {
+        title: "Continuous DevOps Sweeps",
+        description: "Conduct regular server OS patching, security boundary scans, and database maintenance checks."
+      }
+    ]
+  }
 ];
 
-const phaseLabelsDefault = ["DISCOVERY", "PLANNING", "EXECUTION", "MANAGEMENT"];
+const phaseLabelsDefault = [
+    "READINESS ASSESSMENT",
+    "BICEP & VNET DESIGN",
+    "WORKLOAD DEPLOYMENT",
+    "TELEMETRY & GOVERNANCE",
+];
 
-const title = "Focus on What’s Essential with Your Cloud Strategy";
+const title = "Azure Consulting Services, Hybrid Cloud Architecture & Enterprise Modernization";
 const subtitle = "";
 
 const introDescription = [
-  { text: "Harness the potential of Microsoft Azure to drive business growth.", bold: false },
-]
+  { text: "We design and deploy highly secure, enterprise-grade ", bold: false },
+  { text: "Microsoft Azure cloud platform environments", bold: true },
+  { text: ", leveraging high-performance hybrid setups, type-safe Azure Bicep Infrastructure-as-Code (IaC), and secure container systems. By integrating global Azure Cosmos DB relational engines, AKS Kubernetes nodes, and Microsoft Entra ID federations, we construct premium cloud infrastructures designed to scale seamlessly under extreme transactional loads.", bold: false }
+];
 
 const Azure: React.FC = () => {
   return (
@@ -243,10 +294,10 @@ const Azure: React.FC = () => {
       />
       <InfoGrid data={infoGridData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Azure "
-        titleAccent="Strategy"
-        titleEnd=" Session"
+        label="COMPLIMENTARY STRATEGY SESSION"
+        titleMain="Map your "
+        titleAccent="Azure architecture"
+        titleEnd=" roadmap."
         description={streamlineDescription}
         imageUrl="/streamline.png"
       />

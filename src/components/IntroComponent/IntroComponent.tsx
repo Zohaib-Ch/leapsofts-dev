@@ -50,7 +50,7 @@ const IntroComponent: React.FC<IntroComponentProps> = ({
             <div className={styles.container}>
                 <div className={styles.content}>
                     <h1 className={styles.title}>{title}</h1>
-                    <h1 className={styles.title}>{title2}</h1>
+                    {title2 && <h2 className={styles.title} style={{ marginTop: '-0.5rem', fontSize: '2.5rem', opacity: 0.9 }}>{title2}</h2>}
                     <p className={styles.subtitle}>
                         {introDescription?.map((item, index) => (
                             <span key={index} className={item.bold ? styles.bold : ''}>

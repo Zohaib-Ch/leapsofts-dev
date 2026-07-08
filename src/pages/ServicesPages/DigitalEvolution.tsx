@@ -1,3 +1,4 @@
+import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
@@ -9,52 +10,52 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
-  label: "DIGITAL EVOLUTION",
-  titleMain: "Evolve Your",
-  titleAccent: "Digital",
-  titleEnd: "Future",
-  description: "Leapsofts drives digital transformation that goes beyond technology. We help you evolve your business models, enhance operational efficiency, and unlock new growth opportunities through strategic digital adoption and innovation.",
+  label: "ENTERPRISE MODERNIZATION",
+  titleMain: "Orchestrating Strategic",
+  titleAccent: "Digital Evolution",
+  titleEnd: "Roadmaps",
+  description: "At Leapsofts, we guide mid-market and enterprise organizations through structural digital evolution campaigns, transforming legacy dependencies into modern growth assets. Our solutions architects evaluate code-level technical debt, plan monolithic-to-microservices migrations, and build secure, data-driven cloud systems that meet strict operational metrics and security certifications.",
   imagePath: laptopImg
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
-  label: 'EVOLUTION SERVICES',
-  titleAccent: 'Digital',
-  titleMain: 'Transformation',
+  label: 'TRANSFORMATION CAPABILITIES',
+  titleAccent: 'Corporate',
+  titleMain: 'Digital Evolution',
   description: 'We integrate cutting-edge digital solutions to modernize your workflows and enhance customer engagement.',
   items: [
-    { icon: 'enterprise', title: 'Automation Strategy', description: 'Streamline repetitive tasks with intelligent digital workflows.' },
-    { icon: 'enterprise', title: 'Data Analytics', description: 'Leverage big data for actionable business insights and predictions.' },
-    { icon: 'enterprise', title: 'Cloud Integration', description: 'Adopt flexible cloud solutions that scale with your growth.' },
-    { icon: 'product', title: 'Customer Experience', description: 'Personalize digital interactions to boost user satisfaction.' },
-    { icon: 'saas', title: 'Agile Business Models', description: 'Respond rapidly to market changes with adaptable digital structures.' },
-    { icon: 'thirdParty', title: 'Security & Compliance', description: 'Protect your digital assets with robust governance practices.' },
+    { icon: 'enterprise' as const, title: 'Monolithic Decoupling', description: 'Re-architecting rigid, legacy mainframes into agile, high-performance API-first cloud microservices.' },
+    { icon: 'enterprise' as const, title: 'Unified Big Data Lakes', description: 'Establishing secure, central data repositories utilizing Snowflake or BigQuery with automated transformation flows.' },
+    { icon: 'enterprise' as const, title: 'Omnichannel Commerce Setup', description: 'Building high-performance unified transaction networks across React storefronts, native platforms, and CRM centers.' },
+    { icon: 'product' as const, title: 'Intelligent Process Automation', description: 'Deploying automated serverless bots and integration frameworks to replace manual operational tasks.' },
+    { icon: 'saas' as const, title: 'Predictive Operations Analytics', description: 'Integrating machine learning scoring and customer segment modeling directly into operational reporting feeds.' },
+    { icon: 'thirdParty' as const, title: 'Global System Integrations', description: 'Unifying disconnected internal databases, inventory tracking APIs, and billing engines into a fast sync grid.' },
   ]
 };
 
 const digitalEvolutionProcessData: InfoGridProps['data'] = {
-  label: 'BENEFITS',
-  title: 'Why Evolve Digitally',
+  label: 'EVOLUTION VALUE ADVANTAGE',
+  title: 'Why Transform Your Business Systems with Leapsofts',
   items: [
     {
       icon: '01',
-      title: 'Innovation',
-      description: 'Stay ahead of the competition by continuously integrating the latest tech.'
+      title: 'Eliminate Mainframe Technical Debt',
+      description: 'Upgrade brittle legacy databases and spaghetti code blocks to clean, type-safe, and self-documenting codebases.'
     },
     {
       icon: '02',
-      title: 'Productivity',
-      description: 'Boost output and reduce costs through seamless digital workflows.'
+      title: 'Multi-Fold Operational Speeds',
+      description: 'Automate repetitive cross-department approvals, decreasing client onboarding times from days to seconds.'
     },
     {
       icon: '03',
-      title: 'Insights',
-      description: 'Make informed decisions based on deep data-driven customer analysis.'
+      title: 'Predictive Corporate Intelligence',
+      description: 'Transition standard database spreadsheets into real-time business dashboards with live predictive telemetry.'
     },
     {
       icon: '04',
-      title: 'Sustainability',
-      description: 'Build long-term business resilience with responsible digital innovation.'
+      title: 'Future-Proof Market Agility',
+      description: 'Easily plug in new software products, partner APIs, or SaaS integrations without risking legacy core failures.'
     }
   ]
 };
@@ -94,25 +95,25 @@ const serviceFeaturesData: ServiceFeatureItem[] = [
 
 const deliverMVPData = {
   label: "EVOLUTION EXCELLENCE",
-  title: "Committed to",
-  accentText: "Digital Success",
-  description: "Leapsofts provides strategic digital advisors who are fully committed to your project's success. We focus on innovation, efficiency, and long-term results.",
+  title: "Our Commitment to Deliver Your Digital Transformation in",
+  accentText: "3-5 months?",
+  description: "Leapsofts is an elite enterprise systems transformation and digital evolution partner. By combining fully integrated automated tooling, certified solutions architects, and dedicated DevOps engineers, we build, secure, and deliver modernized operational systems within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
-      title: "Holistic Approach.",
-      description: "Transforming every layer of your business for the digital age."
+      title: "Monolithic Decoupling.",
+      description: "Systematically isolating obsolete legacy mainframe processes into high-performance cloud microservices."
     },
     {
-      title: "Future-Ready Tech.",
-      description: "Selecting technologies that ensure longevity and scalability."
+      title: "Modern Data Lakes.",
+      description: "Consolidating siloed corporate databases into unified, secure analytical systems like Snowflake or BigQuery."
     },
     {
-      title: "Data-Led Progress.",
-      description: "Using metrics and analysis to guide your evolution journey."
+      title: "Zero-Downtime Migration.",
+      description: "Orchestrating safe canary deployments and legacy system sync routines to maintain absolute operational uptime."
     },
     {
-      title: "Ongoing Partnership.",
-      description: "We don't just transform; we help you continuously evolve."
+      title: "Intelligent Automations.",
+      description: "Implementing predictive analytics triggers, API pipelines, and corporate process workflows to eliminate human errors."
     }
   ]
 };
@@ -120,43 +121,101 @@ const deliverMVPData = {
 const processPhasesDefault: ProcessPhase[] = [
   {
     id: 1,
-    phase: "PHASE 1: DISCOVERY",
-    title: "Current State Analysis",
-    description: "We audit your existing digital landscape and business objectives.",
-    features: ["Digital Maturity Audit", "Goal Alignment Workshops", "Gap Analysis"],
+    phase: "PHASE 1: AGILE DISCOVERY & READINESS ASSESSMENT",
+    title: "Codebase-Level Debt Audits & Discoveries",
+    description: "We audit your existing digital landscape, codebase technical debt, and business objectives.",
+    features: [
+      {
+        title: "Codebase-Level Debt Audits",
+        description: "Scan legacy code files, dependencies relationships, database models, and active port layers."
+      },
+      {
+        title: "Friction Point Assessments",
+        description: "Analyze manual entry sheets, API connection speeds, and internal database latencies."
+      },
+      {
+        title: "Modernization Blueprint",
+        description: "Draft structural target microservice schemas, database mapping routes, and roadmap phases."
+      }
+    ]
   },
   {
     id: 2,
-    phase: "PHASE 2: STRATEGY",
-    title: "Evolution Blueprint",
-    description: "Designing a phased roadmap for high-impact digital adoption.",
-    features: ["Project Prioritization", "Tech Stack Selection", "ROI Forecasting"],
+    phase: "PHASE 2: IAC DESIGN & MICROSERVICES PROVISIONS",
+    title: "API Blueprints & Infrastructure provisions",
+    description: "Designing a phased roadmap and writing robust Terraform modules to isolate legacy layers.",
+    features: [
+      {
+        title: "Modular Terraform Codebases",
+        description: "Author repeatable cloud infra scripts to build isolated, secure developer staging layers."
+      },
+      {
+        title: "REST & GraphQL API Blueprints",
+        description: "Design secure data gateways and service integrations that act as firewalls around legacy DBs."
+      },
+      {
+        title: "Zero-Trust Security Frameworks",
+        description: "Enforce granular user access boundaries, activate KMS encrypt tags, and write access audit logs."
+      }
+    ]
   },
   {
     id: 3,
-    phase: "PHASE 3: EXECUTION",
-    title: "Implementation & Integration",
-    description: "Executing the digital updates and integrating new workflows.",
-    features: ["Modular Rollouts", "Legacy System Updates", "System Integrations"],
+    phase: "PHASE 3: HIGH-VELOCITY SYSTEM DEPLOYMENT",
+    title: "Monolithic Decouplings & Data Syncs",
+    description: "Executing the digital updates and integrating new workflows with zero transaction loss.",
+    features: [
+      {
+        title: "Monolithic Decoupling Sprints",
+        description: "Re-architect monolithic applications into Docker containers using zero-downtime canary updates."
+      },
+      {
+        title: "Live Database Replications",
+        description: "Establish automated replication pipelines to sync operational logs with zero transactional losses."
+      },
+      {
+        title: "Transaction Stress Audits",
+        description: "Execute automated stress routines via k6 to confirm microservice capacity bounds under heavy loads."
+      }
+    ]
   },
   {
     id: 4,
-    phase: "PHASE 4: EXPANSION",
-    title: "Scaling & Optimization",
-    description: "Continuously improving and scaling your new digital capabilities.",
-    features: ["Performance Review", "Continuous Innovation", "Strategic Expansion"],
-  },
+    phase: "PHASE 4: CONTINUOUS OBSERVABILITY & EXPANSION",
+    title: "Telemetry Ingestion & Cost Trimming",
+    description: "Continuously improving and scaling your new digital capabilities with active optimization scripts.",
+    features: [
+      {
+        title: "Prometheus & Grafana Ingestion",
+        description: "Orchestrate central dashboard telemetries, configure query speeds monitors, and enable slack alerts."
+      },
+      {
+        title: "Instance Schedule Optimization",
+        description: "Deploy automated cron scripts to shut down inactive clusters and auto-scale active transaction pools."
+      },
+      {
+        title: "Continuous DevOps Cycles",
+        description: "Execute visual releases, dependency updates, and automated security penetration reviews regularly."
+      }
+    ]
+  }
 ];
 
-const phaseLabelsDefault = ["DISCOVERY", "STRATEGY", "EXECUTION", "EXPANSION"];
+const phaseLabelsDefault = [
+    "READINESS ASSESSMENT",
+    "CDK & VPC DESIGN",
+    "WORKLOAD DEPLOYMENT",
+    "TELEMETRY & GOVERNANCE",
+];
 
-
-const title = "Digital Evolution: Evolve, Enhance & Excel";
+const title = "Digital Evolution, Legacy Modernization & Enterprise Systems Transformation";
 const subtitle = "";
 
 const introDescription = [
-  { text: "Evolve your organization for the modern digital era with Leapsofts.", bold: false },
-]
+  { text: "We orchestrate continuous technical and operational ", bold: false },
+  { text: "enterprise digital transformations", bold: true },
+  { text: ", decoupling obsolete monolithic core networks, modernizing high-latency data pathways, and automating customer-facing workflows. By combining distributed cloud-native microservices, deep analytics integrations, and robust security blueprints, we guide established enterprises through zero-downtime modernization processes that unlock sustained agility.", bold: false }
+];
 
 const DigitalEvolution: React.FC = () => {
   return (
@@ -176,10 +235,10 @@ const DigitalEvolution: React.FC = () => {
       />
       <InfoGrid data={digitalEvolutionProcessData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Evolution "
-        titleAccent="Strategy"
-        titleEnd=" Session"
+        label="COMPLIMENTARY STRATEGY SESSION"
+        titleMain="Map your "
+        titleAccent="business transformation"
+        titleEnd=" roadmap."
         description={streamlineDescription}
         imageUrl="/streamline.png"
       />
@@ -190,7 +249,7 @@ const DigitalEvolution: React.FC = () => {
       />
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={emergingTechData} />
-      <Processes title="OUR DIGITAL EVOLUTION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <Processes title="OUR CUSTOM DIGITAL EVOLUTION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   );
 };

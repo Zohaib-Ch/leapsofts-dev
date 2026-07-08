@@ -19,16 +19,16 @@ const mobileAppSlides: CapabilitySlide[] = [
     image: capabilitiesImg,
     items: [
       {
-        name: 'Seamless Integration',
-        description: 'Transform your existing web application into a seamless mobile experience that integrates perfectly with your current platform.'
+        name: 'Multi-Platform Schema Integration',
+        description: 'Migrate and scale your current web system into a responsive mobile layout. We design secure RESTful and GraphQL API bridges to sync multi-platform database transactions instantaneously.'
       },
       {
-        name: 'Cross-Platform Compatibility',
-        description: 'Consistent user experience across desktop and mobile devices with perfect synchronization.'
+        name: 'Unified Multi-Device Performance',
+        description: 'Deliver an absolute visual and functional identity across all viewports. Our platforms support fluid state updates and shared component libraries, ensuring seamless data parity.'
       },
       {
-        name: 'Synchronized Data',
-        description: 'Real-time data synchronization ensures seamless access across all devices.'
+        name: 'Offline-First Real-Time Synchronization',
+        description: 'We design offline-first architectures utilizing localized SQL databases (SQLite/Room) and automatic cloud sync managers to protect data transactions during network interruptions.'
       }
     ]
   },
@@ -39,16 +39,16 @@ const mobileAppSlides: CapabilitySlide[] = [
     image: platformImg,
     items: [
       {
-        name: 'Native Development',
-        description: 'Native iOS and Android development by expert engineers to get your app to market faster.'
+        name: 'Native iOS & Android Engineering',
+        description: 'Leverage native language execution with Swift (iOS) and Kotlin (Android) to optimize thread concurrency, maximize memory efficiency, and access complete system resources.'
       },
       {
-        name: 'Platform-Specific Optimization',
-        description: 'Platform-specific optimization using native features for optimal performance and natural user experience.'
+        name: 'Device Resource Optimization',
+        description: 'Accelerate app responsiveness by exploiting hardware-accelerated layouts, biometric security controls (FaceID/TouchID), push notifications, and local core Bluetooth APIs.'
       },
       {
-        name: 'Faster Time to Market',
-        description: 'Reach both iOS and Android users simultaneously with rapid development and deployment.'
+        name: 'Optimized Cross-Platform Frameworks',
+        description: 'Reach multi-region markets simultaneously by leveraging high-performance hybrid setups using Flutter and React Native, utilizing shared code logic without native compromises.'
       }
     ]
   },
@@ -59,16 +59,16 @@ const mobileAppSlides: CapabilitySlide[] = [
     image: capabilitiesImg,
     items: [
       {
-        name: 'Remote Work Solutions',
-        description: 'Enable remote work and reduce inefficiencies by integrating mobile apps with your internal systems.'
+        name: 'Remote Asset & Workforce Orchestration',
+        description: 'Bridge your internal ERP, CRM, and asset databases with field-ready mobile interfaces that support real-time resource allocations and remote task audits.'
       },
       {
-        name: 'Process Automation',
-        description: 'Automate routine tasks and workflows to reduce errors and free your team for strategic work.'
+        name: 'Process Automation & Edge Tasks',
+        description: 'Automate standard administrative tasks, report distributions, and inventory checks at the mobile edge, eliminating system bottlenecks and reducing operational costs.'
       },
       {
-        name: 'Cost Efficiency',
-        description: 'Improve productivity and cut costs by eliminating redundant processes with mobile solutions.'
+        name: 'Operational Total Cost of Ownership (TCO) Reduction',
+        description: 'Improve field-agent workflows, minimize paper systems, and eliminate data errors by capturing records directly into structured backends via mobile device scanners.'
       }
     ]
   },
@@ -79,16 +79,16 @@ const mobileAppSlides: CapabilitySlide[] = [
     image: platformImg,
     items: [
       {
-        name: 'Mobile-First Solutions',
-        description: 'Transform your mobile vision into a customer-focused app, whether you\'re a start-up or established company.'
+        name: 'User Centric Product Design',
+        description: 'Translate your brand strategy into high-impact, mobile-first designs. We optimize layouts, touch target dimensions, and state transitions to capture high retention.'
       },
       {
-        name: 'Custom App Development',
-        description: 'End-to-end custom mobile app development tailored to your specific business needs and target audience.'
+        name: 'Bespoke Architecture & SDLC Governance',
+        description: 'Every standalone app is engineered under strict Software Development Life Cycle (SDLC) models, with automated security updates, automated unit test sets, and regression protection.'
       },
       {
-        name: 'Innovation & Execution',
-        description: 'Transform innovative ideas into functional, user-friendly mobile applications that drive engagement and business results.'
+        name: 'Continuous App Lifecycle Evolution',
+        description: 'Ensure your standalone app remains functional through continuous OS version patches, performance profiling, database compression checks, and prompt Store optimizations.'
       }
     ]
   }
@@ -103,231 +103,228 @@ const emergingTechData: EmergingTechProps['data'] = {
     {
       icon: 'enterprise' as const,
       title: 'Process Automation Solutions',
-      description: 'Automate business operations to focus on core competencies and eliminate labor-intensive systems.'
+      description: 'Automating complex workflow transactions, inventory logging, and backend integrations to streamline enterprise systems.'
     },
     {
       icon: 'mobile' as const,
-      title: 'Multimedia Tools',
-      description: 'Video and audio streaming, image processing, social network integration, and monetization features.'
+      title: 'Advanced Multimedia & Data Streaming',
+      description: 'Implementing low-latency HLS video/audio streaming protocols, camera-based barcode scanning, and multi-threaded background synchronization.'
     },
     {
       icon: 'ecommerce' as const,
-      title: 'Ecommerce Apps',
-      description: 'Secure and efficient customer experiences with inventory and payment management solutions.'
+      title: 'Highly Secure E-Commerce & Transaction Systems',
+      description: 'Building premium transactional mobile systems with integrated Stripe, Apple Pay, and Google Pay systems, protected by local biometric keychains.'
     },
     {
       icon: 'thirdParty' as const,
-      title: 'Social Networking Apps',
-      description: 'Seamlessly connect with existing social networking platforms for enhanced user engagement.'
+      title: 'Social Integration & Push Notification Topologies',
+      description: 'Designing robust event-driven notification systems using Firebase (FCM) and APNS to manage high-volume push messaging.'
     },
     {
       icon: 'enterprise' as const,
-      title: 'Internal Corporate Solutions',
-      description: 'Enhance existing ERP systems with mobile solutions that improve efficiency and accountability.'
+      title: 'Mobile ERP & Legacy System Integration',
+      description: 'Deploying custom mobile gateways that connect on-premise relational databases, secure VPN networks, and legacy CRM architectures.'
     },
     {
       icon: 'mobile' as const,
-      title: 'Lifestyle & Leisure Apps',
-      description: 'Mobile apps that provide access to events, sports, food, travel, and lifestyle activities.'
+      title: 'Hardware Integration & Bluetooth Connectivity',
+      description: 'Leveraging local Bluetooth Low Energy (BLE) APIs, GPS location tracking, and mobile sensor metrics to create high-impact utility solutions.'
     },
     {
       icon: 'mobile' as const,
-      title: 'News & Information Apps',
-      description: 'Personalized news and information experiences with full control over UI and design.'
+      title: 'Offline-Capable Content Caching Engines',
+      description: 'Designing intelligent local databases (Realm/SQLite) that cache content structures for immediate offline reading and minimal network overhead.'
     },
     {
       icon: 'product' as const,
-      title: 'One-of-a-Kind Apps',
-      description: 'Custom mobile applications built from the ground up for unique business needs.'
+      title: 'Bespoke Custom Mobile Architectures',
+      description: 'Engineering highly specialized mobile platforms tailored from the ground up to solve complex industrial and scientific business objectives.'
     },
   ]
 };
+
 const defaultItems: ServiceFeatureItem[] = [
     {
         icon: '/industryicons/sphere.svg',
         title: 'Mobile App Security',
-        description: 'Security is baked in from the start. We implement secure login (OAuth, biometrics), data encryption, role-based access controls, and compliance standards to protect your users and business.'
+        description: 'Security is baked in from the start. We implement secure login (OAuth, biometrics), data encryption (AES-256), role-based access controls, and compliance standards (HIPAA, GDPR) to protect your users and business.'
     },
     {
         icon: '/industryicons/bipiramida.svg',
         title: 'On-Demand App Solutions',
-        description: "We specialize in building on-demand apps for industries like healthcare, e-commerce, and logistics, featuring real-time tracking, dynamic scheduling, and mobile payments that power instant access and convenience."
+        description: "We specialize in building on-demand apps for industries like healthcare, e-commerce, and logistics, featuring real-time tracking, dynamic scheduling, and mobile payments that power instant access."
     },
     {
         icon: '/industryicons/bipiramida.svg',
         title: 'Wearable and IoT App Development',
-        description: "From smartwatches to industrial sensors, we develop mobile apps that connect to wearables and IoT devices for real-time monitoring, automation, and smarter experiences."
+        description: "From smartwatches to industrial sensors, we develop mobile apps that connect to wearables and IoT devices via CoreBluetooth, local WiFi, or serial protocols for real-time monitoring and edge analytics."
     },
     {
         icon: '/industryicons/bipiramida.svg',
         title: 'Mobile Strategy Session',
-        description: "We start with a strategy session to align your business goals, target audience, and technology stack. Whether you need an iOS app, an Android app, or a cross-platform solution, we help define the right approach to maximize user engagement and long-term scalability."
+        description: "We start with a strategy session to align your business goals, target audience, and technology stack. Whether you need native iOS, Android, or cross-platform Flutter/React Native, we map out database requirements and store submission risks."
     },
     {
         icon: '/industryicons/bipiramida.svg',
         title: 'Project Discovery for Mobile Applications',
-        description: "We analyze your workflows, customer journeys, and business logic to design cutting-edge mobile app solutions that balance user experience, functionality, and performance from day one."
+        description: "We analyze your workflows, customer journeys, and business logic to design mobile-first solutions, producing technical wireframes, compliance targets, and API mock frameworks."
     },
     {
         icon: '/industryicons/bipiramida.svg',
         title: 'Custom Mobile App Development',
-        description: "Our development team builds tailor-made mobile apps using frameworks like Swift, Kotlin, Flutter, and React Native. From MVPs for startups to enterprise-grade solutions, we prioritize high-quality code, seamless UI/UX design, and speed-to-market."
+        description: "Our development team builds custom mobile apps using frameworks like Swift, Kotlin, Flutter, and React Native. From MVPs for startups to enterprise systems, we prioritize modular components and automated App Store delivery."
     },
 ];
+
 const deliverMVPData = {
-    label: "WHY CHOOSE LEAPSOFTS",
+    label: "MOBILE EXCELLENCE",
     title: "How Can We Deliver Your Mobile App in",
     accentText: "3-5 months?",
-    description: "Leapsofts is a custom software development company that offers software products tailored to your unique business objectives. Leveraging our structured end-to-end processes, custom project management tool, agile methodology, and AI integration expertise, we solve complex business challenges, accelerate growth, and consistently deliver mobile apps within 3 to 5 months, on time, every time.",
+    description: "Leapsofts is an elite custom mobile engineering partner. By combining fully integrated CI/CD, pre-built modular mobile packages, and dedicated agile pods, we build and deploy enterprise-ready mobile platforms within an accelerated 3 to 5 month timeline—on time, every time.",
     items: [
         {
-            title: "Proven Methodologies & Processes.",
-            description: "We follow agile workflows, CI/CD pipelines, and DevOps practices to accelerate delivery while maintaining top-tier quality and compliance."
+            title: "Agile Development Pods.",
+            description: "Leveraging iterative bi-weekly sprint cycles and transparent task dashboards to deliver incremental value and maintain visual alignment."
         },
         {
-            title: "Client-First Approach.",
-            description: "From discovery to post-launch support, we collaborate with your team and stakeholders to build solutions aligned with your specific needs and business workflows."
+            title: "Mobile Secure Storage.",
+            description: "Integrating AES-256 databases (Room/SQLite), FaceID verification, OAuth2 tokens, and secure keychain structures to protect user identity."
         },
         {
-            title: "Transparent Pricing Models.",
-            description: "Whether it's fixed-scope development or continuous product engineering, we provide clarity, flexibility, and no hidden costs."
+            title: "UX Touch Optimizations.",
+            description: "Drafting technical wireframes, touch target dimensions, and fluid screen transitions that ensure friction-free mobile navigation."
         },
         {
-            title: "Healthcare Software Expertise.",
-            description: "With years of experience building healthcare applications, we understand the nuances of EMRs, patient engagement, HIPAA compliance, and third-party integrations."
+            title: "OS Version Support.",
+            description: "Proactive system upgrades, cloud resource balancing, security patch audits, and performance tuning to secure long-term digital authority."
         }
     ]
 };
 
-  const processPhasesDefault: ProcessPhase[] = [
-    {
-      id: 1,
-      phase: "PHASE 1: INITIAL ASSESSMENT & IDEATION",
-      title: "Discovery & Planning",
-      description:
-        "We dive deep into understanding your business needs, goals, and challenges.",
-      features: [
-        {
-          title: "Business & Workflow Analysis",
-          description:
-            "Identify strategic goals, requirements, challenges, and operational gaps to set a clear vision and scope.",
-        },
-        {
-          title: "Market Research & Analysis",
-          description:
-            "Market and competitive analysis to inform decisions—trends, customer behavior, and regulatory factors.",
-        },
-        {
-          title: "Project Scope Definition",
-          description:
-            "Clear scope, methodology, deliverables, timeline, and cost for a structured execution roadmap.",
-        },
-      ],
-    },
-    {
-      id: 2,
-      phase: "PHASE 2: DISCOVERY",
-      title: "Research & Strategy",
-      description:
-        "Comprehensive analysis to define the perfect solution architecture.",
-      features: [
-        {
-          title: "Software Requirements Specification (SRS)",
-          description:
-            "Functional and non-functional specs: performance, security, scalability, reliability, and compliance.",
-        },
-        {
-          title: "Technical Architecture",
-          description:
-            "Secure, scalable infrastructure with defined security controls and integration plans.",
-        },
-        {
-          title: "Risk Assessment",
-          description:
-            "Identify risks and operational challenges; define proactive mitigation and continuity plans.",
-        },
-      ],
-    },
-    {
-      id: 3,
-      phase: "PHASE 3: ENGINEERING",
-      title: "Agile or Fixed-Cost Custom Software Development",
-      description:
-        "Building your solution with cutting-edge technologies and best practices.",
-      features: [
-        {
-          title: "Dedicated Team",
-          description:
-            "Full lifecycle delivery via SCRUM and Kanban—incremental, transparent, and on time.",
-        },
-        {
-          title: "Business-Oriented Approach",
-          description:
-            "Full-cycle development focused on measurable business outcomes and strategic alignment.",
-        },
-        {
-          title: "Communication & Value-Driven Collaboration",
-          description:
-            "Ongoing engagement, transparency, and alignment so stakeholders stay informed and decisions move fast.",
-        },
-      ],
-    },
-    {
-      id: 4,
-      phase: "PHASE 4: TRAINING & SUPPORT",
-      title: "Launch & Continuous Support",
-      description:
-        "Seamless deployment and ongoing maintenance for your success.",
-      features: [
-        {
-          title: "Seamless Integration",
-          description:
-            "Connect new apps with existing systems for smooth data flow and minimal disruption.",
-        },
-        {
-          title: "Deployment & Testing",
-          description:
-            "Rigorous testing and structured deployment for a stable, risk-free launch.",
-        },
-        {
-          title: "User Training & Adoption",
-          description:
-            "Training so your teams use the software effectively and boost productivity.",
-        },
-        {
-          title: "Ongoing Support & System Evolution",
-          description:
-            "Continuous enhancements to match changing needs and keep long-term value.",
-        },
-      ],
-    },
-  ];
+const processPhasesDefault: ProcessPhase[] = [
+  {
+    id: 1,
+    phase: "PHASE 1: MOBILE HARDWARE INTEGRATION & DEVICE MAPPING",
+    title: "Mobile Hardware & Gesture Design",
+    description:
+      "We scope native hardware features, touch gestures, and design low-latency API connections built for mobile screens.",
+    features: [
+      {
+        title: "Native Capability Scoping",
+        description:
+          "Define device integrations including Bluetooth BLE registers, localized GPS boundaries, and biometric (FaceID) controls."
+      },
+      {
+        title: "Mobile Touch Grid Wireframing",
+        description:
+          "Design intuitive interfaces optimized for thumbs, prioritizing proper touch targets and fluid layout gestures."
+      },
+      {
+        title: "API Packet Efficiency Strategy",
+        description:
+          "Plan REST and GraphQL payloads engineered to minimize cellular data transfers and optimize database queries."
+      }
+    ]
+  },
+  {
+    id: 2,
+    phase: "PHASE 2: OFFLINE STORAGE & STORE COMPLIANCE MAPPING",
+    title: "Offline Schemas & Push Topologies",
+    description:
+      "Formulating resilient offline storage, secure notification routing, and store compliance blueprints.",
+    features: [
+      {
+        title: "Offline-First Local Database",
+        description:
+          "Model high-speed SQLite, Room, or Realm schemas to cache transactions and allow complete offline application usage."
+      },
+      {
+        title: "Push APNS & Firebase Config",
+        description:
+          "Map secure event-driven push notification structures utilizing Apple APNS and Google FCM routing tokens."
+      },
+      {
+        title: "Store Submission Guidelines Audit",
+        description:
+          "Verify visual and system attributes against Apple App Store and Google Play guidelines to prevent rejection."
+      }
+    ]
+  },
+  {
+    id: 3,
+    phase: "PHASE 3: NATIVE COMPILER & HYBRID FRAMEWORK CODING",
+    title: "Native / Cross-Platform Mobile Construction",
+    description:
+      "Writing optimized application threads, accessing device registers, and sharing alpha releases.",
+    features: [
+      {
+        title: "Swift & Kotlin Native Execution",
+        description:
+          "Write high-concurrency Swift (iOS) and Kotlin (Android) code or optimized shared hybrid Flutter packages."
+      },
+      {
+        title: "Hardware Layer Programing",
+        description:
+          "Configure local camera capture, background location metrics, and Bluetooth low energy serial streams."
+      },
+      {
+        title: "Alpha TestFlight Distributions",
+        description:
+          "Deploy early software builds to client teams using Apple TestFlight, Google Play Beta, or App Center pipelines."
+      }
+    ]
+  },
+  {
+    id: 4,
+    phase: "PHASE 4: APP STORE SUBMISSION & CRASH EVOLUTION",
+    title: "App Stores Release & Memory Tuning",
+    description:
+      "Direct store reviews management, real-time runtime monitoring, and swift OS boundary upgrades.",
+    features: [
+      {
+        title: "Store Review Approval Lifecycle",
+        description:
+          "Package asset bundles, manage target metadata, and coordinate directly with Apple and Google reviewers."
+      },
+      {
+        title: "Real-Time Crashlytics Audits",
+        description:
+          "Track runtime logs and memory leaks using Firebase Crashlytics to optimize backend scaling."
+      },
+      {
+        title: "OS Compatibility Upgrades",
+        description:
+          "Deploy immediate framework and native version upgrades to support iOS and Android systems updates."
+      }
+    ]
+  }
+];
 
-  const phaseLabelsDefault = [
-    "INITIAL ASSESSMENT & IDEATION",
-    "DISCOVERY",
-    "ENGINEERING",
-    "TRAINING & SUPPORT",
-  ];
-   const streamlineDescription = [
-    { text: "Whether you're modernizing an ", bold: false },
-    { text: "existing enterprise software system ", bold: true },
-    { text: "or launching a ", bold: false },
-    { text: "new digital product", bold: true },
-    { text: ", Leapsofts offers a ", bold: false },
-    { text: "complimentary software strategy session ", bold: true },
-    { text: "designed to deliver value almost immediately. We take the time to understand your business objectives, technical landscape, and operational challenges then provide actionable insights on how ", bold: false },
-    { text: "bespoke, cost-effective custom software solutions ", bold: true },
-    { text: "can streamline workflows, improve efficiency, and support scalable growth.", bold: false },
-  ];
+const phaseLabelsDefault = [
+  "HARDWARE MAPPING",
+  "OFFLINE SCHEMAS",
+  "NATIVE CODING",
+  "STORE RELEASES",
+];
 
-const title = "Mobile App Development Services";
+const streamlineDescription = [
+  { text: "Whether modernizing a complex ", bold: false },
+  { text: "legacy enterprise web portal ", bold: true },
+  { text: "or engineering a ", bold: false },
+  { text: "new mobile app platform", bold: true },
+  { text: ", our experts deliver immediate technical clarity. We conduct a deep-dive analysis of your current systems, map out mobile tech stack parameters, evaluate offline storage bounds, and formulate a ", bold: false },
+  { text: "highly efficient, native-optimized mobile engineering plan ", bold: true },
+  { text: "built to unlock massive digital growth and streamline user retention.", bold: false }
+];
+
+const title = "Enterprise Mobile Engineering & Architecture";
 const subtitle = "";
 
 const introDescription = [
-    { text: "At Leapsofts, we specialize in delivering custom mobile app development services that align with your business goals. Whether you're a startup aiming to disrupt the market or an enterprise seeking digital transformation, our end-to-end solutions are designed to provide user-friendly, high-performance mobile experiences across iOS, Android, and cross-platform environments.", bold: false },
+  { text: "We engineer high-performance, security-first ", bold: false },
+  { text: "custom mobile applications ", bold: true },
+  { text: "designed to support complex enterprise workflows, high-velocity transactions, and seamless user experiences. By utilizing native Swift, Kotlin, and highly optimized cross-platform Flutter/React Native frameworks, we deliver resilient apps engineered for long-term growth and immediate deployment on the Apple App Store and Google Play Store.", bold: false }
 ]
-
 
 const MobileAppDevelopment: React.FC = () => {
   return (
@@ -338,28 +335,29 @@ const MobileAppDevelopment: React.FC = () => {
         introDescription={introDescription}
       />
       <ServiceOverview
-      label='BRIEF OVERVIEW'
-      titleMain='Ready for the Mobile App?'
-      titleAccent='Fast-forward'
-      titleEnd='to our solution:'
-      description='We create custom mobile apps that help businesses grow, streamline processes, and keep users engaged. From iOS to Android and everything in between, we handle the entire development process.'
-      imagePath={mobileAppImg}
+        label='BRIEF OVERVIEW'
+        titleMain='High-Performance Mobile Systems'
+        titleAccent='Engineered for '
+        titleEnd='Execution'
+        description='At Leapsofts, we design and develop custom mobile architectures that bridge corporate databases, cloud services, and device capabilities. By managing end-to-end cycles—from technical wireframes and offline data synchronization to automated background services and localized caching grids—we deliver intuitive, responsive platforms that optimize operational velocity and secure absolute user retention.'
+        imagePath={mobileAppImg}
       />
       <Capabilities title="Our Mobile App Development Capabilities" slides={mobileAppSlides} />
-         <StreamlineSuccess
-          label="STREAMLINE YOUR SUCCESS"
-          titleMain="Software "
-          titleAccent="Strategy"
-          titleEnd=" Session"
-          description={streamlineDescription}
-          imageUrl="/streamline.png"
-        />
+      <StreamlineSuccess
+        label="COMPLIMENTARY STRATEGY SESSION"
+        titleMain="Map your "
+        titleAccent="mobile"
+        titleEnd=" roadmap."
+        description={streamlineDescription}
+        imageUrl="/streamline.png"
+      />
       <ServiceFeatures
-      title='Custom Mobile App Development Services We Provide'
-       items={defaultItems} />
+        title='Custom Mobile App Development Services We Provide'
+        items={defaultItems}
+      />
       <EmergingTech data={emergingTechData} />
       <DeliverMVP data={deliverMVPData} />
-      <Processes title="OUR CUSTOM SOFTWARE DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <Processes title="OUR CUSTOM MOBILE DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   )
 }

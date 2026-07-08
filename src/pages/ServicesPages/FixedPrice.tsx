@@ -9,109 +9,52 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
-  label: "FIXED PRICE MODEL",
-  titleMain: "Transparent &",
-  titleAccent: "Predictable",
-  titleEnd: "Delivery",
-  description: "Leapsofts offers a fixed-price engagement model that provides complete clarity on project scope, timelines, and costs. This model is ideal for well-defined projects where budget predictability and timely delivery are paramount.",
+  label: "FIXED PRICE PARTNERSHIP",
+  titleMain: "Orchestrating Predictable",
+  titleAccent: "Fixed-Price",
+  titleEnd: "Software Delivery",
+  description: "At Leapsofts, we offer a highly structured fixed-price engagement model designed for well-defined software projects, ensuring complete transparency across every milestone. Our business analysts and cloud architects document every application flow, catalog technical dependencies, and commit to clear delivery dates, allowing you to manage investments with absolute certainty.",
   imagePath: laptopImg
 };
 
 const ourServicesData: EmergingTechProps['data'] = {
-  label: 'MODEL BENEFITS',
-  titleAccent: 'Fixed',
-  titleMain: 'Price Advantages',
-  description:
-    'Discover the key advantages of choosing a fixed-price engagement model with Leapsofts.',
+  label: 'MODEL ADVANTAGES',
+  titleAccent: 'Fixed-Price',
+  titleMain: 'Delivery Guarantees',
+  description: 'Discover the key advantages of choosing a fixed-price engagement model with Leapsofts.',
   items: [
-    { icon: 'product', title: 'Budget Certainty', description: 'Know your exact project costs upfront with no hidden surprises.' },
-    { icon: 'enterprise', title: 'Defined Scope', description: 'Clear documentation of all features and requirements before work begins.' },
-    { icon: 'product', title: 'Timely Execution', description: 'Committed deadlines ensure your product launches on schedule.' },
-    { icon: 'hipaa', title: 'Risk Mitigation', description: 'We take on the delivery risk, ensuring requirements are met within budget.' },
-    { icon: 'enterprise', title: 'Quality Focus', description: 'Rigorous QA processes to ensure the final product meets all standards.' },
-    { icon: 'mobile', title: 'Strategic Edge', description: 'Launch faster and more predictably than your competitors.' },
+    { icon: 'product' as const, title: 'Upfront Budget Certainty', description: 'Know your exact capital expenditure before any coding begins, with zero risk of mid-project cost adjustments.' },
+    { icon: 'enterprise' as const, title: 'Comprehensive Scope Maps', description: 'Clear, exhaustive documentation of all features, technical dependencies, and system modules.' },
+    { icon: 'product' as const, title: 'Committed Timeline Delivery', description: 'Strict timeline boundaries backed by clear milestone dates to ensure your product launches on schedule.' },
+    { icon: 'hipaa' as const, title: 'Leapsofts Delivery Shield', description: 'We take on the technical execution risk, absorbing any additional hours needed to fulfill the defined scope.' },
+    { icon: 'enterprise' as const, title: 'Strict QA Benchmarks', description: 'Comprehensive testing checks covering performance, integration speed, and security rules at every stage.' },
+    { icon: 'mobile' as const, title: 'Strategic Resource Planning', description: 'Seamlessly coordinate your marketing, sales, and operations teams around firm software delivery dates.' },
   ]
 };
-const processPhasesDefault: ProcessPhase[] = [
-  {
-    id: 1,
-    phase: 'PHASE 1: REQUIREMENT DISCOVERY',
-    title: 'Align Vision and Scope',
-    description:
-      'We collaborate with stakeholders to define goals, validate feasibility, and translate ideas into clear, actionable requirements.',
-    features: [
-      'Stakeholder Workshops & Goal Alignment',
-      'Business, Functional & Technical Requirement Gathering',
-      'Feasibility Analysis, Risk Assessment & Delivery Roadmap'
-    ]
-  },
-  {
-    id: 2,
-    phase: 'PHASE 2: SOLUTION DESIGN',
-    title: 'Design Scalable Solutions',
-    description:
-      'We convert requirements into a secure, scalable, and user-focused solution architecture with a strong design foundation.',
-    features: [
-      'System Architecture, Data Flow & API Design',
-      'UI/UX Wireframes, Prototypes & Design Systems',
-      'Technology Stack, Cloud Strategy & Security Planning'
-    ]
-  },
-  {
-    id: 3,
-    phase: 'PHASE 3: PRODUCT DEVELOPMENT',
-    title: 'Deliver with Agility',
-    description:
-      'Using agile methodologies, we build, integrate, and validate the product through continuous testing and iteration.',
-    features: [
-      'Frontend, Backend & Mobile Development',
-      'Agile SCRUM, CI/CD Pipelines & System Integrations',
-      'QA Testing, UAT Support, Performance & Security Validation'
-    ]
-  },
-  {
-    id: 4,
-    phase: 'PHASE 4: CONTINUOUS SUPPORT',
-    title: 'Operate and Evolve',
-    description:
-      'We ensure smooth deployment, reliable operations, and continuous optimization backed by SLA-driven support.',
-    features: [
-      'Production Deployment & Release Management',
-      'SLA-Based L2/L3 Support, Monitoring & Incident Handling',
-      'Ongoing Maintenance, Optimization & Feature Enhancements'
-    ]
-  }
-];
 
-const phaseLabelsDefault = [
-  'Requirement Discovery',
-  'Solution Design',
-  'Product Development',
-  'Continuous Support'
-];
 const fixedPriceProcessData: InfoGridProps['data'] = {
-  label: 'WHY CHOOSE FIXED',
-  title: 'Predictability for Your Business',
+  label: 'PREDICTABLE OUTCOMES',
+  title: 'Why Choose Our Fixed Price Development Model',
   items: [
     {
       icon: '01',
-      title: 'No Hidden Costs',
-      description: 'The price we agree on is the price you pay, period.'
+      title: 'Zero Financial Creep',
+      description: 'The exact price we agree upon in the contract is the price you pay, protecting your project from surprise overheads.'
     },
     {
       icon: '02',
-      title: 'Clear Deliverables',
-      description: 'You get exactly what is outlined in the project scope.'
+      title: 'Fully Documented Systems',
+      description: 'Receive complete, self-documenting codebases, clear API contracts, and detailed system architecture maps.'
     },
     {
       icon: '03',
-      title: 'Resource Planning',
-      description: 'Easily plan your internal resources around fixed milestones.'
+      title: 'Agile Milestone Checkpoints',
+      description: 'Track development progress and inspect fully operational builds at predetermined, structured milestones.'
     },
     {
       icon: '04',
-      title: 'Project Accountability',
-      description: 'We are fully accountable for delivering the defined scope on time.'
+      title: 'Turnkey Solution Handover',
+      description: 'Get a fully functional, production-ready digital product complete with automated deployment scripts.'
     }
   ]
 };
@@ -151,37 +94,127 @@ const serviceFeaturesData: ServiceFeatureItem[] = [
 
 const deliverMVPData = {
   label: "FIXED PRICE EXCELLENCE",
-  title: "Committed to",
-  accentText: "Predictable Delivery",
-  description: "Leapsofts provides dedicated project teams that are fully committed to your project's success. We focus on transparency, adherence to scope, and technical rigor.",
+  title: "Our Commitment to Deliver Your Fixed Price Project in",
+  accentText: "3-5 months?",
+  description: "Leapsofts is a premier fixed-price software engineering and product delivery partner. By combining fully integrated automated tooling, certified technical scoping experts, and dedicated agile engineering pods, we scoping, build, and deliver high-performance custom platforms within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
-      title: "Strict Scoping.",
-      description: "Ensuring every detail is captured before the project starts."
+      title: "Strict Software Scoping.",
+      description: "Conducting exhaustive upfront discovery phases to map every application flow, database relation, and system connection."
     },
     {
-      title: "Transparent Pricing.",
-      description: "Complete clarity on costs with no hidden fees or upgrades."
+      title: "Budget & Scope Shield.",
+      description: "Absorbing technical execution risks by committing to a rigid contract price with zero hidden cost surprises."
     },
     {
-      title: "Quality Benchmarks.",
-      description: "Hitting specific performance and security standards at every milestone."
+      title: "Firm Release deadlines.",
+      description: "Structuring development sprints around guaranteed milestone delivery dates to launch on schedule."
     },
     {
-      title: "Experienced Management.",
-      description: "Senior PMs to ensure the project stays on track and within budget."
+      title: "Turnkey Solution Handover.",
+      description: "Delivering fully compiled production builds, self-documenting codebases, and automated cloud script runners."
     }
   ]
 };
 
+const processPhasesDefault: ProcessPhase[] = [
+  {
+    id: 1,
+    phase: "PHASE 1: AGILE DISCOVERY & SCOPE DEFINITION",
+    title: "Requirements Gathering & Discovery Blueprint",
+    description: "We run active stakeholder workshops to isolate core business objectives and target user demographics.",
+    features: [
+      {
+        title: "Requirements Gathering Workshops",
+        description: "Run active stakeholder sessions to map primary business actions, API connections, and systems."
+      },
+      {
+        title: "Friction & Technical Debt Reviews",
+        description: "Analyze manual data entry steps, security rules, and legacy dependencies constraints."
+      },
+      {
+        title: "SRS Specification Blueprint",
+        description: "Deliver a detailed Software Requirement Specification (SRS) doc detailing all database flows."
+      }
+    ]
+  },
+  {
+    id: 2,
+    phase: "PHASE 2: IAC DESIGN & ARCHITECTURE Blueprint",
+    title: "Database Schemas & System Architecture Designs",
+    description: "Designing optimized entity-relationship models (ERD) and secure data flow paths.",
+    features: [
+      {
+        title: "Modular IaC Codebases",
+        description: "Write repeatable cloud infrastructure scripts to build isolated, secure developer staging layers."
+      },
+      {
+        title: "VPC & VNet Topologies",
+        description: "Configure secure public and private subnets, transit tunnels, gateways, and load balancers."
+      },
+      {
+        title: "Key Protection & Security Guides",
+        description: "Enforce granular user access boundaries, activate KMS encrypt tags, and write access audit logs."
+      }
+    ]
+  },
+  {
+    id: 3,
+    phase: "PHASE 3: HIGH-VELOCITY SYSTEM DEPLOYMENT",
+    title: "Milestone-Based Sprints & Stress Runs",
+    description: "Executing rapid development sprints with fully verified, functional product releases at every milestone.",
+    features: [
+      {
+        title: "Milestone Product Releases",
+        description: "Compile and release fully operational test modules at predetermined checkpoints."
+      },
+      {
+        title: "Automated Build Compilation",
+        description: "Integrate linters, package builders, and automated testing hooks inside GitLab/GitHub runners."
+      },
+      {
+        title: "Transaction Stress Audits",
+        description: "Execute automated stress routines via k6 to confirm microservice capacity bounds under heavy loads."
+      }
+    ]
+  },
+  {
+    id: 4,
+    phase: "PHASE 4: CONTINUOUS OBSERVABILITY & HANDOVER",
+    title: "Telemetry Ingestion & SLA-Driven Support",
+    description: "Handing over the production build complete with automated CloudFormation or Bicep scripts.",
+    features: [
+      {
+        title: "Prometheus & Grafana Ingestion",
+        description: "Orchestrate central dashboard telemetries, configure query speeds monitors, and enable slack alerts."
+      },
+      {
+        title: "SLA-Driven L2/L3 Support",
+        description: "Provide continuous support coverage sweeps, security patching updates, and system scaling reviews."
+      },
+      {
+        title: "Instance Schedule Optimization",
+        description: "Deploy automated cron scripts to shut down inactive clusters and auto-scale active transaction pools."
+      }
+    ]
+  }
+];
 
+const phaseLabelsDefault = [
+  'Requirement Discovery',
+  'Solution Design',
+  'Product Development',
+  'Continuous Support'
+];
 
-const title = "Predictable Development, Exceptional Results";
+const title = "Fixed Price Software Development, Precise Scoping & Guaranteed Milestones";
 const subtitle = "";
 
 const introDescription = [
-  { text: "Get high-quality software development with fixed-price predictability.", bold: false },
-]
+  { text: "We deliver elite software development services backed by ", bold: false },
+  { text: "guaranteed fixed-price budgets and precise scopes", bold: true },
+  { text: ". By conducting exhaustive early technical discovery phases, authoring complete software requirement specifications (SRS), and mapping exact architectural modules before active coding, we protect your organization from budget creep and ensure turnkey delivery on strict timelines.", bold: false }
+];
 
 const FixedPrice: React.FC = () => {
   return (
@@ -201,10 +234,10 @@ const FixedPrice: React.FC = () => {
       />
       <InfoGrid data={fixedPriceProcessData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Project "
-        titleAccent="Discovery"
-        titleEnd=" Session"
+        label="COMPLIMENTARY STRATEGY SESSION"
+        titleMain="Map your "
+        titleAccent="project execution"
+        titleEnd=" roadmap."
         description={streamlineDescription}
         imageUrl="/streamline.png"
       />

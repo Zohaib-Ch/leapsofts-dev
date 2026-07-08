@@ -9,53 +9,52 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
-  label: "IDEATION WORKSHOP",
-  titleMain: "Crystallize Your",
-  titleAccent: "Vision",
-  titleEnd: "into Reality",
-  description: "Leapsofts’s Ideation Workshop is a fast-paced, collaborative session designed to help you define your product’s core purpose, identify key user needs, and create a high-level roadmap for development. We turn abstract ideas into actionable project plans.",
+  label: "IDEATION & DISCOVERY",
+  titleMain: "Orchestrating Strategic",
+  titleAccent: "Product Ideation",
+  titleEnd: "Workshops",
+  description: "At Leapsofts, we guide founders and enterprise leaders through accelerated ideation workshops designed to crystallize user value, validate technical feasibility, and map dynamic feature roadmaps. Our senior product strategists and system architects turn abstract ideas into actionable software specifications and user personas within structured sprint cycles.",
   imagePath: laptopImg
 };
 
 const ourServicesData: EmergingTechProps['data'] = {
-  label: 'WORKSHOP FOCUS',
-  titleAccent: 'Collaborative',
-  titleMain: 'Ideation',
-  description:
-    'Our discovery workshops are designed to unlock creativity, validate ideas, and define a clear path from concept to execution.',
+  label: 'WORKSHOP CAPABILITIES',
+  titleAccent: 'Accelerated',
+  titleMain: 'Discovery Methods',
+  description: 'Our discovery workshops are designed to unlock creativity, validate ideas, and define a clear path from concept to execution.',
   items: [
-    { icon: 'product', title: 'Creative Brainstorming', description: 'Foster an environment where ideas are encouraged and refined.' },
-    { icon: 'enterprise', title: 'Expert Facilitation', description: 'Guided sessions to harness collective intelligence and focus.' },
-    { icon: 'product', title: 'Tailored Workshops', description: 'Workshops designed specifically for your industry and goals.' },
-    { icon: 'hipaa', title: 'Concept Validation', description: 'Verify the technical and market feasibility of your ideas.' },
-    { icon: 'enterprise', title: 'Iterative Design', description: 'Rapidly sketch and refine user flows and interfaces.' },
-    { icon: 'product', title: 'Strategic Roadmap', description: 'Deliver a clear plan to guide your project from concept to launch.' },
+    { icon: 'product' as const, title: 'Design Thinking Facilitation', description: 'Guided workshops leveraging user-journey mappings, empathy outlines, and structured whiteboard sprints.' },
+    { icon: 'enterprise' as const, title: 'Feasibility Audit Checks', description: 'Deep analysis of third-party APIs, database integration rules, and system scalability structures.' },
+    { icon: 'product' as const, title: 'Rapid Interface Wireframes', description: 'Creating clickable low-fidelity mockups and user flow paths to visualize app actions early.' },
+    { icon: 'hipaa' as const, title: 'Feature Prioritizations', description: 'Isolating key features using MoSCoW mapping frameworks to build highly focused MVP scopes.' },
+    { icon: 'enterprise' as const, title: 'Dynamic Data Flow Maps', description: 'Designing clean database relationship schemes and system data pipelines before writing code.' },
+    { icon: 'product' as const, title: 'Strategic Release Blueprints', description: 'Establishing clear development sprint backlogs, release timelines, and cost-benefit forecasts.' },
   ]
 };
 
 const ideationProcessData: InfoGridProps['data'] = {
   label: 'WORKSHOP OUTCOMES',
-  title: 'What You Gain',
+  title: 'What You Gain From Our Discovery Sessions',
   items: [
     {
       icon: '01',
-      title: 'Concept Clarity',
-      description: 'A well-defined core value proposition for your product.'
+      title: 'Laser-Focused Concept Clarity',
+      description: 'A fully articulated value proposition, user problem statement, and primary system feature list.'
     },
     {
       icon: '02',
-      title: 'Technical Feasibility',
-      description: 'Initial assessment of the technologies and architecture needed.'
+      title: 'Validated Technical Architecture',
+      description: 'A complete initial assessment of cloud frameworks, database engines, and external API structures.'
     },
     {
       icon: '03',
-      title: 'User Personas',
-      description: 'Clear understanding of who you are building for and why.'
+      title: 'Validated User Personas',
+      description: 'Rich profile models of your core client base, detailing their motivations, actions, and friction points.'
     },
     {
       icon: '04',
-      title: 'Actionable Roadmap',
-      description: 'A phased plan for development, testing, and launch.'
+      title: 'Development-Ready Roadmaps',
+      description: 'A phased development strategy outlining sprint phases, testing dates, and product release plans.'
     }
   ]
 };
@@ -95,25 +94,25 @@ const serviceFeaturesData: ServiceFeatureItem[] = [
 
 const deliverMVPData = {
   label: "IDEATION EXCELLENCE",
-  title: "Committed to",
-  accentText: "Creative Success",
-  description: "Leapsofts provides expert facilitators and strategists who are fully committed to your project's success. We focus on innovation, collaboration, and strategic clarity.",
+  title: "Our Commitment to Deliver Your Discovery Blueprint in",
+  accentText: "3-5 months?",
+  description: "Leapsofts is an elite product ideation and agile discovery workshop partner. By combining fully integrated automated tooling, certified design thinking experts, and dedicated software architects, we define, validate, and blueprint launch-ready software concepts within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
-      title: "Open Collaboration.",
-      description: "Encouraging a flow of ideas between our experts and your team."
+      title: "Empathy Sprints.",
+      description: "Translating stakeholder interviews and competitor data into structured user empathy profiles and functional paths."
     },
     {
-      title: "Expert Insights.",
-      description: "Bringing decades of experience in product strategy to your session."
+      title: "Interactive Wireframes.",
+      description: "Crafting rapid low-fidelity clickable layouts and relational database flow maps before writing code."
     },
     {
-      title: "Structured Approach.",
-      description: "Using proven frameworks to move from brainstorming to blueprints."
+      title: "MoSCoW Prioritizations.",
+      description: "Isolating essential functional features into strict Must-Have groupings to design a fast-to-market MVP."
     },
     {
-      title: "Future-Facing.",
-      description: "Selecting technologies and strategies that ensure long-term relevance."
+      title: "Strategic Release roadmaps.",
+      description: "Authoring complete JIRA epic backlogs, release milestones, and comprehensive cost projections."
     }
   ]
 };
@@ -121,44 +120,96 @@ const deliverMVPData = {
 const processPhasesDefault: ProcessPhase[] = [
   {
     id: 1,
-    phase: "PHASE 1: PREPARATION",
-    title: "Project Goal Alignment",
-    description: "We align on the specific goals and expectations for the workshop.",
-    features: ["Stakeholder Interviews", "Market Overview", "Success Criteria Setup"],
+    phase: "PHASE 1: AGILE DISCOVERY & STAKEHOLDER ALIGNMENT",
+    title: "Empathy Mappings & User Interviews",
+    description: "We run active stakeholder workshops to isolate core business objectives and target user demographics.",
+    features: [
+      {
+        title: "Empathy Mapping Sprints",
+        description: "Run active brainstorming sessions to identify client problems, motivations, and operational gaps."
+      },
+      {
+        title: "Competitive Landscape Review",
+        description: "Analyze market competitors, product differentiators, and baseline industry success parameters."
+      },
+      {
+        title: "Stakeholder Expectation Maps",
+        description: "Align core corporate goals, target user groups, and primary software scope assertions."
+      }
+    ]
   },
   {
     id: 2,
-    phase: "PHASE 2: BRAINSTORMING",
-    title: "Creative Exploration",
-    description: "Intensive sessions to generate and explore wide-ranging ideas.",
-    features: ["Design Thinking Exercises", "User Flow Mapping", "Feature Analysis"],
+    phase: "PHASE 2: IAC DESIGN & SYSTEM FLOW SCHEMES",
+    title: "Low-Fidelity Wireframes & Data Schemes",
+    description: "Designing clickable UI/UX wireframes and structuring primary database relationship paths.",
+    features: [
+      {
+        title: "Clickable UI/UX Wireframes",
+        description: "Construct structural low-fidelity interface layouts and initial user interaction pathways."
+      },
+      {
+        title: "System Data Flow Maps",
+        description: "Plan transactional pathways, entity-relationship models (ERD), and server configurations."
+      },
+      {
+        title: "Directory & Security Schemes",
+        description: "Map primary user access boundaries (IAM), encryption goals, and security credentials setups."
+      }
+    ]
   },
   {
     id: 3,
-    phase: "PHASE 3: VALIDATION",
-    title: "Refinement & Feasibility",
-    description: "Pruning and refining ideas into a viable project concept.",
-    features: ["Technical Audit", "MVP Definition", "Resource Estimations"],
+    phase: "PHASE 3: HIGH-VELOCITY SYSTEM DEPLOYMENT",
+    title: "Feasibility Runs & MoSCoW Prioritizations",
+    description: "Reviewing external API compatibility, running test connections, and refining feature matrixes.",
+    features: [
+      {
+        title: "External API Feasibility Checks",
+        description: "Verify integration specs of third-party interfaces, checking latency and connectivity constraints."
+      },
+      {
+        title: "MoSCoW Prioritization Splits",
+        description: "Isolate software features into absolute 'Must-Haves' and 'Could-Haves' to streamline MVP development."
+      },
+      {
+        title: "Cloud Performance Stress Mocks",
+        description: "Formulate baseline resource projections and computing limits needed to support targeted loads."
+      }
+    ]
   },
   {
     id: 4,
-    phase: "PHASE 4: BLUEPRINT",
-    title: "Actionable Roadmap",
-    description: "Finalizing the delivery plan and post-workshop next steps.",
-    features: ["Project Backlog Creation", "Timeline Mapping", "Budget Overview"],
+    phase: "PHASE 4: CONTINUOUS OBSERVABILITY & HANDOVER",
+    title: "Developer Backlogs & Telemetry Setups",
+    description: "Delivering development-ready sprint backlogs, release roadmaps, and central logging mocks.",
+    features: [
+      {
+        title: "Development-Ready Backlogs",
+        description: "Draft comprehensive software stories, Epic divisions, and checklist cards inside JIRA/GitHub."
+      },
+      {
+        title: "SLA-Driven Systems Support",
+        description: "Establish L2/L3 support rules, patch update schedules, and environment scaling review loops."
+      },
+      {
+        title: "Grafana Dashboard Telemetry Mocks",
+        description: "Set up baseline application telemetry goals to plan real-time health indicator overlays."
+      }
+    ]
   }
 ];
 
-const phaseLabelsDefault = ["PREPARATION", "BRAINSTORMING", "VALIDATION", "BLUEPRINT"];
+const phaseLabelsDefault = ["DISCOVERY ALIGNMENT", "WIRE-FRAME SYSTEMS", "FEASIBILITY RUNS", "DEVELOPER HANDOVER"];
 
-
-
-const title = "Unleashing Creativity, Shaping Your Vision";
+const title = "Product Ideation Workshops, User Experience Mapping & Technical Discovery";
 const subtitle = "";
 
 const introDescription = [
-  { text: "Leapsofts’s Ideation Workshop is your launchpad to crystallize and refine your concepts.", bold: false },
-]
+  { text: "We facilitate highly structured, high-impact ", bold: false },
+  { text: "product ideation and technical discovery workshops", bold: true },
+  { text: ", translating vague product concepts into precise system specifications. By combining collaborative design thinking exercises, user flow wireframing sprints, and database feasibility audits, we align stakeholders and deliver production-ready blueprints designed for rapid development cycles.", bold: false }
+];
 
 const IdeationWorkshop: React.FC = () => {
   return (
@@ -178,10 +229,10 @@ const IdeationWorkshop: React.FC = () => {
       />
       <InfoGrid data={ideationProcessData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Ideation "
-        titleAccent="Strategy"
-        titleEnd=" Session"
+        label="COMPLIMENTARY STRATEGY SESSION"
+        titleMain="Map your "
+        titleAccent="product concept"
+        titleEnd=" roadmap."
         description={streamlineDescription}
         imageUrl="/streamline.png"
       />

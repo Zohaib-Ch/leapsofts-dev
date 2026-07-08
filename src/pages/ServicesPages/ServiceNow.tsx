@@ -10,10 +10,10 @@ import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
   label: "SERVICENOW SOLUTIONS",
-  titleMain: "Revolutionize Your",
-  titleAccent: "IT",
-  titleEnd: "Operations",
-  description: "Leapsofts provides expert ServiceNow implementation and optimization services to help you unify your IT operations, automate manual workflows, and deliver exceptional service quality across your entire organization.",
+  titleMain: "Unifying Your",
+  titleAccent: "Enterprise",
+  titleEnd: "Workflows",
+  description: "At Leapsofts, we customize and engineer highly optimized ServiceNow environments designed to connect disparate organizational silos into cohesive digital workflows. By designing customized Scoped Applications, writing optimized, secure Business Rules and Client Scripts, and configuring robust integration hubs via secure REST APIs and MID Server architectures, we help major organizations automate service delivery, enforce strict security compliance, and achieve full operational transparency.",
   imagePath: laptopImg
 };
 
@@ -24,12 +24,36 @@ const emergingTechData: EmergingTechProps['data'] = {
   description:
     'We specialize in expanding the reach of ServiceNow across your enterprise, from IT to HR and Customer Service.',
   items: [
-    { icon: 'enterprise', title: 'IT Service Management', description: 'Modernize your IT service delivery with automated incident and change management.' },
-    { icon: 'enterprise', title: 'IT Operations Management', description: 'Gain visibility into your infrastructure and proactively manage health and risk.' },
-    { icon: 'enterprise', title: 'HR Service Delivery', description: 'Simplify employee interactions and automate HR lifecycle processes.' },
-    { icon: 'enterprise', title: 'Security Operations', description: 'Unify your security tools and automate incident response and vulnerability management.' },
-    { icon: 'enterprise', title: 'GRC & Risk', description: 'Automate governance, risk, and compliance workflows to ensure regulatory readiness.' },
-    { icon: 'enterprise', title: 'Customer Service Mgmt', description: 'Connect customer service with other departments to resolve issues faster.' },
+    {
+      icon: 'enterprise' as const,
+      title: 'IT Service Management (ITSM) Modernization',
+      description: 'Automating incident, change, problem, and request management pipelines with customized Service Portal widgets.'
+    },
+    {
+      icon: 'enterprise' as const,
+      title: 'IT Operations Management (ITOM) Discovery',
+      description: 'Gain visibility into your infrastructure, set up discovery schedules, map application service layers, and manage health risks.'
+    },
+    {
+      icon: 'enterprise' as const,
+      title: 'HR Service Delivery (HRSD) Lifecycle Automation',
+      description: 'Configuring employee center portals, onboarding profiles, and case management tools to simplify employee interactions.'
+    },
+    {
+      icon: 'enterprise' as const,
+      title: 'Security Operations (SecOps) & Threat Response',
+      description: 'Unifying vulnerability scanners, configuring automated security response workflows, and setting up incident management pipelines.'
+    },
+    {
+      icon: 'enterprise' as const,
+      title: 'Governance, Risk, & Compliance (GRC) Auditing',
+      description: 'Automating policy lifecycles, compliance frameworks, audit trails, and risk management profiles directly inside the Now Platform.'
+    },
+    {
+      icon: 'enterprise' as const,
+      title: 'Customer Service Management (CSM) Workflows',
+      description: 'Configuring omni-channel customer service portals, routing cases dynamically, and connecting frontend queries to backend developers.'
+    },
   ]
 };
 
@@ -39,81 +63,81 @@ const reEngineeringProcessData: InfoGridProps['data'] = {
   items: [
     {
       icon: '01',
-      title: 'Unified Platform',
-      description: 'Break down silos with a single system of action for all workflows.'
+      title: 'Unified Single System of Action',
+      description: 'Break down functional silos, aggregating security logs, IT services, and employee requests into a single database system of action.'
     },
     {
       icon: '02',
-      title: 'Process Automation',
-      description: 'Eliminate manual errors and speed up service delivery across departments.'
+      title: 'End-to-End Workflow Orchestration',
+      description: 'Eradicate manual transaction errors and accelerate daily service delivery schedules by automating approval structures.'
     },
     {
       icon: '03',
-      title: 'Enhanced Visibility',
-      description: 'Gain real-time insights into performance and operational health.'
+      title: 'Real-Time Performance Dashboarding',
+      description: 'Equip your leadership with real-time incident reports, system health dashboards, and Tableau metrics.'
     },
     {
       icon: '04',
-      title: 'Scalable Architecture',
-      description: 'A platform that adapts and grows with your enterprise complexity.'
+      title: 'Resilient ServiceNow Scoped Abstractions',
+      description: 'Deploy modular, secure custom applications (Scoped Apps) that scale dynamically with your organizational complexity without breaking.'
     }
   ]
 };
 
 const streamlineDescription = [
-  { text: "Your enterprise productivity depends on ", bold: false },
-  { text: "seamless orchestration", bold: true },
-  { text: ". Leapsofts offers a ", bold: false },
-  { text: "complimentary ServiceNow platform audit ", bold: true },
-  { text: "to help you identify ", bold: false },
-  { text: "automation opportunities ", bold: true },
-  { text: "that drive efficiency and reduce operational costs.", bold: false },
+  { text: "Whether modernizing a complex ", bold: false },
+  { text: "legacy enterprise web portal ", bold: true },
+  { text: "or engineering a ", bold: false },
+  { text: "new ServiceNow ecosystem", bold: true },
+  { text: ", our experts deliver immediate technical clarity. We conduct a deep-dive analysis of your current instances, map out application configurations, evaluate custom workflows, and formulate a ", bold: false },
+  { text: "highly efficient, optimized Scoped App/ITSM engineering plan ", bold: true },
+  { text: "built to unlock massive operational growth and streamline corporate governance.", bold: false }
 ];
 
 const serviceFeaturesData: ServiceFeatureItem[] = [
   {
     icon: '/industryicons/sphere.svg',
     title: 'Platform Implementation',
-    description: 'End-to-end setup and configuration of ServiceNow modules.'
+    description: 'Bespoke setup, configuration, and migration of ServiceNow ITSM, ITOM, and CSM modules.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
     title: 'Custom App Build',
-    description: 'Developing bespoke applications on the Now Platform to solve unique needs.'
+    description: 'Designing and writing customized Scoped Applications on the Now Platform to solve unique operational needs.'
   },
   {
     icon: '/industryicons/sphere.svg',
     title: 'Legacy Integration',
-    description: 'Connecting ServiceNow with your existing IT and business toolset.'
+    description: 'Connecting ServiceNow to legacy ERP databases, client gateways, and billing channels using secure REST/SOAP APIs.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
     title: 'Upgrade & Migration',
-    description: 'Ensuring smooth transitions to the latest ServiceNow releases.'
+    description: 'Ensuring smooth transitions to the latest ServiceNow releases (e.g. Washington/Xanadu) with zero downtime.'
   }
 ];
 
 const deliverMVPData = {
   label: "SERVICENOW EXCELLENCE",
-  title: "Committed to",
-  accentText: "Workflow Success",
-  description: "Leapsofts provides certified ServiceNow consultants who are fully committed to your project's success. We focus on best practices, OOTB alignment, and technical rigor.",
+  title: "Our Commitment to Deliver Your Workflows in",
+  accentText: "3-5 months?",
+  description: "Leapsofts is an elite custom ServiceNow engineering partner. By combining fully integrated CI/CD, certified ServiceNow developers, and dedicated agile pods, we implement and deploy enterprise-ready ServiceNow workflows within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
       title: "Certified Experts.",
-      description: "A team with deep certifications across ITSM, ITOM, and HRSD."
+      description: "Accessing senior developers and architects holding advanced ServiceNow certs (ITSM, ITOM, HRSD)."
     },
     {
       title: "OOTB First Approach.",
-      description: "Prioritizing out-of-the-box features to ensure easy future upgrades."
+      description: "Prioritizing out-of-the-box ServiceNow features to ensure easy future upgrades and metadata stability."
     },
     {
       title: "Modular Deployment.",
-      description: "A phased approach that delivers value quickly and minimizes risk."
+      description: "A phased sandbox approach that delivers value quickly and minimizes system downtime."
     },
     {
       title: "User Training.",
-      description: "Empowering your team to make the most of the ServiceNow platform."
+      description: "Interactive user training sessions, dashboard tutorials, and technical manuals to guarantee rapid platform adoption."
     }
   ]
 };
@@ -121,43 +145,116 @@ const deliverMVPData = {
 const processPhasesDefault: ProcessPhase[] = [
   {
     id: 1,
-    phase: "PHASE 1: ASSESSMENT",
-    title: "Maturity & Gap Analysis",
-    description: "We audit your current processes and define the target maturity level.",
-    features: ["Process Audits", "Stakeholder Alignment", "Baseline Metrics Setup"],
+    phase: "PHASE 1: SERVICENOW STRATEGY & INSTANCE DISCOVERY",
+    title: "Needs Maturity & Gap Analysis",
+    description:
+      "We analyze your active CRM settings, baseline workflows, and identify MID server configuration bottlenecks.",
+    features: [
+      {
+        title: "Instance Configuration Audit",
+        description:
+          "Parse current client scripts, Business Rules, and UI actions to locate performance bottlenecks."
+      },
+      {
+        title: "Strategic Maturity Workshops",
+        description:
+          "Coordinate with key IT directors to establish benchmark incident-response times and compliance scales."
+      },
+      {
+        title: "Sandbox Deployment Blueprinting",
+        description:
+          "Draft detailed data integration specifications, update set release paths, and scoped app boundaries."
+      }
+    ]
   },
   {
     id: 2,
-    phase: "PHASE 2: FOUNDATION",
-    title: "Platform Setup",
-    description: "Configuring the core ServiceNow environment and data model.",
-    features: ["Instance Strategy", "MID Server Setup", "LDAP/AD Integration"],
+    phase: "PHASE 2: FOUNDATION ARCHITECTURE & SYSTEM DESIGN",
+    title: "Instance Setup & MID Configuration",
+    description:
+      "Setting up secure connection gateways, LDAP mapping, and Access Control list rules.",
+    features: [
+      {
+        title: "MID Server Secure Connections",
+        description:
+          "Configure local MID Servers to synchronize on-premise infrastructure data with the ServiceNow cloud org."
+      },
+      {
+        title: "IntegrationHub API Schema",
+        description:
+          "Map lightweight REST, SOAP, and IntegrationHub schemas connecting external directories (AD, Azure)."
+      },
+      {
+        title: "Strict Access Control List Setup",
+        description:
+          "Establish precise ACL properties, user role maps, encryption keys, and SSO parameters."
+      }
+    ]
   },
   {
     id: 3,
-    phase: "PHASE 3: EXECUTION",
-    title: "Sprint-Based Build",
-    description: "Iterative development and configuration of chosen modules.",
-    features: ["Workflow Automation", "UI Policy Config", "Integration Dev"],
+    phase: "PHASE 3: HIGH-VELOCITY WORKFLOW & SCOPED APP CODING",
+    title: "Scoped App Building & Flow Design",
+    description:
+      "Writing optimized scoped logic, building Flow Designer workflows, and conducting ATF checks.",
+    features: [
+      {
+        title: "Bespoke Scoped Applications",
+        description:
+          "Code robust Scoped Apps utilizing modular tables, Javascript Business Rules, and Client Scripts."
+      },
+      {
+        title: "Flow Designer Orchestration",
+        description:
+          "Construct event-driven workflow automation trees and dynamic case routing tasks."
+      },
+      {
+        title: "Automated Test Framework ATF",
+        description:
+          "Run strict automated test suites (ATF) to verify workflow parity and guarantee upgrade readiness."
+      }
+    ]
   },
   {
     id: 4,
-    phase: "PHASE 4: OPTIMIZATION",
-    title: "Go-Live & Review",
-    description: "Launching the solution and reviewing performance against targets.",
-    features: ["UA Testing", "KT Sessions", "Post-Launch Support"],
-  },
+    phase: "PHASE 4: SANDBOX TRANSITION & CRM EVOLUTION",
+    title: "Update Set Releases & Platform Maintenance",
+    description:
+      "Seamless migrations, service portals activation, and regular platform upgrades reviews.",
+    features: [
+      {
+        title: "Update Set Staged Deployment",
+        description:
+          "Migrate configuration packages safely from Development sandboxes into Production orgs."
+      },
+      {
+        title: "Portal Activation & Onboarding",
+        description:
+          "Publish customized Service Portals and conduct onboarding workshops to promote active adoption."
+      },
+      {
+        title: "Proactive Release Upgrades",
+        description:
+          "Deliver regular security patches, system health reviews, and version upgrades (Washington/Xanadu) support."
+      }
+    ]
+  }
 ];
 
-const phaseLabelsDefault = ["ASSESSMENT", "FOUNDATION", "EXECUTION", "OPTIMIZATION"];
+const phaseLabelsDefault = [
+  "STRATEGY & DISCOVERY",
+  "INSTANCE FOUNDATION",
+  "WORKFLOW CODING",
+  "RELEASE EVOLUTION",
+];
 
-
-
-const title = "ServiceNow: Empower Your Business";
+const title = "Enterprise ServiceNow Development & Platform Orchestration";
 const subtitle = "";
 
 const introDescription = [
-  { text: "Revolutionize your operations with ServiceNow expertise that streamlines processes and boosts efficiency.", bold: false },
+  { text: "We deliver advanced ServiceNow customization, custom ", bold: false },
+  { text: "Now Platform Application development (Scoped Apps)", bold: true },
+  { text: ", ITSM/ITOM module configurations, and secure database integrations. By streamlining enterprise service portals, custom incident routing scripts, and ServiceNow mid-server setups, we engineer robust digital workflows that automate daily operations and simplify IT governance.", bold: false }
 ]
 
 const ServiceNow: React.FC = () => {
@@ -178,10 +275,10 @@ const ServiceNow: React.FC = () => {
       />
       <InfoGrid data={reEngineeringProcessData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Platform "
-        titleAccent="Audit"
-        titleEnd=" Session"
+        label="COMPLIMENTARY STRATEGY SESSION"
+        titleMain="Map your "
+        titleAccent="ServiceNow"
+        titleEnd=" roadmap."
         description={streamlineDescription}
         imageUrl="/streamline.png"
       />
@@ -192,7 +289,7 @@ const ServiceNow: React.FC = () => {
       />
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={emergingTechData} />
-      <Processes title="OUR SERVICENOW PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <Processes title="OUR CUSTOM SERVICENOW PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
     </>
   )
 }

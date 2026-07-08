@@ -10,151 +10,250 @@ import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
     label: "CYBERSECURITY",
-    titleMain: "Protect Your",
-    titleAccent: "Digital",
-    titleEnd: "Assets",
-    description: "Leapsofts provides world-class cybersecurity services to safeguard your organization from evolving threats. Our proactive approach combines advanced technology with expert analysis to ensure your data and infrastructure remain secure and resilient.",
+    titleMain: "Securing Your",
+    titleAccent: "Enterprise",
+    titleEnd: "Perimeter",
+    description: "At Leapsofts, we customize and engineer highly secure, multi-layered enterprise defensive perimeters designed to isolate digital threats and lock down critical data fields. By auditing source code vulnerabilities, designing strict Zero-Trust security structures, configuring automated SIEM alerting channels, and deploying real-time penetration checks, we help organizations protect core system configurations, ensure reliable data isolation, and achieve rigorous SOC2, HIPAA, and GDPR regulatory compliance.",
     imagePath: laptopImg
 };
 
 const infoGridData: InfoGridProps['data'] = {
     label: 'SECURITY BENEFITS',
-    title: 'Why Prioritize Security',
+    title: 'Why Prioritize Security Now',
     items: [
         {
             icon: '01',
-            title: 'Reduced Risk',
-            description: 'Proactively identify and mitigate vulnerabilities before they can be exploited.'
+            title: 'Minimized Threat Attack Vector',
+            description: 'Proactively shut down potential entry paths, tracing irregular directory behaviors and database queries before exploitation.'
         },
         {
             icon: '02',
-            title: 'Business Continuity',
-            description: 'Ensure your operations remain uninterrupted even in the face of cyber attacks.'
+            title: 'Uninterrupted Staging & Live Operations',
+            description: 'Ensure your core sales engines and transactional databases remain fully online even during sustained DDoS attempts.'
         },
         {
             icon: '03',
-            title: 'Compliance',
-            description: 'Meet industry-specific regulatory requirements and avoid costly penalties.'
+            title: 'Rigorous Global Regulatory Readiness',
+            description: 'Achieve elite enterprise compliance ratings, preventing costly data breach penalties and operational license losses.'
         },
         {
             icon: '04',
-            title: 'Customer Trust',
-            description: 'Protect your brand reputation and build confidence with your clients and partners.'
+            title: 'Elevated User Record Security',
+            description: 'Foster unshakeable customer brand loyalty by securing highly sensitive personal records and transaction history.'
         }
     ]
 };
+
 const cyberSecurityData: EmergingTechProps['data'] = {
     label: 'SECURITY SERVICES',
     titleAccent: 'Threat',
     titleMain: 'Protection',
     description: 'We provide end-to-end security solutions to protect your organization from evolving digital threats and ensure business continuity.',
     items: [
-        { icon: 'enterprise', title: "Vulnerability Audits", description: "Identifying and managing security weaknesses in network and software." },
-        { icon: 'product', title: "Incident Response", description: "Rapidly addressing cybersecurity incidents to reduce impact." },
-        { icon: 'thirdParty', title: "Continuous Monitoring", description: "Ongoing monitoring for potential cyber threats or intrusions." },
-        { icon: 'legacy', title: "Regulatory Compliance", description: "Aligning security measures with legal and industry standards." },
-        { icon: 'hipaa', title: "Identity Management", description: "Regulating user access to safeguard sensitive company data." },
-        { icon: 'enterprise', title: "Network Fortification", description: "Implementing firewalls and encryption to protect data transit." },
+        {
+            icon: 'enterprise' as const,
+            title: "Vulnerability Audits & Code Defect Scans",
+            description: "Conducting automated code audits, dependency validations, and static analysis scans using SonarQube to discover backdoors."
+        },
+        {
+            icon: 'product' as const,
+            title: "Incident Response & Forensic Isolation",
+            description: "Deploying immediate incident response protocols, isolating compromised nodes, and conducting root-cause forensics."
+        },
+        {
+            icon: 'thirdParty' as const,
+            title: "24/7 SIEM Continuous Threat Monitoring",
+            description: "Orchestrating real-time telemetry scans utilizing Splunk or ELK setups to trace irregular database queries and connections."
+        },
+        {
+            icon: 'legacy' as const,
+            title: "SOC2, HIPAA, & GDPR Compliance Shield",
+            description: "Auditing internal configurations, user directory logs, and network architectures to guarantee total compliance."
+        },
+        {
+            icon: 'hipaa' as const,
+            title: "Zero-Trust Identity & IAM Governance",
+            description: "Enforcing strict Multi-Factor Authentication (MFA), role-based access controls (RBAC), and rotating credentials keys."
+        },
+        {
+            icon: 'enterprise' as const,
+            title: "Enterprise Network & Transport Fortification",
+            description: "Deploying secure Cloudflare edge protection, automated WAF firewall triggers, and end-to-end TLS encryption pipelines."
+        },
     ]
 };
 
 const streamlineDescription = [
-    { text: "Your organization's ", bold: false },
-    { text: "security posture ", bold: true },
-    { text: "is the foundation of your digital success. Leapsofts offers a ", bold: false },
-    { text: "complimentary security audit session ", bold: true },
-    { text: "to help you uncover ", bold: false },
-    { text: "critical vulnerabilities ", bold: true },
-    { text: "and design a robust defense strategy against modern cyber threats.", bold: false },
+  { text: "Whether modernizing a complex ", bold: false },
+  { text: "legacy enterprise web portal ", bold: true },
+  { text: "or engineering a ", bold: false },
+  { text: "new Zero-Trust framework", bold: true },
+  { text: ", our experts deliver immediate technical clarity. We conduct a deep-dive analysis of your current security configurations, map out potential threat vectors, evaluate compliance levels, and formulate a ", bold: false },
+  { text: "highly efficient, customized threat mitigation plan ", bold: true },
+  { text: "built to unlock massive digital growth and streamline customer retention.", bold: false }
 ];
 
 const serviceFeaturesData: ServiceFeatureItem[] = [
     {
         icon: '/industryicons/sphere.svg',
         title: 'Penetration Testing',
-        description: 'Simulated attacks to test the strength of your defenses.'
+        description: 'Executing simulated exploits against software networks, APIs, and databases to locate authorization holes.'
     },
     {
         icon: '/industryicons/bipiramida.svg',
         title: 'Managed SOC',
-        description: '24/7 security operations center to monitor and respond to threats.'
+        description: 'Deploying a dedicated, around-the-clock Security Operations Center to discover and mitigate incoming threat vectors.'
     },
     {
         icon: '/industryicons/sphere.svg',
         title: 'Cloud Security',
-        description: 'Hardening your AWS, Azure, or GCP environments against attacks.'
+        description: 'Hardening public and private cloud configurations across AWS, Azure, or GCP using automated IAM rules.'
     },
     {
         icon: '/industryicons/bipiramida.svg',
         title: 'Encryption Services',
-        description: 'Implementing robust data protection at rest and in transit.'
+        description: 'Enforcing AES-256 data-at-rest encryption and dynamic TLS 1.3 transport security protocols.'
     }
 ];
 
 const deliverMVPData = {
     label: "SECURITY EXCELLENCE",
-    title: "Committed to",
-    accentText: "Complete Safety",
-    description: "Leapsofts provides elite cybersecurity specialists who are fully committed to your organization's protection. We focus on vigilance, rapid response, and technical excellence.",
+    title: "Our Commitment to Deliver Your Security Framework in",
+    accentText: "3-5 months?",
+    description: "Leapsofts is an elite custom cybersecurity and risk advisory partner. By combining fully integrated CI/CD, certified security engineers, and dedicated defensive pods, we build and deploy enterprise-ready security architectures within an accelerated 3 to 5 month timeline—on time, every time.",
     items: [
         {
             title: "Proactive Vigilance.",
-            description: "Staying ahead of threats with constant research and monitoring."
+            description: "Leveraging continuous threat intelligence feeds and automated scans to capture vulnerabilities before release."
         },
         {
             title: "Rapid Remediation.",
-            description: "Minimizing downtime and data loss through fast, effective response."
+            description: "Minimizing data exposure and user downtime through isolated node controls and secure automated failovers."
         },
         {
             title: "Tailored Security.",
-            description: "Designing defense strategies that match your specific business risk profile."
+            description: "Designing secure networking schemas and zero-trust policies modeled around your distinct digital perimeter."
         },
         {
             title: "Expert Knowledge.",
-            description: "Senior security engineers with certifications in CISSP, CEH, and more."
+            description: "Deploying senior security engineers holding advanced credentials including CISSP, CISM, and CEH certifications."
         }
     ]
 };
 
 const processPhasesDefault: ProcessPhase[] = [
-    {
-        id: 1,
-        phase: "PHASE 1: RECONNAISSANCE",
-        title: "Threat Landscape Analysis",
-        description: "We identify your most critical assets and potential attack vectors.",
-        features: ["Asset Discovery", "Risk Profiling", "Compliance Gap Analysis"],
-    },
-    {
-        id: 2,
-        phase: "PHASE 2: DEFENSIVE DESIGN",
-        title: "Architecture Hardening",
-        description: "Designing a multi-layered security framework to protect your infrastructure.",
-        features: ["Firewall Configuration", "IAM Policy Setup", "Encryption Strategy"],
-    },
-    {
-        id: 3,
-        phase: "PHASE 3: DEPLOYMENT",
-        title: "Security Implementation",
-        description: "Installing and configuring security tools and monitoring systems.",
-        features: ["SOC Integration", "Endpoint Protection", "Automated Scanners"],
-    },
-    {
-        id: 4,
-        phase: "PHASE 4: VIGILANCE",
-        title: "Monitoring & Maintenance",
-        description: "Ongoing security management and regular audits to ensure safety.",
-        features: ["24/7 Monitoring", "Regular Pen-Testing", "Employee Training"],
-    },
+  {
+    id: 1,
+    phase: "PHASE 1: THREAT LANDSCAPE DISCOVERY & AUDITING",
+    title: "Perimeter Auditing & Threat Profiling",
+    description:
+      "We map your active server ports, profile user access logs, and audit codebase dependencies.",
+    features: [
+      {
+        title: "Domain Perimeter Scanning",
+        description:
+          "Scan external domain boundaries, exposed API routes, and network ports for security loopholes."
+      },
+      {
+        title: "Legacy Codebase SAST Auditing",
+        description:
+          "Run static analysis scans on active code repositories to discover hardcoded access keys or query vulnerabilities."
+      },
+      {
+        title: "Compliance Gap Analysis",
+        description:
+          "Evaluate historical systems against target compliance registries (SOC2, HIPAA, GDPR) to build gap reports."
+      }
+    ]
+  },
+  {
+    id: 2,
+    phase: "PHASE 2: ZERO-TRUST ARCHITECTURE & DEFENSIVE DESIGN",
+    title: "Zero-Trust Layouts & Encryption Models",
+    description:
+      "Designing strict IAM parameters, data encryption layers, and SIEM logging triggers.",
+    features: [
+      {
+        title: "Zero-Trust IAM Directory Design",
+        description:
+          "Model precise role-based access rules (RBAC), multi-factor checks, and rotating key operations."
+      },
+      {
+        title: "End-to-End Encryption Schemas",
+        description:
+          "Draft system-wide data protection architectures using AES-256 at-rest and TLS 1.3 in-transit."
+      },
+      {
+        title: "SIEM Telemetry Logs Setup",
+        description:
+          "Define database logging guidelines and configure automatic alert thresholds inside SIEM dashboards."
+      }
+    ]
+  },
+  {
+    id: 3,
+    phase: "PHASE 3: HIGH-VELOCITY SECURITY INTEGRATION & TESTING",
+    title: "Security Tooling & Penetration Testing",
+    description:
+      "Deploying firewalls, automated vulnerability checks, and running simulated system exploits.",
+    features: [
+      {
+        title: "Web App Firewall & WAF Setup",
+        description:
+          "Configure Cloudflare edge protection shields and automated WAF rate-limiting triggers."
+      },
+      {
+        title: "Penetration Testing Sprints",
+        description:
+          "Conduct simulated manual and automated penetration sweeps against database nodes and network clusters."
+      },
+      {
+        title: "CI/CD SAST Pipeline Blocks",
+        description:
+          "Integrate automated vulnerability scanner blocks within active GitHub/GitLab code release tracks."
+      }
+    ]
+  },
+  {
+    id: 4,
+    phase: "PHASE 4: CONTINUOUS VIGILANCE & THREAT MONITORING",
+    title: "SOC Telemetry Auditing & Patch Evolutions",
+    description:
+      "Around-the-clock security scans, dynamic access key rotations, and regular OS upgrades.",
+    features: [
+      {
+        title: "24/7 Managed SOC Telemetry Logs",
+        description:
+          "Orchestrate continuous SIEM scanning sweeps to catch, analyze, and quarantine incoming threats."
+      },
+      {
+        title: "Automated Penetration Sweeps",
+        description:
+          "Schedule regular automated pentest sweeps and update access credential variables dynamically."
+      },
+      {
+        title: "Dynamic Core Patch Upgrades",
+        description:
+          "Perform regular software version updates, database security updates, and infrastructure configurations tuning."
+      }
+    ]
+  }
 ];
 
-const phaseLabelsDefault = ["RECONNAISSANCE", "DESIGN", "DEPLOYMENT", "VIGILANCE"];
+const phaseLabelsDefault = [
+  "STRATEGY & DISCOVERY",
+  "ZERO-TRUST & ENCRYPTION",
+  "SECURITY CODING & PENTESTS",
+  "SOC TELEMETRY & MONITORING",
+];
 
-
-const title = "Maintain a Lead in Cybersecurity";
+const title = "Enterprise Cyber Security, Threat Mitigation & Zero-Trust Governance";
 const subtitle = "";
 
 const introDescription = [
-    { text: "Leapsofts guides you through complex cybersecurity challenges, from strategy to effective response.", bold: false },
+  { text: "We deliver advanced threat mitigation, custom ", bold: false },
+  { text: "Zero-Trust Identity & Access Management (IAM) architectures", bold: true },
+  { text: ", and continuous SOC security operations monitoring. By streamlining automated static code analysis, vulnerability assessments, and multi-region database encryption networks, we engineer secure systems constructed to repel intrusion events and enforce global compliance standards.", bold: false }
 ]
 
 const CyberSecurity: React.FC = () => {
@@ -175,21 +274,21 @@ const CyberSecurity: React.FC = () => {
             />
             <InfoGrid data={infoGridData} />
             <StreamlineSuccess
-                label="STREAMLINE YOUR SUCCESS"
-                titleMain="Security "
-                titleAccent="Audit"
-                titleEnd=" Session"
+                label="COMPLIMENTARY STRATEGY SESSION"
+                titleMain="Map your "
+                titleAccent="cybersecurity"
+                titleEnd=" roadmap."
                 description={streamlineDescription}
                 imageUrl="/streamline.png"
             />
             <ServiceFeatures
-                title='Expert Services'
+                title='Expert Defensive Skills'
                 description='We deliver specialized security services to support your entire organization.'
                 items={serviceFeaturesData}
             />
             <DeliverMVP data={deliverMVPData} />
             <EmergingTech data={cyberSecurityData} />
-            <Processes title="OUR CYBERSECURITY PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+            <Processes title="OUR CUSTOM CYBERSECURITY PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
         </>
     );
 };

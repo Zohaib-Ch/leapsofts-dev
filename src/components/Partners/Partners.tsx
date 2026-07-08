@@ -19,6 +19,8 @@ const Partners = () => {
     'harris-paints.png',
     'JBreeden.png',
     'knife.jpg',
+    'newDark.avif',
+    'Instrat.png'
   ];
 
   return (

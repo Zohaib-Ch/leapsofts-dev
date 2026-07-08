@@ -14,7 +14,7 @@ const services: ServiceData[] = [
         id: '01',
         number: '<01>',
         title: 'Product Engineering',
-        description: 'Build scalable, reliable, and secure custom software solutions tailored to your unique business needs and goals.',
+        description: 'Architecting secure, highly performant custom systems built to handle complex enterprise workflows, high transaction volumes, and massive user scale. We build tailored web applications and responsive mobile platforms utilizing clean, heavily documented codebases that seamlessly integrate with your existing databases, APIs, and business networks.',
         items: [
             { name: 'Custom Software Development', path: '/services/custom-software-development' },
             { name: 'Web App Development', path: '/services/web-app-development' },
@@ -30,7 +30,7 @@ const services: ServiceData[] = [
         id: '02',
         number: '<02>',
         title: 'Next Gen Services',
-        description: 'Accelerate your digital transformation with our cloud expertise and automated DevOps workflows for faster delivery.',
+        description: 'Leveraging advanced data science, artificial intelligence models, and cognitive machine learning to unlock operational intelligence and automate complex business tasks. We design and implement robust cyber security controls, zero-trust frameworks, and strict data governance policies to ensure your assets remain secure and fully compliant with international regulatory bodies.',
         items: [
             { name: 'Data Science & AI', path: '/services/data-science-ai' },
             { name: 'Cyber Security', path: '/services/cyber-security' },
@@ -43,7 +43,7 @@ const services: ServiceData[] = [
         id: '03',
         number: '<03>',
         title: 'Cloud & DevOps',
-        description: 'Ensure your software remains up-to-date, secure, and performant with our comprehensive support and maintenance services.',
+        description: 'Accelerating release velocity and system reliability through automated CI/CD pipelines, containerized microservices, and modern infrastructure engineering. Our experts lead seamless cloud migrations and structural modernizations across AWS, Azure, and Google Cloud, establishing continuous monitoring to guarantee 99.99% uptime.',
         items: [
             { name: 'Cloud Engineering', path: '/services/cloud-engineering' },
             { name: 'Cloud Migration', path: '/services/cloud-migration' },
@@ -56,7 +56,7 @@ const services: ServiceData[] = [
         id: '04',
         number: '<04>',
         title: 'Solutions',
-        description: 'Leverage the power of artificial intelligence and machine learning to gain insights and automate complex business processes.',
+        description: 'Bridging strategic product thinking and rapid technological ideation to validate market opportunities and de-risk early-stage investments. Through structured proof-of-concept (PoC) builds and comprehensive technology roadmaps, we help you isolate the optimal architecture, tech stack, and budget to support your strategic goals.',
         items: [
             { name: 'Digital Evolution', path: '/services/digital-evolution' },
             { name: 'Fixed Price', path: '/services/fixed-price' },
@@ -75,10 +75,10 @@ export interface ServicesProps {
 }
 
 const Services: React.FC<ServicesProps> = ({
-    label = "Our Core Services",
-    titleMain = "How we ",
-    titleAccent = "help",
-    titleEnd = " your business"
+    label = "Core Capabilities",
+    titleMain = "Engineered to ",
+    titleAccent = "elevate",
+    titleEnd = " your enterprise"
 }) => {
     const [activeIndex, setActiveIndex] = useState(0);
 
