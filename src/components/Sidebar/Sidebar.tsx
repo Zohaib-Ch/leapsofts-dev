@@ -12,17 +12,15 @@ const navItems = [
     { id: 'intro', label: 'INTRO' },
 ];
 
-const navItemsPartners = [
-    { id: 'consultation', label: 'CONSULTATION' },
-    { id: 'benefits', label: 'BENEFITS' },
-    { id: 'overview', label: 'OVERVIEW' },
-    { id: 'partners', label: 'PARTNERS' },
-];
-
 const Sidebar = () => {
     const { pathname, hash } = useLocation();
 
-    const items = pathname.includes('partners') ? navItemsPartners : navItems;
+    // Only show sidebar navigation on the Home page
+    if (pathname !== '/') {
+        return null;
+    }
+
+    const items = navItems;
 
     // Set initial active section to the last item (visually top)
     const [activeSection, setActiveSection] = useState(items[items.length - 1].id);
