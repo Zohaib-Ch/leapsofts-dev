@@ -31,9 +31,27 @@ const testimonials = [
     }
 ];
 
-const Testimonials = () => {
+export interface TestimonialItem {
+    id: number;
+    quote: string;
+    text: string;
+    name: string;
+    role: string;
+}
+
+export interface TestimonialsProps {
+    sectionLabel?: string;
+    testimonialsList?: TestimonialItem[];
+}
+
+const Testimonials: React.FC<TestimonialsProps> = ({
+    sectionLabel = "What Our Clients Say About Us",
+    testimonialsList: sanityTestimonials
+}) => {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
+
+    const activeTestimonials = sanityTestimonials && sanityTestimonials.length > 0 ? sanityTestimonials : testimonials;
 
     return (
         <section className={styles.testimonialsSection}>
@@ -41,7 +59,7 @@ const Testimonials = () => {
             <div className={styles.container}>
                 {/* Header absolute positioned */}
                 <div className={styles.header}>
-                    <h2 className={styles.sectionLabel}>What Our Clients Say About Us</h2>
+                    <h2 className={styles.sectionLabel}>{sectionLabel}</h2>
                 </div>
 
                 {/* Central Spinner & Slider */}
@@ -85,7 +103,7 @@ const Testimonials = () => {
                         grabCursor={true}
                         className={styles.swiperContainer}
                     >
-                        {testimonials.map((item) => (
+                        {activeTestimonials.map((item) => (
                             <SwiperSlide key={item.id}>
                                 <div className={styles.testimonialContent}>
                                     <p className={styles.quoteText}>{item.quote}</p>
@@ -99,38 +117,6 @@ const Testimonials = () => {
                         ))}
                     </Swiper>
                 </div>
-
-                {/* Footer Badges */}
-                {/* <div className={styles.badges}>
-
-                    <div className={styles.badge}>
-                        <div className={styles.badgeLeft}>
-                            <span className={styles.badgeLabel}>REVIEWED ON</span>
-                            <div className={styles.badgeLogo}>Clutch</div>
-                        </div>
-                        <div className={styles.badgeRight}>
-                            <div className={styles.starRating}>
-                                {[...Array(5)].map((_, i) => <Star key={i} size={18} fill="white" stroke="none" />)}
-                            </div>
-                            <span className={styles.ratingText}>5.0 RATING</span>
-                        </div>
-                    </div>
-
-                    <div className={styles.badge}>
-                        <div className={styles.badgeLeft}>
-                            <span className={styles.badgeLabel}>REVIEWED ON</span>
-                            <div className={styles.badgeLogo} style={{ fontFamily: 'sans-serif' }}>Google</div>
-                        </div>
-                        <div className={styles.badgeRight}>
-                            <div className={styles.starRating}>
-                                {[...Array(5)].map((_, i) => <Star key={i} size={18} fill="white" stroke="none" />)}
-                            </div>
-                            <span className={styles.ratingText}>4.8 RATING</span>
-                        </div>
-                    </div>
-
-                </div> */}
-
             </div>
         </section>
     );

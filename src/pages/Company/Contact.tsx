@@ -15,6 +15,9 @@ import {
 } from 'lucide-react';
 import ContactForm from '../../components/ContactForm/ContactForm';
 import styles from './Contact.module.css';
+import MetaSEO from '../../components/SEO/MetaSEO';
+import { getSanityContactPage } from '../../sanity/queries';
+import type { SanityContactPage } from '../../sanity/types';
 
 const ribbonData = [
   {
@@ -112,19 +115,12 @@ const cardChildVariant = {
 
 const Contact: React.FC = () => {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0); // First item open by default
+  const [sanityData, setSanityData] = useState<SanityContactPage | null>(null);
 
   useEffect(() => {
-    document.title = 'Contact Us | Custom Software & AI Engineering Consultation | Leapsofts';
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta');
-      metaDesc.setAttribute('name', 'description');
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.setAttribute(
-      'content',
-      'Get in touch with Leapsofts software architects and executive leads for custom software development, AI integration, and dedicated engineering pods in Dubai HQ & USA.'
-    );
+    getSanityContactPage().then((data) => {
+      if (data) setSanityData(data);
+    });
   }, []);
 
   const toggleFaq = (index: number) => {
@@ -133,6 +129,11 @@ const Contact: React.FC = () => {
 
   return (
     <div className={styles.contactPage}>
+      <MetaSEO
+        seo={sanityData?.seo}
+        defaultTitle="Contact Us | Custom Software & AI Engineering Consultation | Leapsofts"
+        defaultDescription="Get in touch with Leapsofts software architects to schedule a technical strategy session, request a project quote, or discuss custom software development."
+      />
       {/* Chapter 1: Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroGlow} />

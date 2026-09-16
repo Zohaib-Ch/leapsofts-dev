@@ -17,6 +17,9 @@ import { blogsData, type BlogPost } from '../../data/blogsData';
 import { useContactModal } from '../../context/ContactModalContext';
 import Button from '../../components/Button/Button';
 import styles from './BlogDetail.module.css';
+import MetaSEO from '../../components/SEO/MetaSEO';
+import { getSanityBlogBySlug } from '../../sanity/queries';
+import type { SanityBlog } from '../../sanity/types';
 
 const fadeInVariant = {
   hidden: { opacity: 0, y: 25 },
@@ -33,6 +36,7 @@ const BlogDetail: React.FC = () => {
   const { openContactModal } = useContactModal();
 
   const [post, setPost] = useState<BlogPost | null>(null);
+  const [sanityPost, setSanityPost] = useState<SanityBlog | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState<string>('');
   const [copiedCodeIndex, setCopiedCodeIndex] = useState<number | null>(null);
@@ -44,17 +48,14 @@ const BlogDetail: React.FC = () => {
     const foundPost = blogsData.find((b) => b.slug === slug);
     if (foundPost) {
       setPost(foundPost);
-      document.title = `${foundPost.title} | Leapsofts Engineering Insights`;
-
-      let metaDesc = document.querySelector('meta[name="description"]');
-      if (!metaDesc) {
-        metaDesc = document.createElement('meta');
-        metaDesc.setAttribute('name', 'description');
-        document.head.appendChild(metaDesc);
-      }
-      metaDesc.setAttribute('content', foundPost.subtitle || foundPost.excerpt);
     } else {
       setPost(null);
+    }
+
+    if (slug) {
+      getSanityBlogBySlug(slug).then((data) => {
+        if (data) setSanityPost(data);
+      });
     }
   }, [slug]);
 
@@ -117,6 +118,11 @@ const BlogDetail: React.FC = () => {
 
   return (
     <div className={styles.blogDetailWrapper}>
+      <MetaSEO
+        seo={sanityPost?.seo}
+        defaultTitle={`${post.title} | Leapsofts Engineering Insights`}
+        defaultDescription={post.subtitle || post.excerpt}
+      />
       {/* Top Reading Progress Bar */}
       <div className={styles.progressBar} style={{ width: `${scrollProgress}%` }} />
 
