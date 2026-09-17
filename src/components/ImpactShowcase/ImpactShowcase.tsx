@@ -40,7 +40,7 @@ const ImpactShowcase: React.FC<ImpactShowcaseProps> = ({
             filter: 'blur(0px)',
             transition: {
                 duration: 0.8,
-                ease: [0.16, 1, 0.3, 1]
+                ease: [0.16, 1, 0.3, 1] as const
             }
         }
     };
@@ -104,7 +104,7 @@ const ImpactShowcase: React.FC<ImpactShowcaseProps> = ({
                     initial={{ opacity: 0, scale: 0.95, x: 50 }}
                     whileInView={{ opacity: 1, scale: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as const }}
                 >
                     <div className={styles.showcaseFrame}>
                         <div className={styles.frameDecoration} />

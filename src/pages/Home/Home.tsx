@@ -7,6 +7,7 @@ import Partners from '../../components/Partners/Partners';
 import Slider from '../../components/Slider/Slider';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import Testimonials from './Testimonials/Testimonials';
+import BlogSection from '../../components/BlogSection/BlogSection';
 import ContactForm from '../../components/ContactForm/ContactForm';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import Figures from './Figures/Figures';
@@ -194,6 +195,10 @@ const Home = () => {
 
       <div id="feedbacks">
         <Testimonials />
+      </div>
+
+      <div id="insights">
+        <BlogSection />
       </div>
 
       <div id="contact" className={style.contactContainer} >

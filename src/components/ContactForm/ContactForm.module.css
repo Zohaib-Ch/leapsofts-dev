@@ -48,6 +48,26 @@
     background: transparent;
 }
 
+.contactSection.embeddedVariant {
+    padding: 0;
+    background: transparent;
+}
+
+.contactSection.embeddedVariant::before,
+.contactSection.embeddedVariant::after {
+    display: none;
+}
+
+.contactSection.embeddedVariant .formContainer {
+    padding: 0;
+    max-width: 100%;
+}
+
+.contactSection.embeddedVariant .formGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+
 .contactSection.stickyVariant .formContainer {
     padding: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -303,6 +323,9 @@
     .formGrid {
         grid-template-columns: repeat(3, 1fr);
     }
+    .contactSection.embeddedVariant .formGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 @media (max-width: 1024px) {
     .contactSection {
@@ -314,7 +337,8 @@
         padding: 60px 0;
     }
 
-    .formGrid {
+    .formGrid,
+    .contactSection.embeddedVariant .formGrid {
         grid-template-columns: 1fr;
     }
 
@@ -334,5 +358,16 @@
 
     .countrySelect {
         font-size: 12px;
+    }
+
+    .input,
+    .textarea,
+    .countrySelect {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+
+    .checkboxGroup {
+        font-size: 13px;
     }
 }

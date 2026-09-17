@@ -38,9 +38,10 @@ interface FormErrors {
 
 interface ContactFormProps {
     isSticky?: boolean;
+    isEmbedded?: boolean;
 }
 
-const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false }) => {
+const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false, isEmbedded = false }) => {
     const [formData, setFormData] = useState<FormData>({
         firstName: "",
         lastName: "",
@@ -200,8 +201,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false }) => {
     }, [errors]);
 
     return (
-        <div className={`${styles.contactSection} ${isSticky ? styles.stickyVariant : ''}`}>
-            {!isSticky ? (
+        <div className={`${styles.contactSection} ${isSticky ? styles.stickyVariant : ''} ${isEmbedded ? styles.embeddedVariant : ''}`}>
+            {!isSticky && !isEmbedded && (
                 <div className={styles.headerSection}>
                     <h2 className={styles.headline}>
                         Succeed <span className={styles.accent}>faster</span> with Leapsofts
@@ -213,7 +214,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false }) => {
                         </span>
                     </p>
                 </div>
-            ) : (
+            )}
+            {isSticky && (
                 <div className={styles.stickyHeader}>
                     <h3 className={styles.stickyTitle}>Let's Discuss Your Project</h3>
                 </div>
