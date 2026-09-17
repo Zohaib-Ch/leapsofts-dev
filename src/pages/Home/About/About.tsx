@@ -1,14 +1,26 @@
 import styles from './about.module.css';
 import React, { useEffect, useRef, useState } from 'react';
-import laptopImg from '../../../assets/about_laptop_3d.png';
+import laptopImg from '../../../assets/about_laptop_3d.webp';
 
-const About: React.FC = () => {
+export interface AboutProps {
+    label?: string;
+    headline?: string;
+    descriptionText?: string;
+    imageUrl?: string;
+}
 
+const About: React.FC<AboutProps> = ({
+    label = "About Us",
+    headline = "Engineered for execution. Scale without friction.",
+    descriptionText,
+    imageUrl
+}) => {
     const [isVisible, setIsVisible] = useState(false);
     const [spotlightPos, setSpotlightPos] = useState({ x: 50, y: 50 });
     const sectionRef = useRef<HTMLElement>(null);
     const visualRef = useRef<HTMLDivElement>(null);
-    const aboutDescription = [
+
+    const defaultAboutDescription = [
         { text: "At Leapsofts, we engineer and deliver fully-realized ", bold: false },
         { text: "minimum viable products (MVPs) in just 3 to 5 months", bold: true },
         { text: " by unifying ", bold: false },
@@ -47,25 +59,36 @@ const About: React.FC = () => {
             setSpotlightPos({ x, y });
         }
     };
+
+    const finalImage = imageUrl || laptopImg;
+
     return (
-        <section className={styles.aboutSection}>
+        <section ref={sectionRef} className={styles.aboutSection}>
             <div className={styles.container}>
 
                 {/* Brand Content Area */}
                 <div className={styles.brandArea}>
                     <div className={styles.brandContent}>
-                        <span className={styles.label}>About Us</span>
+                        <span className={styles.label}>{label}</span>
                         <h2 className={styles.headline}>
-                            Engineered for <em>execution</em>. Scale without friction.
+                            {headline.includes('execution') ? (
+                                <>Engineered for <em>execution</em>. Scale without friction.</>
+                            ) : (
+                                headline
+                            )}
                         </h2>
                         <p className={styles.description}>
-                            {aboutDescription.map((segment, index) => (
-                                segment.bold ? (
-                                    <strong key={index}>{segment.text}</strong>
-                                ) : (
-                                    <span key={index}>{segment.text}</span>
-                                )
-                            ))}
+                            {descriptionText ? (
+                                descriptionText
+                            ) : (
+                                defaultAboutDescription.map((segment, index) => (
+                                    segment.bold ? (
+                                        <strong key={index}>{segment.text}</strong>
+                                    ) : (
+                                        <span key={index}>{segment.text}</span>
+                                    )
+                                ))
+                            )}
                         </p>
                         <a href="#figures" className={styles.readMore}>
                             Read more
@@ -88,7 +111,7 @@ const About: React.FC = () => {
                         } as React.CSSProperties}
                     >
                         <img
-                            src={laptopImg}
+                            src={finalImage}
                             alt="Futuristic Tech Visualization"
                             className={styles.dashboardImage}
                         />

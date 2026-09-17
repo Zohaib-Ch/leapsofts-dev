@@ -5,6 +5,9 @@ import { Search, Clock, Calendar, ArrowRight, Sparkles } from 'lucide-react';
 import { blogsData } from '../../data/blogsData';
 import Button from '../../components/Button/Button';
 import styles from './BlogListing.module.css';
+import MetaSEO from '../../components/SEO/MetaSEO';
+import { getSanityBlogs } from '../../sanity/queries';
+import type { SanityBlog } from '../../sanity/types';
 
 const categories = ['All Topics', 'Enterprise AI', 'Cloud Architecture', 'Product Engineering', 'Cyber Security'];
 
@@ -34,29 +37,23 @@ const BlogListing: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [emailInput, setEmailInput] = useState('');
+  const [sanityBlogs, setSanityBlogs] = useState<SanityBlog[] | null>(null);
 
   useEffect(() => {
-    document.title = 'Engineering Insights & Architecture Tech Blog | Leapsofts';
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta');
-      metaDesc.setAttribute('name', 'description');
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.setAttribute(
-      'content',
-      'Read technical articles, AI system architecture blueprints, MLOps, cloud microservices, and product strategy insights from Leapsofts engineering leaders.'
-    );
+    getSanityBlogs().then((data) => {
+      if (data) setSanityBlogs(data);
+    });
   }, []);
 
+  const allPosts = sanityBlogs || blogsData;
   const featuredPost = blogsData.find((post) => post.featured) || blogsData[0];
 
-  const filteredPosts = blogsData.filter((post) => {
+  const filteredPosts = (allPosts as typeof blogsData).filter((post) => {
     const matchesCategory = selectedCategory === 'All Topics' || post.category === selectedCategory;
     const matchesQuery =
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      post.category.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesQuery;
   });
 
@@ -70,6 +67,10 @@ const BlogListing: React.FC = () => {
 
   return (
     <div className={styles.blogListingPage}>
+      <MetaSEO
+        defaultTitle="Engineering Insights & Architecture Tech Blog | Leapsofts"
+        defaultDescription="Read technical articles, AI system architecture blueprints, MLOps, cloud microservices, and product strategy insights from Leapsofts engineering leaders."
+      />
       {/* Chapter 1: Hero Header & Search Controls */}
       <section className={styles.hero}>
         <div className={styles.heroGlow} />

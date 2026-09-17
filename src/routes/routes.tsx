@@ -51,8 +51,13 @@ import Error from '../pages/ErrorPage/Error';
 import Automotive from '../pages/IndustriesPages/Automotive';
 import Compliance from '../pages/IndustriesPages/Compliance';
 import Startups from '../pages/IndustriesPages/Startups';
+import StudioPage from '../pages/Studio/StudioPage';
 
 const router = createBrowserRouter([
+    {
+        path: '/studio/*',
+        element: <StudioPage />
+    },
     {
         path: '/',
         element: <App />,

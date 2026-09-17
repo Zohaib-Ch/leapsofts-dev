@@ -18,6 +18,9 @@ import Button from '../../components/Button/Button';
 import AnimatedCounter from '../../components/AnimatedCounter/AnimatedCounter';
 import { useContactModal } from '../../context/ContactModalContext';
 import styles from './About.module.css';
+import MetaSEO from '../../components/SEO/MetaSEO';
+import { getSanityAboutPage } from '../../sanity/queries';
+import type { SanityAboutPage } from '../../sanity/types';
 
 const timelineData = [
   {
@@ -165,24 +168,22 @@ const slideRightVariant: Variants = {
 
 const About: React.FC = () => {
   const [activeTimeline, setActiveTimeline] = useState(0);
+  const [sanityData, setSanityData] = useState<SanityAboutPage | null>(null);
   const { openContactModal } = useContactModal();
 
   useEffect(() => {
-    document.title = 'About Us | Custom Enterprise Software Engineering | Leapsofts';
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta');
-      metaDesc.setAttribute('name', 'description');
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.setAttribute(
-      'content',
-      'Learn about Leapsofts, a premier custom software engineering consultancy delivering resilient cloud architectures, AI integration, and dedicated agile pods.'
-    );
+    getSanityAboutPage().then((data) => {
+      if (data) setSanityData(data);
+    });
   }, []);
 
   return (
     <div className={styles.aboutPage}>
+      <MetaSEO
+        seo={sanityData?.seo}
+        defaultTitle="About Us | Custom Enterprise Software Engineering | Leapsofts"
+        defaultDescription="Learn about Leapsofts, a premier custom software engineering consultancy delivering resilient cloud architectures, AI integration, and dedicated agile pods."
+      />
       {/* Chapter 1: Hero & Vision Narrative */}
       <section className={styles.hero}>
         <div className={styles.heroGlow} />

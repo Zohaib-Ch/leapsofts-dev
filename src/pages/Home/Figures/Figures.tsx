@@ -11,12 +11,24 @@ const highlightsData = [
     { number: 3, suffix: '', text: 'months average timeline to deploy a fully-functional, market-ready MVP' },
 ];
 
-const Figures: React.FC = () => {
+export interface StatItem {
+    number: number;
+    suffix?: string;
+    text: string;
+}
+
+export interface FiguresProps {
+    stats?: StatItem[];
+}
+
+const Figures: React.FC<FiguresProps> = ({ stats: sanityStats }) => {
+    const activeStats = sanityStats && sanityStats.length > 0 ? sanityStats : highlightsData;
+
     return (
         <section id="figures" className={styles.figuresSection}>
             <div className={styles.container}>
                 <div className={styles.highlights}>
-                    {highlightsData.map((item, index) => (
+                    {activeStats.map((item, index) => (
                         <div key={index} className={styles.statCard}>
                             <div className={styles.glassCard}>
                                 <span className={styles.statNumber}>
