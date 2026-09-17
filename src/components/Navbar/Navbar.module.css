@@ -144,7 +144,8 @@
 
 /* Services Dropdown */
 .services-dropdown,
-.industries-dropdown {
+.industries-dropdown,
+.about-dropdown {
     position: fixed;
     top: 100px;
     left: 0;
@@ -162,7 +163,8 @@
 }
 
 .services-dropdown.open,
-.industries-dropdown.open {
+.industries-dropdown.open,
+.about-dropdown.open {
     max-height: 600px;
     opacity: 1;
     visibility: visible;

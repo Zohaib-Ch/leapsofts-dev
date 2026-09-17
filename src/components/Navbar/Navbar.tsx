@@ -12,31 +12,34 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isIndustriesOpen, setIsIndustriesOpen] = useState(false);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileIndustriesOpen, setMobileIndustriesOpen] = useState(false);
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      // Close dropdowns on scroll
       if (window.scrollY > 100) {
         setIsServicesOpen(false);
         setIsIndustriesOpen(false);
+        setIsAboutOpen(false);
       }
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (!target.closest(`.${styles['services-dropdown']}`) &&
         !target.closest(`.${styles['industries-dropdown']}`) &&
+        !target.closest(`.${styles['about-dropdown']}`) &&
         !target.closest(`.${styles['nav-link']}`)) {
         setIsServicesOpen(false);
         setIsIndustriesOpen(false);
+        setIsAboutOpen(false);
       }
     };
     document.addEventListener('click', handleClickOutside);
@@ -105,16 +108,35 @@ const Navbar = () => {
     { name: 'Startups', path: '/industries/startups' },
   ];
 
+  const aboutLinks = [
+    { name: 'About Leapsofts', path: '/about' },
+    { name: 'Engineering Insights', path: '/blog' },
+    { name: 'Mission & Creed', path: '/about/mission' },
+    { name: 'Engineering Leadership', path: '/about/leadership' },
+    { name: 'Global Footprint & Compliance', path: '/about/global-footprint' },
+    { name: 'Strategic Partnerships', path: '/partners' },
+    { name: 'Contact Us', path: '/contact' },
+  ];
+
   const handleServicesClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsServicesOpen((prev) => !prev);
     setIsIndustriesOpen(false);
+    setIsAboutOpen(false);
   };
 
   const handleIndustriesClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsIndustriesOpen((prev) => !prev);
     setIsServicesOpen(false);
+    setIsAboutOpen(false);
+  };
+
+  const handleAboutClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsAboutOpen((prev) => !prev);
+    setIsServicesOpen(false);
+    setIsIndustriesOpen(false);
   };
 
   const handleMobileServicesClick = (e: React.MouseEvent) => {
@@ -127,10 +149,16 @@ const Navbar = () => {
     setMobileIndustriesOpen((prev) => !prev);
   };
 
+  const handleMobileAboutClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setMobileAboutOpen((prev) => !prev);
+  };
+
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
     setMobileServicesOpen(false);
     setMobileIndustriesOpen(false);
+    setMobileAboutOpen(false);
   };
 
   return (
@@ -184,15 +212,28 @@ const Navbar = () => {
                 onClick={() => {
                   setIsServicesOpen(false);
                   setIsIndustriesOpen(false);
+                  setIsAboutOpen(false);
                 }}
               >
                 Case Studies
               </Link>
             </li>
             <li>
-              {/* <Link to="/partners" className={styles['nav-link']}>
-                Strategic Partnerships
-              </Link> */}
+              <button
+                className={`${styles['nav-link']} ${isAboutOpen ? styles['active'] : ''}`}
+                onClick={handleAboutClick}
+              >
+                About Us
+                <svg
+                  className={`${styles['dropdown-arrow']} ${isAboutOpen ? styles['rotated'] : ''}`}
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                >
+                  <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
             </li>
           </ul>
 
@@ -290,15 +331,47 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Other Links */}
+          {/* Case Studies Link */}
           <Link to="/projects" className={styles['mobile-link']} onClick={closeMobileMenu}>
             Case Studies
           </Link>
-          {/* <Link to="/partners" className={styles['mobile-link']} onClick={closeMobileMenu}>
-            Strategic Partnerships
-          </Link> */}
 
-          {/* Get in Touch Button */}
+          {/* About Accordion */}
+          <div className={styles['mobile-accordion']}>
+            <button
+              className={`${styles['mobile-accordion-header']} ${mobileAboutOpen ? styles['active'] : ''}`}
+              onClick={handleMobileAboutClick}
+            >
+              <span>About Us</span>
+              <svg
+                className={`${styles['accordion-arrow']} ${mobileAboutOpen ? styles['rotated'] : ''}`}
+                width="14"
+                height="14"
+                viewBox="0 0 12 12"
+                fill="none"
+              >
+                <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <div className={`${styles['mobile-accordion-content']} ${mobileAboutOpen ? styles['open'] : ''}`}>
+              <ul className={styles['mobile-category-items']}>
+                {aboutLinks.map((item, itemIndex) => (
+                  <li key={itemIndex}>
+                    <Link
+                      to={item.path}
+                      className={`${styles['mobile-service-link']} ${location === item.path ? styles['active'] : ''}`}
+                      onClick={closeMobileMenu}
+                    >
+                      <span className={styles['mobile-link-arrow']}>›</span>
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Strategic Partnerships Button */}
           <div className={styles['mobile-cta']}>
             <Button
               text="Strategic Partnerships"
@@ -307,9 +380,32 @@ const Navbar = () => {
               onClick={() => {
                 closeMobileMenu();
                 navigate('/partners');
-                console.log('Button clicked');
               }}
             />
+          </div>
+        </div>
+      </div>
+
+      {/* About Dropdown (Desktop) */}
+      <div className={`${styles['about-dropdown']} ${isAboutOpen ? styles['open'] : ''}`}>
+        <div className={styles['dropdown-content']}>
+          <div className={styles['dropdown-header']}>
+            <h3>Who We Are</h3>
+            <span className={styles['header-arrow']}>»</span>
+          </div>
+
+          <div className={styles['industries-grid']}>
+            {aboutLinks.map((item, index) => (
+              <Link
+                key={index}
+                to={item.path}
+                className={`${styles['industry-link']} ${location === item.path ? styles['active'] : ''}`}
+                onClick={() => setIsAboutOpen(false)}
+              >
+                <span className={styles['link-arrow']}>›</span>
+                {item.name}
+              </Link>
+            ))}
           </div>
         </div>
       </div>
@@ -371,12 +467,13 @@ const Navbar = () => {
       </div>
 
       {/* Overlay */}
-      {(isServicesOpen || isIndustriesOpen) && (
+      {(isServicesOpen || isIndustriesOpen || isAboutOpen) && (
         <div
           className={styles['dropdown-overlay']}
           onClick={() => {
             setIsServicesOpen(false);
             setIsIndustriesOpen(false);
+            setIsAboutOpen(false);
           }}
         />
       )}

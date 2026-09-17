@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Services from './CompanyServices/Services';
 import About from './About/About';
@@ -7,16 +7,28 @@ import Partners from '../../components/Partners/Partners';
 import Slider from '../../components/Slider/Slider';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import Testimonials from './Testimonials/Testimonials';
+import BlogSection from '../../components/BlogSection/BlogSection';
 import ContactForm from '../../components/ContactForm/ContactForm';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import Figures from './Figures/Figures';
 import IndustrySlider from '../../components/IndustrySlider/IndustrySlider';
 import style from './home.module.css';
+import MetaSEO from '../../components/SEO/MetaSEO';
+import { getSanityHomePage } from '../../sanity/queries';
+import type { SanityHomePage } from '../../sanity/types';
 
 const Home = () => {
-  const title = "Custom Software Engineered for Enterprise Velocity";
-  const title2 = "Launch your product in 3-5 months with zero compromise on scalability.";
-  const subtitle = "Leapsofts engineers enterprise-grade custom software and scalable cloud solutions that power modern digital transformation. From proof of concept (PoC) and resilient software architecture to accelerated MVP development and AI-driven system orchestrations, we translate complex business objectives into secure, high-performance platforms engineered for long-term growth and bulletproof operations.";
+  const [sanityData, setSanityData] = useState<SanityHomePage | null>(null);
+
+  useEffect(() => {
+    getSanityHomePage().then((data) => {
+      if (data) setSanityData(data);
+    });
+  }, []);
+
+  const title = sanityData?.hero?.title || "Custom Software Engineered for Enterprise Velocity";
+  const title2 = sanityData?.hero?.title2 || "Launch your product in 3-5 months with zero compromise on scalability.";
+  const subtitle = sanityData?.hero?.subtitle || "Leapsofts engineers enterprise-grade custom software and scalable cloud solutions that power modern digital transformation. From proof of concept (PoC) and resilient software architecture to accelerated MVP development and AI-driven system orchestrations, we translate complex business objectives into secure, high-performance platforms engineered for long-term growth and bulletproof operations.";
 
   const introDescription = [
     { text: "Leapsofts engineers ", bold: false },
@@ -151,36 +163,68 @@ const Home = () => {
     { text: "built to unlock measurable product growth and streamline operational efficiency.", bold: false }
   ];
 
+  const processPhases = sanityData?.processes?.phases && sanityData.processes.phases.length > 0
+    ? (sanityData.processes.phases as ProcessPhase[])
+    : processPhasesDefault;
+
+  const phaseLabels = sanityData?.processes?.phaseLabels && sanityData.processes.phaseLabels.length > 0
+    ? sanityData.processes.phaseLabels
+    : phaseLabelsDefault;
+
   return (
     <>
+      <MetaSEO seo={sanityData?.seo} defaultTitle="Leapsofts | Custom Software Engineered for Enterprise Velocity" />
+
       <IntroComponent
         title={title}
         title2={title2}
         description={subtitle}
-        buttonText="Schedule a Strategy Session"
-        onButtonClick={() => console.log('Button clicked')}
+        buttonText={sanityData?.hero?.primaryCtaText || "Schedule a Strategy Session"}
+        onButtonClick={() => {
+          const path = sanityData?.hero?.primaryCtaPath || '#contact';
+          if (path.startsWith('#')) {
+            const elem = document.getElementById(path.replace('#', ''));
+            if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            window.location.href = path;
+          }
+        }}
         introDescription={introDescription}
       />
 
       <div id="services">
-        <Services />
+        <Services
+          label={sanityData?.coreCapabilities?.label}
+          titleMain={sanityData?.coreCapabilities?.titleMain}
+          titleAccent={sanityData?.coreCapabilities?.titleAccent}
+          titleEnd={sanityData?.coreCapabilities?.titleEnd}
+          services={sanityData?.coreCapabilities?.services}
+        />
       </div>
 
       <div id="about">
-        <About />
+        <About
+          label={sanityData?.aboutUs?.label}
+          headline={sanityData?.aboutUs?.headline}
+          descriptionText={sanityData?.aboutUs?.descriptionText}
+          imageUrl={sanityData?.aboutUs?.imageUrl}
+        />
       </div>
       <div id="figures">
-        <Figures />
+        <Figures stats={sanityData?.aboutUs?.stats} />
       </div>
 
       <div id="projects">
         <StreamlineSuccess
-          label="COMPLIMENTARY STRATEGY SESSION"
-          titleMain="Map your "
-          titleAccent="technical"
-          titleEnd=" roadmap."
-          description={streamlineDescription}
-          imageUrl="/streamline.png"
+          label={sanityData?.strategy?.label || "COMPLIMENTARY STRATEGY SESSION"}
+          titleMain={sanityData?.strategy?.titleMain || "Map your "}
+          titleAccent={sanityData?.strategy?.titleAccent || "technical"}
+          titleEnd={sanityData?.strategy?.titleEnd || " roadmap."}
+          description={sanityData?.strategy?.descriptionText || streamlineDescription}
+          description2={sanityData?.strategy?.description2Text}
+          buttonText={sanityData?.strategy?.buttonText || "Claim Strategy Session"}
+          buttonPath={sanityData?.strategy?.buttonPath || "#contact"}
+          imageUrl={sanityData?.strategy?.imageUrl || "/streamline.webp"}
         />
         <IndustrySlider />
         <Slider />
@@ -188,12 +232,23 @@ const Home = () => {
 
 
       <div id="process">
-        <Processes title="OUR CUSTOM SOFTWARE DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+        <Processes
+          title={sanityData?.processes?.title || "OUR CUSTOM SOFTWARE DEVELOPMENT PROCESS"}
+          processPhases={processPhases}
+          phaseLabels={phaseLabels}
+        />
       </div>
       <Partners />
 
       <div id="feedbacks">
-        <Testimonials />
+        <Testimonials
+          sectionLabel={sanityData?.testimonials?.sectionLabel}
+          testimonialsList={sanityData?.testimonials?.testimonialsList}
+        />
+      </div>
+
+      <div id="insights">
+        <BlogSection />
       </div>
 
       <div id="contact" className={style.contactContainer} >

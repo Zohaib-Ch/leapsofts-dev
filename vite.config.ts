@@ -12,4 +12,10 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
+  define: {
+    'process.env': {},
+  },
+  optimizeDeps: {
+    include: ['styled-components', 'sanity', '@sanity/vision'],
+  },
 })

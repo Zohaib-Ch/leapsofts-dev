@@ -40,12 +40,24 @@ import Energy from '../pages/IndustriesPages/Energy';
 import Projects from '../pages/Company/Projects';
 import Partners from '../pages/Company/Partners';
 import ProjectDetails from '../pages/Company/ProjectDetails';
+import About from '../pages/Company/About';
+import Mission from '../pages/Company/Mission';
+import GlobalFootprint from '../pages/Company/GlobalFootprint';
+import Leadership from '../pages/Company/Leadership';
+import Contact from '../pages/Company/Contact';
+import BlogListing from '../pages/Company/BlogListing';
+import BlogDetail from '../pages/Company/BlogDetail';
 import Error from '../pages/ErrorPage/Error';
 import Automotive from '../pages/IndustriesPages/Automotive';
 import Compliance from '../pages/IndustriesPages/Compliance';
 import Startups from '../pages/IndustriesPages/Startups';
+import StudioPage from '../pages/Studio/StudioPage';
 
 const router = createBrowserRouter([
+    {
+        path: '/studio/*',
+        element: <StudioPage />
+    },
     {
         path: '/',
         element: <App />,
@@ -56,6 +68,38 @@ const router = createBrowserRouter([
                     {
                         path: '',
                         element: <Home />
+                    },
+                    {
+                        path: 'about',
+                        element: <About />
+                    },
+                    {
+                        path: 'about/mission',
+                        element: <Mission />
+                    },
+                    {
+                        path: 'about/leadership',
+                        element: <Leadership />
+                    },
+                    {
+                        path: 'about/global-footprint',
+                        element: <GlobalFootprint />
+                    },
+                    {
+                        path: 'about/global',
+                        element: <GlobalFootprint />
+                    },
+                    {
+                        path: 'blog',
+                        element: <BlogListing />
+                    },
+                    {
+                        path: 'blog/:slug',
+                        element: <BlogDetail />
+                    },
+                    {
+                        path: 'contact',
+                        element: <Contact />
                     },
                     {
                         path: 'partners',

@@ -9,7 +9,7 @@ interface ServiceData {
     items: { name: string; path: string }[];
 }
 
-const services: ServiceData[] = [
+const defaultServices: ServiceData[] = [
     {
         id: '01',
         number: '<01>',
@@ -72,14 +72,17 @@ export interface ServicesProps {
     titleMain?: string;
     titleAccent?: string;
     titleEnd?: string;
+    services?: ServiceData[];
 }
 
 const Services: React.FC<ServicesProps> = ({
     label = "Core Capabilities",
     titleMain = "Engineered to ",
     titleAccent = "elevate",
-    titleEnd = " your enterprise"
+    titleEnd = " your enterprise",
+    services: sanityServices
 }) => {
+    const activeServicesList = sanityServices && sanityServices.length > 0 ? sanityServices : defaultServices;
     const [activeIndex, setActiveIndex] = useState(0);
 
     return (
@@ -87,13 +90,15 @@ const Services: React.FC<ServicesProps> = ({
             <div className={styles.container}>
                 <div className={styles.sectionHeader}>
                     <span className={styles.label}>{label}</span>
-                    <h2 className={styles.title}>{titleMain} <em>{titleAccent}</em> {titleEnd}</h2>
+                    <h2 className={styles.title}>
+                        {titleMain?.trim()}{' '}<em>{titleAccent?.trim()}</em>{' '}{titleEnd?.trim()}
+                    </h2>
                 </div>
 
                 <div className={styles.accordion}>
-                    {services.map((service, index) => (
+                    {activeServicesList.map((service, index) => (
                         <div
-                            key={service.id}
+                            key={service.id || index}
                             className={`${styles.card} ${activeIndex === index ? styles.active : ''}`}
                             onClick={() => setActiveIndex(index)}
                         >
@@ -105,7 +110,7 @@ const Services: React.FC<ServicesProps> = ({
                                 <h3 className={styles.cardTitleExpanded}>{service.title}</h3>
                                 <p className={styles.description}>{service.description}</p>
                                 <div className={styles.subServices}>
-                                    {service.items.map((item, i) => (
+                                    {service.items?.map((item, i) => (
                                         <div key={i} className={styles.subServiceItem} onClick={() => window.location.href = item.path}>
                                             <span className={styles.arrowIcon}>
                                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">

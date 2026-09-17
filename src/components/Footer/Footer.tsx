@@ -15,8 +15,9 @@ const Footer = () => {
     ],
     company: [
       { name: 'Case Studies', path: '/projects' },
+      { name: 'Engineering Insights', path: '/blog' },
       { name: 'Strategic Partnerships', path: '/partners' },
-      { name: 'Contact', path: '/#contact' },
+      { name: 'Contact Us', path: '/contact' },
     ],
     industries: [
       { name: 'Finance', path: '/industries/finance' },

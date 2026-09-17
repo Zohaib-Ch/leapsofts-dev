@@ -192,7 +192,7 @@ const ShowcaseItem: React.FC<{ data: PartnerData }> = ({ data }) => {
                                 filter: "blur(0px)",
                                 transition: {
                                     duration: 1,
-                                    ease: [0.16, 1, 0.3, 1],
+                                    ease: [0.16, 1, 0.3, 1] as const,
                                     delay: 0.2
                                 }
                             }
@@ -250,7 +250,7 @@ const ShowcaseItem: React.FC<{ data: PartnerData }> = ({ data }) => {
                                         opacity: 1,
                                         y: 0,
                                         scale: 1,
-                                        transition: { delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+                                        transition: { delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }
                                     }
                                 }}
                             >
@@ -299,7 +299,7 @@ const ShowcaseItem: React.FC<{ data: PartnerData }> = ({ data }) => {
                                                     transition: {
                                                         delay: 0.7 + idx * 0.1,
                                                         duration: 0.6,
-                                                        ease: [0.16, 1, 0.3, 1]
+                                                        ease: [0.16, 1, 0.3, 1] as const
                                                     }
                                                 }
                                             }}

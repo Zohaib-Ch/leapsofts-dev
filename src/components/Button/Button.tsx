@@ -1,14 +1,14 @@
 import styles from './button.module.css'
 
 interface ButtonProps {
-    color1: string;
-    color2: string;
+    color1?: string;
+    color2?: string;
     text: string;
     onClick?: () => void;
     hasIcon?: boolean;
 }
 
-const Button = ({ color1, color2, text, onClick, hasIcon }: ButtonProps) => {
+const Button = ({ color1 = 'var(--color-orange, #FF7917)', color2 = 'var(--color-purple, #C63C92)', text, onClick, hasIcon }: ButtonProps) => {
     return (
         <button
             className={styles['leap-btn']}
