@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
@@ -15,6 +16,7 @@ function App() {
       </main>
       <ContactModal />
       <Footer />
+      <Analytics />
     </div>
   );
 }
