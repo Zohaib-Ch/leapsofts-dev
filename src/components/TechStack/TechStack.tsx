@@ -5,6 +5,8 @@ import styles from './TechStack.module.css';
 interface TechStackItemData {
     name: string;
     icon?: string;
+    iconPreset?: string;
+    iconImageUrl?: string;
 }
 
 interface TechStackRow {
@@ -63,20 +65,23 @@ const TechStack: React.FC<TechStackProps> = ({ title, items }) => {
                         >
                             <span className={styles.itemLabel}>{item.label}</span>
                             <div className={styles.techGroup}>
-                                {item.techs.map((tech, tIdx) => (
-                                    <div key={tIdx} className={styles.techBadge}>
-                                        <div className={styles.hexagonWrapper}>
-                                            <div className={styles.hexagonBorder}>
-                                                <div className={styles.hexagonContent}>
-                                                    {tech.icon && (
-                                                        <img src={tech.icon} alt={tech.name} className={styles.techIcon} />
-                                                    )}
-                                                    <span className={styles.itemValue}>{tech.name}</span>
+                                {item.techs.map((tech, tIdx) => {
+                                    const iconSrc = tech.iconImageUrl || tech.iconPreset || tech.icon;
+                                    return (
+                                        <div key={tIdx} className={styles.techBadge}>
+                                            <div className={styles.hexagonWrapper}>
+                                                <div className={styles.hexagonBorder}>
+                                                    <div className={styles.hexagonContent}>
+                                                        {iconSrc && (
+                                                            <img src={iconSrc} alt={tech.name} className={styles.techIcon} />
+                                                        )}
+                                                        <span className={styles.itemValue}>{tech.name}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
                         </motion.div>
                     ))}

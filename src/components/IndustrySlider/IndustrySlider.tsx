@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { getSanityCaseStudies } from '../../sanity/queries';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import styles from './IndustrySlider.module.css';
@@ -12,7 +13,7 @@ interface IndustrySliderProps {
   excludeIndustries?: string[];
 }
 
-const industries = [
+const defaultIndustries = [
   { name: 'Automotive', path: '/industries/automotive', icon: '/icons/industries/automotive-link.svg' },
   { name: 'EdTech', path: '/industries/edtech', icon: '/icons/industries/education-link.svg' },
   { name: 'Forensics', path: '/industries/forensics', icon: '/icons/industries/energy-link.svg' },
@@ -33,10 +34,50 @@ const industries = [
 const IndustrySlider: React.FC<IndustrySliderProps> = ({ onIndustryClick, excludeIndustries = [] }) => {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
+  const [sanityCaseStudies, setSanityCaseStudies] = useState<any[]>([]);
+
+  useEffect(() => {
+    getSanityCaseStudies().then((data) => {
+      if (data && data.length > 0) {
+        setSanityCaseStudies(data);
+      }
+    });
+  }, []);
+
+  const allIndustries = React.useMemo(() => {
+    const list = [...defaultIndustries];
+
+    if (sanityCaseStudies && sanityCaseStudies.length > 0) {
+      const sanityIndustries = sanityCaseStudies.filter(cs => cs.type === 'industry');
+      sanityIndustries.forEach((sanityItem) => {
+        const name = sanityItem.brand?.name || sanityItem.title;
+        if (!name) return;
+
+        const existingIndex = list.findIndex(item => item.name.toLowerCase().trim() === name.toLowerCase().trim());
+        const slug = sanityItem.slug || name.toLowerCase().replace(/\s+/g, '-');
+        const icon = sanityItem.brand?.logo || sanityItem.brand?.logoPreset || '/icons/industries/automotive-link.svg';
+
+        if (existingIndex !== -1) {
+          list[existingIndex] = {
+            ...list[existingIndex],
+            icon: icon || list[existingIndex].icon,
+          };
+        } else {
+          list.push({
+            name: name,
+            path: `/industries/${slug}`,
+            icon: icon,
+          });
+        }
+      });
+    }
+
+    return list;
+  }, [sanityCaseStudies]);
 
   const filteredIndustries = excludeIndustries.length > 0
-    ? industries.filter((industry) => !excludeIndustries.includes(industry.name))
-    : industries;
+    ? allIndustries.filter((industry) => !excludeIndustries.includes(industry.name))
+    : allIndustries;
 
   return (
     <section className={styles.sliderSection}>

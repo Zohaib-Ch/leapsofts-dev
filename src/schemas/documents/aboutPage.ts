@@ -115,22 +115,12 @@ export const aboutPageSchema = defineType({
           name: 'members',
           title: 'Leadership Team Members',
           type: 'array',
+          description: 'Select existing Team Members from the Team Members collection, or click + Create New Team Member to add a universal member.',
           of: [
             {
-              type: 'object',
-              fields: [
-                defineField({ name: 'name', title: 'Full Name', type: 'string' }),
-                defineField({ name: 'role', title: 'Role / Job Title', type: 'string' }),
-                defineField({ name: 'bio', title: 'Biography', type: 'text' }),
-                defineField({ name: 'highlight', title: 'Key Highlight / Badge', type: 'string' }),
-                defineField({ name: 'initials', title: 'Avatar Initials', type: 'string' }),
-                defineField({
-                  name: 'skills',
-                  title: 'Skill Tags',
-                  type: 'array',
-                  of: [{ type: 'string' }],
-                }),
-              ],
+              type: 'reference',
+              title: 'Team Member',
+              to: [{ type: 'teamMember' }],
             },
           ],
         }),

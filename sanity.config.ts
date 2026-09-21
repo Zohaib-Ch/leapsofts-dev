@@ -28,6 +28,9 @@ export default defineConfig({
                       .title('Home Page')
                       .child(S.document().schemaType('homePage').documentId('homePage')),
                     S.listItem()
+                      .title('Case Studies Page Settings')
+                      .child(S.document().schemaType('caseStudiesPage').documentId('caseStudiesPage')),
+                    S.listItem()
                       .title('Contact Us Page')
                       .child(S.document().schemaType('contactPage').documentId('contactPage')),
                   ])
@@ -69,8 +72,30 @@ export default defineConfig({
 
             // Case Studies / Projects
             S.listItem()
-              .title('Case Studies / Projects')
-              .child(S.documentTypeList('caseStudy').title('All Case Studies')),
+              .title('Case Studies & Projects')
+              .child(
+                S.list()
+                  .title('Case Studies & Projects')
+                  .items([
+                    S.listItem()
+                      .title('Industry Showcase Portfolios')
+                      .child(
+                        S.documentTypeList('caseStudy')
+                          .title('Industry Portfolios')
+                          .filter('_type == "caseStudy" && type == "industry"')
+                      ),
+                    S.listItem()
+                      .title('Individual Project Case Studies')
+                      .child(
+                        S.documentTypeList('caseStudy')
+                          .title('Project Case Studies')
+                          .filter('_type == "caseStudy" && type == "project"')
+                      ),
+                    S.listItem()
+                      .title('All Case Studies')
+                      .child(S.documentTypeList('caseStudy').title('All Case Studies')),
+                  ])
+              ),
 
             // Blog Posts
             S.listItem()

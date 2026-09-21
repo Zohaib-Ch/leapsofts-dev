@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -35,29 +35,67 @@ const BlogDetail: React.FC = () => {
   const navigate = useNavigate();
   const { openContactModal } = useContactModal();
 
-  const [post, setPost] = useState<BlogPost | null>(null);
   const [sanityPost, setSanityPost] = useState<SanityBlog | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState<string>('');
   const [copiedCodeIndex, setCopiedCodeIndex] = useState<number | null>(null);
   const [copiedLink, setCopiedLink] = useState(false);
 
-  // Load Post data and set Document SEO Meta
+  const localPost = useMemo(() => {
+    return blogsData.find((b) => b.slug === slug);
+  }, [slug]);
+
+  // Load Post data from Sanity
   useEffect(() => {
     window.scrollTo(0, 0);
-    const foundPost = blogsData.find((b) => b.slug === slug);
-    if (foundPost) {
-      setPost(foundPost);
-    } else {
-      setPost(null);
-    }
-
+    let isMounted = true;
     if (slug) {
-      getSanityBlogBySlug(slug).then((data) => {
-        if (data) setSanityPost(data);
-      });
+      setIsLoading(true);
+      getSanityBlogBySlug(slug)
+        .then((data) => {
+          if (isMounted) {
+            if (data) setSanityPost(data);
+            setIsLoading(false);
+          }
+        })
+        .catch(() => {
+          if (isMounted) setIsLoading(false);
+        });
+    } else {
+      setIsLoading(false);
     }
+    return () => {
+      isMounted = false;
+    };
   }, [slug]);
+
+  const post: BlogPost | null = useMemo(() => {
+    if (sanityPost) {
+      const slugVal = sanityPost.slug || slug || '';
+      return {
+        id: sanityPost._id || sanityPost.id || slugVal,
+        slug: slugVal,
+        title: sanityPost.title,
+        subtitle: sanityPost.subtitle || sanityPost.excerpt || '',
+        category: (sanityPost.category as any) || 'Enterprise AI',
+        readTime: sanityPost.readTime || '5 min read',
+        publishedDate: sanityPost.publishedDate || (sanityPost.publishedAt ? new Date(sanityPost.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'September 2026'),
+        featured: sanityPost.featured || false,
+        author: {
+          name: sanityPost.author?.name || 'Leapsofts Engineering',
+          role: sanityPost.author?.role || 'Technical Lead',
+          avatar: sanityPost.author?.avatar || sanityPost.author?.avatarInitials || 'LS',
+          bio: sanityPost.author?.bio || '',
+        },
+        coverImage: sanityPost.coverImageUrl || sanityPost.coverImage || '/projectImages/agileauto.png',
+        excerpt: sanityPost.excerpt || sanityPost.subtitle || '',
+        tags: sanityPost.tags || [],
+        content: sanityPost.content && sanityPost.content.length > 0 ? (sanityPost.content as any) : (localPost?.content || []),
+      };
+    }
+    return localPost || null;
+  }, [sanityPost, localPost, slug]);
 
   // Track scroll progress and active section in ToC
   useEffect(() => {
@@ -68,7 +106,7 @@ const BlogDetail: React.FC = () => {
         setScrollProgress(Math.min(100, Math.max(0, progress)));
       }
 
-      if (!post) return;
+      if (!post || !post.content) return;
 
       const headings = post.content
         .map((_, index) => document.getElementById(`section-${index}`))
@@ -100,6 +138,23 @@ const BlogDetail: React.FC = () => {
     setTimeout(() => setCopiedLink(false), 2500);
   };
 
+  if (isLoading && !localPost) {
+    return (
+      <div className={styles.blogDetailWrapper}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+          <div style={{
+            width: '48px',
+            height: '48px',
+            border: '4px solid rgba(255,255,255,0.1)',
+            borderTopColor: '#ec4899',
+            borderRadius: '50%',
+            animation: 'spin 0.8s linear infinite',
+          }} />
+        </div>
+      </div>
+    );
+  }
+
   if (!post) {
     return (
       <div className={styles.blogDetailWrapper}>
@@ -114,7 +169,7 @@ const BlogDetail: React.FC = () => {
     );
   }
 
-  const relatedPosts = blogsData.filter((b) => b.id !== post.id).slice(0, 3);
+  const relatedPosts = blogsData.filter((b) => b.id !== post?.id && b.slug !== post?.slug).slice(0, 3);
 
   return (
     <div className={styles.blogDetailWrapper}>

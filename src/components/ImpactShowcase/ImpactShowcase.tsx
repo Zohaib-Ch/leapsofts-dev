@@ -113,8 +113,8 @@ const ImpactShowcase: React.FC<ImpactShowcaseProps> = ({
                                 modules={[Autoplay, Pagination]}
                                 spaceBetween={0}
                                 slidesPerView={1}
-                                autoplay={{ delay: 5000, disableOnInteraction: false }}
-                                loop={true}
+                                autoplay={images.length > 1 ? { delay: 5000, disableOnInteraction: false } : false}
+                                loop={images.length > 1}
                                 pagination={{ clickable: true }}
                                 className={styles.swiperContainer}
                             >

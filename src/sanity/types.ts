@@ -142,6 +142,20 @@ export interface SanityContactPage {
   seo?: SanitySEO;
 }
 
+export interface SanityCaseStudiesPage {
+  hero?: {
+    title?: string;
+    title2?: string;
+    description?: string;
+    introDescription?: { text: string; bold?: boolean }[];
+  };
+  cta?: {
+    buttonText?: string;
+    buttonPath?: string;
+  };
+  seo?: SanitySEO;
+}
+
 export interface SanityService {
   _id?: string;
   title: string;
@@ -244,30 +258,97 @@ export interface SanityIndustry {
 
 export interface SanityCaseStudy {
   id: string;
+  slug?: string;
   title: string;
-  client?: string;
+  type?: 'industry' | 'project';
+  brand?: {
+    name?: string;
+    description?: string;
+    logo?: string;
+    logoPreset?: string;
+  };
   industry?: string;
-  services?: string[];
+  projectList?: string[];
   coverImage?: any;
-  summary?: string;
-  challenge?: string;
-  solution?: string;
+  brandVisualImg?: string;
+  brandVisualImgPreset?: string;
+  tabs?: { id: string; label: string; isActive?: boolean }[];
+  highlightItems?: { tabId: string; projects: string[] }[];
+  highlight?: Record<string, string[]>;
+  summary?: { description?: string; details?: { label: string; value: string }[] } | string;
+  impact?: { title?: string; images?: string[] };
+  details?: { label: string; value: string }[];
+  techStack?: {
+    title?: string;
+    items?: {
+      label: string;
+      techs: {
+        name: string;
+        icon?: string;
+        iconPreset?: string;
+        iconImageUrl?: string;
+      }[];
+    }[];
+  };
+  challenge?: any;
+  solution?: any;
   results?: { label: string; value: string }[];
-  technologies?: string[];
   testimonialQuote?: { quote: string; author: string; role?: string };
   seo?: SanitySEO;
 }
 
 export interface SanityBlog {
   _id?: string;
+  id?: string;
   title: string;
   slug: string;
+  subtitle?: string;
   publishedAt?: string;
-  author?: { name: string; role?: string; avatar?: any };
-  coverImage?: any;
-  excerpt?: string;
+  publishedDate?: string;
   category?: string;
   readTime?: string;
+  featured?: boolean;
+  coverImage?: any;
+  coverImageUrl?: string;
+  excerpt?: string;
+  tags?: string[];
+  author?: {
+    name: string;
+    role?: string;
+    avatar?: any;
+    avatarInitials?: string;
+    bio?: string;
+  };
+  content?: {
+    heading?: string;
+    paragraphs?: string[];
+    keyTakeaway?: string;
+    bulletPoints?: string[];
+    quote?: string;
+    codeBlock?: {
+      language: string;
+      filename?: string;
+      code: string;
+    };
+  }[];
   body?: any;
   seo?: SanitySEO;
+}
+
+export interface SanityTeamMember {
+  _id?: string;
+  name: string;
+  slug?: string;
+  role: string;
+  bio?: string;
+  highlight?: string;
+  initials?: string;
+  isCeoSpotlight?: boolean;
+  order?: number;
+  skills?: string[];
+  image?: any;
+  imageUrl?: string;
+  linkedin?: string;
+  github?: string;
+  twitter?: string;
 }

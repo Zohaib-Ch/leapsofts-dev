@@ -15,13 +15,70 @@ const Projects: React.FC = () => {
   const [sanityProjects, setSanityProjects] = useState<SanityCaseStudy[] | null>(null);
   const showcaseRef = useRef<HTMLDivElement>(null);
 
-  const industryProjects = sanityProjects || projectsData.filter(project => project.type === 'industry');
-
   useEffect(() => {
     getSanityCaseStudies().then((data) => {
-      if (data) setSanityProjects(data);
+      if (data && data.length > 0) setSanityProjects(data);
     });
   }, []);
+
+  const industryProjects = React.useMemo(() => {
+    const fallbackProjects = projectsData.filter(project => project.type === 'industry');
+    if (!sanityProjects || sanityProjects.length === 0) return fallbackProjects;
+
+    const sanityIndustries = sanityProjects.filter(sp => sp.type === 'industry');
+    const combinedList: any[] = [];
+
+    // 1. Process Sanity industries (including newly added ones)
+    sanityIndustries.forEach((sanityItem) => {
+      const fallback = fallbackProjects.find(fp => fp.id === sanityItem.id || fp.brand?.name === sanityItem.title || fp.brand?.name === sanityItem.brand?.name);
+
+      const highlightMap: Record<string, string[]> = { ...(fallback?.highlight || {}) };
+      if (sanityItem.highlightItems && sanityItem.highlightItems.length > 0) {
+        sanityItem.highlightItems.forEach((item) => {
+          if (item.tabId && item.projects) {
+            highlightMap[item.tabId] = item.projects;
+          }
+        });
+      }
+
+      combinedList.push({
+        type: 'industry',
+        id: sanityItem.slug || sanityItem.id || fallback?.id || `industry-${sanityItem.title.toLowerCase().replace(/\s+/g, '-')}`,
+        brand: {
+          name: sanityItem.brand?.name || sanityItem.title || fallback?.brand?.name || '',
+          logo: sanityItem.brand?.logo || sanityItem.brand?.logoPreset || fallback?.brand?.logo || '/icons/industries/automotive-link.svg',
+          description: sanityItem.brand?.description || fallback?.brand?.description || '',
+        },
+        projectList: (() => {
+          const rawList = sanityItem.projectList && sanityItem.projectList.length > 0 ? sanityItem.projectList : fallback?.projectList || [];
+          return rawList.map((item: any) => {
+            if (typeof item === 'string') return item;
+            if (typeof item === 'object' && item !== null) {
+              return item.title || item.name || item._ref || '';
+            }
+            return String(item || '');
+          }).filter(Boolean);
+        })(),
+        brandVisualImg: sanityItem.brandVisualImg || sanityItem.brandVisualImgPreset || fallback?.brandVisualImg || sanityItem.brand?.logo || fallback?.brand?.logo || '/icons/industries/automotive-link.svg',
+        tabs: sanityItem.tabs && sanityItem.tabs.length > 0 ? sanityItem.tabs : fallback?.tabs || [],
+        highlight: highlightMap,
+        impact: {
+          title: sanityItem.impact?.title || fallback?.impact?.title || sanityItem.title,
+          images: sanityItem.impact?.images && sanityItem.impact.images.length > 0 ? sanityItem.impact.images : fallback?.impact?.images || [],
+        },
+      });
+    });
+
+    // 2. Add fallback industries that haven't been created in Sanity yet
+    fallbackProjects.forEach((fallback) => {
+      const existsInSanity = sanityIndustries.some(sp => sp.id === fallback.id || sp.title === fallback.brand.name || sp.brand?.name === fallback.brand.name);
+      if (!existsInSanity) {
+        combinedList.push(fallback);
+      }
+    });
+
+    return combinedList;
+  }, [sanityProjects]);
 
   const introDescription = [
     { text: "Our case studies showcase how Leapsofts combines domain expertise, modern architectures, and AI-ready software development to build real products used by businesses worldwide.", bold: false },
