@@ -11,6 +11,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "@portabletext/react": "^8.0.1",
     "@react-router/fs-routes": "^8.4.0",
     "@react-router/node": "^8.4.0",
