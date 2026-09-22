@@ -9,6 +9,7 @@ import platformImg from '../../assets/capabilities_platform.png';
 import mobileAppImg from "../../assets/phones.webp";
 import Processes from '../../components/Processes/Processes';
 import { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import ServiceFeatures from '../../components/ServiceFeatures/ServiceFeatures';
@@ -267,14 +268,76 @@ const title = "Enterprise Cloud Migration Services & Legacy Workload Relocation"
 const subtitle = "";
 
 const introDescription = [
-  { text: "We execute complex, low-risk ", bold: false },
-  { text: "enterprise cloud migrations", bold: true },
-  { text: ", transitioning legacy on-premises servers, Oracle databases, and virtualized VMware environments into modern cloud platforms. By deploying AWS Database Migration Services (DMS), secure VPN tunnels, and automated data validation scripts, we guarantee a zero-data-loss migration path designed to minimize downtime.", bold: false }
+  { text: "We deliver full-cycle ", bold: false },
+  { text: "cloud migration services ", bold: true },
+  { text: "and ", bold: false },
+  { text: "legacy system cloud relocation ", bold: true },
+  { text: "with zero downtime. As an experienced cloud migration company, we transition legacy on-premises servers, Oracle databases, and VMware environments to AWS, Azure, or GCP safely and efficiently.", bold: false }
 ];
+
+export function meta() {
+  const title = "Cloud Migration Services | Leapsofts";
+  const description = "Seamless cloud migration services with zero downtime. Leapsofts migrates legacy infrastructure to AWS, Azure or GCP securely and efficiently. Start now.";
+  const keywords = "cloud migration services, cloud migration company, AWS migration, Azure migration, legacy to cloud migration";
+  const canonicalUrl = "https://www.leapsofts.com/services/cloud-migration";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Cloud Migration Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Cloud Migration & Workload Relocation",
+      "description": "Seamless cloud migration services with zero downtime."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Cloud Migration",
+          "item": "https://www.leapsofts.com/services/cloud-migration"
+        }
+      ]
+    }
+  ]
+};
 
 const CloudMigration: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -312,6 +375,25 @@ const CloudMigration: React.FC = () => {
       />
       <DeliverMVP data={deliverMVPData} />
       <Processes title="OUR CLOUD MIGRATION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <RelatedServices
+        services={[
+          {
+            title: "Cloud Engineering & Architecture",
+            description: "Build resilient, auto-scaling cloud environments and serverless architectures on AWS & Azure.",
+            link: "/services/cloud-engineering"
+          },
+          {
+            title: "DevOps & CI/CD Automation",
+            description: "Automate container releases, infrastructure as code (Terraform), and continuous deployment.",
+            link: "/services/devops"
+          },
+          {
+            title: "AWS Cloud Migration & Managed Services",
+            description: "Certified Amazon Web Services migration, database transfer (DMS), and cloud support.",
+            link: "/services/aws"
+          }
+        ]}
+      />
     </>
   );
 };

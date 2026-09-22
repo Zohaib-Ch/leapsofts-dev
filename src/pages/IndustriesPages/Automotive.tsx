@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection from '../../components/CommitmentSection/CommitmentSection';
@@ -8,6 +8,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech from '../../components/EmergingTech/EmergingTech';
 import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO AUTOMOTIVE",
@@ -93,10 +94,69 @@ const streamlineDescription = [
 const title = "Automotive Software Development, Connected Car Telematics & V2X IoT Systems";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we engineer highly performant, safety-critical ", bold: false },
-  { text: "automotive software architectures, high-telemetry connected car systems, and predictive manufacturing IoT portals ", bold: true },
-  { text: "designed to power the next generation of electric and autonomous vehicles. By integrating real-time vehicle-to-everything (V2X) messaging pipelines, compiling safety-compliant ADAS sensor suites, and constructing smart logistics trackers, we help global automotive manufacturers scale their operations with absolute precision and low-latency metrics delivery.", bold: false }
+  { text: "We deliver cutting-edge ", bold: false },
+  { text: "automotive software development services, dealer management software, and connected vehicle telematics ", bold: true },
+  { text: "engineered for auto manufacturers and EV fleet operators. By building real-time V2X messaging gateways, ADAS sensor integrations, and predictive factory IoT portals, we accelerate digital mobility across global supply chains.", bold: false }
 ];
+
+export function meta() {
+  const title = "Automotive Software Development Services | Leapsofts";
+  const description = "Custom automotive software — dealer management, connected vehicle platforms & EV integration. Leapsofts builds next-gen digital solutions for the auto industry.";
+  const keywords = "automotive software development, dealer management software, connected vehicle software, EV software development";
+  const canonicalUrl = "https://www.leapsofts.com/industries/automotive";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Automotive Software Development Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Automotive & Telematics Software Engineering",
+      "description": "Custom automotive software — dealer management, connected vehicle platforms & EV integration."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Automotive",
+          "item": "https://www.leapsofts.com/industries/automotive"
+        }
+      ]
+    }
+  ]
+};
 
 const Automotive: React.FC = () => {
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
@@ -110,6 +170,7 @@ const Automotive: React.FC = () => {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -130,6 +191,25 @@ const Automotive: React.FC = () => {
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" automotive businesses"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Custom Software Development",
+            description: "Engineer custom automotive telematics and enterprise IoT management dashboards.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Mobile App Development",
+            description: "Build connected iOS & Android driver companion mobile applications.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Cloud Engineering & Infrastructure",
+            description: "Architect low-latency IoT cloud gateways on AWS & Azure.",
+            link: "/services/cloud-engineering"
+          }
+        ]}
       />
     </>
   );

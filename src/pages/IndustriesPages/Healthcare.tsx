@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection from '../../components/CommitmentSection/CommitmentSection';
@@ -8,6 +8,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech from '../../components/EmergingTech/EmergingTech';
 import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO HEALTHCARE",
@@ -100,6 +101,65 @@ const introDescription = [
   { text: "tailored to the operational complexities of clinical systems. By implementing robust HIPAA and GDPR security baselines, designing intuitive HL7 FHIR interfaces, and establishing safe remote-patient monitoring pipelines, we help medical institutions optimize care delivery and eliminate administrative drag.", bold: false }
 ];
 
+export function meta() {
+  const title = "Healthcare Software Development Services | Leapsofts";
+  const description = "HIPAA-compliant healthcare software development — EHR, patient portals & telehealth. Leapsofts builds secure digital health solutions. Schedule a consultation.";
+  const keywords = "healthcare software development, HIPAA compliant software, EHR software development, digital health solutions";
+  const canonicalUrl = "https://www.leapsofts.com/industries/healthcare";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Healthcare Software Development Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Healthcare & Telehealth Software Development",
+      "description": "HIPAA-compliant healthcare software development — EHR, patient portals & telehealth."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Healthcare",
+          "item": "https://www.leapsofts.com/industries/healthcare"
+        }
+      ]
+    }
+  ]
+};
+
 const Healthcare: React.FC = () => {
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
@@ -112,6 +172,7 @@ const Healthcare: React.FC = () => {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -132,6 +193,26 @@ const Healthcare: React.FC = () => {
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" healthcare businesses"
+      />
+      <RelatedServices
+        title="Recommended Healthcare Software Services"
+        services={[
+          {
+            title: "Cyber Security & HIPAA Compliance",
+            description: "Enterprise-grade penetration testing, zero-trust access, and HIPAA compliance auditing.",
+            link: "/services/cyber-security"
+          },
+          {
+            title: "Custom Mobile App Development",
+            description: "Telehealth apps, remote patient monitoring portals, and secure mobile EHR systems.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Data Science & AI Solutions",
+            description: "AI clinical decision support, medical image processing, and predictive diagnostic analytics.",
+            link: "/services/data-science-ai"
+          }
+        ]}
       />
     </>
   );

@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO CONSTRUCTION SUCCESS",
@@ -91,10 +92,69 @@ const streamlineDescription = [
 const title = "Construction Software Development, Offline-First Field Apps & BIM Integrations";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we engineer highly robust, safety-centric ", bold: false },
-  { text: "construction management platforms, offline-first field logging systems, and intelligent BIM telemetry connectors ", bold: true },
-  { text: "designed to provide total visibility across complex job sites and high-stakes projects. By automating subcontractor task dispatches, deploying real-time fleet utilization trackers, and integrating secure payment checkpoints, we help builders scale operations, control budget leakages, and guarantee safety standard compliance.", bold: false }
+  { text: "We deliver full-scale ", bold: false },
+  { text: "construction software development, construction management software, and offline-first field apps ", bold: true },
+  { text: "engineered to provide total visibility across complex job sites. By automating subcontractor task dispatches, integrating BIM 3D models, and deploying IoT equipment telemetry, we help builders prevent budget leaks and ensure safety compliance.", bold: false }
 ];
+
+export function meta() {
+  const title = "Construction Software Development Services | Leapsofts";
+  const description = "Custom construction management software — project tracking, estimating & BIM integration. Leapsofts builds digital tools for modern construction firms. Get started.";
+  const keywords = "construction software development, construction management software, project management software construction";
+  const canonicalUrl = "https://www.leapsofts.com/industries/construction";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Construction Software Development Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Construction Management Software Engineering",
+      "description": "Custom construction management software — project tracking, estimating & BIM integration."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Construction",
+          "item": "https://www.leapsofts.com/industries/construction"
+        }
+      ]
+    }
+  ]
+};
 
 const Construction: React.FC = () => {
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
@@ -108,6 +168,7 @@ const Construction: React.FC = () => {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -128,6 +189,25 @@ const Construction: React.FC = () => {
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" construction businesses"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Mobile App Development",
+            description: "Engineer offline-first mobile apps for construction site crews and inspectors.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Build bespoke construction ERP tools, subcontractor bidding engines, and portals.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Cloud Engineering & Infrastructure",
+            description: "Deploy scalable cloud databases to handle IoT equipment telemetry streams.",
+            link: "/services/cloud-engineering"
+          }
+        ]}
       />
     </>
   );

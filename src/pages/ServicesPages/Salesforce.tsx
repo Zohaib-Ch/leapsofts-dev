@@ -6,6 +6,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures'
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP'
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes'
+import RelatedServices from '../../components/RelatedServices/RelatedServices'
 import capabilitiesImg from '../../assets/capabilities_3d.png';
 import platformImg from '../../assets/capabilities_platform.png';
 import laptopImg from "../../assets/about_laptop_3d.png";
@@ -154,95 +155,95 @@ const capabilitiesSlides: CapabilitySlide[] = [
 ];
 
 const serviceOverviewData = {
-    label: "SALESFORCE CRM",
-    titleMain: "Unifying Your",
-    titleAccent: "Enterprise",
-    titleEnd: "Ecosystem",
-    description: "At Leapsofts, we engineer highly customized Salesforce environments that transform raw data pipelines into strategic business tools. By writing optimized, secure Apex controllers, designing high-fidelity Lightning Web Components, and integrating third-party marketing and billing channels, we help organizations automate client interactions, enforce security compliances, and establish a single source of truth across their entire CRM operation.",
+    label: "SALESFORCE CONSULTING & DEVELOPMENT",
+    titleMain: "Enterprise Custom",
+    titleAccent: "Salesforce CRM",
+    titleEnd: "Solutions",
+    description: "At Leapsofts, as a certified Salesforce development company, we engineer custom Salesforce environments that transform raw sales data into automated growth pipelines. By coding optimized Apex controllers, designing responsive Lightning Web Components (LWC), and orchestrating MuleSoft and REST/SOAP API integrations with external ERPs, we deliver tailored Sales Cloud, Service Cloud, and AppExchange solutions.",
     imagePath: laptopImg
 };
 
 const infoGridData: InfoGridProps['data'] = {
-    label: 'SALESFORCE BENEFITS',
-    title: 'Why Choose Salesforce',
+    label: 'SALESFORCE BUSINESS ADVANTAGES',
+    title: 'Why Enterprise Leaders Partner with Our Salesforce Specialists',
     items: [
         {
             icon: '01',
-            title: 'Unified 360° Data Aggregation',
-            description: 'Synthesize customer touchpoints, database interactions, and support tickets into one singular dashboard view.'
+            title: 'Unified 360° Customer Data Aggregation',
+            description: 'Synthesize customer touchpoints, database interactions, ERP records, and support tickets into one singular Salesforce dashboard view.'
         },
         {
             icon: '02',
-            title: 'Apex & LWC Workflow Automation',
-            description: 'Eradicate manual entry errors and double sales speed by automating opportunity pipelines and security controls.'
+            title: 'Apex & LWC Pipeline Automation',
+            description: 'Eradicate manual entry errors and double sales team velocity by automating lead assignment, opportunity stages, and custom workflow rules.'
         },
         {
             icon: '03',
-            title: 'Real-Time Predictive Data Metrics',
-            description: 'Equip your management with real-time sales forecasting dashboards and smart predictive metrics.'
+            title: 'Tableau & Einstein Predictive Analytics',
+            description: 'Equip management with real-time revenue forecasting, custom Tableau dashboards, and AI-driven predictive sales insights.'
         },
         {
             icon: '04',
-            title: 'Resilient Enterprise Cloud Architecture',
-            description: 'A highly scalable CRM framework that adjusts smoothly as your company grows, ensuring robust performance under high user loads.'
+            title: 'Resilient Multi-Tenant Cloud Architecture',
+            description: 'A highly scalable Salesforce cloud framework engineered to accommodate scaling transaction volumes and complex multi-org structures.'
         }
     ]
 };
 
 const streamlineDescription = [
   { text: "Whether modernizing a complex ", bold: false },
-  { text: "legacy enterprise web portal ", bold: true },
-  { text: "or engineering a ", bold: false },
+  { text: "legacy CRM database ", bold: true },
+  { text: "or implementing a ", bold: false },
   { text: "new Salesforce ecosystem", bold: true },
-  { text: ", our experts deliver immediate technical clarity. We conduct a deep-dive analysis of your current org, map out metadata components, evaluate API integrations, and formulate a ", bold: false },
-  { text: "highly efficient, customized Apex/LWC engineering plan ", bold: true },
-  { text: "built to unlock massive sales growth and streamline client retention.", bold: false }
+  { text: ", our certified Salesforce consultants deliver technical clarity. We conduct a deep-dive org audit, map custom metadata, evaluate API connections, and execute a ", bold: false },
+  { text: "tailored Apex/LWC development strategy ", bold: true },
+  { text: "designed to drive enterprise revenue and streamline customer retention.", bold: false }
 ];
 
 const serviceFeaturesData: ServiceFeatureItem[] = [
     {
         icon: '/industryicons/sphere.svg',
-        title: 'Custom Apex Development',
-        description: 'Writing robust, optimized Apex triggers, controllers, and batch jobs to handle complex custom business logic.'
+        title: 'Custom Apex Trigger Development',
+        description: 'Writing robust, optimized Apex triggers, batch classes, and custom controllers to automate complex business workflows.'
     },
     {
         icon: '/industryicons/bipiramida.svg',
-        title: 'LWC Development',
-        description: 'Building modern, lightning-fast Lightning Web Components with responsive designs and local state caches.'
+        title: 'Lightning Web Components (LWC)',
+        description: 'Building modern, lightning-fast LWC interfaces with responsive layouts and local state management for custom portals.'
     },
     {
         icon: '/industryicons/sphere.svg',
-        title: 'AppExchange Build',
-        description: 'Engineering, packaging, and guiding your custom application through the strict Salesforce Security Review process.'
+        title: 'AppExchange Product Engineering',
+        description: 'Designing, packaging, and guiding custom ISV applications through the rigorous Salesforce Security Review process.'
     },
     {
         icon: '/industryicons/bipiramida.svg',
-        title: 'Managed Services',
-        description: 'Providing ongoing sandbox support, metadata cleanups, and system health checks to keep your CRM peak-performing.'
+        title: 'Salesforce Managed Services & Support',
+        description: 'Providing ongoing sandbox administration, metadata cleanups, security reviews, and proactive CRM health monitoring.'
     }
 ];
 
 const deliverMVPData = {
-    label: "SALESFORCE EXCELLENCE",
-    title: "Our Commitment to Deliver Your Salesforce Setup in",
-    accentText: "3-5 months?",
-    description: "Leapsofts is an elite custom Salesforce development partner. By combining fully integrated CI/CD, certified Salesforce developers, and dedicated agile pods, we implement and deploy enterprise-ready Salesforce solutions within an accelerated 3 to 5 month timeline—on time, every time.",
+    label: "SALESFORCE IMPLEMENTATION EXCELLENCE",
+    title: "Deploy Your Custom Salesforce CRM Environment in",
+    accentText: "3-5 months",
+    description: "Leapsofts is a premier Salesforce development company. Combining certified Salesforce developers, automated sandbox release pipelines, and dedicated agile pods, we implement and deploy enterprise-grade Salesforce solutions within an accelerated 3 to 5 month timeframe.",
     items: [
         {
-            title: "Certified Expertise.",
-            description: "Accessing senior developers and architects holding advanced Salesforce certs (Apex, LWC, Integration)."
+            title: "Certified Developers.",
+            description: "Accessing senior engineers holding certified Salesforce credentials (Apex Developer, LWC Specialist, Integration Architect)."
         },
         {
-            title: "Scalable Solutions.",
-            description: "Designing customizable metadata models and database limits that scale with high transaction metrics."
+            title: "Scalable Data Models.",
+            description: "Architecting custom metadata frameworks and indexed object structures that scale seamlessly under high transaction volume."
         },
         {
-            title: "Seamless Integration.",
-            description: "Syncing Salesforce with legacy platforms, databases, and third-party APIs using secure REST controllers."
+            title: "Seamless API Integration.",
+            description: "Connecting Salesforce with legacy databases, ERPs, and third-party SaaS applications using secure REST and SOAP endpoints."
         },
         {
-            title: "Agile Sandbox Delivery.",
-            description: "Deploying SCRUM pods to build, test, and release clean configurations inside secure sandbox spaces."
+            title: "Agile Sandbox Deployment.",
+            description: "Utilizing dedicated SCRUM pods to build, test, and validate custom features inside isolated sandbox environments."
         }
     ]
 };
@@ -357,14 +358,74 @@ const title = "Enterprise Salesforce Development & Cloud Architecture";
 const subtitle = "";
 
 const introDescription = [
-  { text: "We deliver advanced Salesforce customization, custom ", bold: false },
-  { text: "Apex & Lightning Web Components (LWC) development", bold: true },
-  { text: ", and secure third-party ERP/CRM database integrations. By streamlining Sales Cloud workflows, custom Service Cloud setups, and AppExchange packaging, we engineer cohesive data systems that optimize client pipeline conversion and reduce operational friction.", bold: false }
+  { text: "As a premier ", bold: false },
+  { text: "Salesforce development company & CRM integration partner", bold: true },
+  { text: ", we deliver bespoke Apex & Lightning Web Components (LWC) engineering, enterprise data migrations, and third-party ERP integrations. We optimize Sales Cloud and Service Cloud platforms to automate pipelines and maximize CRM ROI.", bold: false }
 ]
+
+export function meta() {
+  const title = "Salesforce Development Services | Leapsofts";
+  const description = "Certified Salesforce development, integration & customization services. Leapsofts maximizes your Salesforce ROI with expert CRM engineering. Get a demo.";
+  const keywords = "Salesforce development company, Salesforce CRM integration, Salesforce customization, Salesforce consulting services";
+  const canonicalUrl = "https://www.leapsofts.com/services/salesforce";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Salesforce Development Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Salesforce Development & CRM Integration",
+      "description": "Certified Salesforce development, integration & customization services."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Salesforce",
+          "item": "https://www.leapsofts.com/services/salesforce"
+        }
+      ]
+    }
+  ]
+};
 
 const Salesforce: React.FC = () => {
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
             <IntroComponent
                 title={title}
                 description={subtitle}
@@ -400,6 +461,25 @@ const Salesforce: React.FC = () => {
             />
             <DeliverMVP data={deliverMVPData} />
             <Processes title="OUR CUSTOM SALESFORCE PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+            <RelatedServices
+                services={[
+                    {
+                        title: "Custom Software Development",
+                        description: "Engineer enterprise web applications and custom business logic.",
+                        link: "/services/custom-software-development"
+                    },
+                    {
+                        title: "Cloud Engineering & Infrastructure",
+                        description: "Architect cloud infrastructure and database connectors on AWS & Azure.",
+                        link: "/services/cloud-engineering"
+                    },
+                    {
+                        title: "Dedicated Development Teams",
+                        description: "Hire certified Salesforce developers and cloud architects for your team.",
+                        link: "/services/dedicated-teams"
+                    }
+                ]}
+            />
         </>
     )
 }

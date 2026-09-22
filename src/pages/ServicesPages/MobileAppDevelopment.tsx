@@ -10,6 +10,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const mobileAppSlides: CapabilitySlide[] = [
   {
@@ -177,26 +178,26 @@ const defaultItems: ServiceFeatureItem[] = [
 ];
 
 const deliverMVPData = {
-    label: "MOBILE EXCELLENCE",
-    title: "How Can We Deliver Your Mobile App in",
-    accentText: "3-5 months?",
-    description: "Leapsofts is an elite custom mobile engineering partner. By combining fully integrated CI/CD, pre-built modular mobile packages, and dedicated agile pods, we build and deploy enterprise-ready mobile platforms within an accelerated 3 to 5 month timeline—on time, every time.",
+    label: "MOBILE APPLICATION ENGINEERING EXCELLENCE",
+    title: "Deploy Your Custom iOS & Android Mobile App in",
+    accentText: "3-5 months",
+    description: "Leapsofts is a top-rated custom mobile app development company. Utilizing automated Fastlane release pipelines, modular native Swift/Kotlin frameworks, and dedicated agile pods, we build and deploy enterprise mobile apps within 3 to 5 months.",
     items: [
         {
-            title: "Agile Development Pods.",
-            description: "Leveraging iterative bi-weekly sprint cycles and transparent task dashboards to deliver incremental value and maintain visual alignment."
+            title: "Agile Development Squads.",
+            description: "Leveraging bi-weekly sprint deliverables and transparent Kanban dashboards for total project execution visibility."
         },
         {
-            title: "Mobile Secure Storage.",
-            description: "Integrating AES-256 databases (Room/SQLite), FaceID verification, OAuth2 tokens, and secure keychain structures to protect user identity."
+            title: "Bank-Grade Mobile Security.",
+            description: "Implementing AES-256 data encryption, biometric authentication (FaceID/TouchID), OAuth2 tokens, and secure iOS/Android keychains."
         },
         {
-            title: "UX Touch Optimizations.",
-            description: "Drafting technical wireframes, touch target dimensions, and fluid screen transitions that ensure friction-free mobile navigation."
+            title: "UX/UI Touch Optimization.",
+            description: "Designing responsive touch targets, dark mode interfaces, and fluid 60fps animations for flawless mobile user navigation."
         },
         {
-            title: "OS Version Support.",
-            description: "Proactive system upgrades, cloud resource balancing, security patch audits, and performance tuning to secure long-term digital authority."
+            title: "App Store & Play Store Approval.",
+            description: "Managing complete Apple App Store and Google Play Store review lifecycles, Store guidelines compliance, and post-launch updates."
         }
     ]
 };
@@ -321,25 +322,87 @@ const title = "Enterprise Mobile Engineering & Architecture";
 const subtitle = "";
 
 const introDescription = [
-  { text: "We engineer high-performance, security-first ", bold: false },
-  { text: "custom mobile applications ", bold: true },
-  { text: "designed to support complex enterprise workflows, high-velocity transactions, and seamless user experiences. By utilizing native Swift, Kotlin, and highly optimized cross-platform Flutter/React Native frameworks, we deliver resilient apps engineered for long-term growth and immediate deployment on the Apple App Store and Google Play Store.", bold: false }
-]
+  { text: "We deliver full-cycle ", bold: false },
+  { text: "mobile app development services ", bold: true },
+  { text: "and ", bold: false },
+  { text: "iOS & Android mobile app engineering ", bold: true },
+  { text: "for startups and enterprises worldwide. As a premier mobile app development company, we craft secure native Swift, Kotlin, and cross-platform Flutter/React Native solutions built for maximum performance, engagement, and scalability.", bold: false }
+];
+
+export function meta() {
+  const title = "Mobile App Development Services | Leapsofts";
+  const description = "iOS & Android mobile app development for enterprises & startups. Leapsofts builds high-performance, scalable mobile apps with clean UX. Get a free estimate.";
+  const keywords = "mobile app development company, iOS app development, Android app development, custom mobile application development";
+  const canonicalUrl = "https://www.leapsofts.com/services/mobile-app-development";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Mobile App Development Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Mobile Application Development",
+      "description": "iOS & Android mobile app development for enterprises & startups."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Mobile App Development",
+          "item": "https://www.leapsofts.com/services/mobile-app-development"
+        }
+      ]
+    }
+  ]
+};
 
 const MobileAppDevelopment: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
         introDescription={introDescription}
       />
       <ServiceOverview
-        label='BRIEF OVERVIEW'
-        titleMain='High-Performance Mobile Systems'
-        titleAccent='Engineered for '
-        titleEnd='Execution'
-        description='At Leapsofts, we design and develop custom mobile architectures that bridge corporate databases, cloud services, and device capabilities. By managing end-to-end cycles—from technical wireframes and offline data synchronization to automated background services and localized caching grids—we deliver intuitive, responsive platforms that optimize operational velocity and secure absolute user retention.'
+        label='MOBILE APP DEVELOPMENT COMPANY'
+        titleMain='High-Performance Enterprise'
+        titleAccent='iOS & Android'
+        titleEnd='Mobile Applications'
+        description='At Leapsofts, as a full-service mobile app development company, we design and engineer custom mobile applications that bridge corporate cloud backends, real-time databases, and device sensors. By managing full-cycle app development—from Swift and Kotlin native coding to React Native and Flutter cross-platform frameworks, offline-first data sync, and automated App Store releases—we deliver secure, responsive mobile solutions that drive user retention.'
         imagePath={mobileAppImg}
       />
       <Capabilities title="Our Mobile App Development Capabilities" slides={mobileAppSlides} />
@@ -358,6 +421,25 @@ const MobileAppDevelopment: React.FC = () => {
       <EmergingTech data={emergingTechData} />
       <DeliverMVP data={deliverMVPData} />
       <Processes title="OUR CUSTOM MOBILE DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <RelatedServices
+        services={[
+          {
+            title: "Web App Development",
+            description: "Custom web application development for enterprise SaaS, dynamic portals, and progressive web applications.",
+            link: "/services/web-app-development"
+          },
+          {
+            title: "Custom Software Development",
+            description: "End-to-end custom software engineering, legacy modernizations, and scalable microservices.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Data Science & AI Solutions",
+            description: "Integrate machine learning, AI models, and predictive data pipelines into mobile ecosystems.",
+            link: "/services/data-science-ai"
+          }
+        ]}
+      />
     </>
   )
 }

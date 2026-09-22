@@ -6,6 +6,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
@@ -211,14 +212,74 @@ const title = "Fixed Price Software Development, Precise Scoping & Guaranteed Mi
 const subtitle = "";
 
 const introDescription = [
-  { text: "We deliver elite software development services backed by ", bold: false },
-  { text: "guaranteed fixed-price budgets and precise scopes", bold: true },
-  { text: ". By conducting exhaustive early technical discovery phases, authoring complete software requirement specifications (SRS), and mapping exact architectural modules before active coding, we protect your organization from budget creep and ensure turnkey delivery on strict timelines.", bold: false }
+  { text: "We offer transparent ", bold: false },
+  { text: "fixed price software development services & predictable project delivery ", bold: true },
+  { text: "backed by firm milestone timelines. By conducting exhaustive technical discovery, authoring detailed software requirements specifications (SRS), and committing to fixed-cost budgets upfront, we eliminate financial risk and guarantee high-quality software delivery.", bold: false }
 ];
+
+export function meta() {
+  const title = "Fixed Price Software Development | Leapsofts";
+  const description = "Predictable, fixed-price software development with transparent milestones. Leapsofts delivers on-budget, on-time projects for enterprises. Request a quote.";
+  const keywords = "fixed price software development, fixed cost software project, predictable software delivery, offshore fixed price development";
+  const canonicalUrl = "https://www.leapsofts.com/services/fixed-price";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Fixed Price Software Development",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Fixed Price Software Development",
+      "description": "Predictable, fixed-price software development with transparent milestones."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Fixed Price",
+          "item": "https://www.leapsofts.com/services/fixed-price"
+        }
+      ]
+    }
+  ]
+};
 
 const FixedPrice: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -249,6 +310,25 @@ const FixedPrice: React.FC = () => {
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={ourServicesData} />
       <Processes title="OUR FIXED PRICE PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <RelatedServices
+        services={[
+          {
+            title: "Custom Software Development",
+            description: "Build custom web and mobile software tailored for your business needs.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Product Ideation Workshop",
+            description: "Define your product vision, technical scope, and prototype wireframes.",
+            link: "/services/ideation-workshop"
+          },
+          {
+            title: "Proof of Concept (PoC) Development",
+            description: "Validate core technical feasibility before committing to a full fixed-price build.",
+            link: "/services/proof-of-concept-development"
+          }
+        ]}
+      />
     </>
   );
 };

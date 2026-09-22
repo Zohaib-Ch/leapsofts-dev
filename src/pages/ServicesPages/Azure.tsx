@@ -8,6 +8,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import capabilitiesImg from '../../assets/capabilities_3d.png';
 import platformImg from '../../assets/capabilities_platform.png';
 import laptopImg from "../../assets/about_laptop_3d.png";
@@ -266,14 +267,74 @@ const title = "Azure Consulting Services, Hybrid Cloud Architecture & Enterprise
 const subtitle = "";
 
 const introDescription = [
-  { text: "We design and deploy highly secure, enterprise-grade ", bold: false },
-  { text: "Microsoft Azure cloud platform environments", bold: true },
-  { text: ", leveraging high-performance hybrid setups, type-safe Azure Bicep Infrastructure-as-Code (IaC), and secure container systems. By integrating global Azure Cosmos DB relational engines, AKS Kubernetes nodes, and Microsoft Entra ID federations, we construct premium cloud infrastructures designed to scale seamlessly under extreme transactional loads.", bold: false }
+  { text: "As a premier ", bold: false },
+  { text: "Azure development company & Microsoft Azure cloud consulting firm", bold: true },
+  { text: ", we deliver hybrid cloud architectures, Azure Bicep IaC automation, and managed AKS Kubernetes clusters. We specialize in zero-downtime database migrations, Entra ID identity hardening, and enterprise cloud optimization.", bold: false }
 ];
+
+export function meta() {
+  const title = "Microsoft Azure Services & Development | Leapsofts";
+  const description = "Enterprise Microsoft Azure cloud development, migration & integration. Leapsofts delivers certified Azure solutions for complex business needs. Get a quote.";
+  const keywords = "Azure development company, Microsoft Azure services, Azure cloud consulting, Azure migration services";
+  const canonicalUrl = "https://www.leapsofts.com/services/azure";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Microsoft Azure Services & Development",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Microsoft Azure Cloud Consulting & Development",
+      "description": "Enterprise Microsoft Azure cloud development, migration & integration."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Azure",
+          "item": "https://www.leapsofts.com/services/azure"
+        }
+      ]
+    }
+  ]
+};
 
 const Azure: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -309,6 +370,25 @@ const Azure: React.FC = () => {
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={emergingTechData} />
       <Processes title="OUR AZURE CLOUD PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <RelatedServices
+        services={[
+          {
+            title: "AWS Development & Consulting",
+            description: "Explore Amazon Web Services solutions and multi-cloud infrastructure.",
+            link: "/services/aws"
+          },
+          {
+            title: "Cloud Migration Services",
+            description: "Migrate legacy on-premises databases and workloads to Microsoft Azure.",
+            link: "/services/cloud-migration"
+          },
+          {
+            title: "DevOps Services & Continuous Delivery",
+            description: "Build automated CI/CD deployment tracks using Azure DevOps and GitHub Actions.",
+            link: "/services/devops"
+          }
+        ]}
+      />
     </>
   );
 };

@@ -6,6 +6,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures'
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP'
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes'
+import RelatedServices from '../../components/RelatedServices/RelatedServices'
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
@@ -251,14 +252,74 @@ const title = "Legacy Software & Architecture Re-Engineering";
 const subtitle = "";
 
 const introDescription = [
-  { text: "We modernize aging, brittle, and monolithic ", bold: false },
-  { text: "legacy enterprise applications ", bold: true },
-  { text: "into high-performance, cloud-native systems. By refactoring complex database schemas, decoupling core service dependencies into secure microservices, and eliminating historical technical debt, we deliver resilient architectures engineered for double execution velocity and reduced operational overhead.", bold: false }
+  { text: "We provide end-to-end ", bold: false },
+  { text: "application re-engineering services & legacy modernization ", bold: true },
+  { text: "to transform aging, monolithic software into high-performance, cloud-native platforms. As a trusted software re-engineering company, we refactor legacy database schemas, decouple core microservices, and eliminate technical debt to accelerate release velocity and cut operational costs.", bold: false }
 ]
+
+export function meta() {
+  const title = "Application Re-Engineering Services | Leapsofts";
+  const description = "Modernize legacy systems without disruption. Leapsofts re-engineers outdated applications into scalable, cloud-native platforms. Book a free assessment.";
+  const keywords = "application re-engineering, legacy modernization, software modernization services, legacy system migration";
+  const canonicalUrl = "https://www.leapsofts.com/services/app-reengineering";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Application Re-Engineering Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Application Re-Engineering",
+      "description": "Modernize legacy systems without disruption."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Application Re-Engineering",
+          "item": "https://www.leapsofts.com/services/app-reengineering"
+        }
+      ]
+    }
+  ]
+};
 
 const AppReengineering: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -289,6 +350,25 @@ const AppReengineering: React.FC = () => {
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={ourServicesData} />
       <Processes title="OUR SYSTEM RE-ENGINEERING PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <RelatedServices
+        services={[
+          {
+            title: "Custom Software Development",
+            description: "Build scalable enterprise web and mobile platforms engineered for long-term growth.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Cloud Engineering & Infrastructure",
+            description: "Architect cloud-native environments, VPC networks, and serverless infrastructures on AWS & Azure.",
+            link: "/services/cloud-engineering"
+          },
+          {
+            title: "DevOps & Continuous Integration",
+            description: "Automate build pipelines, container orchestration, and infrastructure-as-code deployments.",
+            link: "/services/devops"
+          }
+        ]}
+      />
     </>
   )
 }

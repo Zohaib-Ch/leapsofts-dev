@@ -6,6 +6,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
@@ -206,14 +207,74 @@ const title = "Product Ideation Workshops, User Experience Mapping & Technical D
 const subtitle = "";
 
 const introDescription = [
-  { text: "We facilitate highly structured, high-impact ", bold: false },
-  { text: "product ideation and technical discovery workshops", bold: true },
-  { text: ", translating vague product concepts into precise system specifications. By combining collaborative design thinking exercises, user flow wireframing sprints, and database feasibility audits, we align stakeholders and deliver production-ready blueprints designed for rapid development cycles.", bold: false }
+  { text: "We facilitate high-impact ", bold: false },
+  { text: "product ideation workshop services & software product discovery ", bold: true },
+  { text: "designed to translate product visions into concrete system blueprints. By conducting collaborative design thinking sprints, low-fidelity wireframing, and database feasibility checks, we help teams design market-ready MVP roadmaps.", bold: false }
 ];
+
+export function meta() {
+  const title = "Product Ideation Workshop Services | Leapsofts";
+  const description = "Structured product ideation workshops to define your MVP vision, tech stack & roadmap. Leapsofts aligns your team with a clear execution strategy. Book now.";
+  const keywords = "product ideation workshop, MVP workshop, software product discovery, product strategy workshop";
+  const canonicalUrl = "https://www.leapsofts.com/services/ideation-workshop";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Product Ideation Workshop Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Product Ideation & Discovery Workshop",
+      "description": "Structured product ideation workshops to define your MVP vision, tech stack & roadmap."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Ideation Workshop",
+          "item": "https://www.leapsofts.com/services/ideation-workshop"
+        }
+      ]
+    }
+  ]
+};
 
 const IdeationWorkshop: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -244,6 +305,25 @@ const IdeationWorkshop: React.FC = () => {
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={ourServicesData} />
       <Processes title="OUR IDEATION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <RelatedServices
+        services={[
+          {
+            title: "Product Development Strategy",
+            description: "Build long-term technology roadmaps and architectural scaling blueprints.",
+            link: "/services/product-development-strategy"
+          },
+          {
+            title: "Proof of Concept (PoC) Development",
+            description: "Engineer rapid prototype iterations to test core technical feasibility.",
+            link: "/services/proof-of-concept-development"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Turn your workshop blueprint into a fully functional enterprise platform.",
+            link: "/services/custom-software-development"
+          }
+        ]}
+      />
     </>
   );
 };

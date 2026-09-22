@@ -6,6 +6,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures'
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP'
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes'
+import RelatedServices from '../../components/RelatedServices/RelatedServices'
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
@@ -252,14 +253,74 @@ const title = "Enterprise ServiceNow Development & Platform Orchestration";
 const subtitle = "";
 
 const introDescription = [
-  { text: "We deliver advanced ServiceNow customization, custom ", bold: false },
-  { text: "Now Platform Application development (Scoped Apps)", bold: true },
-  { text: ", ITSM/ITOM module configurations, and secure database integrations. By streamlining enterprise service portals, custom incident routing scripts, and ServiceNow mid-server setups, we engineer robust digital workflows that automate daily operations and simplify IT governance.", bold: false }
+  { text: "We provide enterprise ", bold: false },
+  { text: "ServiceNow implementation services & ServiceNow consulting ", bold: true },
+  { text: "to automate digital workflows across ITSM, ITOM, HRSD, and CSM platforms. As certified ServiceNow specialists, we build custom Scoped Applications, configure IntegrationHub endpoints, and optimize Now Platform instances for seamless corporate governance.", bold: false }
 ]
+
+export function meta() {
+  const title = "ServiceNow Development Services | Leapsofts";
+  const description = "Expert ServiceNow implementation, customization & integration. Leapsofts transforms enterprise workflows with certified ServiceNow engineering. Get a quote.";
+  const keywords = "ServiceNow development, ServiceNow implementation, ServiceNow consulting, ServiceNow integration services";
+  const canonicalUrl = "https://www.leapsofts.com/services/service-now";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "ServiceNow Development Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "ServiceNow Implementation & Workflow Automation",
+      "description": "Expert ServiceNow implementation, customization & integration."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "ServiceNow",
+          "item": "https://www.leapsofts.com/services/service-now"
+        }
+      ]
+    }
+  ]
+};
 
 const ServiceNow: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -290,6 +351,25 @@ const ServiceNow: React.FC = () => {
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={emergingTechData} />
       <Processes title="OUR CUSTOM SERVICENOW PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <RelatedServices
+        services={[
+          {
+            title: "Custom Software Development",
+            description: "Build custom enterprise applications tailored to your business logic.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "DevOps Services & Consulting",
+            description: "Automate delivery pipelines and continuous infrastructure integration.",
+            link: "/services/devops"
+          },
+          {
+            title: "Salesforce Development & Integration",
+            description: "Integrate CRM workflows with ServiceNow ITSM & CSM platforms.",
+            link: "/services/salesforce"
+          }
+        ]}
+      />
     </>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import type { SanitySEO } from '../../sanity/types';
 import { urlFor } from '../../sanity/image';
 
@@ -10,6 +10,7 @@ interface MetaSEOProps {
   defaultDescription?: string;
   defaultOgImage?: string;
   noIndex?: boolean;
+  schema?: Record<string, any>;
 }
 
 const DEFAULT_TITLE = 'Leapsofts | Enterprise Software Engineering & Digital Transformation';
@@ -22,6 +23,7 @@ export const MetaSEO: React.FC<MetaSEOProps> = ({
   defaultTitle,
   defaultDescription,
   defaultOgImage,
+  schema,
 }) => {
   const location = useLocation();
   const currentUrl = `${DOMAIN}${location.pathname}`;
@@ -54,6 +56,13 @@ export const MetaSEO: React.FC<MetaSEOProps> = ({
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+      {/* Structured Data (JSON-LD) */}
+      {schema && (
+        <script type="application/ld+json">
+          {JSON.stringify(schema)}
+        </script>
+      )}
     </Helmet>
   );
 };

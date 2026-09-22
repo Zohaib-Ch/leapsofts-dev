@@ -9,83 +9,84 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes from '../../components/Processes/Processes';
 import { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import ServiceFeatures from '../../components/ServiceFeatures/ServiceFeatures';
 import { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const ourServicesData: EmergingTechProps['data'] = {
-  label: 'AI SERVICES',
-  titleAccent: 'AI &',
-  titleMain: ' Data Science',
+  label: 'DATA SCIENCE & AI DEVELOPMENT SERVICES',
+  titleAccent: 'Enterprise Artificial Intelligence',
+  titleMain: ' & Machine Learning Solutions',
   description:
-    'End-to-end AI services designed to unlock insights, improve decision-making, and accelerate intelligent transformation.',
+    'End-to-end custom AI development services, machine learning models, and Generative AI solutions engineered to automate decisions and unlock enterprise data value.',
   items: [
     {
       icon: 'enterprise' as const,
-      title: 'Natural Language Processing & LLM Tuning',
+      title: 'Generative AI & Custom LLM Fine-Tuning',
       description:
-        'Fine-tuning custom LLMs (e.g. Llama-3, Mistral) via LoRA/QLoRA methods and building secure RAG (Retrieval-Augmented Generation) architectures for semantic data retrieval.'
+        'Fine-tuning open-source Large Language Models (LLMs like Llama 3 & Mistral) using LoRA/QLoRA techniques and building secure Retrieval-Augmented Generation (RAG) vector architectures.'
     },
     {
       icon: 'product' as const,
-      title: 'Predictive Modeling & Statistical Forecasting',
+      title: 'Predictive Modeling & Machine Learning',
       description:
-        'Designing multi-variable regression, classification, and time-series forecasting scripts using Scikit-Learn, XGBoost, and Prophet to anticipate supply chain and pricing movements.'
+        'Engineering multi-variable predictive regression, classification, and time-series forecasting models using Scikit-Learn, PyTorch, and XGBoost to predict demand and revenue.'
     },
     {
       icon: 'enterprise' as const,
-      title: 'Computer Vision & Edge Image Processing',
+      title: 'Computer Vision & Real-Time Image AI',
       description:
-        'Building high-velocity convolutional networks (CNNs) using PyTorch and YOLO for real-time object identification, video analysis, and quality inspections.'
+        'Building high-velocity Convolutional Neural Networks (CNNs) using PyTorch and YOLO for real-time object detection, automated visual inspection, and video analytics.'
     },
     {
       icon: 'saas' as const,
-      title: 'Distributed Data Processing & Lakehouses',
+      title: 'Enterprise Data Lakehouses & ETL Pipelines',
       description:
-        'Orchestrating large-scale data cleansing and aggregation pipelines using Apache Spark, Databricks, and dbt to feed machine learning schemas.'
+        'Orchestrating high-scale data pipeline engineering using Apache Spark, Databricks, Snowflake, and dbt to feed clean structured data into machine learning models.'
     },
     {
       icon: 'product' as const,
-      title: 'MLOps & Continuous Model Deployment',
+      title: 'MLOps & Automated Model Deployment',
       description:
-        'Implementing continuous integration for machine learning (CT/CD), registry tracking via MLflow, and high-concurrency model serving on Kubernetes via Triton or BentoML.'
+        'Implementing continuous training (CT/CD), model registry tracking via MLflow, and high-concurrency inference API serving on Kubernetes using Triton Inference Server.'
     },
     {
       icon: 'enterprise' as const,
-      title: 'Recommendation Engines & User Profiling',
+      title: 'AI Recommendation Engines & Personalization',
       description:
-        'Crafting collaborative and content-based recommendation systems to personalize digital layouts, boosting customer average order value (AOV).'
+        'Building collaborative and content-based AI recommendation systems to personalize digital product experiences and boost customer retention.'
     }
   ]
 };
 
 const processData: InfoGridProps['data'] = {
-  label: 'WORKING PROCESS',
-  title: 'AI Implementation Pathway',
+  label: 'ENTERPRISE AI ADVANTAGES',
+  title: 'Why Top Brands Build Production AI Systems with Leapsofts',
   items: [
     {
       icon: '01',
-      title: 'High-Throughput Model Inference',
+      title: 'Sub-100ms Model Inference Speeds',
       description:
-        'Guarantee sub-100ms model inference speeds under high transactional request volumes.'
+        'Guarantee low-latency, real-time AI model inference performance under high-concurrency API query traffic.'
     },
     {
       icon: '02',
-      title: 'Algorithmic Bias & Safety Governance',
+      title: 'Algorithmic Safety & SOC2/HIPAA Governance',
       description:
-        'Enforcing strict model validation controls, feature drift audits, and data privacy safeguards (HIPAA/GDPR).'
+        'Enforcing strict model validation gates, data anonymization, bias auditing, and compliance safeguards (HIPAA, GDPR, SOC2).'
     },
     {
       icon: '03',
-      title: 'Decoupled Lakehouse Pipelines',
+      title: 'Decoupled Cloud Lakehouse Data Pipelines',
       description:
-        'Integrating scalable ETL data extraction that structures dirty enterprise logs cleanly for model training.'
+        'Integrating scalable ETL data pipelines that transform unstructured enterprise logs into clean, vectorized training datasets.'
     },
     {
       icon: '04',
-      title: 'Robust Real-World MLOps Scaling',
+      title: 'Automated MLOps Drift & Model Monitoring',
       description:
-        'Keeping systems secure and peak-performing via continuous feature tracking, automated drift alerts, and containerized rollouts.'
+        'Sustaining accuracy over time via automated data drift alerts, continuous feature monitoring, and zero-downtime model updates.'
     }
   ]
 };
@@ -278,9 +279,69 @@ const introDescription = [
   { text: ", and predictive analytics algorithms. By combining high-velocity Apache Spark data processing with robust MLOps orchestration (MLflow, Triton Server), we help organizations deploy resilient AI systems that automate decision mechanics and optimize user actions.", bold: false }
 ]
 
+export function meta() {
+  const title = "Data Science & AI Development Services | Leapsofts";
+  const description = "AI & data science solutions for enterprises. Leapsofts builds ML models, AI integrations & data pipelines to automate decisions. Schedule a consultation.";
+  const keywords = "AI development company, data science services, machine learning development, AI integration services, artificial intelligence solutions";
+  const canonicalUrl = "https://www.leapsofts.com/services/data-science-ai";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Data Science & AI Development Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "AI & Data Science Development",
+      "description": "AI & data science solutions for enterprises. Leapsofts builds ML models, AI integrations & data pipelines."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Data Science & AI",
+          "item": "https://www.leapsofts.com/services/data-science-ai"
+        }
+      ]
+    }
+  ]
+};
+
 const DataScienceAI: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -311,6 +372,25 @@ const DataScienceAI: React.FC = () => {
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={ourServicesData} />
       <Processes title="OUR Applied AI PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <RelatedServices
+        services={[
+          {
+            title: "Data Governance Services",
+            description: "Build robust compliance frameworks, audit trails, and data security policies for AI models.",
+            link: "/services/data-governance"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Integrate predictive ML models and custom AI algorithms directly into core enterprise software.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Cloud Engineering & Architecture",
+            description: "Design high-throughput, elastic cloud environments to host scalable machine learning workloads.",
+            link: "/services/cloud-engineering"
+          }
+        ]}
+      />
     </>
   );
 };

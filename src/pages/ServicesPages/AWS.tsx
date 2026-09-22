@@ -6,6 +6,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import cloudImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
@@ -211,14 +212,74 @@ const title = "AWS Consulting Services, Serverless Scaling & Multi-Region Cloud 
 const subtitle = "";
 
 const introDescription = [
-  { text: "We design and deploy highly secure, robust ", bold: false },
-  { text: "Amazon Web Services (AWS) cloud platform topologies", bold: true },
-  { text: ", leveraging serverless microservices, modular AWS Cloud Development Kit (CDK) constructs, and automated containerization. By integrating multi-region Amazon Aurora relational datastores, AWS Transit Gateways, and WAF shields, we build elite digital architectures designed to handle extreme global scaling with maximum durability.", bold: false }
+  { text: "As a certified ", bold: false },
+  { text: "AWS development company & Amazon Web Services consulting partner", bold: true },
+  { text: ", we design serverless topologies, modular AWS CDK constructs, and managed EKS Kubernetes clusters. We optimize cloud infrastructure for high availability, zero-downtime database migrations, and 99.99% uptime.", bold: false }
 ];
+
+export function meta() {
+  const title = "AWS Cloud Services & Development | Leapsofts";
+  const description = "Expert AWS cloud development, architecture & managed services. Leapsofts builds scalable, cost-efficient AWS solutions for global enterprises. Get started.";
+  const keywords = "AWS development company, AWS cloud services, Amazon Web Services consulting, AWS managed services";
+  const canonicalUrl = "https://www.leapsofts.com/services/aws";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "AWS Cloud Services & Development",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "AWS Cloud Services & Consulting",
+      "description": "Expert AWS cloud development, architecture & managed services."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "AWS",
+          "item": "https://www.leapsofts.com/services/aws"
+        }
+      ]
+    }
+  ]
+};
 
 const AWS: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -249,6 +310,25 @@ const AWS: React.FC = () => {
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={emergingTechData} />
       <Processes title="OUR AWS CLOUD PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <RelatedServices
+        services={[
+          {
+            title: "Cloud Migration Services",
+            description: "Migrate legacy on-premises databases and servers to AWS with zero downtime.",
+            link: "/services/cloud-migration"
+          },
+          {
+            title: "DevOps Services & Continuous Delivery",
+            description: "Automate build tracks using AWS CodePipeline and GitHub Actions.",
+            link: "/services/devops"
+          },
+          {
+            title: "Azure Cloud Engineering",
+            description: "Deploy multi-cloud strategies across Microsoft Azure & Amazon Web Services.",
+            link: "/services/azure"
+          }
+        ]}
+      />
     </>
   );
 };

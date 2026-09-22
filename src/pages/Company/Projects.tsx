@@ -9,6 +9,30 @@ import { projectsData } from '../../data/projectsData';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityCaseStudies } from '../../sanity/queries';
 import type { SanityCaseStudy } from '../../sanity/types';
+export function meta() {
+  const title = "Software Development Case Studies | Leapsofts Portfolio";
+  const description = "Explore Leapsofts' portfolio of enterprise software projects — from fintech platforms to healthcare systems and AI-powered applications. See our work.";
+  const keywords = "software development portfolio, custom software case studies, enterprise software projects, development portfolio";
+  const canonicalUrl = "https://www.leapsofts.com/projects";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
 
 const Projects: React.FC = () => {
   const [activeIndustryId, setActiveIndustryId] = useState<string | undefined>(undefined);
@@ -81,7 +105,7 @@ const Projects: React.FC = () => {
   }, [sanityProjects]);
 
   const introDescription = [
-    { text: "Our case studies showcase how Leapsofts combines domain expertise, modern architectures, and AI-ready software development to build real products used by businesses worldwide.", bold: false },
+    { text: "Our custom software development case studies showcase how Leapsofts combines domain expertise, cloud engineering architectures, and production-ready AI software development to build high-performance products used by global enterprises and scaling businesses worldwide.", bold: false },
   ];
 
   const handleIndustryClick = (name: string) => {

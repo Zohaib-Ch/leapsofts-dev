@@ -120,16 +120,50 @@ export interface SanityHomePage {
 }
 
 export interface SanityAboutPage {
-  hero?: SanityHero;
-  missionVision?: {
+  hero?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    metrics?: { value: string; label: string; sub?: string }[];
+  };
+  creed?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
     missionTitle?: string;
     missionText?: string;
     visionTitle?: string;
     visionText?: string;
   };
-  executiveSummary?: {
+  corePrinciples?: {
+    label?: string;
     title?: string;
-    description?: string;
+    subtitle?: string;
+    principles?: { title: string; text: string; icon?: string }[];
+  };
+  timeline?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    events?: { year: string; title: string; desc: string }[];
+  };
+  leadership?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    members?: SanityTeamMember[];
+  };
+  globalDelivery?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    hubs?: { name: string; desc: string; badge?: string; list?: string[] }[];
+    compliance?: { title?: string; subtitle?: string; tag?: string; desc?: string; name?: string }[];
+  };
+  cta?: {
+    title?: string;
+    subtitle?: string;
+    buttonText?: string;
   };
   seo?: SanitySEO;
 }

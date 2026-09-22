@@ -6,6 +6,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import capabilitiesImg from "../../assets/capabilities_3d.png";
 import platformImg from "../../assets/capabilities_platform.png";
 import laptopImg from "../../assets/about_laptop_3d.png";
@@ -235,14 +236,76 @@ const title = "Elite Dedicated Engineering Teams & Elastic Agile Pods";
 const subtitle = "";
 
 const introDescription = [
-  { text: "We deliver highly integrated agile pods, custom ", bold: false },
-  { text: "dedicated engineering teams", bold: true },
-  { text: ", and secure remote governance structures. By streamlining continuous knowledge transfer, Git-based workflows, and integrated automated testing scripts, we assemble elite talent pods designed to act as a seamless extension of your internal technical department.", bold: false }
-]
+  { text: "Hire ", bold: false },
+  { text: "dedicated software development teams ", bold: true },
+  { text: "and elastic engineering pods embedded directly in your workflows. As a premier provider of ", bold: false },
+  { text: "IT staff augmentation services", bold: true },
+  { text: ", we deploy senior software architects, full-stack developers, and certified Scrum Masters ready to scale your product velocity with zero onboarding friction.", bold: false }
+];
+
+export function meta() {
+  const title = "Dedicated Development Teams | Leapsofts";
+  const description = "Hire dedicated software development teams from Leapsofts. Scale your engineering capacity with senior developers embedded in your workflows. Start today.";
+  const keywords = "dedicated development team, hire dedicated developers, staff augmentation services, offshore development team";
+  const canonicalUrl = "https://www.leapsofts.com/services/dedicated-teams";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Dedicated Development Teams",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Dedicated Software Engineering Teams",
+      "description": "Hire dedicated software development teams from Leapsofts. Scale your engineering capacity."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Dedicated Teams",
+          "item": "https://www.leapsofts.com/services/dedicated-teams"
+        }
+      ]
+    }
+  ]
+};
 
 const DedicatedTeams: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -277,6 +340,25 @@ const DedicatedTeams: React.FC = () => {
       />
       <DeliverMVP data={deliverMVPData} />
       <Processes title="OUR CUSTOM DEDICATED TEAMS PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <RelatedServices
+        services={[
+          {
+            title: "Fixed Price Development Model",
+            description: "On-budget, milestone-driven software execution model for clearly defined product specifications.",
+            link: "/services/fixed-price"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Full-cycle enterprise software engineering, bespoke applications, and legacy platform modernization.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Quality Assurance & Testing Teams",
+            description: "Dedicated manual and automated QA squads to ensure zero-defect software releases.",
+            link: "/services/quality-assurance"
+          }
+        ]}
+      />
     </>
   );
 };

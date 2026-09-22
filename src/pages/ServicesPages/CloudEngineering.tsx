@@ -9,94 +9,95 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes from '../../components/Processes/Processes';
 import { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const ourSolutionsData: EmergingTechProps['data'] = {
-    label: 'CLOUD SERVICES',
-    titleAccent: 'Cloud',
-    titleMain: 'Capabilities',
-    description: 'We provide custom-designed cloud platform architectures tailored to your business needs, ensuring efficiency, scalability, and innovation.',
+    label: 'CLOUD ENGINEERING SERVICES & CAPABILITIES',
+    titleAccent: 'Enterprise Cloud-Native',
+    titleMain: 'Architecture Solutions',
+    description: 'We deliver custom cloud engineering services on AWS, Microsoft Azure, and Google Cloud Platform (GCP) tailored to guarantee multi-region resilience and cost efficiency.',
     items: [
         {
             icon: 'enterprise' as const,
-            title: 'Custom Cloud Architecture & Design',
-            description: "Designing elastic public, private, or hybrid cloud environments using secure VPC subnets, transit gateways, and load balancers."
+            title: 'Custom Multi-Cloud Architecture Design',
+            description: "Designing elastic public, hybrid, and multi-cloud environments using secure VPC subnets, transit gateways, and auto-scaling load balancers."
         },
         {
             icon: 'legacy' as const,
-            title: 'Infrastructure as Code (IaC) Sprints',
-            description: "Enforcing complete environment traceability by writing modular Terraform or Pulumi configurations."
+            title: 'Infrastructure as Code (IaC) & Terraform',
+            description: "Provisioning version-controlled, reproducible cloud infrastructure by writing modular Terraform, AWS CloudFormation, and Pulumi scripts."
         },
         {
             icon: 'enterprise' as const,
-            title: 'Kubernetes & Container Orchestration',
-            description: "Deploying high-availability Kubernetes clusters (AWS EKS, GCP GKE, Azure AKS) with automated Helm deployments."
+            title: 'Kubernetes Container Orchestration',
+            description: "Deploying high-availability Kubernetes clusters (AWS EKS, Azure AKS, GCP GKE) with automated Helm deployments and service meshes."
         },
         {
             icon: 'saas' as const,
-            title: 'Multi-Region Database Replication',
-            description: "Configuring globally distributed, highly available databases utilizing Amazon Aurora, DynamoDB Global Tables, or Cloud Spanner."
+            title: 'Multi-Region Cloud Database Replication',
+            description: "Configuring globally distributed, high-availability databases using Amazon Aurora, DynamoDB Global Tables, and Azure Cosmos DB."
         },
         {
             icon: 'saas' as const,
             title: 'Serverless Computing & Edge Routing',
-            description: "Building event-driven, cost-effective serverless pipelines via AWS Lambda, Google Cloud Functions, and Cloudflare Workers."
+            description: "Building event-driven, cost-optimized serverless computing pipelines via AWS Lambda, Azure Functions, and Cloudflare Workers."
         },
         {
             icon: 'thirdParty' as const,
-            title: 'Continuous CI/CD Delivery Pipelines',
-            description: "Integrating GitOps delivery tracks (ArgoCD, GitHub Actions) to safely automate and roll out environment updates."
+            title: 'GitOps CI/CD Delivery Pipelines',
+            description: "Integrating GitOps delivery tracks (ArgoCD, GitLab CI, GitHub Actions) to safely automate microservice rollouts and environment updates."
         },
     ]
 };
 
 const processData: InfoGridProps['data'] = {
-    label: 'CLOUD VALUE',
-    title: 'Why Migrate to Cloud-Native Platforms',
+    label: 'CLOUD INFRASTRUCTURE ADVANTAGES',
+    title: 'Why Global Enterprises Choose Cloud-Native Platforms',
     items: [
         {
             icon: '01',
-            title: 'Automatic Elastic Auto-Scaling',
-            description: 'Configure auto-scaling triggers to expand computing nodes under high load, scaling back down to minimize costs.'
+            title: 'Elastic Auto-Scaling Infrastructure',
+            description: 'Configure automated auto-scaling rules to expand compute capacity instantly during peak user traffic, scaling down to minimize cloud spend.'
         },
         {
             icon: '02',
-            title: 'Dynamic High Availability',
-            description: 'Deploy workloads across multiple geographical zones to protect applications from isolated datacenter failure events.'
+            title: 'Multi-Availability Zone Resiliency',
+            description: 'Deploy enterprise workloads across geographically isolated cloud regions to guarantee 99.99% uptime and zero single points of failure.'
         },
         {
             icon: '03',
-            title: 'Sub-Second Edge Network Speeds',
-            description: 'Utilize global CDN edge caches to load asset bundles closer to end users, reducing application latency.'
+            title: 'Sub-Second Edge Content Delivery',
+            description: 'Leverage global CDN edge caching (Cloudflare / CloudFront) to serve web application assets closer to end users, reducing latency.'
         },
         {
             icon: '04',
-            title: 'Strict Cloud Security Shields',
-            description: 'Enforce fine-grained cloud-level access keys using AWS IAM roles, KMS encryption, and VPC security groups.'
+            title: 'Zero-Trust Cloud Security & Compliance',
+            description: 'Enforce fine-grained Cloud IAM policies, KMS envelope encryption, VPC security groups, and SOC2/HIPAA compliance standards.'
         }
     ]
 };
 
 const deliverMVPData = {
-    label: "CLOUD EXCELLENCE",
-    title: "Our Commitment to Deliver Your Cloud Infrastructure in",
-    accentText: "3-5 months?",
-    description: "Leapsofts is an elite custom cloud systems and infrastructure advisory partner. By combining fully integrated CI/CD, certified cloud architects, and dedicated DevOps engineering pods, we build and deploy enterprise-ready cloud platforms within an accelerated 3 to 5 month timeline—on time, every time.",
+    label: "CLOUD ENGINEERING EXCELLENCE",
+    title: "Deploy Your Cloud Infrastructure Architecture in",
+    accentText: "3-5 months",
+    description: "Leapsofts is a premier cloud engineering company. Combining certified AWS, Azure, and GCP architects, automated Terraform IaC modules, and dedicated DevOps pods, we build and deploy production-ready cloud environments within 3 to 5 months.",
     items: [
         {
-            title: "Proven Methodologies.",
-            description: "Leveraging certified cloud migration maps and low-risk multi-phase migration frameworks."
+            title: "Proven Cloud Blueprints.",
+            description: "Leveraging certified cloud migration frameworks and low-risk multi-phase workload relocation blueprints."
         },
         {
-            title: "Client-First Approach.",
-            description: "Aligning every stage of the infrastructure design with your business SLAs and compliance standards."
+            title: "Strict SLA Alignment.",
+            description: "Designing cloud infrastructure topologies that guarantee 99.99% uptime and meet strict industry compliance standards."
         },
         {
-            title: "Transparent Cost Models.",
-            description: "Providing detailed infrastructure cost analysis reports and automated cost-optimization scripts."
+            title: "Cloud FinOps & Cost Optimization.",
+            description: "Providing automated resource rightsizing scripts, reserved instance planning, and real-time cloud cost telemetry dashboards."
         },
         {
-            title: "Elite Cloud Credentials.",
-            description: "Deploying certified cloud architects and DevOps professionals holding advanced AWS, Azure, and GCP credentials."
+            title: "Certified Cloud Architects.",
+            description: "Deploying senior cloud engineers holding AWS Certified Solutions Architect, Azure Solutions Architect, and GCP credentials."
         }
     ]
 };
@@ -226,9 +227,69 @@ const introDescription = [
   { text: ", and secure infrastructure-as-code (IaC) deployment pipelines. By streamlining automated elastic load balancers, real-time log ingestion systems, and multi-region database replications, we engineer high-availability cloud platforms built to survive extreme operational traffic and eliminate network latencies.", bold: false }
 ]
 
+export function meta() {
+  const title = "Cloud Engineering Services | Leapsofts";
+  const description = "Expert cloud engineering services — architecture, deployment & optimization on AWS, Azure & GCP. Leapsofts builds resilient cloud infrastructure. Get a quote.";
+  const keywords = "cloud engineering services, cloud infrastructure company, cloud architecture services, cloud consulting";
+  const canonicalUrl = "https://www.leapsofts.com/services/cloud-engineering";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Cloud Engineering Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Cloud Engineering",
+      "description": "Expert cloud engineering services — architecture, deployment & optimization on AWS, Azure & GCP."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Cloud Engineering",
+          "item": "https://www.leapsofts.com/services/cloud-engineering"
+        }
+      ]
+    }
+  ]
+};
+
 const CloudEngineering: React.FC = () => {
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
             <IntroComponent
                 title={title}
                 description={subtitle}
@@ -254,6 +315,25 @@ const CloudEngineering: React.FC = () => {
             <DeliverMVP data={deliverMVPData} />
             <EmergingTech data={ourSolutionsData} />
             <Processes title="OUR CUSTOM CLOUD MIGRATION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+            <RelatedServices
+                services={[
+                    {
+                        title: "Cloud Migration Services",
+                        description: "Seamlessly migrate legacy infrastructure and databases to AWS, Azure, or GCP with zero downtime.",
+                        link: "/services/cloud-migration"
+                    },
+                    {
+                        title: "DevOps & CI/CD Automation",
+                        description: "Accelerate delivery velocity with containerized microservices and automated CI/CD pipelines.",
+                        link: "/services/devops"
+                    },
+                    {
+                        title: "AWS Managed Services",
+                        description: "Build, deploy, and scale enterprise architectures on Amazon Web Services cloud infrastructure.",
+                        link: "/services/aws"
+                    }
+                ]}
+            />
         </>
     );
 };

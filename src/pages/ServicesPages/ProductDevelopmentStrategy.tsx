@@ -6,6 +6,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
@@ -206,14 +207,74 @@ const title = "Product Development Strategy, Technical Blueprints & High-Velocit
 const subtitle = "";
 
 const introDescription = [
-  { text: "We engineer highly analytical, high-velocity ", bold: false },
-  { text: "product development strategies and cloud architecture blueprints", bold: true },
-  { text: ", transforming ambitious ideas into structured, release-ready technical specifications. By combining data-backed market analysis, type-safe tech stack blueprints, and strict MVP scoping controls, we mitigate execution risk and accelerate your product’s journey to market leadership.", bold: false }
+  { text: "We engineer data-driven ", bold: false },
+  { text: "software product development strategies & technology roadmap consulting ", bold: true },
+  { text: "plans tailored for ambitious enterprises and tech startups. By combining deep market analysis, type-safe tech stack blueprints, and strict MVP scoping controls, we mitigate execution risk and accelerate your product’s path to market leadership.", bold: false }
 ];
+
+export function meta() {
+  const title = "Product Development Strategy Services | Leapsofts";
+  const description = "Define a winning product development strategy with Leapsofts. We map your tech roadmap, market positioning & scalability plan before a single line of code.";
+  const keywords = "product development strategy, software product strategy, technology roadmap consulting, product planning services";
+  const canonicalUrl = "https://www.leapsofts.com/services/product-development-strategy";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Product Development Strategy Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Software Product Strategy & Roadmapping",
+      "description": "Define a winning product development strategy with Leapsofts."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Product Development Strategy",
+          "item": "https://www.leapsofts.com/services/product-development-strategy"
+        }
+      ]
+    }
+  ]
+};
 
 const ProductDevelopmentStrategy: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -244,6 +305,25 @@ const ProductDevelopmentStrategy: React.FC = () => {
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={ourServicesData} />
       <Processes title="OUR STRATEGIC PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <RelatedServices
+        services={[
+          {
+            title: "Product Ideation Workshop",
+            description: "Run collaborative discovery workshops to define user personas and MVP scopes.",
+            link: "/services/ideation-workshop"
+          },
+          {
+            title: "Proof of Concept (PoC) Development",
+            description: "Validate complex architectural assumptions with rapid technical prototype builds.",
+            link: "/services/proof-of-concept-development"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Build full-scale enterprise software products with dedicated engineering pods.",
+            link: "/services/custom-software-development"
+          }
+        ]}
+      />
     </>
   );
 };

@@ -6,6 +6,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
@@ -252,14 +253,74 @@ const title = "Tech-Enabled BPO & Process Automation Operations";
 const subtitle = "";
 
 const introDescription = [
-  { text: "We deliver advanced process automation, custom ", bold: false },
-  { text: "back-office operational workflows", bold: true },
-  { text: ", and secure omni-channel customer service configurations. By integrating high-velocity data extraction, automated invoice processing APIs, and dedicated technical support pods, we engineer scalable business process outsourcing models designed to maximize cost efficiency and simplify operational overhead.", bold: false }
+  { text: "We deliver tech-enabled ", bold: false },
+  { text: "business process outsourcing (BPO) services & software outsourcing ", bold: true },
+  { text: "designed to automate back-office operations, customer experience (CX) channels, and technical support teams. As a global software outsourcing company, we optimize workflow pipelines to cut operating costs and accelerate business scalability.", bold: false }
 ]
+
+export function meta() {
+  const title = "Business Process Outsourcing Services | Leapsofts";
+  const description = "Streamline operations with BPO services from Leapsofts. We manage complex business processes so you can focus on growth. Get a free assessment today.";
+  const keywords = "business process outsourcing, BPO services, software outsourcing company, offshore outsourcing services";
+  const canonicalUrl = "https://www.leapsofts.com/services/business-process-outsourcing";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Business Process Outsourcing Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Business Process Outsourcing",
+      "description": "Streamline operations with BPO services from Leapsofts."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Business Process Outsourcing",
+          "item": "https://www.leapsofts.com/services/business-process-outsourcing"
+        }
+      ]
+    }
+  ]
+};
 
 const BusinessProcessOutsourcing: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -290,6 +351,25 @@ const BusinessProcessOutsourcing: React.FC = () => {
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={ourServicesData} />
       <Processes title="OUR CUSTOM BPO PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <RelatedServices
+        services={[
+          {
+            title: "Dedicated Development Teams",
+            description: "Hire offshore software engineers and technical support specialists.",
+            link: "/services/dedicated-teams"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Build custom workflow automation systems and back-office portals.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Quality Assurance & Testing",
+            description: "Outsource software testing, regression audits, and automated QA.",
+            link: "/services/quality-assurance"
+          }
+        ]}
+      />
     </>
   );
 };

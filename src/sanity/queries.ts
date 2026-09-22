@@ -49,7 +49,7 @@ export const HOME_PAGE_QUERY = `*[_type == "homePage"] | order(_updatedAt desc)[
   seo
 }`;
 
-export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage" && (_id == "aboutPage" || _id == "drafts.aboutPage")] | order(_updatedAt desc)[0]{
+export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage" && (_id == $id || _id == "drafts." + $id || _id == "aboutPage")] | order(_updatedAt desc)[0]{
   hero,
   creed,
   corePrinciples,
@@ -335,9 +335,9 @@ export async function getSanityHomePage(): Promise<SanityHomePage | null> {
   }
 }
 
-export async function getSanityAboutPage(): Promise<SanityAboutPage | null> {
+export async function getSanityAboutPage(id: string = 'aboutPage'): Promise<SanityAboutPage | null> {
   try {
-    const res = await client.fetch(ABOUT_PAGE_QUERY);
+    const res = await client.fetch(ABOUT_PAGE_QUERY, { id });
     return res || null;
   } catch (e) {
     return null;

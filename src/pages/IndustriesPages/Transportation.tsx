@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENTS TO LOGISTICS EXCELLENCE",
@@ -90,10 +91,69 @@ const streamlineDescription = [
 const title = "Transportation Software Development, Fleet Telematics & Custom TMS Solutions";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we engineer resilient, enterprise-grade ", bold: false },
-  { text: "Transportation Management Systems (TMS), real-time fleet telematics platforms, and multi-warehouse coordination portals ", bold: true },
-  { text: "designed to streamline global supply chains and logistics corridors. By implementing automated driver dispatch engines, tracking live cargo temperature telemetry, and deploying intelligent route optimization algorithms, we help fleet operators and shipping lines maximize capacity and lower fuel burn overheads.", bold: false }
+  { text: "We engineer enterprise-grade ", bold: false },
+  { text: "transportation software development, fleet management systems, and logistics software solutions ", bold: true },
+  { text: "designed to streamline global supply chains. By deploying automated dispatch engines, IoT cold-chain telemetry, and route optimization algorithms, we empower shipping and freight companies to lower transit overheads.", bold: false }
 ];
+
+export function meta() {
+  const title = "Transportation & Logistics Software | Leapsofts";
+  const description = "Custom transportation & logistics software — fleet management, route optimization & supply chain platforms. Leapsofts engineers mobility solutions. Talk to us.";
+  const keywords = "transportation software development, logistics software company, fleet management software, supply chain software";
+  const canonicalUrl = "https://www.leapsofts.com/industries/transportation";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Transportation & Logistics Software",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Transportation & Logistics Software Engineering",
+      "description": "Custom transportation & logistics software — fleet management, route optimization & supply chain platforms."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Transportation & Logistics",
+          "item": "https://www.leapsofts.com/industries/transportation"
+        }
+      ]
+    }
+  ]
+};
 
 const Transportation: React.FC = () => {
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
@@ -107,6 +167,7 @@ const Transportation: React.FC = () => {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -127,6 +188,25 @@ const Transportation: React.FC = () => {
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" transportation businesses"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Custom Software Development",
+            description: "Build custom Transportation Management Systems (TMS) and dispatch boards.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Mobile App Development",
+            description: "Engineer native iOS & Android driver companion and ELD logging mobile apps.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Cloud Engineering & Infrastructure",
+            description: "Architect high-frequency GPS telemetry and IoT data pipelines on AWS & Azure.",
+            link: "/services/cloud-engineering"
+          }
+        ]}
       />
     </>
   );

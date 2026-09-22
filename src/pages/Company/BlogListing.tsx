@@ -1,13 +1,37 @@
 import React, { useState, useEffect } from 'react';
+import styles from './BlogListing.module.css';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Search, Clock, Calendar, ArrowRight, Sparkles } from 'lucide-react';
 import { blogsData } from '../../data/blogsData';
 import Button from '../../components/Button/Button';
-import styles from './BlogListing.module.css';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityBlogs } from '../../sanity/queries';
 import type { SanityBlog } from '../../sanity/types';
+export function meta() {
+  const title = "Engineering Insights & Software Development Blog | Leapsofts";
+  const description = "Expert articles on custom software development, cloud engineering, AI/ML, and digital transformation from the Leapsofts engineering team.";
+  const keywords = "software development blog, engineering insights, cloud architecture articles, AI development articles";
+  const canonicalUrl = "https://www.leapsofts.com/blog";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
 
 const categories = ['All Topics', 'Enterprise AI', 'Cloud Architecture', 'Product Engineering', 'Cyber Security'];
 
@@ -120,7 +144,7 @@ const BlogListing: React.FC = () => {
               Architectural Rigor for <em>Technical Founders</em>
             </h1>
             <p className={styles.heroSub}>
-              Deep technical blueprints, LLMOps strategies, cloud microservice patterns, and agile pod execution frameworks.
+              Technical insights on custom software development, enterprise AI engineering, cloud microservices architecture, and modern digital transformation strategies from Leapsofts lead software architects.
             </p>
 
             {/* Search Bar & Category Pills */}

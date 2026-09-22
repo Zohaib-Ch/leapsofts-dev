@@ -6,6 +6,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
@@ -256,9 +257,69 @@ const introDescription = [
   { text: ", and continuous SOC security operations monitoring. By streamlining automated static code analysis, vulnerability assessments, and multi-region database encryption networks, we engineer secure systems constructed to repel intrusion events and enforce global compliance standards.", bold: false }
 ]
 
+export function meta() {
+  const title = "Cyber Security Services | Leapsofts";
+  const description = "Enterprise-grade cybersecurity services including penetration testing, zero-trust architecture & compliance. Leapsofts protects your digital assets. Get started.";
+  const keywords = "cybersecurity services, penetration testing company, zero-trust security, enterprise security solutions, cybersecurity consulting";
+  const canonicalUrl = "https://www.leapsofts.com/services/cyber-security";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Cyber Security Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Cyber Security & Penetration Testing",
+      "description": "Enterprise-grade cybersecurity services including penetration testing, zero-trust architecture & compliance."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Cyber Security",
+          "item": "https://www.leapsofts.com/services/cyber-security"
+        }
+      ]
+    }
+  ]
+};
+
 const CyberSecurity: React.FC = () => {
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
             <IntroComponent
                 title={title}
                 description={subtitle}
@@ -289,6 +350,25 @@ const CyberSecurity: React.FC = () => {
             <DeliverMVP data={deliverMVPData} />
             <EmergingTech data={cyberSecurityData} />
             <Processes title="OUR CUSTOM CYBERSECURITY PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+            <RelatedServices
+                services={[
+                    {
+                        title: "Data Governance Services",
+                        description: "Establish zero-trust data access controls, audit trails, and compliance management.",
+                        link: "/services/data-governance"
+                    },
+                    {
+                        title: "Cloud Engineering & Security",
+                        description: "Harden cloud networks, IAM roles, and infrastructure subnets on AWS, Azure & GCP.",
+                        link: "/services/cloud-engineering"
+                    },
+                    {
+                        title: "DevOps & DevSecOps",
+                        description: "Automate security scanning, static code analysis, and container vulnerability checks.",
+                        link: "/services/devops"
+                    }
+                ]}
+            />
         </>
     );
 };

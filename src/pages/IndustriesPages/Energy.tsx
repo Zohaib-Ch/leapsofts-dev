@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENTS TO ENERGY INNOVATION",
@@ -91,10 +92,69 @@ const streamlineDescription = [
 const title = "Energy Software Development, Smart Grid Automation & IoT Telemetry";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we engineer highly resilient, security-critical ", bold: false },
-  { text: "smart grid automation systems, energy IoT telemetry architectures, and automated carbon emissions reporting engines ", bold: true },
-  { text: "designed to support the global clean energy transition. By integrating real-time telemetry from remote turbine arrays, optimizing substation power routing algorithms, and building immutable compliance data vaults, we empower utility firms and sustainable energy producers to operate with absolute uptime and transparency.", bold: false }
+  { text: "We deliver full-spectrum ", bold: false },
+  { text: "energy software development, smart grid software, and renewable energy platforms ", bold: true },
+  { text: "engineered to support clean energy transitions. By building real-time turbine IoT telemetry, load balancing algorithms, and automated carbon emissions tracking, we help utility firms operate with maximum uptime and transparency.", bold: false }
 ];
+
+export function meta() {
+  const title = "Energy Sector Software Development | Leapsofts";
+  const description = "Custom software for energy companies — grid management, asset tracking & renewable energy platforms. Leapsofts builds IoT-integrated energy solutions. Get started.";
+  const keywords = "energy software development, utilities software company, renewable energy software, smart grid software";
+  const canonicalUrl = "https://www.leapsofts.com/industries/energy";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Energy Sector Software Development",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Energy & Utility Software Engineering",
+      "description": "Custom software for energy companies — grid management, asset tracking & renewable energy platforms."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Energy Sector",
+          "item": "https://www.leapsofts.com/industries/energy"
+        }
+      ]
+    }
+  ]
+};
 
 const Energy: React.FC = () => {
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
@@ -108,6 +168,7 @@ const Energy: React.FC = () => {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -128,6 +189,25 @@ const Energy: React.FC = () => {
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" energy organizations"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Data Science & AI Solutions",
+            description: "Deploy machine learning models for predictive grid load and cell degradation forecasting.",
+            link: "/services/data-science-ai"
+          },
+          {
+            title: "Cloud Engineering & Infrastructure",
+            description: "Architect high-frequency SCADA and IoT sensor data gateways on AWS & Azure.",
+            link: "/services/cloud-engineering"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Build custom smart metering dashboards and carbon emissions compliance portals.",
+            link: "/services/custom-software-development"
+          }
+        ]}
       />
     </>
   );

@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router'
 import Partners from '../../components/Partners/Partners'
 import FAQs from '../../components/FAQs/FAQs'
 import Testimonials from '../../pages/Home/Testimonials/Testimonials'

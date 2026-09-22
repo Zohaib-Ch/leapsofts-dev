@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection from '../../components/CommitmentSection/CommitmentSection';
@@ -8,6 +8,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech from '../../components/EmergingTech/EmergingTech';
 import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO COMPLIANCE",
@@ -93,10 +94,69 @@ const streamlineDescription = [
 const title = "Compliance & RegTech Solutions, Risk Mitigation & Automated Audit Trails";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we engineer highly secure, enterprise-grade ", bold: false },
-  { text: "regulatory technology (RegTech) solutions, automated compliance checkers, and centralized audit platforms ", bold: true },
-  { text: "designed to mitigate operational risk across complex global jurisdictions. By enforcing strict zero-trust access frameworks, structuring immutable transaction audit logs, and integrating intelligent sanction screening engines, we empower organizations to confidently satisfy rigorous corporate audits and regulatory reporting mandates.", bold: false }
+  { text: "We engineer enterprise-grade ", bold: false },
+  { text: "regulatory compliance software development, risk management systems, and automated audit trail platforms ", bold: true },
+  { text: "designed for highly regulated sectors. By implementing zero-trust access controls, automated KYC/AML checks, and SOC2/HIPAA compliance engines, we help organizations satisfy strict global auditing mandates.", bold: false }
 ];
+
+export function meta() {
+  const title = "Compliance Management Software Development | Leapsofts";
+  const description = "Custom regulatory compliance software — risk management, audit trails & reporting platforms. Leapsofts builds compliance-ready systems for regulated industries.";
+  const keywords = "compliance software development, regulatory compliance software, risk management software, audit management software";
+  const canonicalUrl = "https://www.leapsofts.com/industries/compliance";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Compliance Management Software Development",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Compliance Management Software Engineering",
+      "description": "Custom regulatory compliance software — risk management, audit trails & reporting platforms."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Compliance & RegTech",
+          "item": "https://www.leapsofts.com/industries/compliance"
+        }
+      ]
+    }
+  ]
+};
 
 const Compliance: React.FC = () => {
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
@@ -110,6 +170,7 @@ const Compliance: React.FC = () => {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -130,6 +191,25 @@ const Compliance: React.FC = () => {
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" compliant organizations"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Data Governance & Compliance",
+            description: "Deploy Master Data Management (MDM) and GDPR/HIPAA compliance frameworks.",
+            link: "/services/data-governance"
+          },
+          {
+            title: "Cyber Security & Auditing",
+            description: "Conduct penetration audits and zero-trust vulnerability scans.",
+            link: "/services/cyber-security"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Build custom enterprise risk management software and reporting dashboards.",
+            link: "/services/custom-software-development"
+          }
+        ]}
       />
     </>
   );

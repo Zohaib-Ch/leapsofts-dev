@@ -28,7 +28,7 @@
     align-items: center;
     padding: clamp(20px, 4vw, 30px) 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .stackItem:hover {
@@ -64,7 +64,7 @@
     height: 110px;
     position: relative;
     filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     flex-shrink: 0;
     z-index: 1;
 }
@@ -85,7 +85,7 @@
     justify-content: center;
     position: relative;
     z-index: 1;
-    transition: all 0.4s ease;
+    transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, opacity 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
 }
 
 .hexagonWrapper:hover .hexagonBorder {
@@ -142,7 +142,7 @@
     max-width: 90%;
     overflow: hidden;
     text-overflow: ellipsis;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .hexagonWrapper:hover .itemValue {

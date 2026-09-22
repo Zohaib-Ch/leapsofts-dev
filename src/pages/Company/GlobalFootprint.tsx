@@ -1,5 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import styles from './GlobalFootprint.module.css';
 import { motion } from 'framer-motion';
+import { useContactModal } from '../../context/ContactModalContext';
+import Button from '../../components/Button/Button';
+import MetaSEO from '../../components/SEO/MetaSEO';
+import { getSanityAboutPage } from '../../sanity/queries';
+import type { SanityAboutPage } from '../../sanity/types';
+import { renderFormattedTitle } from '../../utils/titleFormatter';
+import { DEFAULT_GLOBAL_PAGE_DATA } from '../../data/companyFallback';
 import {
   Award,
   ShieldCheck,
@@ -11,9 +19,30 @@ import {
   FileCheck,
   Building2,
 } from 'lucide-react';
-import Button from '../../components/Button/Button';
-import { useContactModal } from '../../context/ContactModalContext';
-import styles from './GlobalFootprint.module.css';
+export function meta() {
+  const title = "Global Offices & Compliance | Leapsofts";
+  const description = "Leapsofts operates across strategic global offices, delivering compliant software solutions for enterprises in the UAE, USA, UK, and beyond.";
+  const keywords = "Leapsofts global offices, software delivery hubs, Dubai HQ, US software office";
+  const canonicalUrl = "https://www.leapsofts.com/about/global-footprint";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
 
 const ribbonData = [
   {
@@ -162,25 +191,38 @@ const slideRightVariant = {
   },
 };
 
+export { DEFAULT_GLOBAL_PAGE_DATA };
+
 const GlobalFootprint: React.FC = () => {
   const { openContactModal } = useContactModal();
+  const [sanityPage, setSanityPage] = useState<SanityAboutPage>(DEFAULT_GLOBAL_PAGE_DATA);
 
   useEffect(() => {
     document.title = 'Global Footprint & Security Compliance | ISO, HIPAA, SOC2 | Leapsofts';
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta');
-      metaDesc.setAttribute('name', 'description');
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.setAttribute(
-      'content',
-      'Leapsofts operates global delivery hubs in Dubai and the USA with ISO 27001, HIPAA, SOC 2, and GDPR security compliance readiness for enterprise software.'
-    );
+    getSanityAboutPage('aboutGlobalPage')
+      .then((data) => {
+        if (data) {
+          setSanityPage((prev) => {
+            const isIdentical = JSON.stringify(prev) === JSON.stringify(data);
+            return isIdentical ? prev : data;
+          });
+        } else {
+          setSanityPage(DEFAULT_GLOBAL_PAGE_DATA);
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to load Global Footprint page data from Sanity:', err);
+        setSanityPage(DEFAULT_GLOBAL_PAGE_DATA);
+      });
   }, []);
 
   return (
     <div className={styles.globalPage}>
+      <MetaSEO
+        seo={sanityPage?.seo}
+        defaultTitle="Global Footprint & Security Compliance | ISO, HIPAA, SOC2 | Leapsofts"
+        defaultDescription="Leapsofts operates global delivery hubs in Dubai and the USA with ISO 27001, HIPAA, SOC 2, and GDPR security compliance readiness for enterprise software."
+      />
       {/* Chapter 1: Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
@@ -190,12 +232,19 @@ const GlobalFootprint: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className={styles.label}>GLOBAL FOOTPRINT & COMPLIANCE</span>
+            <span className={styles.label}>{sanityPage?.hero?.label || 'GLOBAL FOOTPRINT & COMPLIANCE'}</span>
             <h1 className={styles.heroTitle}>
-              Engineered for <em>International Scale</em> & Security
+              {renderFormattedTitle({
+                title: sanityPage?.hero?.title,
+                titleMain: (sanityPage?.hero as any)?.titleMain,
+                titleAccent: (sanityPage?.hero as any)?.titleAccent,
+                titleEnd: (sanityPage?.hero as any)?.titleEnd,
+                defaultAccentPhrase: 'International Scale',
+                defaultTitle: <>Engineered for <em>International Scale</em> & Security</>,
+              })}
             </h1>
             <p className={styles.heroSub}>
-              Operating across strategic regional hubs in Dubai & North America with rigorous ISO 27001, HIPAA, SOC 2, and GDPR compliance standards.
+              {sanityPage?.hero?.subtitle || 'Operating across 5 strategic global offices with UAE engineering HQ in Dubai & North American hubs, delivering compliant enterprise software development under ISO 27001, HIPAA, SOC 2, and GDPR standards.'}
             </p>
           </motion.div>
 
@@ -203,8 +252,7 @@ const GlobalFootprint: React.FC = () => {
             className={styles.ribbonGrid}
             variants={staggerContainer}
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            animate="visible"
           >
             {ribbonData.map((item, idx) => (
               <motion.div key={idx} className={styles.ribbonCard} variants={cardChildVariant}>

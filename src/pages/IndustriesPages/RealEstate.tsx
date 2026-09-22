@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENTS TO REAL ESTATE LEADERS",
@@ -91,10 +92,69 @@ const streamlineDescription = [
 const title = "Real Estate Software Development, PropTech Solutions & Property Management Systems";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we architect highly performant, security-first ", bold: false },
-  { text: "PropTech platforms, smart building IoT networks, and automated HOA management ecosystems ", bold: true },
-  { text: "designed to streamline operations across expansive property portfolios. By deploying unified digital lease execution paths, automating subcontractor maintenance dispatches, and integrating robust tenant billing gateways, we empower asset owners and property managers to maximize occupancy and yields with absolute ease.", bold: false }
+  { text: "We deliver full-spectrum ", bold: false },
+  { text: "real estate software development, PropTech software solutions, and property management systems ", bold: true },
+  { text: "engineered for asset managers, real estate agencies, and property developers. By deploying automated lease execution paths, tenant portal mobile apps, and smart building IoT bridges, we optimize property yields and occupancy.", bold: false }
 ];
+
+export function meta() {
+  const title = "Real Estate Software Development Services | Leapsofts";
+  const description = "Custom real estate software — property listing platforms, CRM & investment analytics tools. Leapsofts builds proptech solutions for modern agencies. Get a quote.";
+  const keywords = "real estate software development, proptech software company, property management software, MLS integration";
+  const canonicalUrl = "https://www.leapsofts.com/industries/real-estate";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Real Estate Software Development Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "PropTech & Real Estate Software Engineering",
+      "description": "Custom real estate software — property listing platforms, CRM & investment analytics tools."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Real Estate",
+          "item": "https://www.leapsofts.com/industries/real-estate"
+        }
+      ]
+    }
+  ]
+};
 
 const RealEstate: React.FC = () => {
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
@@ -108,6 +168,7 @@ const RealEstate: React.FC = () => {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -128,6 +189,25 @@ const RealEstate: React.FC = () => {
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" real estate businesses"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Web App Development",
+            description: "Engineer custom property listing portals and tenant management dashboards.",
+            link: "/services/web-app-development"
+          },
+          {
+            title: "Mobile App Development",
+            description: "Build iOS & Android mobile apps for tenant maintenance requests and digital keys.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Build tailored MLS integrations, lease execution engines, and HOA portals.",
+            link: "/services/custom-software-development"
+          }
+        ]}
       />
     </>
   );

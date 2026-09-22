@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, type Variants } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import { Clock, Calendar, ArrowRight } from 'lucide-react';
 import { blogsData } from '../../data/blogsData';
 import Button from '../Button/Button';

@@ -6,6 +6,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import capabilitiesImg from '../../assets/capabilities_3d.png';
 import platformImg from '../../assets/capabilities_platform.png';
 import laptopImg from "../../assets/about_laptop_3d.png";
@@ -252,14 +253,74 @@ const title = "Proof of Concept Development, Rapid Prototyping & Technical Feasi
 const subtitle = "";
 
 const introDescription = [
-  { text: "We engineer highly functional, lightweight ", bold: false },
-  { text: "Proof of Concept (POC) systems and high-fidelity prototypes", bold: true },
-  { text: ", validating complex algorithmic logic, high-concurrency data flows, and third-party integrations before full-scale investments. By constructing isolated sandbox platforms, executing technical boundary stress runs, and validating core architectural feasibility, we provide the absolute evidence needed to unlock executive alignment and launch features safely.", bold: false }
+  { text: "We deliver full-spectrum ", bold: false },
+  { text: "proof of concept development services & rapid prototype engineering ", bold: true },
+  { text: "to validate complex algorithms, technical integrations, and platform performance before full-scale software investments. As a trusted PoC development company, we construct isolated sandboxes to de-risk technology decisions and secure executive buy-in.", bold: false }
 ];
+
+export function meta() {
+  const title = "Proof of Concept Development Services | Leapsofts";
+  const description = "Build a validated PoC in weeks, not months. Leapsofts designs focused proof-of-concept builds to de-risk your investment before full product development.";
+  const keywords = "proof of concept development, PoC development company, software prototype development, MVP proof of concept";
+  const canonicalUrl = "https://www.leapsofts.com/services/proof-of-concept-development";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Proof of Concept Development Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Proof of Concept & Prototyping Services",
+      "description": "Build a validated PoC in weeks, not months."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Proof of Concept Development",
+          "item": "https://www.leapsofts.com/services/proof-of-concept-development"
+        }
+      ]
+    }
+  ]
+};
 
 const ProofOfConceptDevelopment: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -295,6 +356,25 @@ const ProofOfConceptDevelopment: React.FC = () => {
       />
       <DeliverMVP data={deliverMVPData} />
       <Processes title="OUR PROOF OF CONCEPT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <RelatedServices
+        services={[
+          {
+            title: "Product Ideation Workshop",
+            description: "Refine user flows and feature sets during interactive discovery sessions.",
+            link: "/services/ideation-workshop"
+          },
+          {
+            title: "Fixed Price Software Development",
+            description: "Transition your validated PoC into a turnkey, budget-guaranteed software build.",
+            link: "/services/fixed-price"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Scale your validated prototype into a full enterprise software platform.",
+            link: "/services/custom-software-development"
+          }
+        ]}
+      />
     </>
   );
 };

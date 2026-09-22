@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENTS TO MEDIA INNOVATION",
@@ -91,10 +92,69 @@ const streamlineDescription = [
 const title = "Media & Entertainment Software Development, Low-Latency Streaming & Digital Rights";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we build high-fidelity, high-concurrency ", bold: false },
-  { text: "video and music streaming architectures, esports platform portals, and digital rights management (DRM) systems ", bold: true },
-  { text: "engineered to deliver flawless media playback to global audiences. By implementing low-latency CDN routing, secure server-side dynamic ad insertions, and zero-knowledge paywall architectures, we help media companies and digital creators scale their content distribution with absolute telemetry controls.", bold: false }
+  { text: "We deliver full-scale ", bold: false },
+  { text: "entertainment software development services, low-latency media streaming platforms, and digital rights management (DRM) architectures ", bold: true },
+  { text: "engineered for global content reach. By building multi-bitrate HLS/DASH video pipelines, server-side ad insertions (SSAI), and esports portals, we help media companies scale audience engagement.", bold: false }
 ];
+
+export function meta() {
+  const title = "Entertainment Software Development Services | Leapsofts";
+  const description = "Custom media & entertainment software — streaming platforms, content management & audience engagement tools. Leapsofts builds digital entertainment solutions.";
+  const keywords = "entertainment software development, media software company, streaming platform development, content management software";
+  const canonicalUrl = "https://www.leapsofts.com/industries/entertainment";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Entertainment Software Development Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Media & Entertainment Software Engineering",
+      "description": "Custom media & entertainment software — streaming platforms, content management & audience engagement tools."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Media & Entertainment",
+          "item": "https://www.leapsofts.com/industries/entertainment"
+        }
+      ]
+    }
+  ]
+};
 
 const Entertainment: React.FC = () => {
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
@@ -108,6 +168,7 @@ const Entertainment: React.FC = () => {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -128,6 +189,25 @@ const Entertainment: React.FC = () => {
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" entertainment businesses"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Web App Development",
+            description: "Build custom high-concurrency media portals and streaming web interfaces.",
+            link: "/services/web-app-development"
+          },
+          {
+            title: "Mobile App Development",
+            description: "Engineer native iOS & Android video and audio streaming mobile apps.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Cloud Engineering & Infrastructure",
+            description: "Architect global CDN distribution and serverless transcoding pipelines.",
+            link: "/services/cloud-engineering"
+          }
+        ]}
       />
     </>
   );

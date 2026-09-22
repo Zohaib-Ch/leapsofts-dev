@@ -12,6 +12,8 @@ node_modules
 node_modules
 dist
 dist-ssr
+build/
+.react-router/
 *.local
 
 # Editor directories and files
@@ -29,3 +31,8 @@ dist-ssr
 .env.example
 skills
 scripts
+
+# Local backup and report files
+index.html.bak
+seo_audit_report.md
+src/components/SEOHead/

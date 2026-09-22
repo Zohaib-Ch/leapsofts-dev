@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection from '../../components/CommitmentSection/CommitmentSection';
@@ -8,6 +8,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech from '../../components/EmergingTech/EmergingTech';
 import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO STARTUPS",
@@ -98,6 +99,65 @@ const introDescription = [
   { text: "designed to take disruptive ideas to market in record time. By establishing rapid prototyping sandboxes, designing cost-efficient serverless infrastructures, and building pitch-perfect interactive demonstrations, we provide early-stage and high-growth startups with the technical agility required to validate ideas and secure investor funding.", bold: false }
 ];
 
+export function meta() {
+  const title = "Software Development for Startups | Leapsofts";
+  const description = "Launch your startup MVP in 3-5 months with Leapsofts. Expert custom software engineering, product strategy & scalable architecture for venture-backed teams.";
+  const keywords = "software development for startups, startup MVP development, tech startup software company, MVP developers for startups";
+  const canonicalUrl = "https://www.leapsofts.com/industries/startups";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Software Development for Startups",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Startup MVP & Software Engineering",
+      "description": "Launch your startup MVP in 3-5 months with Leapsofts."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Startups",
+          "item": "https://www.leapsofts.com/industries/startups"
+        }
+      ]
+    }
+  ]
+};
+
 const Startups: React.FC = () => {
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
@@ -110,6 +170,7 @@ const Startups: React.FC = () => {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -130,6 +191,26 @@ const Startups: React.FC = () => {
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" disruptive startups"
+      />
+      <RelatedServices
+        title="Recommended Services for Startups"
+        services={[
+          {
+            title: "Proof of Concept & MVP Development",
+            description: "Launch your validated product in 3-5 months with zero compromise on scalability.",
+            link: "/services/proof-of-concept-development"
+          },
+          {
+            title: "Custom Web App Development",
+            description: "Build high-performance SaaS web applications designed for rapid investor scaling.",
+            link: "/services/web-app-development"
+          },
+          {
+            title: "Dedicated Development Teams",
+            description: "Scale your engineering capacity instantly with embedded senior developers.",
+            link: "/services/dedicated-teams"
+          }
+        ]}
       />
     </>
   );

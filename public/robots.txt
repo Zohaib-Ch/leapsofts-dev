@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /api/
+Disallow: /_next/
+Disallow: /studio/
+
+Sitemap: https://www.leapsofts.com/sitemap.xml

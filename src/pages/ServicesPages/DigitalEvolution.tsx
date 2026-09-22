@@ -7,6 +7,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
@@ -212,14 +213,74 @@ const title = "Digital Evolution, Legacy Modernization & Enterprise Systems Tran
 const subtitle = "";
 
 const introDescription = [
-  { text: "We orchestrate continuous technical and operational ", bold: false },
-  { text: "enterprise digital transformations", bold: true },
-  { text: ", decoupling obsolete monolithic core networks, modernizing high-latency data pathways, and automating customer-facing workflows. By combining distributed cloud-native microservices, deep analytics integrations, and robust security blueprints, we guide established enterprises through zero-downtime modernization processes that unlock sustained agility.", bold: false }
+  { text: "We deliver full-scale ", bold: false },
+  { text: "digital transformation services & digital evolution consulting ", bold: true },
+  { text: "to re-architect monolithic core networks, modernize data pathways, and automate customer-facing workflows. As an enterprise digital transformation partner, we build cloud-native microservices and intelligent process automations with zero business downtime.", bold: false }
 ];
+
+export function meta() {
+  const title = "Digital Transformation Services | Leapsofts";
+  const description = "End-to-end digital transformation consulting & implementation. Leapsofts modernizes enterprise operations through technology strategy & AI adoption. Talk to us.";
+  const keywords = "digital transformation services, digital evolution consulting, enterprise digital transformation, technology modernization";
+  const canonicalUrl = "https://www.leapsofts.com/services/digital-evolution";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Digital Transformation Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Digital Transformation & Technology Modernization",
+      "description": "End-to-end digital transformation consulting & implementation."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Digital Evolution",
+          "item": "https://www.leapsofts.com/services/digital-evolution"
+        }
+      ]
+    }
+  ]
+};
 
 const DigitalEvolution: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -250,6 +311,25 @@ const DigitalEvolution: React.FC = () => {
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={emergingTechData} />
       <Processes title="OUR CUSTOM DIGITAL EVOLUTION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <RelatedServices
+        services={[
+          {
+            title: "Application Re-Engineering",
+            description: "Modernize monolithic legacy applications into decoupled cloud-native microservices.",
+            link: "/services/app-reengineering"
+          },
+          {
+            title: "Cloud Engineering & Architecture",
+            description: "Design resilient cloud infrastructure and high-availability server clusters on AWS & Azure.",
+            link: "/services/cloud-engineering"
+          },
+          {
+            title: "Data Science & AI Solutions",
+            description: "Embed machine learning algorithms and predictive telemetry into core workflows.",
+            link: "/services/data-science-ai"
+          }
+        ]}
+      />
     </>
   );
 };

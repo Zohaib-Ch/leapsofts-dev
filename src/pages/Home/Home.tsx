@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router';
+import type { Route } from "../../../.react-router/types/app/+types/routes";
 import Services from './CompanyServices/Services';
 import About from './About/About';
 import StreamlineSuccess from './Streamline/StreamlineSuccess';
@@ -13,18 +14,43 @@ import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import Figures from './Figures/Figures';
 import IndustrySlider from '../../components/IndustrySlider/IndustrySlider';
 import style from './home.module.css';
-import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityHomePage } from '../../sanity/queries';
 import type { SanityHomePage } from '../../sanity/types';
 
-const Home = () => {
-  const [sanityData, setSanityData] = useState<SanityHomePage | null>(null);
+export async function loader() {
+  const data = await getSanityHomePage();
+  return { sanityData: data };
+}
 
-  useEffect(() => {
-    getSanityHomePage().then((data) => {
-      if (data) setSanityData(data);
-    });
-  }, []);
+export function meta({ data }: Route.MetaArgs) {
+  const sanityData = data?.sanityData;
+  const title = sanityData?.seo?.metaTitle || "Custom Software Development Company | Leapsofts";
+  const description = sanityData?.seo?.metaDescription || "Leapsofts engineers enterprise-grade custom software, cloud platforms & AI solutions. Launch your MVP in 3-5 months. Schedule a free strategy session today.";
+  const keywords = sanityData?.seo?.keywords || "custom software development, enterprise software engineering, MVP development, cloud engineering, AI development company, dedicated development teams";
+  const canonicalUrl = sanityData?.seo?.canonicalUrl || "https://www.leapsofts.com/";
+  const ogImage = sanityData?.seo?.ogImage ? sanityData.seo.ogImage : "https://www.leapsofts.com/logo/Leap-soft-01.png";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: ogImage },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const Home = ({ loaderData }: Route.ComponentProps) => {
+  const { sanityData } = loaderData;
 
   const title = sanityData?.hero?.title || "Custom Software Engineered for Enterprise Velocity";
   const title2 = sanityData?.hero?.title2 || "Launch your product in 3-5 months with zero compromise on scalability.";
@@ -168,13 +194,54 @@ const Home = () => {
     : processPhasesDefault;
 
   const phaseLabels = sanityData?.processes?.phaseLabels && sanityData.processes.phaseLabels.length > 0
-    ? sanityData.processes.phaseLabels
+    ? (sanityData.processes.phaseLabels as string[])
     : phaseLabelsDefault;
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Leapsofts",
+    "url": "https://www.leapsofts.com/",
+    "logo": "https://www.leapsofts.com/logo/Leap-soft-01.png",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-123-456-7890",
+      "contactType": "customer service"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/leapsofts/"
+    ]
+  };
+
+  const homeSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com",
+        "logo": "https://www.leapsofts.com/logo/Leap-soft-01.png",
+        "sameAs": [
+          "https://twitter.com/leapsofts",
+          "https://www.linkedin.com/company/leapsofts"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.leapsofts.com/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
+  };
 
   return (
     <>
-      <MetaSEO seo={sanityData?.seo} defaultTitle="Leapsofts | Custom Software Engineered for Enterprise Velocity" />
-
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <IntroComponent
         title={title}
         title2={title2}

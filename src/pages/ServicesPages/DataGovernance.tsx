@@ -6,6 +6,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
@@ -251,14 +252,74 @@ const title = "Enterprise Data Governance, Data Cataloging & Compliance Shields"
 const subtitle = "";
 
 const introDescription = [
-  { text: "We deliver advanced data cataloging, custom ", bold: false },
-  { text: "Master Data Management (MDM) frameworks", bold: true },
-  { text: ", and secure data lineage orchestration. By streamlining metadata classifications, compliance shielding registries (GDPR, HIPAA), and automated access directories, we help enterprises deploy robust data governance systems built to maximize data utility and protect corporate integrity.", bold: false }
+  { text: "We provide comprehensive ", bold: false },
+  { text: "data governance services & enterprise data management ", bold: true },
+  { text: "solutions including Master Data Management (MDM), data cataloging, and GDPR/HIPAA compliance frameworks. We help organizations transform fragmented databases into secure, highly audited sources of truth.", bold: false }
 ]
+
+export function meta() {
+  const title = "Data Governance Services | Leapsofts";
+  const description = "Enterprise data governance frameworks to ensure compliance, accuracy & security. Leapsofts builds robust data strategies for regulated industries. Consult us.";
+  const keywords = "data governance services, enterprise data management, data compliance services, data quality management";
+  const canonicalUrl = "https://www.leapsofts.com/services/data-governance";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Data Governance Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Data Governance & Compliance",
+      "description": "Enterprise data governance frameworks to ensure compliance, accuracy & security."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Data Governance",
+          "item": "https://www.leapsofts.com/services/data-governance"
+        }
+      ]
+    }
+  ]
+};
 
 const DataGovernance: React.FC = () => {
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
             <IntroComponent
                 title={title}
                 description={subtitle}
@@ -292,6 +353,25 @@ const DataGovernance: React.FC = () => {
                 title="OUR CUSTOM DATA GOVERNANCE PROCESS"
                 phaseLabels={phaseLabels}
                 processPhases={processesData}
+            />
+            <RelatedServices
+                services={[
+                    {
+                        title: "Data Science & AI Solutions",
+                        description: "Leverage governed data assets to train predictive machine learning models.",
+                        link: "/services/data-science-ai"
+                    },
+                    {
+                        title: "Cyber Security & Compliance Audits",
+                        description: "Audit data encryption, OAuth2 keychains, and zero-trust access boundaries.",
+                        link: "/services/cyber-security"
+                    },
+                    {
+                        title: "Cloud Engineering & Data Warehousing",
+                        description: "Architect secure data lakes on AWS Redshift, Snowflake, and Azure Synapse.",
+                        link: "/services/cloud-engineering"
+                    }
+                ]}
             />
         </>
     );

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import styles from './partners.module.css'
 import PartnerHero from '../../components/PartnerHero/PartnerHero'
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
 import InfoGrid from '../../components/InfoGrid/InfoGrid'
@@ -6,7 +7,30 @@ import { type InfoGridProps } from '../../components/InfoGrid/InfoGrid'
 import ContactForm from '../../components/ContactForm/ContactForm'
 import Processes from '../../components/Processes/Processes'
 import { type ProcessPhase } from '../../components/Processes/Processes'
-import styles from './partners.module.css'
+export function meta() {
+  const title = "Strategic Technology Partnerships | Leapsofts";
+  const description = "Leapsofts partners with global technology leaders to deliver cutting-edge software solutions. Explore our strategic partnerships and certified alliances.";
+  const keywords = "technology partnerships, software development partners, certified technology partner, strategic technology alliances";
+  const canonicalUrl = "https://www.leapsofts.com/partners";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
 
 const Partners: React.FC = () => {
   useEffect(() => {
@@ -250,16 +274,19 @@ const Partners: React.FC = () => {
           title="Strategic"
           description={[
             [
-              { text: "we empower organizations to achieve meaningful business transformation through ", bold: false },
-              { text: "AI-driven ", bold: true },
-              { text: "strategic partnerships and enterprise software development", bold: true },
-              { text: ". By combining advanced ", bold: false },
+              { text: "At Leapsofts, we empower organizations to achieve meaningful business transformation through ", bold: false },
+              { text: "strategic technology partnerships ", bold: true },
+              { text: "with AWS, Microsoft Azure, and Salesforce, alongside high-performance ", bold: false },
+              { text: "custom software development", bold: true },
+              { text: " and ", bold: false },
+              { text: "enterprise software engineering", bold: true },
+              { text: " co-delivery models. By combining advanced ", bold: false },
               { text: "artificial intelligence", bold: true },
               { text: ", ", bold: false },
-              { text: "custom software engineering", bold: true },
-              { text: ", and deep domain expertise, we help businesses design, build, and scale intelligent digital solutions that drive measurable impact.", bold: false },
+              { text: "cloud engineering", bold: true },
+              { text: ", and deep domain expertise, we help businesses design, build, and scale intelligent digital solutions.", bold: false },
             ],
-            "Our approach extends beyond traditional software development. With 2 decades of software experience, from strategy and architecture to development, integration, and continuous optimization, every solution is engineered to align with long-term business objectives.",
+            "Our collaborative ecosystem extends beyond traditional software outsourcing to deliver mutual growth, joint technological innovation, and scalable co-development models.",
           ]}
         />
       </div>

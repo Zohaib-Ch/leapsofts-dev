@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styles from './Contact.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Globe,
@@ -14,10 +15,33 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import ContactForm from '../../components/ContactForm/ContactForm';
-import styles from './Contact.module.css';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityContactPage } from '../../sanity/queries';
 import type { SanityContactPage } from '../../sanity/types';
+export function meta() {
+  const title = "Contact Leapsofts | Get a Free Software Consultation";
+  const description = "Ready to start your project? Contact Leapsofts today for a free software strategy consultation. Let's discuss your goals, timeline, and budget.";
+  const keywords = "contact Leapsofts, software development consultation, hire software developers, software development company contact";
+  const canonicalUrl = "https://www.leapsofts.com/contact";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
 
 const ribbonData = [
   {
@@ -127,8 +151,33 @@ const Contact: React.FC = () => {
     setOpenFaqIndex((prev) => (prev === index ? null : index));
   };
 
+const contactSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "name": "Leapsofts",
+      "image": "https://www.leapsofts.com/logo/Leap-soft-01.png",
+      "url": "https://www.leapsofts.com/contact",
+      "telephone": "+1-123-456-7890",
+      "priceRange": "$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "AE",
+        "addressLocality": "Dubai"
+      }
+    },
+    {
+      "@type": "ContactPage",
+      "name": "Contact Leapsofts",
+      "url": "https://www.leapsofts.com/contact"
+    }
+  ]
+};
+
   return (
     <div className={styles.contactPage}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }} />
       <MetaSEO
         seo={sanityData?.seo}
         defaultTitle="Contact Us | Custom Software & AI Engineering Consultation | Leapsofts"
@@ -148,7 +197,7 @@ const Contact: React.FC = () => {
               Let's Build Your <em>Next Enterprise System</em>
             </h1>
             <p className={styles.heroSub}>
-              Have an enterprise software initiative, AI project, or product re-engineering roadmap? Speak directly with our solution architects and executive leads.
+              Have an enterprise software initiative, AI project, or product re-engineering roadmap? Book a free 30-minute enterprise software strategy session directly with our lead architects and executive team.
             </p>
           </motion.div>
 

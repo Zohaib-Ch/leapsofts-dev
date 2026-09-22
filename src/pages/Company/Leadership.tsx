@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import styles from './Leadership.module.css';
 import { motion } from 'framer-motion';
 import {
   Users,
@@ -11,9 +12,35 @@ import {
 } from 'lucide-react';
 import Button from '../../components/Button/Button';
 import { useContactModal } from '../../context/ContactModalContext';
-import { getSanityTeamMembers } from '../../sanity/queries';
-import type { SanityTeamMember } from '../../sanity/types';
-import styles from './Leadership.module.css';
+import MetaSEO from '../../components/SEO/MetaSEO';
+import { getSanityTeamMembers, getSanityAboutPage } from '../../sanity/queries';
+import type { SanityTeamMember, SanityAboutPage } from '../../sanity/types';
+import { renderFormattedTitle } from '../../utils/titleFormatter';
+import { DEFAULT_LEADERSHIP_PAGE_DATA } from '../../data/companyFallback';
+export function meta() {
+  const title = "Engineering Leadership Team | Leapsofts";
+  const description = "Meet the engineering leaders behind Leapsofts — a global team of CTOs, architects, and domain experts committed to technical excellence and client success.";
+  const keywords = "Leapsofts leadership, CTO team, software engineering leaders, software architects";
+  const canonicalUrl = "https://www.leapsofts.com/about/leadership";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
 
 const ribbonData = [
   {
@@ -139,26 +166,33 @@ const cardChildVariant = {
   },
 };
 
+export { DEFAULT_LEADERSHIP_PAGE_DATA };
+
 const Leadership: React.FC = () => {
   const { openContactModal } = useContactModal();
   const [sanityTeam, setSanityTeam] = React.useState<SanityTeamMember[] | null>(null);
+  const [sanityPage, setSanityPage] = React.useState<SanityAboutPage>(DEFAULT_LEADERSHIP_PAGE_DATA);
 
   useEffect(() => {
     document.title = 'Executive Engineering Leadership | CEO Huzaifa Rasheed | Leapsofts';
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta');
-      metaDesc.setAttribute('name', 'description');
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.setAttribute(
-      'content',
-      'Meet the executive leaders, AI researchers, and cloud architects behind Leapsofts. Led by CEO & Co-Founder Huzaifa Rasheed, building custom enterprise software solutions.'
-    );
-
     getSanityTeamMembers().then((data) => {
       if (data) setSanityTeam(data);
     });
+    getSanityAboutPage('aboutLeadershipPage')
+      .then((data) => {
+        if (data) {
+          setSanityPage((prev) => {
+            const isIdentical = JSON.stringify(prev) === JSON.stringify(data);
+            return isIdentical ? prev : data;
+          });
+        } else {
+          setSanityPage(DEFAULT_LEADERSHIP_PAGE_DATA);
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to load Leadership page data from Sanity:', err);
+        setSanityPage(DEFAULT_LEADERSHIP_PAGE_DATA);
+      });
   }, []);
 
   const ceoMember = React.useMemo(() => {
@@ -188,6 +222,11 @@ const Leadership: React.FC = () => {
 
   return (
     <div className={styles.leadershipPage}>
+      <MetaSEO
+        seo={sanityPage?.seo}
+        defaultTitle="Executive Engineering Leadership | CEO Huzaifa Rasheed | Leapsofts"
+        defaultDescription="Meet the executive leaders, AI researchers, and cloud architects behind Leapsofts. Led by CEO & Co-Founder Huzaifa Rasheed, building custom enterprise software solutions."
+      />
       {/* Chapter 1: Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
@@ -197,12 +236,19 @@ const Leadership: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className={styles.label}>EXECUTIVE LEADERSHIP</span>
+            <span className={styles.label}>{sanityPage?.hero?.label || 'EXECUTIVE LEADERSHIP'}</span>
             <h1 className={styles.heroTitle}>
-              Led by <em>Founders & Architects</em>, Not Sales Reps
+              {renderFormattedTitle({
+                title: sanityPage?.hero?.title,
+                titleMain: (sanityPage?.hero as any)?.titleMain,
+                titleAccent: (sanityPage?.hero as any)?.titleAccent,
+                titleEnd: (sanityPage?.hero as any)?.titleEnd,
+                defaultAccentPhrase: 'Founders & Architects',
+                defaultTitle: <>Led by <em>Founders & Architects</em>, Not Sales Reps</>,
+              })}
             </h1>
             <p className={styles.heroSub}>
-              Direct strategic partnerships with technology founders, AI researchers, and cloud architects who have engineered over 100+ mission-critical enterprise systems.
+              {sanityPage?.hero?.subtitle || 'Direct strategic partnerships with global CTOs, software architects, and domain experts who have engineered over 100+ mission-critical custom enterprise systems.'}
             </p>
           </motion.div>
 
@@ -210,8 +256,7 @@ const Leadership: React.FC = () => {
             className={styles.ribbonGrid}
             variants={staggerContainer}
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            animate="visible"
           >
             {ribbonData.map((item, idx) => (
               <motion.div key={idx} className={styles.ribbonCard} variants={cardChildVariant}>

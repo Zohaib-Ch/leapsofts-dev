@@ -6,6 +6,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures'
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP'
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes'
+import RelatedServices from '../../components/RelatedServices/RelatedServices'
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
@@ -252,14 +253,74 @@ const title = "Enterprise Headless Shopify Development & E-Commerce Engineering"
 const subtitle = "";
 
 const introDescription = [
-  { text: "We engineer highly optimized, high-converting ", bold: false },
-  { text: "headless Shopify storefronts using Hydrogen & Oxygen", bold: true },
-  { text: ", custom private App installations, and secure ERP/inventory integrations. By leveraging advanced Liquid customizations, Shopify Plus API layers, and secure payment pathways, we deliver fast, conversion-optimized e-commerce sites constructed for heavy transactional loads.", bold: false }
+  { text: "As a leading ", bold: false },
+  { text: "Shopify development company & eCommerce engineering partner", bold: true },
+  { text: ", we build custom Shopify themes, Hydrogen & Oxygen headless storefronts, private app integrations, and zero-downtime database migrations. We help retail brands engineer high-converting, lightning-fast digital storefronts.", bold: false }
 ]
+
+export function meta() {
+  const title = "Shopify Development Services | Leapsofts";
+  const description = "Expert Shopify store development, custom theme design & app integration. Leapsofts builds high-converting Shopify eCommerce stores. Start your project.";
+  const keywords = "Shopify development company, Shopify store development, custom Shopify theme, Shopify ecommerce development";
+  const canonicalUrl = "https://www.leapsofts.com/services/shopify";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Shopify Development Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Shopify eCommerce Development",
+      "description": "Expert Shopify store development, custom theme design & app integration."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Shopify",
+          "item": "https://www.leapsofts.com/services/shopify"
+        }
+      ]
+    }
+  ]
+};
 
 const Shopify: React.FC = () => {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -290,6 +351,25 @@ const Shopify: React.FC = () => {
       <DeliverMVP data={deliverMVPData} />
       <EmergingTech data={emergingTechData} />
       <Processes title="OUR CUSTOM SHOPIFY DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <RelatedServices
+        services={[
+          {
+            title: "Web App Development",
+            description: "Build scalable web applications and custom merchant admin portals.",
+            link: "/services/web-app-development"
+          },
+          {
+            title: "Mobile App Development",
+            description: "Engineer native iOS & Android shopping applications for mobile commerce.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Salesforce Development & CRM Integration",
+            description: "Sync your Shopify store with Salesforce Sales & Marketing Clouds.",
+            link: "/services/salesforce"
+          }
+        ]}
+      />
     </>
   )
 }

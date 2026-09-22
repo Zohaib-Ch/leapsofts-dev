@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, type Variants } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Swiper, SwiperSlide, useSwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import type { Swiper as SwiperClass } from 'swiper';

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useMemo } from 'react';
 import { Plus, Minus } from 'lucide-react';
 import styles from './FAQs.module.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import fetchFaqs from '../../services/FAQService';
 
 interface FAQItem {
@@ -41,8 +41,22 @@ const FAQs: React.FC<FAQsProps> = ({
         return null;
     }
 
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+            }
+        }))
+    };
+
     return (
         <section className={styles.section}>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <div className={styles.container}>
                 <span className={styles.sectionLabel}>FAQS</span>
 

@@ -18,7 +18,6 @@ interface IntroComponentProps {
 const IntroComponent: React.FC<IntroComponentProps> = ({
     title,
     title2,
-    description,
     videoSrc = "/bg_video/leapsofts2.mp4",
     buttonText = "Schedule a Consultation",
     onButtonClick,
@@ -26,7 +25,6 @@ const IntroComponent: React.FC<IntroComponentProps> = ({
 }) => {
 
     const { openContactModal } = useContactModal();
-    console.log(description);
     const handleClick = () => {
         openContactModal();
         onButtonClick && onButtonClick();
@@ -39,6 +37,8 @@ const IntroComponent: React.FC<IntroComponentProps> = ({
                 loop
                 muted
                 playsInline
+                preload="metadata"
+                poster="/hero-poster.webp"
                 className={styles.videoBackground}
             >
                 <source src={videoSrc} type="video/mp4" />
@@ -50,7 +50,7 @@ const IntroComponent: React.FC<IntroComponentProps> = ({
             <div className={styles.container}>
                 <div className={styles.content}>
                     <h1 className={styles.title}>{title}</h1>
-                    {title2 && <h2 className={styles.title} style={{ marginTop: '-0.5rem', fontSize: '2.5rem', opacity: 0.9 }}>{title2}</h2>}
+                    {title2 && <span className={styles.title} style={{ display: 'block', marginTop: '-0.5rem', fontSize: '2.5rem', opacity: 0.9 }}>{title2}</span>}
                     <p className={styles.subtitle}>
                         {introDescription?.map((item, index) => (
                             <span key={index} className={item.bold ? styles.bold : ''}>

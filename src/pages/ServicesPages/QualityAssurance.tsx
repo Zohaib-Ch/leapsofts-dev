@@ -6,6 +6,7 @@ import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import phoneImg from "../../assets/phones.webp";
 
 const ourServicesData: EmergingTechProps['data'] = {
@@ -262,14 +263,74 @@ const title = "Enterprise Quality Assurance & Test Engineering";
 const subtitle = "";
 
 const introDescription = [
-  { text: "We deliver systematic, high-coverage ", bold: false },
-  { text: "quality assurance and test automation ", bold: true },
-  { text: "engineered to eliminate functional regressions, stress-test database limits, and secure critical API networks. By integrating automated end-to-end testing frameworks into your active CI/CD pipelines, we ensure your software platforms run flawlessly under extreme loads with zero downtime.", bold: false }
+  { text: "We deliver full-spectrum ", bold: false },
+  { text: "quality assurance services & software testing solutions ", bold: true },
+  { text: "engineered to eliminate functional regressions, stress-test database limits, and secure critical software networks. As a premier software testing company, we integrate automated QA testing frameworks and manual security audits directly into your CI/CD pipelines for 100% bug-free deployments.", bold: false }
 ]
+
+export function meta() {
+  const title = "Quality Assurance Services | Leapsofts";
+  const description = "Comprehensive software QA & testing services to ensure bug-free, high-performance releases. Leapsofts delivers automated and manual testing. Get started.";
+  const keywords = "quality assurance services, software testing company, QA testing services, automated testing, manual QA testing";
+  const canonicalUrl = "https://www.leapsofts.com/services/quality-assurance";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Quality Assurance Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Quality Assurance & Software Testing",
+      "description": "Comprehensive software QA & testing services to ensure bug-free, high-performance releases."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Quality Assurance",
+          "item": "https://www.leapsofts.com/services/quality-assurance"
+        }
+      ]
+    }
+  ]
+};
 
 const QualityAssurance: React.FC = () => {
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
             <IntroComponent
                 title={title}
                 description={subtitle}
@@ -303,6 +364,25 @@ const QualityAssurance: React.FC = () => {
                 title="Software Verification & Validation Framework"
                 phaseLabels={phaseLabelsDefault}
                 processPhases={processesData}
+            />
+            <RelatedServices
+                services={[
+                    {
+                        title: "Custom Software Development",
+                        description: "Engineer scalable web and mobile software tailored for enterprise workflows.",
+                        link: "/services/custom-software-development"
+                    },
+                    {
+                        title: "DevOps Services & CI/CD",
+                        description: "Integrate automated testing and security scans into your continuous delivery pipelines.",
+                        link: "/services/devops"
+                    },
+                    {
+                        title: "Cyber Security & Compliance",
+                        description: "Conduct thorough penetration audits and zero-trust vulnerability assessments.",
+                        link: "/services/cyber-security"
+                    }
+                ]}
             />
         </>
     );

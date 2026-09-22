@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO WHOLESALE AND RETAIL",
@@ -90,10 +91,69 @@ const streamlineDescription = [
 const title = "Wholesale & Retail Software Development, Omnichannel E-commerce & Smart Logistics";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we engineer highly performant, security-first ", bold: false },
-  { text: "wholesale distribution systems, omnichannel retail engines, and multi-channel inventory management platforms ", bold: true },
-  { text: "tailored to clear supply chain complexities and expand profit margins. By integrating automated stock replenishment workflows, optimizing multi-warehouse coordinate routing, and deploying unified e-commerce checkout paths, we empower retail brands and wholesale distributors to achieve global scale with absolute operational efficiency.", bold: false }
+  { text: "We deliver cutting-edge ", bold: false },
+  { text: "retail software development, wholesale management software, and inventory management systems ", bold: true },
+  { text: "engineered to optimize supply chains and increase margins. By building automated stock replenishment workflows, multi-warehouse routing engines, and B2B portal integrations, we empower retailers and distributors to scale effortlessly.", bold: false }
 ];
+
+export function meta() {
+  const title = "Retail & Wholesale Software Development | Leapsofts";
+  const description = "Custom retail & wholesale software — POS, inventory management & ecommerce platforms. Leapsofts modernizes operations for scaling retailers. Get a quote.";
+  const keywords = "retail software development, wholesale management software, inventory management system, ecommerce software development";
+  const canonicalUrl = "https://www.leapsofts.com/industries/wholesale-retail";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Retail & Wholesale Software Development",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "Retail & Wholesale Software Engineering",
+      "description": "Custom retail & wholesale software — POS, inventory management & ecommerce platforms."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Wholesale & Retail",
+          "item": "https://www.leapsofts.com/industries/wholesale-retail"
+        }
+      ]
+    }
+  ]
+};
 
 const WholesaleRetail: React.FC = () => {
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
@@ -107,6 +167,7 @@ const WholesaleRetail: React.FC = () => {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -127,6 +188,25 @@ const WholesaleRetail: React.FC = () => {
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" retail businesses"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Shopify Store Development",
+            description: "Build custom Shopify themes and Hydrogen headless storefronts.",
+            link: "/services/shopify"
+          },
+          {
+            title: "Web App Development",
+            description: "Engineer custom B2B wholesale portals and inventory management dashboards.",
+            link: "/services/web-app-development"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Build bespoke supply chain management and logistics automation platforms.",
+            link: "/services/custom-software-development"
+          }
+        ]}
       />
     </>
   );

@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO EDUCATIONAL INSTITUTIONS",
@@ -91,10 +92,69 @@ const streamlineDescription = [
 const title = "EdTech Software Development, Custom LMS Platforms & AI Personalized Learning";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we engineer highly interactive, enterprise-grade ", bold: false },
-  { text: "Learning Management Systems (LMS), AI-driven adaptive learning engines, and secure collaborative university portals ", bold: true },
-  { text: "designed to elevate student engagement and streamline administrative lifecycles. By integrating strict FERPA/COPPA student privacy vaults, configuring low-latency live class streaming corridors, and deploying intelligent grading assistants, we empower global universities and scaling EdTech startups to deliver elite education at limitless scale.", bold: false }
+  { text: "We deliver full-scale ", bold: false },
+  { text: "EdTech software development services, eLearning platform development, and custom LMS solutions ", bold: true },
+  { text: "engineered to elevate student engagement and streamline administrative lifecycles. By integrating FERPA/COPPA privacy vaults, virtual classroom media pipelines, and AI adaptive learning models, we power global EdTech innovation.", bold: false }
 ];
+
+export function meta() {
+  const title = "EdTech Software Development Services | Leapsofts";
+  const description = "Custom eLearning & EdTech software development — LMS, mobile learning apps & virtual classrooms. Leapsofts builds scalable education platforms. Start building.";
+  const keywords = "EdTech software development, eLearning platform development, LMS development company, education app development";
+  const canonicalUrl = "https://www.leapsofts.com/industries/edtech";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "EdTech Software Development Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com"
+      },
+      "serviceType": "EdTech & LMS Software Development",
+      "description": "Custom eLearning & EdTech software development — LMS, mobile learning apps & virtual classrooms."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.leapsofts.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "EdTech & Education",
+          "item": "https://www.leapsofts.com/industries/edtech"
+        }
+      ]
+    }
+  ]
+};
 
 const Education: React.FC = () => {
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
@@ -108,6 +168,7 @@ const Education: React.FC = () => {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
         title={title}
         description={subtitle}
@@ -128,6 +189,25 @@ const Education: React.FC = () => {
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" educational institutions"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Web App Development",
+            description: "Build custom multi-tenant LMS portals and interactive student dashboards.",
+            link: "/services/web-app-development"
+          },
+          {
+            title: "Mobile App Development",
+            description: "Engineer native iOS & Android mobile learning applications.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Data Science & AI Solutions",
+            description: "Integrate predictive student progress analytics and NLP tutoring bots.",
+            link: "/services/data-science-ai"
+          }
+        ]}
       />
     </>
   );

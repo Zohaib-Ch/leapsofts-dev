@@ -1,0 +1,1046 @@
+{
+  "aboutPage": {
+    "corePrinciples": {
+      "label": "HOW WE OPERATE",
+      "principles": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtacE",
+          "icon": "Cpu",
+          "text": "We never compromise on software foundations. Microservices and cloud topologies are built to scale 10x without tech debt.",
+          "title": "Resilient Architecture First"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtafv",
+          "icon": "Zap",
+          "text": "Harnessing modern AI tools and automated CI/CD pipelines to compress launch cycles down to 3-5 months.",
+          "title": "AI-Augmented Velocity"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtajc",
+          "icon": "ShieldCheck",
+          "text": "Security compliance (HIPAA, SOC 2, ISO 27001) is baked into data pipelines from line one of code.",
+          "title": "Zero-Trust Security Standard"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtanJ",
+          "icon": "Code2",
+          "text": "Direct collaboration with senior architects and pod leads inside your Slack and code repositories with zero middle layers.",
+          "title": "Transparent Pod Execution"
+        }
+      ],
+      "subtitle": "Our core operating principles govern every architectural blueprint, code commit, and delivery milestone.",
+      "title": "Principles that Drive Digital Dominance"
+    },
+    "creed": {
+      "label": "OUR CREED & PHILOSOPHY",
+      "missionText": "To empower global enterprises and visionary technical founders with bespoke software engineering, zero-trust cloud architectures, and autonomous AI workflows that drive measurable business dominance.",
+      "missionTitle": "Our Strategic Mission",
+      "subtitle": "We exist to eliminate software complexity, compress time-to-market, and build digital infrastructure that scales effortlessly.",
+      "title": "Engineered for Zero Tech Debt & Rapid Launch",
+      "visionText": "To redefine custom software development by replacing fragmented agency models with dedicated agile pods that operate natively with absolute technical transparency, speed, and architectural perfection.",
+      "visionTitle": "Our Engineering Vision"
+    },
+    "cta": {
+      "buttonText": "Book Strategy Session",
+      "subtitle": "Schedule a strategic consultation with our senior technical architects to discuss your technology roadmap and MVP timeline.",
+      "title": "Ready to Architect Your Enterprise System?"
+    },
+    "globalDelivery": {
+      "compliance": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtZtu",
+          "subtitle": "Information Security Management",
+          "title": "ISO 27001"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtZxb",
+          "subtitle": "Protected Health Information Vaults",
+          "title": "HIPAA Compliant"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNta1I",
+          "subtitle": "Audited Operational Security & Privacy",
+          "title": "SOC 2 Type II"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNta4z",
+          "subtitle": "EU Zero-Trust Data Protection Standards",
+          "title": "GDPR Ready"
+        }
+      ],
+      "hubs": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtZip",
+          "desc": "Regional HQ for Middle East & APAC enterprise operations",
+          "name": "Dubai HQ"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtZmW",
+          "desc": "Strategic technical leadership & client success",
+          "name": "North America Delivery Hub"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtZqD",
+          "desc": "Core cloud architecture & AI R&D center",
+          "name": "European Engineering Hub"
+        }
+      ],
+      "label": "GLOBAL FOOTPRINT & COMPLIANCE",
+      "subtitle": "Operating across strategic timezones with enterprise security compliance.",
+      "title": "Built for International Scale"
+    },
+    "hero": {
+      "label": "ABOUT LEAPSOFTS",
+      "metrics": [
+        {
+          "_key": "OE190ByboXEhCMHqwNta8g",
+          "label": "Years of Excellence",
+          "sub": "Engineering high-impact digital platforms",
+          "value": "21"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtaCN",
+          "label": "Software Specialists",
+          "sub": "Cross-functional engineering pod leads",
+          "value": "250+"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtaG4",
+          "label": "Enterprise Products",
+          "sub": "Deployed across Fortune 200 & tech leaders",
+          "value": "150+"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtaJl",
+          "label": "Client Retention",
+          "sub": "Sustained technical trust and partnership",
+          "value": "98%"
+        }
+      ],
+      "subtitle": "We combine deep cloud architecture, AI innovation, and agile pod delivery to build mission-critical custom software for global leaders.",
+      "title": "Architecting Enterprise Velocity Through Engineering Riii"
+    },
+    "leadership": {
+      "label": "EXECUTIVE LEADERSHIP",
+      "members": [
+        {
+          "bio": "Leading Leapsofts in delivering AI-driven and enterprise software solutions across Healthcare, Fintech, Fashion Tech, and emerging industries. With hands-on involvement in over 45+ bespoke AI implementations, Huzaifa aligns high-level business strategy with rigorous software engineering.",
+          "highlight": "Built 45+ Custom AI Solutions",
+          "imageUrl": null,
+          "initials": "HR",
+          "name": "Huzaifa Rasheed",
+          "role": "CEO & Co-Founder",
+          "skills": [
+            "Strategic Leadership",
+            "Enterprise AI",
+            "Cloud Microservices",
+            "CTO Advisory",
+            "FinTech & HealthTech",
+            "Global Operations"
+          ]
+        },
+        {
+          "bio": "Former AI research director specializing in PyTorch, LLM fine-tuning, computer vision, and high-concurrency predictive analytics pipelines for Fortune 500 platforms.",
+          "highlight": "Ex-AI Research Director",
+          "imageUrl": null,
+          "initials": "SC",
+          "name": "Sarah Chen",
+          "role": "Head of AI & Machine Learning",
+          "skills": [
+            "PyTorch",
+            "LLM Fine-Tuning",
+            "MLOps",
+            "Computer Vision",
+            "Neural Networks",
+            "Predictive Analytics"
+          ]
+        },
+        {
+          "bio": "Pioneer of agile pod topologies with a proven track record of shipping enterprise platforms on aggressive 3-5 month launch timelines with 100+ production deployments.",
+          "highlight": "100+ Pod Deployments",
+          "imageUrl": null,
+          "initials": "MD",
+          "name": "Marcus Devlin",
+          "role": "VP of Engineering",
+          "skills": [
+            "Agile Pods",
+            "CI/CD Automation",
+            "Microservices",
+            "Kubernetes",
+            "System Scalability",
+            "DevOps Architecture"
+          ]
+        },
+        {
+          "bio": "Certified ethical hacker and zero-trust security architect guaranteeing ISO 27001, HIPAA, SOC 2 Type II, and GDPR compliance readiness across enterprise cloud environments.",
+          "highlight": "Zero-Trust Architect",
+          "imageUrl": null,
+          "initials": "ER",
+          "name": "Elena Rostova",
+          "role": "Lead Cyber Security Architect",
+          "skills": [
+            "Zero-Trust",
+            "SOC 2 Type II",
+            "ISO 27001",
+            "Penetration Testing",
+            "KMS Secret Vaults",
+            "Cloud Compliance"
+          ]
+        },
+        {
+          "bio": "Senior cloud architect overseeing regional operations across Dubai and North America, aligning timezone delivery with zero latency and high client satisfaction.",
+          "highlight": "Regional Delivery Lead",
+          "imageUrl": null,
+          "initials": "TA",
+          "name": "Tariq Al-Mansoor",
+          "role": "Head of Solutions & Enterprise Delivery",
+          "skills": [
+            "Cloud Architecture",
+            "Solutions Engineering",
+            "AWS / Azure",
+            "Client Success",
+            "Enterprise Integration",
+            "Global Delivery"
+          ]
+        },
+        {
+          "bio": "Testing",
+          "highlight": "badge",
+          "imageUrl": "",
+          "initials": "HM",
+          "name": "Testing",
+          "role": "Dev",
+          "skills": [
+            "ine"
+          ]
+        }
+      ],
+      "subtitle": "Direct strategic partnerships with technology founders and solution architects.",
+      "title": "Engineering Craftsmen & Founders"
+    },
+    "seo": {
+      "metaDescription": "Learn about Leapsofts, a premier custom software engineering consultancy delivering resilient cloud architectures, AI integration, and dedicated agile pods.",
+      "metaTitle": "About Us | Custom Enterprise Software Engineering | Leapsofts"
+    },
+    "timeline": {
+      "events": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtar0",
+          "desc": "Founded in Dubai by senior cloud architects to eliminate enterprise technical debt and provide bespoke software engineering solutions.",
+          "title": "The Foundation",
+          "year": "2021"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtauh",
+          "desc": "Expanded operational hubs to North America and Europe, pioneering dedicated agile pod topologies for fast-scaling clients.",
+          "title": "Global Pod Scaling",
+          "year": "2022"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtayO",
+          "desc": "Built custom generative AI proxy engines and vector search pipelines for healthcare, fintech, and retail leaders.",
+          "title": "AI-Native Expansion",
+          "year": "2023"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtb25",
+          "desc": "Reached 100+ successful production deployments, achieving a 98% client retention rate and setting industry benchmarks for launch speed.",
+          "title": "100+ Production Deployments",
+          "year": "2024"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtb5m",
+          "desc": "Pioneering autonomous enterprise AI workflows, zero-trust cloud microservices, and next-generation product re-engineering.",
+          "title": "AI-Native Enterprise Systems",
+          "year": "2025+"
+        }
+      ],
+      "label": "OUR EVOLUTION",
+      "subtitle": "From a specialized cloud architecture firm to a global custom software delivery partner.",
+      "title": "The Leapsofts Engineering Journey"
+    }
+  },
+  "aboutMissionPage": {
+    "corePrinciples": {
+      "label": "HOW WE OPERATE",
+      "principles": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtacE",
+          "icon": "Cpu",
+          "text": "We never compromise on software foundations. Microservices and cloud topologies are built to scale 10x without tech debt.",
+          "title": "Resilient Architecture First"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtafv",
+          "icon": "Zap",
+          "text": "Harnessing modern AI tools and automated CI/CD pipelines to compress launch cycles down to 3-5 months.",
+          "title": "AI-Augmented Velocity"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtajc",
+          "icon": "ShieldCheck",
+          "text": "Security compliance (HIPAA, SOC 2, ISO 27001) is baked into data pipelines from line one of code.",
+          "title": "Zero-Trust Security Standard"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtanJ",
+          "icon": "Code2",
+          "text": "Direct collaboration with senior architects and pod leads inside your Slack and code repositories with zero middle layers.",
+          "title": "Transparent Pod Execution"
+        }
+      ],
+      "subtitle": "Our core operating principles govern every architectural blueprint, code commit, and delivery milestone.",
+      "title": "Principles that Drive Digital Dominance"
+    },
+    "creed": {
+      "label": "OUR CREED & PHILOSOPHY",
+      "missionText": "To empower global enterprises and visionary technical founders with bespoke software engineering, zero-trust cloud architectures, and autonomous AI workflows that drive measurable business dominance.",
+      "missionTitle": "Our Strategic Mission",
+      "subtitle": "We exist to eliminate software complexity, compress time-to-market, and build digital infrastructure that scales effortlessly.",
+      "title": "Engineered for Zero Tech Debt & Rapid Launch",
+      "visionText": "To redefine custom software development by replacing fragmented agency models with dedicated agile pods that operate natively with absolute technical transparency, speed, and architectural perfection.",
+      "visionTitle": "Our Engineering Vision"
+    },
+    "cta": {
+      "buttonText": "Book Strategy Session",
+      "subtitle": "Schedule a strategic consultation with our senior technical architects to discuss your technology roadmap and MVP timeline.",
+      "title": "Ready to Architect Your Enterprise System?"
+    },
+    "globalDelivery": {
+      "compliance": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtZtu",
+          "subtitle": "Information Security Management",
+          "title": "ISO 27001"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtZxb",
+          "subtitle": "Protected Health Information Vaults",
+          "title": "HIPAA Compliant"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNta1I",
+          "subtitle": "Audited Operational Security & Privacy",
+          "title": "SOC 2 Type II"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNta4z",
+          "subtitle": "EU Zero-Trust Data Protection Standards",
+          "title": "GDPR Ready"
+        }
+      ],
+      "hubs": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtZip",
+          "desc": "Regional HQ for Middle East & APAC enterprise operations",
+          "name": "Dubai HQ"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtZmW",
+          "desc": "Strategic technical leadership & client success",
+          "name": "North America Delivery Hub"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtZqD",
+          "desc": "Core cloud architecture & AI R&D center",
+          "name": "European Engineering Hub"
+        }
+      ],
+      "label": "GLOBAL FOOTPRINT & COMPLIANCE",
+      "subtitle": "Operating across strategic timezones with enterprise security compliance.",
+      "title": "Built for International Scale"
+    },
+    "hero": {
+      "label": "ABOUT LEAPSOFTS",
+      "metrics": [
+        {
+          "_key": "OE190ByboXEhCMHqwNta8g",
+          "label": "Years of Excellence",
+          "sub": "Engineering high-impact digital platforms",
+          "value": "21"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtaCN",
+          "label": "Software Specialists",
+          "sub": "Cross-functional engineering pod leads",
+          "value": "250+"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtaG4",
+          "label": "Enterprise Products",
+          "sub": "Deployed across Fortune 200 & tech leaders",
+          "value": "150+"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtaJl",
+          "label": "Client Retention",
+          "sub": "Sustained technical trust and partnership",
+          "value": "98%"
+        }
+      ],
+      "subtitle": "We combine deep cloud architecture, AI innovation, and agile pod delivery to build mission-critical custom software for global leaders.",
+      "title": "Architecting Enterprise Velocity Through Engineering Riii"
+    },
+    "leadership": {
+      "label": "EXECUTIVE LEADERSHIP",
+      "members": [
+        {
+          "bio": "Leading Leapsofts in delivering AI-driven and enterprise software solutions across Healthcare, Fintech, Fashion Tech, and emerging industries. With hands-on involvement in over 45+ bespoke AI implementations, Huzaifa aligns high-level business strategy with rigorous software engineering.",
+          "highlight": "Built 45+ Custom AI Solutions",
+          "imageUrl": null,
+          "initials": "HR",
+          "name": "Huzaifa Rasheed",
+          "role": "CEO & Co-Founder",
+          "skills": [
+            "Strategic Leadership",
+            "Enterprise AI",
+            "Cloud Microservices",
+            "CTO Advisory",
+            "FinTech & HealthTech",
+            "Global Operations"
+          ]
+        },
+        {
+          "bio": "Former AI research director specializing in PyTorch, LLM fine-tuning, computer vision, and high-concurrency predictive analytics pipelines for Fortune 500 platforms.",
+          "highlight": "Ex-AI Research Director",
+          "imageUrl": null,
+          "initials": "SC",
+          "name": "Sarah Chen",
+          "role": "Head of AI & Machine Learning",
+          "skills": [
+            "PyTorch",
+            "LLM Fine-Tuning",
+            "MLOps",
+            "Computer Vision",
+            "Neural Networks",
+            "Predictive Analytics"
+          ]
+        },
+        {
+          "bio": "Pioneer of agile pod topologies with a proven track record of shipping enterprise platforms on aggressive 3-5 month launch timelines with 100+ production deployments.",
+          "highlight": "100+ Pod Deployments",
+          "imageUrl": null,
+          "initials": "MD",
+          "name": "Marcus Devlin",
+          "role": "VP of Engineering",
+          "skills": [
+            "Agile Pods",
+            "CI/CD Automation",
+            "Microservices",
+            "Kubernetes",
+            "System Scalability",
+            "DevOps Architecture"
+          ]
+        },
+        {
+          "bio": "Certified ethical hacker and zero-trust security architect guaranteeing ISO 27001, HIPAA, SOC 2 Type II, and GDPR compliance readiness across enterprise cloud environments.",
+          "highlight": "Zero-Trust Architect",
+          "imageUrl": null,
+          "initials": "ER",
+          "name": "Elena Rostova",
+          "role": "Lead Cyber Security Architect",
+          "skills": [
+            "Zero-Trust",
+            "SOC 2 Type II",
+            "ISO 27001",
+            "Penetration Testing",
+            "KMS Secret Vaults",
+            "Cloud Compliance"
+          ]
+        },
+        {
+          "bio": "Senior cloud architect overseeing regional operations across Dubai and North America, aligning timezone delivery with zero latency and high client satisfaction.",
+          "highlight": "Regional Delivery Lead",
+          "imageUrl": null,
+          "initials": "TA",
+          "name": "Tariq Al-Mansoor",
+          "role": "Head of Solutions & Enterprise Delivery",
+          "skills": [
+            "Cloud Architecture",
+            "Solutions Engineering",
+            "AWS / Azure",
+            "Client Success",
+            "Enterprise Integration",
+            "Global Delivery"
+          ]
+        },
+        {
+          "bio": "Testing",
+          "highlight": "badge",
+          "imageUrl": "",
+          "initials": "HM",
+          "name": "Testing",
+          "role": "Dev",
+          "skills": [
+            "ine"
+          ]
+        }
+      ],
+      "subtitle": "Direct strategic partnerships with technology founders and solution architects.",
+      "title": "Engineering Craftsmen & Founders"
+    },
+    "seo": {
+      "metaDescription": "Learn about Leapsofts, a premier custom software engineering consultancy delivering resilient cloud architectures, AI integration, and dedicated agile pods.",
+      "metaTitle": "About Us | Custom Enterprise Software Engineering | Leapsofts"
+    },
+    "timeline": {
+      "events": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtar0",
+          "desc": "Founded in Dubai by senior cloud architects to eliminate enterprise technical debt and provide bespoke software engineering solutions.",
+          "title": "The Foundation",
+          "year": "2021"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtauh",
+          "desc": "Expanded operational hubs to North America and Europe, pioneering dedicated agile pod topologies for fast-scaling clients.",
+          "title": "Global Pod Scaling",
+          "year": "2022"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtayO",
+          "desc": "Built custom generative AI proxy engines and vector search pipelines for healthcare, fintech, and retail leaders.",
+          "title": "AI-Native Expansion",
+          "year": "2023"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtb25",
+          "desc": "Reached 100+ successful production deployments, achieving a 98% client retention rate and setting industry benchmarks for launch speed.",
+          "title": "100+ Production Deployments",
+          "year": "2024"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtb5m",
+          "desc": "Pioneering autonomous enterprise AI workflows, zero-trust cloud microservices, and next-generation product re-engineering.",
+          "title": "AI-Native Enterprise Systems",
+          "year": "2025+"
+        }
+      ],
+      "label": "OUR EVOLUTION",
+      "subtitle": "From a specialized cloud architecture firm to a global custom software delivery partner.",
+      "title": "The Leapsofts Engineering Journey"
+    }
+  },
+  "aboutLeadershipPage": {
+    "corePrinciples": {
+      "label": "HOW WE OPERATE",
+      "principles": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtacE",
+          "icon": "Cpu",
+          "text": "We never compromise on software foundations. Microservices and cloud topologies are built to scale 10x without tech debt.",
+          "title": "Resilient Architecture First"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtafv",
+          "icon": "Zap",
+          "text": "Harnessing modern AI tools and automated CI/CD pipelines to compress launch cycles down to 3-5 months.",
+          "title": "AI-Augmented Velocity"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtajc",
+          "icon": "ShieldCheck",
+          "text": "Security compliance (HIPAA, SOC 2, ISO 27001) is baked into data pipelines from line one of code.",
+          "title": "Zero-Trust Security Standard"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtanJ",
+          "icon": "Code2",
+          "text": "Direct collaboration with senior architects and pod leads inside your Slack and code repositories with zero middle layers.",
+          "title": "Transparent Pod Execution"
+        }
+      ],
+      "subtitle": "Our core operating principles govern every architectural blueprint, code commit, and delivery milestone.",
+      "title": "Principles that Drive Digital Dominance"
+    },
+    "creed": {
+      "label": "OUR CREED & PHILOSOPHY",
+      "missionText": "To empower global enterprises and visionary technical founders with bespoke software engineering, zero-trust cloud architectures, and autonomous AI workflows that drive measurable business dominance.",
+      "missionTitle": "Our Strategic Mission",
+      "subtitle": "We exist to eliminate software complexity, compress time-to-market, and build digital infrastructure that scales effortlessly.",
+      "title": "Engineered for Zero Tech Debt & Rapid Launch",
+      "visionText": "To redefine custom software development by replacing fragmented agency models with dedicated agile pods that operate natively with absolute technical transparency, speed, and architectural perfection.",
+      "visionTitle": "Our Engineering Vision"
+    },
+    "cta": {
+      "buttonText": "Book Strategy Session",
+      "subtitle": "Schedule a strategic consultation with our senior technical architects to discuss your technology roadmap and MVP timeline.",
+      "title": "Ready to Architect Your Enterprise System?"
+    },
+    "globalDelivery": {
+      "compliance": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtZtu",
+          "subtitle": "Information Security Management",
+          "title": "ISO 27001"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtZxb",
+          "subtitle": "Protected Health Information Vaults",
+          "title": "HIPAA Compliant"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNta1I",
+          "subtitle": "Audited Operational Security & Privacy",
+          "title": "SOC 2 Type II"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNta4z",
+          "subtitle": "EU Zero-Trust Data Protection Standards",
+          "title": "GDPR Ready"
+        }
+      ],
+      "hubs": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtZip",
+          "desc": "Regional HQ for Middle East & APAC enterprise operations",
+          "name": "Dubai HQ"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtZmW",
+          "desc": "Strategic technical leadership & client success",
+          "name": "North America Delivery Hub"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtZqD",
+          "desc": "Core cloud architecture & AI R&D center",
+          "name": "European Engineering Hub"
+        }
+      ],
+      "label": "GLOBAL FOOTPRINT & COMPLIANCE",
+      "subtitle": "Operating across strategic timezones with enterprise security compliance.",
+      "title": "Built for International Scale"
+    },
+    "hero": {
+      "label": "ABOUT LEAPSOFTS",
+      "metrics": [
+        {
+          "_key": "OE190ByboXEhCMHqwNta8g",
+          "label": "Years of Excellence",
+          "sub": "Engineering high-impact digital platforms",
+          "value": "21"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtaCN",
+          "label": "Software Specialists",
+          "sub": "Cross-functional engineering pod leads",
+          "value": "250+"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtaG4",
+          "label": "Enterprise Products",
+          "sub": "Deployed across Fortune 200 & tech leaders",
+          "value": "150+"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtaJl",
+          "label": "Client Retention",
+          "sub": "Sustained technical trust and partnership",
+          "value": "98%"
+        }
+      ],
+      "subtitle": "We combine deep cloud architecture, AI innovation, and agile pod delivery to build mission-critical custom software for global leaders.",
+      "title": "Architecting Enterprise Velocity Through Engineering Riii"
+    },
+    "leadership": {
+      "label": "EXECUTIVE LEADERSHIP",
+      "members": [
+        {
+          "bio": "Leading Leapsofts in delivering AI-driven and enterprise software solutions across Healthcare, Fintech, Fashion Tech, and emerging industries. With hands-on involvement in over 45+ bespoke AI implementations, Huzaifa aligns high-level business strategy with rigorous software engineering.",
+          "highlight": "Built 45+ Custom AI Solutions",
+          "imageUrl": null,
+          "initials": "HR",
+          "name": "Huzaifa Rasheed",
+          "role": "CEO & Co-Founder",
+          "skills": [
+            "Strategic Leadership",
+            "Enterprise AI",
+            "Cloud Microservices",
+            "CTO Advisory",
+            "FinTech & HealthTech",
+            "Global Operations"
+          ]
+        },
+        {
+          "bio": "Former AI research director specializing in PyTorch, LLM fine-tuning, computer vision, and high-concurrency predictive analytics pipelines for Fortune 500 platforms.",
+          "highlight": "Ex-AI Research Director",
+          "imageUrl": null,
+          "initials": "SC",
+          "name": "Sarah Chen",
+          "role": "Head of AI & Machine Learning",
+          "skills": [
+            "PyTorch",
+            "LLM Fine-Tuning",
+            "MLOps",
+            "Computer Vision",
+            "Neural Networks",
+            "Predictive Analytics"
+          ]
+        },
+        {
+          "bio": "Pioneer of agile pod topologies with a proven track record of shipping enterprise platforms on aggressive 3-5 month launch timelines with 100+ production deployments.",
+          "highlight": "100+ Pod Deployments",
+          "imageUrl": null,
+          "initials": "MD",
+          "name": "Marcus Devlin",
+          "role": "VP of Engineering",
+          "skills": [
+            "Agile Pods",
+            "CI/CD Automation",
+            "Microservices",
+            "Kubernetes",
+            "System Scalability",
+            "DevOps Architecture"
+          ]
+        },
+        {
+          "bio": "Certified ethical hacker and zero-trust security architect guaranteeing ISO 27001, HIPAA, SOC 2 Type II, and GDPR compliance readiness across enterprise cloud environments.",
+          "highlight": "Zero-Trust Architect",
+          "imageUrl": null,
+          "initials": "ER",
+          "name": "Elena Rostova",
+          "role": "Lead Cyber Security Architect",
+          "skills": [
+            "Zero-Trust",
+            "SOC 2 Type II",
+            "ISO 27001",
+            "Penetration Testing",
+            "KMS Secret Vaults",
+            "Cloud Compliance"
+          ]
+        },
+        {
+          "bio": "Senior cloud architect overseeing regional operations across Dubai and North America, aligning timezone delivery with zero latency and high client satisfaction.",
+          "highlight": "Regional Delivery Lead",
+          "imageUrl": null,
+          "initials": "TA",
+          "name": "Tariq Al-Mansoor",
+          "role": "Head of Solutions & Enterprise Delivery",
+          "skills": [
+            "Cloud Architecture",
+            "Solutions Engineering",
+            "AWS / Azure",
+            "Client Success",
+            "Enterprise Integration",
+            "Global Delivery"
+          ]
+        },
+        {
+          "bio": "Testing",
+          "highlight": "badge",
+          "imageUrl": "",
+          "initials": "HM",
+          "name": "Testing",
+          "role": "Dev",
+          "skills": [
+            "ine"
+          ]
+        }
+      ],
+      "subtitle": "Direct strategic partnerships with technology founders and solution architects.",
+      "title": "Engineering Craftsmen & Founders"
+    },
+    "seo": {
+      "metaDescription": "Learn about Leapsofts, a premier custom software engineering consultancy delivering resilient cloud architectures, AI integration, and dedicated agile pods.",
+      "metaTitle": "About Us | Custom Enterprise Software Engineering | Leapsofts"
+    },
+    "timeline": {
+      "events": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtar0",
+          "desc": "Founded in Dubai by senior cloud architects to eliminate enterprise technical debt and provide bespoke software engineering solutions.",
+          "title": "The Foundation",
+          "year": "2021"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtauh",
+          "desc": "Expanded operational hubs to North America and Europe, pioneering dedicated agile pod topologies for fast-scaling clients.",
+          "title": "Global Pod Scaling",
+          "year": "2022"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtayO",
+          "desc": "Built custom generative AI proxy engines and vector search pipelines for healthcare, fintech, and retail leaders.",
+          "title": "AI-Native Expansion",
+          "year": "2023"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtb25",
+          "desc": "Reached 100+ successful production deployments, achieving a 98% client retention rate and setting industry benchmarks for launch speed.",
+          "title": "100+ Production Deployments",
+          "year": "2024"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtb5m",
+          "desc": "Pioneering autonomous enterprise AI workflows, zero-trust cloud microservices, and next-generation product re-engineering.",
+          "title": "AI-Native Enterprise Systems",
+          "year": "2025+"
+        }
+      ],
+      "label": "OUR EVOLUTION",
+      "subtitle": "From a specialized cloud architecture firm to a global custom software delivery partner.",
+      "title": "The Leapsofts Engineering Journey"
+    }
+  },
+  "aboutGlobalPage": {
+    "corePrinciples": {
+      "label": "HOW WE OPERATE",
+      "principles": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtacE",
+          "icon": "Cpu",
+          "text": "We never compromise on software foundations. Microservices and cloud topologies are built to scale 10x without tech debt.",
+          "title": "Resilient Architecture First"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtafv",
+          "icon": "Zap",
+          "text": "Harnessing modern AI tools and automated CI/CD pipelines to compress launch cycles down to 3-5 months.",
+          "title": "AI-Augmented Velocity"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtajc",
+          "icon": "ShieldCheck",
+          "text": "Security compliance (HIPAA, SOC 2, ISO 27001) is baked into data pipelines from line one of code.",
+          "title": "Zero-Trust Security Standard"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtanJ",
+          "icon": "Code2",
+          "text": "Direct collaboration with senior architects and pod leads inside your Slack and code repositories with zero middle layers.",
+          "title": "Transparent Pod Execution"
+        }
+      ],
+      "subtitle": "Our core operating principles govern every architectural blueprint, code commit, and delivery milestone.",
+      "title": "Principles that Drive Digital Dominance"
+    },
+    "creed": {
+      "label": "OUR CREED & PHILOSOPHY",
+      "missionText": "To empower global enterprises and visionary technical founders with bespoke software engineering, zero-trust cloud architectures, and autonomous AI workflows that drive measurable business dominance.",
+      "missionTitle": "Our Strategic Mission",
+      "subtitle": "We exist to eliminate software complexity, compress time-to-market, and build digital infrastructure that scales effortlessly.",
+      "title": "Engineered for Zero Tech Debt & Rapid Launch",
+      "visionText": "To redefine custom software development by replacing fragmented agency models with dedicated agile pods that operate natively with absolute technical transparency, speed, and architectural perfection.",
+      "visionTitle": "Our Engineering Vision"
+    },
+    "cta": {
+      "buttonText": "Book Strategy Session",
+      "subtitle": "Schedule a strategic consultation with our senior technical architects to discuss your technology roadmap and MVP timeline.",
+      "title": "Ready to Architect Your Enterprise System?"
+    },
+    "globalDelivery": {
+      "compliance": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtZtu",
+          "subtitle": "Information Security Management",
+          "title": "ISO 27001"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtZxb",
+          "subtitle": "Protected Health Information Vaults",
+          "title": "HIPAA Compliant"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNta1I",
+          "subtitle": "Audited Operational Security & Privacy",
+          "title": "SOC 2 Type II"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNta4z",
+          "subtitle": "EU Zero-Trust Data Protection Standards",
+          "title": "GDPR Ready"
+        }
+      ],
+      "hubs": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtZip",
+          "desc": "Regional HQ for Middle East & APAC enterprise operations",
+          "name": "Dubai HQ"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtZmW",
+          "desc": "Strategic technical leadership & client success",
+          "name": "North America Delivery Hub"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtZqD",
+          "desc": "Core cloud architecture & AI R&D center",
+          "name": "European Engineering Hub"
+        }
+      ],
+      "label": "GLOBAL FOOTPRINT & COMPLIANCE",
+      "subtitle": "Operating across strategic timezones with enterprise security compliance.",
+      "title": "Built for International Scale"
+    },
+    "hero": {
+      "label": "ABOUT LEAPSOFTS",
+      "metrics": [
+        {
+          "_key": "OE190ByboXEhCMHqwNta8g",
+          "label": "Years of Excellence",
+          "sub": "Engineering high-impact digital platforms",
+          "value": "21"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtaCN",
+          "label": "Software Specialists",
+          "sub": "Cross-functional engineering pod leads",
+          "value": "250+"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtaG4",
+          "label": "Enterprise Products",
+          "sub": "Deployed across Fortune 200 & tech leaders",
+          "value": "150+"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtaJl",
+          "label": "Client Retention",
+          "sub": "Sustained technical trust and partnership",
+          "value": "98%"
+        }
+      ],
+      "subtitle": "We combine deep cloud architecture, AI innovation, and agile pod delivery to build mission-critical custom software for global leaders.",
+      "title": "Architecting Enterprise Velocity Through Engineering Riii"
+    },
+    "leadership": {
+      "label": "EXECUTIVE LEADERSHIP",
+      "members": [
+        {
+          "bio": "Leading Leapsofts in delivering AI-driven and enterprise software solutions across Healthcare, Fintech, Fashion Tech, and emerging industries. With hands-on involvement in over 45+ bespoke AI implementations, Huzaifa aligns high-level business strategy with rigorous software engineering.",
+          "highlight": "Built 45+ Custom AI Solutions",
+          "imageUrl": null,
+          "initials": "HR",
+          "name": "Huzaifa Rasheed",
+          "role": "CEO & Co-Founder",
+          "skills": [
+            "Strategic Leadership",
+            "Enterprise AI",
+            "Cloud Microservices",
+            "CTO Advisory",
+            "FinTech & HealthTech",
+            "Global Operations"
+          ]
+        },
+        {
+          "bio": "Former AI research director specializing in PyTorch, LLM fine-tuning, computer vision, and high-concurrency predictive analytics pipelines for Fortune 500 platforms.",
+          "highlight": "Ex-AI Research Director",
+          "imageUrl": null,
+          "initials": "SC",
+          "name": "Sarah Chen",
+          "role": "Head of AI & Machine Learning",
+          "skills": [
+            "PyTorch",
+            "LLM Fine-Tuning",
+            "MLOps",
+            "Computer Vision",
+            "Neural Networks",
+            "Predictive Analytics"
+          ]
+        },
+        {
+          "bio": "Pioneer of agile pod topologies with a proven track record of shipping enterprise platforms on aggressive 3-5 month launch timelines with 100+ production deployments.",
+          "highlight": "100+ Pod Deployments",
+          "imageUrl": null,
+          "initials": "MD",
+          "name": "Marcus Devlin",
+          "role": "VP of Engineering",
+          "skills": [
+            "Agile Pods",
+            "CI/CD Automation",
+            "Microservices",
+            "Kubernetes",
+            "System Scalability",
+            "DevOps Architecture"
+          ]
+        },
+        {
+          "bio": "Certified ethical hacker and zero-trust security architect guaranteeing ISO 27001, HIPAA, SOC 2 Type II, and GDPR compliance readiness across enterprise cloud environments.",
+          "highlight": "Zero-Trust Architect",
+          "imageUrl": null,
+          "initials": "ER",
+          "name": "Elena Rostova",
+          "role": "Lead Cyber Security Architect",
+          "skills": [
+            "Zero-Trust",
+            "SOC 2 Type II",
+            "ISO 27001",
+            "Penetration Testing",
+            "KMS Secret Vaults",
+            "Cloud Compliance"
+          ]
+        },
+        {
+          "bio": "Senior cloud architect overseeing regional operations across Dubai and North America, aligning timezone delivery with zero latency and high client satisfaction.",
+          "highlight": "Regional Delivery Lead",
+          "imageUrl": null,
+          "initials": "TA",
+          "name": "Tariq Al-Mansoor",
+          "role": "Head of Solutions & Enterprise Delivery",
+          "skills": [
+            "Cloud Architecture",
+            "Solutions Engineering",
+            "AWS / Azure",
+            "Client Success",
+            "Enterprise Integration",
+            "Global Delivery"
+          ]
+        },
+        {
+          "bio": "Testing",
+          "highlight": "badge",
+          "imageUrl": "",
+          "initials": "HM",
+          "name": "Testing",
+          "role": "Dev",
+          "skills": [
+            "ine"
+          ]
+        }
+      ],
+      "subtitle": "Direct strategic partnerships with technology founders and solution architects.",
+      "title": "Engineering Craftsmen & Founders"
+    },
+    "seo": {
+      "metaDescription": "Learn about Leapsofts, a premier custom software engineering consultancy delivering resilient cloud architectures, AI integration, and dedicated agile pods.",
+      "metaTitle": "About Us | Custom Enterprise Software Engineering | Leapsofts"
+    },
+    "timeline": {
+      "events": [
+        {
+          "_key": "OE190ByboXEhCMHqwNtar0",
+          "desc": "Founded in Dubai by senior cloud architects to eliminate enterprise technical debt and provide bespoke software engineering solutions.",
+          "title": "The Foundation",
+          "year": "2021"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtauh",
+          "desc": "Expanded operational hubs to North America and Europe, pioneering dedicated agile pod topologies for fast-scaling clients.",
+          "title": "Global Pod Scaling",
+          "year": "2022"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtayO",
+          "desc": "Built custom generative AI proxy engines and vector search pipelines for healthcare, fintech, and retail leaders.",
+          "title": "AI-Native Expansion",
+          "year": "2023"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtb25",
+          "desc": "Reached 100+ successful production deployments, achieving a 98% client retention rate and setting industry benchmarks for launch speed.",
+          "title": "100+ Production Deployments",
+          "year": "2024"
+        },
+        {
+          "_key": "OE190ByboXEhCMHqwNtb5m",
+          "desc": "Pioneering autonomous enterprise AI workflows, zero-trust cloud microservices, and next-generation product re-engineering.",
+          "title": "AI-Native Enterprise Systems",
+          "year": "2025+"
+        }
+      ],
+      "label": "OUR EVOLUTION",
+      "subtitle": "From a specialized cloud architecture firm to a global custom software delivery partner.",
+      "title": "The Leapsofts Engineering Journey"
+    }
+  }
+}
