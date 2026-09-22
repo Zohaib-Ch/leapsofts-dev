@@ -108,7 +108,7 @@ export const ALL_SERVICES_QUERY = `*[_type == "service"]{
   seo
 }`;
 
-export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && slug.current == $slug][0]{
+export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && (slug.current == $slug || _id == $slug || _id == "service-" + $slug || _id == "drafts.service-" + $slug)] | order(_updatedAt desc)[0]{
   _id,
   title,
   "slug": slug.current,
@@ -135,20 +135,90 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && slug.current == $s
       items
     }
   },
-  infoGrid,
-  comparisonTable,
+  infoGrid {
+    label,
+    titleAccent,
+    titleMain,
+    description,
+    items[] {
+      title,
+      description
+    }
+  },
+  comparisonTable {
+    label,
+    titleAccent,
+    titleMain,
+    description,
+    headers,
+    items[] {
+      feature,
+      custom,
+      offTheShelf
+    }
+  },
   strategyCTA {
     label,
     titleMain,
     titleAccent,
     titleEnd,
     descriptionText,
+    buttonText,
+    buttonPath,
     "imageUrl": image.asset->url
   },
-  serviceFeatures,
-  emergingTech,
-  deliverMVP,
-  processes,
+  serviceFeatures {
+    title,
+    items[] {
+      title,
+      description,
+      icon
+    }
+  },
+  emergingTech {
+    label,
+    titleAccent,
+    titleMain,
+    description,
+    items[] {
+      title,
+      description,
+      icon
+    }
+  },
+  deliverMVP {
+    label,
+    title,
+    accentText,
+    description,
+    items[] {
+      title,
+      description
+    }
+  },
+  processes {
+    title,
+    phaseLabels,
+    processPhases[] {
+      id,
+      phase,
+      title,
+      description,
+      features[] {
+        title,
+        description
+      }
+    }
+  },
+  relatedServices {
+    title,
+    sectionLabel,
+    items[] {
+      title,
+      description,
+      link
+    }
+  },
   faqs,
   seo
 }`;
@@ -162,12 +232,54 @@ export const ALL_INDUSTRIES_QUERY = `*[_type == "industry"]{
   seo
 }`;
 
-export const INDUSTRY_BY_SLUG_QUERY = `*[_type == "industry" && slug.current == $slug][0]{
+export const INDUSTRY_BY_SLUG_QUERY = `*[_type == "industry" && (slug.current == $slug || _id == $slug || _id == "industry-" + $slug || _id == "drafts.industry-" + $slug)] | order(_updatedAt desc)[0]{
   _id,
   title,
   "slug": slug.current,
   badgeText,
   shortDescription,
+  hero,
+  commitmentSection {
+    subtitle,
+    title,
+    items[] {
+      title,
+      description,
+      icon
+    }
+  },
+  strategyCTA {
+    label,
+    titleMain,
+    titleAccent,
+    titleEnd,
+    descriptionText,
+    buttonText,
+    buttonPath,
+    "imageUrl": image.asset->url
+  },
+  solutionsSection {
+    label,
+    titleAccent,
+    titleMain,
+    description,
+    items[] {
+      title,
+      description,
+      icon
+    }
+  },
+  servicesSection,
+  processHeader,
+  relatedServices {
+    title,
+    sectionLabel,
+    items[] {
+      title,
+      description,
+      link
+    }
+  },
   whoWeServe,
   solutions,
   impactStats,

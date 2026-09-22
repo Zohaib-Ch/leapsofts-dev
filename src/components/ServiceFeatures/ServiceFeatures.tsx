@@ -36,6 +36,12 @@ const defaultItems: ServiceFeatureItem[] = [
     }
 ];
 
+const getIconUrl = (iconStr?: string) => {
+    if (!iconStr) return '/industryicons/sphere.svg';
+    if (iconStr.startsWith('/') || iconStr.startsWith('http')) return iconStr;
+    return `/industryicons/${iconStr}`;
+};
+
 const ServiceFeatures: React.FC<ServiceFeaturesProps> = ({
     subtitle = "SERVICE-SPECIFIC FEATURES",
     title = "Key Features",
@@ -65,7 +71,7 @@ const ServiceFeatures: React.FC<ServiceFeaturesProps> = ({
                                 <div className={styles.card}>
                                     <div className={styles.cardContent}>
                                         <div className={styles.iconWrapper}>
-                                            <img src={item.icon} alt={item.title} className={styles.icon} />
+                                            <img src={getIconUrl(item.icon)} alt={item.title} className={styles.icon} />
                                         </div>
                                         <div className={styles.textWrapper}>
                                             <h3 className={styles.itemTitle}>{item.title}</h3>

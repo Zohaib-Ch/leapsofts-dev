@@ -1,3 +1,4 @@
+import { useServicePage } from '../../hooks/useServicePage';
 import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
@@ -266,14 +267,81 @@ const serviceSchema = {
 };
 
 const DevOps: React.FC = () => {
+  const { data } = useServicePage('devops');
+
+  
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || (typeof strategyData !== 'undefined' ? strategyData.label : ''),
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof strategyData !== 'undefined' ? strategyData.title : ''),
+        description: data.infoGrid.description || (typeof strategyData !== 'undefined' ? strategyData.description : ''),
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof strategyData !== 'undefined' ? strategyData : { items: [] });
+
+  
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || (typeof servicesData !== 'undefined' ? servicesData.label : ''),
+        titleAccent: data.emergingTech.titleAccent || (typeof servicesData !== 'undefined' ? servicesData.titleAccent : ''),
+        titleMain: data.emergingTech.titleMain || (typeof servicesData !== 'undefined' ? servicesData.titleMain : ''),
+        description: data.emergingTech.description || (typeof servicesData !== 'undefined' ? servicesData.description : ''),
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof servicesData !== 'undefined' ? servicesData : { label: '', titleAccent: '', titleMain: '', description: '', items: [] });
+
+  
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.label : ''),
+        title: data.deliverMVP.title || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.title : ''),
+        accentText: data.deliverMVP.accentText || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.accentText : ''),
+        description: data.deliverMVP.description || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.description : ''),
+        items: data.deliverMVP.items || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.items : [])
+      }
+    : (typeof deliverMVPData !== 'undefined' ? deliverMVPData : { label: '', title: '', accentText: '', description: '', items: [] });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.label : ''),
+        titleMain: data.serviceOverview.titleMain || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleMain : ''),
+        titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
+        titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
+        description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
+        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+      }
+    : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
     return (
         <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
             <IntroComponent
-                title={title}
-                description={subtitle}
-                introDescription={introDescription}
-            />
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
+      />
             <ServiceOverview
                 titleMain="Maximize"
                 titleAccent='Operational Agility'
@@ -281,7 +349,7 @@ const DevOps: React.FC = () => {
                 description="At Leapsofts, we specialize in building highly resilient, secure DevOps environments designed to accelerate release cycles and eliminate build errors. By writing reusable Terraform modules, containerizing application nodes, and setting up automated testing check gates, our engineers transition development teams into high-velocity continuous deployment setups with maximum uptime."
                 imagePath="/icons/images/cloud.webp"
             />
-            <InfoGrid data={strategyData} />
+            <InfoGrid data={activeInfoGridData} />
             <StreamlineSuccess
                 label="COMPLIMENTARY STRATEGY SESSION"
                 titleMain="Map your "
@@ -290,8 +358,8 @@ const DevOps: React.FC = () => {
                 description={streamlineDescription}
                 imageUrl="/streamline.png"
             />
-            <DeliverMVP data={deliverMVPData} />
-            <EmergingTech data={servicesData} />
+            <DeliverMVP data={activeDeliverMVPData} />
+            <EmergingTech data={activeEmergingTechData} />
             <Processes title="OUR CUSTOM DEVOPS PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
             <RelatedServices
                 services={[

@@ -12,6 +12,7 @@ import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import capabilitiesImg from '../../assets/capabilities_3d.png';
 import platformImg from '../../assets/capabilities_platform.png';
 import laptopImg from "../../assets/about_laptop_3d.png";
+import { useServicePage } from '../../hooks/useServicePage';
 
 const capabilitiesSlides: CapabilitySlide[] = [
   {
@@ -332,44 +333,116 @@ const serviceSchema = {
 };
 
 const Azure: React.FC = () => {
+  const { data } = useServicePage('azure');
+
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || serviceOverviewData.label,
+        titleMain: data.serviceOverview.titleMain || serviceOverviewData.titleMain,
+        titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
+        titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
+        description: data.serviceOverview.description || serviceOverviewData.description,
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath
+      }
+    : serviceOverviewData;
+
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || capabilitiesImg,
+        items: slide.items || []
+      }))
+    : capabilitiesSlides;
+
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || infoGridData.label,
+        titleAccent: data.infoGrid.titleAccent || infoGridData.titleAccent,
+        titleMain: data.infoGrid.titleMain || infoGridData.titleMain,
+        description: data.infoGrid.description || infoGridData.description,
+        items: data.infoGrid.items || infoGridData.items
+      }
+    : infoGridData;
+
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || emergingTechData.label,
+        titleAccent: data.emergingTech.titleAccent || emergingTechData.titleAccent,
+        titleMain: data.emergingTech.titleMain || emergingTechData.titleMain,
+        description: data.emergingTech.description || emergingTechData.description,
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : emergingTechData;
+
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || deliverMVPData.label,
+        title: data.deliverMVP.title || deliverMVPData.title,
+        accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
+        description: data.deliverMVP.description || deliverMVPData.description,
+        items: data.deliverMVP.items || deliverMVPData.items
+      }
+    : deliverMVPData;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
       <ServiceOverview
-        label={serviceOverviewData.label}
-        titleMain={serviceOverviewData.titleMain}
-        titleAccent={serviceOverviewData.titleAccent}
-        titleEnd={serviceOverviewData.titleEnd}
-        description={serviceOverviewData.description}
-        imagePath={serviceOverviewData.imagePath}
+        label={activeOverviewData.label}
+        titleMain={activeOverviewData.titleMain}
+        titleAccent={activeOverviewData.titleAccent}
+        titleEnd={activeOverviewData.titleEnd}
+        description={activeOverviewData.description}
+        imagePath={activeOverviewData.imagePath}
       />
       <Capabilities
-        slides={capabilitiesSlides}
-        title="Our Azure Capabilities"
+        slides={activeCapabilitiesSlides}
+        title={data?.capabilitiesSection?.title || "Our Azure Capabilities"}
         defaultImage={capabilitiesImg}
       />
-      <InfoGrid data={infoGridData} />
+      <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="Azure architecture"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Azure architecture"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Expert Services'
+        title={data?.serviceFeatures?.title || 'Expert Services'}
         description='We deliver specialized Azure services to support your cloud ecosystem.'
-        items={serviceFeaturesData}
+        items={data?.serviceFeatures?.items || serviceFeaturesData}
       />
-      <DeliverMVP data={deliverMVPData} />
-      <EmergingTech data={emergingTechData} />
-      <Processes title="OUR AZURE CLOUD PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <EmergingTech data={activeEmergingTechData} />
+      <Processes title={data?.processes?.title || "OUR AZURE CLOUD PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
       <RelatedServices
         services={[
           {

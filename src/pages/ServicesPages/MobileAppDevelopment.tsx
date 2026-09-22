@@ -11,6 +11,7 @@ import ServiceFeatures, { type ServiceFeatureItem } from '../../components/Servi
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import { useServicePage } from '../../hooks/useServicePage';
 
 const mobileAppSlides: CapabilitySlide[] = [
   {
@@ -389,38 +390,103 @@ const serviceSchema = {
 };
 
 const MobileAppDevelopment: React.FC = () => {
+  const { data } = useServicePage('mobile-app-development');
+
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || 'MOBILE APP DEVELOPMENT COMPANY',
+        titleMain: data.serviceOverview.titleMain || 'High-Performance Enterprise',
+        titleAccent: data.serviceOverview.titleAccent || 'iOS & Android',
+        titleEnd: data.serviceOverview.titleEnd || 'Mobile Applications',
+        description: data.serviceOverview.description || 'At Leapsofts, as a full-service mobile app development company, we design and engineer custom mobile applications that bridge corporate cloud backends, real-time databases, and device sensors. By managing full-cycle app development—from Swift and Kotlin native coding to React Native and Flutter cross-platform frameworks, offline-first data sync, and automated App Store releases—we deliver secure, responsive mobile solutions that drive user retention.',
+        imagePath: data.serviceOverview.imageUrl || mobileAppImg
+      }
+    : null;
+
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || capabilitiesImg,
+        items: slide.items || []
+      }))
+    : mobileAppSlides;
+
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || emergingTechData.label,
+        titleAccent: data.emergingTech.titleAccent || emergingTechData.titleAccent,
+        titleMain: data.emergingTech.titleMain || emergingTechData.titleMain,
+        description: data.emergingTech.description || emergingTechData.description,
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : emergingTechData;
+
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || deliverMVPData.label,
+        title: data.deliverMVP.title || deliverMVPData.title,
+        accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
+        description: data.deliverMVP.description || deliverMVPData.description,
+        items: data.deliverMVP.items || deliverMVPData.items
+      }
+    : deliverMVPData;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
       <ServiceOverview
-        label='MOBILE APP DEVELOPMENT COMPANY'
-        titleMain='High-Performance Enterprise'
-        titleAccent='iOS & Android'
-        titleEnd='Mobile Applications'
-        description='At Leapsofts, as a full-service mobile app development company, we design and engineer custom mobile applications that bridge corporate cloud backends, real-time databases, and device sensors. By managing full-cycle app development—from Swift and Kotlin native coding to React Native and Flutter cross-platform frameworks, offline-first data sync, and automated App Store releases—we deliver secure, responsive mobile solutions that drive user retention.'
-        imagePath={mobileAppImg}
+        label={activeOverviewData?.label || 'MOBILE APP DEVELOPMENT COMPANY'}
+        titleMain={activeOverviewData?.titleMain || 'High-Performance Enterprise'}
+        titleAccent={activeOverviewData?.titleAccent || 'iOS & Android'}
+        titleEnd={activeOverviewData?.titleEnd || 'Mobile Applications'}
+        description={activeOverviewData?.description || 'At Leapsofts, as a full-service mobile app development company, we design and engineer custom mobile applications that bridge corporate cloud backends, real-time databases, and device sensors. By managing full-cycle app development—from Swift and Kotlin native coding to React Native and Flutter cross-platform frameworks, offline-first data sync, and automated App Store releases—we deliver secure, responsive mobile solutions that drive user retention.'}
+        imagePath={activeOverviewData?.imagePath || mobileAppImg}
       />
-      <Capabilities title="Our Mobile App Development Capabilities" slides={mobileAppSlides} />
+      <Capabilities
+        title={data?.capabilitiesSection?.title || "Our Mobile App Development Capabilities"}
+        slides={activeCapabilitiesSlides}
+      />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="mobile"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "mobile"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Custom Mobile App Development Services We Provide'
-        items={defaultItems}
+        title={data?.serviceFeatures?.title || 'Custom Mobile App Development Services We Provide'}
+        items={data?.serviceFeatures?.items || defaultItems}
       />
-      <EmergingTech data={emergingTechData} />
-      <DeliverMVP data={deliverMVPData} />
-      <Processes title="OUR CUSTOM MOBILE DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <EmergingTech data={activeEmergingTechData} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <Processes title={data?.processes?.title || "OUR CUSTOM MOBILE DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
       <RelatedServices
         services={[
           {

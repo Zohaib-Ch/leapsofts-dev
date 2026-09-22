@@ -10,6 +10,7 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes from '../../components/Processes/Processes';
 import { type ProcessPhase } from '../../components/Processes/Processes';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import { useServicePage } from '../../hooks/useServicePage';
 
 const ourSolutionsData: EmergingTechProps['data'] = {
     label: 'CLOUD ENGINEERING SERVICES & CAPABILITIES',
@@ -287,34 +288,96 @@ const serviceSchema = {
 };
 
 const CloudEngineering: React.FC = () => {
+  const { data } = useServicePage('cloud-engineering');
+
+
+    const activeTitle = data?.hero?.title || title;
+    const activeSubtitle = data?.hero?.subtitle || subtitle;
+    const activeIntroDescription = data?.hero?.introText
+        ? [{ text: data.hero.introText, bold: false }]
+        : introDescription;
+
+    const activeOverviewData = (data?.serviceOverview)
+        ? {
+            label: data.serviceOverview.label || 'CLOUD ARCHITECTURE',
+            titleMain: data.serviceOverview.titleMain || 'Orchestrating Elastic',
+            titleAccent: data.serviceOverview.titleAccent || 'Cloud-Native',
+            titleEnd: data.serviceOverview.titleEnd || 'Infrastructures',
+            description: data.serviceOverview.description || 'At Leapsofts, we customize and engineer resilient cloud infrastructures designed to scale systems automatically and deliver high-performance throughput. By authoring custom Terraform blueprints, containerizing applications with Docker and Kubernetes (EKS/GKE), configuring elastic auto-scaling groups, and orchestrating distributed microservices, we help enterprises migrate from legacy on-premises servers to secure cloud environments with zero operational downtime.',
+            imagePath: data.serviceOverview.imageUrl || mobileAppImg
+        }
+        : null;
+
+    const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+        ? {
+            label: data.infoGrid.label || processData.label,
+            titleAccent: data.infoGrid.titleAccent || processData.titleAccent,
+            titleMain: data.infoGrid.titleMain || processData.titleMain,
+            description: data.infoGrid.description || processData.description,
+            items: data.infoGrid.items || processData.items
+        }
+        : processData;
+
+    const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+        ? {
+            label: data.emergingTech.label || ourSolutionsData.label,
+            titleAccent: data.emergingTech.titleAccent || ourSolutionsData.titleAccent,
+            titleMain: data.emergingTech.titleMain || ourSolutionsData.titleMain,
+            description: data.emergingTech.description || ourSolutionsData.description,
+            items: data.emergingTech.items.map(item => ({
+                icon: (item.icon || 'enterprise') as any,
+                title: item.title,
+                description: item.description
+            }))
+        }
+        : ourSolutionsData;
+
+    const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+        ? {
+            label: data.deliverMVP.label || deliverMVPData.label,
+            title: data.deliverMVP.title || deliverMVPData.title,
+            accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
+            description: data.deliverMVP.description || deliverMVPData.description,
+            items: data.deliverMVP.items || deliverMVPData.items
+        }
+        : deliverMVPData;
+
+    const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+        ? data.processes.processPhases
+        : processPhasesDefault;
+
+    const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+        ? data.processes.phaseLabels
+        : phaseLabelsDefault;
+
     return (
         <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
             <IntroComponent
-                title={title}
-                description={subtitle}
-                introDescription={introDescription}
+                title={activeTitle}
+                description={activeSubtitle}
+                introDescription={activeIntroDescription}
             />
             <ServiceOverview
-                label='CLOUD ARCHITECTURE'
-                titleMain='Orchestrating Elastic'
-                titleAccent='Cloud-Native'
-                titleEnd='Infrastructures'
-                description='At Leapsofts, we customize and engineer resilient cloud infrastructures designed to scale systems automatically and deliver high-performance throughput. By authoring custom Terraform blueprints, containerizing applications with Docker and Kubernetes (EKS/GKE), configuring elastic auto-scaling groups, and orchestrating distributed microservices, we help enterprises migrate from legacy on-premises servers to secure cloud environments with zero operational downtime.'
-                imagePath={mobileAppImg}
+                label={activeOverviewData?.label || 'CLOUD ARCHITECTURE'}
+                titleMain={activeOverviewData?.titleMain || 'Orchestrating Elastic'}
+                titleAccent={activeOverviewData?.titleAccent || 'Cloud-Native'}
+                titleEnd={activeOverviewData?.titleEnd || 'Infrastructures'}
+                description={activeOverviewData?.description || 'At Leapsofts, we customize and engineer resilient cloud infrastructures designed to scale systems automatically and deliver high-performance throughput. By authoring custom Terraform blueprints, containerizing applications with Docker and Kubernetes (EKS/GKE), configuring elastic auto-scaling groups, and orchestrating distributed microservices, we help enterprises migrate from legacy on-premises servers to secure cloud environments with zero operational downtime.'}
+                imagePath={activeOverviewData?.imagePath || mobileAppImg}
             />
-            <InfoGrid data={processData} />
+            <InfoGrid data={activeInfoGridData} />
             <StreamlineSuccess
-                label="COMPLIMENTARY STRATEGY SESSION"
-                titleMain="Map your "
-                titleAccent="cloud architecture"
-                titleEnd=" roadmap."
-                description={streamlineDescription}
-                imageUrl="/streamline.png"
+                label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+                titleMain={data?.strategyCTA?.titleMain || "Map your "}
+                titleAccent={data?.strategyCTA?.titleAccent || "cloud architecture"}
+                titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+                description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+                imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
             />
-            <DeliverMVP data={deliverMVPData} />
-            <EmergingTech data={ourSolutionsData} />
-            <Processes title="OUR CUSTOM CLOUD MIGRATION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+            <DeliverMVP data={activeDeliverMVPData} />
+            <EmergingTech data={activeEmergingTechData} />
+            <Processes title={data?.processes?.title || "OUR CUSTOM CLOUD MIGRATION PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
             <RelatedServices
                 services={[
                     {

@@ -18,6 +18,7 @@ interface IntroComponentProps {
 const IntroComponent: React.FC<IntroComponentProps> = ({
     title,
     title2,
+    description,
     videoSrc = "/bg_video/leapsofts2.mp4",
     buttonText = "Schedule a Consultation",
     onButtonClick,
@@ -52,11 +53,15 @@ const IntroComponent: React.FC<IntroComponentProps> = ({
                     <h1 className={styles.title}>{title}</h1>
                     {title2 && <span className={styles.title} style={{ display: 'block', marginTop: '-0.5rem', fontSize: '2.5rem', opacity: 0.9 }}>{title2}</span>}
                     <p className={styles.subtitle}>
-                        {introDescription?.map((item, index) => (
-                            <span key={index} className={item.bold ? styles.bold : ''}>
-                                {item.text}
-                            </span>
-                        ))}
+                        {introDescription && introDescription.length > 0 ? (
+                            introDescription.map((item, index) => (
+                                <span key={index} className={item.bold ? styles.bold : ''}>
+                                    {item.text}
+                                </span>
+                            ))
+                        ) : (
+                            description
+                        )}
                     </p>
                     <Button
                         text={buttonText}

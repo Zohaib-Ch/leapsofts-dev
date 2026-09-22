@@ -1,3 +1,4 @@
+import { useServicePage } from '../../hooks/useServicePage';
 import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import InfoGrid from '../../components/InfoGrid/InfoGrid';
@@ -335,13 +336,65 @@ const serviceSchema = {
 };
 
 const CloudMigration: React.FC = () => {
+  const { data } = useServicePage('cloud-migration');
+
+  
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || (typeof cloudMigrationProcessData !== 'undefined' ? cloudMigrationProcessData.label : ''),
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof cloudMigrationProcessData !== 'undefined' ? cloudMigrationProcessData.title : ''),
+        description: data.infoGrid.description || (typeof cloudMigrationProcessData !== 'undefined' ? cloudMigrationProcessData.description : ''),
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof cloudMigrationProcessData !== 'undefined' ? cloudMigrationProcessData : { items: [] });
+
+  
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.label : ''),
+        title: data.deliverMVP.title || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.title : ''),
+        accentText: data.deliverMVP.accentText || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.accentText : ''),
+        description: data.deliverMVP.description || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.description : ''),
+        items: data.deliverMVP.items || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.items : [])
+      }
+    : (typeof deliverMVPData !== 'undefined' ? deliverMVPData : { label: '', title: '', accentText: '', description: '', items: [] });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.label : ''),
+        titleMain: data.serviceOverview.titleMain || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleMain : ''),
+        titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
+        titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
+        description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
+        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+      }
+    : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
       <ServiceOverview
         label='WORKLOAD TRANSITION'
@@ -357,9 +410,7 @@ const CloudMigration: React.FC = () => {
         slides={capabilitiesSlides}
         defaultImage={capabilitiesImg}
       />
-      <InfoGrid
-        data={cloudMigrationProcessData}
-      />
+      <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
         label="COMPLIMENTARY STRATEGY SESSION"
         titleMain="Map your "
@@ -373,7 +424,7 @@ const CloudMigration: React.FC = () => {
         description='Every business has different needs. Whether you are migrating Oracle, VMware, or PaaS applications, we tailor the migration tools and processes to fit your infrastructure.'
         items={defaultItems}
       />
-      <DeliverMVP data={deliverMVPData} />
+      <DeliverMVP data={activeDeliverMVPData} />
       <Processes title="OUR CLOUD MIGRATION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
       <RelatedServices
         services={[

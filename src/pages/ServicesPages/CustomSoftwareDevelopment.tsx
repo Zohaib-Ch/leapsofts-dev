@@ -7,6 +7,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import { useServicePage } from '../../hooks/useServicePage';
 
 const capabilitiesSlides: CapabilitySlide[] = [
   {
@@ -299,31 +300,78 @@ const serviceSchema = {
 };
 
 function CustomSoftwareDevelopment() {
+  const { data } = useServicePage('custom-software-development');
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || capabilitiesImg,
+        items: slide.items || []
+      }))
+    : capabilitiesSlides;
+
+  const activeComparisonData = (data?.comparisonTable && data.comparisonTable.items?.length)
+    ? {
+        label: data.comparisonTable.label || comparisonData.label,
+        titleAccent: data.comparisonTable.titleAccent || comparisonData.titleAccent,
+        titleMain: data.comparisonTable.titleMain || comparisonData.titleMain,
+        description: data.comparisonTable.description || comparisonData.description,
+        headers: data.comparisonTable.headers || comparisonData.headers,
+        items: data.comparisonTable.items || comparisonData.items
+      }
+    : comparisonData;
+
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || deliverMVPData.label,
+        title: data.deliverMVP.title || deliverMVPData.title,
+        accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
+        description: data.deliverMVP.description || deliverMVPData.description,
+        items: data.deliverMVP.items || deliverMVPData.items
+      }
+    : deliverMVPData;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
       <Capabilities
-        title="Our Key Capabilities"
-        description="We offer end-to-end custom application development services across various platforms and business functions."
-        slides={capabilitiesSlides}
+        title={data?.capabilitiesSection?.title || "Our Key Capabilities"}
+        description={data?.capabilitiesSection?.description || "We offer end-to-end custom application development services across various platforms and business functions."}
+        slides={activeCapabilitiesSlides}
         defaultImage={capabilitiesImg}
       />
-      <ComparisonTable data={comparisonData} />
+      <ComparisonTable data={activeComparisonData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="technical"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "technical"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <DeliverMVP data={deliverMVPData} />
-      <Processes title="OUR CUSTOM SOFTWARE DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <Processes title={data?.processes?.title || "OUR CUSTOM SOFTWARE DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
       <RelatedServices
         services={[
           {

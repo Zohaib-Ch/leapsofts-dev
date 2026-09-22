@@ -10,6 +10,7 @@ const iconMap: Record<string, string> = {
   enterprise: '/icons/Emerging/bipiramida.svg',
   saas: '/icons/Emerging/sphere.svg',
   hipaa: '/icons/Emerging/health.svg',
+  hippa: '/icons/Emerging/health.svg',
   ecommerce: '/icons/Emerging/diamond.svg',
   mobile: '/icons/Emerging/startup.svg',
   legacy: '/icons/Emerging/tetris.svg',
@@ -20,15 +21,7 @@ const iconMap: Record<string, string> = {
 /* ================= TYPES ================= */
 
 export interface TechItem {
-  icon:
-  | 'enterprise'
-  | 'saas'
-  | 'hipaa'
-  | 'ecommerce'
-  | 'mobile'
-  | 'legacy'
-  | 'thirdParty'
-  | 'product';
+  icon: string;
   title: string;
   description: string;
 }
@@ -47,8 +40,12 @@ export interface EmergingTechProps {
 
 const EmergingTech: React.FC<EmergingTechProps> = ({ data }) => {
 
-  const getIcon = (type: TechItem['icon']) => {
-    const iconSrc = iconMap[type] || iconMap.enterprise;
+  const getIcon = (type: string) => {
+    if (!type) return <img src={iconMap.enterprise} alt="icon" className={styles.icon} />;
+    if (type.startsWith('/') || type.startsWith('http')) {
+      return <img src={type} alt="icon" className={styles.icon} />;
+    }
+    const iconSrc = iconMap[type.toLowerCase()] || iconMap.enterprise;
     return <img src={iconSrc} alt={type} className={styles.icon} />;
   };
 

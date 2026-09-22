@@ -8,6 +8,7 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import cloudImg from "../../assets/about_laptop_3d.png";
+import { useServicePage } from '../../hooks/useServicePage';
 
 const serviceOverviewData = {
   label: "AWS CLOUD ARCHITECTURE",
@@ -277,39 +278,116 @@ const serviceSchema = {
 };
 
 const AWS: React.FC = () => {
+  const { data } = useServicePage('aws');
+
+  
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || (typeof servicesData !== 'undefined' ? servicesData.label : ''),
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof servicesData !== 'undefined' ? servicesData.title : ''),
+        description: data.infoGrid.description || (typeof servicesData !== 'undefined' ? servicesData.description : ''),
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof servicesData !== 'undefined' ? servicesData : { items: [] });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || serviceOverviewData.label,
+        titleMain: data.serviceOverview.titleMain || serviceOverviewData.titleMain,
+        titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
+        titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
+        description: data.serviceOverview.description || serviceOverviewData.description,
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath
+      }
+    : serviceOverviewData;
+
+  const activeServicesData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || servicesData.label,
+        title: data.infoGrid.titleMain || servicesData.title,
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : servicesData;
+
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || emergingTechData.label,
+        titleAccent: data.emergingTech.titleAccent || emergingTechData.titleAccent,
+        titleMain: data.emergingTech.titleMain || emergingTechData.titleMain,
+        description: data.emergingTech.description || emergingTechData.description,
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : emergingTechData;
+
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || deliverMVPData.label,
+        title: data.deliverMVP.title || deliverMVPData.title,
+        accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
+        description: data.deliverMVP.description || deliverMVPData.description,
+        items: data.deliverMVP.items || deliverMVPData.items
+      }
+    : deliverMVPData;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
       <ServiceOverview
-        label={serviceOverviewData.label}
-        titleMain={serviceOverviewData.titleMain}
-        titleAccent={serviceOverviewData.titleAccent}
-        titleEnd={serviceOverviewData.titleEnd}
-        description={serviceOverviewData.description}
-        imagePath={serviceOverviewData.imagePath}
+        label={activeOverviewData.label}
+        titleMain={activeOverviewData.titleMain}
+        titleAccent={activeOverviewData.titleAccent}
+        titleEnd={activeOverviewData.titleEnd}
+        description={activeOverviewData.description}
+        imagePath={activeOverviewData.imagePath}
       />
-      <InfoGrid data={servicesData} />
+      <InfoGrid data={activeServicesData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="AWS architecture"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "AWS architecture"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='AWS Capabilities'
+        title={data?.serviceFeatures?.title || 'AWS Capabilities'}
         description='We deliver expert services across the entire AWS ecosystem.'
-        items={serviceFeaturesData}
+        items={data?.serviceFeatures?.items || serviceFeaturesData}
       />
-      <DeliverMVP data={deliverMVPData} />
-      <EmergingTech data={emergingTechData} />
-      <Processes title="OUR AWS CLOUD PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <EmergingTech data={activeEmergingTechData} />
+      <Processes title={data?.processes?.title || "OUR AWS CLOUD PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
       <RelatedServices
         services={[
           {

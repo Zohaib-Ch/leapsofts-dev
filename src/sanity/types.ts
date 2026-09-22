@@ -242,6 +242,8 @@ export interface SanityService {
     titleAccent?: string;
     titleEnd?: string;
     descriptionText?: string;
+    buttonText?: string;
+    buttonPath?: string;
     imageUrl?: string;
   };
   serviceFeatures?: {
@@ -273,6 +275,11 @@ export interface SanityService {
       features?: { title: string; description: string }[];
     }[];
   };
+  relatedServices?: {
+    title?: string;
+    sectionLabel?: string;
+    items?: { title: string; description: string; link: string }[];
+  };
   faqs?: { question: string; answer: string }[];
   seo?: SanitySEO;
 }
@@ -283,6 +290,48 @@ export interface SanityIndustry {
   slug: string;
   badgeText?: string;
   shortDescription?: string;
+  hero?: {
+    title?: string;
+    subtitle?: string;
+    introText?: string;
+  };
+  commitmentSection?: {
+    subtitle?: string;
+    title?: string;
+    items?: { icon?: string; title: string; description: string }[];
+  };
+  strategyCTA?: {
+    label?: string;
+    titleMain?: string;
+    titleAccent?: string;
+    titleEnd?: string;
+    descriptionText?: string;
+    buttonText?: string;
+    buttonPath?: string;
+    imageUrl?: string;
+  };
+  solutionsSection?: {
+    label?: string;
+    titleAccent?: string;
+    titleMain?: string;
+    description?: string;
+    items?: { icon?: string; title: string; description: string }[];
+  };
+  servicesSection?: {
+    label?: string;
+    titleMain?: string;
+    titleAccent?: string;
+    titleEnd?: string;
+  };
+  processHeader?: {
+    titleMain?: string;
+    titleAccent?: string;
+  };
+  relatedServices?: {
+    title?: string;
+    sectionLabel?: string;
+    items?: { title: string; description: string; link: string }[];
+  };
   whoWeServe?: string[];
   solutions?: { title: string; description: string }[];
   impactStats?: SanityStat[];

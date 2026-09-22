@@ -1,3 +1,4 @@
+import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview'
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
@@ -318,13 +319,80 @@ const serviceSchema = {
 };
 
 const ServiceNow: React.FC = () => {
+  const { data } = useServicePage('servicenow');
+
+  
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || (typeof reEngineeringProcessData !== 'undefined' ? reEngineeringProcessData.label : ''),
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof reEngineeringProcessData !== 'undefined' ? reEngineeringProcessData.title : ''),
+        description: data.infoGrid.description || (typeof reEngineeringProcessData !== 'undefined' ? reEngineeringProcessData.description : ''),
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof reEngineeringProcessData !== 'undefined' ? reEngineeringProcessData : { items: [] });
+
+  
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || (typeof emergingTechData !== 'undefined' ? emergingTechData.label : ''),
+        titleAccent: data.emergingTech.titleAccent || (typeof emergingTechData !== 'undefined' ? emergingTechData.titleAccent : ''),
+        titleMain: data.emergingTech.titleMain || (typeof emergingTechData !== 'undefined' ? emergingTechData.titleMain : ''),
+        description: data.emergingTech.description || (typeof emergingTechData !== 'undefined' ? emergingTechData.description : ''),
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof emergingTechData !== 'undefined' ? emergingTechData : { label: '', titleAccent: '', titleMain: '', description: '', items: [] });
+
+  
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.label : ''),
+        title: data.deliverMVP.title || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.title : ''),
+        accentText: data.deliverMVP.accentText || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.accentText : ''),
+        description: data.deliverMVP.description || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.description : ''),
+        items: data.deliverMVP.items || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.items : [])
+      }
+    : (typeof deliverMVPData !== 'undefined' ? deliverMVPData : { label: '', title: '', accentText: '', description: '', items: [] });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.label : ''),
+        titleMain: data.serviceOverview.titleMain || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleMain : ''),
+        titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
+        titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
+        description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
+        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+      }
+    : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
       <ServiceOverview
         label={serviceOverviewData.label}
@@ -334,7 +402,7 @@ const ServiceNow: React.FC = () => {
         description={serviceOverviewData.description}
         imagePath={serviceOverviewData.imagePath}
       />
-      <InfoGrid data={reEngineeringProcessData} />
+      <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
         label="COMPLIMENTARY STRATEGY SESSION"
         titleMain="Map your "
@@ -348,8 +416,8 @@ const ServiceNow: React.FC = () => {
         description='We deliver specialized ServiceNow services to support your enterprise workflows.'
         items={serviceFeaturesData}
       />
-      <DeliverMVP data={deliverMVPData} />
-      <EmergingTech data={emergingTechData} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <EmergingTech data={activeEmergingTechData} />
       <Processes title="OUR CUSTOM SERVICENOW PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
       <RelatedServices
         services={[

@@ -1,3 +1,4 @@
+import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
@@ -317,14 +318,81 @@ const serviceSchema = {
 };
 
 const CyberSecurity: React.FC = () => {
+  const { data } = useServicePage('cyber-security');
+
+  
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || (typeof infoGridData !== 'undefined' ? infoGridData.label : ''),
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof infoGridData !== 'undefined' ? infoGridData.title : ''),
+        description: data.infoGrid.description || (typeof infoGridData !== 'undefined' ? infoGridData.description : ''),
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof infoGridData !== 'undefined' ? infoGridData : { items: [] });
+
+  
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || (typeof cyberSecurityData !== 'undefined' ? cyberSecurityData.label : ''),
+        titleAccent: data.emergingTech.titleAccent || (typeof cyberSecurityData !== 'undefined' ? cyberSecurityData.titleAccent : ''),
+        titleMain: data.emergingTech.titleMain || (typeof cyberSecurityData !== 'undefined' ? cyberSecurityData.titleMain : ''),
+        description: data.emergingTech.description || (typeof cyberSecurityData !== 'undefined' ? cyberSecurityData.description : ''),
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof cyberSecurityData !== 'undefined' ? cyberSecurityData : { label: '', titleAccent: '', titleMain: '', description: '', items: [] });
+
+  
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.label : ''),
+        title: data.deliverMVP.title || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.title : ''),
+        accentText: data.deliverMVP.accentText || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.accentText : ''),
+        description: data.deliverMVP.description || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.description : ''),
+        items: data.deliverMVP.items || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.items : [])
+      }
+    : (typeof deliverMVPData !== 'undefined' ? deliverMVPData : { label: '', title: '', accentText: '', description: '', items: [] });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.label : ''),
+        titleMain: data.serviceOverview.titleMain || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleMain : ''),
+        titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
+        titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
+        description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
+        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+      }
+    : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
     return (
         <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
             <IntroComponent
-                title={title}
-                description={subtitle}
-                introDescription={introDescription}
-            />
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
+      />
             <ServiceOverview
                 label={serviceOverviewData.label}
                 titleMain={serviceOverviewData.titleMain}
@@ -333,7 +401,7 @@ const CyberSecurity: React.FC = () => {
                 description={serviceOverviewData.description}
                 imagePath={serviceOverviewData.imagePath}
             />
-            <InfoGrid data={infoGridData} />
+            <InfoGrid data={activeInfoGridData} />
             <StreamlineSuccess
                 label="COMPLIMENTARY STRATEGY SESSION"
                 titleMain="Map your "
@@ -347,8 +415,8 @@ const CyberSecurity: React.FC = () => {
                 description='We deliver specialized security services to support your entire organization.'
                 items={serviceFeaturesData}
             />
-            <DeliverMVP data={deliverMVPData} />
-            <EmergingTech data={cyberSecurityData} />
+            <DeliverMVP data={activeDeliverMVPData} />
+            <EmergingTech data={activeEmergingTechData} />
             <Processes title="OUR CUSTOM CYBERSECURITY PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
             <RelatedServices
                 services={[

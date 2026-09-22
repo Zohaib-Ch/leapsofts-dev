@@ -8,6 +8,7 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import laptopImg from "../../assets/about_laptop_3d.png";
+import { useServicePage } from '../../hooks/useServicePage';
 
 const serviceOverviewData = {
   label: "BPO SOLUTIONS",
@@ -318,39 +319,101 @@ const serviceSchema = {
 };
 
 const BusinessProcessOutsourcing: React.FC = () => {
+  const { data } = useServicePage('business-process-outsourcing');
+
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || serviceOverviewData.label,
+        titleMain: data.serviceOverview.titleMain || serviceOverviewData.titleMain,
+        titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
+        titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
+        description: data.serviceOverview.description || serviceOverviewData.description,
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath
+      }
+    : serviceOverviewData;
+
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || processData.label,
+        titleAccent: data.infoGrid.titleAccent || processData.titleAccent,
+        titleMain: data.infoGrid.titleMain || processData.titleMain,
+        description: data.infoGrid.description || processData.description,
+        items: data.infoGrid.items || processData.items
+      }
+    : processData;
+
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || ourServicesData.label,
+        titleAccent: data.emergingTech.titleAccent || ourServicesData.titleAccent,
+        titleMain: data.emergingTech.titleMain || ourServicesData.titleMain,
+        description: data.emergingTech.description || ourServicesData.description,
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : ourServicesData;
+
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || deliverMVPData.label,
+        title: data.deliverMVP.title || deliverMVPData.title,
+        accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
+        description: data.deliverMVP.description || deliverMVPData.description,
+        items: data.deliverMVP.items || deliverMVPData.items
+      }
+    : deliverMVPData;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
       <ServiceOverview
-        label={serviceOverviewData.label}
-        titleMain={serviceOverviewData.titleMain}
-        titleAccent={serviceOverviewData.titleAccent}
-        titleEnd={serviceOverviewData.titleEnd}
-        description={serviceOverviewData.description}
-        imagePath={serviceOverviewData.imagePath}
+        label={activeOverviewData.label}
+        titleMain={activeOverviewData.titleMain}
+        titleAccent={activeOverviewData.titleAccent}
+        titleEnd={activeOverviewData.titleEnd}
+        description={activeOverviewData.description}
+        imagePath={activeOverviewData.imagePath}
       />
-      <InfoGrid data={processData} />
+      <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="operational BPO"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "operational BPO"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Core BPO Capabilities'
+        title={data?.serviceFeatures?.title || 'Core BPO Capabilities'}
         description='We deliver expert services across various business process domains.'
-        items={serviceFeaturesData}
+        items={data?.serviceFeatures?.items || serviceFeaturesData}
       />
-      <DeliverMVP data={deliverMVPData} />
-      <EmergingTech data={ourServicesData} />
-      <Processes title="OUR CUSTOM BPO PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <EmergingTech data={activeEmergingTechData} />
+      <Processes title={data?.processes?.title || "OUR CUSTOM BPO PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
       <RelatedServices
         services={[
           {

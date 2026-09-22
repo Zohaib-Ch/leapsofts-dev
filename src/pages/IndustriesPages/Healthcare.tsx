@@ -1,3 +1,4 @@
+import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
@@ -161,33 +162,63 @@ const serviceSchema = {
 };
 
 const Healthcare: React.FC = () => {
+  const { data } = useIndustryPage('healthcare');
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+    ? {
+        subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
+        title: data.commitmentSection.title || commitmentData.title,
+        items: data.commitmentSection.items
+      }
+    : commitmentData;
+
+  const activeSolutionsData = (data?.solutionsSection && data.solutionsSection.items?.length)
+    ? {
+        label: data.solutionsSection.label || ourTechInnovationsData.label,
+        titleAccent: data.solutionsSection.titleAccent || ourTechInnovationsData.titleAccent,
+        titleMain: data.solutionsSection.titleMain || ourTechInnovationsData.titleMain,
+        description: data.solutionsSection.description || ourTechInnovationsData.description,
+        items: data.solutionsSection.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : ourTechInnovationsData;
+
+  const processTitleMain = data?.processHeader?.titleMain || "Healthcare Product Development";
+  const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
   useEffect(() => {
     setProcessTitle({
-      titleMain: "Healthcare Product Development",
-      titleAccent: "Process"
+      titleMain: processTitleMain,
+      titleAccent: processTitleAccent
     });
-  }, [setProcessTitle]);
+  }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
-      <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
-      />
-      <CommitmentSection data={commitmentData} />
+      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Software "
-        titleAccent="Strategy"
-        titleEnd=" Session"
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
+        titleMain={data?.strategyCTA?.titleMain || "Software "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
+        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <EmergingTech data={ourTechInnovationsData} />
+      <EmergingTech data={activeSolutionsData} />
       <Services
         label="OUR CAPABILITIES"
         titleMain="How we "

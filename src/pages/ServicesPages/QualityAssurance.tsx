@@ -1,3 +1,4 @@
+import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
@@ -328,42 +329,109 @@ const serviceSchema = {
 };
 
 const QualityAssurance: React.FC = () => {
+  const { data } = useServicePage('quality-assurance');
+
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || "QUALITY ENGINEERING",
+        titleMain: data.serviceOverview.titleMain || "Continuous ",
+        titleAccent: data.serviceOverview.titleAccent || "Validation & ",
+        titleEnd: data.serviceOverview.titleEnd || "Security",
+        description: data.serviceOverview.description || "At Leapsofts, we establish strict software validation layers that identify system vulnerabilities and logical errors long before production deployment. By combining automated regression suites, localized API integration mocks, and intensive cloud-native load testing setups, we ensure your applications achieve absolute performance reliability, robust SOC2 compliance, and optimal core web vitals.",
+        imagePath: data.serviceOverview.imageUrl || phoneImg
+      }
+    : null;
+
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || infoGridData.label,
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || infoGridData.title,
+        description: data.infoGrid.description || infoGridData.description,
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : infoGridData;
+
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || ourServicesData.label,
+        titleAccent: data.emergingTech.titleAccent || ourServicesData.titleAccent,
+        titleMain: data.emergingTech.titleMain || ourServicesData.titleMain,
+        description: data.emergingTech.description || ourServicesData.description,
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : ourServicesData;
+
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || deliverMVPData.label,
+        title: data.deliverMVP.title || deliverMVPData.title,
+        accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
+        description: data.deliverMVP.description || deliverMVPData.description,
+        items: data.deliverMVP.items || deliverMVPData.items
+      }
+    : deliverMVPData;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : (typeof processesData !== 'undefined' ? processesData : []);
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : (typeof phaseLabelsDefault !== 'undefined' ? phaseLabelsDefault : (typeof phaseLabels !== 'undefined' ? phaseLabels : []));
+
     return (
         <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
             <IntroComponent
-                title={title}
-                description={subtitle}
-                introDescription={introDescription}
-            />
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
+      />
             <ServiceOverview
-                label="QUALITY ENGINEERING"
-                titleMain="Continuous "
-                titleAccent="Validation & "
-                titleEnd="Security"
-                description="At Leapsofts, we establish strict software validation layers that identify system vulnerabilities and logical errors long before production deployment. By combining automated regression suites, localized API integration mocks, and intensive cloud-native load testing setups, we ensure your applications achieve absolute performance reliability, robust SOC2 compliance, and optimal core web vitals."
-                imagePath={phoneImg}
+                label={activeOverviewData?.label || "QUALITY ENGINEERING"}
+                titleMain={activeOverviewData?.titleMain || "Continuous "}
+                titleAccent={activeOverviewData?.titleAccent || "Validation & "}
+                titleEnd={activeOverviewData?.titleEnd || "Security"}
+                description={activeOverviewData?.description || "At Leapsofts, we establish strict software validation layers that identify system vulnerabilities and logical errors long before production deployment. By combining automated regression suites, localized API integration mocks, and intensive cloud-native load testing setups, we ensure your applications achieve absolute performance reliability, robust SOC2 compliance, and optimal core web vitals."}
+                imagePath={activeOverviewData?.imagePath || phoneImg}
             />
-            <InfoGrid data={infoGridData} />
+            <InfoGrid data={activeInfoGridData} />
             <StreamlineSuccess
-                label="COMPLIMENTARY STRATEGY SESSION"
-                titleMain="Map your "
-                titleAccent="testing"
-                titleEnd=" roadmap."
-                description={streamlineDescription}
-                imageUrl="/streamline.png"
+                label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+                titleMain={data?.strategyCTA?.titleMain || "Map your "}
+                titleAccent={data?.strategyCTA?.titleAccent || "testing"}
+                titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+                description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+                buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+                buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+                imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
             />
             <ServiceFeatures
-                title='Our QA Services'
-                description='We offer specialized testing services tailored to your project requirements, ensuring robust performance and security.'
-                items={serviceFeaturesData}
+                title={data?.serviceFeatures?.title || 'Our QA Services'}
+                description={data?.serviceFeatures?.description || 'We offer specialized testing services tailored to your project requirements, ensuring robust performance and security.'}
+                items={data?.serviceFeatures?.items || serviceFeaturesData}
             />
-            <DeliverMVP data={deliverMVPData} />
-            <EmergingTech data={ourServicesData} />
+            <DeliverMVP data={activeDeliverMVPData} />
+            <EmergingTech data={activeEmergingTechData} />
             <Processes
-                title="Software Verification & Validation Framework"
-                phaseLabels={phaseLabelsDefault}
-                processPhases={processesData}
+                title={data?.processes?.title || "Software Verification & Validation Framework"}
+                phaseLabels={activePhaseLabels}
+                processPhases={activeProcessPhases}
             />
             <RelatedServices
                 services={[
