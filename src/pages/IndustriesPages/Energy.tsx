@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -98,67 +99,34 @@ const introDescription = [
   { text: "engineered to support clean energy transitions. By building real-time turbine IoT telemetry, load balancing algorithms, and automated carbon emissions tracking, we help utility firms operate with maximum uptime and transparency.", bold: false }
 ];
 
-export function meta() {
-  const title = "Energy Sector Software Development | Leapsofts";
-  const description = "Custom software for energy companies — grid management, asset tracking & renewable energy platforms. Leapsofts builds IoT-integrated energy solutions. Get started.";
-  const keywords = "energy software development, utilities software company, renewable energy software, smart grid software";
-  const canonicalUrl = "https://www.leapsofts.com/industries/energy";
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('energy');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Energy Sector Software Development",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Energy & Utility Software Engineering",
-      "description": "Custom software for energy companies — grid management, asset tracking & renewable energy platforms."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Energy Sector",
-          "item": "https://www.leapsofts.com/industries/energy"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Energy Sector Software Development | Leapsofts",
+    defaultDescription: "Custom software for energy companies — grid management, asset tracking & renewable energy platforms. Leapsofts builds IoT-integrated energy solutions. Get started.",
+    defaultKeywords: "energy software development, utilities software company, renewable energy software, smart grid software",
+    canonicalUrl: "https://www.leapsofts.com/industries/energy",
+  });
+}
+
+
 
 const Energy: React.FC = () => {
   const { data } = useIndustryPage('energy');
+
+  const schemaData = buildServiceSchema({
+    name: "Energy Sector Software Development",
+    description: "Custom software for energy companies — grid management, asset tracking & renewable energy platforms.",
+    canonicalUrl: "https://www.leapsofts.com/industries/energy",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
@@ -201,7 +169,7 @@ const Energy: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

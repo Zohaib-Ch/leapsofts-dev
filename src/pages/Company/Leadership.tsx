@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import React, { useEffect } from 'react';
 import styles from './Leadership.module.css';
 import { motion } from 'framer-motion';
@@ -17,29 +18,21 @@ import { getSanityTeamMembers, getSanityAboutPage } from '../../sanity/queries';
 import type { SanityTeamMember, SanityAboutPage } from '../../sanity/types';
 import { renderFormattedTitle } from '../../utils/titleFormatter';
 import { DEFAULT_LEADERSHIP_PAGE_DATA } from '../../data/companyFallback';
-export function meta() {
-  const title = "Engineering Leadership Team | Leapsofts";
-  const description = "Meet the engineering leaders behind Leapsofts — a global team of CTOs, architects, and domain experts committed to technical excellence and client success.";
-  const keywords = "Leapsofts leadership, CTO team, software engineering leaders, software architects";
-  const canonicalUrl = "https://www.leapsofts.com/about/leadership";
+import { useLoaderData } from 'react-router';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityAboutPage('aboutLeadershipPage');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Engineering Leadership Team | Leapsofts",
+    defaultDescription: "Meet the engineering leaders behind Leapsofts — a global team of CTOs, architects, and domain experts committed to technical excellence and client success.",
+    defaultKeywords: "Leapsofts leadership, CTO team, software engineering leaders, software architects",
+    canonicalUrl: "https://www.leapsofts.com/about/leadership",
+  });
 }
 
 const ribbonData = [
@@ -169,30 +162,16 @@ const cardChildVariant = {
 export { DEFAULT_LEADERSHIP_PAGE_DATA };
 
 const Leadership: React.FC = () => {
+  const loaderData = useLoaderData<typeof loader>();
   const { openContactModal } = useContactModal();
   const [sanityTeam, setSanityTeam] = React.useState<SanityTeamMember[] | null>(null);
-  const [sanityPage, setSanityPage] = React.useState<SanityAboutPage>(DEFAULT_LEADERSHIP_PAGE_DATA);
+
+  const sanityPage: SanityAboutPage = loaderData?.sanityData || DEFAULT_LEADERSHIP_PAGE_DATA;
 
   useEffect(() => {
-    document.title = 'Executive Engineering Leadership | CEO Huzaifa Rasheed | Leapsofts';
     getSanityTeamMembers().then((data) => {
       if (data) setSanityTeam(data);
     });
-    getSanityAboutPage('aboutLeadershipPage')
-      .then((data) => {
-        if (data) {
-          setSanityPage((prev) => {
-            const isIdentical = JSON.stringify(prev) === JSON.stringify(data);
-            return isIdentical ? prev : data;
-          });
-        } else {
-          setSanityPage(DEFAULT_LEADERSHIP_PAGE_DATA);
-        }
-      })
-      .catch((err) => {
-        console.error('Failed to load Leadership page data from Sanity:', err);
-        setSanityPage(DEFAULT_LEADERSHIP_PAGE_DATA);
-      });
   }, []);
 
   const ceoMember = React.useMemo(() => {

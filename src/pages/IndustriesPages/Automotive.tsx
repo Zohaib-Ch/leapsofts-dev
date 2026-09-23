@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -100,67 +101,34 @@ const introDescription = [
   { text: "engineered for auto manufacturers and EV fleet operators. By building real-time V2X messaging gateways, ADAS sensor integrations, and predictive factory IoT portals, we accelerate digital mobility across global supply chains.", bold: false }
 ];
 
-export function meta() {
-  const title = "Automotive Software Development Services | Leapsofts";
-  const description = "Custom automotive software — dealer management, connected vehicle platforms & EV integration. Leapsofts builds next-gen digital solutions for the auto industry.";
-  const keywords = "automotive software development, dealer management software, connected vehicle software, EV software development";
-  const canonicalUrl = "https://www.leapsofts.com/industries/automotive";
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('automotive');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Automotive Software Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Automotive & Telematics Software Engineering",
-      "description": "Custom automotive software — dealer management, connected vehicle platforms & EV integration."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Automotive",
-          "item": "https://www.leapsofts.com/industries/automotive"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Automotive Software Development Services | Leapsofts",
+    defaultDescription: "Custom automotive software — dealer management, connected vehicle platforms & EV integration. Leapsofts builds next-gen digital solutions for the auto industry.",
+    defaultKeywords: "automotive software development, dealer management software, connected vehicle software, EV software development",
+    canonicalUrl: "https://www.leapsofts.com/industries/automotive",
+  });
+}
+
+
 
 const Automotive: React.FC = () => {
   const { data } = useIndustryPage('automotive');
+
+  const schemaData = buildServiceSchema({
+    name: "Automotive Software Development Services",
+    description: "Custom automotive software — dealer management, connected vehicle platforms & EV integration.",
+    canonicalUrl: "https://www.leapsofts.com/industries/automotive",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
@@ -203,7 +171,7 @@ const Automotive: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

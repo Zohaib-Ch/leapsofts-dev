@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
@@ -258,67 +259,34 @@ const introDescription = [
   { text: "solutions including Master Data Management (MDM), data cataloging, and GDPR/HIPAA compliance frameworks. We help organizations transform fragmented databases into secure, highly audited sources of truth.", bold: false }
 ]
 
-export function meta() {
-  const title = "Data Governance Services | Leapsofts";
-  const description = "Enterprise data governance frameworks to ensure compliance, accuracy & security. Leapsofts builds robust data strategies for regulated industries. Consult us.";
-  const keywords = "data governance services, enterprise data management, data compliance services, data quality management";
-  const canonicalUrl = "https://www.leapsofts.com/services/data-governance";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('data-governance');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Data Governance Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Data Governance & Compliance",
-      "description": "Enterprise data governance frameworks to ensure compliance, accuracy & security."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Data Governance",
-          "item": "https://www.leapsofts.com/services/data-governance"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Data Governance Services | Leapsofts",
+    defaultDescription: "Enterprise data governance frameworks to ensure compliance, accuracy & security. Leapsofts builds robust data strategies for regulated industries. Consult us.",
+    defaultKeywords: "data governance services, enterprise data management, data compliance services, data quality management",
+    canonicalUrl: "https://www.leapsofts.com/services/data-governance",
+  });
+}
+
+
 
 const DataGovernance: React.FC = () => {
   const { data } = useServicePage('data-governance');
+
+  const schemaData = buildServiceSchema({
+    name: "Data Governance Services",
+    description: "Enterprise data governance frameworks to ensure compliance, accuracy & security.",
+    canonicalUrl: "https://www.leapsofts.com/services/data-governance",
+    faqs: data?.faqs,
+  });
 
   
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
@@ -387,7 +355,7 @@ const DataGovernance: React.FC = () => {
 
     return (
         <>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
             <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

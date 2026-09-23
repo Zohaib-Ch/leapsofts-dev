@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import React, { useState, useEffect } from 'react';
 import styles from './Mission.module.css';
 import { motion } from 'framer-motion';
@@ -20,29 +21,21 @@ import {
   FileCode2,
   CheckSquare,
 } from 'lucide-react';
-export function meta() {
-  const title = "Our Mission & Engineering Creed | Leapsofts";
-  const description = "Leapsofts is driven by a mission to deliver honest, high-quality software engineering that creates lasting business value for enterprises worldwide.";
-  const keywords = "Leapsofts mission, engineering creed, software values, enterprise engineering principles";
-  const canonicalUrl = "https://www.leapsofts.com/about/mission";
+import { useLoaderData } from 'react-router';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityAboutPage('aboutMissionPage');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Our Mission & Engineering Creed | Leapsofts",
+    defaultDescription: "Leapsofts is driven by a mission to deliver honest, high-quality software engineering that creates lasting business value for enterprises worldwide.",
+    defaultKeywords: "Leapsofts mission, engineering creed, software values, enterprise engineering principles",
+    canonicalUrl: "https://www.leapsofts.com/about/mission",
+  });
 }
 
 const ribbonData = [
@@ -193,27 +186,10 @@ const slideRightVariant = {
 export { DEFAULT_MISSION_PAGE_DATA };
 
 const Mission: React.FC = () => {
+  const loaderData = useLoaderData<typeof loader>();
   const { openContactModal } = useContactModal();
-  const [sanityData, setSanityData] = useState<SanityAboutPage>(DEFAULT_MISSION_PAGE_DATA);
 
-  useEffect(() => {
-    document.title = 'Our Mission & Engineering Creed | Leapsofts';
-    getSanityAboutPage('aboutMissionPage')
-      .then((data) => {
-        if (data) {
-          setSanityData((prev) => {
-            const isIdentical = JSON.stringify(prev) === JSON.stringify(data);
-            return isIdentical ? prev : data;
-          });
-        } else {
-          setSanityData(DEFAULT_MISSION_PAGE_DATA);
-        }
-      })
-      .catch((err) => {
-        console.error('Failed to load Mission page data from Sanity:', err);
-        setSanityData(DEFAULT_MISSION_PAGE_DATA);
-      });
-  }, []);
+  const sanityData: SanityAboutPage = loaderData?.sanityData || DEFAULT_MISSION_PAGE_DATA;
 
   return (
     <div className={styles.missionPage}>

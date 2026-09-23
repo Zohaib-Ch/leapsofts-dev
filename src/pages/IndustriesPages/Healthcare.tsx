@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -102,67 +103,34 @@ const introDescription = [
   { text: "tailored to the operational complexities of clinical systems. By implementing robust HIPAA and GDPR security baselines, designing intuitive HL7 FHIR interfaces, and establishing safe remote-patient monitoring pipelines, we help medical institutions optimize care delivery and eliminate administrative drag.", bold: false }
 ];
 
-export function meta() {
-  const title = "Healthcare Software Development Services | Leapsofts";
-  const description = "HIPAA-compliant healthcare software development — EHR, patient portals & telehealth. Leapsofts builds secure digital health solutions. Schedule a consultation.";
-  const keywords = "healthcare software development, HIPAA compliant software, EHR software development, digital health solutions";
-  const canonicalUrl = "https://www.leapsofts.com/industries/healthcare";
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('healthcare');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Healthcare Software Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Healthcare & Telehealth Software Development",
-      "description": "HIPAA-compliant healthcare software development — EHR, patient portals & telehealth."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Healthcare",
-          "item": "https://www.leapsofts.com/industries/healthcare"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Healthcare Software Development Services | Leapsofts",
+    defaultDescription: "HIPAA-compliant healthcare software development — EHR, patient portals & telehealth. Leapsofts builds secure digital health solutions. Schedule a consultation.",
+    defaultKeywords: "healthcare software development, HIPAA compliant software, EHR software development, digital health solutions",
+    canonicalUrl: "https://www.leapsofts.com/industries/healthcare",
+  });
+}
+
+
 
 const Healthcare: React.FC = () => {
   const { data } = useIndustryPage('healthcare');
+
+  const schemaData = buildServiceSchema({
+    name: "Healthcare Software Development Services",
+    description: "HIPAA-compliant healthcare software development — EHR, patient portals & telehealth.",
+    canonicalUrl: "https://www.leapsofts.com/industries/healthcare",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
@@ -205,7 +173,7 @@ const Healthcare: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

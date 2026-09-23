@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
@@ -213,67 +214,34 @@ const introDescription = [
   { text: "plans tailored for ambitious enterprises and tech startups. By combining deep market analysis, type-safe tech stack blueprints, and strict MVP scoping controls, we mitigate execution risk and accelerate your product’s path to market leadership.", bold: false }
 ];
 
-export function meta() {
-  const title = "Product Development Strategy Services | Leapsofts";
-  const description = "Define a winning product development strategy with Leapsofts. We map your tech roadmap, market positioning & scalability plan before a single line of code.";
-  const keywords = "product development strategy, software product strategy, technology roadmap consulting, product planning services";
-  const canonicalUrl = "https://www.leapsofts.com/services/product-development-strategy";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('product-development-strategy');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Product Development Strategy Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Software Product Strategy & Roadmapping",
-      "description": "Define a winning product development strategy with Leapsofts."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Product Development Strategy",
-          "item": "https://www.leapsofts.com/services/product-development-strategy"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Product Development Strategy Services | Leapsofts",
+    defaultDescription: "Define a winning product development strategy with Leapsofts. We map your tech roadmap, market positioning & scalability plan before a single line of code.",
+    defaultKeywords: "product development strategy, software product strategy, technology roadmap consulting, product planning services",
+    canonicalUrl: "https://www.leapsofts.com/services/product-development-strategy",
+  });
+}
+
+
 
 const ProductDevelopmentStrategy: React.FC = () => {
   const { data } = useServicePage('product-development-strategy');
+
+  const schemaData = buildServiceSchema({
+    name: "Product Development Strategy Services",
+    description: "Define a winning product development strategy with Leapsofts.",
+    canonicalUrl: "https://www.leapsofts.com/services/product-development-strategy",
+    faqs: data?.faqs,
+  });
 
   
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
@@ -342,7 +310,7 @@ const ProductDevelopmentStrategy: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

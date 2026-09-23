@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
 import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
@@ -207,67 +208,34 @@ const introDescription = [
   { text: ", Kubernetes container orchestrations, and Terraform infrastructure-as-code (IaC) solutions designed to eliminate release friction and maintain 99.99% operational uptime.", bold: false }
 ];
 
-export function meta() {
-  const title = "DevOps Services & Consulting | Leapsofts";
-  const description = "Accelerate software delivery with expert DevOps services. Leapsofts implements CI/CD pipelines, container orchestration & monitoring for enterprises. Talk to us.";
-  const keywords = "DevOps services, DevOps consulting, CI/CD pipeline development, Kubernetes DevOps, DevOps automation";
-  const canonicalUrl = "https://www.leapsofts.com/services/devops";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('devops');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "DevOps Services & Consulting",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "DevOps Services & CI/CD Consulting",
-      "description": "Accelerate software delivery with expert DevOps services. Leapsofts implements CI/CD pipelines."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "DevOps",
-          "item": "https://www.leapsofts.com/services/devops"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "DevOps Services & Consulting | Leapsofts",
+    defaultDescription: "Accelerate software delivery with expert DevOps services. Leapsofts implements CI/CD pipelines, container orchestration & monitoring for enterprises. Talk to us.",
+    defaultKeywords: "DevOps services, DevOps consulting, CI/CD pipeline development, Kubernetes DevOps, DevOps automation",
+    canonicalUrl: "https://www.leapsofts.com/services/devops",
+  });
+}
+
+
 
 const DevOps: React.FC = () => {
   const { data } = useServicePage('devops');
+
+  const schemaData = buildServiceSchema({
+    name: "DevOps Services & Consulting",
+    description: "Accelerate software delivery with expert DevOps services. Leapsofts implements CI/CD pipelines.",
+    canonicalUrl: "https://www.leapsofts.com/services/devops",
+    faqs: data?.faqs,
+  });
 
   
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
@@ -336,7 +304,7 @@ const DevOps: React.FC = () => {
 
     return (
         <>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
             <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

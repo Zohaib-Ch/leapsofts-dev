@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import React, { useState, useEffect } from 'react';
 import styles from './GlobalFootprint.module.css';
 import { motion } from 'framer-motion';
@@ -7,7 +8,6 @@ import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityAboutPage } from '../../sanity/queries';
 import type { SanityAboutPage } from '../../sanity/types';
 import { renderFormattedTitle } from '../../utils/titleFormatter';
-import { DEFAULT_GLOBAL_PAGE_DATA } from '../../data/companyFallback';
 import {
   Award,
   ShieldCheck,
@@ -19,29 +19,22 @@ import {
   FileCheck,
   Building2,
 } from 'lucide-react';
-export function meta() {
-  const title = "Global Offices & Compliance | Leapsofts";
-  const description = "Leapsofts operates across strategic global offices, delivering compliant software solutions for enterprises in the UAE, USA, UK, and beyond.";
-  const keywords = "Leapsofts global offices, software delivery hubs, Dubai HQ, US software office";
-  const canonicalUrl = "https://www.leapsofts.com/about/global-footprint";
+import { useLoaderData } from 'react-router';
+import { DEFAULT_GLOBAL_PAGE_DATA } from '../../data/companyFallback';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityAboutPage('aboutGlobalPage');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Global Offices & Compliance | Leapsofts",
+    defaultDescription: "Leapsofts operates across strategic global offices, delivering compliant software solutions for enterprises in the UAE, USA, UK, and beyond.",
+    defaultKeywords: "Leapsofts global offices, software delivery hubs, Dubai HQ, US software office",
+    canonicalUrl: "https://www.leapsofts.com/about/global-footprint",
+  });
 }
 
 const ribbonData = [
@@ -194,27 +187,10 @@ const slideRightVariant = {
 export { DEFAULT_GLOBAL_PAGE_DATA };
 
 const GlobalFootprint: React.FC = () => {
+  const loaderData = useLoaderData<typeof loader>();
   const { openContactModal } = useContactModal();
-  const [sanityPage, setSanityPage] = useState<SanityAboutPage>(DEFAULT_GLOBAL_PAGE_DATA);
 
-  useEffect(() => {
-    document.title = 'Global Footprint & Security Compliance | ISO, HIPAA, SOC2 | Leapsofts';
-    getSanityAboutPage('aboutGlobalPage')
-      .then((data) => {
-        if (data) {
-          setSanityPage((prev) => {
-            const isIdentical = JSON.stringify(prev) === JSON.stringify(data);
-            return isIdentical ? prev : data;
-          });
-        } else {
-          setSanityPage(DEFAULT_GLOBAL_PAGE_DATA);
-        }
-      })
-      .catch((err) => {
-        console.error('Failed to load Global Footprint page data from Sanity:', err);
-        setSanityPage(DEFAULT_GLOBAL_PAGE_DATA);
-      });
-  }, []);
+  const sanityPage: SanityAboutPage = loaderData?.sanityData || DEFAULT_GLOBAL_PAGE_DATA;
 
   return (
     <div className={styles.globalPage}>

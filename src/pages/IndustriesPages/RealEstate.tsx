@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -98,67 +99,34 @@ const introDescription = [
   { text: "engineered for asset managers, real estate agencies, and property developers. By deploying automated lease execution paths, tenant portal mobile apps, and smart building IoT bridges, we optimize property yields and occupancy.", bold: false }
 ];
 
-export function meta() {
-  const title = "Real Estate Software Development Services | Leapsofts";
-  const description = "Custom real estate software — property listing platforms, CRM & investment analytics tools. Leapsofts builds proptech solutions for modern agencies. Get a quote.";
-  const keywords = "real estate software development, proptech software company, property management software, MLS integration";
-  const canonicalUrl = "https://www.leapsofts.com/industries/real-estate";
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('real-estate');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Real Estate Software Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "PropTech & Real Estate Software Engineering",
-      "description": "Custom real estate software — property listing platforms, CRM & investment analytics tools."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Real Estate",
-          "item": "https://www.leapsofts.com/industries/real-estate"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Real Estate Software Development Services | Leapsofts",
+    defaultDescription: "Custom real estate software — property listing platforms, CRM & investment analytics tools. Leapsofts builds proptech solutions for modern agencies. Get a quote.",
+    defaultKeywords: "real estate software development, proptech software company, property management software, MLS integration",
+    canonicalUrl: "https://www.leapsofts.com/industries/real-estate",
+  });
+}
+
+
 
 const RealEstate: React.FC = () => {
   const { data } = useIndustryPage('real-estate');
+
+  const schemaData = buildServiceSchema({
+    name: "Real Estate Software Development Services",
+    description: "Custom real estate software — property listing platforms, CRM & investment analytics tools.",
+    canonicalUrl: "https://www.leapsofts.com/industries/real-estate",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
@@ -201,7 +169,7 @@ const RealEstate: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

@@ -12,16 +12,21 @@ interface FAQItem {
 interface FAQsProps {
     title?: string;
     subtitle?: string;
+    faqs?: FAQItem[];
 }
 
 const FAQs: React.FC<FAQsProps> = ({
     title = "FAQ's",
-    subtitle
+    subtitle,
+    faqs: propFaqs
 }) => {
-    const serviceKey = useLocation().pathname.split('/')[2];
+    const location = useLocation();
+    const serviceKey = location.pathname.split('/')[2] || '';
     const [isExpanded, setIsExpanded] = useState(true);
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const faqs: FAQItem[] = useMemo(() => fetchFaqs(serviceKey), [serviceKey]);
+
+    const fetchedFaqs: FAQItem[] = useMemo(() => fetchFaqs(serviceKey), [serviceKey]);
+    const faqs: FAQItem[] = propFaqs && propFaqs.length > 0 ? propFaqs : fetchedFaqs;
     const contentRef = useRef<HTMLDivElement>(null);
 
     const defaultSubtitle = `Common questions about ${serviceKey.replace(/-/g, ' ')}`;

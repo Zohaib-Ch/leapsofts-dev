@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -98,67 +99,34 @@ const introDescription = [
   { text: "engineered for global content reach. By building multi-bitrate HLS/DASH video pipelines, server-side ad insertions (SSAI), and esports portals, we help media companies scale audience engagement.", bold: false }
 ];
 
-export function meta() {
-  const title = "Entertainment Software Development Services | Leapsofts";
-  const description = "Custom media & entertainment software — streaming platforms, content management & audience engagement tools. Leapsofts builds digital entertainment solutions.";
-  const keywords = "entertainment software development, media software company, streaming platform development, content management software";
-  const canonicalUrl = "https://www.leapsofts.com/industries/entertainment";
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('entertainment');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Entertainment Software Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Media & Entertainment Software Engineering",
-      "description": "Custom media & entertainment software — streaming platforms, content management & audience engagement tools."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Media & Entertainment",
-          "item": "https://www.leapsofts.com/industries/entertainment"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Entertainment Software Development Services | Leapsofts",
+    defaultDescription: "Custom media & entertainment software — streaming platforms, content management & audience engagement tools. Leapsofts builds digital entertainment solutions.",
+    defaultKeywords: "entertainment software development, media software company, streaming platform development, content management software",
+    canonicalUrl: "https://www.leapsofts.com/industries/entertainment",
+  });
+}
+
+
 
 const Entertainment: React.FC = () => {
   const { data } = useIndustryPage('entertainment');
+
+  const schemaData = buildServiceSchema({
+    name: "Entertainment Software Development Services",
+    description: "Custom media & entertainment software — streaming platforms, content management & audience engagement tools.",
+    canonicalUrl: "https://www.leapsofts.com/industries/entertainment",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
@@ -201,7 +169,7 @@ const Entertainment: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

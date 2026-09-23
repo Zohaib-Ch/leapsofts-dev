@@ -1,4 +1,6 @@
+import { buildPageMeta } from '../../utils/seoHelper';
 import React, { useState, useEffect } from 'react';
+import { useLoaderData } from 'react-router';
 import styles from './About.module.css';
 import { motion, type Variants } from 'framer-motion';
 import {
@@ -23,29 +25,19 @@ import { getSanityAboutPage, getSanityTeamMembers } from '../../sanity/queries';
 import type { SanityAboutPage, SanityTeamMember } from '../../sanity/types';
 import { renderFormattedTitle } from '../../utils/titleFormatter';
 import { DEFAULT_ABOUT_PAGE_DATA } from '../../data/companyFallback';
-export function meta() {
-  const title = "About Leapsofts | Enterprise Software Engineering Company";
-  const description = "Leapsofts is an enterprise software engineering firm with 250+ specialists across 5 global offices. We build custom software, cloud & AI solutions for Fortune-level enterprises.";
-  const keywords = "about Leapsofts, enterprise software company, software engineering firm, custom software development agency";
-  const canonicalUrl = "https://www.leapsofts.com/about";
+export async function loader() {
+  const sanityData = await getSanityAboutPage('aboutPage');
+  return { sanityData };
+}
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "About Leapsofts | Enterprise Software Engineering Company",
+    defaultDescription: "Leapsofts is an enterprise software engineering firm with 250+ specialists across 5 global offices. We build custom software, cloud & AI solutions for Fortune-level enterprises.",
+    defaultKeywords: "about Leapsofts, enterprise software company, software engineering firm, custom software development agency",
+    canonicalUrl: "https://www.leapsofts.com/about",
+  });
 }
 
 const timelineData = [
@@ -203,28 +195,14 @@ const slideRightVariant: Variants = {
 export { DEFAULT_ABOUT_PAGE_DATA };
 
 const About: React.FC = () => {
+  const loaderData = useLoaderData<typeof loader>();
   const [activeTimeline, setActiveTimeline] = useState(0);
-  const [sanityData, setSanityData] = useState<SanityAboutPage>(DEFAULT_ABOUT_PAGE_DATA);
   const [sanityTeam, setSanityTeam] = useState<SanityTeamMember[] | null>(null);
   const { openContactModal } = useContactModal();
 
-  useEffect(() => {
-    getSanityAboutPage('aboutPage')
-      .then((data) => {
-        if (data) {
-          setSanityData((prev) => {
-            const isIdentical = JSON.stringify(prev) === JSON.stringify(data);
-            return isIdentical ? prev : data;
-          });
-        } else {
-          setSanityData(DEFAULT_ABOUT_PAGE_DATA);
-        }
-      })
-      .catch((err) => {
-        console.error('Failed to load About page data from Sanity:', err);
-        setSanityData(DEFAULT_ABOUT_PAGE_DATA);
-      });
+  const sanityData: SanityAboutPage = loaderData?.sanityData || DEFAULT_ABOUT_PAGE_DATA;
 
+  useEffect(() => {
     getSanityTeamMembers().then((data) => {
       if (data) setSanityTeam(data);
     });

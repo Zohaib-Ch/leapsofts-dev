@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
@@ -258,67 +259,34 @@ const introDescription = [
   { text: ", and continuous SOC security operations monitoring. By streamlining automated static code analysis, vulnerability assessments, and multi-region database encryption networks, we engineer secure systems constructed to repel intrusion events and enforce global compliance standards.", bold: false }
 ]
 
-export function meta() {
-  const title = "Cyber Security Services | Leapsofts";
-  const description = "Enterprise-grade cybersecurity services including penetration testing, zero-trust architecture & compliance. Leapsofts protects your digital assets. Get started.";
-  const keywords = "cybersecurity services, penetration testing company, zero-trust security, enterprise security solutions, cybersecurity consulting";
-  const canonicalUrl = "https://www.leapsofts.com/services/cyber-security";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('cyber-security');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Cyber Security Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Cyber Security & Penetration Testing",
-      "description": "Enterprise-grade cybersecurity services including penetration testing, zero-trust architecture & compliance."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Cyber Security",
-          "item": "https://www.leapsofts.com/services/cyber-security"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Cyber Security Services | Leapsofts",
+    defaultDescription: "Enterprise-grade cybersecurity services including penetration testing, zero-trust architecture & compliance. Leapsofts protects your digital assets. Get started.",
+    defaultKeywords: "cybersecurity services, penetration testing company, zero-trust security, enterprise security solutions, cybersecurity consulting",
+    canonicalUrl: "https://www.leapsofts.com/services/cyber-security",
+  });
+}
+
+
 
 const CyberSecurity: React.FC = () => {
   const { data } = useServicePage('cyber-security');
+
+  const schemaData = buildServiceSchema({
+    name: "Cyber Security Services",
+    description: "Enterprise-grade cybersecurity services including penetration testing, zero-trust architecture & compliance.",
+    canonicalUrl: "https://www.leapsofts.com/services/cyber-security",
+    faqs: data?.faqs,
+  });
 
   
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
@@ -387,7 +355,7 @@ const CyberSecurity: React.FC = () => {
 
     return (
         <>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
             <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

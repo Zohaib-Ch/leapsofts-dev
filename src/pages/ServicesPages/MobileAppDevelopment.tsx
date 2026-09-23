@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import React from 'react'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import Capabilities, { type CapabilitySlide } from '../../components/Capabilities/Capabilities'
@@ -11,6 +12,8 @@ import ServiceFeatures, { type ServiceFeatureItem } from '../../components/Servi
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
 import { useServicePage } from '../../hooks/useServicePage';
 
 const mobileAppSlides: CapabilitySlide[] = [
@@ -330,73 +333,40 @@ const introDescription = [
   { text: "for startups and enterprises worldwide. As a premier mobile app development company, we craft secure native Swift, Kotlin, and cross-platform Flutter/React Native solutions built for maximum performance, engagement, and scalability.", bold: false }
 ];
 
-export function meta() {
-  const title = "Mobile App Development Services | Leapsofts";
-  const description = "iOS & Android mobile app development for enterprises & startups. Leapsofts builds high-performance, scalable mobile apps with clean UX. Get a free estimate.";
-  const keywords = "mobile app development company, iOS app development, Android app development, custom mobile application development";
-  const canonicalUrl = "https://www.leapsofts.com/services/mobile-app-development";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('mobile-app-development');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Mobile App Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Mobile Application Development",
-      "description": "iOS & Android mobile app development for enterprises & startups."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Mobile App Development",
-          "item": "https://www.leapsofts.com/services/mobile-app-development"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Mobile App Development Services | Leapsofts",
+    defaultDescription: "iOS & Android mobile app development for enterprises & startups. Leapsofts builds high-performance, scalable mobile apps with clean UX. Get a free estimate.",
+    defaultKeywords: "mobile app development company, iOS app development, Android app development, custom mobile application development",
+    canonicalUrl: "https://www.leapsofts.com/services/mobile-app-development",
+  });
+}
+
+
 
 const MobileAppDevelopment: React.FC = () => {
   const { data } = useServicePage('mobile-app-development');
+
+  const schemaData = buildServiceSchema({
+    name: "Mobile App Development Services",
+    description: "iOS & Android mobile app development for enterprises & startups.",
+    canonicalUrl: "https://www.leapsofts.com/services/mobile-app-development",
+    faqs: data?.faqs,
+  });
 
 
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
   const activeIntroDescription = data?.hero?.introText
-    ? [{ text: data.hero.introText, bold: false }]
+    ? parseFormattedText(data.hero.introText)
     : introDescription;
 
   const activeOverviewData = (data?.serviceOverview)
@@ -454,7 +424,7 @@ const MobileAppDevelopment: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}
@@ -487,6 +457,7 @@ const MobileAppDevelopment: React.FC = () => {
       <EmergingTech data={activeEmergingTechData} />
       <DeliverMVP data={activeDeliverMVPData} />
       <Processes title={data?.processes?.title || "OUR CUSTOM MOBILE DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <FAQs title="Mobile App Development FAQ" subtitle="Everything you need to know about our iOS, Android, Flutter/React Native, and Store submission services." faqs={data?.faqs} />
       <RelatedServices
         services={[
           {

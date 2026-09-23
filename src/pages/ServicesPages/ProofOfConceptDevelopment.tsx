@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
@@ -259,67 +260,34 @@ const introDescription = [
   { text: "to validate complex algorithms, technical integrations, and platform performance before full-scale software investments. As a trusted PoC development company, we construct isolated sandboxes to de-risk technology decisions and secure executive buy-in.", bold: false }
 ];
 
-export function meta() {
-  const title = "Proof of Concept Development Services | Leapsofts";
-  const description = "Build a validated PoC in weeks, not months. Leapsofts designs focused proof-of-concept builds to de-risk your investment before full product development.";
-  const keywords = "proof of concept development, PoC development company, software prototype development, MVP proof of concept";
-  const canonicalUrl = "https://www.leapsofts.com/services/proof-of-concept-development";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('proof-of-concept-development');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Proof of Concept Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Proof of Concept & Prototyping Services",
-      "description": "Build a validated PoC in weeks, not months."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Proof of Concept Development",
-          "item": "https://www.leapsofts.com/services/proof-of-concept-development"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Proof of Concept Development Services | Leapsofts",
+    defaultDescription: "Build a validated PoC in weeks, not months. Leapsofts designs focused proof-of-concept builds to de-risk your investment before full product development.",
+    defaultKeywords: "proof of concept development, PoC development company, software prototype development, MVP proof of concept",
+    canonicalUrl: "https://www.leapsofts.com/services/proof-of-concept-development",
+  });
+}
+
+
 
 const ProofOfConceptDevelopment: React.FC = () => {
   const { data } = useServicePage('proof-of-concept-development');
+
+  const schemaData = buildServiceSchema({
+    name: "Proof of Concept Development Services",
+    description: "Build a validated PoC in weeks, not months.",
+    canonicalUrl: "https://www.leapsofts.com/services/proof-of-concept-development",
+    faqs: data?.faqs,
+  });
 
   
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
@@ -373,7 +341,7 @@ const ProofOfConceptDevelopment: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

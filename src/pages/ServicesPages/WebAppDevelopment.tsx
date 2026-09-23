@@ -260,67 +260,33 @@ const introDescription = [
   { text: "tailored for high-growth enterprises. As an experienced web app development company, we build high-performance SaaS platforms, progressive web apps, and enterprise portals engineered for speed, security, and effortless scalability.", bold: false }
 ];
 
-export function meta() {
-  const title = "Web App Development Services | Leapsofts";
-  const description = "Custom web application development for enterprises. Leapsofts builds high-performance, secure web apps using modern stacks. Start your project today.";
-  const keywords = "web app development company, custom web application development, enterprise web development services, web application developers";
-  const canonicalUrl = "https://www.leapsofts.com/services/web-app-development";
+import { getSanityServiceBySlug } from '../../sanity/queries';
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('web-app-development');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Web App Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Web Application Development",
-      "description": "Custom web application development for enterprises."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Web App Development",
-          "item": "https://www.leapsofts.com/services/web-app-development"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Web App Development Services | Leapsofts",
+    defaultDescription: "Custom web application development for enterprises. Leapsofts builds high-performance, secure web apps using modern stacks. Start your project today.",
+    defaultKeywords: "web app development company, custom web application development, enterprise web development services, web application developers",
+    canonicalUrl: "https://www.leapsofts.com/services/web-app-development",
+  });
+}
 
 const WebAppDevelopment: React.FC = () => {
   const { data } = useServicePage('web-app-development');
+
+  const schemaData = buildServiceSchema({
+    name: "Web App Development Services",
+    description: "Custom web application development for enterprises.",
+    canonicalUrl: "https://www.leapsofts.com/services/web-app-development",
+    faqs: data?.faqs,
+  });
 
 
   const activeTitle = data?.hero?.title || title;
@@ -384,7 +350,7 @@ const WebAppDevelopment: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

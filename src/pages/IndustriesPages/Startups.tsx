@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -100,67 +101,34 @@ const introDescription = [
   { text: "designed to take disruptive ideas to market in record time. By establishing rapid prototyping sandboxes, designing cost-efficient serverless infrastructures, and building pitch-perfect interactive demonstrations, we provide early-stage and high-growth startups with the technical agility required to validate ideas and secure investor funding.", bold: false }
 ];
 
-export function meta() {
-  const title = "Software Development for Startups | Leapsofts";
-  const description = "Launch your startup MVP in 3-5 months with Leapsofts. Expert custom software engineering, product strategy & scalable architecture for venture-backed teams.";
-  const keywords = "software development for startups, startup MVP development, tech startup software company, MVP developers for startups";
-  const canonicalUrl = "https://www.leapsofts.com/industries/startups";
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('startups');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Software Development for Startups",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Startup MVP & Software Engineering",
-      "description": "Launch your startup MVP in 3-5 months with Leapsofts."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Startups",
-          "item": "https://www.leapsofts.com/industries/startups"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Software Development for Startups | Leapsofts",
+    defaultDescription: "Launch your startup MVP in 3-5 months with Leapsofts. Expert custom software engineering, product strategy & scalable architecture for venture-backed teams.",
+    defaultKeywords: "software development for startups, startup MVP development, tech startup software company, MVP developers for startups",
+    canonicalUrl: "https://www.leapsofts.com/industries/startups",
+  });
+}
+
+
 
 const Startups: React.FC = () => {
   const { data } = useIndustryPage('startups');
+
+  const schemaData = buildServiceSchema({
+    name: "Software Development for Startups",
+    description: "Launch your startup MVP in 3-5 months with Leapsofts.",
+    canonicalUrl: "https://www.leapsofts.com/industries/startups",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
@@ -203,7 +171,7 @@ const Startups: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

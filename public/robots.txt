@@ -2,7 +2,8 @@ User-agent: *
 Allow: /
 
 Disallow: /api/
-Disallow: /_next/
 Disallow: /studio/
 
+Host: https://www.leapsofts.com
 Sitemap: https://www.leapsofts.com/sitemap.xml
+

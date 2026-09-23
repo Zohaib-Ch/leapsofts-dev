@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
@@ -218,67 +219,34 @@ const introDescription = [
   { text: "backed by firm milestone timelines. By conducting exhaustive technical discovery, authoring detailed software requirements specifications (SRS), and committing to fixed-cost budgets upfront, we eliminate financial risk and guarantee high-quality software delivery.", bold: false }
 ];
 
-export function meta() {
-  const title = "Fixed Price Software Development | Leapsofts";
-  const description = "Predictable, fixed-price software development with transparent milestones. Leapsofts delivers on-budget, on-time projects for enterprises. Request a quote.";
-  const keywords = "fixed price software development, fixed cost software project, predictable software delivery, offshore fixed price development";
-  const canonicalUrl = "https://www.leapsofts.com/services/fixed-price";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('fixed-price');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Fixed Price Software Development",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Fixed Price Software Development",
-      "description": "Predictable, fixed-price software development with transparent milestones."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Fixed Price",
-          "item": "https://www.leapsofts.com/services/fixed-price"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Fixed Price Software Development | Leapsofts",
+    defaultDescription: "Predictable, fixed-price software development with transparent milestones. Leapsofts delivers on-budget, on-time projects for enterprises. Request a quote.",
+    defaultKeywords: "fixed price software development, fixed cost software project, predictable software delivery, offshore fixed price development",
+    canonicalUrl: "https://www.leapsofts.com/services/fixed-price",
+  });
+}
+
+
 
 const FixedPrice: React.FC = () => {
   const { data } = useServicePage('fixed-price');
+
+  const schemaData = buildServiceSchema({
+    name: "Fixed Price Software Development",
+    description: "Predictable, fixed-price software development with transparent milestones.",
+    canonicalUrl: "https://www.leapsofts.com/services/fixed-price",
+    faqs: data?.faqs,
+  });
 
   
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
@@ -347,7 +315,7 @@ const FixedPrice: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

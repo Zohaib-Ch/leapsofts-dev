@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
@@ -259,67 +260,34 @@ const introDescription = [
   { text: "designed to automate back-office operations, customer experience (CX) channels, and technical support teams. As a global software outsourcing company, we optimize workflow pipelines to cut operating costs and accelerate business scalability.", bold: false }
 ]
 
-export function meta() {
-  const title = "Business Process Outsourcing Services | Leapsofts";
-  const description = "Streamline operations with BPO services from Leapsofts. We manage complex business processes so you can focus on growth. Get a free assessment today.";
-  const keywords = "business process outsourcing, BPO services, software outsourcing company, offshore outsourcing services";
-  const canonicalUrl = "https://www.leapsofts.com/services/business-process-outsourcing";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('business-process-outsourcing');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Business Process Outsourcing Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Business Process Outsourcing",
-      "description": "Streamline operations with BPO services from Leapsofts."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Business Process Outsourcing",
-          "item": "https://www.leapsofts.com/services/business-process-outsourcing"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Business Process Outsourcing Services | Leapsofts",
+    defaultDescription: "Streamline operations with BPO services from Leapsofts. We manage complex business processes so you can focus on growth. Get a free assessment today.",
+    defaultKeywords: "business process outsourcing, BPO services, software outsourcing company, offshore outsourcing services",
+    canonicalUrl: "https://www.leapsofts.com/services/business-process-outsourcing",
+  });
+}
+
+
 
 const BusinessProcessOutsourcing: React.FC = () => {
   const { data } = useServicePage('business-process-outsourcing');
+
+  const schemaData = buildServiceSchema({
+    name: "Business Process Outsourcing Services",
+    description: "Streamline operations with BPO services from Leapsofts.",
+    canonicalUrl: "https://www.leapsofts.com/services/business-process-outsourcing",
+    faqs: data?.faqs,
+  });
 
 
   const activeTitle = data?.hero?.title || title;
@@ -383,7 +351,7 @@ const BusinessProcessOutsourcing: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

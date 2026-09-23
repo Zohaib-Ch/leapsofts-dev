@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -97,67 +98,34 @@ const introDescription = [
   { text: "engineered to optimize supply chains and increase margins. By building automated stock replenishment workflows, multi-warehouse routing engines, and B2B portal integrations, we empower retailers and distributors to scale effortlessly.", bold: false }
 ];
 
-export function meta() {
-  const title = "Retail & Wholesale Software Development | Leapsofts";
-  const description = "Custom retail & wholesale software — POS, inventory management & ecommerce platforms. Leapsofts modernizes operations for scaling retailers. Get a quote.";
-  const keywords = "retail software development, wholesale management software, inventory management system, ecommerce software development";
-  const canonicalUrl = "https://www.leapsofts.com/industries/wholesale-retail";
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('wholesale-retail');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Retail & Wholesale Software Development",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Retail & Wholesale Software Engineering",
-      "description": "Custom retail & wholesale software — POS, inventory management & ecommerce platforms."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Wholesale & Retail",
-          "item": "https://www.leapsofts.com/industries/wholesale-retail"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Retail & Wholesale Software Development | Leapsofts",
+    defaultDescription: "Custom retail & wholesale software — POS, inventory management & ecommerce platforms. Leapsofts modernizes operations for scaling retailers. Get a quote.",
+    defaultKeywords: "retail software development, wholesale management software, inventory management system, ecommerce software development",
+    canonicalUrl: "https://www.leapsofts.com/industries/wholesale-retail",
+  });
+}
+
+
 
 const WholesaleRetail: React.FC = () => {
   const { data } = useIndustryPage('wholesale-retail');
+
+  const schemaData = buildServiceSchema({
+    name: "Retail & Wholesale Software Development",
+    description: "Custom retail & wholesale software — POS, inventory management & ecommerce platforms.",
+    canonicalUrl: "https://www.leapsofts.com/industries/wholesale-retail",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
@@ -200,7 +168,7 @@ const WholesaleRetail: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

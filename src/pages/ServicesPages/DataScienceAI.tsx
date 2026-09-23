@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
 import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
@@ -280,67 +281,34 @@ const introDescription = [
   { text: ", and predictive analytics algorithms. By combining high-velocity Apache Spark data processing with robust MLOps orchestration (MLflow, Triton Server), we help organizations deploy resilient AI systems that automate decision mechanics and optimize user actions.", bold: false }
 ]
 
-export function meta() {
-  const title = "Data Science & AI Development Services | Leapsofts";
-  const description = "AI & data science solutions for enterprises. Leapsofts builds ML models, AI integrations & data pipelines to automate decisions. Schedule a consultation.";
-  const keywords = "AI development company, data science services, machine learning development, AI integration services, artificial intelligence solutions";
-  const canonicalUrl = "https://www.leapsofts.com/services/data-science-ai";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('data-science-ai');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Data Science & AI Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "AI & Data Science Development",
-      "description": "AI & data science solutions for enterprises. Leapsofts builds ML models, AI integrations & data pipelines."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Data Science & AI",
-          "item": "https://www.leapsofts.com/services/data-science-ai"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Data Science & AI Development Services | Leapsofts",
+    defaultDescription: "AI & data science solutions for enterprises. Leapsofts builds ML models, AI integrations & data pipelines to automate decisions. Schedule a consultation.",
+    defaultKeywords: "AI development company, data science services, machine learning development, AI integration services, artificial intelligence solutions",
+    canonicalUrl: "https://www.leapsofts.com/services/data-science-ai",
+  });
+}
+
+
 
 const DataScienceAI: React.FC = () => {
   const { data } = useServicePage('data-science-ai');
+
+  const schemaData = buildServiceSchema({
+    name: "Data Science & AI Development Services",
+    description: "AI & data science solutions for enterprises. Leapsofts builds ML models, AI integrations & data pipelines.",
+    canonicalUrl: "https://www.leapsofts.com/services/data-science-ai",
+    faqs: data?.faqs,
+  });
 
   
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
@@ -409,7 +377,7 @@ const DataScienceAI: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

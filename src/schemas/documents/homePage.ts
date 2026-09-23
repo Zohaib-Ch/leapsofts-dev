@@ -77,6 +77,7 @@ export const homePageSchema = defineType({
       fields: [
         defineField({ name: 'label', title: 'Section Label', type: 'string' }),
         defineField({ name: 'headline', title: 'Headline', type: 'string' }),
+        defineField({ name: 'titleAccent', title: 'Title Accent Word (Optional)', type: 'string', description: 'Word to highlight in pinkish-purple accent style, or wrap in *asterisks* in headline.' }),
         defineField({ name: 'descriptionText', title: 'Description Text', type: 'text' }),
         defineField({
           name: 'image',

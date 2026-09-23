@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview'
@@ -259,67 +260,34 @@ const introDescription = [
   { text: "to automate digital workflows across ITSM, ITOM, HRSD, and CSM platforms. As certified ServiceNow specialists, we build custom Scoped Applications, configure IntegrationHub endpoints, and optimize Now Platform instances for seamless corporate governance.", bold: false }
 ]
 
-export function meta() {
-  const title = "ServiceNow Development Services | Leapsofts";
-  const description = "Expert ServiceNow implementation, customization & integration. Leapsofts transforms enterprise workflows with certified ServiceNow engineering. Get a quote.";
-  const keywords = "ServiceNow development, ServiceNow implementation, ServiceNow consulting, ServiceNow integration services";
-  const canonicalUrl = "https://www.leapsofts.com/services/service-now";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('service-now');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "ServiceNow Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "ServiceNow Implementation & Workflow Automation",
-      "description": "Expert ServiceNow implementation, customization & integration."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "ServiceNow",
-          "item": "https://www.leapsofts.com/services/service-now"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "ServiceNow Development Services | Leapsofts",
+    defaultDescription: "Expert ServiceNow implementation, customization & integration. Leapsofts transforms enterprise workflows with certified ServiceNow engineering. Get a quote.",
+    defaultKeywords: "ServiceNow development, ServiceNow implementation, ServiceNow consulting, ServiceNow integration services",
+    canonicalUrl: "https://www.leapsofts.com/services/service-now",
+  });
+}
+
+
 
 const ServiceNow: React.FC = () => {
   const { data } = useServicePage('servicenow');
+
+  const schemaData = buildServiceSchema({
+    name: "ServiceNow Development Services",
+    description: "Expert ServiceNow implementation, customization & integration.",
+    canonicalUrl: "https://www.leapsofts.com/services/service-now",
+    faqs: data?.faqs,
+  });
 
   
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
@@ -388,7 +356,7 @@ const ServiceNow: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

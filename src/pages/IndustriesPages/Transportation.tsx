@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -97,67 +98,34 @@ const introDescription = [
   { text: "designed to streamline global supply chains. By deploying automated dispatch engines, IoT cold-chain telemetry, and route optimization algorithms, we empower shipping and freight companies to lower transit overheads.", bold: false }
 ];
 
-export function meta() {
-  const title = "Transportation & Logistics Software | Leapsofts";
-  const description = "Custom transportation & logistics software — fleet management, route optimization & supply chain platforms. Leapsofts engineers mobility solutions. Talk to us.";
-  const keywords = "transportation software development, logistics software company, fleet management software, supply chain software";
-  const canonicalUrl = "https://www.leapsofts.com/industries/transportation";
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('transportation');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Transportation & Logistics Software",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Transportation & Logistics Software Engineering",
-      "description": "Custom transportation & logistics software — fleet management, route optimization & supply chain platforms."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Transportation & Logistics",
-          "item": "https://www.leapsofts.com/industries/transportation"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Transportation & Logistics Software | Leapsofts",
+    defaultDescription: "Custom transportation & logistics software — fleet management, route optimization & supply chain platforms. Leapsofts engineers mobility solutions. Talk to us.",
+    defaultKeywords: "transportation software development, logistics software company, fleet management software, supply chain software",
+    canonicalUrl: "https://www.leapsofts.com/industries/transportation",
+  });
+}
+
+
 
 const Transportation: React.FC = () => {
   const { data } = useIndustryPage('transportation');
+
+  const schemaData = buildServiceSchema({
+    name: "Transportation & Logistics Software",
+    description: "Custom transportation & logistics software — fleet management, route optimization & supply chain platforms.",
+    canonicalUrl: "https://www.leapsofts.com/industries/transportation",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
@@ -200,7 +168,7 @@ const Transportation: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

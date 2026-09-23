@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
@@ -269,67 +270,34 @@ const introDescription = [
   { text: "engineered to eliminate functional regressions, stress-test database limits, and secure critical software networks. As a premier software testing company, we integrate automated QA testing frameworks and manual security audits directly into your CI/CD pipelines for 100% bug-free deployments.", bold: false }
 ]
 
-export function meta() {
-  const title = "Quality Assurance Services | Leapsofts";
-  const description = "Comprehensive software QA & testing services to ensure bug-free, high-performance releases. Leapsofts delivers automated and manual testing. Get started.";
-  const keywords = "quality assurance services, software testing company, QA testing services, automated testing, manual QA testing";
-  const canonicalUrl = "https://www.leapsofts.com/services/quality-assurance";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('quality-assurance');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Quality Assurance Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Quality Assurance & Software Testing",
-      "description": "Comprehensive software QA & testing services to ensure bug-free, high-performance releases."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Quality Assurance",
-          "item": "https://www.leapsofts.com/services/quality-assurance"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Quality Assurance Services | Leapsofts",
+    defaultDescription: "Comprehensive software QA & testing services to ensure bug-free, high-performance releases. Leapsofts delivers automated and manual testing. Get started.",
+    defaultKeywords: "quality assurance services, software testing company, QA testing services, automated testing, manual QA testing",
+    canonicalUrl: "https://www.leapsofts.com/services/quality-assurance",
+  });
+}
+
+
 
 const QualityAssurance: React.FC = () => {
   const { data } = useServicePage('quality-assurance');
+
+  const schemaData = buildServiceSchema({
+    name: "Quality Assurance Services",
+    description: "Comprehensive software QA & testing services to ensure bug-free, high-performance releases.",
+    canonicalUrl: "https://www.leapsofts.com/services/quality-assurance",
+    faqs: data?.faqs,
+  });
 
 
   const activeTitle = data?.hero?.title || title;
@@ -396,7 +364,7 @@ const QualityAssurance: React.FC = () => {
 
     return (
         <>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
             <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

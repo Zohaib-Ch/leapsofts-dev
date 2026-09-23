@@ -9,6 +9,7 @@ export const serviceSchema = defineType({
     { name: 'hero', title: 'Hero & Overview' },
     { name: 'content', title: 'Content & Grids' },
     { name: 'process', title: 'Process & CTAs' },
+    { name: 'faqs', title: 'FAQs' },
     { name: 'seo', title: 'SEO Metadata' },
   ],
   fields: [
@@ -199,12 +200,20 @@ export const serviceSchema = defineType({
           type: 'array',
           of: [
             {
+              name: 'comparisonRow',
+              title: 'Comparison Row',
               type: 'object',
               fields: [
                 defineField({ name: 'feature', title: 'Feature Title', type: 'string' }),
                 defineField({ name: 'custom', title: 'Custom Detail', type: 'text' }),
                 defineField({ name: 'offTheShelf', title: 'Off-The-Shelf Detail', type: 'text' }),
               ],
+              preview: {
+                select: {
+                  title: 'feature',
+                  subtitle: 'custom',
+                },
+              },
             },
           ],
         }),
@@ -249,6 +258,8 @@ export const serviceSchema = defineType({
           type: 'array',
           of: [
             {
+              name: 'featureItem',
+              title: 'Feature Item',
               type: 'object',
               fields: [
                 defineField({ name: 'title', title: 'Feature Title', type: 'string' }),
@@ -269,6 +280,12 @@ export const serviceSchema = defineType({
                   initialValue: '/industryicons/sphere.svg',
                 }),
               ],
+              preview: {
+                select: {
+                  title: 'title',
+                  subtitle: 'description',
+                },
+              },
             },
           ],
         }),
@@ -297,6 +314,8 @@ export const serviceSchema = defineType({
           type: 'array',
           of: [
             {
+              name: 'techItem',
+              title: 'Tech Item',
               type: 'object',
               fields: [
                 defineField({ name: 'title', title: 'Item Title', type: 'string' }),
@@ -320,6 +339,12 @@ export const serviceSchema = defineType({
                   initialValue: 'enterprise',
                 }),
               ],
+              preview: {
+                select: {
+                  title: 'title',
+                  subtitle: 'description',
+                },
+              },
             },
           ],
         }),
@@ -343,11 +368,19 @@ export const serviceSchema = defineType({
           type: 'array',
           of: [
             {
+              name: 'valuePoint',
+              title: 'Value Point',
               type: 'object',
               fields: [
                 defineField({ name: 'title', title: 'Value Title', type: 'string' }),
                 defineField({ name: 'description', title: 'Value Description', type: 'text' }),
               ],
+              preview: {
+                select: {
+                  title: 'title',
+                  subtitle: 'description',
+                },
+              },
             },
           ],
         }),
@@ -374,6 +407,8 @@ export const serviceSchema = defineType({
           type: 'array',
           of: [
             {
+              name: 'processPhase',
+              title: 'Process Phase',
               type: 'object',
               fields: [
                 defineField({ name: 'id', title: 'Phase Step Number', type: 'number' }),
@@ -386,15 +421,29 @@ export const serviceSchema = defineType({
                   type: 'array',
                   of: [
                     {
+                      name: 'phaseFeature',
+                      title: 'Phase Feature',
                       type: 'object',
                       fields: [
                         defineField({ name: 'title', title: 'Feature Title', type: 'string' }),
                         defineField({ name: 'description', title: 'Feature Description', type: 'text' }),
                       ],
+                      preview: {
+                        select: {
+                          title: 'title',
+                          subtitle: 'description',
+                        },
+                      },
                     },
                   ],
                 }),
               ],
+              preview: {
+                select: {
+                  title: 'title',
+                  subtitle: 'phase',
+                },
+              },
             },
           ],
         }),
@@ -416,12 +465,20 @@ export const serviceSchema = defineType({
           type: 'array',
           of: [
             {
+              name: 'relatedServiceCard',
+              title: 'Related Service Card',
               type: 'object',
               fields: [
                 defineField({ name: 'title', title: 'Service Title', type: 'string' }),
                 defineField({ name: 'description', title: 'Service Description', type: 'text' }),
                 defineField({ name: 'link', title: 'URL Link (e.g. /services/custom-software-development)', type: 'string' }),
               ],
+              preview: {
+                select: {
+                  title: 'title',
+                  subtitle: 'link',
+                },
+              },
             },
           ],
         }),
@@ -433,14 +490,22 @@ export const serviceSchema = defineType({
       name: 'faqs',
       title: 'Service FAQs',
       type: 'array',
-      group: 'content',
+      group: ['content', 'faqs'],
       of: [
         {
+          name: 'faqItem',
+          title: 'FAQ Item',
           type: 'object',
           fields: [
             defineField({ name: 'question', title: 'Question', type: 'string' }),
             defineField({ name: 'answer', title: 'Answer', type: 'text' }),
           ],
+          preview: {
+            select: {
+              title: 'question',
+              subtitle: 'answer',
+            },
+          },
         },
       ],
     }),

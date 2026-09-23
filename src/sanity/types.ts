@@ -3,8 +3,13 @@ export interface SanitySEO {
   metaDescription?: string;
   keywords?: string[];
   ogImage?: any;
+  ogImageUrl?: string;
+  twitterImage?: any;
+  twitterImageUrl?: string;
   canonicalUrl?: string;
+  robots?: string;
   noIndex?: boolean;
+  structuredDataType?: string;
 }
 
 export interface SanityHero {
@@ -52,6 +57,7 @@ export interface SanityAboutStat {
 export interface SanityAboutUs {
   label?: string;
   headline?: string;
+  titleAccent?: string;
   descriptionText?: string;
   imageUrl?: string;
   stats?: SanityAboutStat[];

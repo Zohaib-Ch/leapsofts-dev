@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
@@ -218,67 +219,34 @@ const introDescription = [
   { text: ", we design serverless topologies, modular AWS CDK constructs, and managed EKS Kubernetes clusters. We optimize cloud infrastructure for high availability, zero-downtime database migrations, and 99.99% uptime.", bold: false }
 ];
 
-export function meta() {
-  const title = "AWS Cloud Services & Development | Leapsofts";
-  const description = "Expert AWS cloud development, architecture & managed services. Leapsofts builds scalable, cost-efficient AWS solutions for global enterprises. Get started.";
-  const keywords = "AWS development company, AWS cloud services, Amazon Web Services consulting, AWS managed services";
-  const canonicalUrl = "https://www.leapsofts.com/services/aws";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('aws');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "AWS Cloud Services & Development",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "AWS Cloud Services & Consulting",
-      "description": "Expert AWS cloud development, architecture & managed services."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "AWS",
-          "item": "https://www.leapsofts.com/services/aws"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "AWS Cloud Services & Development | Leapsofts",
+    defaultDescription: "Expert AWS cloud development, architecture & managed services. Leapsofts builds scalable, cost-efficient AWS solutions for global enterprises. Get started.",
+    defaultKeywords: "AWS development company, AWS cloud services, Amazon Web Services consulting, AWS managed services",
+    canonicalUrl: "https://www.leapsofts.com/services/aws",
+  });
+}
+
+
 
 const AWS: React.FC = () => {
   const { data } = useServicePage('aws');
+
+  const schemaData = buildServiceSchema({
+    name: "AWS Cloud Services & Development",
+    description: "Expert AWS cloud development, architecture & managed services.",
+    canonicalUrl: "https://www.leapsofts.com/services/aws",
+    faqs: data?.faqs,
+  });
 
   
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
@@ -357,7 +325,7 @@ const AWS: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

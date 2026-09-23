@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
@@ -228,67 +229,34 @@ const introDescription = [
   { text: ", and secure infrastructure-as-code (IaC) deployment pipelines. By streamlining automated elastic load balancers, real-time log ingestion systems, and multi-region database replications, we engineer high-availability cloud platforms built to survive extreme operational traffic and eliminate network latencies.", bold: false }
 ]
 
-export function meta() {
-  const title = "Cloud Engineering Services | Leapsofts";
-  const description = "Expert cloud engineering services — architecture, deployment & optimization on AWS, Azure & GCP. Leapsofts builds resilient cloud infrastructure. Get a quote.";
-  const keywords = "cloud engineering services, cloud infrastructure company, cloud architecture services, cloud consulting";
-  const canonicalUrl = "https://www.leapsofts.com/services/cloud-engineering";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('cloud-engineering');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Cloud Engineering Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Cloud Engineering",
-      "description": "Expert cloud engineering services — architecture, deployment & optimization on AWS, Azure & GCP."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Cloud Engineering",
-          "item": "https://www.leapsofts.com/services/cloud-engineering"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Cloud Engineering Services | Leapsofts",
+    defaultDescription: "Expert cloud engineering services — architecture, deployment & optimization on AWS, Azure & GCP. Leapsofts builds resilient cloud infrastructure. Get a quote.",
+    defaultKeywords: "cloud engineering services, cloud infrastructure company, cloud architecture services, cloud consulting",
+    canonicalUrl: "https://www.leapsofts.com/services/cloud-engineering",
+  });
+}
+
+
 
 const CloudEngineering: React.FC = () => {
   const { data } = useServicePage('cloud-engineering');
+
+  const schemaData = buildServiceSchema({
+    name: "Cloud Engineering Services",
+    description: "Expert cloud engineering services — architecture, deployment & optimization on AWS, Azure & GCP.",
+    canonicalUrl: "https://www.leapsofts.com/services/cloud-engineering",
+    faqs: data?.faqs,
+  });
 
 
     const activeTitle = data?.hero?.title || title;
@@ -352,7 +320,7 @@ const CloudEngineering: React.FC = () => {
 
     return (
         <>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
             <IntroComponent
                 title={activeTitle}
                 description={activeSubtitle}

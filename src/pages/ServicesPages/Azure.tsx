@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
@@ -273,67 +274,34 @@ const introDescription = [
   { text: ", we deliver hybrid cloud architectures, Azure Bicep IaC automation, and managed AKS Kubernetes clusters. We specialize in zero-downtime database migrations, Entra ID identity hardening, and enterprise cloud optimization.", bold: false }
 ];
 
-export function meta() {
-  const title = "Microsoft Azure Services & Development | Leapsofts";
-  const description = "Enterprise Microsoft Azure cloud development, migration & integration. Leapsofts delivers certified Azure solutions for complex business needs. Get a quote.";
-  const keywords = "Azure development company, Microsoft Azure services, Azure cloud consulting, Azure migration services";
-  const canonicalUrl = "https://www.leapsofts.com/services/azure";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('azure');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Microsoft Azure Services & Development",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Microsoft Azure Cloud Consulting & Development",
-      "description": "Enterprise Microsoft Azure cloud development, migration & integration."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Azure",
-          "item": "https://www.leapsofts.com/services/azure"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Microsoft Azure Services & Development | Leapsofts",
+    defaultDescription: "Enterprise Microsoft Azure cloud development, migration & integration. Leapsofts delivers certified Azure solutions for complex business needs. Get a quote.",
+    defaultKeywords: "Azure development company, Microsoft Azure services, Azure cloud consulting, Azure migration services",
+    canonicalUrl: "https://www.leapsofts.com/services/azure",
+  });
+}
+
+
 
 const Azure: React.FC = () => {
   const { data } = useServicePage('azure');
+
+  const schemaData = buildServiceSchema({
+    name: "Microsoft Azure Services & Development",
+    description: "Enterprise Microsoft Azure cloud development, migration & integration.",
+    canonicalUrl: "https://www.leapsofts.com/services/azure",
+    faqs: data?.faqs,
+  });
 
 
   const activeTitle = data?.hero?.title || title;
@@ -407,7 +375,7 @@ const Azure: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -100,67 +101,34 @@ const introDescription = [
   { text: "designed for highly regulated sectors. By implementing zero-trust access controls, automated KYC/AML checks, and SOC2/HIPAA compliance engines, we help organizations satisfy strict global auditing mandates.", bold: false }
 ];
 
-export function meta() {
-  const title = "Compliance Management Software Development | Leapsofts";
-  const description = "Custom regulatory compliance software — risk management, audit trails & reporting platforms. Leapsofts builds compliance-ready systems for regulated industries.";
-  const keywords = "compliance software development, regulatory compliance software, risk management software, audit management software";
-  const canonicalUrl = "https://www.leapsofts.com/industries/compliance";
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('compliance');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Compliance Management Software Development",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Compliance Management Software Engineering",
-      "description": "Custom regulatory compliance software — risk management, audit trails & reporting platforms."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Compliance & RegTech",
-          "item": "https://www.leapsofts.com/industries/compliance"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Compliance Management Software Development | Leapsofts",
+    defaultDescription: "Custom regulatory compliance software — risk management, audit trails & reporting platforms. Leapsofts builds compliance-ready systems for regulated industries.",
+    defaultKeywords: "compliance software development, regulatory compliance software, risk management software, audit management software",
+    canonicalUrl: "https://www.leapsofts.com/industries/compliance",
+  });
+}
+
+
 
 const Compliance: React.FC = () => {
   const { data } = useIndustryPage('compliance');
+
+  const schemaData = buildServiceSchema({
+    name: "Compliance Management Software Development",
+    description: "Custom regulatory compliance software — risk management, audit trails & reporting platforms.",
+    canonicalUrl: "https://www.leapsofts.com/industries/compliance",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
@@ -203,7 +171,7 @@ const Compliance: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

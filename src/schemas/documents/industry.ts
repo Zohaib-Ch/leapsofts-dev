@@ -9,6 +9,7 @@ export const industrySchema = defineType({
     { name: 'hero', title: 'Hero & Overview' },
     { name: 'content', title: 'Content & Grids' },
     { name: 'process', title: 'Process & CTAs' },
+    { name: 'faqs', title: 'FAQs' },
     { name: 'seo', title: 'SEO Metadata' },
   ],
   fields: [
@@ -222,7 +223,7 @@ export const industrySchema = defineType({
       name: 'faqs',
       title: 'Industry FAQs',
       type: 'array',
-      group: 'content',
+      group: ['content', 'faqs'],
       of: [
         {
           type: 'object',

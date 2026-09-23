@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -98,67 +99,34 @@ const introDescription = [
   { text: "seeking enterprise-quality engineering. By building custom ERP sync platforms, operations management portals, and paperless field mobile apps, we help growing SMBs bridge technical gaps and accelerate scalable corporate expansion.", bold: false }
 ];
 
-export function meta() {
-  const title = "Software Development for Mid-Sized Businesses | Leapsofts";
-  const description = "Scalable custom software solutions built for mid-market companies. Leapsofts delivers enterprise-quality engineering at a competitive pace and cost. Talk to us.";
-  const keywords = "software development for mid-sized businesses, mid-market software solutions, custom software SMB";
-  const canonicalUrl = "https://www.leapsofts.com/industries/mid-sized-businesses";
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('mid-sized-businesses');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Software Development for Mid-Sized Businesses",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Mid-Market Software Engineering & ERP Integration",
-      "description": "Scalable custom software solutions built for mid-market companies."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Mid-Sized Businesses",
-          "item": "https://www.leapsofts.com/industries/mid-sized-businesses"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Software Development for Mid-Sized Businesses | Leapsofts",
+    defaultDescription: "Scalable custom software solutions built for mid-market companies. Leapsofts delivers enterprise-quality engineering at a competitive pace and cost. Talk to us.",
+    defaultKeywords: "software development for mid-sized businesses, mid-market software solutions, custom software SMB",
+    canonicalUrl: "https://www.leapsofts.com/industries/mid-sized-businesses",
+  });
+}
+
+
 
 const MidSizedBusinesses: React.FC = () => {
   const { data } = useIndustryPage('mid-sized-businesses');
+
+  const schemaData = buildServiceSchema({
+    name: "Software Development for Mid-Sized Businesses",
+    description: "Scalable custom software solutions built for mid-market companies.",
+    canonicalUrl: "https://www.leapsofts.com/industries/mid-sized-businesses",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
@@ -201,7 +169,7 @@ const MidSizedBusinesses: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

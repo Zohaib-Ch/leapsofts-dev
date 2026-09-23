@@ -1,36 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import styles from './BlogListing.module.css';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 import { Search, Clock, Calendar, ArrowRight, Sparkles } from 'lucide-react';
 import { blogsData } from '../../data/blogsData';
 import Button from '../../components/Button/Button';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityBlogs } from '../../sanity/queries';
 import type { SanityBlog } from '../../sanity/types';
-export function meta() {
-  const title = "Engineering Insights & Software Development Blog | Leapsofts";
-  const description = "Expert articles on custom software development, cloud engineering, AI/ML, and digital transformation from the Leapsofts engineering team.";
-  const keywords = "software development blog, engineering insights, cloud architecture articles, AI development articles";
-  const canonicalUrl = "https://www.leapsofts.com/blog";
+import { buildPageMeta } from '../../utils/seoHelper';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityBlogs();
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  const sanityData = data?.sanityData;
+  const firstBlogSeo = Array.isArray(sanityData) ? sanityData[0]?.seo : null;
+  return buildPageMeta({
+    sanityData: { seo: firstBlogSeo },
+    defaultTitle: "Engineering Insights & Software Development Blog | Leapsofts",
+    defaultDescription: "Expert articles on custom software development, cloud engineering, AI/ML, and digital transformation from the Leapsofts engineering team.",
+    defaultKeywords: "software development blog, engineering insights, cloud architecture articles, AI development articles",
+    canonicalUrl: "https://www.leapsofts.com/blog",
+  });
 }
 
 const categories = ['All Topics', 'Enterprise AI', 'Cloud Architecture', 'Product Engineering', 'Cyber Security'];
@@ -57,6 +51,7 @@ const cardChildVariant = {
 };
 
 const BlogListing: React.FC = () => {
+  const loaderData = useLoaderData<typeof loader>();
   const [selectedCategory, setSelectedCategory] = useState('All Topics');
   const [searchQuery, setSearchQuery] = useState('');
   const [subscribed, setSubscribed] = useState(false);
@@ -64,46 +59,56 @@ const BlogListing: React.FC = () => {
   const [sanityBlogs, setSanityBlogs] = useState<SanityBlog[] | null>(null);
 
   useEffect(() => {
-    getSanityBlogs().then((data) => {
-      if (data) setSanityBlogs(data);
-    });
-  }, []);
+    if (!loaderData?.sanityData) {
+      getSanityBlogs().then((data) => {
+        if (data) setSanityBlogs(data);
+      });
+    }
+  }, [loaderData]);
 
   const normalizedPosts = React.useMemo(() => {
-    const rawList = (sanityBlogs && sanityBlogs.length > 0) ? sanityBlogs : blogsData;
-    return rawList.map((blog: any) => {
+    const rawList = (loaderData?.sanityData && loaderData.sanityData.length > 0)
+      ? loaderData.sanityData
+      : ((sanityBlogs && sanityBlogs.length > 0) ? sanityBlogs : blogsData);
+
+    const uniqueMap = new Map();
+    rawList.forEach((blog: any) => {
       const slug = blog.slug?.current || blog.slug || '';
-      const title = blog.title || '';
-      const subtitle = blog.subtitle || '';
-      const category = blog.category || 'Enterprise AI';
-      const readTime = blog.readTime || '5 min read';
-      const publishedDate = blog.publishedDate || (blog.publishedAt ? new Date(blog.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'September 2026');
-      const featured = blog.featured || false;
-      const excerpt = blog.excerpt || blog.subtitle || '';
-      const coverImage = blog.coverImageUrl || blog.coverImage || '/projectImages/agileauto.png';
+      if (slug && !uniqueMap.has(slug)) {
+        const title = blog.title || '';
+        const subtitle = blog.subtitle || '';
+        const category = blog.category || 'Enterprise AI';
+        const readTime = blog.readTime || '5 min read';
+        const publishedDate = blog.publishedDate || (blog.publishedAt ? new Date(blog.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'September 2026');
+        const featured = blog.featured || false;
+        const excerpt = blog.excerpt || blog.subtitle || '';
+        const coverImage = blog.coverImageUrl || blog.coverImage || '/projectImages/agileauto.png';
 
-      const author = {
-        name: blog.author?.name || 'Leapsofts Engineering',
-        role: blog.author?.role || 'Technical Lead',
-        avatar: blog.author?.avatar || blog.author?.avatarInitials || 'LS',
-      };
+        const author = {
+          name: blog.author?.name || 'Leapsofts Engineering',
+          role: blog.author?.role || 'Technical Lead',
+          avatar: blog.author?.avatar || blog.author?.avatarInitials || 'LS',
+        };
 
-      return {
-        id: blog._id || blog.id || slug,
-        slug,
-        title,
-        subtitle,
-        category,
-        readTime,
-        publishedDate,
-        featured,
-        coverImage,
-        excerpt,
-        author,
-        tags: blog.tags || [],
-      };
+        uniqueMap.set(slug, {
+          id: blog._id || blog.id || slug,
+          slug,
+          title,
+          subtitle,
+          category,
+          readTime,
+          publishedDate,
+          featured,
+          coverImage,
+          excerpt,
+          author,
+          tags: blog.tags || [],
+        });
+      }
     });
-  }, [sanityBlogs]);
+
+    return Array.from(uniqueMap.values()) as any[];
+  }, [loaderData, sanityBlogs]);
 
   const featuredPost = normalizedPosts.find((post) => post.featured) || normalizedPosts[0];
 
@@ -115,6 +120,13 @@ const BlogListing: React.FC = () => {
       post.category.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesQuery;
   });
+
+  const gridPosts = React.useMemo(() => {
+    if (selectedCategory === 'All Topics' && !searchQuery && featuredPost) {
+      return filteredPosts.filter((post) => post.slug !== featuredPost.slug);
+    }
+    return filteredPosts;
+  }, [filteredPosts, featuredPost, selectedCategory, searchQuery]);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -222,7 +234,7 @@ const BlogListing: React.FC = () => {
           {selectedCategory === 'All Topics' ? 'Latest Publications' : `${selectedCategory} Articles`}
         </h2>
 
-        {filteredPosts.length === 0 ? (
+        {gridPosts.length === 0 ? (
           <div className="text-center py-16 bg-white/5 rounded-2xl border border-white/10 my-8">
             <h3 className="text-xl font-bold text-white mb-2">No Articles Found</h3>
             <p className="text-gray-400 text-sm">Try broadening your search query or selecting another category.</p>
@@ -234,7 +246,7 @@ const BlogListing: React.FC = () => {
             initial="hidden"
             animate="visible"
           >
-            {filteredPosts.map((post) => (
+            {gridPosts.map((post) => (
               <motion.div key={post.id} variants={cardChildVariant}>
                 <Link to={`/blog/${post.slug}`} className={styles.articleCard}>
                   <div className={styles.articleImageWrapper}>

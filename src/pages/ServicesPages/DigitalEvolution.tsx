@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
 import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
@@ -219,67 +220,34 @@ const introDescription = [
   { text: "to re-architect monolithic core networks, modernize data pathways, and automate customer-facing workflows. As an enterprise digital transformation partner, we build cloud-native microservices and intelligent process automations with zero business downtime.", bold: false }
 ];
 
-export function meta() {
-  const title = "Digital Transformation Services | Leapsofts";
-  const description = "End-to-end digital transformation consulting & implementation. Leapsofts modernizes enterprise operations through technology strategy & AI adoption. Talk to us.";
-  const keywords = "digital transformation services, digital evolution consulting, enterprise digital transformation, technology modernization";
-  const canonicalUrl = "https://www.leapsofts.com/services/digital-evolution";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('digital-evolution');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Digital Transformation Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Digital Transformation & Technology Modernization",
-      "description": "End-to-end digital transformation consulting & implementation."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Digital Evolution",
-          "item": "https://www.leapsofts.com/services/digital-evolution"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Digital Transformation Services | Leapsofts",
+    defaultDescription: "End-to-end digital transformation consulting & implementation. Leapsofts modernizes enterprise operations through technology strategy & AI adoption. Talk to us.",
+    defaultKeywords: "digital transformation services, digital evolution consulting, enterprise digital transformation, technology modernization",
+    canonicalUrl: "https://www.leapsofts.com/services/digital-evolution",
+  });
+}
+
+
 
 const DigitalEvolution: React.FC = () => {
   const { data } = useServicePage('digital-evolution');
+
+  const schemaData = buildServiceSchema({
+    name: "Digital Transformation Services",
+    description: "End-to-end digital transformation consulting & implementation.",
+    canonicalUrl: "https://www.leapsofts.com/services/digital-evolution",
+    faqs: data?.faqs,
+  });
 
   
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
@@ -348,7 +316,7 @@ const DigitalEvolution: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

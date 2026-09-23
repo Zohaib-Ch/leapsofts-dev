@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview'
@@ -364,67 +365,34 @@ const introDescription = [
   { text: ", we deliver bespoke Apex & Lightning Web Components (LWC) engineering, enterprise data migrations, and third-party ERP integrations. We optimize Sales Cloud and Service Cloud platforms to automate pipelines and maximize CRM ROI.", bold: false }
 ]
 
-export function meta() {
-  const title = "Salesforce Development Services | Leapsofts";
-  const description = "Certified Salesforce development, integration & customization services. Leapsofts maximizes your Salesforce ROI with expert CRM engineering. Get a demo.";
-  const keywords = "Salesforce development company, Salesforce CRM integration, Salesforce customization, Salesforce consulting services";
-  const canonicalUrl = "https://www.leapsofts.com/services/salesforce";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('salesforce');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Salesforce Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Salesforce Development & CRM Integration",
-      "description": "Certified Salesforce development, integration & customization services."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Salesforce",
-          "item": "https://www.leapsofts.com/services/salesforce"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Salesforce Development Services | Leapsofts",
+    defaultDescription: "Certified Salesforce development, integration & customization services. Leapsofts maximizes your Salesforce ROI with expert CRM engineering. Get a demo.",
+    defaultKeywords: "Salesforce development company, Salesforce CRM integration, Salesforce customization, Salesforce consulting services",
+    canonicalUrl: "https://www.leapsofts.com/services/salesforce",
+  });
+}
+
+
 
 const Salesforce: React.FC = () => {
   const { data } = useServicePage('salesforce');
+
+  const schemaData = buildServiceSchema({
+    name: "Salesforce Development Services",
+    description: "Certified Salesforce development, integration & customization services.",
+    canonicalUrl: "https://www.leapsofts.com/services/salesforce",
+    faqs: data?.faqs,
+  });
 
   
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
@@ -478,7 +446,7 @@ const Salesforce: React.FC = () => {
 
     return (
         <>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
             <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

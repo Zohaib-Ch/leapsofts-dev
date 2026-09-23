@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -98,67 +99,34 @@ const introDescription = [
   { text: "engineered to elevate student engagement and streamline administrative lifecycles. By integrating FERPA/COPPA privacy vaults, virtual classroom media pipelines, and AI adaptive learning models, we power global EdTech innovation.", bold: false }
 ];
 
-export function meta() {
-  const title = "EdTech Software Development Services | Leapsofts";
-  const description = "Custom eLearning & EdTech software development — LMS, mobile learning apps & virtual classrooms. Leapsofts builds scalable education platforms. Start building.";
-  const keywords = "EdTech software development, eLearning platform development, LMS development company, education app development";
-  const canonicalUrl = "https://www.leapsofts.com/industries/edtech";
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('edtech');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "EdTech Software Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "EdTech & LMS Software Development",
-      "description": "Custom eLearning & EdTech software development — LMS, mobile learning apps & virtual classrooms."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "EdTech & Education",
-          "item": "https://www.leapsofts.com/industries/edtech"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "EdTech Software Development Services | Leapsofts",
+    defaultDescription: "Custom eLearning & EdTech software development — LMS, mobile learning apps & virtual classrooms. Leapsofts builds scalable education platforms. Start building.",
+    defaultKeywords: "EdTech software development, eLearning platform development, LMS development company, education app development",
+    canonicalUrl: "https://www.leapsofts.com/industries/edtech",
+  });
+}
+
+
 
 const Education: React.FC = () => {
   const { data } = useIndustryPage('education');
+
+  const schemaData = buildServiceSchema({
+    name: "EdTech Software Development Services",
+    description: "Custom eLearning & EdTech software development — LMS, mobile learning apps & virtual classrooms.",
+    canonicalUrl: "https://www.leapsofts.com/industries/edtech",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
@@ -201,7 +169,7 @@ const Education: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

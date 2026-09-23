@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import IntroComponent from "../../components/IntroComponent/IntroComponent"
 import Capabilities, { type CapabilitySlide } from "../../components/Capabilities/Capabilities";
 import capabilitiesImg from "../../assets/capabilities_3d.png";
@@ -7,6 +8,8 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
 import { useServicePage } from '../../hooks/useServicePage';
 
 const capabilitiesSlides: CapabilitySlide[] = [
@@ -229,83 +232,50 @@ const streamlineDescription = [
   { text: "built to unlock measurable product growth and streamline operational efficiency.", bold: false }
 ];
 
-const title = "Enterprise Custom Software Development Engineered to Scale";
-const subtitle = "";
+  const title = "Enterprise Custom Software Development Engineered to Scale";
+  const subtitle = "";
 
-const introDescription = [
-  { text: "We engineer enterprise-grade ", bold: false },
-  { text: "custom software development services ", bold: true },
-  { text: "tailored to the complex operational demands of modern businesses. As a leading ", bold: false },
-  { text: "custom software development company", bold: true },
+  const introDescription = [
+    { text: "We engineer enterprise-grade ", bold: false },
+    { text: "custom software development services ", bold: true },
+    { text: "tailored to the complex operational demands of modern businesses. As a leading ", bold: false },
+    { text: "custom software development company", bold: true },
   { text: ", we combine resilient microservice architectures, cloud database models, and secure API integrations to deliver bespoke software solutions that eliminate technical debt and accelerate enterprise growth.", bold: false }
 ];
 
-export function meta() {
-  const title = "Custom Software Development Services | Leapsofts";
-  const description = "Build secure, scalable custom software tailored to your enterprise. Leapsofts delivers full-cycle development from architecture to deployment. Get a free quote.";
-  const keywords = "custom software development services, bespoke software development, enterprise application development, software development company";
-  const canonicalUrl = "https://www.leapsofts.com/services/custom-software-development";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('custom-software-development');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Custom Software Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Custom Software Development",
-      "description": "Build secure, scalable custom software tailored to your enterprise."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Custom Software Development",
-          "item": "https://www.leapsofts.com/services/custom-software-development"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Custom Software Development Services | Leapsofts",
+    defaultDescription: "Build secure, scalable custom software tailored to your enterprise. Leapsofts delivers full-cycle development from architecture to deployment. Get a free quote.",
+    defaultKeywords: "custom software development services, bespoke software development, enterprise application development, software development company",
+    canonicalUrl: "https://www.leapsofts.com/services/custom-software-development",
+  });
+}
+
+
 
 function CustomSoftwareDevelopment() {
   const { data } = useServicePage('custom-software-development');
 
+  const schemaData = buildServiceSchema({
+    name: "Custom Software Development Services",
+    description: "Build secure, scalable custom software tailored to your enterprise. Leapsofts delivers full-cycle development from architecture to deployment.",
+    canonicalUrl: "https://www.leapsofts.com/services/custom-software-development",
+    faqs: data?.faqs,
+  });
+
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
   const activeIntroDescription = data?.hero?.introText
-    ? [{ text: data.hero.introText, bold: false }]
+    ? parseFormattedText(data.hero.introText)
     : introDescription;
 
   const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
@@ -349,7 +319,7 @@ function CustomSoftwareDevelopment() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}
@@ -367,11 +337,12 @@ function CustomSoftwareDevelopment() {
         titleMain={data?.strategyCTA?.titleMain || "Map your "}
         titleAccent={data?.strategyCTA?.titleAccent || "technical"}
         titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
-        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        description={data?.strategyCTA?.descriptionText ? parseFormattedText(data.strategyCTA.descriptionText) : streamlineDescription}
         imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
       <DeliverMVP data={activeDeliverMVPData} />
       <Processes title={data?.processes?.title || "OUR CUSTOM SOFTWARE DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <FAQs title="Custom Software Development FAQ" subtitle="Everything you need to know about our enterprise custom software development services, timelines, and IP ownership." faqs={data?.faqs} />
       <RelatedServices
         services={[
           {

@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -98,67 +99,34 @@ const introDescription = [
   { text: "engineered to provide total visibility across complex job sites. By automating subcontractor task dispatches, integrating BIM 3D models, and deploying IoT equipment telemetry, we help builders prevent budget leaks and ensure safety compliance.", bold: false }
 ];
 
-export function meta() {
-  const title = "Construction Software Development Services | Leapsofts";
-  const description = "Custom construction management software — project tracking, estimating & BIM integration. Leapsofts builds digital tools for modern construction firms. Get started.";
-  const keywords = "construction software development, construction management software, project management software construction";
-  const canonicalUrl = "https://www.leapsofts.com/industries/construction";
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('construction');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Construction Software Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Construction Management Software Engineering",
-      "description": "Custom construction management software — project tracking, estimating & BIM integration."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Construction",
-          "item": "https://www.leapsofts.com/industries/construction"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Construction Software Development Services | Leapsofts",
+    defaultDescription: "Custom construction management software — project tracking, estimating & BIM integration. Leapsofts builds digital tools for modern construction firms. Get started.",
+    defaultKeywords: "construction software development, construction management software, project management software construction",
+    canonicalUrl: "https://www.leapsofts.com/industries/construction",
+  });
+}
+
+
 
 const Construction: React.FC = () => {
   const { data } = useIndustryPage('construction');
+
+  const schemaData = buildServiceSchema({
+    name: "Construction Software Development Services",
+    description: "Custom construction management software — project tracking, estimating & BIM integration.",
+    canonicalUrl: "https://www.leapsofts.com/industries/construction",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
@@ -201,7 +169,7 @@ const Construction: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

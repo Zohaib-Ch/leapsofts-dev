@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
 import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
@@ -276,67 +277,34 @@ const introDescription = [
   { text: "with zero downtime. As an experienced cloud migration company, we transition legacy on-premises servers, Oracle databases, and VMware environments to AWS, Azure, or GCP safely and efficiently.", bold: false }
 ];
 
-export function meta() {
-  const title = "Cloud Migration Services | Leapsofts";
-  const description = "Seamless cloud migration services with zero downtime. Leapsofts migrates legacy infrastructure to AWS, Azure or GCP securely and efficiently. Start now.";
-  const keywords = "cloud migration services, cloud migration company, AWS migration, Azure migration, legacy to cloud migration";
-  const canonicalUrl = "https://www.leapsofts.com/services/cloud-migration";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('cloud-migration');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Cloud Migration Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Cloud Migration & Workload Relocation",
-      "description": "Seamless cloud migration services with zero downtime."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Cloud Migration",
-          "item": "https://www.leapsofts.com/services/cloud-migration"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Cloud Migration Services | Leapsofts",
+    defaultDescription: "Seamless cloud migration services with zero downtime. Leapsofts migrates legacy infrastructure to AWS, Azure or GCP securely and efficiently. Start now.",
+    defaultKeywords: "cloud migration services, cloud migration company, AWS migration, Azure migration, legacy to cloud migration",
+    canonicalUrl: "https://www.leapsofts.com/services/cloud-migration",
+  });
+}
+
+
 
 const CloudMigration: React.FC = () => {
   const { data } = useServicePage('cloud-migration');
+
+  const schemaData = buildServiceSchema({
+    name: "Cloud Migration Services",
+    description: "Seamless cloud migration services with zero downtime.",
+    canonicalUrl: "https://www.leapsofts.com/services/cloud-migration",
+    faqs: data?.faqs,
+  });
 
   
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
@@ -390,7 +358,7 @@ const CloudMigration: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

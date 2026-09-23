@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview'
@@ -259,67 +260,34 @@ const introDescription = [
   { text: ", we build custom Shopify themes, Hydrogen & Oxygen headless storefronts, private app integrations, and zero-downtime database migrations. We help retail brands engineer high-converting, lightning-fast digital storefronts.", bold: false }
 ]
 
-export function meta() {
-  const title = "Shopify Development Services | Leapsofts";
-  const description = "Expert Shopify store development, custom theme design & app integration. Leapsofts builds high-converting Shopify eCommerce stores. Start your project.";
-  const keywords = "Shopify development company, Shopify store development, custom Shopify theme, Shopify ecommerce development";
-  const canonicalUrl = "https://www.leapsofts.com/services/shopify";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('shopify');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Shopify Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Shopify eCommerce Development",
-      "description": "Expert Shopify store development, custom theme design & app integration."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Shopify",
-          "item": "https://www.leapsofts.com/services/shopify"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Shopify Development Services | Leapsofts",
+    defaultDescription: "Expert Shopify store development, custom theme design & app integration. Leapsofts builds high-converting Shopify eCommerce stores. Start your project.",
+    defaultKeywords: "Shopify development company, Shopify store development, custom Shopify theme, Shopify ecommerce development",
+    canonicalUrl: "https://www.leapsofts.com/services/shopify",
+  });
+}
+
+
 
 const Shopify: React.FC = () => {
   const { data } = useServicePage('shopify');
+
+  const schemaData = buildServiceSchema({
+    name: "Shopify Development Services",
+    description: "Expert Shopify store development, custom theme design & app integration.",
+    canonicalUrl: "https://www.leapsofts.com/services/shopify",
+    faqs: data?.faqs,
+  });
 
   
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
@@ -388,7 +356,7 @@ const Shopify: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

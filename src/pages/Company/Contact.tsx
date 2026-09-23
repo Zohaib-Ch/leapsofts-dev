@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { buildPageMeta } from '../../utils/seoHelper';
+import React, { useState } from 'react';
+import { useLoaderData } from 'react-router';
 import styles from './Contact.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -18,29 +20,19 @@ import ContactForm from '../../components/ContactForm/ContactForm';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityContactPage } from '../../sanity/queries';
 import type { SanityContactPage } from '../../sanity/types';
-export function meta() {
-  const title = "Contact Leapsofts | Get a Free Software Consultation";
-  const description = "Ready to start your project? Contact Leapsofts today for a free software strategy consultation. Let's discuss your goals, timeline, and budget.";
-  const keywords = "contact Leapsofts, software development consultation, hire software developers, software development company contact";
-  const canonicalUrl = "https://www.leapsofts.com/contact";
+export async function loader() {
+  const sanityData = await getSanityContactPage();
+  return { sanityData };
+}
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Contact Leapsofts | Get a Free Software Consultation",
+    defaultDescription: "Ready to start your project? Contact Leapsofts today for a free software strategy consultation. Let",
+    defaultKeywords: "contact Leapsofts, software development consultation, hire software developers, software development company contact",
+    canonicalUrl: "https://www.leapsofts.com/contact",
+  });
 }
 
 const ribbonData = [
@@ -138,14 +130,9 @@ const cardChildVariant = {
 };
 
 const Contact: React.FC = () => {
+  const loaderData = useLoaderData<typeof loader>();
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0); // First item open by default
-  const [sanityData, setSanityData] = useState<SanityContactPage | null>(null);
-
-  useEffect(() => {
-    getSanityContactPage().then((data) => {
-      if (data) setSanityData(data);
-    });
-  }, []);
+  const sanityData: SanityContactPage | null = loaderData?.sanityData || null;
 
   const toggleFaq = (index: number) => {
     setOpenFaqIndex((prev) => (prev === index ? null : index));

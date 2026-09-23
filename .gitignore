@@ -36,3 +36,7 @@ scripts
 index.html.bak
 seo_audit_report.md
 src/components/SEOHead/
+
+
+# Generated WebP images
+public/projectImagesWebp/

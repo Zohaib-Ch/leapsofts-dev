@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview'
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
@@ -258,67 +259,34 @@ const introDescription = [
   { text: "to transform aging, monolithic software into high-performance, cloud-native platforms. As a trusted software re-engineering company, we refactor legacy database schemas, decouple core microservices, and eliminate technical debt to accelerate release velocity and cut operational costs.", bold: false }
 ]
 
-export function meta() {
-  const title = "Application Re-Engineering Services | Leapsofts";
-  const description = "Modernize legacy systems without disruption. Leapsofts re-engineers outdated applications into scalable, cloud-native platforms. Book a free assessment.";
-  const keywords = "application re-engineering, legacy modernization, software modernization services, legacy system migration";
-  const canonicalUrl = "https://www.leapsofts.com/services/app-reengineering";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('app-reengineering');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Application Re-Engineering Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Application Re-Engineering",
-      "description": "Modernize legacy systems without disruption."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Application Re-Engineering",
-          "item": "https://www.leapsofts.com/services/app-reengineering"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Application Re-Engineering Services | Leapsofts",
+    defaultDescription: "Modernize legacy systems without disruption. Leapsofts re-engineers outdated applications into scalable, cloud-native platforms. Book a free assessment.",
+    defaultKeywords: "application re-engineering, legacy modernization, software modernization services, legacy system migration",
+    canonicalUrl: "https://www.leapsofts.com/services/app-reengineering",
+  });
+}
+
+
 
 const AppReengineering: React.FC = () => {
   const { data } = useServicePage('app-reengineering');
+
+  const schemaData = buildServiceSchema({
+    name: "Application Re-Engineering Services",
+    description: "Modernize legacy systems without disruption.",
+    canonicalUrl: "https://www.leapsofts.com/services/app-reengineering",
+    faqs: data?.faqs,
+  });
 
 
   const activeTitle = data?.hero?.title || title;
@@ -382,7 +350,7 @@ const AppReengineering: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

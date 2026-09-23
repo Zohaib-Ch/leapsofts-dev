@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
@@ -244,67 +245,34 @@ const introDescription = [
   { text: ", we deploy senior software architects, full-stack developers, and certified Scrum Masters ready to scale your product velocity with zero onboarding friction.", bold: false }
 ];
 
-export function meta() {
-  const title = "Dedicated Development Teams | Leapsofts";
-  const description = "Hire dedicated software development teams from Leapsofts. Scale your engineering capacity with senior developers embedded in your workflows. Start today.";
-  const keywords = "dedicated development team, hire dedicated developers, staff augmentation services, offshore development team";
-  const canonicalUrl = "https://www.leapsofts.com/services/dedicated-teams";
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('dedicated-teams');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Dedicated Development Teams",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Dedicated Software Engineering Teams",
-      "description": "Hire dedicated software development teams from Leapsofts. Scale your engineering capacity."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Dedicated Teams",
-          "item": "https://www.leapsofts.com/services/dedicated-teams"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Dedicated Development Teams | Leapsofts",
+    defaultDescription: "Hire dedicated software development teams from Leapsofts. Scale your engineering capacity with senior developers embedded in your workflows. Start today.",
+    defaultKeywords: "dedicated development team, hire dedicated developers, staff augmentation services, offshore development team",
+    canonicalUrl: "https://www.leapsofts.com/services/dedicated-teams",
+  });
+}
+
+
 
 const DedicatedTeams: React.FC = () => {
   const { data } = useServicePage('dedicated-teams');
+
+  const schemaData = buildServiceSchema({
+    name: "Dedicated Development Teams",
+    description: "Hire dedicated software development teams from Leapsofts. Scale your engineering capacity.",
+    canonicalUrl: "https://www.leapsofts.com/services/dedicated-teams",
+    faqs: data?.faqs,
+  });
 
   
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
@@ -358,7 +326,7 @@ const DedicatedTeams: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
         title={activeTitle}
         description={activeSubtitle}

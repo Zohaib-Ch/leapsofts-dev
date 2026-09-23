@@ -51,6 +51,7 @@ const EmergingTech: React.FC<EmergingTechProps> = ({ data }) => {
 
   return (
     <section className={styles.section}>
+      <div className={styles.bgGlow} />
       <div className={styles.container}>
         <div className={styles.header}>
           <span className={styles.label}>{data.label}</span>
@@ -64,24 +65,34 @@ const EmergingTech: React.FC<EmergingTechProps> = ({ data }) => {
         <div className={styles.swiperContainer}>
           <Swiper
             modules={[Autoplay]}
-            spaceBetween={40}
-            centeredSlides={true}
+            spaceBetween={24}
+            centeredSlides={false}
             grabCursor={true}
             loop={true}
             speed={600}
-            autoplay={{ delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: false }}
+            autoplay={{
+              delay: 3500,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
             breakpoints={{
+              320: { slidesPerView: 1 },
               640: { slidesPerView: 1.5 },
               1024: { slidesPerView: 2.5 },
-              1440: { slidesPerView: 4.5 }
+              1280: { slidesPerView: 3 },
             }}
             className={styles.swiper}
           >
             {data.items.map((item, index) => (
-              <SwiperSlide key={index}>
+              <SwiperSlide key={index} className={styles.slide}>
                 <div className={styles.card}>
-                  <div className={styles.iconWrapper}>
-                    {getIcon(item.icon)}
+                  <div className={styles.cardHeader}>
+                    <div className={styles.iconWrapper}>
+                      {getIcon(item.icon)}
+                    </div>
+                    <span className={styles.stepBadge}>
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
                   </div>
                   <div className={styles.cardContent}>
                     <h3 className={styles.cardTitle}>{item.title}</h3>

@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -100,67 +101,34 @@ const introDescription = [
   { text: "engineered to handle hyper-scale transaction volumes with absolute precision. By integrating PCI-DSS compliant checkout structures, automating multi-currency clearing runs, and designing real-time risk telemetry engines, we future-proof financial firms and enable zero-friction asset movement.", bold: false }
 ];
 
-export function meta() {
-  const title = "Fintech Software Development Services | Leapsofts";
-  const description = "Custom fintech software development for banks, insurance & investment firms. Leapsofts builds secure, compliance-ready financial platforms. Get a consultation.";
-  const keywords = "fintech software development, banking software company, financial software development, insurance software";
-  const canonicalUrl = "https://www.leapsofts.com/industries/finance";
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
-  return [
-    { title },
-    { name: "description", content: description },
-    { name: "keywords", content: keywords },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: "https://www.leapsofts.com/logo/Leap-soft-01.png" },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Leapsofts" },
-    { property: "og:locale", content: "en_US" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@leapsofts" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
-  ];
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('finance');
+  return { sanityData };
 }
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Fintech Software Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Leapsofts",
-        "url": "https://www.leapsofts.com"
-      },
-      "serviceType": "Fintech & Banking Software Development",
-      "description": "Custom fintech software development for banks, insurance & investment firms."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.leapsofts.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Fintech & Finance",
-          "item": "https://www.leapsofts.com/industries/finance"
-        }
-      ]
-    }
-  ]
-};
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Fintech Software Development Services | Leapsofts",
+    defaultDescription: "Custom fintech software development for banks, insurance & investment firms. Leapsofts builds secure, compliance-ready financial platforms. Get a consultation.",
+    defaultKeywords: "fintech software development, banking software company, financial software development, insurance software",
+    canonicalUrl: "https://www.leapsofts.com/industries/finance",
+  });
+}
+
+
 
 const Finance: React.FC = () => {
   const { data } = useIndustryPage('finance');
+
+  const schemaData = buildServiceSchema({
+    name: "Fintech Software Development Services",
+    description: "Custom fintech software development for banks, insurance & investment firms.",
+    canonicalUrl: "https://www.leapsofts.com/industries/finance",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
@@ -203,7 +171,7 @@ const Finance: React.FC = () => {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
