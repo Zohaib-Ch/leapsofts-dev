@@ -10,8 +10,8 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
-import webAppOverviewImg from "../../assets/web_app_overview_3d.png";
-import webAppTechImg from "../../assets/web_app_tech_3d.png";
+const webAppOverviewImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
+const webAppTechImg = "https://cdn.sanity.io/images/egqy3ztp/production/9ab00d29af5410a9ce17df81d285f750c8591a86-1200x896.webp";
 import { useServicePage } from '../../hooks/useServicePage';
 import { getSanityServiceBySlug } from '../../sanity/queries';
 import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';

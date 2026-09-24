@@ -11,6 +11,8 @@ export interface InfoGridProps {
     data: {
         label?: string;
         title?: string;
+        titleMain?: string;
+        titleAccent?: string;
         description?: string;
         items: GridItem[];
     };
@@ -34,13 +36,31 @@ const InfoGrid: React.FC<InfoGridProps> = ({ data }) => {
         return <span className={styles.textIcon}>{String(index + 1).padStart(2, '0')}</span>;
     };
 
+    const hasTitleComponents = Boolean(data.titleMain || data.titleAccent);
+    const hasTitle = Boolean(data.title || hasTitleComponents);
+
     return (
         <section className={styles.section}>
             <div className={styles.container}>
-                {(data.title || data.label || data.description) && (
+                {(hasTitle || data.label || data.description) && (
                     <div className={styles.header}>
                         {data.label && <span className={styles.label}>{data.label}</span>}
-                        {data.title && <h2 className={styles.title}>{data.title}</h2>}
+                        {hasTitle && (
+                            <h2 className={styles.title}>
+                                {hasTitleComponents ? (
+                                    <>
+                                        {data.titleMain}{' '}
+                                        {data.titleAccent && (
+                                            <span className={styles.accent} style={{ color: 'var(--color-primary-light, #d946ef)' }}>
+                                                {data.titleAccent}
+                                            </span>
+                                        )}
+                                    </>
+                                ) : (
+                                    data.title
+                                )}
+                            </h2>
+                        )}
                         {data.description && <p className={styles.description}>{data.description}</p>}
                     </div>
                 )}

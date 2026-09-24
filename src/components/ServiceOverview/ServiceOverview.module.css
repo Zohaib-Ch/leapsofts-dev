@@ -104,6 +104,17 @@
     transition: transform 0.5s ease;
 }
 
+.arrowAccent {
+    position: absolute;
+    bottom: -15px;
+    right: 5%;
+    width: 50px !important;
+    height: auto !important;
+    z-index: 3;
+    pointer-events: none;
+    filter: drop-shadow(0 4px 15px rgba(217, 70, 239, 0.5));
+}
+
 .contentRight:hover img {
     transform: scale(1.02) translateY(-10px);
 }

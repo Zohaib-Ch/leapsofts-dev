@@ -2,11 +2,11 @@ import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import React from 'react'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import Capabilities, { type CapabilitySlide } from '../../components/Capabilities/Capabilities'
-import capabilitiesImg from "../../assets/capabilities_3d.png";
-import platformImg from "../../assets/capabilities_platform.png";
+const capabilitiesImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
+const platformImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
-import mobileAppImg from "../../assets/phones.webp";
+const mobileAppImg = "https://cdn.sanity.io/images/egqy3ztp/production/9a8d2074c4c6748e73587c6d3e57b16f215d2062-1024x1024.webp";
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';

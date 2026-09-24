@@ -10,7 +10,7 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import RelatedServices from '../../components/RelatedServices/RelatedServices'
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
-import laptopImg from "../../assets/about_laptop_3d.png";
+const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
 import { useServicePage } from '../../hooks/useServicePage';
 
 const serviceOverviewData = {

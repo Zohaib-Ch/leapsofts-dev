@@ -12,9 +12,9 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
-import capabilitiesImg from '../../assets/capabilities_3d.png';
-import platformImg from '../../assets/capabilities_platform.png';
-import laptopImg from "../../assets/about_laptop_3d.png";
+const capabilitiesImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
+const platformImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
+const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
 import { useServicePage } from '../../hooks/useServicePage';
 
 const capabilitiesSlides: CapabilitySlide[] = [

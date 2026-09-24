@@ -3,7 +3,7 @@ import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
-import mobileAppImg from "../../assets/phones.webp";
+const mobileAppImg = "https://cdn.sanity.io/images/egqy3ztp/production/9a8d2074c4c6748e73587c6d3e57b16f215d2062-1024x1024.webp";
 import InfoGrid from '../../components/InfoGrid/InfoGrid';
 import { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';

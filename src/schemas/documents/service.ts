@@ -86,6 +86,7 @@ export const serviceSchema = defineType({
         defineField({ name: 'titleEnd', title: 'Title End', type: 'string' }),
         defineField({ name: 'description', title: 'Overview Description', type: 'text' }),
         defineField({ name: 'image', title: 'Section Image', type: 'image', options: { hotspot: true } }),
+        defineField({ name: 'imageUrl', title: 'Section Image URL', type: 'string' }),
       ],
     }),
 
@@ -97,7 +98,7 @@ export const serviceSchema = defineType({
       group: 'content',
       hidden: ({ document }) => {
         const slug = document?.slug?.current || '';
-        const pagesWithCapabilities = ['custom-software-development', 'azure', 'cloud-migration', 'dedicated-teams', 'mobile-app-development', 'proof-of-concept-development', 'salesforce'];
+        const pagesWithCapabilities = ['custom-software-development', 'azure', 'cloud-migration', 'dedicated-teams', 'mobile-app-development', 'proof-of-concept-development', 'salesforce', 'web-app-development'];
         return !!slug && !pagesWithCapabilities.includes(slug);
       },
       fields: [
@@ -115,6 +116,7 @@ export const serviceSchema = defineType({
                 defineField({ name: 'number', title: 'Index Code (e.g. < 01 >)', type: 'string' }),
                 defineField({ name: 'title', title: 'Slide Title', type: 'string' }),
                 defineField({ name: 'image', title: 'Slide Image', type: 'image' }),
+                defineField({ name: 'imageUrl', title: 'Slide Image URL', type: 'string' }),
                 defineField({
                   name: 'items',
                   title: 'Capability Bullet Points',
@@ -235,6 +237,7 @@ export const serviceSchema = defineType({
         defineField({ name: 'buttonText', title: 'Button Text', type: 'string' }),
         defineField({ name: 'buttonPath', title: 'Button Path / Link (e.g. #contact)', type: 'string' }),
         defineField({ name: 'image', title: 'CTA Image', type: 'image', options: { hotspot: true } }),
+        defineField({ name: 'imageUrl', title: 'CTA Image URL', type: 'string' }),
       ],
     }),
 
@@ -308,6 +311,8 @@ export const serviceSchema = defineType({
         defineField({ name: 'titleAccent', title: 'Title Accent', type: 'string' }),
         defineField({ name: 'titleMain', title: 'Title Main', type: 'string' }),
         defineField({ name: 'description', title: 'Section Description', type: 'text' }),
+        defineField({ name: 'image', title: 'Section Image Asset', type: 'image', options: { hotspot: true } }),
+        defineField({ name: 'imageUrl', title: 'Section Image URL', type: 'string' }),
         defineField({
           name: 'items',
           title: 'Technology / Service Items',

@@ -11,7 +11,7 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
-import phoneImg from "../../assets/phones.webp";
+const phoneImg = "https://cdn.sanity.io/images/egqy3ztp/production/9a8d2074c4c6748e73587c6d3e57b16f215d2062-1024x1024.webp";
 
 const ourServicesData: EmergingTechProps['data'] = {
     label: 'QA SERVICES',

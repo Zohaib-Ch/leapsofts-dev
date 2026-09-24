@@ -130,7 +130,7 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && (slug.current == $
     titleAccent,
     titleEnd,
     description,
-    "imageUrl": image.asset->url
+    "imageUrl": coalesce(imageUrl, image.asset->url)
   },
   capabilitiesSection {
     title,
@@ -139,7 +139,7 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && (slug.current == $
       id,
       number,
       title,
-      "imageUrl": image.asset->url,
+      "imageUrl": coalesce(imageUrl, image.asset->url),
       items
     }
   },
@@ -173,7 +173,7 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && (slug.current == $
     descriptionText,
     buttonText,
     buttonPath,
-    "imageUrl": image.asset->url
+    "imageUrl": coalesce(imageUrl, image.asset->url)
   },
   serviceFeatures {
     title,
@@ -188,6 +188,7 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && (slug.current == $
     titleAccent,
     titleMain,
     description,
+    "imageUrl": coalesce(imageUrl, image.asset->url),
     items[] {
       title,
       description,

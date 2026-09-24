@@ -11,7 +11,7 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import FAQs from '../../components/FAQs/FAQs';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
-import laptopImg from "../../assets/about_laptop_3d.png";
+const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
 
 const serviceOverviewData = {
   label: "IDEATION & DISCOVERY",
