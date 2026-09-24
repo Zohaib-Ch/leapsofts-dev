@@ -9,6 +9,8 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
 import phoneImg from "../../assets/phones.webp";
 
 const ourServicesData: EmergingTechProps['data'] = {
@@ -303,7 +305,7 @@ const QualityAssurance: React.FC = () => {
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
   const activeIntroDescription = data?.hero?.introText
-    ? [{ text: data.hero.introText, bold: false }]
+    ? parseFormattedText(data.hero.introText)
     : introDescription;
 
   const activeOverviewData = (data?.serviceOverview)
@@ -400,6 +402,11 @@ const QualityAssurance: React.FC = () => {
                 title={data?.processes?.title || "Software Verification & Validation Framework"}
                 phaseLabels={activePhaseLabels}
                 processPhases={activeProcessPhases}
+            />
+            <FAQs
+                title="Quality Assurance & Software Testing FAQ"
+                subtitle="Everything you need to know about automated testing, Playwright/Cypress frameworks, load testing, and continuous regression shielding."
+                faqs={data?.faqs} items={data?.faqs}
             />
             <RelatedServices
                 services={[

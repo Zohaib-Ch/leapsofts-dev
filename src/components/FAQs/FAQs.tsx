@@ -13,12 +13,14 @@ interface FAQsProps {
     title?: string;
     subtitle?: string;
     faqs?: FAQItem[];
+    items?: FAQItem[];
 }
 
 const FAQs: React.FC<FAQsProps> = ({
     title = "FAQ's",
     subtitle,
-    faqs: propFaqs
+    faqs: propFaqs,
+    items
 }) => {
     const location = useLocation();
     const serviceKey = location.pathname.split('/')[2] || '';
@@ -26,7 +28,8 @@ const FAQs: React.FC<FAQsProps> = ({
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
     const fetchedFaqs: FAQItem[] = useMemo(() => fetchFaqs(serviceKey), [serviceKey]);
-    const faqs: FAQItem[] = propFaqs && propFaqs.length > 0 ? propFaqs : fetchedFaqs;
+    const inputFaqs = propFaqs || items;
+    const faqs: FAQItem[] = inputFaqs && inputFaqs.length > 0 ? inputFaqs : fetchedFaqs;
     const contentRef = useRef<HTMLDivElement>(null);
 
     const defaultSubtitle = `Common questions about ${serviceKey.replace(/-/g, ' ')}`;

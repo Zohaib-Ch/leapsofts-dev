@@ -1,5 +1,6 @@
+import React from 'react';
 import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
-import IntroComponent from "../../components/IntroComponent/IntroComponent"
+import IntroComponent from "../../components/IntroComponent/IntroComponent";
 import Capabilities, { type CapabilitySlide } from "../../components/Capabilities/Capabilities";
 import capabilitiesImg from "../../assets/capabilities_3d.png";
 import platformImg from "../../assets/capabilities_platform.png";
@@ -11,6 +12,7 @@ import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
 import { useServicePage } from '../../hooks/useServicePage';
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
 const capabilitiesSlides: CapabilitySlide[] = [
   {
@@ -232,18 +234,16 @@ const streamlineDescription = [
   { text: "built to unlock measurable product growth and streamline operational efficiency.", bold: false }
 ];
 
-  const title = "Enterprise Custom Software Development Engineered to Scale";
-  const subtitle = "";
+const title = "Enterprise Custom Software Development Engineered to Scale";
+const subtitle = "";
 
-  const introDescription = [
-    { text: "We engineer enterprise-grade ", bold: false },
-    { text: "custom software development services ", bold: true },
-    { text: "tailored to the complex operational demands of modern businesses. As a leading ", bold: false },
-    { text: "custom software development company", bold: true },
+const introDescription = [
+  { text: "We engineer enterprise-grade ", bold: false },
+  { text: "custom software development services ", bold: true },
+  { text: "tailored to the complex operational demands of modern businesses. As a leading ", bold: false },
+  { text: "custom software development company", bold: true },
   { text: ", we combine resilient microservice architectures, cloud database models, and secure API integrations to deliver bespoke software solutions that eliminate technical debt and accelerate enterprise growth.", bold: false }
 ];
-
-import { getSanityServiceBySlug } from '../../sanity/queries';
 
 export async function loader() {
   const sanityData = await getSanityServiceBySlug('custom-software-development');
@@ -259,8 +259,6 @@ export function meta({ data }: { data?: any }) {
     canonicalUrl: "https://www.leapsofts.com/services/custom-software-development",
   });
 }
-
-
 
 function CustomSoftwareDevelopment() {
   const { data } = useServicePage('custom-software-development');
@@ -317,6 +315,8 @@ function CustomSoftwareDevelopment() {
     ? data.processes.phaseLabels
     : phaseLabelsDefault;
 
+  const strategyCTA = data?.strategyCTA;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
@@ -333,16 +333,18 @@ function CustomSoftwareDevelopment() {
       />
       <ComparisonTable data={activeComparisonData} />
       <StreamlineSuccess
-        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
-        titleMain={data?.strategyCTA?.titleMain || "Map your "}
-        titleAccent={data?.strategyCTA?.titleAccent || "technical"}
-        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
-        description={data?.strategyCTA?.descriptionText ? parseFormattedText(data.strategyCTA.descriptionText) : streamlineDescription}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={strategyCTA?.titleMain || "Map your "}
+        titleAccent={strategyCTA?.titleAccent || "technical"}
+        titleEnd={strategyCTA?.titleEnd || " roadmap."}
+        description={strategyCTA?.descriptionText ? parseFormattedText(strategyCTA.descriptionText) : streamlineDescription}
+        buttonText={strategyCTA?.buttonText}
+        buttonPath={strategyCTA?.buttonPath}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
       />
       <DeliverMVP data={activeDeliverMVPData} />
       <Processes title={data?.processes?.title || "OUR CUSTOM SOFTWARE DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
-      <FAQs title="Custom Software Development FAQ" subtitle="Everything you need to know about our enterprise custom software development services, timelines, and IP ownership." faqs={data?.faqs} />
+      <FAQs title="Custom Software Development FAQ" subtitle="Everything you need to know about our enterprise custom software development services, timelines, and IP ownership." faqs={data?.faqs} items={data?.faqs} />
       <RelatedServices
         services={[
           {

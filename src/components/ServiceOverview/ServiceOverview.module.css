@@ -44,11 +44,11 @@
 }
 
 .contentLeftTitle h2 {
-    font-size: clamp(2.5rem, 4vw, 3.8rem);
-    line-height: 1.1;
-    margin-bottom: 32px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+    line-height: 1.2;
+    margin-bottom: 24px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
 }
 
 .accent {

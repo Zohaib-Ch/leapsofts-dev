@@ -1,20 +1,22 @@
 import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
-import IntroComponent from '../../components/IntroComponent/IntroComponent'
-import ServiceOverview from '../../components/ServiceOverview/ServiceOverview'
-import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
-import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid'
-import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
-import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures'
-import DeliverMVP from '../../components/DeliverMVP/DeliverMVP'
-import Processes, { type ProcessPhase } from '../../components/Processes/Processes'
-import RelatedServices from '../../components/RelatedServices/RelatedServices'
+import IntroComponent from '../../components/IntroComponent/IntroComponent';
+import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
+import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
+import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
+import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
+import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
+import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const serviceOverviewData = {
   label: "SERVICENOW SOLUTIONS",
-  titleMain: "Unifying Your",
-  titleAccent: "Enterprise",
+  titleMain: "Unifying Your ",
+  titleAccent: "Enterprise ",
   titleEnd: "Workflows",
   description: "At Leapsofts, we customize and engineer highly optimized ServiceNow environments designed to connect disparate organizational silos into cohesive digital workflows. By designing customized Scoped Applications, writing optimized, secure Business Rules and Client Scripts, and configuring robust integration hubs via secure REST APIs and MID Server architectures, we help major organizations automate service delivery, enforce strict security compliance, and achieve full operational transparency.",
   imagePath: laptopImg
@@ -22,10 +24,9 @@ const serviceOverviewData = {
 
 const emergingTechData: EmergingTechProps['data'] = {
   label: 'SERVICENOW SERVICES',
-  titleAccent: 'Digital',
+  titleAccent: 'Digital ',
   titleMain: 'Workflows',
-  description:
-    'We specialize in expanding the reach of ServiceNow across your enterprise, from IT to HR and Customer Service.',
+  description: 'We specialize in expanding the reach of ServiceNow across your enterprise, from IT to HR and Customer Service.',
   items: [
     {
       icon: 'enterprise' as const,
@@ -100,22 +101,22 @@ const streamlineDescription = [
 const serviceFeaturesData: ServiceFeatureItem[] = [
   {
     icon: '/industryicons/sphere.svg',
-    title: 'Platform Implementation',
-    description: 'Bespoke setup, configuration, and migration of ServiceNow ITSM, ITOM, and CSM modules.'
+    title: 'Platform Implementation & Module Setup',
+    description: 'Bespoke setup, configuration, and migration of ServiceNow ITSM, ITOM, HRSD, and CSM modules.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
-    title: 'Custom App Build',
+    title: 'Custom Scoped Application Building',
     description: 'Designing and writing customized Scoped Applications on the Now Platform to solve unique operational needs.'
   },
   {
     icon: '/industryicons/sphere.svg',
-    title: 'Legacy Integration',
-    description: 'Connecting ServiceNow to legacy ERP databases, client gateways, and billing channels using secure REST/SOAP APIs.'
+    title: 'Legacy Systems & API Integration',
+    description: 'Connecting ServiceNow to legacy ERP databases, client gateways, and billing channels using secure REST/SOAP APIs and IntegrationHub.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
-    title: 'Upgrade & Migration',
+    title: 'Platform Upgrade & Migration Services',
     description: 'Ensuring smooth transitions to the latest ServiceNow releases (e.g. Washington/Xanadu) with zero downtime.'
   }
 ];
@@ -123,7 +124,7 @@ const serviceFeaturesData: ServiceFeatureItem[] = [
 const deliverMVPData = {
   label: "SERVICENOW EXCELLENCE",
   title: "Our Commitment to Deliver Your Workflows in",
-  accentText: "3-5 months?",
+  accentText: "3-5 months",
   description: "Leapsofts is an elite custom ServiceNow engineering partner. By combining fully integrated CI/CD, certified ServiceNow developers, and dedicated agile pods, we implement and deploy enterprise-ready ServiceNow workflows within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
@@ -150,23 +151,19 @@ const processPhasesDefault: ProcessPhase[] = [
     id: 1,
     phase: "PHASE 1: SERVICENOW STRATEGY & INSTANCE DISCOVERY",
     title: "Needs Maturity & Gap Analysis",
-    description:
-      "We analyze your active CRM settings, baseline workflows, and identify MID server configuration bottlenecks.",
+    description: "We analyze your active CRM settings, baseline workflows, and identify MID server configuration bottlenecks.",
     features: [
       {
         title: "Instance Configuration Audit",
-        description:
-          "Parse current client scripts, Business Rules, and UI actions to locate performance bottlenecks."
+        description: "Parse current client scripts, Business Rules, and UI actions to locate performance bottlenecks."
       },
       {
         title: "Strategic Maturity Workshops",
-        description:
-          "Coordinate with key IT directors to establish benchmark incident-response times and compliance scales."
+        description: "Coordinate with key IT directors to establish benchmark incident-response times and compliance scales."
       },
       {
         title: "Sandbox Deployment Blueprinting",
-        description:
-          "Draft detailed data integration specifications, update set release paths, and scoped app boundaries."
+        description: "Draft detailed data integration specifications, update set release paths, and scoped app boundaries."
       }
     ]
   },
@@ -174,23 +171,19 @@ const processPhasesDefault: ProcessPhase[] = [
     id: 2,
     phase: "PHASE 2: FOUNDATION ARCHITECTURE & SYSTEM DESIGN",
     title: "Instance Setup & MID Configuration",
-    description:
-      "Setting up secure connection gateways, LDAP mapping, and Access Control list rules.",
+    description: "Setting up secure connection gateways, LDAP mapping, and Access Control list rules.",
     features: [
       {
         title: "MID Server Secure Connections",
-        description:
-          "Configure local MID Servers to synchronize on-premise infrastructure data with the ServiceNow cloud org."
+        description: "Configure local MID Servers to synchronize on-premise infrastructure data with the ServiceNow cloud org."
       },
       {
         title: "IntegrationHub API Schema",
-        description:
-          "Map lightweight REST, SOAP, and IntegrationHub schemas connecting external directories (AD, Azure)."
+        description: "Map lightweight REST, SOAP, and IntegrationHub schemas connecting external directories (AD, Azure)."
       },
       {
         title: "Strict Access Control List Setup",
-        description:
-          "Establish precise ACL properties, user role maps, encryption keys, and SSO parameters."
+        description: "Establish precise ACL properties, user role maps, encryption keys, and SSO parameters."
       }
     ]
   },
@@ -198,23 +191,19 @@ const processPhasesDefault: ProcessPhase[] = [
     id: 3,
     phase: "PHASE 3: HIGH-VELOCITY WORKFLOW & SCOPED APP CODING",
     title: "Scoped App Building & Flow Design",
-    description:
-      "Writing optimized scoped logic, building Flow Designer workflows, and conducting ATF checks.",
+    description: "Writing optimized scoped logic, building Flow Designer workflows, and conducting ATF checks.",
     features: [
       {
         title: "Bespoke Scoped Applications",
-        description:
-          "Code robust Scoped Apps utilizing modular tables, Javascript Business Rules, and Client Scripts."
+        description: "Code robust Scoped Apps utilizing modular tables, Javascript Business Rules, and Client Scripts."
       },
       {
         title: "Flow Designer Orchestration",
-        description:
-          "Construct event-driven workflow automation trees and dynamic case routing tasks."
+        description: "Construct event-driven workflow automation trees and dynamic case routing tasks."
       },
       {
         title: "Automated Test Framework ATF",
-        description:
-          "Run strict automated test suites (ATF) to verify workflow parity and guarantee upgrade readiness."
+        description: "Run strict automated test suites (ATF) to verify workflow parity and guarantee upgrade readiness."
       }
     ]
   },
@@ -222,23 +211,19 @@ const processPhasesDefault: ProcessPhase[] = [
     id: 4,
     phase: "PHASE 4: SANDBOX TRANSITION & CRM EVOLUTION",
     title: "Update Set Releases & Platform Maintenance",
-    description:
-      "Seamless migrations, service portals activation, and regular platform upgrades reviews.",
+    description: "Seamless migrations, service portals activation, and regular platform upgrades reviews.",
     features: [
       {
         title: "Update Set Staged Deployment",
-        description:
-          "Migrate configuration packages safely from Development sandboxes into Production orgs."
+        description: "Migrate configuration packages safely from Development sandboxes into Production orgs."
       },
       {
         title: "Portal Activation & Onboarding",
-        description:
-          "Publish customized Service Portals and conduct onboarding workshops to promote active adoption."
+        description: "Publish customized Service Portals and conduct onboarding workshops to promote active adoption."
       },
       {
         title: "Proactive Release Upgrades",
-        description:
-          "Deliver regular security patches, system health reviews, and version upgrades (Washington/Xanadu) support."
+        description: "Deliver regular security patches, system health reviews, and version upgrades (Washington/Xanadu) support."
       }
     ]
   }
@@ -256,9 +241,9 @@ const subtitle = "";
 
 const introDescription = [
   { text: "We provide enterprise ", bold: false },
-  { text: "ServiceNow implementation services & ServiceNow consulting ", bold: true },
-  { text: "to automate digital workflows across ITSM, ITOM, HRSD, and CSM platforms. As certified ServiceNow specialists, we build custom Scoped Applications, configure IntegrationHub endpoints, and optimize Now Platform instances for seamless corporate governance.", bold: false }
-]
+  { text: "ServiceNow implementation services & ServiceNow consulting", bold: true },
+  { text: " to automate digital workflows across ITSM, ITOM, HRSD, and CSM platforms. As certified ServiceNow specialists, we build custom Scoped Applications, configure IntegrationHub endpoints, and optimize Now Platform instances for seamless corporate governance.", bold: false }
+];
 
 import { getSanityServiceBySlug } from '../../sanity/queries';
 
@@ -270,26 +255,23 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "ServiceNow Development Services | Leapsofts",
-    defaultDescription: "Expert ServiceNow implementation, customization & integration. Leapsofts transforms enterprise workflows with certified ServiceNow engineering. Get a quote.",
-    defaultKeywords: "ServiceNow development, ServiceNow implementation, ServiceNow consulting, ServiceNow integration services",
+    defaultTitle: "ServiceNow Implementation & Consulting Services | Leapsofts",
+    defaultDescription: "Enterprise ServiceNow implementation, ITSM modernization, ITOM discovery, Scoped App development & IntegrationHub consulting. Contact our ServiceNow architects.",
+    defaultKeywords: "ServiceNow implementation services, ServiceNow consulting partner, ITSM modernization, ServiceNow ITOM discovery, Scoped App development, IntegrationHub ServiceNow",
     canonicalUrl: "https://www.leapsofts.com/services/service-now",
   });
 }
 
-
-
 const ServiceNow: React.FC = () => {
-  const { data } = useServicePage('servicenow');
+  const { data } = useServicePage('service-now');
 
   const schemaData = buildServiceSchema({
-    name: "ServiceNow Development Services",
-    description: "Expert ServiceNow implementation, customization & integration.",
+    name: "ServiceNow Implementation Services",
+    description: "Enterprise ServiceNow implementation, ITSM modernization, ITOM discovery, Scoped App development & IntegrationHub consulting.",
     canonicalUrl: "https://www.leapsofts.com/services/service-now",
     faqs: data?.faqs,
   });
 
-  
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || (typeof reEngineeringProcessData !== 'undefined' ? reEngineeringProcessData.label : ''),
@@ -303,7 +285,6 @@ const ServiceNow: React.FC = () => {
       }
     : (typeof reEngineeringProcessData !== 'undefined' ? reEngineeringProcessData : { items: [] });
 
-  
   const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
     ? {
         label: data.emergingTech.label || (typeof emergingTechData !== 'undefined' ? emergingTechData.label : ''),
@@ -318,7 +299,6 @@ const ServiceNow: React.FC = () => {
       }
     : (typeof emergingTechData !== 'undefined' ? emergingTechData : { label: '', titleAccent: '', titleMain: '', description: '', items: [] });
 
-  
   const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
     ? {
         label: data.deliverMVP.label || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.label : ''),
@@ -332,7 +312,7 @@ const ServiceNow: React.FC = () => {
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
   const activeIntroDescription = data?.hero?.introText
-    ? [{ text: data.hero.introText, bold: false }]
+    ? parseFormattedText(data.hero.introText)
     : introDescription;
 
   const activeOverviewData = (data?.serviceOverview)
@@ -363,30 +343,41 @@ const ServiceNow: React.FC = () => {
         introDescription={activeIntroDescription}
       />
       <ServiceOverview
-        label={serviceOverviewData.label}
-        titleMain={serviceOverviewData.titleMain}
-        titleAccent={serviceOverviewData.titleAccent}
-        titleEnd={serviceOverviewData.titleEnd}
-        description={serviceOverviewData.description}
-        imagePath={serviceOverviewData.imagePath}
+        label={activeOverviewData?.label || "SERVICENOW SOLUTIONS"}
+        titleMain={activeOverviewData?.titleMain || "Unifying Your "}
+        titleAccent={activeOverviewData?.titleAccent || "Enterprise "}
+        titleEnd={activeOverviewData?.titleEnd || "Workflows"}
+        description={activeOverviewData?.description || "At Leapsofts, we customize and engineer highly optimized ServiceNow environments designed to connect disparate organizational silos into cohesive digital workflows."}
+        imagePath={activeOverviewData?.imagePath || laptopImg}
       />
       <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="ServiceNow"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "ServiceNow"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Expert Platform Services'
-        description='We deliver specialized ServiceNow services to support your enterprise workflows.'
-        items={serviceFeaturesData}
+        title={data?.serviceFeatures?.title || 'Expert ServiceNow Capabilities & Services'}
+        description={data?.serviceFeatures?.description || 'We deliver specialized ServiceNow services to support your enterprise workflows and digital transformation.'}
+        items={data?.serviceFeatures?.items || serviceFeaturesData}
       />
       <DeliverMVP data={activeDeliverMVPData} />
       <EmergingTech data={activeEmergingTechData} />
-      <Processes title="OUR CUSTOM SERVICENOW PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <Processes
+        title={data?.processes?.title || "OUR CUSTOM SERVICENOW PROCESS"}
+        processPhases={activeProcessPhases}
+        phaseLabels={activePhaseLabels}
+      />
+      <FAQs
+        title="ServiceNow Implementation & Consulting FAQ"
+        subtitle="Everything you need to know about ITSM modernization, ITOM discovery, Scoped App development, IntegrationHub endpoints, and platform upgrades."
+        faqs={data?.faqs} items={data?.faqs}
+      />
       <RelatedServices
         services={[
           {
@@ -407,7 +398,7 @@ const ServiceNow: React.FC = () => {
         ]}
       />
     </>
-  )
-}
+  );
+};
 
-export default ServiceNow
+export default ServiceNow;

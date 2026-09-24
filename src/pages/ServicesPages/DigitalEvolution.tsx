@@ -1,4 +1,5 @@
 import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { parseFormattedText } from '../../utils/textParser';
 import { useServicePage } from '../../hooks/useServicePage';
 import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
@@ -9,6 +10,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import FAQs from '../../components/FAQs/FAQs';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import laptopImg from "../../assets/about_laptop_3d.png";
 
@@ -292,7 +294,7 @@ const DigitalEvolution: React.FC = () => {
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
   const activeIntroDescription = data?.hero?.introText
-    ? [{ text: data.hero.introText, bold: false }]
+    ? parseFormattedText(data.hero.introText)
     : introDescription;
 
   const activeOverviewData = (data?.serviceOverview)
@@ -314,6 +316,12 @@ const DigitalEvolution: React.FC = () => {
     ? data.processes.phaseLabels
     : phaseLabelsDefault;
 
+  const activeServiceFeatures = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items
+    : serviceFeaturesData;
+
+  const strategyCTA = data?.strategyCTA;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
@@ -322,31 +330,36 @@ const DigitalEvolution: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      <ServiceOverview
-        label={serviceOverviewData.label}
-        titleMain={serviceOverviewData.titleMain}
-        titleAccent={serviceOverviewData.titleAccent}
-        titleEnd={serviceOverviewData.titleEnd}
-        description={serviceOverviewData.description}
-        imagePath={serviceOverviewData.imagePath}
-      />
+      {activeOverviewData && (
+        <ServiceOverview
+          label={activeOverviewData.label}
+          titleMain={activeOverviewData.titleMain}
+          titleAccent={activeOverviewData.titleAccent}
+          titleEnd={activeOverviewData.titleEnd}
+          description={activeOverviewData.description}
+          imagePath={activeOverviewData.imagePath}
+        />
+      )}
       <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="business transformation"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={strategyCTA?.titleMain || "Map your "}
+        titleAccent={strategyCTA?.titleAccent || "business transformation"}
+        titleEnd={strategyCTA?.titleEnd || " roadmap."}
+        description={strategyCTA?.descriptionText ? [{ text: strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={strategyCTA?.buttonText}
+        buttonPath={strategyCTA?.buttonPath}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Expert Services'
-        description='We deliver specialized digital services to support your entire organization.'
-        items={serviceFeaturesData}
+        title={data?.serviceFeatures?.title || 'Expert Services'}
+        description={data?.serviceFeatures?.description || 'We deliver specialized digital services to support your entire organization.'}
+        items={activeServiceFeatures}
       />
       <DeliverMVP data={activeDeliverMVPData} />
       <EmergingTech data={activeEmergingTechData} />
-      <Processes title="OUR CUSTOM DIGITAL EVOLUTION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <Processes title={data?.processes?.title || "OUR CUSTOM DIGITAL EVOLUTION PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <FAQs faqs={data?.faqs} items={data?.faqs} />
       <RelatedServices
         services={[
           {

@@ -1,3 +1,4 @@
+import React from 'react';
 import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
@@ -8,7 +9,9 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import FAQs from '../../components/FAQs/FAQs';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import { parseFormattedText } from '../../utils/textParser';
 import capabilitiesImg from '../../assets/capabilities_3d.png';
 import platformImg from '../../assets/capabilities_platform.png';
 import laptopImg from "../../assets/about_laptop_3d.png";
@@ -74,8 +77,8 @@ const capabilitiesSlides: CapabilitySlide[] = [
 
 const serviceOverviewData = {
   label: "TECHNICAL FEASIBILITY VALIDATION",
-  titleMain: "Validating Complex",
-  titleAccent: "POC Topologies",
+  titleMain: "Validating Complex ",
+  titleAccent: "POC Topologies ",
   titleEnd: "With Absolute Rigor",
   description: "At Leapsofts, we help modern enterprises and fast-growing startups validate complex technical concepts, address architectural uncertainties, and demonstrate software viability. Our senior engineers construct fully integrated cloud-native prototypes, verify advanced integration endpoints, and build isolated software demonstrators that satisfy strict performance and feasibility metrics.",
   imagePath: laptopImg
@@ -270,14 +273,12 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Proof of Concept Development Services | Leapsofts",
-    defaultDescription: "Build a validated PoC in weeks, not months. Leapsofts designs focused proof-of-concept builds to de-risk your investment before full product development.",
+    defaultTitle: "Proof of Concept (PoC) Development Services | Leapsofts",
+    defaultDescription: "De-risk software investments with rapid PoC development services. We build scalable prototypes, perform API integrations, & validate feasibility in weeks.",
     defaultKeywords: "proof of concept development, PoC development company, software prototype development, MVP proof of concept",
     canonicalUrl: "https://www.leapsofts.com/services/proof-of-concept-development",
   });
 }
-
-
 
 const ProofOfConceptDevelopment: React.FC = () => {
   const { data } = useServicePage('proof-of-concept-development');
@@ -289,7 +290,6 @@ const ProofOfConceptDevelopment: React.FC = () => {
     faqs: data?.faqs,
   });
 
-  
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || (typeof infoGridData !== 'undefined' ? infoGridData.label : ''),
@@ -303,7 +303,6 @@ const ProofOfConceptDevelopment: React.FC = () => {
       }
     : (typeof infoGridData !== 'undefined' ? infoGridData : { items: [] });
 
-  
   const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
     ? {
         label: data.deliverMVP.label || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.label : ''),
@@ -317,7 +316,7 @@ const ProofOfConceptDevelopment: React.FC = () => {
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
   const activeIntroDescription = data?.hero?.introText
-    ? [{ text: data.hero.introText, bold: false }]
+    ? parseFormattedText(data.hero.introText)
     : introDescription;
 
   const activeOverviewData = (data?.serviceOverview)
@@ -339,6 +338,12 @@ const ProofOfConceptDevelopment: React.FC = () => {
     ? data.processes.phaseLabels
     : phaseLabelsDefault;
 
+  const activeServiceFeatures = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items
+    : serviceFeaturesData;
+
+  const strategyCTA = data?.strategyCTA;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
@@ -347,14 +352,16 @@ const ProofOfConceptDevelopment: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      <ServiceOverview
-        label={serviceOverviewData.label}
-        titleMain={serviceOverviewData.titleMain}
-        titleAccent={serviceOverviewData.titleAccent}
-        titleEnd={serviceOverviewData.titleEnd}
-        description={serviceOverviewData.description}
-        imagePath={serviceOverviewData.imagePath}
-      />
+      {activeOverviewData && (
+        <ServiceOverview
+          label={activeOverviewData.label}
+          titleMain={activeOverviewData.titleMain}
+          titleAccent={activeOverviewData.titleAccent}
+          titleEnd={activeOverviewData.titleEnd}
+          description={activeOverviewData.description}
+          imagePath={activeOverviewData.imagePath}
+        />
+      )}
       <Capabilities
         title="Our Key Capabilities"
         description="We offer end-to-end custom application development services."
@@ -363,20 +370,23 @@ const ProofOfConceptDevelopment: React.FC = () => {
       />
       <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="POC feasibility"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={strategyCTA?.titleMain || "Map your "}
+        titleAccent={strategyCTA?.titleAccent || "POC feasibility"}
+        titleEnd={strategyCTA?.titleEnd || " roadmap."}
+        description={strategyCTA?.descriptionText ? parseFormattedText(strategyCTA.descriptionText) : streamlineDescription}
+        buttonText={strategyCTA?.buttonText}
+        buttonPath={strategyCTA?.buttonPath}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Expert POC Services'
-        description='We deliver specialized services to validate your digital innovations.'
-        items={serviceFeaturesData}
+        title={data?.serviceFeatures?.title || 'Expert PoC Services'}
+        description={data?.serviceFeatures?.description || 'We deliver specialized services to validate your digital innovations.'}
+        items={activeServiceFeatures}
       />
       <DeliverMVP data={activeDeliverMVPData} />
-      <Processes title="OUR PROOF OF CONCEPT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <Processes title={data?.processes?.title || "OUR PROOF OF CONCEPT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <FAQs faqs={data?.faqs} items={data?.faqs} />
       <RelatedServices
         services={[
           {

@@ -1,14 +1,20 @@
-import IntroComponent from '../../components/IntroComponent/IntroComponent'
-import ServiceOverview from '../../components/ServiceOverview/ServiceOverview'
-import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
-import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid'
-import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
-import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures'
-import DeliverMVP from '../../components/DeliverMVP/DeliverMVP'
-import Processes, { type ProcessPhase } from '../../components/Processes/Processes'
-import RelatedServices from '../../components/RelatedServices/RelatedServices'
-import laptopImg from "../../assets/about_laptop_3d.png";
+import React from 'react';
+import IntroComponent from '../../components/IntroComponent/IntroComponent';
+import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
+import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
+import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
+import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
+import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
+import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
+import webAppOverviewImg from "../../assets/web_app_overview_3d.png";
+import webAppTechImg from "../../assets/web_app_tech_3d.png";
 import { useServicePage } from '../../hooks/useServicePage';
+import { getSanityServiceBySlug } from '../../sanity/queries';
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 
 const serviceOverviewData = {
   label: "WEB APPLICATION DEVELOPMENT SERVICES",
@@ -16,7 +22,7 @@ const serviceOverviewData = {
   titleAccent: "Enterprise Web",
   titleEnd: "Applications",
   description: "At Leapsofts, as a specialized web application development company, we engineer custom web applications that combine modern frontend frameworks with resilient cloud backends. Leveraging React, Next.js, Node.js, and serverless cloud infrastructure (AWS/Azure), we build secure SaaS platforms, enterprise client portals, and real-time web dashboards optimized for Core Web Vitals, conversion speed, and long-term scalability.",
-  imagePath: laptopImg
+  imagePath: webAppOverviewImg
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
@@ -56,7 +62,7 @@ const emergingTechData: EmergingTechProps['data'] = {
       description: 'Implementing OAuth2/OpenID authentication, role-based access control (RBAC), TLS 1.3 encryption, and automated Cypress/Playwright security testing.'
     },
   ]
-}
+};
 
 const infoGridData: InfoGridProps['data'] = {
   label: 'BUSINESS ADVANTAGES',
@@ -260,9 +266,6 @@ const introDescription = [
   { text: "tailored for high-growth enterprises. As an experienced web app development company, we build high-performance SaaS platforms, progressive web apps, and enterprise portals engineered for speed, security, and effortless scalability.", bold: false }
 ];
 
-import { getSanityServiceBySlug } from '../../sanity/queries';
-import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
-
 export async function loader() {
   const sanityData = await getSanityServiceBySlug('web-app-development');
   return { sanityData };
@@ -288,11 +291,10 @@ const WebAppDevelopment: React.FC = () => {
     faqs: data?.faqs,
   });
 
-
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
   const activeIntroDescription = data?.hero?.introText
-    ? [{ text: data.hero.introText, bold: false }]
+    ? parseFormattedText(data.hero.introText)
     : introDescription;
 
   const activeOverviewData = (data?.serviceOverview)
@@ -348,6 +350,8 @@ const WebAppDevelopment: React.FC = () => {
     ? data.processes.phaseLabels
     : phaseLabelsDefault;
 
+  const strategyCTA = data?.strategyCTA;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
@@ -366,21 +370,24 @@ const WebAppDevelopment: React.FC = () => {
       />
       <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
-        titleMain={data?.strategyCTA?.titleMain || "Map your "}
-        titleAccent={data?.strategyCTA?.titleAccent || "web"}
-        titleEnd={data?.strategyCTA?.titleEnd || " architecture."}
-        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={strategyCTA?.titleMain || "Map your "}
+        titleAccent={strategyCTA?.titleAccent || "web"}
+        titleEnd={strategyCTA?.titleEnd || " architecture."}
+        description={strategyCTA?.descriptionText ? parseFormattedText(strategyCTA.descriptionText) : streamlineDescription}
+        buttonText={strategyCTA?.buttonText}
+        buttonPath={strategyCTA?.buttonPath}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Core Web Capabilities'}
-        description='We utilize industry-leading tools and architectural patterns to deliver robust web applications.'
+        description={data?.serviceFeatures?.description || 'We utilize industry-leading tools and architectural patterns to deliver robust web applications.'}
         items={data?.serviceFeatures?.items || serviceFeaturesData}
       />
       <DeliverMVP data={activeDeliverMVPData} />
       <EmergingTech data={activeEmergingTechData} />
       <Processes title={data?.processes?.title || "OUR WEB APP DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <FAQs title="Web Application Development FAQ" subtitle="Everything you need to know about custom web apps, Next.js/React architecture, Core Web Vitals, and IP ownership." faqs={data?.faqs} items={data?.faqs} />
       <RelatedServices
         services={[
           {
@@ -401,7 +408,7 @@ const WebAppDevelopment: React.FC = () => {
         ]}
       />
     </>
-  )
-}
+  );
+};
 
-export default WebAppDevelopment
+export default WebAppDevelopment;

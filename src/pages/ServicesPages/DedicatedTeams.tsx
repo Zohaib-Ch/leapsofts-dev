@@ -9,6 +9,8 @@ import ServiceFeatures, { type ServiceFeatureItem } from '../../components/Servi
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
 import capabilitiesImg from "../../assets/capabilities_3d.png";
 import platformImg from "../../assets/capabilities_platform.png";
 import laptopImg from "../../assets/about_laptop_3d.png";
@@ -302,19 +304,19 @@ const DedicatedTeams: React.FC = () => {
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
   const activeIntroDescription = data?.hero?.introText
-    ? [{ text: data.hero.introText, bold: false }]
+    ? parseFormattedText(data.hero.introText)
     : introDescription;
 
   const activeOverviewData = (data?.serviceOverview)
     ? {
-        label: data.serviceOverview.label || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.label : ''),
-        titleMain: data.serviceOverview.titleMain || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleMain : ''),
-        titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
-        titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
-        description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
-        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+        label: data.serviceOverview.label || serviceOverviewData.label,
+        titleMain: data.serviceOverview.titleMain || serviceOverviewData.titleMain,
+        titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
+        titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
+        description: data.serviceOverview.description || serviceOverviewData.description,
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath
       }
-    : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
+    : serviceOverviewData;
 
   const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
     ? data.processes.processPhases
@@ -333,34 +335,45 @@ const DedicatedTeams: React.FC = () => {
         introDescription={activeIntroDescription}
       />
       <ServiceOverview
-        label={serviceOverviewData.label}
-        titleMain={serviceOverviewData.titleMain}
-        titleAccent={serviceOverviewData.titleAccent}
-        titleEnd={serviceOverviewData.titleEnd}
-        description={serviceOverviewData.description}
-        imagePath={serviceOverviewData.imagePath}
+        label={activeOverviewData?.label || serviceOverviewData.label}
+        titleMain={activeOverviewData?.titleMain || serviceOverviewData.titleMain}
+        titleAccent={activeOverviewData?.titleAccent || serviceOverviewData.titleAccent}
+        titleEnd={activeOverviewData?.titleEnd || serviceOverviewData.titleEnd}
+        description={activeOverviewData?.description || serviceOverviewData.description}
+        imagePath={activeOverviewData?.imagePath || serviceOverviewData.imagePath}
       />
       <Capabilities
-        title="Dedicated Team Capabilities"
-        slides={capabilitiesData}
+        title={data?.capabilitiesSection?.title || "Dedicated Team Capabilities"}
+        slides={data?.capabilitiesSection?.slides || capabilitiesData}
         defaultImage={capabilitiesImg}
       />
       <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="dedicated team"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "dedicated team"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Expert Engineering Pods'
-        description='Our dedicated teams offer a full spectrum of engineering and management services to support your product lifecycle.'
-        items={serviceFeaturesData}
+        title={data?.serviceFeatures?.title || 'Expert Engineering Pods'}
+        description={data?.serviceFeatures?.description || 'Our dedicated teams offer a full spectrum of engineering and management services to support your product lifecycle.'}
+        items={data?.serviceFeatures?.items || serviceFeaturesData}
       />
       <DeliverMVP data={activeDeliverMVPData} />
-      <Processes title="OUR CUSTOM DEDICATED TEAMS PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <Processes
+        title={data?.processes?.title || "OUR CUSTOM DEDICATED TEAMS PROCESS"}
+        processPhases={activeProcessPhases}
+        phaseLabels={activePhaseLabels}
+      />
+      <FAQs
+        title="Dedicated Development Teams FAQ"
+        subtitle="Everything you need to know about hiring software pods, time-zone synchronization, IP security, and sprint integration."
+        faqs={data?.faqs} items={data?.faqs}
+      />
       <RelatedServices
         services={[
           {

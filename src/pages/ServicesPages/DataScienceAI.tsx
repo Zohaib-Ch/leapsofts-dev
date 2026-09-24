@@ -14,6 +14,8 @@ import { type ProcessPhase } from '../../components/Processes/Processes';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import ServiceFeatures from '../../components/ServiceFeatures/ServiceFeatures';
 import { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
 import laptopImg from "../../assets/about_laptop_3d.png";
 
 const ourServicesData: EmergingTechProps['data'] = {
@@ -353,19 +355,19 @@ const DataScienceAI: React.FC = () => {
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
   const activeIntroDescription = data?.hero?.introText
-    ? [{ text: data.hero.introText, bold: false }]
+    ? parseFormattedText(data.hero.introText)
     : introDescription;
 
   const activeOverviewData = (data?.serviceOverview)
     ? {
-        label: data.serviceOverview.label || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.label : ''),
-        titleMain: data.serviceOverview.titleMain || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleMain : ''),
-        titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
-        titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
-        description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
-        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+        label: data.serviceOverview.label || "DATA SCIENCE & AI",
+        titleMain: data.serviceOverview.titleMain || "Transforming Raw ",
+        titleAccent: data.serviceOverview.titleAccent || "Enterprise Data ",
+        titleEnd: data.serviceOverview.titleEnd || "into Real-Time Intelligence",
+        description: data.serviceOverview.description || "At Leapsofts, we bridge the gap between academic AI research and reliable, scalable production systems. By building secure data pipelines inside modern lakehouses (Databricks, Snowflake), training custom deep learning models for NLP and computer vision, and establishing robust MLOps governance gates, we empower enterprises to forecast market trends, automate document analysis, and deploy high-performance generative AI systems with complete algorithmic transparency.",
+        imagePath: data.serviceOverview.imageUrl || laptopImg
       }
-    : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
+    : null;
 
   const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
     ? data.processes.processPhases
@@ -384,30 +386,41 @@ const DataScienceAI: React.FC = () => {
         introDescription={activeIntroDescription}
       />
       <ServiceOverview
-        label="PREDICTIVE SYSTEMS & APPLIED AI"
-        titleMain="Transforming Raw Data into"
-        titleAccent="Predictive "
-        titleEnd="Intelligence"
-        description="At Leapsofts, we bridge the gap between academic AI research and reliable, scalable production systems. By building secure data pipelines inside modern lakehouses (Databricks, Snowflake), training custom deep learning models for NLP and computer vision, and establishing robust MLOps governance gates, we empower enterprises to forecast market trends, automate document analysis, and deploy high-performance generative AI systems with complete algorithmic transparency."
-        imagePath={laptopImg}
+        label={activeOverviewData?.label || "DATA SCIENCE & AI"}
+        titleMain={activeOverviewData?.titleMain || "Transforming Raw "}
+        titleAccent={activeOverviewData?.titleAccent || "Enterprise Data "}
+        titleEnd={activeOverviewData?.titleEnd || "into Real-Time Intelligence"}
+        description={activeOverviewData?.description || "At Leapsofts, we bridge the gap between academic AI research and reliable, scalable production systems. By building secure data pipelines inside modern lakehouses (Databricks, Snowflake), training custom deep learning models for NLP and computer vision, and establishing robust MLOps governance gates, we empower enterprises to forecast market trends, automate document analysis, and deploy high-performance generative AI systems with complete algorithmic transparency."}
+        imagePath={activeOverviewData?.imagePath || laptopImg}
       />
       <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="Applied AI"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Applied AI"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Core AI Capabilities'
-        description='Every business has different needs. Whether you are building private LLM applications, time-series forecasting, or edge computer vision pipelines, we customize the ML architecture to fit your enterprise.'
-        items={defaultItems}
+        title={data?.serviceFeatures?.title || 'Core AI Capabilities'}
+        description={data?.serviceFeatures?.description || 'Every business has different needs. Whether you are building private LLM applications, time-series forecasting, or edge computer vision pipelines, we customize the ML architecture to fit your enterprise.'}
+        items={data?.serviceFeatures?.items || defaultItems}
       />
       <DeliverMVP data={activeDeliverMVPData} />
       <EmergingTech data={activeEmergingTechData} />
-      <Processes title="OUR Applied AI PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <Processes
+        title={data?.processes?.title || "OUR Applied AI PROCESS"}
+        processPhases={activeProcessPhases}
+        phaseLabels={activePhaseLabels}
+      />
+      <FAQs
+        title="Data Science & AI Development FAQ"
+        subtitle="Everything you need to know about LLM fine-tuning, RAG vector architectures, predictive models, MLOps, and algorithmic data security."
+        faqs={data?.faqs} items={data?.faqs}
+      />
       <RelatedServices
         services={[
           {

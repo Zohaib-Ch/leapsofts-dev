@@ -1,4 +1,5 @@
 import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { parseFormattedText } from '../../utils/textParser';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
@@ -7,6 +8,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import FAQs from '../../components/FAQs/FAQs';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import laptopImg from "../../assets/about_laptop_3d.png";
 import { useServicePage } from '../../hooks/useServicePage';
@@ -293,7 +295,7 @@ const BusinessProcessOutsourcing: React.FC = () => {
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
   const activeIntroDescription = data?.hero?.introText
-    ? [{ text: data.hero.introText, bold: false }]
+    ? parseFormattedText(data.hero.introText)
     : introDescription;
 
   const activeOverviewData = (data?.serviceOverview)
@@ -310,10 +312,13 @@ const BusinessProcessOutsourcing: React.FC = () => {
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || processData.label,
-        titleAccent: data.infoGrid.titleAccent || processData.titleAccent,
-        titleMain: data.infoGrid.titleMain || processData.titleMain,
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || processData.title,
         description: data.infoGrid.description || processData.description,
-        items: data.infoGrid.items || processData.items
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
       }
     : processData;
 
@@ -349,6 +354,12 @@ const BusinessProcessOutsourcing: React.FC = () => {
     ? data.processes.phaseLabels
     : phaseLabelsDefault;
 
+  const activeServiceFeatures = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items
+    : serviceFeaturesData;
+
+  const strategyCTA = data?.strategyCTA;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
@@ -357,31 +368,36 @@ const BusinessProcessOutsourcing: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      <ServiceOverview
-        label={activeOverviewData.label}
-        titleMain={activeOverviewData.titleMain}
-        titleAccent={activeOverviewData.titleAccent}
-        titleEnd={activeOverviewData.titleEnd}
-        description={activeOverviewData.description}
-        imagePath={activeOverviewData.imagePath}
-      />
+      {activeOverviewData && (
+        <ServiceOverview
+          label={activeOverviewData.label}
+          titleMain={activeOverviewData.titleMain}
+          titleAccent={activeOverviewData.titleAccent}
+          titleEnd={activeOverviewData.titleEnd}
+          description={activeOverviewData.description}
+          imagePath={activeOverviewData.imagePath}
+        />
+      )}
       <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
-        titleMain={data?.strategyCTA?.titleMain || "Map your "}
-        titleAccent={data?.strategyCTA?.titleAccent || "operational BPO"}
-        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
-        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={strategyCTA?.titleMain || "Map your "}
+        titleAccent={strategyCTA?.titleAccent || "operational BPO"}
+        titleEnd={strategyCTA?.titleEnd || " roadmap."}
+        description={strategyCTA?.descriptionText ? [{ text: strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={strategyCTA?.buttonText}
+        buttonPath={strategyCTA?.buttonPath}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Core BPO Capabilities'}
-        description='We deliver expert services across various business process domains.'
-        items={data?.serviceFeatures?.items || serviceFeaturesData}
+        description={data?.serviceFeatures?.description || 'We deliver expert services across various business process domains.'}
+        items={activeServiceFeatures}
       />
       <DeliverMVP data={activeDeliverMVPData} />
       <EmergingTech data={activeEmergingTechData} />
       <Processes title={data?.processes?.title || "OUR CUSTOM BPO PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <FAQs faqs={data?.faqs} items={data?.faqs} />
       <RelatedServices
         services={[
           {

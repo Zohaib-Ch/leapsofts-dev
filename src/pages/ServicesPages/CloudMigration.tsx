@@ -17,6 +17,8 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import ServiceFeatures from '../../components/ServiceFeatures/ServiceFeatures';
 import { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
 
 const defaultItems: ServiceFeatureItem[] = [
   {
@@ -334,19 +336,19 @@ const CloudMigration: React.FC = () => {
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
   const activeIntroDescription = data?.hero?.introText
-    ? [{ text: data.hero.introText, bold: false }]
+    ? parseFormattedText(data.hero.introText)
     : introDescription;
 
   const activeOverviewData = (data?.serviceOverview)
     ? {
-        label: data.serviceOverview.label || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.label : ''),
-        titleMain: data.serviceOverview.titleMain || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleMain : ''),
-        titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
-        titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
-        description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
-        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+        label: data.serviceOverview.label || "CLOUD MIGRATION",
+        titleMain: data.serviceOverview.titleMain || "Zero-Downtime ",
+        titleAccent: data.serviceOverview.titleAccent || "Cloud Migration ",
+        titleEnd: data.serviceOverview.titleEnd || "& Enterprise Relocation",
+        description: data.serviceOverview.description || "At Leapsofts, we specialize in planning and executing high-fidelity cloud migration strategies that transition legacy physical servers, virtual machines, and monolithic databases to auto-scaling AWS, Azure, or GCP cloud environments. By leveraging automated migration tools (AWS MGN, Azure Migrate), live database sync channels (AWS DMS), and secure Landing Zone architectures, we relocate enterprise software with zero business disruption and optimal FinOps performance.",
+        imagePath: data.serviceOverview.imageUrl || mobileAppImg
       }
-    : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
+    : null;
 
   const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
     ? data.processes.processPhases
@@ -365,35 +367,45 @@ const CloudMigration: React.FC = () => {
         introDescription={activeIntroDescription}
       />
       <ServiceOverview
-        label='WORKLOAD TRANSITION'
-        titleMain='Executing Secure'
-        titleAccent='Legacy-to-Cloud'
-        titleEnd='Migrations'
-        description='At Leapsofts, we systematically assess, plan, and execute enterprise cloud migrations, moving heavy workloads with minimal business interruption. By utilizing automated cloud readiness scoring, configuring multi-stage data replication pipelines, and mapping complex application dependencies, our certified engineers safely transfer your critical assets to public, private, or hybrid cloud environments.'
-        imagePath={mobileAppImg}
+        label={activeOverviewData?.label || "CLOUD MIGRATION"}
+        titleMain={activeOverviewData?.titleMain || "Zero-Downtime "}
+        titleAccent={activeOverviewData?.titleAccent || "Cloud Migration "}
+        titleEnd={activeOverviewData?.titleEnd || "& Enterprise Relocation"}
+        description={activeOverviewData?.description || "At Leapsofts, we specialize in planning and executing high-fidelity cloud migration strategies that transition legacy physical servers, virtual machines, and monolithic databases to auto-scaling AWS, Azure, or GCP cloud environments. By leveraging automated migration tools (AWS MGN, Azure Migrate), live database sync channels (AWS DMS), and secure Landing Zone architectures, we relocate enterprise software with zero business disruption and optimal FinOps performance."}
+        imagePath={activeOverviewData?.imagePath || mobileAppImg}
       />
       <Capabilities
-        title="Streamlined Cloud Adoption"
-        description=''
-        slides={capabilitiesSlides}
+        title={data?.capabilitiesSection?.title || "Cloud Migration Capabilities"}
+        slides={data?.capabilitiesSection?.slides || capabilitiesSlides}
         defaultImage={capabilitiesImg}
       />
       <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="workload migration"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "cloud migration"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Types of Cloud Migration'
-        description='Every business has different needs. Whether you are migrating Oracle, VMware, or PaaS applications, we tailor the migration tools and processes to fit your infrastructure.'
-        items={defaultItems}
+        title={data?.serviceFeatures?.title || 'The 7 Rs Cloud Migration Framework'}
+        description={data?.serviceFeatures?.description || 'Every business has different needs. Whether you are migrating Oracle, VMware, or PaaS applications, we tailor the migration tools and processes to fit your infrastructure.'}
+        items={data?.serviceFeatures?.items || defaultItems}
       />
       <DeliverMVP data={activeDeliverMVPData} />
-      <Processes title="OUR CLOUD MIGRATION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <Processes
+        title={data?.processes?.title || "OUR CLOUD MIGRATION PROCESS"}
+        processPhases={activeProcessPhases}
+        phaseLabels={activePhaseLabels}
+      />
+      <FAQs
+        title="Cloud Migration & Modernization FAQ"
+        subtitle="Everything you need to know about lift-and-shift, AWS/Azure migration tooling, database replication, and zero-downtime cutovers."
+        faqs={data?.faqs} items={data?.faqs}
+      />
       <RelatedServices
         services={[
           {

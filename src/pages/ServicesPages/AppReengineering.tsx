@@ -8,6 +8,8 @@ import ServiceFeatures, { type ServiceFeatureItem } from '../../components/Servi
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP'
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes'
 import RelatedServices from '../../components/RelatedServices/RelatedServices'
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
 import laptopImg from "../../assets/about_laptop_3d.png";
 import { useServicePage } from '../../hooks/useServicePage';
 
@@ -292,7 +294,7 @@ const AppReengineering: React.FC = () => {
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
   const activeIntroDescription = data?.hero?.introText
-    ? [{ text: data.hero.introText, bold: false }]
+    ? parseFormattedText(data.hero.introText)
     : introDescription;
 
   const activeOverviewData = (data?.serviceOverview)
@@ -381,6 +383,11 @@ const AppReengineering: React.FC = () => {
       <DeliverMVP data={activeDeliverMVPData} />
       <EmergingTech data={activeEmergingTechData} />
       <Processes title={data?.processes?.title || "OUR SYSTEM RE-ENGINEERING PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <FAQs
+        title="App Re-Engineering & Legacy Modernization FAQ"
+        subtitle="Everything you need to know about code refactoring, monolith decoupling, database migration, and zero-downtime cloud cutovers."
+        faqs={data?.faqs} items={data?.faqs}
+      />
       <RelatedServices
         services={[
           {

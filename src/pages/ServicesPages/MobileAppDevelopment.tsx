@@ -457,7 +457,7 @@ const MobileAppDevelopment: React.FC = () => {
       <EmergingTech data={activeEmergingTechData} />
       <DeliverMVP data={activeDeliverMVPData} />
       <Processes title={data?.processes?.title || "OUR CUSTOM MOBILE DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
-      <FAQs title="Mobile App Development FAQ" subtitle="Everything you need to know about our iOS, Android, Flutter/React Native, and Store submission services." faqs={data?.faqs} />
+      <FAQs title="Mobile App Development FAQ" subtitle="Everything you need to know about our iOS, Android, Flutter/React Native, and Store submission services." faqs={data?.faqs} items={data?.faqs} />
       <RelatedServices
         services={[
           {

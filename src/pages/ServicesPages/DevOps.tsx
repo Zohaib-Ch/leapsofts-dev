@@ -10,6 +10,8 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes from '../../components/Processes/Processes';
 import { type ProcessPhase } from '../../components/Processes/Processes';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
 
 const servicesData: EmergingTechProps['data'] = {
     label: "DEVOPS SERVICES & AUTOMATION CAPABILITIES",
@@ -280,19 +282,19 @@ const DevOps: React.FC = () => {
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
   const activeIntroDescription = data?.hero?.introText
-    ? [{ text: data.hero.introText, bold: false }]
+    ? parseFormattedText(data.hero.introText)
     : introDescription;
 
   const activeOverviewData = (data?.serviceOverview)
     ? {
-        label: data.serviceOverview.label || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.label : ''),
-        titleMain: data.serviceOverview.titleMain || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleMain : ''),
-        titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
-        titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
-        description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
-        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+        label: data.serviceOverview.label || "DEVOPS ENGINEERING",
+        titleMain: data.serviceOverview.titleMain || "Maximize ",
+        titleAccent: data.serviceOverview.titleAccent || "Operational Agility ",
+        titleEnd: data.serviceOverview.titleEnd || "with DevOps",
+        description: data.serviceOverview.description || "At Leapsofts, we specialize in building highly resilient, secure DevOps environments designed to accelerate release cycles and eliminate build errors. By writing reusable Terraform modules, containerizing application nodes, and setting up automated testing check gates, our engineers transition development teams into high-velocity continuous deployment setups with maximum uptime.",
+        imagePath: data.serviceOverview.imageUrl || "/icons/images/cloud.webp"
       }
-    : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
+    : null;
 
   const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
     ? data.processes.processPhases
@@ -311,24 +313,36 @@ const DevOps: React.FC = () => {
         introDescription={activeIntroDescription}
       />
             <ServiceOverview
-                titleMain="Maximize"
-                titleAccent='Operational Agility'
-                titleEnd='with DevOps'
-                description="At Leapsofts, we specialize in building highly resilient, secure DevOps environments designed to accelerate release cycles and eliminate build errors. By writing reusable Terraform modules, containerizing application nodes, and setting up automated testing check gates, our engineers transition development teams into high-velocity continuous deployment setups with maximum uptime."
-                imagePath="/icons/images/cloud.webp"
+                label={activeOverviewData?.label || "DEVOPS ENGINEERING"}
+                titleMain={activeOverviewData?.titleMain || "Maximize "}
+                titleAccent={activeOverviewData?.titleAccent || "Operational Agility "}
+                titleEnd={activeOverviewData?.titleEnd || "with DevOps"}
+                description={activeOverviewData?.description || "At Leapsofts, we specialize in building highly resilient, secure DevOps environments designed to accelerate release cycles and eliminate build errors. By writing reusable Terraform modules, containerizing application nodes, and setting up automated testing check gates, our engineers transition development teams into high-velocity continuous deployment setups with maximum uptime."}
+                imagePath={activeOverviewData?.imagePath || "/icons/images/cloud.webp"}
             />
             <InfoGrid data={activeInfoGridData} />
             <StreamlineSuccess
-                label="COMPLIMENTARY STRATEGY SESSION"
-                titleMain="Map your "
-                titleAccent="DevOps automation"
-                titleEnd=" roadmap."
-                description={streamlineDescription}
-                imageUrl="/streamline.png"
+                label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+                titleMain={data?.strategyCTA?.titleMain || "Map your "}
+                titleAccent={data?.strategyCTA?.titleAccent || "DevOps automation"}
+                titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+                description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+                buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+                buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+                imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
             />
             <DeliverMVP data={activeDeliverMVPData} />
             <EmergingTech data={activeEmergingTechData} />
-            <Processes title="OUR CUSTOM DEVOPS PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+            <Processes
+                title={data?.processes?.title || "OUR CUSTOM DEVOPS PROCESS"}
+                processPhases={activeProcessPhases}
+                phaseLabels={activePhaseLabels}
+            />
+            <FAQs
+                title="DevOps & CI/CD Services FAQ"
+                subtitle="Everything you need to know about automated deployments, Kubernetes scaling, Terraform IaC, and continuous monitoring."
+                faqs={data?.faqs} items={data?.faqs}
+            />
             <RelatedServices
                 services={[
                     {

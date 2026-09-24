@@ -8,13 +8,15 @@ import ServiceFeatures, { type ServiceFeatureItem } from '../../components/Servi
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
 import cloudImg from "../../assets/about_laptop_3d.png";
 import { useServicePage } from '../../hooks/useServicePage';
 
 const serviceOverviewData = {
   label: "AWS CLOUD ARCHITECTURE",
-  titleMain: "Orchestrating Highly Secure",
-  titleAccent: "Enterprise AWS",
+  titleMain: "Orchestrating Highly Secure ",
+  titleAccent: "Enterprise AWS ",
   titleEnd: "Environments",
   description: "At Leapsofts, we help modern enterprises maximize their infrastructure performance, scale computing capacity automatically, and reduce resource costs on Amazon Web Services. Our AWS-certified solutions architects construct custom AWS CDK blueprints, deploy high-availability Kubernetes systems via Amazon EKS, and build fault-tolerant databases that meet strict SOC2 and HIPAA compliance requirements.",
   imagePath: cloudImg
@@ -22,22 +24,22 @@ const serviceOverviewData = {
 
 const emergingTechData: EmergingTechProps['data'] = {
   label: 'AWS CAPABILITIES',
-  titleAccent: 'Advanced AWS',
+  titleAccent: 'Advanced AWS ',
   titleMain: 'Service Integrations',
   description: 'We integrate a wide range of AWS services to build robust, scalable, and intelligent cloud solutions tailored to your business needs.',
   items: [
-    { icon: 'enterprise' as const, title: 'AWS Lambda Serverless', description: 'Deploying event-driven, microsecond-billing serverless pipelines to build highly scalable backend functions.' },
+    { icon: 'enterprise' as const, title: 'AWS Lambda Serverless Pipelines', description: 'Deploying event-driven, microsecond-billing serverless pipelines to build highly scalable backend functions.' },
     { icon: 'saas' as const, title: 'Amazon ECS & EKS (Kubernetes)', description: 'Orchestrating containerized backend nodes and microservices utilizing AWS Fargate or managed Amazon EKS clusters.' },
     { icon: 'hipaa' as const, title: 'Amazon Aurora Serverless v2', description: 'Configuring auto-scaling, highly resilient relational databases (PostgreSQL/MySQL) with active multi-region replicas.' },
     { icon: 'ecommerce' as const, title: 'Amazon DynamoDB Global Tables', description: 'Building globally distributed NoSQL datastores with sub-10ms latency capabilities and active-active replication.' },
     { icon: 'mobile' as const, title: 'AWS Cloud Development Kit (CDK)', description: 'Enforcing Infrastructure as Code (IaC) version-control using type-safe TypeScript CDK constructs.' },
-    { icon: 'legacy' as const, title: 'AWS IAM & KMS Security', description: 'Hardening platform boundaries utilizing fine-grained IAM roles, AWS Organizations SCPs, and KMS key envelope encryption.' },
+    { icon: 'legacy' as const, title: 'AWS IAM & KMS Security Hardening', description: 'Hardening platform boundaries utilizing fine-grained IAM roles, AWS Organizations SCPs, and KMS key envelope encryption.' },
   ]
 };
 
 const servicesData: InfoGridProps['data'] = {
   label: 'AWS VALUE ADVANTAGE',
-  title: 'Why Build Your Digital Workloads on AWS',
+  title: 'Why Build Your Digital Workloads on Amazon Web Services',
   items: [
     {
       icon: '01',
@@ -75,30 +77,30 @@ const streamlineDescription = [
 const serviceFeaturesData: ServiceFeatureItem[] = [
   {
     icon: '/industryicons/sphere.svg',
-    title: 'Cloud Migration',
-    description: 'Seamlessly move your on-premises workloads to AWS with minimal downtime.'
+    title: 'Zero-Downtime AWS Migration',
+    description: 'Seamlessly move your on-premises workloads and physical databases to AWS using AWS MGN and DMS.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
-    title: 'DevOps on AWS',
-    description: 'Automate your development pipelines with AWS CodePipeline and CodeDeploy.'
+    title: 'DevOps on AWS (CI/CD)',
+    description: 'Automate your development deployment pipelines with AWS CodePipeline, CodeDeploy, and GitHub Actions.'
   },
   {
     icon: '/industryicons/sphere.svg',
-    title: 'Managed Services',
-    description: 'Ongoing monitoring, patching, and optimization of your AWS environment.'
+    title: 'Managed AWS Cloud Support',
+    description: 'Ongoing 24/7 telemetry monitoring, patch management, security sweeps, and infrastructure optimization.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
-    title: 'Security Audits',
-    description: 'Comprehensive security assessments to ensure your AWS setup meets compliance standards.'
+    title: 'AWS Security & Compliance Audits',
+    description: 'Comprehensive Well-Architected framework reviews to ensure your AWS setup satisfies SOC2, HIPAA, and GDPR.'
   }
 ];
 
 const deliverMVPData = {
   label: "AWS EXCELLENCE",
   title: "Our Commitment to Deliver Your AWS Infrastructure in",
-  accentText: "3-5 months?",
+  accentText: "3-5 months",
   description: "Leapsofts is an elite AWS consulting and infrastructure advisory partner. By combining fully integrated automated tooling, certified AWS solutions architects, and dedicated DevOps engineers, we design, build, and hand over production-ready AWS environments within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
@@ -229,43 +231,27 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "AWS Cloud Services & Development | Leapsofts",
-    defaultDescription: "Expert AWS cloud development, architecture & managed services. Leapsofts builds scalable, cost-efficient AWS solutions for global enterprises. Get started.",
-    defaultKeywords: "AWS development company, AWS cloud services, Amazon Web Services consulting, AWS managed services",
+    defaultTitle: "AWS Cloud Services & Development | Amazon Consulting | Leapsofts",
+    defaultDescription: "Certified AWS development company offering serverless architecture, Kubernetes EKS, CDK IaC, and cloud cost optimization. Contact our AWS architects today.",
+    defaultKeywords: "AWS development company, AWS cloud services, Amazon Web Services consulting, AWS managed services, AWS serverless architecture, AWS CDK consulting",
     canonicalUrl: "https://www.leapsofts.com/services/aws",
   });
 }
-
-
 
 const AWS: React.FC = () => {
   const { data } = useServicePage('aws');
 
   const schemaData = buildServiceSchema({
     name: "AWS Cloud Services & Development",
-    description: "Expert AWS cloud development, architecture & managed services.",
+    description: "Certified AWS development company offering serverless architecture, Kubernetes EKS, CDK IaC, and cloud cost optimization.",
     canonicalUrl: "https://www.leapsofts.com/services/aws",
     faqs: data?.faqs,
   });
 
-  
-  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
-    ? {
-        label: data.infoGrid.label || (typeof servicesData !== 'undefined' ? servicesData.label : ''),
-        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof servicesData !== 'undefined' ? servicesData.title : ''),
-        description: data.infoGrid.description || (typeof servicesData !== 'undefined' ? servicesData.description : ''),
-        items: data.infoGrid.items.map((item, index) => ({
-          icon: String(index + 1).padStart(2, '0'),
-          title: item.title,
-          description: item.description
-        }))
-      }
-    : (typeof servicesData !== 'undefined' ? servicesData : { items: [] });
-
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
   const activeIntroDescription = data?.hero?.introText
-    ? [{ text: data.hero.introText, bold: false }]
+    ? parseFormattedText(data.hero.introText)
     : introDescription;
 
   const activeOverviewData = (data?.serviceOverview)
@@ -346,16 +332,27 @@ const AWS: React.FC = () => {
         titleAccent={data?.strategyCTA?.titleAccent || "AWS architecture"}
         titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
         imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title={data?.serviceFeatures?.title || 'AWS Capabilities'}
-        description='We deliver expert services across the entire AWS ecosystem.'
+        title={data?.serviceFeatures?.title || 'Expert AWS Capabilities & Services'}
+        description={data?.serviceFeatures?.description || 'We deliver specialized cloud engineering services across the entire Amazon Web Services ecosystem.'}
         items={data?.serviceFeatures?.items || serviceFeaturesData}
       />
       <DeliverMVP data={activeDeliverMVPData} />
       <EmergingTech data={activeEmergingTechData} />
-      <Processes title={data?.processes?.title || "OUR AWS CLOUD PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <Processes
+        title={data?.processes?.title || "OUR AWS CLOUD PROCESS"}
+        processPhases={activeProcessPhases}
+        phaseLabels={activePhaseLabels}
+      />
+      <FAQs
+        title="AWS Cloud Consulting & Development FAQ"
+        subtitle="Everything you need to know about AWS serverless architecture, EKS Kubernetes clusters, AWS CDK IaC, database migrations, and cloud cost optimization."
+        faqs={data?.faqs} items={data?.faqs}
+      />
       <RelatedServices
         services={[
           {
@@ -380,3 +377,4 @@ const AWS: React.FC = () => {
 };
 
 export default AWS;
+

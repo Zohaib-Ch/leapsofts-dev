@@ -11,6 +11,8 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes from '../../components/Processes/Processes';
 import { type ProcessPhase } from '../../components/Processes/Processes';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
 import { useServicePage } from '../../hooks/useServicePage';
 
 const ourSolutionsData: EmergingTechProps['data'] = {
@@ -262,7 +264,7 @@ const CloudEngineering: React.FC = () => {
     const activeTitle = data?.hero?.title || title;
     const activeSubtitle = data?.hero?.subtitle || subtitle;
     const activeIntroDescription = data?.hero?.introText
-        ? [{ text: data.hero.introText, bold: false }]
+        ? parseFormattedText(data.hero.introText)
         : introDescription;
 
     const activeOverviewData = (data?.serviceOverview)
@@ -346,6 +348,7 @@ const CloudEngineering: React.FC = () => {
             <DeliverMVP data={activeDeliverMVPData} />
             <EmergingTech data={activeEmergingTechData} />
             <Processes title={data?.processes?.title || "OUR CUSTOM CLOUD MIGRATION PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+            <FAQs title="Cloud Engineering & Architecture FAQ" subtitle="Everything you need to know about AWS, Azure, GCP multi-cloud infrastructure, Terraform IaC, Kubernetes, and Cloud FinOps." faqs={data?.faqs} items={data?.faqs} />
             <RelatedServices
                 services={[
                     {
