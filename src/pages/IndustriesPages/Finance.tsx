@@ -9,6 +9,7 @@ import EmergingTech, { type EmergingTechProps } from '../../components/EmergingT
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO FINANCIAL ORGANIZATIONS",
@@ -169,47 +170,56 @@ const Finance: React.FC = () => {
     });
   }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
+  const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
+    ? data.relatedServices.items
+    : [
+        {
+          title: "Cyber Security & Threat Defense",
+          description: "Penetration testing, encryption protocols, and SOC2 financial threat defense.",
+          link: "/services/cyber-security"
+        },
+        {
+          title: "Data Governance & Compliance",
+          description: "Automated KYC/AML verification workflows, data audits, and regulatory tracking.",
+          link: "/services/data-governance"
+        },
+        {
+          title: "Web App Development",
+          description: "High-frequency financial web portals, trading dashboards, and banking applications.",
+          link: "/services/web-app-development"
+        }
+      ];
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
-        titleMain={data?.strategyCTA?.titleMain || "Software "}
-        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
-        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Streamline your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "FinTech"}
+        titleEnd={data?.strategyCTA?.titleEnd || " transaction ecosystem."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonText={data?.strategyCTA?.buttonText || "Claim FinTech Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <EmergingTech data={activeSolutionsData} />
       <Services
-        label="OUR CAPABILITIES"
-        titleMain="How we "
-        titleAccent="empower"
-        titleEnd=" financial businesses"
+        label={data?.servicesSection?.label || "OUR CAPABILITIES"}
+        titleMain={data?.servicesSection?.titleMain || "How we "}
+        titleAccent={data?.servicesSection?.titleAccent || "empower"}
+        titleEnd={data?.servicesSection?.titleEnd || " financial businesses"}
+      />
+      <FAQs
+        title="FinTech & Banking Software FAQ"
+        subtitle="Common questions about PCI-DSS compliance, core banking migrations, fraud detection, and automated KYC/AML verification."
+        faqs={data?.faqs} items={data?.faqs}
       />
       <RelatedServices
-        title="Recommended FinTech Engineering Services"
-        services={[
-          {
-            title: "Cyber Security & Threat Defense",
-            description: "Penetration testing, encryption protocols, and SOC2 financial threat defense.",
-            link: "/services/cyber-security"
-          },
-          {
-            title: "Data Governance & Compliance",
-            description: "Automated KYC/AML verification workflows, data audits, and regulatory tracking.",
-            link: "/services/data-governance"
-          },
-          {
-            title: "Web App Development",
-            description: "High-frequency financial web portals, trading dashboards, and banking applications.",
-            link: "/services/web-app-development"
-          }
-        ]}
+        title={data?.relatedServices?.title || "Recommended FinTech Engineering Services"}
+        services={activeRelatedServices}
       />
     </>
   );

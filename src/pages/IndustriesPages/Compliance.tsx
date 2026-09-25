@@ -4,13 +4,13 @@ import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
-import CommitmentSection from '../../components/CommitmentSection/CommitmentSection';
-import { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
+import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
-import EmergingTech from '../../components/EmergingTech/EmergingTech';
-import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
+import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO COMPLIANCE",
@@ -101,8 +101,6 @@ const introDescription = [
   { text: "designed for highly regulated sectors. By implementing zero-trust access controls, automated KYC/AML checks, and SOC2/HIPAA compliance engines, we help organizations satisfy strict global auditing mandates.", bold: false }
 ];
 
-import { getSanityIndustryBySlug } from '../../sanity/queries';
-
 export async function loader() {
   const sanityData = await getSanityIndustryBySlug('compliance');
   return { sanityData };
@@ -111,21 +109,19 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Compliance Management Software Development | Leapsofts",
-    defaultDescription: "Custom regulatory compliance software — risk management, audit trails & reporting platforms. Leapsofts builds compliance-ready systems for regulated industries.",
-    defaultKeywords: "compliance software development, regulatory compliance software, risk management software, audit management software",
+    defaultTitle: "Compliance Management Software Development & RegTech | Leapsofts",
+    defaultDescription: "Leapsofts engineers enterprise regulatory compliance software, automated risk management platforms, zero-trust audit trails & SOC2/KYC/AML RegTech engines.",
+    defaultKeywords: "compliance software development, regulatory compliance software, risk management software, audit management software, regtech solutions",
     canonicalUrl: "https://www.leapsofts.com/industries/compliance",
   });
 }
-
-
 
 const Compliance: React.FC = () => {
   const { data } = useIndustryPage('compliance');
 
   const schemaData = buildServiceSchema({
-    name: "Compliance Management Software Development",
-    description: "Custom regulatory compliance software — risk management, audit trails & reporting platforms.",
+    name: "Compliance Management Software Development & RegTech",
+    description: "Leapsofts engineers enterprise regulatory compliance software, automated risk management platforms, zero-trust audit trails & SOC2/KYC/AML RegTech engines.",
     canonicalUrl: "https://www.leapsofts.com/industries/compliance",
     faqs: data?.faqs,
   });
@@ -169,6 +165,26 @@ const Compliance: React.FC = () => {
     });
   }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
+  const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
+    ? data.relatedServices.items
+    : [
+        {
+          title: "Data Governance & Compliance",
+          description: "Deploy Master Data Management (MDM) and GDPR/HIPAA compliance frameworks.",
+          link: "/services/data-governance"
+        },
+        {
+          title: "Cyber Security & Auditing",
+          description: "Conduct penetration audits and zero-trust vulnerability scans.",
+          link: "/services/cyber-security"
+        },
+        {
+          title: "Custom Software Development",
+          description: "Build custom enterprise risk management software and reporting dashboards.",
+          link: "/services/custom-software-development"
+        }
+      ];
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
@@ -180,38 +196,29 @@ const Compliance: React.FC = () => {
         titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
         titleEnd={data?.strategyCTA?.titleEnd || " Session"}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Compliance Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <EmergingTech data={activeSolutionsData} />
       <Services
-        label="OUR CAPABILITIES"
-        titleMain="How we "
-        titleAccent="empower"
-        titleEnd=" compliant organizations"
+        label={data?.servicesSection?.label || "OUR CAPABILITIES"}
+        titleMain={data?.servicesSection?.titleMain || "How we "}
+        titleAccent={data?.servicesSection?.titleAccent || "empower"}
+        titleEnd={data?.servicesSection?.titleEnd || " compliant organizations"}
+      />
+      <FAQs
+        title="Compliance & RegTech Software FAQ"
+        subtitle="Common questions about regulatory frameworks, automated audit trails, zero-trust security, and KYC/AML automation."
+        faqs={data?.faqs} items={data?.faqs}
       />
       <RelatedServices
-        services={[
-          {
-            title: "Data Governance & Compliance",
-            description: "Deploy Master Data Management (MDM) and GDPR/HIPAA compliance frameworks.",
-            link: "/services/data-governance"
-          },
-          {
-            title: "Cyber Security & Auditing",
-            description: "Conduct penetration audits and zero-trust vulnerability scans.",
-            link: "/services/cyber-security"
-          },
-          {
-            title: "Custom Software Development",
-            description: "Build custom enterprise risk management software and reporting dashboards.",
-            link: "/services/custom-software-development"
-          }
-        ]}
+        title={data?.relatedServices?.title || "Recommended RegTech & Compliance Services"}
+        services={activeRelatedServices}
       />
     </>
   );
 };
 
 export default Compliance;
+

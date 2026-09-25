@@ -9,10 +9,12 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENTS TO LOGISTICS EXCELLENCE",
-  title: "Built for Strategic Scale & Ownership",
+  title: "Built for Strategic Scale, Efficiency, and Asset Ownership",
   items: [
     {
       icon: '/industryicons/sphere.svg',
@@ -90,15 +92,13 @@ const streamlineDescription = [
   { text: "fleet management and route efficiency.", bold: true },
 ];
 
-const title = "Transportation Software Development, Fleet Telematics & Custom TMS Solutions";
+const title = "Transportation Software Development Services & Custom TMS Solutions";
 const subtitle = "";
 const introDescription = [
   { text: "We engineer enterprise-grade ", bold: false },
   { text: "transportation software development, fleet management systems, and logistics software solutions ", bold: true },
   { text: "designed to streamline global supply chains. By deploying automated dispatch engines, IoT cold-chain telemetry, and route optimization algorithms, we empower shipping and freight companies to lower transit overheads.", bold: false }
 ];
-
-import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 export async function loader() {
   const sanityData = await getSanityIndustryBySlug('transportation');
@@ -108,21 +108,19 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Transportation & Logistics Software | Leapsofts",
-    defaultDescription: "Custom transportation & logistics software — fleet management, route optimization & supply chain platforms. Leapsofts engineers mobility solutions. Talk to us.",
-    defaultKeywords: "transportation software development, logistics software company, fleet management software, supply chain software",
+    defaultTitle: "Transportation Software Development & Logistics Solutions | Leapsofts",
+    defaultDescription: "Leapsofts engineers custom transportation software, fleet telematics platforms, custom TMS solutions, IoT cold-chain tracking, and automated carrier payout gateways.",
+    defaultKeywords: "transportation software development, logistics software company, fleet management software, custom tms development, supply chain software, eld compliance software",
     canonicalUrl: "https://www.leapsofts.com/industries/transportation",
   });
 }
-
-
 
 const Transportation: React.FC = () => {
   const { data } = useIndustryPage('transportation');
 
   const schemaData = buildServiceSchema({
-    name: "Transportation & Logistics Software",
-    description: "Custom transportation & logistics software — fleet management, route optimization & supply chain platforms.",
+    name: "Transportation Software Development & Logistics Solutions",
+    description: "Leapsofts engineers custom transportation software, fleet telematics platforms, custom TMS solutions, IoT cold-chain tracking, and automated carrier payout gateways.",
     canonicalUrl: "https://www.leapsofts.com/industries/transportation",
     faqs: data?.faqs,
   });
@@ -166,49 +164,60 @@ const Transportation: React.FC = () => {
     });
   }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
+  const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
+    ? data.relatedServices.items
+    : [
+        {
+          title: "Custom Software Development",
+          description: "Build custom Transportation Management Systems (TMS) and dispatch boards.",
+          link: "/services/custom-software-development"
+        },
+        {
+          title: "Mobile App Development",
+          description: "Engineer native iOS & Android driver companion and ELD logging mobile apps.",
+          link: "/services/mobile-app-development"
+        },
+        {
+          title: "Cloud Engineering & Infrastructure",
+          description: "Architect high-frequency GPS telemetry and IoT data pipelines on AWS & Azure.",
+          link: "/services/cloud-engineering"
+        }
+      ];
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
-        titleMain={data?.strategyCTA?.titleMain || "Software "}
-        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
-        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Accelerate your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "logistics supply chain"}
+        titleEnd={data?.strategyCTA?.titleEnd || " with custom software."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Transportation Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <EmergingTech data={activeSolutionsData} />
       <Services
-        label="OUR CAPABILITIES"
-        titleMain="How we "
-        titleAccent="empower"
-        titleEnd=" transportation businesses"
+        label={data?.servicesSection?.label || "OUR CAPABILITIES"}
+        titleMain={data?.servicesSection?.titleMain || "How we "}
+        titleAccent={data?.servicesSection?.titleAccent || "empower"}
+        titleEnd={data?.servicesSection?.titleEnd || " transportation businesses"}
+      />
+      <FAQs
+        title="Transportation & Logistics Software FAQ"
+        subtitle="Common questions about carrier ELD integration, automated load-matching algorithms, IoT cold-chain tracking, and custom TMS architectures."
+        faqs={data?.faqs} items={data?.faqs}
       />
       <RelatedServices
-        services={[
-          {
-            title: "Custom Software Development",
-            description: "Build custom Transportation Management Systems (TMS) and dispatch boards.",
-            link: "/services/custom-software-development"
-          },
-          {
-            title: "Mobile App Development",
-            description: "Engineer native iOS & Android driver companion and ELD logging mobile apps.",
-            link: "/services/mobile-app-development"
-          },
-          {
-            title: "Cloud Engineering & Infrastructure",
-            description: "Architect high-frequency GPS telemetry and IoT data pipelines on AWS & Azure.",
-            link: "/services/cloud-engineering"
-          }
-        ]}
+        title={data?.relatedServices?.title || "Recommended Logistics Software Services"}
+        services={activeRelatedServices}
       />
     </>
   );
 };
 
 export default Transportation;
+

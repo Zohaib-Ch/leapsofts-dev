@@ -9,10 +9,12 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO MID-SIZED BUSINESSES",
-  title: "Your Vision, Architected for Growth",
+  title: "Your Vision, Architected for Enterprise Growth and Operational Efficiency",
   items: [
     {
       icon: '/industryicons/sphere.svg',
@@ -91,15 +93,13 @@ const streamlineDescription = [
   { text: "and roadmap your path to enterprise-level efficiency.", bold: false },
 ];
 
-const title = "Custom Software Development, Enterprise Workflows & Scalable IT for Mid-Sized Businesses";
+const title = "Custom Software Development for Mid-Sized Businesses & Mid-Market Enterprises";
 const subtitle = "";
 const introDescription = [
   { text: "We deliver specialized ", bold: false },
   { text: "software development for mid-sized businesses & mid-market companies ", bold: true },
   { text: "seeking enterprise-quality engineering. By building custom ERP sync platforms, operations management portals, and paperless field mobile apps, we help growing SMBs bridge technical gaps and accelerate scalable corporate expansion.", bold: false }
 ];
-
-import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 export async function loader() {
   const sanityData = await getSanityIndustryBySlug('mid-sized-businesses');
@@ -109,21 +109,19 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Software Development for Mid-Sized Businesses | Leapsofts",
-    defaultDescription: "Scalable custom software solutions built for mid-market companies. Leapsofts delivers enterprise-quality engineering at a competitive pace and cost. Talk to us.",
-    defaultKeywords: "software development for mid-sized businesses, mid-market software solutions, custom software SMB",
+    defaultTitle: "Software Development for Mid-Sized Businesses & Enterprises | Leapsofts",
+    defaultDescription: "Leapsofts engineers custom software for mid-sized businesses & mid-market companies — enterprise ERP integration, legacy app re-engineering, paperless mobile apps & BI analytics.",
+    defaultKeywords: "software development for mid-sized businesses, mid-market software solutions, custom software smb, enterprise application re-engineering, business process automation software, legacy software modernization",
     canonicalUrl: "https://www.leapsofts.com/industries/mid-sized-businesses",
   });
 }
-
-
 
 const MidSizedBusinesses: React.FC = () => {
   const { data } = useIndustryPage('mid-sized-businesses');
 
   const schemaData = buildServiceSchema({
-    name: "Software Development for Mid-Sized Businesses",
-    description: "Scalable custom software solutions built for mid-market companies.",
+    name: "Software Development for Mid-Sized Businesses & Enterprises",
+    description: "Leapsofts engineers custom software for mid-sized businesses & mid-market companies — enterprise ERP integration, legacy app re-engineering, paperless mobile apps & BI analytics.",
     canonicalUrl: "https://www.leapsofts.com/industries/mid-sized-businesses",
     faqs: data?.faqs,
   });
@@ -167,49 +165,60 @@ const MidSizedBusinesses: React.FC = () => {
     });
   }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
+  const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
+    ? data.relatedServices.items
+    : [
+        {
+          title: "Custom Software Development",
+          description: "Build bespoke business management software tailored to your workflows.",
+          link: "/services/custom-software-development"
+        },
+        {
+          title: "Fixed Price Software Development",
+          description: "Deliver your software project on a predictable, fixed-cost budget.",
+          link: "/services/fixed-price"
+        },
+        {
+          title: "Application Re-Engineering",
+          description: "Modernize legacy database tools and desktop software into web applications.",
+          link: "/services/app-reengineering"
+        }
+      ];
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
-        titleMain={data?.strategyCTA?.titleMain || "Software "}
-        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
-        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Scale your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "mid-sized business"}
+        titleEnd={data?.strategyCTA?.titleEnd || " with custom software."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Business Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <EmergingTech data={activeSolutionsData} />
       <Services
-        label="OUR CAPABILITIES"
-        titleMain="How we "
-        titleAccent="empower"
-        titleEnd=" mid-sized businesses"
+        label={data?.servicesSection?.label || "OUR CAPABILITIES"}
+        titleMain={data?.servicesSection?.titleMain || "How we "}
+        titleAccent={data?.servicesSection?.titleAccent || "empower"}
+        titleEnd={data?.servicesSection?.titleEnd || " mid-sized businesses"}
+      />
+      <FAQs
+        title="Mid-Sized Business Software FAQ"
+        subtitle="Common questions about custom enterprise software vs SaaS, legacy app re-engineering, ERP integration, and IP ownership."
+        faqs={data?.faqs} items={data?.faqs}
       />
       <RelatedServices
-        services={[
-          {
-            title: "Custom Software Development",
-            description: "Build bespoke business management software tailored to your workflows.",
-            link: "/services/custom-software-development"
-          },
-          {
-            title: "Fixed Price Software Development",
-            description: "Deliver your software project on a predictable, fixed-cost budget.",
-            link: "/services/fixed-price"
-          },
-          {
-            title: "Application Re-Engineering",
-            description: "Modernize legacy database tools and desktop software into web applications.",
-            link: "/services/app-reengineering"
-          }
-        ]}
+        title={data?.relatedServices?.title || "Recommended Enterprise Modernization Services"}
+        services={activeRelatedServices}
       />
     </>
   );
 };
 
 export default MidSizedBusinesses;
+
