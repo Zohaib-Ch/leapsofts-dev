@@ -11,7 +11,7 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import FAQs from '../../components/FAQs/FAQs';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
-const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
+
 
 const serviceOverviewData = {
   label: "PRODUCT ARCHITECTURE & STRATEGY",
@@ -19,7 +19,7 @@ const serviceOverviewData = {
   titleAccent: "Product Development",
   titleEnd: "Blueprints",
   description: "At Leapsofts, we help modern enterprises and fast-growing startups map comprehensive software development strategies that balance technical scalability with rapid business results. Our senior product strategists and system architects perform rigorous risk assessments, define optimal tech stacks, and configure JIRA/GitHub sprint roadmaps designed for sustained product evolution.",
-  imagePath: laptopImg
+  imagePath: "/streamline.webp"
 };
 
 const infoGridData: InfoGridProps['data'] = {
@@ -249,7 +249,9 @@ const ProductDevelopmentStrategy: React.FC = () => {
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || (typeof infoGridData !== 'undefined' ? infoGridData.label : ''),
-        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof infoGridData !== 'undefined' ? infoGridData.title : ''),
+        titleMain: data?.infoGrid?.titleMain,
+        titleAccent: data?.infoGrid?.titleAccent,
+        title: data?.infoGrid?.title || (data?.infoGrid?.titleMain || data?.infoGrid?.titleAccent ? undefined : (typeof infoGridData !== 'undefined' ? infoGridData.title : '')),
         description: data.infoGrid.description || (typeof infoGridData !== 'undefined' ? infoGridData.description : ''),
         items: data.infoGrid.items.map((item, index) => ({
           icon: String(index + 1).padStart(2, '0'),
@@ -302,9 +304,15 @@ const ProductDevelopmentStrategy: React.FC = () => {
       }
     : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : processPhasesDefault;
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
@@ -334,7 +342,9 @@ const ProductDevelopmentStrategy: React.FC = () => {
           imagePath={activeOverviewData.imagePath}
         />
       )}
-      <InfoGrid data={activeInfoGridData} />
+      {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+        <InfoGrid data={activeInfoGridData} />
+      )}
       <StreamlineSuccess
         label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={strategyCTA?.titleMain || "Map your "}
@@ -343,16 +353,22 @@ const ProductDevelopmentStrategy: React.FC = () => {
         description={strategyCTA?.descriptionText ? [{ text: strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         buttonText={strategyCTA?.buttonText}
         buttonPath={strategyCTA?.buttonPath}
-        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Expert Services'}
         description={data?.serviceFeatures?.description || 'We deliver specialized strategic services to support your product development.'}
         items={activeServiceFeatures}
       />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <EmergingTech data={activeEmergingTechData} />
-      <Processes title={data?.processes?.title || "OUR STRATEGIC PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeEmergingTechData && activeEmergingTechData.items && activeEmergingTechData.items.length > 0 && (
+        <EmergingTech data={activeEmergingTechData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes title={data?.processes?.title || "OUR STRATEGIC PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      )}
       <FAQs faqs={data?.faqs} items={data?.faqs} />
       <RelatedServices
         services={[

@@ -11,7 +11,8 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import FAQs from '../../components/FAQs/FAQs';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
-const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
+import Capabilities from '../../components/Capabilities/Capabilities';
+
 
 const serviceOverviewData = {
   label: "FIXED PRICE PARTNERSHIP",
@@ -19,7 +20,7 @@ const serviceOverviewData = {
   titleAccent: "Fixed-Price",
   titleEnd: "Software Delivery",
   description: "At Leapsofts, we offer a highly structured fixed-price engagement model designed for well-defined software projects, ensuring complete transparency across every milestone. Our business analysts and cloud architects document every application flow, catalog technical dependencies, and commit to clear delivery dates, allowing you to manage investments with absolute certainty.",
-  imagePath: laptopImg
+  imagePath: "/streamline.webp"
 };
 
 const ourServicesData: EmergingTechProps['data'] = {
@@ -254,7 +255,9 @@ const FixedPrice: React.FC = () => {
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || (typeof fixedPriceProcessData !== 'undefined' ? fixedPriceProcessData.label : ''),
-        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof fixedPriceProcessData !== 'undefined' ? fixedPriceProcessData.title : ''),
+        titleMain: data?.infoGrid?.titleMain,
+        titleAccent: data?.infoGrid?.titleAccent,
+        title: data?.infoGrid?.title || (data?.infoGrid?.titleMain || data?.infoGrid?.titleAccent ? undefined : (typeof fixedPriceProcessData !== 'undefined' ? fixedPriceProcessData.title : '')),
         description: data.infoGrid.description || (typeof fixedPriceProcessData !== 'undefined' ? fixedPriceProcessData.description : ''),
         items: data.infoGrid.items.map((item, index) => ({
           icon: String(index + 1).padStart(2, '0'),
@@ -307,9 +310,25 @@ const FixedPrice: React.FC = () => {
       }
     : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : processPhasesDefault;
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || "/streamline.webp",
+        items: slide.items || []
+      }))
+    : null;
+
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
@@ -329,7 +348,7 @@ const FixedPrice: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      {activeOverviewData && (
+      {activeOverviewData && activeOverviewData.description && (
         <ServiceOverview
           label={activeOverviewData.label}
           titleMain={activeOverviewData.titleMain}
@@ -339,7 +358,12 @@ const FixedPrice: React.FC = () => {
           imagePath={activeOverviewData.imagePath}
         />
       )}
-      <InfoGrid data={activeInfoGridData} />
+      {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
+        <Capabilities title={data?.capabilitiesSection?.title || "Fixed Price Capabilities"} slides={activeCapabilitiesSlides} defaultImage="/streamline.webp" />
+      )}
+      {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+        <InfoGrid data={activeInfoGridData} />
+      )}
       <StreamlineSuccess
         label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={strategyCTA?.titleMain || "Map your "}
@@ -348,16 +372,22 @@ const FixedPrice: React.FC = () => {
         description={strategyCTA?.descriptionText ? [{ text: strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         buttonText={strategyCTA?.buttonText}
         buttonPath={strategyCTA?.buttonPath}
-        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Expert Services'}
         description={data?.serviceFeatures?.description || 'We deliver specialized services to support your fixed-price engagements.'}
         items={activeServiceFeatures}
       />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <EmergingTech data={activeEmergingTechData} />
-      <Processes title={data?.processes?.title || "OUR FIXED PRICE PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeEmergingTechData && activeEmergingTechData.items && activeEmergingTechData.items.length > 0 && (
+        <EmergingTech data={activeEmergingTechData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes title={data?.processes?.title || "OUR FIXED PRICE PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      )}
       <FAQs faqs={data?.faqs} items={data?.faqs} />
       <RelatedServices
         services={[

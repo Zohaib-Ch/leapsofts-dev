@@ -1,4 +1,4 @@
-import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { buildPageMeta, buildIndustrySchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -122,10 +122,12 @@ export function meta({ data }: { data?: any }) {
 const Education: React.FC = () => {
   const { data } = useIndustryPage('edtech');
 
-  const schemaData = buildServiceSchema({
+  const schemaCanonicalUrl = "https://www.leapsofts.com/industries/edtech";
+  const schemaData = buildIndustrySchema({
     name: "EdTech Software Development Services",
-    description: "Custom eLearning & EdTech software development — LMS, mobile learning apps & virtual classrooms.",
-    canonicalUrl: "https://www.leapsofts.com/industries/edtech",
+    description: "Custom education technology software — LMS platforms, student portals, e-learning tools.",
+    canonicalUrl: schemaCanonicalUrl,
+    industryName: "Education & EdTech",
     faqs: data?.faqs,
   });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();

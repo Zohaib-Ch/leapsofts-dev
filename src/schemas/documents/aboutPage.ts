@@ -167,7 +167,115 @@ export const aboutPageSchema = defineType({
       ],
     }),
 
-    // Section 7: Final Invitation CTA
+    // Section 7: Why Choose Leapsofts (Differentiators)
+    defineField({
+      name: 'whyChooseUs',
+      title: 'Why Choose Leapsofts Section',
+      type: 'object',
+      fields: [
+        defineField({ name: 'label', title: 'Section Label', type: 'string' }),
+        defineField({ name: 'title', title: 'Section Title', type: 'string' }),
+        defineField({ name: 'subtitle', title: 'Section Subtitle', type: 'text' }),
+        defineField({
+          name: 'reasons',
+          title: 'Differentiator Cards',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'title', title: 'Card Title', type: 'string' }),
+                defineField({ name: 'desc', title: 'Card Description', type: 'text' }),
+                defineField({ name: 'icon', title: 'Icon Name (e.g. Zap, ShieldCheck)', type: 'string' }),
+                defineField({ name: 'stat', title: 'Highlight Metric / Badge', type: 'string' }),
+              ],
+            },
+          ],
+        }),
+      ],
+    }),
+
+    // Section 8: Industries We Transform (Internal Links Hub)
+    defineField({
+      name: 'industryImpact',
+      title: 'Industries We Transform',
+      type: 'object',
+      fields: [
+        defineField({ name: 'label', title: 'Section Label', type: 'string' }),
+        defineField({ name: 'title', title: 'Section Title', type: 'string' }),
+        defineField({ name: 'subtitle', title: 'Section Subtitle', type: 'text' }),
+        defineField({
+          name: 'industries',
+          title: 'Industry Highlights',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'name', title: 'Industry Name', type: 'string' }),
+                defineField({ name: 'link', title: 'Internal Link Path (e.g. /industries/fintech)', type: 'string' }),
+                defineField({ name: 'desc', title: 'Description', type: 'text' }),
+                defineField({ name: 'tag', title: 'Tagline / Stat', type: 'string' }),
+              ],
+            },
+          ],
+        }),
+      ],
+    }),
+
+    // Section 9: Technology Stack Showcase
+    defineField({
+      name: 'techStack',
+      title: 'Technology Stack & Engineering Capabilities',
+      type: 'object',
+      fields: [
+        defineField({ name: 'label', title: 'Section Label', type: 'string' }),
+        defineField({ name: 'title', title: 'Section Title', type: 'string' }),
+        defineField({ name: 'subtitle', title: 'Section Subtitle', type: 'text' }),
+        defineField({
+          name: 'categories',
+          title: 'Tech Categories',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'category', title: 'Category Name (e.g. Cloud & DevOps)', type: 'string' }),
+                defineField({ name: 'skills', title: 'Technologies (Comma separated)', type: 'string' }),
+              ],
+            },
+          ],
+        }),
+      ],
+    }),
+
+    // Section 10: Frequently Asked Questions (FAQ)
+    defineField({
+      name: 'faq',
+      title: 'Frequently Asked Questions (FAQ & Schema)',
+      type: 'object',
+      fields: [
+        defineField({ name: 'label', title: 'Section Label', type: 'string' }),
+        defineField({ name: 'title', title: 'Section Title', type: 'string' }),
+        defineField({ name: 'subtitle', title: 'Section Subtitle', type: 'text' }),
+        defineField({
+          name: 'items',
+          title: 'FAQ Items',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'question', title: 'Question', type: 'string' }),
+                defineField({ name: 'answer', title: 'Answer', type: 'text' }),
+              ],
+            },
+          ],
+        }),
+      ],
+    }),
+
+    // Section 11: Final Invitation CTA
     defineField({
       name: 'cta',
       title: 'Call to Action Section',

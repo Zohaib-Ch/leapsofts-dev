@@ -64,7 +64,7 @@
 /* Individual Card */
 .card {
     position: relative;
-    flex: 0 0 92px;
+    flex: 0 0 76px;
     height: 100%;
     background: linear-gradient(135deg, rgba(20, 18, 128, 0.2) 0%, rgba(112, 41, 134, 0.4) 100%);
     border-radius: 20px;
@@ -80,7 +80,7 @@
 }
 
 .card:hover:not(.active) {
-    flex-basis: 122px;
+    flex-basis: 96px;
     background: linear-gradient(135deg, rgba(20, 18, 128, 0.3) 0%, rgba(112, 41, 134, 0.5) 100%);
     border-color: rgba(255, 255, 255, 0.2);
 }

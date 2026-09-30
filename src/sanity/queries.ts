@@ -88,6 +88,10 @@ export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage" && (_id == $id || _id ==
     }
   },
   globalDelivery,
+  whyChooseUs,
+  industryImpact,
+  techStack,
+  faq,
   cta,
   ${SEO_FRAGMENT}
 }`;
@@ -130,7 +134,7 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && (slug.current == $
     titleAccent,
     titleEnd,
     description,
-    "imageUrl": coalesce(imageUrl, image.asset->url)
+    "imageUrl": coalesce(image.asset->url, imageUrl)
   },
   capabilitiesSection {
     title,
@@ -139,7 +143,7 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && (slug.current == $
       id,
       number,
       title,
-      "imageUrl": coalesce(imageUrl, image.asset->url),
+      "imageUrl": coalesce(image.asset->url, imageUrl),
       items
     }
   },
@@ -173,7 +177,7 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && (slug.current == $
     descriptionText,
     buttonText,
     buttonPath,
-    "imageUrl": coalesce(imageUrl, image.asset->url)
+    "imageUrl": coalesce(image.asset->url, imageUrl)
   },
   serviceFeatures {
     title,
@@ -188,7 +192,7 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && (slug.current == $
     titleAccent,
     titleMain,
     description,
-    "imageUrl": coalesce(imageUrl, image.asset->url),
+    "imageUrl": coalesce(image.asset->url, imageUrl),
     items[] {
       title,
       description,
@@ -404,7 +408,7 @@ export const CASE_STUDY_BY_ID_QUERY = `*[_type == "caseStudy" && (id == $id || s
   seo
 }`;
 
-export const ALL_BLOGS_QUERY = `*[_type == "blog"] | order(_createdAt desc){
+export const ALL_BLOGS_QUERY = `*[_type == "blog" && !(_id in path("drafts.**"))] | order(_createdAt desc){
   _id,
   title,
   "slug": slug.current,

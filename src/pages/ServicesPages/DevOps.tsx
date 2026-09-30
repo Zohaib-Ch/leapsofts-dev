@@ -12,6 +12,8 @@ import { type ProcessPhase } from '../../components/Processes/Processes';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
+import Capabilities from '../../components/Capabilities/Capabilities';
+
 
 const servicesData: EmergingTechProps['data'] = {
     label: "DEVOPS SERVICES & AUTOMATION CAPABILITIES",
@@ -243,7 +245,9 @@ const DevOps: React.FC = () => {
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || (typeof strategyData !== 'undefined' ? strategyData.label : ''),
-        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof strategyData !== 'undefined' ? strategyData.title : ''),
+        titleMain: data?.infoGrid?.titleMain,
+        titleAccent: data?.infoGrid?.titleAccent,
+        title: data?.infoGrid?.title || (data?.infoGrid?.titleMain || data?.infoGrid?.titleAccent ? undefined : (typeof strategyData !== 'undefined' ? strategyData.title : '')),
         description: data.infoGrid.description || (typeof strategyData !== 'undefined' ? strategyData.description : ''),
         items: data.infoGrid.items.map((item, index) => ({
           icon: String(index + 1).padStart(2, '0'),
@@ -292,13 +296,29 @@ const DevOps: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || "Operational Agility ",
         titleEnd: data.serviceOverview.titleEnd || "with DevOps",
         description: data.serviceOverview.description || "At Leapsofts, we specialize in building highly resilient, secure DevOps environments designed to accelerate release cycles and eliminate build errors. By writing reusable Terraform modules, containerizing application nodes, and setting up automated testing check gates, our engineers transition development teams into high-velocity continuous deployment setups with maximum uptime.",
-        imagePath: data.serviceOverview.imageUrl || "/icons/images/cloud.webp"
+        imagePath: data.serviceOverview.imageUrl || "/streamline.webp"
       }
     : null;
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : processPhasesDefault;
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || "/streamline.webp",
+        items: slide.items || []
+      }))
+    : null;
+
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
@@ -312,15 +332,22 @@ const DevOps: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-            <ServiceOverview
+            {activeOverviewData && activeOverviewData.description && (
+              <ServiceOverview
                 label={activeOverviewData?.label || "DEVOPS ENGINEERING"}
                 titleMain={activeOverviewData?.titleMain || "Maximize "}
                 titleAccent={activeOverviewData?.titleAccent || "Operational Agility "}
                 titleEnd={activeOverviewData?.titleEnd || "with DevOps"}
                 description={activeOverviewData?.description || "At Leapsofts, we specialize in building highly resilient, secure DevOps environments designed to accelerate release cycles and eliminate build errors. By writing reusable Terraform modules, containerizing application nodes, and setting up automated testing check gates, our engineers transition development teams into high-velocity continuous deployment setups with maximum uptime."}
-                imagePath={activeOverviewData?.imagePath || "/icons/images/cloud.webp"}
+                imagePath={activeOverviewData?.imagePath || "/streamline.webp"}
             />
-            <InfoGrid data={activeInfoGridData} />
+            )}
+            {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
+              <Capabilities title={data?.capabilitiesSection?.title || "DevOps & Automation Capabilities"} slides={activeCapabilitiesSlides} defaultImage="/streamline.webp" />
+            )}
+            {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+              <InfoGrid data={activeInfoGridData} />
+            )}
             <StreamlineSuccess
                 label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
                 titleMain={data?.strategyCTA?.titleMain || "Map your "}
@@ -329,15 +356,21 @@ const DevOps: React.FC = () => {
                 description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
                 buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
                 buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-                imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+                imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
             />
-            <DeliverMVP data={activeDeliverMVPData} />
-            <EmergingTech data={activeEmergingTechData} />
-            <Processes
+            {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+              <DeliverMVP data={activeDeliverMVPData} />
+            )}
+            {activeEmergingTechData && activeEmergingTechData.items && activeEmergingTechData.items.length > 0 && (
+              <EmergingTech data={activeEmergingTechData} />
+            )}
+            {activeProcessPhases && activeProcessPhases.length > 0 && (
+              <Processes
                 title={data?.processes?.title || "OUR CUSTOM DEVOPS PROCESS"}
                 processPhases={activeProcessPhases}
                 phaseLabels={activePhaseLabels}
             />
+            )}
             <FAQs
                 title="DevOps & CI/CD Services FAQ"
                 subtitle="Everything you need to know about automated deployments, Kubernetes scaling, Terraform IaC, and continuous monitoring."

@@ -3,7 +3,7 @@ import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
-const mobileAppImg = "https://cdn.sanity.io/images/egqy3ztp/production/9a8d2074c4c6748e73587c6d3e57b16f215d2062-1024x1024.webp";
+
 import InfoGrid from '../../components/InfoGrid/InfoGrid';
 import { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
@@ -250,6 +250,8 @@ export function meta({ data }: { data?: any }) {
 
 
 
+import Capabilities from '../../components/Capabilities/Capabilities';
+
 const CloudEngineering: React.FC = () => {
   const { data } = useServicePage('cloud-engineering');
 
@@ -260,116 +262,151 @@ const CloudEngineering: React.FC = () => {
     faqs: data?.faqs,
   });
 
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
 
-    const activeTitle = data?.hero?.title || title;
-    const activeSubtitle = data?.hero?.subtitle || subtitle;
-    const activeIntroDescription = data?.hero?.introText
-        ? parseFormattedText(data.hero.introText)
-        : introDescription;
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || 'CLOUD ARCHITECTURE',
+        titleMain: data.serviceOverview.titleMain || 'Orchestrating Elastic',
+        titleAccent: data.serviceOverview.titleAccent || 'Cloud-Native',
+        titleEnd: data.serviceOverview.titleEnd || 'Infrastructures',
+        description: data.serviceOverview.description || 'At Leapsofts, we customize and engineer resilient cloud infrastructures designed to scale systems automatically and deliver high-performance throughput. By authoring custom Terraform blueprints, containerizing applications with Docker and Kubernetes (EKS/GKE), configuring elastic auto-scaling groups, and orchestrating distributed microservices, we help enterprises migrate from legacy on-premises servers to secure cloud environments with zero operational downtime.',
+        imagePath: data.serviceOverview.imageUrl || "/streamline.webp"
+      }
+    : null;
 
-    const activeOverviewData = (data?.serviceOverview)
-        ? {
-            label: data.serviceOverview.label || 'CLOUD ARCHITECTURE',
-            titleMain: data.serviceOverview.titleMain || 'Orchestrating Elastic',
-            titleAccent: data.serviceOverview.titleAccent || 'Cloud-Native',
-            titleEnd: data.serviceOverview.titleEnd || 'Infrastructures',
-            description: data.serviceOverview.description || 'At Leapsofts, we customize and engineer resilient cloud infrastructures designed to scale systems automatically and deliver high-performance throughput. By authoring custom Terraform blueprints, containerizing applications with Docker and Kubernetes (EKS/GKE), configuring elastic auto-scaling groups, and orchestrating distributed microservices, we help enterprises migrate from legacy on-premises servers to secure cloud environments with zero operational downtime.',
-            imagePath: data.serviceOverview.imageUrl || mobileAppImg
-        }
-        : null;
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || "/streamline.webp",
+        items: slide.items || []
+      }))
+    : null;
 
-    const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
-        ? {
-            label: data.infoGrid.label || processData.label,
-            titleAccent: data.infoGrid.titleAccent || processData.titleAccent,
-            titleMain: data.infoGrid.titleMain || processData.titleMain,
-            description: data.infoGrid.description || processData.description,
-            items: data.infoGrid.items || processData.items
-        }
-        : processData;
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || processData.label,
+        titleAccent: data.infoGrid.titleAccent ?? processData.titleAccent,
+        titleMain: data.infoGrid.titleMain ?? processData.titleMain,
+        title: data.infoGrid.title || (data.infoGrid.titleMain || data.infoGrid.titleAccent ? undefined : processData.title),
+        description: data.infoGrid.description || processData.description,
+        items: data.infoGrid.items || processData.items
+      }
+    : processData;
 
-    const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
-        ? {
-            label: data.emergingTech.label || ourSolutionsData.label,
-            titleAccent: data.emergingTech.titleAccent || ourSolutionsData.titleAccent,
-            titleMain: data.emergingTech.titleMain || ourSolutionsData.titleMain,
-            description: data.emergingTech.description || ourSolutionsData.description,
-            items: data.emergingTech.items.map(item => ({
-                icon: (item.icon || 'enterprise') as any,
-                title: item.title,
-                description: item.description
-            }))
-        }
-        : ourSolutionsData;
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || ourSolutionsData.label,
+        titleAccent: data.emergingTech.titleAccent || ourSolutionsData.titleAccent,
+        titleMain: data.emergingTech.titleMain || ourSolutionsData.titleMain,
+        description: data.emergingTech.description || ourSolutionsData.description,
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : ourSolutionsData;
 
-    const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
-        ? {
-            label: data.deliverMVP.label || deliverMVPData.label,
-            title: data.deliverMVP.title || deliverMVPData.title,
-            accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
-            description: data.deliverMVP.description || deliverMVPData.description,
-            items: data.deliverMVP.items || deliverMVPData.items
-        }
-        : deliverMVPData;
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || deliverMVPData.label,
+        title: data.deliverMVP.title || deliverMVPData.title,
+        accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
+        description: data.deliverMVP.description || deliverMVPData.description,
+        items: data.deliverMVP.items || deliverMVPData.items
+      }
+    : deliverMVPData;
 
-    const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-        ? data.processes.processPhases
-        : processPhasesDefault;
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
-    const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
-        ? data.processes.phaseLabels
-        : phaseLabelsDefault;
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
 
-    return (
-        <>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
-            <IntroComponent
-                title={activeTitle}
-                description={activeSubtitle}
-                introDescription={activeIntroDescription}
-            />
-            <ServiceOverview
-                label={activeOverviewData?.label || 'CLOUD ARCHITECTURE'}
-                titleMain={activeOverviewData?.titleMain || 'Orchestrating Elastic'}
-                titleAccent={activeOverviewData?.titleAccent || 'Cloud-Native'}
-                titleEnd={activeOverviewData?.titleEnd || 'Infrastructures'}
-                description={activeOverviewData?.description || 'At Leapsofts, we customize and engineer resilient cloud infrastructures designed to scale systems automatically and deliver high-performance throughput. By authoring custom Terraform blueprints, containerizing applications with Docker and Kubernetes (EKS/GKE), configuring elastic auto-scaling groups, and orchestrating distributed microservices, we help enterprises migrate from legacy on-premises servers to secure cloud environments with zero operational downtime.'}
-                imagePath={activeOverviewData?.imagePath || mobileAppImg}
-            />
-            <InfoGrid data={activeInfoGridData} />
-            <StreamlineSuccess
-                label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
-                titleMain={data?.strategyCTA?.titleMain || "Map your "}
-                titleAccent={data?.strategyCTA?.titleAccent || "cloud architecture"}
-                titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
-                description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-                imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
-            />
-            <DeliverMVP data={activeDeliverMVPData} />
-            <EmergingTech data={activeEmergingTechData} />
-            <Processes title={data?.processes?.title || "OUR CUSTOM CLOUD MIGRATION PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
-            <FAQs title="Cloud Engineering & Architecture FAQ" subtitle="Everything you need to know about AWS, Azure, GCP multi-cloud infrastructure, Terraform IaC, Kubernetes, and Cloud FinOps." faqs={data?.faqs} items={data?.faqs} />
-            <RelatedServices
-                services={[
-                    {
-                        title: "Cloud Migration Services",
-                        description: "Seamlessly migrate legacy infrastructure and databases to AWS, Azure, or GCP with zero downtime.",
-                        link: "/services/cloud-migration"
-                    },
-                    {
-                        title: "DevOps & CI/CD Automation",
-                        description: "Accelerate delivery velocity with containerized microservices and automated CI/CD pipelines.",
-                        link: "/services/devops"
-                    },
-                    {
-                        title: "AWS Managed Services",
-                        description: "Build, deploy, and scale enterprise architectures on Amazon Web Services cloud infrastructure.",
-                        link: "/services/aws"
-                    }
-                ]}
-            />
-        </>
-    );
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
+      />
+      {activeOverviewData && activeOverviewData.description && (
+        <ServiceOverview
+          label={activeOverviewData.label}
+          titleMain={activeOverviewData.titleMain}
+          titleAccent={activeOverviewData.titleAccent}
+          titleEnd={activeOverviewData.titleEnd}
+          description={activeOverviewData.description}
+          imagePath={activeOverviewData.imagePath}
+        />
+      )}
+      {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
+        <Capabilities
+          slides={activeCapabilitiesSlides}
+          title={data?.capabilitiesSection?.title || "Our Cloud Engineering Capabilities"}
+          defaultImage="/streamline.webp"
+        />
+      )}
+      {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+        <InfoGrid data={activeInfoGridData} />
+      )}
+      <StreamlineSuccess
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "cloud architecture"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Cloud Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
+      />
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeEmergingTechData && activeEmergingTechData.items && activeEmergingTechData.items.length > 0 && (
+        <EmergingTech data={activeEmergingTechData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes title={data?.processes?.title || "OUR CUSTOM CLOUD MIGRATION PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      )}
+      <FAQs title="Cloud Engineering & Architecture FAQ" subtitle="Everything you need to know about AWS, Azure, GCP multi-cloud infrastructure, Terraform IaC, Kubernetes, and Cloud FinOps." faqs={data?.faqs} items={data?.faqs} />
+      <RelatedServices
+        services={[
+          {
+            title: "Cloud Migration Services",
+            description: "Seamlessly migrate legacy infrastructure and databases to AWS, Azure, or GCP with zero downtime.",
+            link: "/services/cloud-migration"
+          },
+          {
+            title: "DevOps & CI/CD Automation",
+            description: "Accelerate delivery velocity with containerized microservices and automated CI/CD pipelines.",
+            link: "/services/devops"
+          },
+          {
+            title: "AWS Managed Services",
+            description: "Build, deploy, and scale enterprise architectures on Amazon Web Services cloud infrastructure.",
+            link: "/services/aws"
+          }
+        ]}
+      />
+    </>
+  );
 };
 
 export default CloudEngineering;

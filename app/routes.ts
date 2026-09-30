@@ -39,6 +39,11 @@ export default [
     route("services/ideation-workshop", "../src/pages/ServicesPages/IdeationWorkshop.tsx"),
     route("services/product-development-strategy", "../src/pages/ServicesPages/ProductDevelopmentStrategy.tsx"),
     route("services/proof-of-concept-development", "../src/pages/ServicesPages/ProofOfConceptDevelopment.tsx"),
+    route("services/sales-execution-ae", "../src/pages/Services/GrowthServicePage.tsx", { id: "sales-execution-ae" }),
+    route("services/outbound-demand-gen", "../src/pages/Services/GrowthServicePage.tsx", { id: "outbound-demand-gen" }),
+    route("services/paid-media-performance", "../src/pages/Services/GrowthServicePage.tsx", { id: "paid-media-performance" }),
+    route("services/inbound-organic-growth", "../src/pages/Services/GrowthServicePage.tsx", { id: "inbound-organic-growth" }),
+    route("services/revenue-operations-systems", "../src/pages/Services/GrowthServicePage.tsx", { id: "revenue-operations-systems" }),
   ]),
   layout("../src/layouts/IndustriesLayout/IndustriesLayout.tsx", [
     route("industries/finance", "../src/pages/IndustriesPages/Finance.tsx"),

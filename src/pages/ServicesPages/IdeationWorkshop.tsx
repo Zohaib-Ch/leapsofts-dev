@@ -11,7 +11,8 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import FAQs from '../../components/FAQs/FAQs';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
-const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
+import Capabilities from '../../components/Capabilities/Capabilities';
+
 
 const serviceOverviewData = {
   label: "IDEATION & DISCOVERY",
@@ -19,7 +20,7 @@ const serviceOverviewData = {
   titleAccent: "Product Ideation",
   titleEnd: "Workshops",
   description: "At Leapsofts, we guide founders and enterprise leaders through accelerated ideation workshops designed to crystallize user value, validate technical feasibility, and map dynamic feature roadmaps. Our senior product strategists and system architects turn abstract ideas into actionable software specifications and user personas within structured sprint cycles.",
-  imagePath: laptopImg
+  imagePath: "/streamline.webp"
 };
 
 const ourServicesData: EmergingTechProps['data'] = {
@@ -249,7 +250,9 @@ const IdeationWorkshop: React.FC = () => {
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || (typeof ideationProcessData !== 'undefined' ? ideationProcessData.label : ''),
-        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof ideationProcessData !== 'undefined' ? ideationProcessData.title : ''),
+        titleMain: data?.infoGrid?.titleMain,
+        titleAccent: data?.infoGrid?.titleAccent,
+        title: data?.infoGrid?.title || (data?.infoGrid?.titleMain || data?.infoGrid?.titleAccent ? undefined : (typeof ideationProcessData !== 'undefined' ? ideationProcessData.title : '')),
         description: data.infoGrid.description || (typeof ideationProcessData !== 'undefined' ? ideationProcessData.description : ''),
         items: data.infoGrid.items.map((item, index) => ({
           icon: String(index + 1).padStart(2, '0'),
@@ -302,9 +305,25 @@ const IdeationWorkshop: React.FC = () => {
       }
     : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : processPhasesDefault;
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || "/streamline.webp",
+        items: slide.items || []
+      }))
+    : null;
+
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
@@ -324,7 +343,7 @@ const IdeationWorkshop: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      {activeOverviewData && (
+      {activeOverviewData && activeOverviewData.description && (
         <ServiceOverview
           label={activeOverviewData.label}
           titleMain={activeOverviewData.titleMain}
@@ -334,7 +353,12 @@ const IdeationWorkshop: React.FC = () => {
           imagePath={activeOverviewData.imagePath}
         />
       )}
-      <InfoGrid data={activeInfoGridData} />
+      {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
+        <Capabilities title={data?.capabilitiesSection?.title || "Ideation Capabilities"} slides={activeCapabilitiesSlides} defaultImage="/streamline.webp" />
+      )}
+      {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+        <InfoGrid data={activeInfoGridData} />
+      )}
       <StreamlineSuccess
         label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={strategyCTA?.titleMain || "Map your "}
@@ -343,16 +367,22 @@ const IdeationWorkshop: React.FC = () => {
         description={strategyCTA?.descriptionText ? [{ text: strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         buttonText={strategyCTA?.buttonText}
         buttonPath={strategyCTA?.buttonPath}
-        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Expert Services'}
         description={data?.serviceFeatures?.description || 'We deliver specialized services to support your ideation workshops.'}
         items={activeServiceFeatures}
       />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <EmergingTech data={activeEmergingTechData} />
-      <Processes title={data?.processes?.title || "OUR IDEATION PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeEmergingTechData && activeEmergingTechData.items && activeEmergingTechData.items.length > 0 && (
+        <EmergingTech data={activeEmergingTechData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes title={data?.processes?.title || "OUR IDEATION PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      )}
       <FAQs faqs={data?.faqs} items={data?.faqs} />
       <RelatedServices
         services={[

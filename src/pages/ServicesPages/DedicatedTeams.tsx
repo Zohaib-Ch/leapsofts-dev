@@ -11,9 +11,9 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
-const capabilitiesImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
-const platformImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
-const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
+
+
+
 
 const processPhasesDefault: ProcessPhase[] = [
   {
@@ -123,7 +123,7 @@ const serviceOverviewData = {
   titleAccent: "Enterprise",
   titleEnd: "Thruput",
   description: "At Leapsofts, we specialize in curating and managing dedicated engineering teams designed to accelerate product development cycles and tackle complex architecture milestones. By hand-picking senior backend developers, frontend React specialists, and certified DevOps engineers who align with your tech stack, we construct highly cohesive agile pods that work natively inside your Jira boards, Slack channels, and code repositories with complete operational alignment.",
-  imagePath: laptopImg
+  imagePath: "/streamline.webp"
 };
 
 const capabilitiesData: CapabilitySlide[] = [
@@ -136,7 +136,7 @@ const capabilitiesData: CapabilitySlide[] = [
       { name: 'High-Concurrency Backend Abstractions', description: 'Engineering resilient backend services using Node.js, Go, or Python with secure PostgreSQL or Redis datastores.' },
       { name: 'Automated DevOps & Multi-Stage Pipelines', description: 'Constructing Docker-based release environments and automated GitHub Actions CI/CD to accelerate releases safely.' }
     ],
-    image: capabilitiesImg
+    image: "/streamline.webp"
   },
   {
     id: '2',
@@ -147,7 +147,7 @@ const capabilitiesData: CapabilitySlide[] = [
       { name: 'Continuous Vulnerability Auditing', description: 'Enforcing strict Zero-Trust directory configurations, static code scans (SAST), and compliance shielding.' },
       { name: 'Scale Infrastructure & Serverless', description: 'Configuring auto-scaling cloud clusters, serverless API routers, and secure multi-region databases on AWS or Azure.' }
     ],
-    image: platformImg
+    image: "/streamline.webp"
   }
 ];
 
@@ -280,7 +280,9 @@ const DedicatedTeams: React.FC = () => {
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || (typeof infoGridData !== 'undefined' ? infoGridData.label : ''),
-        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof infoGridData !== 'undefined' ? infoGridData.title : ''),
+        titleMain: data?.infoGrid?.titleMain,
+        titleAccent: data?.infoGrid?.titleAccent,
+        title: data?.infoGrid?.title || (data?.infoGrid?.titleMain || data?.infoGrid?.titleAccent ? undefined : (typeof infoGridData !== 'undefined' ? infoGridData.title : '')),
         description: data.infoGrid.description || (typeof infoGridData !== 'undefined' ? infoGridData.description : ''),
         items: data.infoGrid.items.map((item, index) => ({
           icon: String(index + 1).padStart(2, '0'),
@@ -318,13 +320,38 @@ const DedicatedTeams: React.FC = () => {
       }
     : serviceOverviewData;
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : processPhasesDefault;
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || "/streamline.webp",
+        items: slide.items || []
+      }))
+    : capabilitiesData;
+
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
     : phaseLabelsDefault;
+  const activeServiceFeaturesItems: ServiceFeatureItem[] = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items.map(item => ({
+        icon: item.icon || '/industryicons/sphere.svg',
+        title: item.title,
+        description: item.description
+      }))
+    : serviceFeaturesData;
+
+
 
   return (
     <>
@@ -334,7 +361,8 @@ const DedicatedTeams: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      <ServiceOverview
+      {activeOverviewData && activeOverviewData.description && (
+        <ServiceOverview
         label={activeOverviewData?.label || serviceOverviewData.label}
         titleMain={activeOverviewData?.titleMain || serviceOverviewData.titleMain}
         titleAccent={activeOverviewData?.titleAccent || serviceOverviewData.titleAccent}
@@ -342,12 +370,17 @@ const DedicatedTeams: React.FC = () => {
         description={activeOverviewData?.description || serviceOverviewData.description}
         imagePath={activeOverviewData?.imagePath || serviceOverviewData.imagePath}
       />
-      <Capabilities
+      )}
+      {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
+        <Capabilities
         title={data?.capabilitiesSection?.title || "Dedicated Team Capabilities"}
-        slides={data?.capabilitiesSection?.slides || capabilitiesData}
-        defaultImage={capabilitiesImg}
+        slides={activeCapabilitiesSlides}
+        defaultImage="/streamline.webp"
       />
-      <InfoGrid data={activeInfoGridData} />
+      )}
+      {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+        <InfoGrid data={activeInfoGridData} />
+      )}
       <StreamlineSuccess
         label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={data?.strategyCTA?.titleMain || "Map your "}
@@ -356,19 +389,23 @@ const DedicatedTeams: React.FC = () => {
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Expert Engineering Pods'}
         description={data?.serviceFeatures?.description || 'Our dedicated teams offer a full spectrum of engineering and management services to support your product lifecycle.'}
-        items={data?.serviceFeatures?.items || serviceFeaturesData}
+        items={activeServiceFeaturesItems}
       />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <Processes
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes
         title={data?.processes?.title || "OUR CUSTOM DEDICATED TEAMS PROCESS"}
         processPhases={activeProcessPhases}
         phaseLabels={activePhaseLabels}
       />
+      )}
       <FAQs
         title="Dedicated Development Teams FAQ"
         subtitle="Everything you need to know about hiring software pods, time-zone synchronization, IP security, and sprint integration."

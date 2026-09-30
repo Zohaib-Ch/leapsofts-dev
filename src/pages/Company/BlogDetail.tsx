@@ -13,7 +13,7 @@ import {
   CheckCircle2,
   BookOpen,
 } from 'lucide-react';
-import { blogsData, type BlogPost } from '../../data/blogsData';
+import { blogsData, type BlogPost, DEFAULT_BLOG_FALLBACK_IMAGE } from '../../data/blogsData';
 import { useContactModal } from '../../context/ContactModalContext';
 import Button from '../../components/Button/Button';
 import styles from './BlogDetail.module.css';
@@ -199,7 +199,93 @@ const BlogDetail: React.FC = () => {
         seo={sanityPost?.seo}
         defaultTitle={`${post.title} | Leapsofts Engineering Insights`}
         defaultDescription={post.subtitle || post.excerpt}
+        defaultKeywords={(Array.isArray(post.tags) ? post.tags.join(', ') : (post.tags || '')) + ', software engineering, leapsofts architecture'}
+        canonicalUrl={`https://www.leapsofts.com/blog/${post.slug}`}
+        defaultOgImage={post.coverImage}
       />
+
+      {/* JSON-LD Structured Data (BlogPosting & BreadcrumbList) for Googlebot */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                {
+                  '@type': 'ListItem',
+                  position: 1,
+                  name: 'Home',
+                  item: 'https://www.leapsofts.com',
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 2,
+                  name: 'Engineering Insights',
+                  item: 'https://www.leapsofts.com/blog',
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 3,
+                  name: post.title,
+                  item: `https://www.leapsofts.com/blog/${post.slug}`,
+                },
+              ],
+            },
+            {
+              '@context': 'https://schema.org',
+              '@type': 'BlogPosting',
+              headline: post.title,
+              description: post.subtitle || post.excerpt,
+              image: [
+                post.coverImage.startsWith('http')
+                  ? post.coverImage
+                  : `https://www.leapsofts.com${post.coverImage}`,
+              ],
+              datePublished: '2026-09-12T00:00:00+00:00',
+              dateModified: '2026-09-30T00:00:00+00:00',
+              author: {
+                '@type': 'Person',
+                name: post.author.name,
+                jobTitle: post.author.role,
+                description: post.author.bio,
+                worksFor: {
+                  '@type': 'Organization',
+                  name: 'Leapsofts',
+                },
+              },
+              publisher: {
+                '@type': 'Organization',
+                name: 'Leapsofts',
+                url: 'https://www.leapsofts.com',
+                logo: {
+                  '@type': 'ImageObject',
+                  url: 'https://www.leapsofts.com/favicon.png',
+                },
+              },
+              mainEntityOfPage: {
+                '@type': 'WebPage',
+                '@id': `https://www.leapsofts.com/blog/${post.slug}`,
+              },
+              articleSection: post.category,
+              keywords: Array.isArray(post.tags) ? post.tags.join(', ') : (post.tags || ''),
+            },
+          ]),
+        }}
+      />
+
+      {/* Visual Breadcrumb Navigation Bar */}
+      <div className={styles.breadcrumbBar}>
+        <div className={styles.breadcrumbContainer}>
+          <Link to="/" className={styles.breadcrumbLink}>Home</Link>
+          <span className={styles.breadcrumbSeparator}>/</span>
+          <Link to="/blog" className={styles.breadcrumbLink}>Engineering Insights</Link>
+          <span className={styles.breadcrumbSeparator}>/</span>
+          <span className={styles.breadcrumbCurrent}>{post.title}</span>
+        </div>
+      </div>
+
       {/* Top Reading Progress Bar */}
       <div className={styles.progressBar} style={{ width: `${scrollProgress}%` }} />
 
@@ -286,7 +372,14 @@ const BlogDetail: React.FC = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
         >
-          <img src={post.coverImage} alt={post.title} className={styles.coverImage} />
+          <img
+            src={post.coverImage}
+            alt={post.title}
+            className={styles.coverImage}
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).src = DEFAULT_BLOG_FALLBACK_IMAGE;
+            }}
+          />
           <div className={styles.coverOverlay} />
         </motion.div>
 
@@ -478,6 +571,9 @@ const BlogDetail: React.FC = () => {
                       src={rPost.coverImage}
                       alt={rPost.title}
                       className={styles.relatedImage}
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = DEFAULT_BLOG_FALLBACK_IMAGE;
+                      }}
                     />
                   </div>
                   <div className={styles.relatedCardBody}>

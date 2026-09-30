@@ -1,6 +1,6 @@
 import { buildPageMeta } from '../../utils/seoHelper';
 import React, { useState, useEffect } from 'react';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, Link } from 'react-router';
 import styles from './About.module.css';
 import { motion, type Variants } from 'framer-motion';
 import {
@@ -16,6 +16,18 @@ import {
   Award,
   CheckCircle2,
   Sparkles,
+  ChevronDown,
+  ArrowRight,
+  ChevronRight,
+  Layers,
+  Terminal,
+  Database,
+  Building2,
+  Stethoscope,
+  CreditCard,
+  ShoppingBag,
+  Shirt,
+  Home as HomeIcon,
 } from 'lucide-react';
 import Button from '../../components/Button/Button';
 import AnimatedCounter from '../../components/AnimatedCounter/AnimatedCounter';
@@ -25,6 +37,7 @@ import { getSanityAboutPage, getSanityTeamMembers } from '../../sanity/queries';
 import type { SanityAboutPage, SanityTeamMember } from '../../sanity/types';
 import { renderFormattedTitle } from '../../utils/titleFormatter';
 import { DEFAULT_ABOUT_PAGE_DATA } from '../../data/companyFallback';
+
 export async function loader() {
   const sanityData = await getSanityAboutPage('aboutPage');
   return { sanityData };
@@ -33,9 +46,9 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "About Leapsofts | Enterprise Software Engineering Company",
-    defaultDescription: "Leapsofts is an enterprise software engineering firm with 250+ specialists across 5 global offices. We build custom software, cloud & AI solutions for Fortune-level enterprises.",
-    defaultKeywords: "about Leapsofts, enterprise software company, software engineering firm, custom software development agency",
+    defaultTitle: "About Leapsofts | Enterprise Software Engineering Company | Dubai & US",
+    defaultDescription: "Discover Leapsofts, an enterprise software engineering company delivering custom cloud architectures, AI solutions, and dedicated agile pods with 250+ engineers globally.",
+    defaultKeywords: "enterprise software engineering company, custom software development firm Dubai, agile software development pods, AI software development agency, cloud microservices architecture, software engineering agency US Dubai",
     canonicalUrl: "https://www.leapsofts.com/about",
   });
 }
@@ -197,6 +210,7 @@ export { DEFAULT_ABOUT_PAGE_DATA };
 const About: React.FC = () => {
   const loaderData = useLoaderData<typeof loader>();
   const [activeTimeline, setActiveTimeline] = useState(0);
+  const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
   const [sanityTeam, setSanityTeam] = useState<SanityTeamMember[] | null>(null);
   const { openContactModal } = useContactModal();
 
@@ -240,13 +254,139 @@ const About: React.FC = () => {
       : timelineData;
   }, [sanityData]);
 
+  const whyChooseUsData = React.useMemo(() => {
+    return sanityData?.whyChooseUs || DEFAULT_ABOUT_PAGE_DATA.whyChooseUs;
+  }, [sanityData]);
+
+  const industryImpactData = React.useMemo(() => {
+    return sanityData?.industryImpact || DEFAULT_ABOUT_PAGE_DATA.industryImpact;
+  }, [sanityData]);
+
+  const techStackData = React.useMemo(() => {
+    return sanityData?.techStack || DEFAULT_ABOUT_PAGE_DATA.techStack;
+  }, [sanityData]);
+
+  const faqData = React.useMemo(() => {
+    return sanityData?.faq || DEFAULT_ABOUT_PAGE_DATA.faq;
+  }, [sanityData]);
+
+  // Structured Data (JSON-LD) Schemas for Googlebot Crawling
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Leapsofts",
+    "legalName": "Leapsofts Technology Solutions FZ-LLC",
+    "url": "https://www.leapsofts.com",
+    "logo": "https://www.leapsofts.com/logo.png",
+    "foundingDate": "2021",
+    "description": "Leapsofts is an enterprise software engineering company delivering custom cloud architectures, AI solutions, and dedicated agile pods.",
+    "address": [
+      {
+        "@type": "PostalAddress",
+        "addressLocality": "Dubai",
+        "addressCountry": "AE",
+        "streetAddress": "Dubai Internet City"
+      },
+      {
+        "@type": "PostalAddress",
+        "addressLocality": "New York",
+        "addressRegion": "NY",
+        "addressCountry": "US"
+      }
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/company/leapsofts",
+      "https://twitter.com/leapsofts",
+      "https://github.com/leapsofts"
+    ]
+  };
+
+  const aboutPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Leapsofts | Enterprise Software Engineering Company",
+    "description": "Learn about Leapsofts, a premier custom software engineering consultancy delivering resilient cloud architectures, AI integration, and dedicated agile pods.",
+    "url": "https://www.leapsofts.com/about",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Leapsofts",
+      "logo": "https://www.leapsofts.com/logo.png"
+    }
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.leapsofts.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Company",
+        "item": "https://www.leapsofts.com/about"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "About Us",
+        "item": "https://www.leapsofts.com/about"
+      }
+    ]
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": (faqData?.items || []).map((item) => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  };
+
   return (
     <div className={styles.aboutPage}>
       <MetaSEO
         seo={sanityData?.seo}
-        defaultTitle="About Us | Custom Enterprise Software Engineering | Leapsofts"
-        defaultDescription="Learn about Leapsofts, a premier custom software engineering consultancy delivering resilient cloud architectures, AI integration, and dedicated agile pods."
+        defaultTitle="About Leapsofts | Enterprise Software Engineering Company | Dubai & US"
+        defaultDescription="Discover Leapsofts, an enterprise software engineering company delivering custom cloud architectures, AI solutions, and dedicated agile pods with 250+ engineers globally."
       />
+
+      {/* JSON-LD Rich Snippet Schemas for Googlebot Crawling */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
+      {/* Crawlable Breadcrumbs */}
+      <nav aria-label="Breadcrumbs" className={styles.breadcrumbs}>
+        <Link to="/">Home</Link>
+        <ChevronRight className={styles.breadcrumbSeparator + " w-3.5 h-3.5"} />
+        <span className={styles.breadcrumbCurrent}>Company</span>
+        <ChevronRight className={styles.breadcrumbSeparator + " w-3.5 h-3.5"} />
+        <span className={styles.breadcrumbCurrent}>About Us</span>
+      </nav>
+
       {/* Chapter 1: Hero & Vision Narrative */}
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
@@ -268,7 +408,7 @@ const About: React.FC = () => {
               })}
             </h1>
             <p className={styles.heroSub}>
-              {sanityData?.hero?.subtitle || 'Leapsofts is a premier enterprise software engineering firm with 250+ specialists across 5 global offices. We build custom software development, cloud infrastructure & AI solutions for scaling enterprises and Fortune-level companies.'}
+              {sanityData?.hero?.subtitle || 'Leapsofts is an enterprise software engineering company delivering custom cloud architectures, autonomous AI solutions, and dedicated agile engineering pods for scaling platforms globally.'}
             </p>
           </motion.div>
 
@@ -325,7 +465,56 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Chapter 2: Our Engineering Creed (Mission & Vision) */}
+      {/* Section 2: Why Enterprises Partner with Leapsofts (Differentiators) */}
+      {whyChooseUsData && (
+        <section className={styles.section}>
+          <motion.div
+            className={styles.sectionHeader}
+            variants={headerVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <span className={styles.label}>{whyChooseUsData.label || 'THE LEAPSOFTS ADVANTAGE'}</span>
+            <h2 className={styles.title}>
+              {renderFormattedTitle({
+                title: whyChooseUsData.title,
+                defaultAccentPhrase: 'Leapsofts',
+                defaultTitle: <>Why Global Enterprises Partner with <em>Leapsofts</em></>,
+              })}
+            </h2>
+            <p className={styles.subtitle}>{whyChooseUsData.subtitle}</p>
+          </motion.div>
+
+          <motion.div
+            className={styles.reasonsGrid}
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            {whyChooseUsData.reasons?.map((reason, rIdx) => (
+              <motion.div key={rIdx} className={styles.glassCard + ' ' + styles.reasonCard} variants={cardChildVariant}>
+                <div className={styles.reasonHeader}>
+                  <div className={styles.reasonIcon}>
+                    {rIdx === 0 && <Users className="w-6 h-6" />}
+                    {rIdx === 1 && <Cpu className="w-6 h-6" />}
+                    {rIdx === 2 && <ShieldCheck className="w-6 h-6" />}
+                    {rIdx === 3 && <Code2 className="w-6 h-6" />}
+                    {rIdx === 4 && <Zap className="w-6 h-6" />}
+                    {rIdx === 5 && <Globe className="w-6 h-6" />}
+                  </div>
+                  {reason.stat && <span className={styles.reasonStat}>{reason.stat}</span>}
+                </div>
+                <h3 className={styles.reasonTitle}>{reason.title}</h3>
+                <p className={styles.reasonDesc}>{reason.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
+      )}
+
+      {/* Chapter 3: Our Engineering Creed (Mission & Vision) */}
       <section className={styles.section} id="mission">
         <motion.div
           className={styles.sectionHeader}
@@ -385,7 +574,7 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Chapter 3: How We Engineer (Core Principles Sequence) */}
+      {/* Chapter 4: How We Engineer (Core Principles Sequence) */}
       <section className={styles.section}>
         <motion.div
           className={styles.sectionHeader}
@@ -445,7 +634,7 @@ const About: React.FC = () => {
         </motion.div>
       </section>
 
-      {/* Chapter 4: The Evolution Story (Timeline) */}
+      {/* Chapter 5: The Evolution Story (Timeline) */}
       <section className={styles.section}>
         <motion.div
           className={styles.sectionHeader}
@@ -503,7 +692,102 @@ const About: React.FC = () => {
         )}
       </section>
 
-      {/* Chapter 5: Executive Leadership & Craftsmen */}
+      {/* Section 6: Industries We Transform (Contextual Internal Link Hub) */}
+      {industryImpactData && (
+        <section className={styles.section}>
+          <motion.div
+            className={styles.sectionHeader}
+            variants={headerVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <span className={styles.label}>{industryImpactData.label || 'INDUSTRIES WE TRANSFORM'}</span>
+            <h2 className={styles.title}>
+              {renderFormattedTitle({
+                title: industryImpactData.title,
+                defaultAccentPhrase: 'Domain Expertise',
+                defaultTitle: <>Deep <em>Domain Expertise</em> Across Critical Sectors</>,
+              })}
+            </h2>
+            <p className={styles.subtitle}>{industryImpactData.subtitle}</p>
+          </motion.div>
+
+          <motion.div
+            className={styles.industryGrid}
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            {industryImpactData.industries?.map((ind, iIdx) => (
+              <Link key={iIdx} to={ind.link} className={styles.industryCardLink}>
+                <motion.div className={styles.industryCard} variants={cardChildVariant}>
+                  {ind.tag && <span className={styles.industryTag}>{ind.tag}</span>}
+                  <h3 className={styles.industryName}>
+                    {ind.name}
+                    <ArrowRight className={styles.industryArrow + " w-5 h-5"} />
+                  </h3>
+                  <p className={styles.industryDesc}>{ind.desc}</p>
+                </motion.div>
+              </Link>
+            ))}
+          </motion.div>
+        </section>
+      )}
+
+      {/* Section 7: Core Technology Stack Showcase */}
+      {techStackData && (
+        <section className={styles.section}>
+          <motion.div
+            className={styles.sectionHeader}
+            variants={headerVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <span className={styles.label}>{techStackData.label || 'OUR TECHNOLOGY MATRIX'}</span>
+            <h2 className={styles.title}>
+              {renderFormattedTitle({
+                title: techStackData.title,
+                defaultAccentPhrase: 'Tech Stack',
+                defaultTitle: <>Modern <em>Tech Stack</em> Built for Performance</>,
+              })}
+            </h2>
+            <p className={styles.subtitle}>{techStackData.subtitle}</p>
+          </motion.div>
+
+          <motion.div
+            className={styles.techGrid}
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            {techStackData.categories?.map((cat, cIdx) => (
+              <motion.div key={cIdx} className={styles.techCategoryCard} variants={cardChildVariant}>
+                <h3 className={styles.techCategoryTitle}>
+                  {cIdx === 0 && <Layers className="w-5 h-5 text-orange-500" />}
+                  {cIdx === 1 && <Terminal className="w-5 h-5 text-orange-500" />}
+                  {cIdx === 2 && <Zap className="w-5 h-5 text-orange-500" />}
+                  {cIdx === 3 && <Globe className="w-5 h-5 text-orange-500" />}
+                  {cIdx === 4 && <Database className="w-5 h-5 text-orange-500" />}
+                  {cat.category}
+                </h3>
+                <div className={styles.techPills}>
+                  {cat.skills.split(',').map((skill, sIdx) => (
+                    <span key={sIdx} className={styles.techPill}>
+                      {skill.trim()}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
+      )}
+
+      {/* Chapter 8: Executive Leadership & Craftsmen */}
       <section className={styles.section} id="leadership">
         <motion.div
           className={styles.sectionHeader}
@@ -581,7 +865,7 @@ const About: React.FC = () => {
         </motion.div>
       </section>
 
-      {/* Chapter 6: Global Footprint & Compliance */}
+      {/* Chapter 9: Global Footprint & Compliance */}
       <section className={styles.section} id="global">
         <motion.div
           className={styles.sectionHeader}
@@ -706,7 +990,61 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Chapter 7: The Final Invitation CTA */}
+      {/* Section 10: Frequently Asked Questions (FAQ + FAQPage Schema) */}
+      {faqData && (
+        <section className={styles.section} id="faq">
+          <motion.div
+            className={styles.sectionHeader}
+            variants={headerVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <span className={styles.label}>{faqData.label || 'ENTERPRISE FAQ'}</span>
+            <h2 className={styles.title}>
+              {renderFormattedTitle({
+                title: faqData.title,
+                defaultAccentPhrase: 'Questions',
+                defaultTitle: <>Frequently Asked <em>Questions</em></>,
+              })}
+            </h2>
+            <p className={styles.subtitle}>{faqData.subtitle}</p>
+          </motion.div>
+
+          <div className={styles.faqList}>
+            {faqData.items?.map((item, fIdx) => (
+              <div
+                key={fIdx}
+                className={`${styles.faqItem} ${openFaqIdx === fIdx ? styles.faqItemActive : ''}`}
+              >
+                <button
+                  className={styles.faqQuestion}
+                  onClick={() => setOpenFaqIdx(openFaqIdx === fIdx ? null : fIdx)}
+                  aria-expanded={openFaqIdx === fIdx}
+                >
+                  <span>{item.question}</span>
+                  <ChevronDown
+                    className={`${styles.faqIcon} ${openFaqIdx === fIdx ? styles.faqIconRotated : ''} w-5 h-5`}
+                  />
+                </button>
+                {openFaqIdx === fIdx && (
+                  <motion.div
+                    className={styles.faqAnswer}
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {item.answer}
+                  </motion.div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Chapter 11: The Final Invitation CTA */}
       <section className={styles.section}>
         <motion.div
           className={styles.ctaBox}
@@ -722,7 +1060,7 @@ const About: React.FC = () => {
               titleAccent: (sanityData?.cta as any)?.titleAccent,
               titleEnd: (sanityData?.cta as any)?.titleEnd,
               defaultAccentPhrase: 'Enterprise Platform',
-              defaultTitle: <>Ready to Build Your <em>Enterprise Platform</em>?</>,
+              defaultTitle: <>Ready to Architect Your <em>Enterprise Platform</em>?</>,
             })}
           </h2>
           <p className={styles.ctaSub}>

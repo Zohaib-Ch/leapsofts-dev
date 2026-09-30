@@ -3,7 +3,7 @@ import styles from './BlogListing.module.css';
 import { motion } from 'framer-motion';
 import { Link, useLoaderData } from 'react-router';
 import { Search, Clock, Calendar, ArrowRight, Sparkles } from 'lucide-react';
-import { blogsData } from '../../data/blogsData';
+import { blogsData, DEFAULT_BLOG_FALLBACK_IMAGE } from '../../data/blogsData';
 import Button from '../../components/Button/Button';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityBlogs } from '../../sanity/queries';
@@ -82,7 +82,9 @@ const BlogListing: React.FC = () => {
         const publishedDate = blog.publishedDate || (blog.publishedAt ? new Date(blog.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'September 2026');
         const featured = blog.featured || false;
         const excerpt = blog.excerpt || blog.subtitle || '';
-        const coverImage = blog.coverImageUrl || blog.coverImage || '/projectImages/agileauto.png';
+
+
+        const coverImage = blog.coverImageUrl || blog.coverImage || DEFAULT_BLOG_FALLBACK_IMAGE;
 
         const author = {
           name: blog.author?.name || 'Leapsofts Engineering',
@@ -139,9 +141,61 @@ const BlogListing: React.FC = () => {
   return (
     <div className={styles.blogListingPage}>
       <MetaSEO
-        defaultTitle="Engineering Insights & Architecture Tech Blog | Leapsofts"
-        defaultDescription="Read technical articles, AI system architecture blueprints, MLOps, cloud microservices, and product strategy insights from Leapsofts engineering leaders."
+        defaultTitle="Engineering Insights & Software Development Blog | Leapsofts"
+        defaultDescription="Read technical articles on enterprise AI pipelines, cloud microservices, zero-trust cloud security, and agile pod topologies from Leapsofts lead architects."
+        defaultKeywords="software development blog, enterprise AI articles, cloud architecture blog, zero trust security blueprints, leapsofts engineering insights"
+        canonicalUrl="https://www.leapsofts.com/blog"
       />
+
+      {/* JSON-LD Structured Data for Googlebot Crawling */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                {
+                  '@type': 'ListItem',
+                  position: 1,
+                  name: 'Home',
+                  item: 'https://www.leapsofts.com',
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 2,
+                  name: 'Engineering Insights',
+                  item: 'https://www.leapsofts.com/blog',
+                },
+              ],
+            },
+            {
+              '@context': 'https://schema.org',
+              '@type': 'ItemList',
+              name: 'Leapsofts Engineering Insights & Architecture Blueprints',
+              description: 'Technical articles, AI system architecture blueprints, cloud microservices, and product strategy insights from Leapsofts engineering leaders.',
+              itemListElement: normalizedPosts.map((post, idx) => ({
+                '@type': 'ListItem',
+                position: idx + 1,
+                url: `https://www.leapsofts.com/blog/${post.slug}`,
+                name: post.title,
+                description: post.excerpt,
+              })),
+            },
+          ]),
+        }}
+      />
+
+      {/* Breadcrumb Navigation Bar */}
+      <div className={styles.breadcrumbBar}>
+        <div className={styles.breadcrumbContainer}>
+          <Link to="/" className={styles.breadcrumbLink}>Home</Link>
+          <span className={styles.breadcrumbSeparator}>/</span>
+          <span className={styles.breadcrumbCurrent}>Engineering Insights</span>
+        </div>
+      </div>
+
       {/* Chapter 1: Hero Header & Search Controls */}
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
@@ -199,7 +253,14 @@ const BlogListing: React.FC = () => {
           >
             <Link to={`/blog/${featuredPost.slug}`} className={styles.spotlightCard}>
               <div className={styles.spotlightImageWrapper}>
-                <img src={featuredPost.coverImage} alt={featuredPost.title} className={styles.spotlightImage} />
+                <img
+                  src={featuredPost.coverImage}
+                  alt={featuredPost.title}
+                  className={styles.spotlightImage}
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = DEFAULT_BLOG_FALLBACK_IMAGE;
+                  }}
+                />
               </div>
 
               <div className={styles.spotlightContent}>
@@ -250,7 +311,14 @@ const BlogListing: React.FC = () => {
               <motion.div key={post.id} variants={cardChildVariant}>
                 <Link to={`/blog/${post.slug}`} className={styles.articleCard}>
                   <div className={styles.articleImageWrapper}>
-                    <img src={post.coverImage} alt={post.title} className={styles.articleImage} />
+                    <img
+                      src={post.coverImage}
+                      alt={post.title}
+                      className={styles.articleImage}
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = DEFAULT_BLOG_FALLBACK_IMAGE;
+                      }}
+                    />
                     <span className={styles.articleCategory}>{post.category}</span>
                   </div>
 

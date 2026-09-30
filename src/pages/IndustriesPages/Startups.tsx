@@ -1,4 +1,4 @@
-import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { buildPageMeta, buildIndustrySchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -119,10 +119,12 @@ export function meta({ data }: { data?: any }) {
 const Startups: React.FC = () => {
   const { data } = useIndustryPage('startups');
 
-  const schemaData = buildServiceSchema({
-    name: "Software Development for Startups & Rapid MVP Delivery",
-    description: "Launch your startup MVP in 3-5 months with Leapsofts. Custom software engineering, CTO-as-a-Service, serverless architecture & pitch-ready demos for founders.",
-    canonicalUrl: "https://www.leapsofts.com/industries/startups",
+  const schemaCanonicalUrl = "https://www.leapsofts.com/industries/startups";
+  const schemaData = buildIndustrySchema({
+    name: "Startup Software Development & MVP Services",
+    description: "Fast-track MVP development and startup software engineering — from ideation to investor-ready product.",
+    canonicalUrl: schemaCanonicalUrl,
+    industryName: "Startups & Scale-ups",
     faqs: data?.faqs,
   });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();

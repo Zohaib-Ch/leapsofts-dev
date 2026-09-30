@@ -1,4 +1,4 @@
-import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { buildPageMeta, buildIndustrySchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -126,10 +126,12 @@ export function meta({ data }: { data?: any }) {
 const Healthcare: React.FC = () => {
   const { data } = useIndustryPage('healthcare');
 
-  const schemaData = buildServiceSchema({
+  const schemaCanonicalUrl = "https://www.leapsofts.com/industries/healthcare";
+  const schemaData = buildIndustrySchema({
     name: "Healthcare Software Development Services",
     description: "HIPAA-compliant healthcare software development — EHR, patient portals & telehealth.",
-    canonicalUrl: "https://www.leapsofts.com/industries/healthcare",
+    canonicalUrl: schemaCanonicalUrl,
+    industryName: "Healthcare & Life Sciences",
     faqs: data?.faqs,
   });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();

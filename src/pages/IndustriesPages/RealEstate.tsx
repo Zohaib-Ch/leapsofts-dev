@@ -1,4 +1,4 @@
-import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { buildPageMeta, buildIndustrySchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -119,10 +119,12 @@ export function meta({ data }: { data?: any }) {
 const RealEstate: React.FC = () => {
   const { data } = useIndustryPage('real-estate');
 
-  const schemaData = buildServiceSchema({
-    name: "Real Estate Software Development Services & PropTech",
-    description: "Leapsofts engineers custom real estate software, property management platforms, MLS RETS/RESO Web API integrations, and tenant portal mobile apps.",
-    canonicalUrl: "https://www.leapsofts.com/industries/real-estate",
+  const schemaCanonicalUrl = "https://www.leapsofts.com/industries/real-estate";
+  const schemaData = buildIndustrySchema({
+    name: "PropTech & Real Estate Software Development Services",
+    description: "Custom property technology software — listing platforms, CRM, property management, and virtual tours.",
+    canonicalUrl: schemaCanonicalUrl,
+    industryName: "Real Estate & PropTech",
     faqs: data?.faqs,
   });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();

@@ -1,4 +1,5 @@
 import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
@@ -10,16 +11,13 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
-const cloudImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
-import { useServicePage } from '../../hooks/useServicePage';
-
 const serviceOverviewData = {
   label: "AWS CLOUD ARCHITECTURE",
   titleMain: "Orchestrating Highly Secure ",
   titleAccent: "Enterprise AWS ",
   titleEnd: "Environments",
   description: "At Leapsofts, we help modern enterprises maximize their infrastructure performance, scale computing capacity automatically, and reduce resource costs on Amazon Web Services. Our AWS-certified solutions architects construct custom AWS CDK blueprints, deploy high-availability Kubernetes systems via Amazon EKS, and build fault-tolerant databases that meet strict SOC2 and HIPAA compliance requirements.",
-  imagePath: cloudImg
+  imagePath: "/streamline.webp"
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
@@ -268,7 +266,10 @@ const AWS: React.FC = () => {
   const activeServicesData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || servicesData.label,
-        title: data.infoGrid.titleMain || servicesData.title,
+        titleMain: data.infoGrid.titleMain ?? servicesData.titleMain,
+        titleAccent: data.infoGrid.titleAccent ?? servicesData.titleAccent,
+        title: data.infoGrid.title || (data.infoGrid.titleMain || data.infoGrid.titleAccent ? undefined : servicesData.title),
+        description: data.infoGrid.description || servicesData.description,
         items: data.infoGrid.items.map((item, index) => ({
           icon: String(index + 1).padStart(2, '0'),
           title: item.title,
@@ -301,13 +302,28 @@ const AWS: React.FC = () => {
       }
     : deliverMVPData;
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : processPhasesDefault;
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
     : phaseLabelsDefault;
+  const activeServiceFeaturesItems: ServiceFeatureItem[] = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items.map(item => ({
+        icon: item.icon || '/industryicons/sphere.svg',
+        title: item.title,
+        description: item.description
+      }))
+    : serviceFeaturesData;
+
+
 
   return (
     <>
@@ -317,15 +333,19 @@ const AWS: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      <ServiceOverview
-        label={activeOverviewData.label}
-        titleMain={activeOverviewData.titleMain}
-        titleAccent={activeOverviewData.titleAccent}
-        titleEnd={activeOverviewData.titleEnd}
-        description={activeOverviewData.description}
-        imagePath={activeOverviewData.imagePath}
-      />
-      <InfoGrid data={activeServicesData} />
+      {activeOverviewData && activeOverviewData.description && (
+        <ServiceOverview
+          label={activeOverviewData.label}
+          titleMain={activeOverviewData.titleMain}
+          titleAccent={activeOverviewData.titleAccent}
+          titleEnd={activeOverviewData.titleEnd}
+          description={activeOverviewData.description}
+          imagePath={activeOverviewData.imagePath}
+        />
+      )}
+      {activeServicesData && activeServicesData.items && activeServicesData.items.length > 0 && (
+        <InfoGrid data={activeServicesData} />
+      )}
       <StreamlineSuccess
         label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={data?.strategyCTA?.titleMain || "Map your "}
@@ -334,20 +354,28 @@ const AWS: React.FC = () => {
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
-      <ServiceFeatures
-        title={data?.serviceFeatures?.title || 'Expert AWS Capabilities & Services'}
-        description={data?.serviceFeatures?.description || 'We deliver specialized cloud engineering services across the entire Amazon Web Services ecosystem.'}
-        items={data?.serviceFeatures?.items || serviceFeaturesData}
-      />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <EmergingTech data={activeEmergingTechData} />
-      <Processes
-        title={data?.processes?.title || "OUR AWS CLOUD PROCESS"}
-        processPhases={activeProcessPhases}
-        phaseLabels={activePhaseLabels}
-      />
+      {((data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0) || serviceFeaturesData.length > 0) && (
+        <ServiceFeatures
+          title={data?.serviceFeatures?.title || 'Expert AWS Capabilities & Services'}
+          description={data?.serviceFeatures?.description || 'We deliver specialized cloud engineering services across the entire Amazon Web Services ecosystem.'}
+          items={activeServiceFeaturesItems}
+        />
+      )}
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeEmergingTechData && activeEmergingTechData.items && activeEmergingTechData.items.length > 0 && (
+        <EmergingTech data={activeEmergingTechData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes
+          title={data?.processes?.title || "OUR AWS CLOUD PROCESS"}
+          processPhases={activeProcessPhases}
+          phaseLabels={activePhaseLabels}
+        />
+      )}
       <FAQs
         title="AWS Cloud Consulting & Development FAQ"
         subtitle="Everything you need to know about AWS serverless architecture, EKS Kubernetes clusters, AWS CDK IaC, database migrations, and cloud cost optimization."

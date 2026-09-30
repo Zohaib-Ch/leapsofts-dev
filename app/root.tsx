@@ -68,6 +68,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="google-site-verification" content="googlef44f90a97e88d97b" />
+        {/* Theme color for mobile browsers */}
+        <meta name="theme-color" content="#0a0a14" />
+        {/* Publisher / author for E-E-A-T */}
+        <meta name="author" content="Leapsofts Engineering" />
+        <link rel="alternate" hrefLang="en" href="https://www.leapsofts.com/" />
+        <link rel="alternate" hrefLang="x-default" href="https://www.leapsofts.com/" />
         <Meta />
         <Links />
         <script

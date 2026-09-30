@@ -1,4 +1,5 @@
 import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useServicePage } from '../../hooks/useServicePage';
 import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
@@ -12,17 +13,12 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
-const capabilitiesImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
-const platformImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
-const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
-import { useServicePage } from '../../hooks/useServicePage';
-
 const capabilitiesSlides: CapabilitySlide[] = [
   {
     id: 'azure-data-ai',
     number: '< 01 >',
     title: 'Azure Data & Enterprise Analytics',
-    image: capabilitiesImg,
+    image: "/streamline.webp",
     items: [
       {
         name: 'Azure Databricks Spark Engine',
@@ -46,7 +42,7 @@ const capabilitiesSlides: CapabilitySlide[] = [
     id: 'azure-platform-security',
     number: '< 02 >',
     title: 'Azure Identity & Security Hardening',
-    image: platformImg,
+    image: "/streamline.webp",
     items: [
       {
         name: 'Microsoft Entra ID Directories',
@@ -74,7 +70,7 @@ const serviceOverviewData = {
   titleAccent: "Hybrid Azure ",
   titleEnd: "Environments",
   description: "At Leapsofts, we help modern enterprises maximize their infrastructure efficiency, automate software releases, and optimize operating costs on Microsoft Azure. Our Microsoft-certified engineers develop modular Azure Bicep blueprints, deploy containerized microservices via Azure Kubernetes Service (AKS), and design robust data repositories that satisfy strict SOC2, HIPAA, and GDPR compliance rules.",
-  imagePath: laptopImg
+  imagePath: "/streamline.webp"
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
@@ -325,7 +321,7 @@ const Azure: React.FC = () => {
         id: slide.id || 'slide',
         number: slide.number || '< 01 >',
         title: slide.title || '',
-        image: slide.imageUrl || capabilitiesImg,
+        image: slide.imageUrl || "/streamline.webp",
         items: slide.items || []
       }))
     : capabilitiesSlides;
@@ -364,13 +360,28 @@ const Azure: React.FC = () => {
       }
     : deliverMVPData;
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : processPhasesDefault;
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
     : phaseLabelsDefault;
+  const activeServiceFeaturesItems: ServiceFeatureItem[] = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items.map(item => ({
+        icon: item.icon || '/industryicons/sphere.svg',
+        title: item.title,
+        description: item.description
+      }))
+    : serviceFeaturesData;
+
+
 
   return (
     <>
@@ -380,20 +391,26 @@ const Azure: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      <ServiceOverview
-        label={activeOverviewData.label}
-        titleMain={activeOverviewData.titleMain}
-        titleAccent={activeOverviewData.titleAccent}
-        titleEnd={activeOverviewData.titleEnd}
-        description={activeOverviewData.description}
-        imagePath={activeOverviewData.imagePath}
-      />
-      <Capabilities
-        slides={activeCapabilitiesSlides}
-        title={data?.capabilitiesSection?.title || "Our Azure Capabilities"}
-        defaultImage={capabilitiesImg}
-      />
-      <InfoGrid data={activeInfoGridData} />
+      {activeOverviewData && activeOverviewData.description && (
+        <ServiceOverview
+          label={activeOverviewData.label}
+          titleMain={activeOverviewData.titleMain}
+          titleAccent={activeOverviewData.titleAccent}
+          titleEnd={activeOverviewData.titleEnd}
+          description={activeOverviewData.description}
+          imagePath={activeOverviewData.imagePath}
+        />
+      )}
+      {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
+        <Capabilities
+          slides={activeCapabilitiesSlides}
+          title={data?.capabilitiesSection?.title || "Our Azure Capabilities"}
+          defaultImage="/streamline.webp"
+        />
+      )}
+      {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+        <InfoGrid data={activeInfoGridData} />
+      )}
       <StreamlineSuccess
         label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={data?.strategyCTA?.titleMain || "Map your "}
@@ -402,20 +419,28 @@ const Azure: React.FC = () => {
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
-      <ServiceFeatures
-        title={data?.serviceFeatures?.title || 'Expert Microsoft Azure Capabilities'}
-        description={data?.serviceFeatures?.description || 'We deliver specialized Azure services to support your cloud ecosystem, migration roadmap, and security posture.'}
-        items={data?.serviceFeatures?.items || serviceFeaturesData}
-      />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <EmergingTech data={activeEmergingTechData} />
-      <Processes
-        title={data?.processes?.title || "OUR AZURE CLOUD PROCESS"}
-        processPhases={activeProcessPhases}
-        phaseLabels={activePhaseLabels}
-      />
+      {((data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0) || serviceFeaturesData.length > 0) && (
+        <ServiceFeatures
+          title={data?.serviceFeatures?.title || 'Expert Microsoft Azure Capabilities'}
+          description={data?.serviceFeatures?.description || 'We deliver specialized Azure services to support your cloud ecosystem, migration roadmap, and security posture.'}
+          items={activeServiceFeaturesItems}
+        />
+      )}
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeEmergingTechData && activeEmergingTechData.items && activeEmergingTechData.items.length > 0 && (
+        <EmergingTech data={activeEmergingTechData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes
+          title={data?.processes?.title || "OUR AZURE CLOUD PROCESS"}
+          processPhases={activeProcessPhases}
+          phaseLabels={activePhaseLabels}
+        />
+      )}
       <FAQs
         title="Microsoft Azure Cloud Consulting & Development FAQ"
         subtitle="Everything you need to know about hybrid cloud architecture, Azure Kubernetes Service (AKS), Bicep IaC automation, Azure Databricks, and Entra ID security."

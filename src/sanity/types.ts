@@ -1,7 +1,7 @@
 export interface SanitySEO {
   metaTitle?: string;
   metaDescription?: string;
-  keywords?: string[];
+  keywords?: string[] | string;
   ogImage?: any;
   ogImageUrl?: string;
   twitterImage?: any;
@@ -166,6 +166,30 @@ export interface SanityAboutPage {
     hubs?: { name: string; desc: string; badge?: string; list?: string[] }[];
     compliance?: { title?: string; subtitle?: string; tag?: string; desc?: string; name?: string }[];
   };
+  whyChooseUs?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    reasons?: { title: string; desc: string; icon?: string; stat?: string }[];
+  };
+  industryImpact?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    industries?: { name: string; link: string; desc: string; tag?: string }[];
+  };
+  techStack?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    categories?: { category: string; skills: string }[];
+  };
+  faq?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    items?: { question: string; answer: string }[];
+  };
   cta?: {
     title?: string;
     subtitle?: string;
@@ -254,6 +278,7 @@ export interface SanityService {
   };
   serviceFeatures?: {
     title?: string;
+    description?: string;
     items?: { icon?: string; title: string; description: string }[];
   };
   emergingTech?: {

@@ -1,4 +1,4 @@
-import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { buildPageMeta, buildIndustrySchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -118,10 +118,12 @@ export function meta({ data }: { data?: any }) {
 const Transportation: React.FC = () => {
   const { data } = useIndustryPage('transportation');
 
-  const schemaData = buildServiceSchema({
-    name: "Transportation Software Development & Logistics Solutions",
-    description: "Leapsofts engineers custom transportation software, fleet telematics platforms, custom TMS solutions, IoT cold-chain tracking, and automated carrier payout gateways.",
-    canonicalUrl: "https://www.leapsofts.com/industries/transportation",
+  const schemaCanonicalUrl = "https://www.leapsofts.com/industries/transportation";
+  const schemaData = buildIndustrySchema({
+    name: "Transportation & Logistics Software Development Services",
+    description: "Custom logistics software — route optimization, fleet tracking, supply chain, and freight management.",
+    canonicalUrl: schemaCanonicalUrl,
+    industryName: "Transportation & Logistics",
     faqs: data?.faqs,
   });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();

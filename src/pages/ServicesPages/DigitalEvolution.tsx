@@ -12,7 +12,8 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import FAQs from '../../components/FAQs/FAQs';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
-const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
+import Capabilities from '../../components/Capabilities/Capabilities';
+
 
 const serviceOverviewData = {
   label: "ENTERPRISE MODERNIZATION",
@@ -20,7 +21,7 @@ const serviceOverviewData = {
   titleAccent: "Digital Evolution",
   titleEnd: "Roadmaps",
   description: "At Leapsofts, we guide mid-market and enterprise organizations through structural digital evolution campaigns, transforming legacy dependencies into modern growth assets. Our solutions architects evaluate code-level technical debt, plan monolithic-to-microservices migrations, and build secure, data-driven cloud systems that meet strict operational metrics and security certifications.",
-  imagePath: laptopImg
+  imagePath: "/streamline.webp"
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
@@ -255,7 +256,9 @@ const DigitalEvolution: React.FC = () => {
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || (typeof digitalEvolutionProcessData !== 'undefined' ? digitalEvolutionProcessData.label : ''),
-        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof digitalEvolutionProcessData !== 'undefined' ? digitalEvolutionProcessData.title : ''),
+        titleMain: data?.infoGrid?.titleMain,
+        titleAccent: data?.infoGrid?.titleAccent,
+        title: data?.infoGrid?.title || (data?.infoGrid?.titleMain || data?.infoGrid?.titleAccent ? undefined : (typeof digitalEvolutionProcessData !== 'undefined' ? digitalEvolutionProcessData.title : '')),
         description: data.infoGrid.description || (typeof digitalEvolutionProcessData !== 'undefined' ? digitalEvolutionProcessData.description : ''),
         items: data.infoGrid.items.map((item, index) => ({
           icon: String(index + 1).padStart(2, '0'),
@@ -308,9 +311,25 @@ const DigitalEvolution: React.FC = () => {
       }
     : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : processPhasesDefault;
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || "/streamline.webp",
+        items: slide.items || []
+      }))
+    : null;
+
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
@@ -330,7 +349,7 @@ const DigitalEvolution: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      {activeOverviewData && (
+      {activeOverviewData && activeOverviewData.description && (
         <ServiceOverview
           label={activeOverviewData.label}
           titleMain={activeOverviewData.titleMain}
@@ -340,7 +359,12 @@ const DigitalEvolution: React.FC = () => {
           imagePath={activeOverviewData.imagePath}
         />
       )}
-      <InfoGrid data={activeInfoGridData} />
+      {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
+        <Capabilities title={data?.capabilitiesSection?.title || "Digital Evolution Capabilities"} slides={activeCapabilitiesSlides} defaultImage="/streamline.webp" />
+      )}
+      {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+        <InfoGrid data={activeInfoGridData} />
+      )}
       <StreamlineSuccess
         label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={strategyCTA?.titleMain || "Map your "}
@@ -349,16 +373,22 @@ const DigitalEvolution: React.FC = () => {
         description={strategyCTA?.descriptionText ? [{ text: strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         buttonText={strategyCTA?.buttonText}
         buttonPath={strategyCTA?.buttonPath}
-        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Expert Services'}
         description={data?.serviceFeatures?.description || 'We deliver specialized digital services to support your entire organization.'}
         items={activeServiceFeatures}
       />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <EmergingTech data={activeEmergingTechData} />
-      <Processes title={data?.processes?.title || "OUR CUSTOM DIGITAL EVOLUTION PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeEmergingTechData && activeEmergingTechData.items && activeEmergingTechData.items.length > 0 && (
+        <EmergingTech data={activeEmergingTechData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes title={data?.processes?.title || "OUR CUSTOM DIGITAL EVOLUTION PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      )}
       <FAQs faqs={data?.faqs} items={data?.faqs} />
       <RelatedServices
         services={[

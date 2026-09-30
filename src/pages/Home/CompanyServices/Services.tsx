@@ -65,6 +65,19 @@ const defaultServices: ServiceData[] = [
             { name: 'Proof Of Concept Development', path: '/services/proof-of-concept-development' },
         ]
     },
+    {
+        id: '05',
+        number: '<05>',
+        title: 'Sales & Revenue Growth',
+        description: 'Accelerating pipeline velocity and enterprise revenue through dedicated AE sales pods, multi-channel outbound demand generation, data-driven paid media, SEO thought leadership, and automated RevOps system integration.',
+        items: [
+            { name: 'Full-Cycle Sales Execution & AE', path: '/services/sales-execution-ae' },
+            { name: 'Outbound Demand Generation', path: '/services/outbound-demand-gen' },
+            { name: 'Paid Media & Performance Marketing', path: '/services/paid-media-performance' },
+            { name: 'Inbound & Organic Growth', path: '/services/inbound-organic-growth' },
+            { name: 'Revenue Operations & Systems', path: '/services/revenue-operations-systems' },
+        ]
+    },
 ];
 
 export interface ServicesProps {
@@ -82,7 +95,15 @@ const Services: React.FC<ServicesProps> = ({
     titleEnd = " your enterprise",
     services: sanityServices
 }) => {
-    const activeServicesList = sanityServices && sanityServices.length > 0 ? sanityServices : defaultServices;
+    const activeServicesList = React.useMemo(() => {
+        let list = sanityServices && sanityServices.length > 0 ? [...sanityServices] : [...defaultServices];
+        const hasPillar05 = list.some(s => s.id === '05' || s.number === '<05>' || s.title?.toLowerCase().includes('sales'));
+        if (!hasPillar05) {
+            list.push(defaultServices[4]);
+        }
+        return list;
+    }, [sanityServices]);
+
     const [activeIndex, setActiveIndex] = useState(0);
 
     return (

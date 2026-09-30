@@ -12,16 +12,16 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import FAQs from '../../components/FAQs/FAQs';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import { parseFormattedText } from '../../utils/textParser';
-const capabilitiesImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
-const platformImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
-const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
+
+
+
 
 const capabilitiesSlides: CapabilitySlide[] = [
   {
     id: 'consultation',
     number: '< 01 >',
     title: 'Leapsofts, Pioneering POC Engineering Services',
-    image: capabilitiesImg,
+    image: "/streamline.webp",
     items: [
       {
         name: 'Concept Boundary Validation',
@@ -49,7 +49,7 @@ const capabilitiesSlides: CapabilitySlide[] = [
     id: 'configuration',
     number: '< 02 >',
     title: 'Technical Risk Minimization & System Validation',
-    image: platformImg,
+    image: "/streamline.webp",
     items: [
       {
         name: 'Stakeholder Alignment Demos',
@@ -81,7 +81,7 @@ const serviceOverviewData = {
   titleAccent: "POC Topologies ",
   titleEnd: "With Absolute Rigor",
   description: "At Leapsofts, we help modern enterprises and fast-growing startups validate complex technical concepts, address architectural uncertainties, and demonstrate software viability. Our senior engineers construct fully integrated cloud-native prototypes, verify advanced integration endpoints, and build isolated software demonstrators that satisfy strict performance and feasibility metrics.",
-  imagePath: laptopImg
+  imagePath: "/streamline.webp"
 };
 
 const infoGridData: InfoGridProps['data'] = {
@@ -293,7 +293,9 @@ const ProofOfConceptDevelopment: React.FC = () => {
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || (typeof infoGridData !== 'undefined' ? infoGridData.label : ''),
-        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof infoGridData !== 'undefined' ? infoGridData.title : ''),
+        titleMain: data?.infoGrid?.titleMain,
+        titleAccent: data?.infoGrid?.titleAccent,
+        title: data?.infoGrid?.title || (data?.infoGrid?.titleMain || data?.infoGrid?.titleAccent ? undefined : (typeof infoGridData !== 'undefined' ? infoGridData.title : '')),
         description: data.infoGrid.description || (typeof infoGridData !== 'undefined' ? infoGridData.description : ''),
         items: data.infoGrid.items.map((item, index) => ({
           icon: String(index + 1).padStart(2, '0'),
@@ -330,9 +332,15 @@ const ProofOfConceptDevelopment: React.FC = () => {
       }
     : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : processPhasesDefault;
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
@@ -341,6 +349,16 @@ const ProofOfConceptDevelopment: React.FC = () => {
   const activeServiceFeatures = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
     ? data.serviceFeatures.items
     : serviceFeaturesData;
+
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || "/streamline.webp",
+        items: slide.items || []
+      }))
+    : capabilitiesSlides;
 
   const strategyCTA = data?.strategyCTA;
 
@@ -352,7 +370,7 @@ const ProofOfConceptDevelopment: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      {activeOverviewData && (
+      {activeOverviewData && activeOverviewData.description && (
         <ServiceOverview
           label={activeOverviewData.label}
           titleMain={activeOverviewData.titleMain}
@@ -362,13 +380,17 @@ const ProofOfConceptDevelopment: React.FC = () => {
           imagePath={activeOverviewData.imagePath}
         />
       )}
-      <Capabilities
+      {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
+        <Capabilities
         title="Our Key Capabilities"
         description="We offer end-to-end custom application development services."
-        slides={capabilitiesSlides}
-        defaultImage={capabilitiesImg}
+        slides={activeCapabilitiesSlides}
+        defaultImage="/streamline.webp"
       />
-      <InfoGrid data={activeInfoGridData} />
+      )}
+      {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+        <InfoGrid data={activeInfoGridData} />
+      )}
       <StreamlineSuccess
         label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={strategyCTA?.titleMain || "Map your "}
@@ -377,15 +399,19 @@ const ProofOfConceptDevelopment: React.FC = () => {
         description={strategyCTA?.descriptionText ? parseFormattedText(strategyCTA.descriptionText) : streamlineDescription}
         buttonText={strategyCTA?.buttonText}
         buttonPath={strategyCTA?.buttonPath}
-        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Expert PoC Services'}
         description={data?.serviceFeatures?.description || 'We deliver specialized services to validate your digital innovations.'}
         items={activeServiceFeatures}
       />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <Processes title={data?.processes?.title || "OUR PROOF OF CONCEPT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes title={data?.processes?.title || "OUR PROOF OF CONCEPT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      )}
       <FAQs faqs={data?.faqs} items={data?.faqs} />
       <RelatedServices
         services={[

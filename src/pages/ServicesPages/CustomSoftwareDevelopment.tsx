@@ -1,9 +1,6 @@
-import React from 'react';
 import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import IntroComponent from "../../components/IntroComponent/IntroComponent";
 import Capabilities, { type CapabilitySlide } from "../../components/Capabilities/Capabilities";
-const capabilitiesImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
-const platformImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
 import ComparisonTable from "../../components/ComparisonTable/ComparisonTable";
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
@@ -14,12 +11,12 @@ import { parseFormattedText } from '../../utils/textParser';
 import { useServicePage } from '../../hooks/useServicePage';
 import { getSanityServiceBySlug } from '../../sanity/queries';
 
-const capabilitiesSlides: CapabilitySlide[] = [
+const capabilitiesSlidesDefault: CapabilitySlide[] = [
   {
     id: 'function',
     number: '< 01 >',
     title: 'Function-Based Capabilities',
-    image: capabilitiesImg,
+    image: "/streamline.webp",
     items: [
       {
         name: 'Architectural Integrity & Stability',
@@ -27,11 +24,11 @@ const capabilitiesSlides: CapabilitySlide[] = [
       },
       {
         name: 'High-Availability SLA Guarantees',
-        description: 'Benefit from proactive, 24/7 technical support managed by our global engineering squads. We implement real-time system logging, anomaly detection, and automated hotfixes to ensure continuous operational uptime.'
+        description: 'Benefit from proactive, 24/7 technical support managed by our global engineering squads. We implement real-time system logging, anomaly detection, and automated hotfixes to ensure 99.99% operational uptime.'
       },
       {
         name: 'Standardized Security & SDLC Workflows',
-        description: 'Our developers operate under strict Software Development Life Cycle (SDLC) models, integrating automated unit tests, strict linters, and regular code reviews to ensure top-tier software delivery.'
+        description: 'Our developers operate under strict Software Development Life Cycle (SDLC) models, integrating automated static analysis, strict linters, SAST scanning, and multi-peer code reviews into every release cycle.'
       }
     ]
   },
@@ -39,21 +36,21 @@ const capabilitiesSlides: CapabilitySlide[] = [
     id: 'platform',
     number: '< 02 >',
     title: 'Platform-Based Capabilities',
-    image: platformImg,
+    image: "/streamline.webp",
     items: [
       {
         name: 'Cloud-Native & API Orchestration',
-        description: 'We specialize in building secure cloud-native environments and complex API integration topologies. From containerized microservices managed via Kubernetes to distributed cache layers (like Redis) and robust database schemes, we ensure zero friction in data flows.'
-      },
+        description: 'We specialize in building secure cloud-native environments and complex API integration topologies. From containerized microservices managed via Kubernetes to distributed cache layers (Redis) and robust database schemes, we ensure zero friction in data flows.'
+      }
     ]
-  },
+  }
 ];
 
-const comparisonData = {
+const comparisonDataDefault = {
   label: 'ENTERPRISE ADVANTAGE',
   titleAccent: 'Bespoke Custom Software Development',
   titleMain: 'vs. Off-The-Shelf SaaS Platforms',
-  description: 'Investing in custom software engineering over off-the-shelf software packages delivers strategic long-term advantages:',
+  description: 'Investing in bespoke custom software engineering over commercial off-the-shelf software packages delivers strategic, long-term operational, financial, and competitive advantages:',
   headers: {
     feature: 'Evaluation Criteria',
     custom: 'Custom Software Solution',
@@ -62,28 +59,38 @@ const comparisonData = {
   items: [
     {
       feature: 'Tailored Business Logic',
-      custom: 'Custom software applications are engineered from the ground up to support your specific business model, regulatory constraints, and proprietary workflows.',
-      offTheShelf: 'Packaged SaaS platforms force your operational teams to adapt their internal processes to rigid, pre-built software constraints.'
+      custom: 'Engineered from the ground up to mirror your proprietary enterprise workflows, complex business rules, and industry compliance demands.',
+      offTheShelf: 'Forces operational teams to adapt internal processes to rigid, pre-built vendor constraints and generic templates.'
     },
     {
       feature: 'Enterprise Scalability',
-      custom: 'Built on elastic microservices and distributed cloud databases (AWS/Azure) that scale automatically alongside transaction volume.',
-      offTheShelf: 'Restricted by seat-based licensing tiers, multi-tenant usage caps, and steep API call overage charges.'
+      custom: 'Built on elastic microservices and distributed cloud databases (AWS/Azure) that scale automatically alongside transaction volume without latency spikes.',
+      offTheShelf: 'Constrained by multi-tenant server sharing, API rate call throttling, and expensive seat-based licensing tier upgrades.'
     },
     {
-      feature: 'API & Database Integration',
-      custom: 'Bespoke REST/GraphQL API bridges engineered to synchronize seamlessly with legacy enterprise systems and third-party tools.',
-      offTheShelf: 'Dependent on static, fragile plugins that break during core framework or third-party software updates.'
+      feature: 'API & System Integration',
+      custom: 'Bespoke REST, GraphQL, and gRPC API middleware bridges engineered to synchronize seamlessly with legacy ERPs, CRMs, and internal databases.',
+      offTheShelf: 'Reliant on static, fragile third-party plugins that frequently break during core framework or platform updates.'
     },
     {
       feature: 'Total Cost of Ownership (TCO)',
-      custom: 'High-ROI digital asset with 100% IP ownership, zero recurring user seat fees, and zero vendor lock-in overhead.',
-      offTheShelf: 'Compounding monthly subscription costs, per-user seat fees, and forced upgrades for basic enterprise features.'
+      custom: 'High-ROI digital asset with 100% IP ownership, zero recurring per-user seat fees, and zero vendor lock-in over a 3-5 year lifespan.',
+      offTheShelf: 'Compounding annual subscription inflation, per-user pricing penalties, and forced upgrades for basic enterprise features.'
     },
     {
       feature: 'Competitive IP Advantage',
-      custom: 'Exclusive proprietary source code and intellectual property that creates a defensible digital moat over industry competitors.',
+      custom: 'Exclusive proprietary source code and intellectual property that creates a defensible, unique digital moat over industry competitors.',
       offTheShelf: 'Generic digital infrastructure shared directly with your competitors, providing zero product differentiation.'
+    },
+    {
+      feature: 'Security & Regulatory Control',
+      custom: 'Total control over zero-trust security architecture, data residency, and full compliance engineering (HIPAA, SOC2, GDPR, PCI-DSS).',
+      offTheShelf: 'Data stored on multi-tenant shared servers with third-party vendor access and unknown compliance auditing timelines.'
+    },
+    {
+      feature: 'Release Cycle & Feature Control',
+      custom: 'You determine feature roadmaps, security patch cycles, and release timelines based strictly on internal business priorities.',
+      offTheShelf: 'Vulnerable to sudden vendor feature deprecations, forced UI redesigns, and unexpected pricing tier restructuring.'
     }
   ]
 };
@@ -199,30 +206,77 @@ const phaseLabelsDefault = [
   "DEPLOYMENT & EVOLUTION",
 ];
 
-const deliverMVPData = {
+const deliverMVPDataDefault = {
   label: "WHY CHOOSE LEAPSOFTS",
-  title: "Our Commitment to Deliver Your Custom Software in",
+  title: "Our Commitment to Deliver Your Enterprise Software in",
   accentText: "3-5 months?",
-  description: "Leapsofts is an elite custom software engineering partner. By combining fully integrated CI/CD pipelines, pre-built modular code repositories, and dedicated agile engineering pods, we build and deploy enterprise-ready MVPs within an accelerated 3 to 5 month timeline—on time, every time.",
+  description: "Leapsofts is an elite custom software engineering partner. By combining fully integrated CI/CD pipelines, pre-built modular code repositories, and dedicated senior agile pods, we build and deploy enterprise-ready MVPs within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
       title: "Microservice Decoupling.",
-      description: "Designing resilient, isolated service components to eliminate single points of failure across system networks."
+      description: "Designing resilient, isolated service components to eliminate single points of failure across enterprise system networks."
     },
     {
       title: "High-Concurrency SLAs.",
-      description: "Configuring elastic load balancing, caching networks, and multi-region database replication to maintain 99.99% uptime."
+      description: "Configuring elastic load balancing, distributed caching networks, and multi-region database replication to maintain 99.99% uptime."
     },
     {
       title: "Automated Auditing Suites.",
-      description: "Integrating static code linters and vulnerability scanners directly inside developer commit loops."
+      description: "Integrating static code linters, vulnerability scanners, and automated regression suites directly inside developer commit loops."
     },
     {
       title: "Self-Documenting Codebases.",
-      description: "Building with clean OOP structures, comprehensive API swagger documentation, and unit-tested functions."
+      description: "Building with clean OOP design patterns, OpenAPI/Swagger documentation, and unit-tested functions for effortless developer onboarding."
+    },
+    {
+      title: "100% IP & Source Code Ownership.",
+      description: "Complete handover of repository rights, deployment scripts, Docker containers, and documentation with zero vendor lock-in."
+    },
+    {
+      title: "Dedicated Senior Engineering Squads.",
+      description: "Assigned full-stack engineers, solution architects, and SCRUM masters who integrate seamlessly into your internal workflows."
     }
   ]
 };
+
+const defaultFaqs = [
+  {
+    question: "What is the average timeline for custom software development?",
+    answer: "An initial Minimum Viable Product (MVP) or core enterprise module is typically delivered within 3 to 5 months. Larger enterprise platforms follow an iterative sprint structure, delivering functional features every 2 weeks."
+  },
+  {
+    question: "How much does enterprise custom software development cost?",
+    answer: "Costs vary based on complexity, scope, data security standards, and integration requirements. Typical custom software projects range from $25,000 for focused MVPs to $150,000+ for multi-tenant enterprise platforms. We provide transparent, milestone-driven estimates after a complimentary architecture session."
+  },
+  {
+    question: "Who owns the source code and intellectual property (IP)?",
+    answer: "You own 100% of the custom source code, database architectures, APIs, and intellectual property upon payment completion. Leapsofts signs strict Non-Disclosure Agreements (NDAs) and executes full IP transfer documentation."
+  },
+  {
+    question: "What software development methodologies do you use?",
+    answer: "We utilize Agile SCRUM and Kanban frameworks. Clients receive bi-weekly sprint reviews, access to staging environments, and real-time dashboard updates via Jira/Linear to ensure complete transparency throughout the SDLC."
+  },
+  {
+    question: "How do you ensure data security and compliance (GDPR, HIPAA, SOC2)?",
+    answer: "Security is embedded into every development sprint. We implement end-to-end AES-256 data encryption, zero-trust role-based access controls (RBAC), automated SAST vulnerability scanning, and audit trails to guarantee HIPAA, GDPR, SOC2, and PCI-DSS compliance."
+  },
+  {
+    question: "Can you integrate new custom software with our existing legacy systems?",
+    answer: "Yes. Our solution architects specialize in custom API integration, building secure REST, GraphQL, or gRPC middleware bridges to connect your new platform with legacy databases, ERPs (SAP, Oracle), and CRMs (Salesforce)."
+  },
+  {
+    question: "What post-launch maintenance and SLA support do you provide?",
+    answer: "We provide structured Post-Launch SLAs ranging from 24/7 critical incident response to continuous monthly feature enhancements, framework security patching, cloud cost optimization, and proactive server uptime monitoring."
+  },
+  {
+    question: "What tech stack do you use for custom software development?",
+    answer: "We leverage modern, industry-standard technologies: TypeScript, Node.js, Go, Python, and Java for scalable backends; React, Next.js, and Angular for high-performance web frontends; Flutter and Swift/Kotlin for mobile apps; and AWS, Azure, Docker, and Kubernetes for cloud infrastructure."
+  },
+  {
+    question: "What is the difference between a dedicated development pod and a fixed-price project?",
+    answer: "Fixed-price engagements are ideal for projects with clearly defined, static scopes and specs. Dedicated development pods provide an assigned squad of senior developers, architects, and QA engineers working on a monthly sprint basis, offering maximum flexibility for evolving product roadmaps."
+  }
+];
 
 const streamlineDescription = [
   { text: "Whether modernizing a complex ", bold: false },
@@ -234,7 +288,7 @@ const streamlineDescription = [
   { text: "built to unlock measurable product growth and streamline operational efficiency.", bold: false }
 ];
 
-const title = "Enterprise Custom Software Development Engineered to Scale";
+const title = "Enterprise Custom Software Development Services | Leapsofts";
 const subtitle = "";
 
 const introDescription = [
@@ -250,12 +304,12 @@ export async function loader() {
   return { sanityData };
 }
 
-export function meta({ data }: { data?: any }) {
+export function meta({ data }: { data?: Record<string, unknown> }) {
   return buildPageMeta({
-    sanityData: data?.sanityData,
-    defaultTitle: "Custom Software Development Services | Leapsofts",
-    defaultDescription: "Build secure, scalable custom software tailored to your enterprise. Leapsofts delivers full-cycle development from architecture to deployment. Get a free quote.",
-    defaultKeywords: "custom software development services, bespoke software development, enterprise application development, software development company",
+    sanityData: (data as any)?.sanityData,
+    defaultTitle: "Enterprise Custom Software Development Services | Leapsofts",
+    defaultDescription: "Leapsofts delivers enterprise custom software development services tailored for scalability, security, and performance. 100% IP handover, cloud-native architecture, and 3-5 month MVP delivery. Request a free strategy session.",
+    defaultKeywords: "custom software development services, enterprise software development company, bespoke software development, enterprise application development, software development company, custom enterprise software, microservices software architecture, legacy software modernization",
     canonicalUrl: "https://www.leapsofts.com/services/custom-software-development",
   });
 }
@@ -263,11 +317,13 @@ export function meta({ data }: { data?: any }) {
 function CustomSoftwareDevelopment() {
   const { data } = useServicePage('custom-software-development');
 
+  const activeFaqs = (data?.faqs && data.faqs.length > 0) ? data.faqs : defaultFaqs;
+
   const schemaData = buildServiceSchema({
-    name: "Custom Software Development Services",
-    description: "Build secure, scalable custom software tailored to your enterprise. Leapsofts delivers full-cycle development from architecture to deployment.",
+    name: "Enterprise Custom Software Development Services",
+    description: "Leapsofts delivers enterprise custom software development services tailored for scalability, security, and performance. 100% IP handover and cloud-native architecture.",
     canonicalUrl: "https://www.leapsofts.com/services/custom-software-development",
-    faqs: data?.faqs,
+    faqs: activeFaqs,
   });
 
   const activeTitle = data?.hero?.title || title;
@@ -281,35 +337,49 @@ function CustomSoftwareDevelopment() {
         id: slide.id || 'slide',
         number: slide.number || '< 01 >',
         title: slide.title || '',
-        image: slide.imageUrl || capabilitiesImg,
+        image: slide.imageUrl || "/streamline.webp",
         items: slide.items || []
       }))
-    : capabilitiesSlides;
+    : capabilitiesSlidesDefault;
 
   const activeComparisonData = (data?.comparisonTable && data.comparisonTable.items?.length)
     ? {
-        label: data.comparisonTable.label || comparisonData.label,
-        titleAccent: data.comparisonTable.titleAccent || comparisonData.titleAccent,
-        titleMain: data.comparisonTable.titleMain || comparisonData.titleMain,
-        description: data.comparisonTable.description || comparisonData.description,
-        headers: data.comparisonTable.headers || comparisonData.headers,
-        items: data.comparisonTable.items || comparisonData.items
+        label: data.comparisonTable.label || comparisonDataDefault.label,
+        titleAccent: data.comparisonTable.titleAccent || comparisonDataDefault.titleAccent,
+        titleMain: data.comparisonTable.titleMain || comparisonDataDefault.titleMain,
+        description: data.comparisonTable.description || comparisonDataDefault.description,
+        headers: {
+          feature: data.comparisonTable.headers?.feature || comparisonDataDefault.headers.feature,
+          custom: data.comparisonTable.headers?.custom || comparisonDataDefault.headers.custom,
+          offTheShelf: data.comparisonTable.headers?.offTheShelf || comparisonDataDefault.headers.offTheShelf,
+        },
+        items: data.comparisonTable.items.map(item => ({
+          feature: item.feature || '',
+          custom: item.custom || '',
+          offTheShelf: item.offTheShelf || ''
+        }))
       }
-    : comparisonData;
+    : comparisonDataDefault;
 
   const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
     ? {
-        label: data.deliverMVP.label || deliverMVPData.label,
-        title: data.deliverMVP.title || deliverMVPData.title,
-        accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
-        description: data.deliverMVP.description || deliverMVPData.description,
-        items: data.deliverMVP.items || deliverMVPData.items
+        label: data.deliverMVP.label || deliverMVPDataDefault.label,
+        title: data.deliverMVP.title || deliverMVPDataDefault.title,
+        accentText: data.deliverMVP.accentText || deliverMVPDataDefault.accentText,
+        description: data.deliverMVP.description || deliverMVPDataDefault.description,
+        items: data.deliverMVP.items || deliverMVPDataDefault.items
       }
-    : deliverMVPData;
+    : deliverMVPDataDefault;
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : processPhasesDefault;
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
@@ -325,26 +395,35 @@ function CustomSoftwareDevelopment() {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      <Capabilities
-        title={data?.capabilitiesSection?.title || "Our Key Capabilities"}
-        description={data?.capabilitiesSection?.description || "We offer end-to-end custom application development services across various platforms and business functions."}
-        slides={activeCapabilitiesSlides}
-        defaultImage={capabilitiesImg}
-      />
-      <ComparisonTable data={activeComparisonData} />
+      {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
+        <Capabilities
+          title={data?.capabilitiesSection?.title || "Our Custom Software Engineering Capabilities"}
+          description={data?.capabilitiesSection?.description || "We offer end-to-end custom application development services across various platforms, cloud architectures, and enterprise business functions."}
+          slides={activeCapabilitiesSlides}
+          defaultImage="/streamline.webp"
+        />
+      )}
+      {activeComparisonData && activeComparisonData.items && activeComparisonData.items.length > 0 && (
+        <ComparisonTable data={activeComparisonData as ComparisonData} />
+      )}
       <StreamlineSuccess
         label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={strategyCTA?.titleMain || "Map your "}
         titleAccent={strategyCTA?.titleAccent || "technical"}
         titleEnd={strategyCTA?.titleEnd || " roadmap."}
         description={strategyCTA?.descriptionText ? parseFormattedText(strategyCTA.descriptionText) : streamlineDescription}
-        buttonText={strategyCTA?.buttonText}
-        buttonPath={strategyCTA?.buttonPath}
-        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
+        description2="During this complimentary 45-minute architectural session, our principal solution engineers analyze your current software infrastructure, audit technical debt, evaluate cloud concurrency bottlenecks, and formulate a clear, milestone-driven execution plan with transparent budget estimates."
+        buttonText={strategyCTA?.buttonText || "Schedule Architectural Consultation"}
+        buttonPath={strategyCTA?.buttonPath || "/contact"}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.webp"}
       />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <Processes title={data?.processes?.title || "OUR CUSTOM SOFTWARE DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
-      <FAQs title="Custom Software Development FAQ" subtitle="Everything you need to know about our enterprise custom software development services, timelines, and IP ownership." faqs={data?.faqs} items={data?.faqs} />
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes title={data?.processes?.title || "OUR CUSTOM SOFTWARE DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      )}
+      <FAQs title="Custom Software Development FAQ" subtitle="Everything you need to know about our enterprise custom software development services, timelines, pricing, and 100% IP ownership." faqs={activeFaqs} items={activeFaqs} />
       <RelatedServices
         services={[
           {

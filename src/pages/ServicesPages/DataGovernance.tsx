@@ -11,7 +11,8 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
-const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
+import Capabilities from '../../components/Capabilities/Capabilities';
+
 
 const serviceOverviewData = {
     label: "DATA GOVERNANCE",
@@ -19,7 +20,7 @@ const serviceOverviewData = {
     titleAccent: "Enterprise Data ",
     titleEnd: "Environments",
     description: "At Leapsofts, we customize and engineer resilient Data Governance frameworks designed to convert fragmented corporate databases into a single, highly audited source of truth. By designing unified Master Data Management (MDM) rules, charting visual end-to-end data lineage logs, configuring automated catalog platforms (Collibra, Alation, Apache Atlas), and setting up role-based query filters (Apache Ranger), we enable major enterprises to preserve data integrity, protect sensitive PII, and achieve absolute compliance readiness.",
-    imagePath: laptopImg
+    imagePath: "/streamline.webp"
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
@@ -295,7 +296,9 @@ const DataGovernance: React.FC = () => {
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || (typeof infoGridData !== 'undefined' ? infoGridData.label : ''),
-        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof infoGridData !== 'undefined' ? infoGridData.title : ''),
+        titleMain: data?.infoGrid?.titleMain,
+        titleAccent: data?.infoGrid?.titleAccent,
+        title: data?.infoGrid?.title || (data?.infoGrid?.titleMain || data?.infoGrid?.titleAccent ? undefined : (typeof infoGridData !== 'undefined' ? infoGridData.title : '')),
         description: data.infoGrid.description || (typeof infoGridData !== 'undefined' ? infoGridData.description : ''),
         items: data.infoGrid.items.map((item, index) => ({
           icon: String(index + 1).padStart(2, '0'),
@@ -346,6 +349,16 @@ const DataGovernance: React.FC = () => {
       }
     : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
 
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || "/streamline.webp",
+        items: slide.items || []
+      }))
+    : null;
+
   const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
     ? data.processes.processPhases
     : (typeof processesData !== 'undefined' ? processesData : []);
@@ -353,6 +366,15 @@ const DataGovernance: React.FC = () => {
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
     : (typeof phaseLabels !== 'undefined' ? phaseLabels : []);
+  const activeServiceFeaturesItems: ServiceFeatureItem[] = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items.map(item => ({
+        icon: item.icon || '/industryicons/sphere.svg',
+        title: item.title,
+        description: item.description
+      }))
+    : serviceFeaturesData;
+
+
 
   return (
     <>
@@ -362,15 +384,22 @@ const DataGovernance: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      <ServiceOverview
+      {activeOverviewData && activeOverviewData.description && (
+        <ServiceOverview
         label={activeOverviewData?.label || "DATA GOVERNANCE"}
         titleMain={activeOverviewData?.titleMain || "Orchestrating Trustworthy "}
         titleAccent={activeOverviewData?.titleAccent || "Enterprise Data "}
         titleEnd={activeOverviewData?.titleEnd || "Environments"}
         description={activeOverviewData?.description || "At Leapsofts, we customize and engineer resilient Data Governance frameworks designed to convert fragmented corporate databases into a single, highly audited source of truth."}
-        imagePath={activeOverviewData?.imagePath || laptopImg}
+        imagePath={activeOverviewData?.imagePath || "/streamline.webp"}
       />
-      <InfoGrid data={activeInfoGridData} />
+      )}
+      {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
+        <Capabilities title={data?.capabilitiesSection?.title || "Data Governance Capabilities"} slides={activeCapabilitiesSlides} defaultImage="/streamline.webp" />
+      )}
+      {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+        <InfoGrid data={activeInfoGridData} />
+      )}
       <StreamlineSuccess
         label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={data?.strategyCTA?.titleMain || "Map your "}
@@ -379,20 +408,26 @@ const DataGovernance: React.FC = () => {
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Expert Data Governance Capabilities'}
         description={data?.serviceFeatures?.description || 'We deliver specialized governance services to support your enterprise data workflows and regulatory compliance.'}
-        items={data?.serviceFeatures?.items || serviceFeaturesData}
+        items={activeServiceFeaturesItems}
       />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <EmergingTech data={activeEmergingTechData} />
-      <Processes
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeEmergingTechData && activeEmergingTechData.items && activeEmergingTechData.items.length > 0 && (
+        <EmergingTech data={activeEmergingTechData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes
         title={data?.processes?.title || "OUR CUSTOM DATA GOVERNANCE PROCESS"}
         phaseLabels={activePhaseLabels}
         processPhases={activeProcessPhases}
       />
+      )}
       <FAQs
         title="Data Governance & Data Management FAQ"
         subtitle="Everything you need to know about Master Data Management (MDM), data cataloging, GDPR/HIPAA compliance audits, and data quality pipelines."

@@ -521,5 +521,47 @@
       "question": "Who should be involved in the PoC Development process?",
       "answer": "The PoC Development process should involve a cross-functional team that includes project managers, developers, business analysts, and key stakeholders. Involving end-users or customer representatives can also provide valuable feedback on the concept's practicality and usability."
     }
+  ],
+  "service-now": [
+    {
+      "question": "What ServiceNow implementation services does Leapsofts offer?",
+      "answer": "Leapsofts provides end-to-end ServiceNow consulting, ITSM modernization, ITOM discovery, Custom Scoped App development, and IntegrationHub REST API setup."
+    },
+    {
+      "question": "How do you ensure zero business disruption during ServiceNow migration?",
+      "answer": "We utilize automated update sets, MID Server staging environments, and strict CI/CD release pipelines to deploy ServiceNow configurations seamlessly."
+    },
+    {
+      "question": "Can Leapsofts integrate ServiceNow with existing enterprise ERPs and CRM platforms?",
+      "answer": "Yes, we build robust REST/SOAP API integrations via IntegrationHub to connect ServiceNow with Salesforce, SAP, Jira, and custom backend databases."
+    }
+  ],
+  "azure": [
+    {
+      "question": "What Microsoft Azure services does Leapsofts specialize in?",
+      "answer": "We specialize in Azure Cloud Migration, AKS Kubernetes cluster orchestration, Bicep & ARM Infrastructure as Code (IaC), Azure SQL Serverless, and Azure OpenAI integration."
+    },
+    {
+      "question": "How does Leapsofts optimize Azure cloud operating costs (FinOps)?",
+      "answer": "We implement automated resource auto-scaling rules, Azure Reserved Instance strategies, and continuous cost telemetry dashboards to reduce monthly cloud expenditure."
+    },
+    {
+      "question": "Does Leapsofts support hybrid cloud setups using Azure Arc?",
+      "answer": "Yes, we architect hybrid and multi-cloud environments using Azure Arc, secure ExpressRoute connections, and unified Azure Active Directory (Entra ID) access governance."
+    }
+  ],
+  "app-reengineering": [
+    {
+      "question": "What is application re-engineering?",
+      "answer": "Application re-engineering is the process of modernizing legacy software codebases, database schemas, and infrastructure architectures without altering core business rules or disrupting active operations."
+    },
+    {
+      "question": "How do you migrate monolithic applications to microservices?",
+      "answer": "We apply the Strangler Fig pattern, gradually decoupling monolithic software modules into containerized Docker/Kubernetes microservices backed by independent datastores."
+    },
+    {
+      "question": "How does Leapsofts guarantee zero data loss during re-engineering?",
+      "answer": "We establish automated change data capture (CDC) sync pipelines, shadow database execution, and comprehensive regression test suites prior to final production cutover."
+    }
   ]
 }

@@ -1,4 +1,4 @@
-import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { buildPageMeta, buildIndustrySchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -121,10 +121,12 @@ export function meta({ data }: { data?: any }) {
 const WholesaleRetail: React.FC = () => {
   const { data } = useIndustryPage('wholesale-retail');
 
-  const schemaData = buildServiceSchema({
-    name: "Retail & Wholesale Software Development",
-    description: "Custom retail & wholesale software — POS, inventory management & ecommerce platforms.",
-    canonicalUrl: "https://www.leapsofts.com/industries/wholesale-retail",
+  const schemaCanonicalUrl = "https://www.leapsofts.com/industries/wholesale-retail";
+  const schemaData = buildIndustrySchema({
+    name: "Retail & Wholesale Software Development Services",
+    description: "Custom retail software — inventory management, POS systems, eCommerce platforms, and supply chain tools.",
+    canonicalUrl: schemaCanonicalUrl,
+    industryName: "Wholesale & Retail",
     faqs: data?.faqs,
   });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();

@@ -7,6 +7,47 @@
   overflow-x: clip;
 }
 
+.breadcrumbBar {
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 16px 24px;
+  position: relative;
+  z-index: 10;
+}
+
+.breadcrumbContainer {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.breadcrumbLink {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-orange);
+}
+
+.breadcrumbSeparator {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.breadcrumbCurrent {
+  color: var(--color-orange);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .progressBar {
   position: fixed;
   top: 0;

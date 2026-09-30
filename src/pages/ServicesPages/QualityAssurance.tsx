@@ -11,7 +11,7 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
-const phoneImg = "https://cdn.sanity.io/images/egqy3ztp/production/9a8d2074c4c6748e73587c6d3e57b16f215d2062-1024x1024.webp";
+
 
 const ourServicesData: EmergingTechProps['data'] = {
     label: 'QA SERVICES',
@@ -315,14 +315,16 @@ const QualityAssurance: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || "Validation & ",
         titleEnd: data.serviceOverview.titleEnd || "Security",
         description: data.serviceOverview.description || "At Leapsofts, we establish strict software validation layers that identify system vulnerabilities and logical errors long before production deployment. By combining automated regression suites, localized API integration mocks, and intensive cloud-native load testing setups, we ensure your applications achieve absolute performance reliability, robust SOC2 compliance, and optimal core web vitals.",
-        imagePath: data.serviceOverview.imageUrl || phoneImg
+        imagePath: data.serviceOverview.imageUrl || "/streamline.webp"
       }
     : null;
 
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || infoGridData.label,
-        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || infoGridData.title,
+        titleMain: data?.infoGrid?.titleMain,
+        titleAccent: data?.infoGrid?.titleAccent,
+        title: data?.infoGrid?.title || (data?.infoGrid?.titleMain || data?.infoGrid?.titleAccent ? undefined : infoGridData.title),
         description: data.infoGrid.description || infoGridData.description,
         items: data.infoGrid.items.map((item, index) => ({
           icon: String(index + 1).padStart(2, '0'),
@@ -363,6 +365,15 @@ const QualityAssurance: React.FC = () => {
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
     : (typeof phaseLabelsDefault !== 'undefined' ? phaseLabelsDefault : (typeof phaseLabels !== 'undefined' ? phaseLabels : []));
+  const activeServiceFeaturesItems: ServiceFeatureItem[] = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items.map(item => ({
+        icon: item.icon || '/industryicons/sphere.svg',
+        title: item.title,
+        description: item.description
+      }))
+    : serviceFeaturesData;
+
+
 
     return (
         <>
@@ -372,15 +383,19 @@ const QualityAssurance: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-            <ServiceOverview
+            {activeOverviewData && activeOverviewData.description && (
+              <ServiceOverview
                 label={activeOverviewData?.label || "QUALITY ENGINEERING"}
                 titleMain={activeOverviewData?.titleMain || "Continuous "}
                 titleAccent={activeOverviewData?.titleAccent || "Validation & "}
                 titleEnd={activeOverviewData?.titleEnd || "Security"}
                 description={activeOverviewData?.description || "At Leapsofts, we establish strict software validation layers that identify system vulnerabilities and logical errors long before production deployment. By combining automated regression suites, localized API integration mocks, and intensive cloud-native load testing setups, we ensure your applications achieve absolute performance reliability, robust SOC2 compliance, and optimal core web vitals."}
-                imagePath={activeOverviewData?.imagePath || phoneImg}
+                imagePath={activeOverviewData?.imagePath || "/streamline.webp"}
             />
-            <InfoGrid data={activeInfoGridData} />
+            )}
+            {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+              <InfoGrid data={activeInfoGridData} />
+            )}
             <StreamlineSuccess
                 label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
                 titleMain={data?.strategyCTA?.titleMain || "Map your "}
@@ -389,20 +404,26 @@ const QualityAssurance: React.FC = () => {
                 description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
                 buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
                 buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-                imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+                imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
             />
             <ServiceFeatures
                 title={data?.serviceFeatures?.title || 'Our QA Services'}
                 description={data?.serviceFeatures?.description || 'We offer specialized testing services tailored to your project requirements, ensuring robust performance and security.'}
-                items={data?.serviceFeatures?.items || serviceFeaturesData}
+                items={activeServiceFeaturesItems}
             />
-            <DeliverMVP data={activeDeliverMVPData} />
-            <EmergingTech data={activeEmergingTechData} />
-            <Processes
+            {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+              <DeliverMVP data={activeDeliverMVPData} />
+            )}
+            {activeEmergingTechData && activeEmergingTechData.items && activeEmergingTechData.items.length > 0 && (
+              <EmergingTech data={activeEmergingTechData} />
+            )}
+            {activeProcessPhases && activeProcessPhases.length > 0 && (
+              <Processes
                 title={data?.processes?.title || "Software Verification & Validation Framework"}
                 phaseLabels={activePhaseLabels}
                 processPhases={activeProcessPhases}
             />
+            )}
             <FAQs
                 title="Quality Assurance & Software Testing FAQ"
                 subtitle="Everything you need to know about automated testing, Playwright/Cypress frameworks, load testing, and continuous regression shielding."

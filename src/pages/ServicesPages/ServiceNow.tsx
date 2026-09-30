@@ -11,7 +11,7 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
-const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
+
 
 const serviceOverviewData = {
   label: "SERVICENOW SOLUTIONS",
@@ -19,7 +19,7 @@ const serviceOverviewData = {
   titleAccent: "Enterprise ",
   titleEnd: "Workflows",
   description: "At Leapsofts, we customize and engineer highly optimized ServiceNow environments designed to connect disparate organizational silos into cohesive digital workflows. By designing customized Scoped Applications, writing optimized, secure Business Rules and Client Scripts, and configuring robust integration hubs via secure REST APIs and MID Server architectures, we help major organizations automate service delivery, enforce strict security compliance, and achieve full operational transparency.",
-  imagePath: laptopImg
+  imagePath: "/streamline.webp"
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
@@ -275,7 +275,9 @@ const ServiceNow: React.FC = () => {
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || (typeof reEngineeringProcessData !== 'undefined' ? reEngineeringProcessData.label : ''),
-        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof reEngineeringProcessData !== 'undefined' ? reEngineeringProcessData.title : ''),
+        titleMain: data?.infoGrid?.titleMain,
+        titleAccent: data?.infoGrid?.titleAccent,
+        title: data?.infoGrid?.title || (data?.infoGrid?.titleMain || data?.infoGrid?.titleAccent ? undefined : (typeof reEngineeringProcessData !== 'undefined' ? reEngineeringProcessData.title : '')),
         description: data.infoGrid.description || (typeof reEngineeringProcessData !== 'undefined' ? reEngineeringProcessData.description : ''),
         items: data.infoGrid.items.map((item, index) => ({
           icon: String(index + 1).padStart(2, '0'),
@@ -327,12 +329,26 @@ const ServiceNow: React.FC = () => {
     : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
 
   const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
     : processPhasesDefault;
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
     : phaseLabelsDefault;
+
+  const activeServiceFeaturesItems: ServiceFeatureItem[] = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items.map(item => ({
+        icon: item.icon || '/industryicons/sphere.svg',
+        title: item.title,
+        description: item.description
+      }))
+    : serviceFeaturesData;
 
   return (
     <>
@@ -342,15 +358,19 @@ const ServiceNow: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      <ServiceOverview
+      {activeOverviewData && activeOverviewData.description && (
+        <ServiceOverview
         label={activeOverviewData?.label || "SERVICENOW SOLUTIONS"}
         titleMain={activeOverviewData?.titleMain || "Unifying Your "}
         titleAccent={activeOverviewData?.titleAccent || "Enterprise "}
         titleEnd={activeOverviewData?.titleEnd || "Workflows"}
         description={activeOverviewData?.description || "At Leapsofts, we customize and engineer highly optimized ServiceNow environments designed to connect disparate organizational silos into cohesive digital workflows."}
-        imagePath={activeOverviewData?.imagePath || laptopImg}
+        imagePath={activeOverviewData?.imagePath || "/streamline.webp"}
       />
-      <InfoGrid data={activeInfoGridData} />
+      )}
+      {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+        <InfoGrid data={activeInfoGridData} />
+      )}
       <StreamlineSuccess
         label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={data?.strategyCTA?.titleMain || "Map your "}
@@ -359,20 +379,26 @@ const ServiceNow: React.FC = () => {
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Expert ServiceNow Capabilities & Services'}
         description={data?.serviceFeatures?.description || 'We deliver specialized ServiceNow services to support your enterprise workflows and digital transformation.'}
-        items={data?.serviceFeatures?.items || serviceFeaturesData}
+        items={activeServiceFeaturesItems}
       />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <EmergingTech data={activeEmergingTechData} />
-      <Processes
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeEmergingTechData && activeEmergingTechData.items && activeEmergingTechData.items.length > 0 && (
+        <EmergingTech data={activeEmergingTechData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes
         title={data?.processes?.title || "OUR CUSTOM SERVICENOW PROCESS"}
         processPhases={activeProcessPhases}
         phaseLabels={activePhaseLabels}
       />
+      )}
       <FAQs
         title="ServiceNow Implementation & Consulting FAQ"
         subtitle="Everything you need to know about ITSM modernization, ITOM discovery, Scoped App development, IntegrationHub endpoints, and platform upgrades."

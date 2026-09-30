@@ -1,5 +1,6 @@
-import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
-import React, { useState, useEffect } from 'react';
+import { buildPageMeta } from '../../utils/seoHelper';
+import React, { useState } from 'react';
+import { useLoaderData, Link } from 'react-router';
 import styles from './GlobalFootprint.module.css';
 import { motion } from 'framer-motion';
 import { useContactModal } from '../../context/ContactModalContext';
@@ -8,6 +9,7 @@ import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityAboutPage } from '../../sanity/queries';
 import type { SanityAboutPage } from '../../sanity/types';
 import { renderFormattedTitle } from '../../utils/titleFormatter';
+import { DEFAULT_GLOBAL_PAGE_DATA } from '../../data/companyFallback';
 import {
   Award,
   ShieldCheck,
@@ -18,9 +20,10 @@ import {
   Key,
   FileCheck,
   Building2,
+  ChevronRight,
+  ChevronDown,
+  ArrowRight,
 } from 'lucide-react';
-import { useLoaderData } from 'react-router';
-import { DEFAULT_GLOBAL_PAGE_DATA } from '../../data/companyFallback';
 
 export async function loader() {
   const sanityData = await getSanityAboutPage('aboutGlobalPage');
@@ -30,9 +33,9 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Global Offices & Compliance | Leapsofts",
-    defaultDescription: "Leapsofts operates across strategic global offices, delivering compliant software solutions for enterprises in the UAE, USA, UK, and beyond.",
-    defaultKeywords: "Leapsofts global offices, software delivery hubs, Dubai HQ, US software office",
+    defaultTitle: "Global Offices & Security Compliance | ISO, HIPAA, SOC2 | Leapsofts",
+    defaultDescription: "Leapsofts operates global delivery hubs in Dubai and the USA with ISO 27001, HIPAA, SOC 2, and GDPR security compliance readiness for enterprise software.",
+    defaultKeywords: "Leapsofts global offices, Dubai HQ software company, US software delivery hub, HIPAA SOC2 compliant software agency, ISO 27001 cloud engineering",
     canonicalUrl: "https://www.leapsofts.com/about/global-footprint",
   });
 }
@@ -63,7 +66,7 @@ const ribbonData = [
 const hubsData = [
   {
     badge: 'UAE HEADQUARTERS • GMT+4',
-    title: 'Dubai Hub (Middle East & Europe)',
+    title: 'Dubai Hub (Middle East & APAC)',
     desc: 'Our global headquarters and primary engineering delivery center. Positioned strategically to serve Middle East, European, and Asian enterprise clients with continuous engineering output.',
     list: [
       'High-throughput cloud architecture & specialized AI labs',
@@ -89,24 +92,28 @@ const complianceData = [
   {
     name: 'ISO 27001',
     tag: 'Information Security Management',
+    subtitle: 'Audited ISMS Framework',
     desc: 'Proves our development lifecycle, server infrastructure, and code delivery pipelines comply with rigorous international information security standards.',
     icon: <ShieldCheck className="w-6 h-6" />,
   },
   {
     name: 'HIPAA',
     tag: 'Healthcare & HealthTech Data',
+    subtitle: 'PHI Vault Security',
     desc: 'Mandatory compliance framework for medical apps, EHR integrations, and telehealth platforms handling Protected Health Information (PHI).',
     icon: <FileCheck className="w-6 h-6" />,
   },
   {
     name: 'SOC 2 Type II',
     tag: 'Trust, Security & Availability',
+    subtitle: 'Independently Audited Controls',
     desc: 'Independently audited controls guaranteeing data privacy, operational safety, confidential data handling, and continuous cloud availability.',
     icon: <Lock className="w-6 h-6" />,
   },
   {
     name: 'GDPR',
     tag: 'European Data Privacy & Rights',
+    subtitle: 'Data Residency Controls',
     desc: 'Enforcing strict user data privacy, right-to-be-forgotten protocols, explicit consent management, and data residency controls for EU platforms.',
     icon: <Key className="w-6 h-6" />,
   },
@@ -188,17 +195,104 @@ export { DEFAULT_GLOBAL_PAGE_DATA };
 
 const GlobalFootprint: React.FC = () => {
   const loaderData = useLoaderData<typeof loader>();
+  const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
   const { openContactModal } = useContactModal();
 
   const sanityPage: SanityAboutPage = loaderData?.sanityData || DEFAULT_GLOBAL_PAGE_DATA;
+  const pageData = (sanityPage as any) || DEFAULT_GLOBAL_PAGE_DATA;
+
+  // JSON-LD Schemas for Googlebot Crawling
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Leapsofts",
+    "url": "https://www.leapsofts.com",
+    "logo": "https://www.leapsofts.com/logo.png",
+    "address": [
+      {
+        "@type": "PostalAddress",
+        "addressLocality": "Dubai",
+        "addressCountry": "AE",
+        "streetAddress": "Dubai Internet City"
+      },
+      {
+        "@type": "PostalAddress",
+        "addressLocality": "New York",
+        "addressRegion": "NY",
+        "addressCountry": "US"
+      }
+    ]
+  };
+
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Global Footprint & Security Compliance | Leapsofts",
+    "description": "Leapsofts operates global delivery hubs in Dubai and the USA with ISO 27001, HIPAA, SOC 2, and GDPR security compliance.",
+    "url": "https://www.leapsofts.com/about/global-footprint"
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.leapsofts.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Company",
+        "item": "https://www.leapsofts.com/about"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Global Footprint & Compliance",
+        "item": "https://www.leapsofts.com/about/global-footprint"
+      }
+    ]
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": (pageData.faq?.items || []).map((item: any) => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  };
 
   return (
     <div className={styles.globalPage}>
       <MetaSEO
         seo={sanityPage?.seo}
-        defaultTitle="Global Footprint & Security Compliance | ISO, HIPAA, SOC2 | Leapsofts"
+        defaultTitle="Global Offices & Security Compliance | ISO, HIPAA, SOC2 | Leapsofts"
         defaultDescription="Leapsofts operates global delivery hubs in Dubai and the USA with ISO 27001, HIPAA, SOC 2, and GDPR security compliance readiness for enterprise software."
       />
+
+      {/* JSON-LD Schemas */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+
+      {/* Breadcrumbs */}
+      <nav aria-label="Breadcrumbs" className={styles.breadcrumbs}>
+        <Link to="/">Home</Link>
+        <ChevronRight className={styles.breadcrumbSeparator + " w-3.5 h-3.5"} />
+        <Link to="/about">Company</Link>
+        <ChevronRight className={styles.breadcrumbSeparator + " w-3.5 h-3.5"} />
+        <span className={styles.breadcrumbCurrent}>Global Footprint & Compliance</span>
+      </nav>
+
       {/* Chapter 1: Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
@@ -208,19 +302,16 @@ const GlobalFootprint: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className={styles.label}>{sanityPage?.hero?.label || 'GLOBAL FOOTPRINT & COMPLIANCE'}</span>
+            <span className={styles.label}>{pageData.hero?.label || 'GLOBAL FOOTPRINT & COMPLIANCE'}</span>
             <h1 className={styles.heroTitle}>
               {renderFormattedTitle({
-                title: sanityPage?.hero?.title,
-                titleMain: (sanityPage?.hero as any)?.titleMain,
-                titleAccent: (sanityPage?.hero as any)?.titleAccent,
-                titleEnd: (sanityPage?.hero as any)?.titleEnd,
+                title: pageData.hero?.title,
                 defaultAccentPhrase: 'International Scale',
                 defaultTitle: <>Engineered for <em>International Scale</em> & Security</>,
               })}
             </h1>
             <p className={styles.heroSub}>
-              {sanityPage?.hero?.subtitle || 'Operating across 5 strategic global offices with UAE engineering HQ in Dubai & North American hubs, delivering compliant enterprise software development under ISO 27001, HIPAA, SOC 2, and GDPR standards.'}
+              {pageData.hero?.subtitle || 'Operating across strategic global offices with UAE engineering HQ in Dubai & North American hubs, delivering compliant enterprise software development under ISO 27001, HIPAA, SOC 2, and GDPR standards.'}
             </p>
           </motion.div>
 
@@ -230,11 +321,16 @@ const GlobalFootprint: React.FC = () => {
             initial="hidden"
             animate="visible"
           >
-            {ribbonData.map((item, idx) => (
+            {(pageData.hero?.metrics || ribbonData).map((item: any, idx: number) => (
               <motion.div key={idx} className={styles.ribbonCard} variants={cardChildVariant}>
-                <div className={styles.ribbonIcon}>{item.icon}</div>
-                <div className={styles.ribbonTitle}>{item.title}</div>
-                <div className={styles.ribbonDesc}>{item.desc}</div>
+                <div className={styles.ribbonIcon}>
+                  {idx === 0 && <Building2 className="w-5 h-5" />}
+                  {idx === 1 && <Clock className="w-5 h-5" />}
+                  {idx === 2 && <Award className="w-5 h-5" />}
+                  {idx === 3 && <Server className="w-5 h-5" />}
+                </div>
+                <div className={styles.ribbonTitle}>{item.value || item.title}</div>
+                <div className={styles.ribbonDesc}>{item.label || item.desc}</div>
               </motion.div>
             ))}
           </motion.div>
@@ -250,17 +346,21 @@ const GlobalFootprint: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <span className={styles.label}>REGIONAL DELIVERY CENTERS</span>
+          <span className={styles.label}>{pageData.hubsSection?.label || 'REGIONAL DELIVERY CENTERS'}</span>
           <h2 className={styles.title}>
-            Global Presence, <em>Local Execution</em>
+            {renderFormattedTitle({
+              title: pageData.hubsSection?.title,
+              defaultAccentPhrase: 'Local Execution',
+              defaultTitle: <>Global Presence, <em>Local Execution</em></>,
+            })}
           </h2>
           <p className={styles.subtitle}>
-            Strategic engineering hubs enabling round-the-clock software development and immediate client support.
+            {pageData.hubsSection?.subtitle || 'Strategic engineering hubs enabling round-the-clock software development and immediate client support.'}
           </p>
         </motion.div>
 
         <div className={styles.hubsGrid}>
-          {hubsData.map((hub, idx) => (
+          {(pageData.hubsSection?.hubs || hubsData).map((hub: any, idx: number) => (
             <motion.div
               key={idx}
               className={styles.hubCard}
@@ -270,11 +370,11 @@ const GlobalFootprint: React.FC = () => {
               viewport={{ once: true, amount: 0.3 }}
             >
               <div className={styles.hubBadge}>{hub.badge}</div>
-              <h3 className={styles.hubTitle}>{hub.title}</h3>
+              <h3 className={styles.hubTitle}>{hub.name || hub.title}</h3>
               <p className={styles.hubText}>{hub.desc}</p>
 
               <div className={styles.hubList}>
-                {hub.list.map((item, lIdx) => (
+                {hub.list?.map((item: string, lIdx: number) => (
                   <div key={lIdx} className={styles.hubListItem}>
                     <CheckCircle2 className={styles.hubListCheck} />
                     <span>{item}</span>
@@ -295,12 +395,16 @@ const GlobalFootprint: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <span className={styles.label}>ENTERPRISE STANDARDS</span>
+          <span className={styles.label}>{pageData.complianceSection?.label || 'ENTERPRISE STANDARDS'}</span>
           <h2 className={styles.title}>
-            Compliance & <em>Audit Readiness</em>
+            {renderFormattedTitle({
+              title: pageData.complianceSection?.title,
+              defaultAccentPhrase: 'Audit Readiness',
+              defaultTitle: <>Compliance & <em>Audit Readiness</em></>,
+            })}
           </h2>
           <p className={styles.subtitle}>
-            Built to satisfy the most demanding enterprise security audits and legal compliance frameworks.
+            {pageData.complianceSection?.subtitle || 'Built to satisfy the most demanding enterprise security audits and legal compliance frameworks.'}
           </p>
         </motion.div>
 
@@ -311,12 +415,17 @@ const GlobalFootprint: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {complianceData.map((item, idx) => (
+          {(pageData.complianceSection?.compliance || complianceData).map((item: any, idx: number) => (
             <motion.div key={idx} className={styles.complianceCard} variants={cardChildVariant}>
               <div>
-                <div className={styles.complianceIcon}>{item.icon}</div>
+                <div className={styles.complianceIcon}>
+                  {idx === 0 && <ShieldCheck className="w-6 h-6" />}
+                  {idx === 1 && <FileCheck className="w-6 h-6" />}
+                  {idx === 2 && <Lock className="w-6 h-6" />}
+                  {idx === 3 && <Key className="w-6 h-6" />}
+                </div>
                 <div className={styles.complianceName}>{item.name}</div>
-                <div className={styles.complianceTag}>{item.tag}</div>
+                <div className={styles.complianceTag}>{item.tag || item.subtitle}</div>
               </div>
               <p className={styles.complianceDesc}>{item.desc}</p>
             </motion.div>
@@ -333,12 +442,16 @@ const GlobalFootprint: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <span className={styles.label}>DATA SHIELD</span>
+          <span className={styles.label}>{pageData.securitySection?.label || 'DATA SHIELD'}</span>
           <h2 className={styles.title}>
-            Security <em>Architectural Controls</em>
+            {renderFormattedTitle({
+              title: pageData.securitySection?.title,
+              defaultAccentPhrase: 'Architectural Controls',
+              defaultTitle: <>Security <em>Architectural Controls</em></>,
+            })}
           </h2>
           <p className={styles.subtitle}>
-            Four non-negotiable security controls baked directly into every cloud environment we configure.
+            {pageData.securitySection?.subtitle || 'Four non-negotiable security controls baked directly into every cloud environment we configure.'}
           </p>
         </motion.div>
 
@@ -349,9 +462,14 @@ const GlobalFootprint: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {securityStandards.map((sec, idx) => (
+          {(pageData.securitySection?.standards || securityStandards).map((sec: any, idx: number) => (
             <motion.div key={idx} className={styles.securityCard} variants={cardChildVariant}>
-              <div className={styles.securityIcon}>{sec.icon}</div>
+              <div className={styles.securityIcon}>
+                {idx === 0 && <Lock className="w-6 h-6" />}
+                {idx === 1 && <Key className="w-6 h-6" />}
+                {idx === 2 && <ShieldCheck className="w-6 h-6" />}
+                {idx === 3 && <Server className="w-6 h-6" />}
+              </div>
               <h3 className={styles.securityTitle}>{sec.title}</h3>
               <p className={styles.securityDesc}>{sec.desc}</p>
             </motion.div>
@@ -359,7 +477,105 @@ const GlobalFootprint: React.FC = () => {
         </motion.div>
       </section>
 
-      {/* Chapter 5: Call to Action */}
+      {/* Chapter 5: Services Link Matrix */}
+      {pageData.internalLinks && (
+        <section className={styles.section}>
+          <motion.div
+            className={styles.sectionHeader}
+            variants={headerVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <span className={styles.label}>{pageData.internalLinks.label || 'OUR ENGINEERING SERVICES'}</span>
+            <h2 className={styles.title}>
+              {renderFormattedTitle({
+                title: pageData.internalLinks.title,
+                defaultAccentPhrase: 'Core Services',
+                defaultTitle: <>Compliant Engineering Services Built for <em>Global Scale</em></>,
+              })}
+            </h2>
+            <p className={styles.subtitle}>{pageData.internalLinks.subtitle}</p>
+          </motion.div>
+
+          <motion.div
+            className={styles.serviceGrid}
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            {pageData.internalLinks.services?.map((svc: any, sIdx: number) => (
+              <Link key={sIdx} to={svc.link} className={styles.serviceCardLink}>
+                <motion.div className={styles.serviceCard} variants={cardChildVariant}>
+                  {svc.tag && <span className={styles.serviceTag}>{svc.tag}</span>}
+                  <h3 className={styles.serviceName}>
+                    {svc.name}
+                    <ArrowRight className={styles.serviceArrow + " w-5 h-5"} />
+                  </h3>
+                  <p className={styles.serviceDesc}>{svc.desc}</p>
+                </motion.div>
+              </Link>
+            ))}
+          </motion.div>
+        </section>
+      )}
+
+      {/* Chapter 6: Global FAQ Section */}
+      {pageData.faq && (
+        <section className={styles.section} id="faq">
+          <motion.div
+            className={styles.sectionHeader}
+            variants={headerVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <span className={styles.label}>{pageData.faq.label || 'GLOBAL FAQ'}</span>
+            <h2 className={styles.title}>
+              {renderFormattedTitle({
+                title: pageData.faq.title,
+                defaultAccentPhrase: 'Questions',
+                defaultTitle: <>Frequently Asked <em>Questions</em></>,
+              })}
+            </h2>
+            <p className={styles.subtitle}>{pageData.faq.subtitle}</p>
+          </motion.div>
+
+          <div className={styles.faqList}>
+            {pageData.faq.items?.map((item: any, fIdx: number) => (
+              <div
+                key={fIdx}
+                className={`${styles.faqItem} ${openFaqIdx === fIdx ? styles.faqItemActive : ''}`}
+              >
+                <button
+                  className={styles.faqQuestion}
+                  onClick={() => setOpenFaqIdx(openFaqIdx === fIdx ? null : fIdx)}
+                  aria-expanded={openFaqIdx === fIdx}
+                >
+                  <span>{item.question}</span>
+                  <ChevronDown
+                    className={`${styles.faqIcon} ${openFaqIdx === fIdx ? styles.faqIconRotated : ''} w-5 h-5`}
+                  />
+                </button>
+                {openFaqIdx === fIdx && (
+                  <motion.div
+                    className={styles.faqAnswer}
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {item.answer}
+                  </motion.div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Chapter 7: Call to Action */}
       <section className={styles.section}>
         <motion.div
           className={styles.ctaBox}
@@ -369,14 +585,18 @@ const GlobalFootprint: React.FC = () => {
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] as const }}
         >
           <h2 className={styles.ctaTitle}>
-            Need <em>Enterprise Security Compliance</em>?
+            {renderFormattedTitle({
+              title: pageData.cta?.title,
+              defaultAccentPhrase: 'Enterprise Security Compliance',
+              defaultTitle: <>Need <em>Enterprise Security Compliance</em>?</>,
+            })}
           </h2>
           <p className={styles.ctaSub}>
-            Book a consultation with our cloud security architects to review your compliance checklist, encryption protocols, and audit readiness.
+            {pageData.cta?.subtitle || 'Book a consultation with our cloud security architects to review your compliance checklist, encryption protocols, and audit readiness.'}
           </p>
           <div className={styles.ctaBtnWrapper}>
             <Button
-              text="Schedule Compliance Consultation"
+              text={pageData.cta?.buttonText || 'Schedule Compliance Consultation'}
               color1="var(--color-primary)"
               color2="var(--color-primary-light)"
               onClick={openContactModal}

@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev --host",
-    "build": "react-router build",
+    "sitemap": "npx tsx scripts/generateSitemap.ts",
+    "build": "npx tsx scripts/generateSitemap.ts && react-router build",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
     "lint": "eslint ."

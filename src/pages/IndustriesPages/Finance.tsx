@@ -1,4 +1,4 @@
-import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { buildPageMeta, buildIndustrySchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -124,10 +124,12 @@ export function meta({ data }: { data?: any }) {
 const Finance: React.FC = () => {
   const { data } = useIndustryPage('finance');
 
-  const schemaData = buildServiceSchema({
-    name: "Fintech Software Development Services",
-    description: "Custom fintech software development for banks, insurance & investment firms.",
-    canonicalUrl: "https://www.leapsofts.com/industries/finance",
+  const schemaCanonicalUrl = "https://www.leapsofts.com/industries/finance";
+  const schemaData = buildIndustrySchema({
+    name: "FinTech & Financial Software Development Services",
+    description: "Secure financial software development — banking platforms, payment gateways, PCI-DSS compliance.",
+    canonicalUrl: schemaCanonicalUrl,
+    industryName: "Finance & FinTech",
     faqs: data?.faqs,
   });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, type Variants } from 'framer-motion';
 import { Link, useNavigate } from 'react-router';
 import { Clock, Calendar, ArrowRight } from 'lucide-react';
-import { blogsData } from '../../data/blogsData';
+import { blogsData, DEFAULT_BLOG_FALLBACK_IMAGE } from '../../data/blogsData';
 import Button from '../Button/Button';
 import { getSanityBlogs } from '../../sanity/queries';
 import type { SanityBlog } from '../../sanity/types';
@@ -37,36 +37,49 @@ const cardChildVariant: Variants = {
   },
 };
 
-const BlogSection: React.FC = () => {
+interface BlogSectionProps {
+  /** Pre-fetched blogs from SSR loader — prevents client-side fetch and ensures Google sees content */
+  initialBlogs?: SanityBlog[] | null;
+}
+
+const BlogSection: React.FC<BlogSectionProps> = ({ initialBlogs }) => {
   const navigate = useNavigate();
-  const [sanityBlogs, setSanityBlogs] = React.useState<SanityBlog[] | null>(null);
+  const [sanityBlogs, setSanityBlogs] = React.useState<SanityBlog[] | null>(initialBlogs ?? null);
 
   React.useEffect(() => {
+    // Skip fetch if we already received SSR-pre-loaded data from the loader
+    if (initialBlogs && initialBlogs.length > 0) return;
     getSanityBlogs().then((data) => {
       if (data) setSanityBlogs(data);
     });
-  }, []);
+  }, [initialBlogs]);
 
   const latestArticles = React.useMemo(() => {
     const rawList = (sanityBlogs && sanityBlogs.length > 0) ? sanityBlogs : blogsData;
-    return rawList.slice(0, 3).map((blog: any) => {
+    const uniqueMap = new Map();
+
+    rawList.forEach((blog: any) => {
       const slug = blog.slug?.current || blog.slug || '';
-      return {
-        id: blog._id || blog.id || slug,
-        slug,
-        title: blog.title || '',
-        category: blog.category || 'Enterprise AI',
-        readTime: blog.readTime || '5 min read',
-        publishedDate: blog.publishedDate || (blog.publishedAt ? new Date(blog.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'September 2026'),
-        coverImage: blog.coverImageUrl || blog.coverImage || '/projectImages/agileauto.png',
-        excerpt: blog.excerpt || blog.subtitle || '',
-        author: {
-          name: blog.author?.name || 'Leapsofts Engineering',
-          role: blog.author?.role || 'Technical Lead',
-          avatar: blog.author?.avatar || blog.author?.avatarInitials || 'LS',
-        },
-      };
+      if (slug && !uniqueMap.has(slug)) {
+        uniqueMap.set(slug, {
+          id: blog._id || blog.id || slug,
+          slug,
+          title: blog.title || '',
+          category: blog.category || 'Enterprise AI',
+          readTime: blog.readTime || '5 min read',
+          publishedDate: blog.publishedDate || (blog.publishedAt ? new Date(blog.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'September 2026'),
+          coverImage: blog.coverImageUrl || blog.coverImage || DEFAULT_BLOG_FALLBACK_IMAGE,
+          excerpt: blog.excerpt || blog.subtitle || '',
+          author: {
+            name: blog.author?.name || 'Leapsofts Engineering',
+            role: blog.author?.role || 'Technical Lead',
+            avatar: blog.author?.avatar || blog.author?.avatarInitials || 'LS',
+          },
+        });
+      }
     });
+
+    return Array.from(uniqueMap.values()).slice(0, 3) as any[];
   }, [sanityBlogs]);
 
   return (
@@ -103,6 +116,9 @@ const BlogSection: React.FC = () => {
                   alt={article.title}
                   className={styles.coverImage}
                   loading="lazy"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = DEFAULT_BLOG_FALLBACK_IMAGE;
+                  }}
                 />
                 <span className={styles.categoryBadge}>{article.category}</span>
               </div>

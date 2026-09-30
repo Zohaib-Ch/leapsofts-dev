@@ -1,323 +1,455 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
   <url>
     <loc>https://www.leapsofts.com/</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://www.leapsofts.com/logo/Leap-soft-01.png</image:loc>
-      <image:title>Leapsofts - Enterprise Software Engineering Firm</image:title>
-    </image:image>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/"/>
   </url>
+
   <url>
     <loc>https://www.leapsofts.com/about</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://www.leapsofts.com/about_laptop_3d.png</image:loc>
-      <image:title>About Leapsofts Software Engineering Pods</image:title>
-    </image:image>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/about"/>
   </url>
+
   <url>
     <loc>https://www.leapsofts.com/about/mission</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/about/mission"/>
   </url>
+
   <url>
     <loc>https://www.leapsofts.com/about/leadership</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/about/leadership"/>
   </url>
+
   <url>
     <loc>https://www.leapsofts.com/about/global-footprint</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/contact</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/partners</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/projects</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/privacy-policy</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/cookies-policy</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/about/global-footprint"/>
   </url>
 
-  <!-- Services -->
-  <url>
-    <loc>https://www.leapsofts.com/services/custom-software-development</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/mobile-app-development</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/web-app-development</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/data-science-ai</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/cloud-engineering</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/devops</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/dedicated-teams</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/cyber-security</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/app-reengineering</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/quality-assurance</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/salesforce</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/shopify</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/service-now</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/business-process-outsourcing</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/data-governance</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/cloud-migration</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/aws</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/azure</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/digital-evolution</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/fixed-price</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/ideation-workshop</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/product-development-strategy</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/services/proof-of-concept-development</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Industries -->
-  <url>
-    <loc>https://www.leapsofts.com/industries/healthcare</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/industries/finance</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/industries/automotive</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/industries/compliance</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/industries/startups</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/industries/mid-sized-businesses</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/industries/wholesale-retail</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/industries/edtech</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/industries/construction</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/industries/entertainment</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/industries/real-estate</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/industries/transportation</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://www.leapsofts.com/industries/energy</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Blog Listing & Tech Articles -->
   <url>
     <loc>https://www.leapsofts.com/blog</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/blog"/>
   </url>
+
   <url>
-    <loc>https://www.leapsofts.com/blog/architecting-production-llm-pipelines-enterprise-saas</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.leapsofts.com/contact</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/contact"/>
   </url>
+
   <url>
-    <loc>https://www.leapsofts.com/blog/migrating-legacy-monoliths-zero-downtime-microservices</loc>
-    <lastmod>2026-09-23</lastmod>
+    <loc>https://www.leapsofts.com/partners</loc>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/partners"/>
   </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/projects</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/projects"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/privacy-policy</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/privacy-policy"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/cookies-policy</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/cookies-policy"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/custom-software-development</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/custom-software-development"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/mobile-app-development</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/mobile-app-development"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/web-app-development</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/web-app-development"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/data-science-ai</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/data-science-ai"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/cloud-engineering</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/cloud-engineering"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/devops</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/devops"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/dedicated-teams</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/dedicated-teams"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/cyber-security</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/cyber-security"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/app-reengineering</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/app-reengineering"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/quality-assurance</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/quality-assurance"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/salesforce</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/salesforce"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/shopify</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/shopify"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/service-now</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/service-now"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/business-process-outsourcing</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/business-process-outsourcing"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/data-governance</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/data-governance"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/cloud-migration</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/cloud-migration"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/aws</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/aws"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/azure</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/azure"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/digital-evolution</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/digital-evolution"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/fixed-price</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/fixed-price"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/ideation-workshop</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/ideation-workshop"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/product-development-strategy</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/product-development-strategy"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/proof-of-concept-development</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/proof-of-concept-development"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/sales-execution-ae</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/sales-execution-ae"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/outbound-demand-gen</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/outbound-demand-gen"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/paid-media-performance</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/paid-media-performance"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/inbound-organic-growth</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/inbound-organic-growth"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/services/revenue-operations-systems</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/services/revenue-operations-systems"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/industries/healthcare</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/industries/healthcare"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/industries/finance</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/industries/finance"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/industries/automotive</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/industries/automotive"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/industries/compliance</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/industries/compliance"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/industries/startups</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/industries/startups"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/industries/mid-sized-businesses</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/industries/mid-sized-businesses"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/industries/wholesale-retail</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/industries/wholesale-retail"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/industries/edtech</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/industries/edtech"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/industries/construction</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/industries/construction"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/industries/entertainment</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/industries/entertainment"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/industries/real-estate</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/industries/real-estate"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/industries/transportation</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/industries/transportation"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/industries/energy</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/industries/energy"/>
+  </url>
+
   <url>
     <loc>https://www.leapsofts.com/blog/agile-pod-topologies-compressing-mvp-launch-cycles</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/blog/agile-pod-topologies-compressing-mvp-launch-cycles"/>
   </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/blog/architecting-production-llm-pipelines-enterprise-saas</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/blog/architecting-production-llm-pipelines-enterprise-saas"/>
+  </url>
+
+  <url>
+    <loc>https://www.leapsofts.com/blog/migrating-legacy-monoliths-zero-downtime-microservices</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/blog/migrating-legacy-monoliths-zero-downtime-microservices"/>
+  </url>
+
   <url>
     <loc>https://www.leapsofts.com/blog/zero-trust-cloud-governance-iso-27001-hipaa-blueprints</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.leapsofts.com/blog/zero-trust-cloud-governance-iso-27001-hipaa-blueprints"/>
   </url>
+
 </urlset>

@@ -1,4 +1,4 @@
-import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { buildPageMeta, buildIndustrySchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -119,10 +119,12 @@ export function meta({ data }: { data?: any }) {
 const Entertainment: React.FC = () => {
   const { data } = useIndustryPage('entertainment');
 
-  const schemaData = buildServiceSchema({
-    name: "Media & Entertainment Software Development",
-    description: "Leapsofts engineers custom media & entertainment software, low-latency 4K HLS/DASH streaming platforms, Widevine DRM security, and server-side ad insertion (SSAI).",
-    canonicalUrl: "https://www.leapsofts.com/industries/entertainment",
+  const schemaCanonicalUrl = "https://www.leapsofts.com/industries/entertainment";
+  const schemaData = buildIndustrySchema({
+    name: "Entertainment & Media Software Development Services",
+    description: "Custom media software — OTT streaming platforms, content management systems, and digital distribution.",
+    canonicalUrl: schemaCanonicalUrl,
+    industryName: "Entertainment & Media",
     faqs: data?.faqs,
   });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();

@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router';
-import type { Route } from "../../../.react-router/types/app/+types/routes";
 import Services from './CompanyServices/Services';
 import About from './About/About';
 import StreamlineSuccess from './Streamline/StreamlineSuccess';
@@ -14,15 +13,17 @@ import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import Figures from './Figures/Figures';
 import IndustrySlider from '../../components/IndustrySlider/IndustrySlider';
 import style from './home.module.css';
-import { getSanityHomePage } from '../../sanity/queries';
-import type { SanityHomePage } from '../../sanity/types';
+import { getSanityHomePage, getSanityBlogs } from '../../sanity/queries';
 
 export async function loader() {
-  const data = await getSanityHomePage();
-  return { sanityData: data };
+  const [data, blogs] = await Promise.all([
+    getSanityHomePage(),
+    getSanityBlogs(),
+  ]);
+  return { sanityData: data, blogs };
 }
 
-export function meta({ data }: Route.MetaArgs) {
+export function meta({ data }: { data?: any }) {
   const sanityData = data?.sanityData;
   const title = sanityData?.seo?.metaTitle || "Enterprise Custom Software Development Company | Leapsofts";
   const description = sanityData?.seo?.metaDescription || "Leapsofts engineers enterprise-grade custom software, cloud platforms & AI solutions. Launch your MVP in 3-5 months with zero compromise on scalability. Schedule a free strategy session today.";
@@ -51,8 +52,8 @@ export function meta({ data }: Route.MetaArgs) {
   ];
 }
 
-const Home = ({ loaderData }: Route.ComponentProps) => {
-  const { sanityData } = loaderData;
+const Home = ({ loaderData }: { loaderData?: any }) => {
+  const { sanityData, blogs } = loaderData || {};
 
   const title = sanityData?.hero?.title || "Custom Software Engineered for Enterprise Velocity";
   const title2 = sanityData?.hero?.title2 || "Launch your product in 3-5 months with zero compromise on scalability.";
@@ -203,7 +204,7 @@ const Home = ({ loaderData }: Route.ComponentProps) => {
           "@type": "ContactPoint",
           "telephone": "+971-56-830-9734",
           "contactType": "customer service",
-          "availableLanguage": ["English", "Arabic"]
+          "availableLanguage": ["English"]
         },
         "sameAs": [
           "https://twitter.com/leapsofts",
@@ -217,11 +218,6 @@ const Home = ({ loaderData }: Route.ComponentProps) => {
         "name": "Leapsofts",
         "publisher": {
           "@id": "https://www.leapsofts.com/#organization"
-        },
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://www.leapsofts.com/search?q={search_term_string}",
-          "query-input": "required name=search_term_string"
         }
       },
       {
@@ -319,7 +315,7 @@ const Home = ({ loaderData }: Route.ComponentProps) => {
       </div>
 
       <div id="insights">
-        <BlogSection />
+        <BlogSection initialBlogs={blogs} />
       </div>
 
       <div id="contact" className={style.contactContainer} >

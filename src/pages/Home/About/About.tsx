@@ -1,6 +1,5 @@
 import styles from './about.module.css';
 import React, { useEffect, useRef, useState } from 'react';
-import laptopImg from '../../../assets/about_laptop_3d.webp';
 import { parseFormattedText, parseEmphasisText } from '../../../utils/textParser';
 
 export interface AboutProps {
@@ -63,7 +62,7 @@ const About: React.FC<AboutProps> = ({
         }
     };
 
-    const finalImage = imageUrl || laptopImg;
+    const finalImage = imageUrl;
     const descSegments = parseFormattedText(descriptionText || defaultAboutDescription);
 
     return (

@@ -39,6 +39,7 @@ export const serviceSchema = defineType({
           { title: 'Next Gen Services', value: 'Next Gen Services' },
           { title: 'Cloud Services', value: 'Cloud Services' },
           { title: 'Solutions', value: 'Solutions' },
+          { title: 'Sales & Revenue Growth', value: 'Sales & Revenue Growth' },
         ],
       },
     }),

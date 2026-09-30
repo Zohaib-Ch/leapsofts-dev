@@ -38,5 +38,9 @@ seo_audit_report.md
 src/components/SEOHead/
 
 
-# Generated WebP images
+# Generated WebP & Blog images
 public/projectImagesWebp/
+public/blogImages/
+
+#Scratch Folder
+scratch

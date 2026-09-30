@@ -6,9 +6,9 @@ import InfoGrid from '../../components/InfoGrid/InfoGrid';
 import { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
 import Capabilities from '../../components/Capabilities/Capabilities';
 import { type CapabilitySlide } from '../../components/Capabilities/Capabilities';
-const capabilitiesImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
-const platformImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
-const mobileAppImg = "https://cdn.sanity.io/images/egqy3ztp/production/9a8d2074c4c6748e73587c6d3e57b16f215d2062-1024x1024.webp";
+
+
+
 import Processes from '../../components/Processes/Processes';
 import { type ProcessPhase } from '../../components/Processes/Processes';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
@@ -110,7 +110,7 @@ const capabilitiesSlides: CapabilitySlide[] = [
     id: 'rehost',
     number: '< 01 >',
     title: 'Workload Rehosting & Replatforming',
-    image: capabilitiesImg,
+    image: "/streamline.webp",
     items: [
       {
         name: 'Lift-and-Shift Migrations',
@@ -130,7 +130,7 @@ const capabilitiesSlides: CapabilitySlide[] = [
     id: 'relocation',
     number: '< 02 >',
     title: 'Zero-Downtime Data Relocation',
-    image: platformImg,
+    image: "/streamline.webp",
     items: [
       {
         name: 'Database Migration Services',
@@ -150,7 +150,7 @@ const capabilitiesSlides: CapabilitySlide[] = [
     id: 'hybrid',
     number: '< 03 >',
     title: 'Hybrid Cloud Integration',
-    image: capabilitiesImg,
+    image: "/streamline.webp",
     items: [
       {
         name: 'Dedicated Express Interconnects',
@@ -312,7 +312,9 @@ const CloudMigration: React.FC = () => {
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || (typeof cloudMigrationProcessData !== 'undefined' ? cloudMigrationProcessData.label : ''),
-        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof cloudMigrationProcessData !== 'undefined' ? cloudMigrationProcessData.title : ''),
+        titleMain: data?.infoGrid?.titleMain,
+        titleAccent: data?.infoGrid?.titleAccent,
+        title: data?.infoGrid?.title || (data?.infoGrid?.titleMain || data?.infoGrid?.titleAccent ? undefined : (typeof cloudMigrationProcessData !== 'undefined' ? cloudMigrationProcessData.title : '')),
         description: data.infoGrid.description || (typeof cloudMigrationProcessData !== 'undefined' ? cloudMigrationProcessData.description : ''),
         items: data.infoGrid.items.map((item, index) => ({
           icon: String(index + 1).padStart(2, '0'),
@@ -346,17 +348,42 @@ const CloudMigration: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || "Cloud Migration ",
         titleEnd: data.serviceOverview.titleEnd || "& Enterprise Relocation",
         description: data.serviceOverview.description || "At Leapsofts, we specialize in planning and executing high-fidelity cloud migration strategies that transition legacy physical servers, virtual machines, and monolithic databases to auto-scaling AWS, Azure, or GCP cloud environments. By leveraging automated migration tools (AWS MGN, Azure Migrate), live database sync channels (AWS DMS), and secure Landing Zone architectures, we relocate enterprise software with zero business disruption and optimal FinOps performance.",
-        imagePath: data.serviceOverview.imageUrl || mobileAppImg
+        imagePath: data.serviceOverview.imageUrl || "/streamline.webp"
       }
     : null;
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : processPhasesDefault;
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || "/streamline.webp",
+        items: slide.items || []
+      }))
+    : capabilitiesSlides;
+
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
     : phaseLabelsDefault;
+  const activeServiceFeaturesItems: ServiceFeatureItem[] = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items.map(item => ({
+        icon: item.icon || '/industryicons/sphere.svg',
+        title: item.title,
+        description: item.description
+      }))
+    : defaultItems;
+
+
 
   return (
     <>
@@ -366,20 +393,26 @@ const CloudMigration: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      <ServiceOverview
+      {activeOverviewData && activeOverviewData.description && (
+        <ServiceOverview
         label={activeOverviewData?.label || "CLOUD MIGRATION"}
         titleMain={activeOverviewData?.titleMain || "Zero-Downtime "}
         titleAccent={activeOverviewData?.titleAccent || "Cloud Migration "}
         titleEnd={activeOverviewData?.titleEnd || "& Enterprise Relocation"}
         description={activeOverviewData?.description || "At Leapsofts, we specialize in planning and executing high-fidelity cloud migration strategies that transition legacy physical servers, virtual machines, and monolithic databases to auto-scaling AWS, Azure, or GCP cloud environments. By leveraging automated migration tools (AWS MGN, Azure Migrate), live database sync channels (AWS DMS), and secure Landing Zone architectures, we relocate enterprise software with zero business disruption and optimal FinOps performance."}
-        imagePath={activeOverviewData?.imagePath || mobileAppImg}
+        imagePath={activeOverviewData?.imagePath || "/streamline.webp"}
       />
-      <Capabilities
+      )}
+      {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
+        <Capabilities
         title={data?.capabilitiesSection?.title || "Cloud Migration Capabilities"}
-        slides={data?.capabilitiesSection?.slides || capabilitiesSlides}
-        defaultImage={capabilitiesImg}
+        slides={activeCapabilitiesSlides}
+        defaultImage="/streamline.webp"
       />
-      <InfoGrid data={activeInfoGridData} />
+      )}
+      {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+        <InfoGrid data={activeInfoGridData} />
+      )}
       <StreamlineSuccess
         label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={data?.strategyCTA?.titleMain || "Map your "}
@@ -388,19 +421,23 @@ const CloudMigration: React.FC = () => {
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'The 7 Rs Cloud Migration Framework'}
         description={data?.serviceFeatures?.description || 'Every business has different needs. Whether you are migrating Oracle, VMware, or PaaS applications, we tailor the migration tools and processes to fit your infrastructure.'}
-        items={data?.serviceFeatures?.items || defaultItems}
+        items={activeServiceFeaturesItems}
       />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <Processes
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes
         title={data?.processes?.title || "OUR CLOUD MIGRATION PROCESS"}
         processPhases={activeProcessPhases}
         phaseLabels={activePhaseLabels}
       />
+      )}
       <FAQs
         title="Cloud Migration & Modernization FAQ"
         subtitle="Everything you need to know about lift-and-shift, AWS/Azure migration tooling, database replication, and zero-downtime cutovers."

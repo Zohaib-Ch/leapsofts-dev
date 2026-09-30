@@ -10,7 +10,7 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import FAQs from '../../components/FAQs/FAQs';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
-const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
+
 import { useServicePage } from '../../hooks/useServicePage';
 
 const serviceOverviewData = {
@@ -19,7 +19,7 @@ const serviceOverviewData = {
   titleAccent: "Operational",
   titleEnd: "Pipelines",
   description: "At Leapsofts, we customize and engineer tech-enabled BPO solutions designed to transform manual corporate workflows into highly streamlined, automated operational pipelines. By designing customized robotic process automation scripts, training dedicated customer service teams, and configuring secure back-office databases, we help enterprises scale operational capacity, reduce transactional errors, and achieve seamless business growth with complete workflow transparency.",
-  imagePath: laptopImg
+  imagePath: "/streamline.webp"
 };
 
 const ourServicesData: EmergingTechProps['data'] = {
@@ -312,7 +312,9 @@ const BusinessProcessOutsourcing: React.FC = () => {
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
         label: data.infoGrid.label || processData.label,
-        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || processData.title,
+        titleMain: data?.infoGrid?.titleMain,
+        titleAccent: data?.infoGrid?.titleAccent,
+        title: data?.infoGrid?.title || (data?.infoGrid?.titleMain || data?.infoGrid?.titleAccent ? undefined : processData.title),
         description: data.infoGrid.description || processData.description,
         items: data.infoGrid.items.map((item, index) => ({
           icon: String(index + 1).padStart(2, '0'),
@@ -346,9 +348,15 @@ const BusinessProcessOutsourcing: React.FC = () => {
       }
     : deliverMVPData;
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : processPhasesDefault;
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
@@ -368,7 +376,7 @@ const BusinessProcessOutsourcing: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      {activeOverviewData && (
+      {activeOverviewData && activeOverviewData.description && (
         <ServiceOverview
           label={activeOverviewData.label}
           titleMain={activeOverviewData.titleMain}
@@ -378,26 +386,40 @@ const BusinessProcessOutsourcing: React.FC = () => {
           imagePath={activeOverviewData.imagePath}
         />
       )}
-      <InfoGrid data={activeInfoGridData} />
+      {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+        <InfoGrid data={activeInfoGridData} />
+      )}
       <StreamlineSuccess
         label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={strategyCTA?.titleMain || "Map your "}
         titleAccent={strategyCTA?.titleAccent || "operational BPO"}
         titleEnd={strategyCTA?.titleEnd || " roadmap."}
         description={strategyCTA?.descriptionText ? [{ text: strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        buttonText={strategyCTA?.buttonText}
-        buttonPath={strategyCTA?.buttonPath}
-        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
+        buttonText={strategyCTA?.buttonText || "Claim BPO Strategy Session"}
+        buttonPath={strategyCTA?.buttonPath || "#contact"}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.webp"}
       />
-      <ServiceFeatures
-        title={data?.serviceFeatures?.title || 'Core BPO Capabilities'}
-        description={data?.serviceFeatures?.description || 'We deliver expert services across various business process domains.'}
-        items={activeServiceFeatures}
+      {((data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0) || activeServiceFeatures.length > 0) && (
+        <ServiceFeatures
+          title={data?.serviceFeatures?.title || 'Core BPO Capabilities'}
+          description={data?.serviceFeatures?.description || 'We deliver expert services across various business process domains.'}
+          items={activeServiceFeatures}
+        />
+      )}
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeEmergingTechData && activeEmergingTechData.items && activeEmergingTechData.items.length > 0 && (
+        <EmergingTech data={activeEmergingTechData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes title={data?.processes?.title || "OUR CUSTOM BPO PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      )}
+      <FAQs
+        title="Tech-Enabled BPO & Process Automation FAQ"
+        subtitle="Common questions about BPO team onboarding, RPA automation, SLA guarantees, data privacy, and global operations."
+        faqs={data?.faqs} items={data?.faqs}
       />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <EmergingTech data={activeEmergingTechData} />
-      <Processes title={data?.processes?.title || "OUR CUSTOM BPO PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
-      <FAQs faqs={data?.faqs} items={data?.faqs} />
       <RelatedServices
         services={[
           {

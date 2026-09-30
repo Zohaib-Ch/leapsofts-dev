@@ -1,4 +1,4 @@
-import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { buildPageMeta, buildIndustrySchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -119,10 +119,12 @@ export function meta({ data }: { data?: any }) {
 const Compliance: React.FC = () => {
   const { data } = useIndustryPage('compliance');
 
-  const schemaData = buildServiceSchema({
-    name: "Compliance Management Software Development & RegTech",
-    description: "Leapsofts engineers enterprise regulatory compliance software, automated risk management platforms, zero-trust audit trails & SOC2/KYC/AML RegTech engines.",
-    canonicalUrl: "https://www.leapsofts.com/industries/compliance",
+  const schemaCanonicalUrl = "https://www.leapsofts.com/industries/compliance";
+  const schemaData = buildIndustrySchema({
+    name: "Regulatory Compliance Software Development Services",
+    description: "Custom compliance management systems — GDPR, ISO 27001, SOC2 and regulatory reporting.",
+    canonicalUrl: schemaCanonicalUrl,
+    industryName: "Regulatory Compliance",
     faqs: data?.faqs,
   });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();

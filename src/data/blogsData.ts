@@ -1,3 +1,5 @@
+export const DEFAULT_BLOG_FALLBACK_IMAGE = '/images/blog-fallback.svg';
+
 export interface BlogAuthor {
   name: string;
   role: string;
@@ -50,7 +52,7 @@ export const blogsData: BlogPost[] = [
       avatar: 'HR',
       bio: 'Pioneering custom AI architectures and scalable cloud solutions across Healthcare, FinTech, and Enterprise SaaS.',
     },
-    coverImage: '/projectImages/agileauto.png',
+    coverImage: 'https://cdn.sanity.io/images/egqy3ztp/production/3c890d1734932957b5c7ecb33e182cf13add6a22-1376x768.jpg',
     excerpt: 'Deploying Large Language Models in enterprise production environments requires strict isolation, streaming token optimizations, and zero-trust data protection.',
     tags: ['AI Engineering', 'LLMOps', 'PyTorch', 'Microservices', 'Enterprise AI'],
     content: [
@@ -114,7 +116,7 @@ export async function processPrompt(rawPrompt: string, tenantId: string) {
       avatar: 'MD',
       bio: 'Pioneer of agile pod topologies with a track record of 100+ production deployments shipped on 3-5 month launch timelines.',
     },
-    coverImage: '/projectImages/autoleap.png',
+    coverImage: 'https://cdn.sanity.io/images/egqy3ztp/production/b6de992d94fca7de0aae6fbfc318368f713653d6-1376x768.jpg',
     excerpt: 'How to systematically break down 10-year-old monolithic codebases into containerized Kubernetes services using double-write database routing.',
     tags: ['Cloud Architecture', 'DevOps', 'Kubernetes', 'Microservices', 'AWS'],
     content: [
@@ -169,7 +171,7 @@ spec:
       avatar: 'SC',
       bio: 'Specializing in computer vision, MLOps, and rapid product prototyping for hyper-growth technology ventures.',
     },
-    coverImage: '/projectImages/arabwheel1.png',
+    coverImage: 'https://cdn.sanity.io/images/egqy3ztp/production/7fd3879b82bf25ba968df5ab930546800bced292-1376x768.jpg',
     excerpt: 'Replacing fragmented staff augmentation with dedicated cross-functional engineering pods compresses software MVP delivery down to 90 days.',
     tags: ['Product Engineering', 'Agile Pods', 'MVP Launch', 'Software Strategy'],
     content: [
@@ -210,7 +212,7 @@ spec:
       avatar: 'ER',
       bio: 'Certified ethical hacker and zero-trust cloud architect guaranteeing ISO 27001, HIPAA, and SOC 2 Type II audit readiness.',
     },
-    coverImage: '/projectImages/agileauto1.png',
+    coverImage: 'https://cdn.sanity.io/images/egqy3ztp/production/215f042a3ac86332904577dfc3e4d36bf07cb39c-1376x768.jpg',
     excerpt: 'Building audit-ready cloud infrastructure requiring zero-trust identity verification, KMS secret vaults, and automated vulnerability scanning.',
     tags: ['Cyber Security', 'ISO 27001', 'HIPAA', 'Zero-Trust', 'Cloud Security'],
     content: [

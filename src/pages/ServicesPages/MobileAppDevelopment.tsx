@@ -2,11 +2,14 @@ import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import React from 'react'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import Capabilities, { type CapabilitySlide } from '../../components/Capabilities/Capabilities'
-const capabilitiesImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
-const platformImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
+import ComparisonTable from '../../components/ComparisonTable/ComparisonTable';
+
+
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
+import InfoGrid from '../../components/InfoGrid/InfoGrid';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
-const mobileAppImg = "https://cdn.sanity.io/images/egqy3ztp/production/9a8d2074c4c6748e73587c6d3e57b16f215d2062-1024x1024.webp";
+import phonesImg from '../../assets/phones.webp';
+
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
@@ -21,7 +24,7 @@ const mobileAppSlides: CapabilitySlide[] = [
     id: 'integrate-mobile-web',
     number: '< 01 >',
     title: 'Integrate Mobile With Web',
-    image: capabilitiesImg,
+    image: "/streamline.webp",
     items: [
       {
         name: 'Multi-Platform Schema Integration',
@@ -41,7 +44,7 @@ const mobileAppSlides: CapabilitySlide[] = [
     id: 'ios-android-platforms',
     number: '< 02 >',
     title: 'Build for iOS and Android Platforms',
-    image: platformImg,
+    image: "/streamline.webp",
     items: [
       {
         name: 'Native iOS & Android Engineering',
@@ -61,7 +64,7 @@ const mobileAppSlides: CapabilitySlide[] = [
     id: 'streamline-business',
     number: '< 03 >',
     title: 'Streamline Your Business Processes',
-    image: capabilitiesImg,
+    image: "/streamline.webp",
     items: [
       {
         name: 'Remote Asset & Workforce Orchestration',
@@ -81,7 +84,7 @@ const mobileAppSlides: CapabilitySlide[] = [
     id: 'standalone-app',
     number: '< 04 >',
     title: 'Create a Stand-Alone Mobile App',
-    image: platformImg,
+    image: "/streamline.webp",
     items: [
       {
         name: 'User Centric Product Design',
@@ -376,7 +379,7 @@ const MobileAppDevelopment: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || 'iOS & Android',
         titleEnd: data.serviceOverview.titleEnd || 'Mobile Applications',
         description: data.serviceOverview.description || 'At Leapsofts, as a full-service mobile app development company, we design and engineer custom mobile applications that bridge corporate cloud backends, real-time databases, and device sensors. By managing full-cycle app development—from Swift and Kotlin native coding to React Native and Flutter cross-platform frameworks, offline-first data sync, and automated App Store releases—we deliver secure, responsive mobile solutions that drive user retention.',
-        imagePath: data.serviceOverview.imageUrl || mobileAppImg
+        imagePath: data.serviceOverview.imageUrl || "/streamline.webp"
       }
     : null;
 
@@ -385,10 +388,25 @@ const MobileAppDevelopment: React.FC = () => {
         id: slide.id || 'slide',
         number: slide.number || '< 01 >',
         title: slide.title || '',
-        image: slide.imageUrl || capabilitiesImg,
+        image: slide.imageUrl || "/streamline.webp",
         items: slide.items || []
       }))
     : mobileAppSlides;
+
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || '',
+        titleMain: data.infoGrid.titleMain,
+        titleAccent: data.infoGrid.titleAccent,
+        title: data.infoGrid.title || (data.infoGrid.titleMain || data.infoGrid.titleAccent ? undefined : ''),
+        description: data.infoGrid.description || '',
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : null;
 
   const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
     ? {
@@ -414,13 +432,28 @@ const MobileAppDevelopment: React.FC = () => {
       }
     : deliverMVPData;
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : processPhasesDefault;
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
     : phaseLabelsDefault;
+  const activeServiceFeaturesItems: ServiceFeatureItem[] = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items.map(item => ({
+        icon: item.icon || '/industryicons/sphere.svg',
+        title: item.title,
+        description: item.description
+      }))
+    : defaultItems;
+
+
 
   return (
     <>
@@ -430,33 +463,50 @@ const MobileAppDevelopment: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      <ServiceOverview
-        label={activeOverviewData?.label || 'MOBILE APP DEVELOPMENT COMPANY'}
-        titleMain={activeOverviewData?.titleMain || 'High-Performance Enterprise'}
-        titleAccent={activeOverviewData?.titleAccent || 'iOS & Android'}
-        titleEnd={activeOverviewData?.titleEnd || 'Mobile Applications'}
-        description={activeOverviewData?.description || 'At Leapsofts, as a full-service mobile app development company, we design and engineer custom mobile applications that bridge corporate cloud backends, real-time databases, and device sensors. By managing full-cycle app development—from Swift and Kotlin native coding to React Native and Flutter cross-platform frameworks, offline-first data sync, and automated App Store releases—we deliver secure, responsive mobile solutions that drive user retention.'}
-        imagePath={activeOverviewData?.imagePath || mobileAppImg}
-      />
-      <Capabilities
-        title={data?.capabilitiesSection?.title || "Our Mobile App Development Capabilities"}
-        slides={activeCapabilitiesSlides}
-      />
+      {activeOverviewData && activeOverviewData.description && (
+        <ServiceOverview
+          label={activeOverviewData?.label || 'MOBILE APP DEVELOPMENT COMPANY'}
+          titleMain={activeOverviewData?.titleMain || 'High-Performance Enterprise'}
+          titleAccent={activeOverviewData?.titleAccent || 'iOS & Android'}
+          titleEnd={activeOverviewData?.titleEnd || 'Mobile Applications'}
+          description={activeOverviewData?.description || 'At Leapsofts, as a full-service mobile app development company, we design and engineer custom mobile applications that bridge corporate cloud backends, real-time databases, and device sensors. By managing full-cycle app development—from Swift and Kotlin native coding to React Native and Flutter cross-platform frameworks, offline-first data sync, and automated App Store releases—we deliver secure, responsive mobile solutions that drive user retention.'}
+          imagePath={activeOverviewData?.imagePath || phonesImg}
+        />
+      )}
+      {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
+        <Capabilities
+          title={data?.capabilitiesSection?.title || "Our Mobile App Development Capabilities"}
+          slides={activeCapabilitiesSlides}
+          defaultImage={phonesImg}
+        />
+      )}
+      {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+        <InfoGrid data={activeInfoGridData} />
+      )}
       <StreamlineSuccess
         label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={data?.strategyCTA?.titleMain || "Map your "}
         titleAccent={data?.strategyCTA?.titleAccent || "mobile"}
         titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || phonesImg}
       />
+      {data?.comparisonTable && (
+        <ComparisonTable data={data.comparisonTable} />
+      )}
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Custom Mobile App Development Services We Provide'}
-        items={data?.serviceFeatures?.items || defaultItems}
+        items={activeServiceFeaturesItems}
       />
-      <EmergingTech data={activeEmergingTechData} />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <Processes title={data?.processes?.title || "OUR CUSTOM MOBILE DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      {activeEmergingTechData && activeEmergingTechData.items && activeEmergingTechData.items.length > 0 && (
+        <EmergingTech data={activeEmergingTechData} />
+      )}
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes title={data?.processes?.title || "OUR CUSTOM MOBILE DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      )}
       <FAQs title="Mobile App Development FAQ" subtitle="Everything you need to know about our iOS, Android, Flutter/React Native, and Store submission services." faqs={data?.faqs} items={data?.faqs} />
       <RelatedServices
         services={[

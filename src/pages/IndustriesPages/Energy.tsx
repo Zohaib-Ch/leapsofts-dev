@@ -1,4 +1,4 @@
-import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { buildPageMeta, buildIndustrySchema } from '../../utils/seoHelper';
 import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -119,10 +119,12 @@ export function meta({ data }: { data?: any }) {
 const Energy: React.FC = () => {
   const { data } = useIndustryPage('energy');
 
-  const schemaData = buildServiceSchema({
-    name: "Energy & Utilities Software Development",
-    description: "Leapsofts engineers custom energy software, smart grid automation platforms, SCADA IoT telemetry engines, and renewable energy management systems.",
-    canonicalUrl: "https://www.leapsofts.com/industries/energy",
+  const schemaCanonicalUrl = "https://www.leapsofts.com/industries/energy";
+  const schemaData = buildIndustrySchema({
+    name: "Energy & Utilities Software Development Services",
+    description: "Custom energy management software — SCADA systems, smart grid solutions, and renewable energy platforms.",
+    canonicalUrl: schemaCanonicalUrl,
+    industryName: "Energy & Utilities",
     faqs: data?.faqs,
   });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();

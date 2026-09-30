@@ -10,7 +10,7 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import RelatedServices from '../../components/RelatedServices/RelatedServices'
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
-const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
+
 import { useServicePage } from '../../hooks/useServicePage';
 
 const serviceOverviewData = {
@@ -19,7 +19,7 @@ const serviceOverviewData = {
   titleAccent: "Legacy",
   titleEnd: "Systems",
   description: "At Leapsofts, we engineer systematic modernization strategies that safeguard your business logic while upgrading your operational capacity. By auditing existing code, refactoring relational database models, and migrating legacy services to containerized AWS, Azure, or GCP environments, we help organizations transition from costly, high-risk systems to secure, agile, and modular platforms that support modern growth.",
-  imagePath: laptopImg
+  imagePath: "/streamline.webp"
 };
 
 const ourServicesData: EmergingTechProps['data'] = {
@@ -342,13 +342,28 @@ const AppReengineering: React.FC = () => {
       }
     : deliverMVPData;
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : processPhasesDefault;
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
     : phaseLabelsDefault;
+  const activeServiceFeaturesItems: ServiceFeatureItem[] = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items.map(item => ({
+        icon: item.icon || '/industryicons/sphere.svg',
+        title: item.title,
+        description: item.description
+      }))
+    : serviceFeaturesData;
+
+
 
   return (
     <>
@@ -358,7 +373,8 @@ const AppReengineering: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      <ServiceOverview
+      {activeOverviewData && activeOverviewData.description && (
+        <ServiceOverview
         label={activeOverviewData.label}
         titleMain={activeOverviewData.titleMain}
         titleAccent={activeOverviewData.titleAccent}
@@ -366,23 +382,32 @@ const AppReengineering: React.FC = () => {
         description={activeOverviewData.description}
         imagePath={activeOverviewData.imagePath}
       />
-      <InfoGrid data={activeInfoGridData} />
+      )}
+      {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+        <InfoGrid data={activeInfoGridData} />
+      )}
       <StreamlineSuccess
         label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={data?.strategyCTA?.titleMain || "Map your "}
         titleAccent={data?.strategyCTA?.titleAccent || "modernization"}
         titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Core Revamp Skills'}
         description='Our teams bring deep expertise in translating legacy code to modern stacks.'
-        items={data?.serviceFeatures?.items || serviceFeaturesData}
+        items={activeServiceFeaturesItems}
       />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <EmergingTech data={activeEmergingTechData} />
-      <Processes title={data?.processes?.title || "OUR SYSTEM RE-ENGINEERING PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeEmergingTechData && activeEmergingTechData.items && activeEmergingTechData.items.length > 0 && (
+        <EmergingTech data={activeEmergingTechData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes title={data?.processes?.title || "OUR SYSTEM RE-ENGINEERING PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      )}
       <FAQs
         title="App Re-Engineering & Legacy Modernization FAQ"
         subtitle="Everything you need to know about code refactoring, monolith decoupling, database migration, and zero-downtime cloud cutovers."

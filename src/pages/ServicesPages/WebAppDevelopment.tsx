@@ -10,11 +10,16 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
-const webAppOverviewImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
-const webAppTechImg = "https://cdn.sanity.io/images/egqy3ztp/production/9ab00d29af5410a9ce17df81d285f750c8591a86-1200x896.webp";
+
+
 import { useServicePage } from '../../hooks/useServicePage';
 import { getSanityServiceBySlug } from '../../sanity/queries';
 import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+
+import Capabilities, { type CapabilitySlide } from '../../components/Capabilities/Capabilities';
+import ComparisonTable from '../../components/ComparisonTable/ComparisonTable';
+
+const defaultFallbackImage = "/streamline.webp";
 
 const serviceOverviewData = {
   label: "WEB APPLICATION DEVELOPMENT SERVICES",
@@ -22,7 +27,7 @@ const serviceOverviewData = {
   titleAccent: "Enterprise Web",
   titleEnd: "Applications",
   description: "At Leapsofts, as a specialized web application development company, we engineer custom web applications that combine modern frontend frameworks with resilient cloud backends. Leveraging React, Next.js, Node.js, and serverless cloud infrastructure (AWS/Azure), we build secure SaaS platforms, enterprise client portals, and real-time web dashboards optimized for Core Web Vitals, conversion speed, and long-term scalability.",
-  imagePath: webAppOverviewImg
+  imagePath: defaultFallbackImage
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
@@ -342,15 +347,83 @@ const WebAppDevelopment: React.FC = () => {
       }
     : deliverMVPData;
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : processPhasesDefault;
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || `PHASE ${index + 1}`,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : (processPhasesDefault);
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
     : phaseLabelsDefault;
 
   const strategyCTA = data?.strategyCTA;
+  const activeServiceFeaturesItems: ServiceFeatureItem[] = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items.map(item => ({
+        icon: item.icon || '/industryicons/sphere.svg',
+        title: item.title,
+        description: item.description
+      }))
+    : serviceFeaturesData;
+
+
+
+  const defaultCapabilitiesSlides: CapabilitySlide[] = [
+    {
+      id: 'web_engineering',
+      number: '< 01 >',
+      title: 'Full-Stack Web Engineering Capabilities',
+      image: defaultFallbackImage,
+      items: [
+        {
+          name: 'Full-Stack Next.js 19 & React Architecture',
+          description: 'Designing high-performance web interfaces with Server-Side Rendering (SSR) and Client-Side state optimization.'
+        },
+        {
+          name: 'High-Concurrency Node.js & Python Web APIs',
+          description: 'Engineering microservice RESTful & GraphQL API gateways to handle multi-tenant database queries with ultra-low latency.'
+        },
+        {
+          name: 'Progressive Web Application (PWA) Systems',
+          description: 'Building offline-first PWAs featuring instant push notifications, service worker caching, and app-like mobile interactions.'
+        }
+      ]
+    },
+    {
+      id: 'performance_security',
+      number: '< 02 >',
+      title: 'Core Web Vitals Performance & Bank-Grade Security',
+      image: defaultFallbackImage,
+      items: [
+        {
+          name: 'Core Web Vitals & Speed Performance Tuning',
+          description: 'Optimizing LCP, INP, and CLS performance metrics to achieve top Google search rankings and 99+ Lighthouse scores.'
+        },
+        {
+          name: 'Enterprise Web Security & SOC2 Compliance',
+          description: 'Implementing OAuth2/OpenID authentication, RBAC, TLS 1.3 encryption, and automated security scanning.'
+        },
+        {
+          name: 'Automated E2E Testing & Reliability Suites',
+          description: 'Integrating automated Playwright and Cypress end-to-end browser simulators to guarantee zero regressions.'
+        }
+      ]
+    }
+  ];
+
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || defaultFallbackImage,
+        items: slide.items || []
+      }))
+    : defaultCapabilitiesSlides;
 
   return (
     <>
@@ -360,7 +433,8 @@ const WebAppDevelopment: React.FC = () => {
         description={activeSubtitle}
         introDescription={activeIntroDescription}
       />
-      <ServiceOverview
+      {activeOverviewData && activeOverviewData.description && (
+        <ServiceOverview
         label={activeOverviewData.label}
         titleMain={activeOverviewData.titleMain}
         titleAccent={activeOverviewData.titleAccent}
@@ -368,7 +442,15 @@ const WebAppDevelopment: React.FC = () => {
         description={activeOverviewData.description}
         imagePath={activeOverviewData.imagePath}
       />
-      <InfoGrid data={activeInfoGridData} />
+      )}
+      <Capabilities
+        title={data?.capabilitiesSection?.title || "Enterprise Web Application Engineering Capabilities"}
+        slides={activeCapabilitiesSlides}
+        defaultImage={defaultFallbackImage}
+      />
+      {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
+        <InfoGrid data={activeInfoGridData} />
+      )}
       <StreamlineSuccess
         label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
         titleMain={strategyCTA?.titleMain || "Map your "}
@@ -377,16 +459,25 @@ const WebAppDevelopment: React.FC = () => {
         description={strategyCTA?.descriptionText ? parseFormattedText(strategyCTA.descriptionText) : streamlineDescription}
         buttonText={strategyCTA?.buttonText}
         buttonPath={strategyCTA?.buttonPath}
-        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={strategyCTA?.imageUrl || defaultFallbackImage}
       />
+      {data?.comparisonTable && (
+        <ComparisonTable data={data.comparisonTable} />
+      )}
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Core Web Capabilities'}
         description={data?.serviceFeatures?.description || 'We utilize industry-leading tools and architectural patterns to deliver robust web applications.'}
-        items={data?.serviceFeatures?.items || serviceFeaturesData}
+        items={activeServiceFeaturesItems}
       />
-      <DeliverMVP data={activeDeliverMVPData} />
-      <EmergingTech data={activeEmergingTechData} />
-      <Processes title={data?.processes?.title || "OUR WEB APP DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
+        <DeliverMVP data={activeDeliverMVPData} />
+      )}
+      {activeEmergingTechData && activeEmergingTechData.items && activeEmergingTechData.items.length > 0 && (
+        <EmergingTech data={activeEmergingTechData} />
+      )}
+      {activeProcessPhases && activeProcessPhases.length > 0 && (
+        <Processes title={data?.processes?.title || "OUR WEB APP DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      )}
       <FAQs title="Web Application Development FAQ" subtitle="Everything you need to know about custom web apps, Next.js/React architecture, Core Web Vitals, and IP ownership." faqs={data?.faqs} items={data?.faqs} />
       <RelatedServices
         services={[

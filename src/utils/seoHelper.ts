@@ -119,3 +119,84 @@ export function buildServiceSchema({
     '@graph': graph,
   };
 }
+
+export interface IndustrySchemaOptions {
+  name: string;
+  description: string;
+  canonicalUrl: string;
+  industryName: string;
+  faqs?: FAQItem[];
+}
+
+/**
+ * Generates structured data for industry-specific pages.
+ * Uses ProfessionalService (more accurate than Service) + BreadcrumbList + optional FAQPage.
+ * Industry pages should NOT use the generic Service @type — this fixes the schema mismatch.
+ */
+export function buildIndustrySchema({
+  name,
+  description,
+  canonicalUrl,
+  industryName,
+  faqs,
+}: IndustrySchemaOptions) {
+  const graph: any[] = [
+    {
+      '@type': 'ProfessionalService',
+      '@id': `${canonicalUrl}#service`,
+      'name': name,
+      'provider': {
+        '@type': 'Organization',
+        'name': 'Leapsofts',
+        'url': 'https://www.leapsofts.com',
+        '@id': 'https://www.leapsofts.com/#organization',
+      },
+      'areaServed': ['United Arab Emirates', 'United States', 'United Kingdom', 'Saudi Arabia', 'Global'],
+      'knowsAbout': industryName,
+      'description': description,
+      'url': canonicalUrl,
+    },
+    {
+      '@type': 'BreadcrumbList',
+      'itemListElement': [
+        {
+          '@type': 'ListItem',
+          'position': 1,
+          'name': 'Home',
+          'item': 'https://www.leapsofts.com/',
+        },
+        {
+          '@type': 'ListItem',
+          'position': 2,
+          'name': 'Industries',
+          'item': 'https://www.leapsofts.com/#industries',
+        },
+        {
+          '@type': 'ListItem',
+          'position': 3,
+          'name': name,
+          'item': canonicalUrl,
+        },
+      ],
+    },
+  ];
+
+  if (Array.isArray(faqs) && faqs.length > 0) {
+    graph.push({
+      '@type': 'FAQPage',
+      'mainEntity': faqs.map((faq) => ({
+        '@type': 'Question',
+        'name': faq.question,
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': faq.answer,
+        },
+      })),
+    });
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': graph,
+  };
+}
