@@ -433,7 +433,7 @@ export const CASE_STUDY_BY_ID_QUERY = `*[_type == "caseStudy" && (id == $id || s
   seo
 }`;
 
-export const ALL_BLOGS_QUERY = `*[_type == "blog" && !(_id in path("drafts.**"))] | order(_createdAt desc){
+export const ALL_BLOGS_QUERY = `*[_type == "blog"] | order(_createdAt desc){
   _id,
   title,
   "slug": slug.current,
@@ -483,7 +483,7 @@ export const ALL_BLOGS_QUERY = `*[_type == "blog" && !(_id in path("drafts.**"))
   seo
 }`;
 
-export const BLOG_BY_SLUG_QUERY = `*[_type == "blog" && (slug.current == $slug || _id == $slug || _id == "blog-" + $slug || _id == "drafts.blog-" + $slug)][0]{
+export const BLOG_BY_SLUG_QUERY = `*[_type == "blog" && (slug.current == $slug || _id == $slug || _id == "drafts." + $slug || _id == "blog-" + $slug || _id == "drafts.blog-" + $slug)] | order(_updatedAt desc)[0]{
   _id,
   title,
   "slug": slug.current,
@@ -617,7 +617,19 @@ export const ALL_TEAM_MEMBERS_QUERY = `*[_type == "teamMember"] | order(_updated
 export async function getSanityBlogs(): Promise<SanityBlog[] | null> {
   try {
     const res = await client.fetch(ALL_BLOGS_QUERY);
-    return Array.isArray(res) && res.length > 0 ? res : null;
+    if (!Array.isArray(res) || res.length === 0) return null;
+
+    // Deduplicate between draft and published (preferring draft/newer items)
+    const map = new Map<string, SanityBlog>();
+    for (const item of res) {
+      const slugKey = item.slug || item._id?.replace(/^drafts\./, '');
+      if (!slugKey) continue;
+      const existing = map.get(slugKey);
+      if (!existing || item._id?.startsWith('drafts.')) {
+        map.set(slugKey, item);
+      }
+    }
+    return Array.from(map.values());
   } catch (e) {
     return null;
   }
