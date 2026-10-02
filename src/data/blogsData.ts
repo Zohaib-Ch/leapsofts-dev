@@ -4,6 +4,7 @@ export interface BlogAuthor {
   name: string;
   role: string;
   avatar: string;
+  avatarUrl?: string;
   bio: string;
 }
 
@@ -111,10 +112,10 @@ export async function processPrompt(rawPrompt: string, tenantId: string) {
     publishedDate: 'August 28, 2026',
     featured: false,
     author: {
-      name: 'Marcus Devlin',
-      role: 'VP of Engineering',
-      avatar: 'MD',
-      bio: 'Pioneer of agile pod topologies with a track record of 100+ production deployments shipped on 3-5 month launch timelines.',
+      name: 'Huzaifa Rasheed',
+      role: 'CEO & Co-Founder',
+      avatar: 'HR',
+      bio: 'Pioneering custom AI architectures and scalable cloud solutions across Healthcare, FinTech, and Enterprise SaaS.',
     },
     coverImage: 'https://cdn.sanity.io/images/egqy3ztp/production/b6de992d94fca7de0aae6fbfc318368f713653d6-1376x768.jpg',
     excerpt: 'How to systematically break down 10-year-old monolithic codebases into containerized Kubernetes services using double-write database routing.',
@@ -166,10 +167,10 @@ spec:
     publishedDate: 'August 14, 2026',
     featured: false,
     author: {
-      name: 'Sarah Chen',
-      role: 'Head of AI & Machine Learning',
-      avatar: 'SC',
-      bio: 'Specializing in computer vision, MLOps, and rapid product prototyping for hyper-growth technology ventures.',
+      name: 'Huzaifa Rasheed',
+      role: 'CEO & Co-Founder',
+      avatar: 'HR',
+      bio: 'Pioneering custom AI architectures and scalable cloud solutions across Healthcare, FinTech, and Enterprise SaaS.',
     },
     coverImage: 'https://cdn.sanity.io/images/egqy3ztp/production/7fd3879b82bf25ba968df5ab930546800bced292-1376x768.jpg',
     excerpt: 'Replacing fragmented staff augmentation with dedicated cross-functional engineering pods compresses software MVP delivery down to 90 days.',
@@ -207,10 +208,10 @@ spec:
     publishedDate: 'July 30, 2026',
     featured: false,
     author: {
-      name: 'Elena Rostova',
-      role: 'Lead Cyber Security Architect',
-      avatar: 'ER',
-      bio: 'Certified ethical hacker and zero-trust cloud architect guaranteeing ISO 27001, HIPAA, and SOC 2 Type II audit readiness.',
+      name: 'Huzaifa Rasheed',
+      role: 'CEO & Co-Founder',
+      avatar: 'HR',
+      bio: 'Pioneering custom AI architectures and scalable cloud solutions across Healthcare, FinTech, and Enterprise SaaS.',
     },
     coverImage: 'https://cdn.sanity.io/images/egqy3ztp/production/215f042a3ac86332904577dfc3e4d36bf07cb39c-1376x768.jpg',
     excerpt: 'Building audit-ready cloud infrastructure requiring zero-trust identity verification, KMS secret vaults, and automated vulnerability scanning.',

@@ -277,7 +277,7 @@ const About: React.FC = () => {
     "name": "Leapsofts",
     "legalName": "Leapsofts Technology Solutions FZ-LLC",
     "url": "https://www.leapsofts.com",
-    "logo": "https://www.leapsofts.com/logo.png",
+    "logo": "https://www.leapsofts.com/logo/Leap-soft-01.png",
     "foundingDate": "2021",
     "description": "Leapsofts is an enterprise software engineering company delivering custom cloud architectures, AI solutions, and dedicated agile pods.",
     "address": [
@@ -310,7 +310,7 @@ const About: React.FC = () => {
     "publisher": {
       "@type": "Organization",
       "name": "Leapsofts",
-      "logo": "https://www.leapsofts.com/logo.png"
+      "logo": "https://www.leapsofts.com/logo/Leap-soft-01.png"
     }
   };
 

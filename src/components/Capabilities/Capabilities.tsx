@@ -44,7 +44,6 @@ const Capabilities: React.FC<CapabilitiesProps> = ({
     const handleNext = () => {
         if (swiperRef.current) {
             swiperRef.current.slideToLoop((activeIndex + 1) % slides.length);
-            console.log('swiperRef.current', swiperRef.current.activeIndex);
         }
     };
 

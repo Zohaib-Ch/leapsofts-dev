@@ -148,7 +148,6 @@ const Processes: React.FC<ProcessPhaseProps> = ({ title, phaseLabels, processPha
     const [activePhase, setActivePhase] = useState(0); // 0-indexed, default to Engineering (index 2)
 
     const handlePhaseClick = (index: number) => {
-        console.log(index);
         setActivePhase(index);
     };
 

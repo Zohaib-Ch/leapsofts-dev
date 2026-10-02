@@ -6,16 +6,23 @@ interface ButtonProps {
     text: string;
     onClick?: () => void;
     hasIcon?: boolean;
+    className?: string;
+    disabled?: boolean;
+    type?: 'button' | 'submit' | 'reset';
 }
 
-const Button = ({ color1 = 'var(--color-orange, #FF7917)', color2 = 'var(--color-purple, #C63C92)', text, onClick, hasIcon }: ButtonProps) => {
+const Button = ({ color1 = 'var(--color-orange, #FF7917)', color2 = 'var(--color-purple, #C63C92)', text, onClick, hasIcon, className = '', disabled = false, type = 'submit' }: ButtonProps) => {
     return (
         <button
-            className={styles['leap-btn']}
+            type={type}
+            disabled={disabled}
+            className={`${styles['leap-btn']} ${className} ${disabled ? styles['btn-disabled'] : ''}`.trim()}
             onClick={onClick}
             style={{
                 '--btn-color-1': color1,
-                '--btn-color-2': color2
+                '--btn-color-2': color2,
+                opacity: disabled ? 0.6 : 1,
+                cursor: disabled ? 'not-allowed' : 'pointer'
             } as React.CSSProperties}
         >
             <span className={styles['btn-bg']}></span>

@@ -74,6 +74,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ initialBlogs }) => {
             name: blog.author?.name || 'Leapsofts Engineering',
             role: blog.author?.role || 'Technical Lead',
             avatar: blog.author?.avatar || blog.author?.avatarInitials || 'LS',
+            avatarUrl: blog.author?.avatarUrl,
           },
         });
       }
@@ -142,7 +143,13 @@ const BlogSection: React.FC<BlogSectionProps> = ({ initialBlogs }) => {
 
                 <div className={styles.cardFooter}>
                   <div className={styles.authorBox}>
-                    <div className={styles.authorAvatar}>{article.author.avatar}</div>
+                    <div className={styles.authorAvatar}>
+                      {article.author.avatarUrl ? (
+                        <img src={article.author.avatarUrl} alt={article.author.name} style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+                      ) : (
+                        article.author.avatar
+                      )}
+                    </div>
                     <div>
                       <div className={styles.authorName}>{article.author.name}</div>
                       <div className={styles.authorRole}>{article.author.role}</div>

@@ -210,7 +210,7 @@ const Partners: React.FC = () => {
             { text: "bespoke, cost-effective custom software solutions ", bold: true },
             { text: "can streamline workflows, improve efficiency, and support scalable growth.", bold: false },
           ]}
-          imageUrl="/streamline.png"
+          imageUrl="/streamline.webp"
         />
       </div>
       <div className={styles.benefits} id="benefits">

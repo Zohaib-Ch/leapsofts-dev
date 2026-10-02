@@ -42,7 +42,7 @@ const Footer = () => {
         <div className={styles["footer-main"]}>
           <div className={styles["footer-brand"]}>
             <Link to="/">
-              <img className={styles["footer-logo"]} src="/logo/Leap-soft-w.png" alt="" />
+              <img className={styles["footer-logo"]} src="/logo/Leap-soft-w.png" alt="Leapsofts Enterprise Custom Software Development" />
             </Link>
             <div className={styles["footer-contact-info"]}>
               <div className={styles["contact-section"]}>
@@ -114,7 +114,14 @@ const Footer = () => {
         </div>
 
         <div className={styles["footer-bottom"]}>
-          <p className={styles["copyright"]}>&copy; {currentYear} Leapsofts. All rights reserved.</p>
+          <div className={styles["footer-bottom-info"]}>
+            <p className={styles["copyright"]}>&copy; {currentYear} Leapsofts. All rights reserved.</p>
+            <div className={styles["footer-legal-links"]}>
+              <Link to="/privacy-policy" className={styles["legal-link"]}>Privacy Policy</Link>
+              <span className={styles["legal-divider"]}>•</span>
+              <Link to="/cookies-policy" className={styles["legal-link"]}>Cookies Policy</Link>
+            </div>
+          </div>
           <div className={styles["social-links"]}>
             <a
               href="https://www.linkedin.com/company/leapsofts/"

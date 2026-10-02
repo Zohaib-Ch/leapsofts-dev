@@ -79,15 +79,11 @@ export const blogSchema = defineType({
     }),
     defineField({
       name: 'author',
-      title: 'Author Details',
-      type: 'object',
-      fields: [
-        defineField({ name: 'name', title: 'Author Name', type: 'string' }),
-        defineField({ name: 'role', title: 'Author Role', type: 'string' }),
-        defineField({ name: 'avatar', title: 'Author Avatar Image Upload', type: 'image' }),
-        defineField({ name: 'avatarInitials', title: 'Avatar Initials / Abbreviation (e.g. HR)', type: 'string' }),
-        defineField({ name: 'bio', title: 'Author Bio', type: 'text', rows: 2 }),
-      ],
+      title: 'Author (Select Team Member)',
+      type: 'reference',
+      to: [{ type: 'teamMember' }],
+      description: 'Select the team member from the team directory who authored this article.',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'content',

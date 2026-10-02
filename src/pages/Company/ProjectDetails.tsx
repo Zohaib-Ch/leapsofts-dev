@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useLoaderData } from 'react-router';
 import { projectsData } from '../../data/projectsData';
 import ImpactShowcase from '../../components/ImpactShowcase/ImpactShowcase';
 import ExecutiveSummary from '../../components/ExecutiveSummary/ExecutiveSummary';
@@ -8,20 +8,45 @@ import ContactForm from '../../components/ContactForm/ContactForm';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityCaseStudyById } from '../../sanity/queries';
 import type { SanityCaseStudy } from '../../sanity/types';
+import { buildPageMeta } from '../../utils/seoHelper';
 import styles from './ProjectDetails.module.css';
 
+export async function loader({ params }: { params: { id?: string } }) {
+    if (!params.id) return { sanityProject: null, fallbackProject: null };
+    const sanityProject = await getSanityCaseStudyById(params.id).catch(() => null);
+    const fallbackProject = projectsData.find(project => project.id === params.id) || null;
+    return { sanityProject, fallbackProject };
+}
+
+export function meta({ data, params }: { data?: any; params?: any }) {
+    const project = data?.sanityProject || data?.fallbackProject;
+    const title = project?.impact?.title || project?.title || 'Case Study Details';
+    const description = typeof project?.summary === 'string'
+        ? project.summary
+        : project?.summary?.description || 'Explore this custom enterprise software engineering case study by Leapsofts.';
+
+    return buildPageMeta({
+        sanityData: project,
+        defaultTitle: `${title} | Case Study | Leapsofts`,
+        defaultDescription: description,
+        defaultKeywords: "software engineering case study, custom software development, cloud architecture, leapsofts portfolio",
+        canonicalUrl: `https://www.leapsofts.com/projects/${params?.id || ''}`,
+    });
+}
+
 const ProjectDetails: React.FC = () => {
+    const loaderData = useLoaderData<typeof loader>();
     const { id } = useParams<{ id: string }>();
-    const [sanityProject, setSanityProject] = useState<SanityCaseStudy | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [sanityProject, setSanityProject] = useState<SanityCaseStudy | null>(loaderData?.sanityProject || null);
+    const [isLoading, setIsLoading] = useState<boolean>(!loaderData);
 
     const projectData = useMemo(() => {
-        return projectsData.find(project => project.id === id);
-    }, [id]);
+        return loaderData?.fallbackProject || projectsData.find(project => project.id === id);
+    }, [id, loaderData]);
 
     useEffect(() => {
         let isMounted = true;
-        if (id) {
+        if (id && !loaderData?.sanityProject) {
             setIsLoading(true);
             getSanityCaseStudyById(id)
                 .then((data) => {
@@ -39,7 +64,7 @@ const ProjectDetails: React.FC = () => {
         return () => {
             isMounted = false;
         };
-    }, [id]);
+    }, [id, loaderData]);
 
     if (isLoading && !projectData) {
         return (

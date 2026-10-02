@@ -210,7 +210,7 @@ const Leadership: React.FC = () => {
     "@type": "Organization",
     "name": "Leapsofts",
     "url": "https://www.leapsofts.com",
-    "logo": "https://www.leapsofts.com/logo.png",
+    "logo": "https://www.leapsofts.com/logo/Leap-soft-01.png",
     "description": "Enterprise software engineering company led by founders and software architects."
   };
 

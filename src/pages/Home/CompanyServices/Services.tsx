@@ -23,7 +23,7 @@ const defaultServices: ServiceData[] = [
             { name: 'Quality Assurance', path: '/services/quality-assurance' },
             { name: 'Salesforce', path: '/services/salesforce' },
             { name: 'Shopify', path: '/services/shopify' },
-            { name: 'ServiceNow', path: '/services/servicenow' },
+            { name: 'ServiceNow', path: '/services/service-now' },
         ],
     },
     {

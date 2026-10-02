@@ -190,18 +190,48 @@
 .footer-bottom {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
     padding: 2rem 0;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     margin: 0 44px;
+    flex-wrap: wrap;
+}
+
+.footer-bottom-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
 }
 
 .copyright {
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.5);
     margin: 0;
+}
+
+.footer-legal-links {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.legal-link {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.legal-link:hover {
+    color: var(--color-white, #ffffff);
+}
+
+.legal-divider {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.25);
 }
 
 @media (max-width: 1024px) {

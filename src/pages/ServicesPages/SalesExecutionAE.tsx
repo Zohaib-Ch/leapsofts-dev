@@ -1,29 +1,14 @@
 import { useState, useMemo } from 'react';
-import { useParams, useLocation, Link, Navigate } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 import MetaSEO from '../../components/SEO/MetaSEO';
-import { GROWTH_SERVICES_DATA } from '../../data/growthServicesData';
-import styles from './GrowthServicePage.module.css';
+import { GROWTH_SERVICES_DATA, type GrowthServicePillar } from '../../data/growthServicesData';
+import styles from '../Services/GrowthServicePage.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   PhoneCall,
   Presentation,
   Workflow,
   FileCheck2,
-  UserCheck,
-  Mail,
-  Building,
-  CalendarCheck,
-  Share2,
-  PencilRuler,
-  LineChart,
-  RotateCcw,
-  Search,
-  FileText,
-  Users,
-  Palette,
-  Database,
-  Filter,
-  Zap,
   Check,
   X,
   ChevronDown,
@@ -32,32 +17,36 @@ import {
   ShieldCheck,
   Sparkles
 } from 'lucide-react';
-
 import { useServicePage } from '../../hooks/useServicePage';
+import { getSanityServiceBySlug } from '../../sanity/queries';
+import { buildPageMeta } from '../../utils/seoHelper';
+
+const SLUG = 'sales-execution-ae';
+const FALLBACK_DATA: GrowthServicePillar = GROWTH_SERVICES_DATA[SLUG]!;
+
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug(SLUG);
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  const sanityData = data?.sanityData;
+  return buildPageMeta({
+    sanityData,
+    defaultTitle: FALLBACK_DATA.seo.title,
+    defaultDescription: FALLBACK_DATA.seo.description,
+    defaultKeywords: FALLBACK_DATA.seo.keywords.join(', '),
+    canonicalUrl: `https://www.leapsofts.com/services/${SLUG}`,
+  });
+}
 
 const ICON_MAP: Record<string, any> = {
   PhoneCall,
   Presentation,
   Workflow,
   FileCheck2,
-  UserCheck,
-  MailSend: Mail,
-  Building,
-  CalendarCheck,
-  Share2,
-  PencilRuler,
-  LineChart,
-  RotateCcw,
-  Search,
-  FileText,
-  Users,
-  Palette,
-  Database,
-  Filter,
-  Zap,
 };
 
-// 90FPS Scroll Storytelling Animation Physics
 const fadeInUp = {
   hidden: { opacity: 0, y: 35 },
   visible: {
@@ -97,75 +86,78 @@ const slideInRight = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
 };
 
-export default function GrowthServicePage() {
-  const location = useLocation();
-  const params = useParams<{ serviceSlug?: string }>();
-
-  const effectiveSlug = useMemo(() => {
-    if (params.serviceSlug) return params.serviceSlug;
-    const parts = location.pathname.split('/').filter(Boolean);
-    return parts[parts.length - 1] || '';
-  }, [params.serviceSlug, location.pathname]);
-
+export default function SalesExecutionAE() {
+  const loaderData = useLoaderData() as any;
+  const { data: sanityData } = useServicePage(SLUG, loaderData?.sanityData);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
-  const { data: sanityData } = useServicePage(effectiveSlug);
 
-  const fallbackService = useMemo(() => {
-    if (!effectiveSlug) return null;
-    return GROWTH_SERVICES_DATA[effectiveSlug] || null;
-  }, [effectiveSlug]);
+  const service: GrowthServicePillar = useMemo(() => {
+    if (!sanityData) return FALLBACK_DATA;
 
-  const service = useMemo(() => {
-    if (!fallbackService) return null;
-    if (!sanityData) return fallbackService;
-
-    // Parse Sanity CMS overrides if provided by Sanity Studio
     const parsedSubServices = (sanityData.subServices && Array.isArray(sanityData.subServices) && sanityData.subServices.length > 0)
       ? sanityData.subServices.map((sub: any, idx: number) => ({
           id: sub.id || sub._key || `sanity-sub-${idx}`,
-          title: sub.title || fallbackService.subServices[idx]?.title || 'Capability',
-          subtitle: sub.subtitle || fallbackService.subServices[idx]?.subtitle || '',
-          description: sub.description || fallbackService.subServices[idx]?.description || '',
-          iconName: sub.iconName || fallbackService.subServices[idx]?.iconName || 'ShieldCheck',
-          highlights: Array.isArray(sub.highlights) && sub.highlights.length > 0 ? sub.highlights : (fallbackService.subServices[idx]?.highlights || []),
-          deliverables: Array.isArray(sub.deliverables) && sub.deliverables.length > 0 ? sub.deliverables : (fallbackService.subServices[idx]?.deliverables || []),
+          title: sub.title || FALLBACK_DATA.subServices[idx]?.title || 'Capability',
+          subtitle: sub.subtitle || FALLBACK_DATA.subServices[idx]?.subtitle || '',
+          description: sub.description || FALLBACK_DATA.subServices[idx]?.description || '',
+          iconName: sub.iconName || FALLBACK_DATA.subServices[idx]?.iconName || 'PhoneCall',
+          highlights: Array.isArray(sub.highlights) && sub.highlights.length > 0 ? sub.highlights : (FALLBACK_DATA.subServices[idx]?.highlights || []),
+          deliverables: Array.isArray(sub.deliverables) && sub.deliverables.length > 0 ? sub.deliverables : (FALLBACK_DATA.subServices[idx]?.deliverables || []),
         }))
-      : fallbackService.subServices;
+      : FALLBACK_DATA.subServices;
 
     const parsedFaqs = (sanityData.faqs && Array.isArray(sanityData.faqs) && sanityData.faqs.length > 0)
       ? sanityData.faqs.map((f: any) => ({
           question: f.question || f.q || '',
           answer: f.answer || f.a || '',
         }))
-      : fallbackService.faqs;
+      : FALLBACK_DATA.faqs;
+
+    const parsedKeywords: string[] = sanityData.seo?.keywords
+      ? Array.isArray(sanityData.seo.keywords)
+        ? sanityData.seo.keywords
+        : typeof sanityData.seo.keywords === 'string'
+          ? (sanityData.seo.keywords as string).split(',').map((k: string) => k.trim()).filter(Boolean)
+          : FALLBACK_DATA.seo.keywords
+      : FALLBACK_DATA.seo.keywords;
 
     return {
-      ...fallbackService,
-      title: sanityData.title || sanityData.hero?.title || fallbackService.title,
-      subtitle: sanityData.shortDescription || sanityData.hero?.subtitle || fallbackService.subtitle,
-      heroDescription: sanityData.hero?.introText || fallbackService.heroDescription,
-      badgeText: sanityData.badgeText || fallbackService.badgeText,
+      ...FALLBACK_DATA,
+      title: sanityData.title || sanityData.hero?.title || FALLBACK_DATA.title,
+      subtitle: sanityData.shortDescription || sanityData.hero?.subtitle || FALLBACK_DATA.subtitle,
+      heroDescription: sanityData.hero?.introText || FALLBACK_DATA.heroDescription,
+      badgeText: sanityData.badgeText || FALLBACK_DATA.badgeText,
+      metrics: (sanityData.metrics && Array.isArray(sanityData.metrics) && sanityData.metrics.length > 0)
+        ? sanityData.metrics.map((m: any, idx: number) => ({
+            value: m.value || FALLBACK_DATA.metrics[idx]?.value || '',
+            label: m.label || FALLBACK_DATA.metrics[idx]?.label || '',
+            description: m.description || FALLBACK_DATA.metrics[idx]?.description || '',
+          }))
+        : FALLBACK_DATA.metrics,
+      comparison: sanityData.comparison?.title
+        ? {
+            title: sanityData.comparison.title || FALLBACK_DATA.comparison.title,
+            subtitle: sanityData.comparison.subtitle || FALLBACK_DATA.comparison.subtitle,
+            traditional: Array.isArray(sanityData.comparison.traditional) && sanityData.comparison.traditional.length > 0 ? sanityData.comparison.traditional : FALLBACK_DATA.comparison.traditional,
+            leapsoftsPod: Array.isArray(sanityData.comparison.leapsoftsPod) && sanityData.comparison.leapsoftsPod.length > 0 ? sanityData.comparison.leapsoftsPod : FALLBACK_DATA.comparison.leapsoftsPod,
+          }
+        : FALLBACK_DATA.comparison,
       subServices: parsedSubServices,
       faqs: parsedFaqs,
       seo: {
-        title: sanityData.seo?.metaTitle || fallbackService.seo.title,
-        description: sanityData.seo?.metaDescription || fallbackService.seo.description,
-        keywords: sanityData.seo?.keywords && sanityData.seo.keywords.length > 0 ? sanityData.seo.keywords : fallbackService.seo.keywords,
+        title: sanityData.seo?.metaTitle || FALLBACK_DATA.seo.title,
+        description: sanityData.seo?.metaDescription || FALLBACK_DATA.seo.description,
+        keywords: parsedKeywords,
       }
     };
-  }, [fallbackService, sanityData]);
-
-  if (!service) {
-    return <Navigate to="/services/custom-software-development" replace />;
-  }
+  }, [sanityData]);
 
   const toggleFaq = (index: number) => {
     setOpenFaqIndex((prev) => (prev === index ? null : index));
   };
 
-  const currentCanonicalUrl = `https://www.leapsofts.com/services/${service.slug}`;
+  const currentCanonicalUrl = `https://www.leapsofts.com/services/${SLUG}`;
 
-  // Structured Data (JSON-LD)
   const jsonLd = [
     {
       '@context': 'https://schema.org',
@@ -254,35 +246,36 @@ export default function GrowthServicePage() {
           <h1 className={styles['hero-title']}>{service.title}</h1>
           <p className={styles['hero-subtitle']}>{service.subtitle}</p>
           <p className={styles['hero-description']}>{service.heroDescription}</p>
+
           <div className={styles['hero-actions']}>
             <Link to="/contact" className={styles['primary-btn']}>
-              <span>{service.primaryCTA}</span>
-              <ArrowRight size={18} />
+              {service.primaryCTA}
+              <ArrowRight size={16} />
             </Link>
             <a href="#capabilities" className={styles['secondary-btn']}>
-              <span>{service.secondaryCTA}</span>
+              {service.secondaryCTA}
             </a>
           </div>
         </motion.div>
 
-        {/* Hero Metrics */}
+        {/* Hero Metrics Box */}
         <motion.div
           className={styles['metrics-grid']}
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
         >
-          {service.metrics.map((metric, idx) => (
+          {service.metrics.map((m, idx) => (
             <motion.div key={idx} className={styles['metric-card']} variants={cardVariant}>
-              <div className={styles['metric-value']}>{metric.value}</div>
-              <div className={styles['metric-label']}>{metric.label}</div>
-              <div className={styles['metric-desc']}>{metric.description}</div>
+              <div className={styles['metric-value']}>{m.value}</div>
+              <div className={styles['metric-label']}>{m.label}</div>
+              <div className={styles['metric-desc']}>{m.description}</div>
             </motion.div>
           ))}
         </motion.div>
       </section>
 
-      {/* Strategic Positioning Banner (Scroll Reveal) */}
+      {/* Strategic Positioning Banner */}
       <motion.div
         className={styles['positioning-banner']}
         initial={{ opacity: 0, y: 25 }}
@@ -296,7 +289,7 @@ export default function GrowthServicePage() {
         </div>
       </motion.div>
 
-      {/* Capabilities / Sub-Services Grid (Scroll Storytelling) */}
+      {/* Capabilities / Sub-Services Grid */}
       <section id="capabilities" className={styles['section']}>
         <motion.div
           className={styles['section-header']}
@@ -332,7 +325,7 @@ export default function GrowthServicePage() {
                 </div>
                 <p className={styles['card-description']}>{sub.description}</p>
                 <div className={styles['bullet-list']}>
-                  {sub.highlights.map((h, i) => (
+                  {(sub.highlights || []).map((h: string, i: number) => (
                     <div key={i} className={styles['bullet-item']}>
                       <Check size={16} className={styles['check-icon']} />
                       <span>{h}</span>
@@ -342,7 +335,7 @@ export default function GrowthServicePage() {
                 <div className={styles['deliverables-box']}>
                   <div className={styles['deliverables-title']}>Key Deliverables</div>
                   <div className={styles['deliverables-tags']}>
-                    {sub.deliverables.map((deliv, di) => (
+                    {(sub.deliverables || []).map((deliv: string, di: number) => (
                       <span key={di} className={styles['deliverable-tag']}>
                         {deliv}
                       </span>
@@ -355,7 +348,7 @@ export default function GrowthServicePage() {
         </motion.div>
       </section>
 
-      {/* Comparison Grid (Scroll Storytelling Left/Right Slide) */}
+      {/* Comparison Grid */}
       <section className={styles['section']}>
         <motion.div
           className={styles['section-header']}
@@ -407,7 +400,7 @@ export default function GrowthServicePage() {
         </motion.div>
       </section>
 
-      {/* FAQ Accordion (Cascading Scroll Reveal) */}
+      {/* FAQ Accordion */}
       <section className={styles['section']}>
         <motion.div
           className={styles['section-header']}
@@ -419,7 +412,7 @@ export default function GrowthServicePage() {
           <div className={styles['section-tag']}>Got Questions?</div>
           <h2 className={styles['section-title']}>Frequently Asked Questions</h2>
           <p className={styles['section-subtitle']}>
-            Everything you need to know about our growth pods, onboarding timeline, and execution model.
+            Everything you need to know about our pod deployment model, contract terms, and SLAs.
           </p>
         </motion.div>
 
@@ -479,7 +472,7 @@ export default function GrowthServicePage() {
         </motion.div>
       </section>
 
-      {/* Bottom CTA Banner (Scroll Reveal & Scale) */}
+      {/* Bottom CTA Banner */}
       <section className={styles['section']}>
         <motion.div
           className={styles['cta-banner']}
@@ -488,12 +481,12 @@ export default function GrowthServicePage() {
           viewport={{ once: true, amount: 0.05 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h2 className={styles['cta-title']}>Ready to Scale Your Growth Engine?</h2>
+          <h2 className={styles['cta-title']}>Ready to Scale Your Sales Execution?</h2>
           <p className={styles['cta-subtitle']}>
-            Schedule a strategy session with our revenue engineers to analyze your current pipeline and map out your custom growth blueprint.
+            Schedule an introductory session with our sales architects to map out your custom Account Executive pod deployment.
           </p>
-          <Link to="/contact" className={styles['primary-btn']}>
-            <span>Book Revenue Strategy Session</span>
+          <Link to="/contact" className={styles['cta-btn']}>
+            <span>Deploy Your AE Pod</span>
             <ArrowRight size={18} />
           </Link>
         </motion.div>

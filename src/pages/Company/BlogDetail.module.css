@@ -160,6 +160,7 @@
   width: 42px;
   height: 42px;
   border-radius: 50%;
+  overflow: hidden;
   background: linear-gradient(135deg, #ff7917, #c63c92);
   color: #ffffff;
   display: flex;

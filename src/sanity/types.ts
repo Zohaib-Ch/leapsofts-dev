@@ -184,6 +184,82 @@ export interface SanityAboutPage {
     subtitle?: string;
     categories?: { category: string; skills: string }[];
   };
+  // Mission Page Sections
+  whyMissionMatters?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    mandateTitle?: string;
+    mandateText?: string;
+    blueprintTitle?: string;
+    blueprintText?: string;
+  };
+  pillars?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    items?: { num: string; title: string; desc: string }[];
+  };
+  manifesto?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    rules?: { num: string; title?: string; text: string }[];
+  };
+  qaStandards?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    standards?: { title: string; desc: string; icon?: string }[];
+  };
+  // Leadership Page Sections
+  ceoSpotlight?: {
+    label?: string;
+    name?: string;
+    role?: string;
+    highlight?: string;
+    bio?: string;
+    quote?: string;
+    skills?: string[];
+  };
+  leadershipTeam?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    members?: { name: string; role: string; bio: string; highlight?: string; initials?: string; skills?: string[]; imageUrl?: string }[];
+  };
+  philosophy?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    principles?: { step: string; title: string; desc: string }[];
+  };
+  // Global Footprint Page Sections
+  hubsSection?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    hubs?: { badge?: string; name: string; desc: string; list?: string[] }[];
+  };
+  complianceSection?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    compliance?: { name: string; tag: string; subtitle: string; desc: string }[];
+  };
+  securitySection?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    standards?: { title: string; desc: string }[];
+  };
+  // Internal Links Hub (used across sub-pages)
+  internalLinks?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    services?: { name: string; link: string; desc: string; tag?: string }[];
+  };
   faq?: {
     label?: string;
     title?: string;
@@ -224,13 +300,33 @@ export interface SanityService {
   _id?: string;
   title: string;
   slug: string;
-  category: 'Product Engineering' | 'Next Gen Services' | 'Cloud Services' | 'Solutions';
+  category: 'Product Engineering' | 'Next Gen Services' | 'Cloud Services' | 'Solutions' | 'Sales & Revenue Growth';
   badgeText?: string;
   shortDescription?: string;
   hero?: {
     title?: string;
     subtitle?: string;
     introText?: string;
+  };
+  subServices?: {
+    id?: string;
+    title: string;
+    subtitle?: string;
+    description: string;
+    iconName?: string;
+    highlights?: string[];
+    deliverables?: string[];
+  }[];
+  metrics?: {
+    value: string;
+    label: string;
+    description?: string;
+  }[];
+  comparison?: {
+    title?: string;
+    subtitle?: string;
+    traditional?: string[];
+    leapsoftsPod?: string[];
   };
   serviceOverview?: {
     label?: string;
@@ -431,7 +527,9 @@ export interface SanityBlog {
     role?: string;
     avatar?: any;
     avatarInitials?: string;
+    avatarUrl?: string;
     bio?: string;
+    highlight?: string;
   };
   content?: {
     heading?: string;

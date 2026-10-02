@@ -58,6 +58,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false, isEmbedded 
     const [errors, setErrors] = useState<FormErrors>({});
     const [touched, setTouched] = useState<Record<string, boolean>>({});
     const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
 
     // Get the selected country's data
     const selectedCountry = useMemo(() => {
@@ -168,37 +170,40 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false, isEmbedded 
         });
 
         if (Object.keys(newErrors).length === 0) {
+            setIsSubmitting(true);
+            setSubmitError(null);
+
             const body: mailBody = {
                 name: formData.firstName + " " + formData.lastName,
                 email: formData.email,
-                phone: `${selectedCountry?.code} ${formData.phone}`,
+                phone: `${selectedCountry?.code || ''} ${formData.phone}`.trim(),
                 company: formData.company,
                 message: formData.message,
             };
-            console.log(body)
-            await sendMail(body);
-            console.log("Form submitted:", formData);
-            setIsSuccessDialogOpen(true);
 
-            // Reset form
-            setFormData({
-                firstName: "",
-                lastName: "",
-                email: "",
-                countryCode: "US",
-                phone: "",
-                company: "",
-                message: "",
-                consent: false,
-            });
-            setTouched({});
-            setErrors({});
+            const result = await sendMail(body);
+            setIsSubmitting(false);
+
+            if (result.success) {
+                setIsSuccessDialogOpen(true);
+                // Reset form
+                setFormData({
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    countryCode: "US",
+                    phone: "",
+                    company: "",
+                    message: "",
+                    consent: false,
+                });
+                setTouched({});
+                setErrors({});
+            } else {
+                setSubmitError(result.error || 'Unable to submit your message. Please try again or email contact@leapsofts.com.');
+            }
         }
     };
-
-    useEffect(() => {
-        console.log('errors:', errors);
-    }, [errors]);
 
     return (
         <div className={`${styles.contactSection} ${isSticky ? styles.stickyVariant : ''} ${isEmbedded ? styles.embeddedVariant : ''}`}>
@@ -372,12 +377,27 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false, isEmbedded 
                         This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.
                     </p>
 
+                    {submitError && (
+                        <div style={{
+                            marginTop: '1rem',
+                            padding: '0.75rem 1rem',
+                            background: 'rgba(239, 68, 68, 0.15)',
+                            border: '1px solid rgba(239, 68, 68, 0.4)',
+                            borderRadius: '8px',
+                            color: '#fca5a5',
+                            fontSize: '0.875rem'
+                        }}>
+                            {submitError}
+                        </div>
+                    )}
+
                     <div className={styles.submitSection}>
                         <Button
                             color1="var(--color-primary)"
                             color2="var(--color-primary-light)"
-                            text="Submit"
-                            hasIcon={true}
+                            text={isSubmitting ? "Sending..." : "Submit"}
+                            disabled={isSubmitting}
+                            hasIcon={!isSubmitting}
                         />
                     </div>
                 </form>

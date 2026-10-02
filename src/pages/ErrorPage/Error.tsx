@@ -22,7 +22,7 @@ const Error: React.FC = () => {
                 playsInline
                 className={styles.videoBackground}
             >
-                <source src="/bg_video/vid-4.mp4" type="video/mp4" />
+                <source src="/bg_video/leapsofts2.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
 

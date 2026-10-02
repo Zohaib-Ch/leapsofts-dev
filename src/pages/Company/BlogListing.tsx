@@ -7,7 +7,7 @@ import { blogsData, DEFAULT_BLOG_FALLBACK_IMAGE } from '../../data/blogsData';
 import Button from '../../components/Button/Button';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityBlogs } from '../../sanity/queries';
-import type { SanityBlog } from '../../sanity/types';
+import { sendMail } from '../../services/mailService';
 import { buildPageMeta } from '../../utils/seoHelper';
 
 export async function loader() {
@@ -90,6 +90,7 @@ const BlogListing: React.FC = () => {
           name: blog.author?.name || 'Leapsofts Engineering',
           role: blog.author?.role || 'Technical Lead',
           avatar: blog.author?.avatar || blog.author?.avatarInitials || 'LS',
+          avatarUrl: blog.author?.avatarUrl,
         };
 
         uniqueMap.set(slug, {
@@ -130,10 +131,19 @@ const BlogListing: React.FC = () => {
     return filteredPosts;
   }, [filteredPosts, featuredPost, selectedCategory, searchQuery]);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (emailInput.trim()) {
       setSubscribed(true);
+      sendMail({
+        name: 'Newsletter Subscriber',
+        email: emailInput.trim(),
+        phone: 'N/A',
+        company: 'Newsletter Lead',
+        message: `New Engineering Blueprints newsletter subscription request for: ${emailInput.trim()}`,
+      }).catch((err) => {
+        console.error('Newsletter capture failed:', err);
+      });
       setEmailInput('');
     }
   };
@@ -274,7 +284,13 @@ const BlogListing: React.FC = () => {
 
                 <div className={styles.articleFooter}>
                   <div className={styles.authorBox}>
-                    <div className={styles.authorAvatar}>{featuredPost.author.avatar}</div>
+                    <div className={styles.authorAvatar}>
+                      {featuredPost.author.avatarUrl ? (
+                        <img src={featuredPost.author.avatarUrl} alt={featuredPost.author.name} style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+                      ) : (
+                        featuredPost.author.avatar
+                      )}
+                    </div>
                     <div>
                       <div className={styles.authorName}>{featuredPost.author.name}</div>
                       <div className="text-xs text-gray-400">{featuredPost.author.role}</div>
@@ -341,7 +357,13 @@ const BlogListing: React.FC = () => {
 
                     <div className={styles.articleFooter}>
                       <div className={styles.authorBox}>
-                        <div className={styles.authorAvatar}>{post.author.avatar}</div>
+                        <div className={styles.authorAvatar}>
+                          {post.author.avatarUrl ? (
+                            <img src={post.author.avatarUrl} alt={post.author.name} style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+                          ) : (
+                            post.author.avatar
+                          )}
+                        </div>
                         <div className={styles.authorName}>{post.author.name}</div>
                       </div>
 

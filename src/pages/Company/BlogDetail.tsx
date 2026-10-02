@@ -108,6 +108,7 @@ const BlogDetail: React.FC = () => {
           name: sanityPost.author?.name || 'Leapsofts Engineering',
           role: sanityPost.author?.role || 'Technical Lead',
           avatar: sanityPost.author?.avatar || sanityPost.author?.avatarInitials || 'LS',
+          avatarUrl: sanityPost.author?.avatarUrl,
           bio: sanityPost.author?.bio || '',
         },
         coverImage: sanityPost.coverImageUrl || sanityPost.coverImage || '/projectImages/agileauto.png',
@@ -316,7 +317,13 @@ const BlogDetail: React.FC = () => {
           {/* Meta Information Bar */}
           <div className={styles.metaBar}>
             <div className={styles.authorMeta}>
-              <div className={styles.authorAvatar}>{post.author.avatar}</div>
+              <div className={styles.authorAvatar}>
+                {post.author.avatarUrl ? (
+                  <img src={post.author.avatarUrl} alt={post.author.name} style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+                ) : (
+                  post.author.avatar
+                )}
+              </div>
               <div className={styles.authorInfo}>
                 <div className={styles.authorName}>{post.author.name}</div>
                 <div className={styles.authorRole}>{post.author.role}</div>
@@ -530,7 +537,13 @@ const BlogDetail: React.FC = () => {
 
             {/* Author Spotlight Box */}
             <div className={styles.authorSpotlight}>
-              <div className={styles.spotlightAvatar}>{post.author.avatar}</div>
+              <div className={styles.spotlightAvatar}>
+                {post.author.avatarUrl ? (
+                  <img src={post.author.avatarUrl} alt={post.author.name} style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+                ) : (
+                  post.author.avatar
+                )}
+              </div>
               <div className={styles.spotlightContent}>
                 <h4 className={styles.spotlightTitle}>Written by {post.author.name}</h4>
                 <div className={styles.spotlightRole}>{post.author.role}</div>

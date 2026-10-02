@@ -67,15 +67,26 @@ export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage" && (_id == $id || _id ==
     title,
     subtitle,
     members[] {
-      _type == "reference" => @->{
-        name,
-        role,
-        bio,
-        highlight,
-        initials,
-        skills,
-        "imageUrl": select(defined(image.asset) => image.asset->url, imageUrl)
-      },
+      _type == "reference" => coalesce(
+        *[_id == "drafts." + ^._ref][0]{
+          name,
+          role,
+          bio,
+          highlight,
+          initials,
+          skills,
+          "imageUrl": coalesce(image.asset->url, imageUrl)
+        },
+        @->{
+          name,
+          role,
+          bio,
+          highlight,
+          initials,
+          skills,
+          "imageUrl": coalesce(image.asset->url, imageUrl)
+        }
+      ),
       _type != "reference" => {
         name,
         role,
@@ -83,7 +94,7 @@ export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage" && (_id == $id || _id ==
         highlight,
         initials,
         skills,
-        "imageUrl": select(defined(image.asset) => image.asset->url, imageUrl)
+        "imageUrl": coalesce(image.asset->url, imageUrl)
       }
     }
   },
@@ -91,6 +102,17 @@ export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage" && (_id == $id || _id ==
   whyChooseUs,
   industryImpact,
   techStack,
+  whyMissionMatters,
+  pillars,
+  manifesto,
+  qaStandards,
+  ceoSpotlight,
+  leadershipTeam,
+  philosophy,
+  hubsSection,
+  complianceSection,
+  securitySection,
+  internalLinks,
   faq,
   cta,
   ${SEO_FRAGMENT}
@@ -128,6 +150,9 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && (slug.current == $
   badgeText,
   shortDescription,
   hero,
+  subServices,
+  metrics,
+  comparison,
   serviceOverview {
     label,
     titleMain,
@@ -420,20 +445,45 @@ export const ALL_BLOGS_QUERY = `*[_type == "blog" && !(_id in path("drafts.**"))
   featured,
   excerpt,
   tags,
-  author {
-    name,
-    role,
-    avatarInitials,
-    bio,
-    "avatar": avatar.asset->url
-  },
+  "author": select(
+    defined(author._ref) => coalesce(
+      *[_id == "drafts." + ^.author._ref][0]{
+        name,
+        role,
+        bio,
+        highlight,
+        initials,
+        "avatar": select(defined(initials) => initials, "HR"),
+        "avatarInitials": select(defined(initials) => initials, "HR"),
+        "avatarUrl": coalesce(image.asset->url, imageUrl)
+      },
+      author->{
+        name,
+        role,
+        bio,
+        highlight,
+        initials,
+        "avatar": select(defined(initials) => initials, "HR"),
+        "avatarInitials": select(defined(initials) => initials, "HR"),
+        "avatarUrl": coalesce(image.asset->url, imageUrl)
+      }
+    ),
+    defined(author.name) => {
+      "name": author.name,
+      "role": author.role,
+      "bio": author.bio,
+      "avatar": coalesce(author.avatarInitials, author.initials, "HR"),
+      "avatarInitials": coalesce(author.avatarInitials, author.initials, "HR"),
+      "avatarUrl": coalesce(author.avatar.asset->url, author.avatarUrl, author.image.asset->url)
+    }
+  ),
   "coverImageUrl": coalesce(coverImage.asset->url, coverImageUrl),
   content,
   body,
   seo
 }`;
 
-export const BLOG_BY_SLUG_QUERY = `*[_type == "blog" && (slug.current == $slug || _id == $slug || _id == "blog-" + $slug)][0]{
+export const BLOG_BY_SLUG_QUERY = `*[_type == "blog" && (slug.current == $slug || _id == $slug || _id == "blog-" + $slug || _id == "drafts.blog-" + $slug)][0]{
   _id,
   title,
   "slug": slug.current,
@@ -445,13 +495,38 @@ export const BLOG_BY_SLUG_QUERY = `*[_type == "blog" && (slug.current == $slug |
   featured,
   excerpt,
   tags,
-  author {
-    name,
-    role,
-    avatarInitials,
-    bio,
-    "avatar": avatar.asset->url
-  },
+  "author": select(
+    defined(author._ref) => coalesce(
+      *[_id == "drafts." + ^.author._ref][0]{
+        name,
+        role,
+        bio,
+        highlight,
+        initials,
+        "avatar": select(defined(initials) => initials, "HR"),
+        "avatarInitials": select(defined(initials) => initials, "HR"),
+        "avatarUrl": coalesce(image.asset->url, imageUrl)
+      },
+      author->{
+        name,
+        role,
+        bio,
+        highlight,
+        initials,
+        "avatar": select(defined(initials) => initials, "HR"),
+        "avatarInitials": select(defined(initials) => initials, "HR"),
+        "avatarUrl": coalesce(image.asset->url, imageUrl)
+      }
+    ),
+    defined(author.name) => {
+      "name": author.name,
+      "role": author.role,
+      "bio": author.bio,
+      "avatar": coalesce(author.avatarInitials, author.initials, "HR"),
+      "avatarInitials": coalesce(author.avatarInitials, author.initials, "HR"),
+      "avatarUrl": coalesce(author.avatar.asset->url, author.avatarUrl, author.image.asset->url)
+    }
+  ),
   "coverImageUrl": coalesce(coverImage.asset->url, coverImageUrl),
   content,
   body,
@@ -522,7 +597,7 @@ export async function getSanityCaseStudyById(id: string): Promise<SanityCaseStud
   }
 }
 
-export const ALL_TEAM_MEMBERS_QUERY = `*[_type == "teamMember"] | order(order asc, _createdAt desc){
+export const ALL_TEAM_MEMBERS_QUERY = `*[_type == "teamMember"] | order(_updatedAt desc){
   _id,
   name,
   "slug": slug.current,
@@ -560,7 +635,18 @@ export async function getSanityBlogBySlug(slug: string): Promise<SanityBlog | nu
 export async function getSanityTeamMembers(): Promise<SanityTeamMember[] | null> {
   try {
     const res = await client.fetch(ALL_TEAM_MEMBERS_QUERY);
-    return Array.isArray(res) && res.length > 0 ? res : null;
+    if (!Array.isArray(res) || res.length === 0) return null;
+
+    // Deduplicate between draft and published (preferring draft/item with image)
+    const map = new Map<string, SanityTeamMember>();
+    for (const item of res) {
+      const canonicalKey = item.slug || item.name.toLowerCase().trim();
+      const existing = map.get(canonicalKey);
+      if (!existing || (item.imageUrl && !existing.imageUrl) || item._id?.startsWith('drafts.')) {
+        map.set(canonicalKey, item);
+      }
+    }
+    return Array.from(map.values()).sort((a, b) => (a.order || 0) - (b.order || 0));
   } catch (e) {
     return null;
   }

@@ -207,7 +207,7 @@ const GlobalFootprint: React.FC = () => {
     "@type": "Organization",
     "name": "Leapsofts",
     "url": "https://www.leapsofts.com",
-    "logo": "https://www.leapsofts.com/logo.png",
+    "logo": "https://www.leapsofts.com/logo/Leap-soft-01.png",
     "address": [
       {
         "@type": "PostalAddress",

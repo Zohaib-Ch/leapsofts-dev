@@ -1,5 +1,52 @@
 import { defineType, defineField } from 'sanity';
 
+// Service Archetype Categorization Constants
+const GROWTH_SERVICES = [
+  'sales-execution-ae',
+  'outbound-demand-gen',
+  'paid-media-performance',
+  'inbound-organic-growth',
+  'revenue-operations-systems',
+];
+
+const COMPARISON_TABLE_SERVICES = [
+  'custom-software-development',
+  'web-app-development',
+  'mobile-app-development',
+];
+
+const CAPABILITIES_SLIDE_SERVICES = [
+  'custom-software-development',
+  'azure',
+  'cloud-migration',
+  'dedicated-teams',
+  'mobile-app-development',
+  'proof-of-concept-development',
+  'salesforce',
+  'web-app-development',
+];
+
+const EMERGING_TECH_SERVICES = [
+  'aws',
+  'azure',
+  'app-reengineering',
+  'business-process-outsourcing',
+  'cloud-engineering',
+  'cyber-security',
+  'data-governance',
+  'data-science-ai',
+  'devops',
+  'digital-evolution',
+  'fixed-price',
+  'ideation-workshop',
+  'product-development-strategy',
+  'quality-assurance',
+  'service-now',
+  'shopify',
+  'web-app-development',
+  'mobile-app-development',
+];
+
 export const serviceSchema = defineType({
   name: 'service',
   title: 'Service Page',
@@ -78,7 +125,7 @@ export const serviceSchema = defineType({
       group: 'hero',
       hidden: ({ document }) => {
         const slug = document?.slug?.current || '';
-        return slug === 'custom-software-development';
+        return !!slug && (GROWTH_SERVICES.includes(slug) || slug === 'custom-software-development');
       },
       fields: [
         defineField({ name: 'label', title: 'Section Label', type: 'string' }),
@@ -99,8 +146,7 @@ export const serviceSchema = defineType({
       group: 'content',
       hidden: ({ document }) => {
         const slug = document?.slug?.current || '';
-        const pagesWithCapabilities = ['custom-software-development', 'azure', 'cloud-migration', 'dedicated-teams', 'mobile-app-development', 'proof-of-concept-development', 'salesforce', 'web-app-development'];
-        return !!slug && !pagesWithCapabilities.includes(slug);
+        return !!slug && !CAPABILITIES_SLIDE_SERVICES.includes(slug);
       },
       fields: [
         defineField({ name: 'title', title: 'Capabilities Title', type: 'string' }),
@@ -147,7 +193,7 @@ export const serviceSchema = defineType({
       group: 'content',
       hidden: ({ document }) => {
         const slug = document?.slug?.current || '';
-        const pagesWithoutInfoGrid = ['custom-software-development', 'mobile-app-development'];
+        const pagesWithoutInfoGrid = ['custom-software-development', ...GROWTH_SERVICES];
         return !!slug && pagesWithoutInfoGrid.includes(slug);
       },
       fields: [
@@ -180,7 +226,7 @@ export const serviceSchema = defineType({
       group: 'content',
       hidden: ({ document }) => {
         const slug = document?.slug?.current || '';
-        return !!slug && slug !== 'custom-software-development';
+        return !!slug && !COMPARISON_TABLE_SERVICES.includes(slug);
       },
       fields: [
         defineField({ name: 'label', title: 'Section Label', type: 'string' }),
@@ -229,6 +275,10 @@ export const serviceSchema = defineType({
       title: 'Strategy Session CTA Banner',
       type: 'object',
       group: 'process',
+      hidden: ({ document }) => {
+        const slug = document?.slug?.current || '';
+        return !!slug && GROWTH_SERVICES.includes(slug);
+      },
       fields: [
         defineField({ name: 'label', title: 'CTA Label', type: 'string' }),
         defineField({ name: 'titleMain', title: 'Title Main', type: 'string' }),
@@ -250,7 +300,7 @@ export const serviceSchema = defineType({
       group: 'content',
       hidden: ({ document }) => {
         const slug = document?.slug?.current || '';
-        const pagesWithoutFeatures = ['custom-software-development', 'cloud-engineering', 'devops'];
+        const pagesWithoutFeatures = ['custom-software-development', 'cloud-engineering', 'devops', ...GROWTH_SERVICES];
         return !!slug && pagesWithoutFeatures.includes(slug);
       },
       fields: [
@@ -304,8 +354,7 @@ export const serviceSchema = defineType({
       group: 'content',
       hidden: ({ document }) => {
         const slug = document?.slug?.current || '';
-        const pagesWithoutEmergingTech = ['custom-software-development', 'cloud-migration', 'dedicated-teams', 'proof-of-concept-development', 'salesforce'];
-        return !!slug && pagesWithoutEmergingTech.includes(slug);
+        return !!slug && !EMERGING_TECH_SERVICES.includes(slug);
       },
       fields: [
         defineField({ name: 'label', title: 'Section Label', type: 'string' }),
@@ -363,6 +412,10 @@ export const serviceSchema = defineType({
       title: 'Why Choose Us / Deliver MVP Section',
       type: 'object',
       group: 'process',
+      hidden: ({ document }) => {
+        const slug = document?.slug?.current || '';
+        return !!slug && GROWTH_SERVICES.includes(slug);
+      },
       fields: [
         defineField({ name: 'label', title: 'Section Label', type: 'string' }),
         defineField({ name: 'title', title: 'Main Title', type: 'string' }),
@@ -399,6 +452,10 @@ export const serviceSchema = defineType({
       title: 'Engineering Process Phases Section',
       type: 'object',
       group: 'process',
+      hidden: ({ document }) => {
+        const slug = document?.slug?.current || '';
+        return !!slug && GROWTH_SERVICES.includes(slug);
+      },
       fields: [
         defineField({ name: 'title', title: 'Process Title', type: 'string' }),
         defineField({
@@ -456,12 +513,16 @@ export const serviceSchema = defineType({
       ],
     }),
 
-    // Section 11: Service FAQs
+    // Section 11: Related Services
     defineField({
       name: 'relatedServices',
       title: 'Related Services / Engineering Capabilities',
       type: 'object',
       group: 'content',
+      hidden: ({ document }) => {
+        const slug = document?.slug?.current || '';
+        return !!slug && GROWTH_SERVICES.includes(slug);
+      },
       fields: [
         defineField({ name: 'title', title: 'Section Title', type: 'string' }),
         defineField({ name: 'sectionLabel', title: 'Section Label', type: 'string' }),
@@ -487,6 +548,108 @@ export const serviceSchema = defineType({
               },
             },
           ],
+        }),
+      ],
+    }),
+
+    // Section 11b: Sub Services / Core Pillars
+    defineField({
+      name: 'subServices',
+      title: 'Sub-Services / Core Capabilities',
+      type: 'array',
+      group: 'content',
+      hidden: ({ document }) => {
+        const slug = document?.slug?.current || '';
+        return !!slug && !GROWTH_SERVICES.includes(slug);
+      },
+      of: [
+        {
+          name: 'subServiceItem',
+          title: 'Sub Service Item',
+          type: 'object',
+          fields: [
+            defineField({ name: 'id', title: 'Identifier ID', type: 'string' }),
+            defineField({ name: 'title', title: 'Title', type: 'string' }),
+            defineField({ name: 'subtitle', title: 'Subtitle / Tagline', type: 'string' }),
+            defineField({ name: 'description', title: 'Description', type: 'text' }),
+            defineField({ name: 'iconName', title: 'Icon Name', type: 'string' }),
+            defineField({
+              name: 'highlights',
+              title: 'Key Highlights',
+              type: 'array',
+              of: [{ type: 'string' }],
+            }),
+            defineField({
+              name: 'deliverables',
+              title: 'Key Deliverables',
+              type: 'array',
+              of: [{ type: 'string' }],
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'title',
+              subtitle: 'subtitle',
+            },
+          },
+        },
+      ],
+    }),
+
+    // Section 11c: Key Metrics
+    defineField({
+      name: 'metrics',
+      title: 'Performance Metrics',
+      type: 'array',
+      group: 'content',
+      hidden: ({ document }) => {
+        const slug = document?.slug?.current || '';
+        return !!slug && !GROWTH_SERVICES.includes(slug);
+      },
+      of: [
+        {
+          name: 'metricItem',
+          title: 'Metric Item',
+          type: 'object',
+          fields: [
+            defineField({ name: 'value', title: 'Value / Stat (e.g. 3.8x, 0 Days)', type: 'string' }),
+            defineField({ name: 'label', title: 'Metric Label', type: 'string' }),
+            defineField({ name: 'description', title: 'Description', type: 'text' }),
+          ],
+          preview: {
+            select: {
+              title: 'value',
+              subtitle: 'label',
+            },
+          },
+        },
+      ],
+    }),
+
+    // Section 11d: Comparison
+    defineField({
+      name: 'comparison',
+      title: 'In-House vs Leapsofts Comparison',
+      type: 'object',
+      group: 'content',
+      hidden: ({ document }) => {
+        const slug = document?.slug?.current || '';
+        return !!slug && !GROWTH_SERVICES.includes(slug);
+      },
+      fields: [
+        defineField({ name: 'title', title: 'Comparison Title', type: 'string' }),
+        defineField({ name: 'subtitle', title: 'Comparison Subtitle', type: 'string' }),
+        defineField({
+          name: 'traditional',
+          title: 'Traditional / In-House Pain Points',
+          type: 'array',
+          of: [{ type: 'string' }],
+        }),
+        defineField({
+          name: 'leapsoftsPod',
+          title: 'Leapsofts Advantages',
+          type: 'array',
+          of: [{ type: 'string' }],
         }),
       ],
     }),

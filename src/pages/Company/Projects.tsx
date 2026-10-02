@@ -24,8 +24,8 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Software Development Case Studies | Leapsofts Portfolio",
-    defaultDescription: "Explore Leapsofts",
+    defaultTitle: "Software Development Case Studies & Enterprise Portfolio | Leapsofts",
+    defaultDescription: "Explore Leapsofts' software engineering case studies, enterprise cloud platforms, AI workflows, and high-velocity MVP launches across global industries.",
     defaultKeywords: "software development portfolio, custom software case studies, enterprise software projects, development portfolio",
     canonicalUrl: "https://www.leapsofts.com/projects",
   });

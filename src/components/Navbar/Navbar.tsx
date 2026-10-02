@@ -277,6 +277,7 @@ const Navbar = memo(() => {
               text="Strategic Partnerships"
               color1="var(--color-primary)"
               color2="var(--color-primary-light)"
+              className={styles['nav-btn-compact']}
               onClick={() => {
                 closeDropdowns();
                 navigate('/partners');
@@ -530,6 +531,7 @@ const Navbar = memo(() => {
               text="Strategic Partnerships"
               color1="var(--color-primary)"
               color2="var(--color-primary-light)"
+              className={styles['nav-btn-compact']}
               onClick={() => {
                 closeMobileMenu();
                 navigate('/partners');

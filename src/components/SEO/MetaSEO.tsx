@@ -18,8 +18,8 @@ interface MetaSEOProps {
 const DEFAULT_TITLE = 'Leapsofts | Enterprise Software Engineering & Digital Transformation';
 const DEFAULT_DESCRIPTION = 'Leapsofts delivers high-impact custom software, AI & data engineering, cloud architecture, and dedicated engineering teams to accelerate digital growth.';
 const DEFAULT_KEYWORDS = 'software engineering, custom software, AI development, cloud engineering, dedicated teams, web development';
-const DEFAULT_OG_IMAGE = 'https://leapsofts.com/logo/Leap-soft-01.png';
-const DOMAIN = 'https://leapsofts.com';
+const DEFAULT_OG_IMAGE = 'https://www.leapsofts.com/logo/Leap-soft-01.png';
+const DOMAIN = 'https://www.leapsofts.com';
 
 export const MetaSEO: React.FC<MetaSEOProps> = ({
   seo,
