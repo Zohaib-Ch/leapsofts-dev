@@ -138,6 +138,7 @@ const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({
                         src={imageUrl}
                         alt="Strategy Session Dashboard"
                         className={styles.dashboardImage}
+                        loading="lazy"
                     />
                     <div className={styles.spotlightOverlay}></div>
                     <div className={styles.spotlightLens}></div>

@@ -8,7 +8,8 @@ import { parseFormattedText, type FormattedSegment } from '../../utils/textParse
 interface IntroComponentProps {
     title: string;
     title2?: string;
-    description: string | FormattedSegment[];
+    subtitle?: string;
+    description?: string | FormattedSegment[];
     videoSrc?: string;
     buttonText?: string;
     onButtonClick?: () => void;
@@ -19,6 +20,7 @@ interface IntroComponentProps {
 const IntroComponent: React.FC<IntroComponentProps> = ({
     title,
     title2,
+    subtitle,
     description,
     videoSrc = "/bg_video/leapsofts2.mp4",
     buttonText = "Schedule a Consultation",
@@ -32,9 +34,12 @@ const IntroComponent: React.FC<IntroComponentProps> = ({
         onButtonClick && onButtonClick();
     };
 
-    const segments = introDescription && introDescription.length > 0 
-        ? parseFormattedText(introDescription)
-        : parseFormattedText(description);
+    const hasIntroDesc = Boolean(introDescription && introDescription.length > 0);
+    const activeSubtitle = subtitle || (hasIntroDesc && typeof description === 'string' && description.trim().length > 0 ? description : undefined);
+
+    const bodySegments = hasIntroDesc
+        ? parseFormattedText(introDescription!)
+        : (description ? parseFormattedText(description) : []);
 
     return (
         <section className={styles.intro} id="intro">
@@ -57,13 +62,18 @@ const IntroComponent: React.FC<IntroComponentProps> = ({
                 <div className={styles.content}>
                     <h1 className={styles.title}>{title}</h1>
                     {title2 && <span className={styles.title} style={{ display: 'block', marginTop: '-0.5rem', fontSize: '2.5rem', opacity: 0.9 }}>{title2}</span>}
-                    <p className={styles.subtitle}>
-                        {segments.map((item, index) => (
-                            <span key={index} className={item.bold ? styles.bold : ''}>
-                                {item.text}
-                            </span>
-                        ))}
-                    </p>
+                    {activeSubtitle && (
+                        <h2 className={styles.heroSubtitle}>{activeSubtitle}</h2>
+                    )}
+                    {bodySegments.length > 0 && (
+                        <p className={styles.subtitle}>
+                            {bodySegments.map((item, index) => (
+                                <span key={index} className={item.bold ? styles.bold : ''}>
+                                    {item.text}
+                                </span>
+                            ))}
+                        </p>
+                    )}
                     <Button
                         text={buttonText}
                         color1="var(--color-primary)"

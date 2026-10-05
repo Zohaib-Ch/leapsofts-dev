@@ -39,6 +39,7 @@ import {
   FileCheck,
   Rocket,
   ChevronDown,
+  ChevronRight,
   Target,
   Handshake,
   Mail,
@@ -56,6 +57,7 @@ interface ServiceItem {
 
 interface ServiceCategory {
   category: string;
+  icon: any;
   items: ServiceItem[];
 }
 
@@ -63,6 +65,7 @@ interface IndustryItem {
   name: string;
   path: string;
   icon: any;
+  desc?: string;
 }
 
 interface AboutItem {
@@ -77,6 +80,7 @@ type ActiveDropdown = 'services' | 'industries' | 'about' | null;
 const SERVICES_DATA: ServiceCategory[] = [
   {
     category: 'Product Engineering',
+    icon: Code2,
     items: [
       { name: 'Custom Software Development', path: '/services/custom-software-development', icon: Code2, desc: 'Bespoke enterprise platforms' },
       { name: 'Web App Development', path: '/services/web-app-development', icon: Laptop, desc: 'High-performance web apps' },
@@ -90,6 +94,7 @@ const SERVICES_DATA: ServiceCategory[] = [
   },
   {
     category: 'Next Gen Services',
+    icon: BrainCircuit,
     items: [
       { name: 'Data Science & AI', path: '/services/data-science-ai', icon: BrainCircuit, desc: 'LLM & predictive analytics' },
       { name: 'Cyber Security', path: '/services/cyber-security', icon: ShieldCheck, desc: 'Zero-trust architecture' },
@@ -100,6 +105,7 @@ const SERVICES_DATA: ServiceCategory[] = [
   },
   {
     category: 'Cloud Services',
+    icon: Cloud,
     items: [
       { name: 'Cloud Engineering', path: '/services/cloud-engineering', icon: Server, desc: 'Multi-tenant cloud architecture' },
       { name: 'Cloud Migration', path: '/services/cloud-migration', icon: CloudUpload, desc: 'Zero-downtime database shift' },
@@ -110,6 +116,7 @@ const SERVICES_DATA: ServiceCategory[] = [
   },
   {
     category: 'Solutions',
+    icon: Lightbulb,
     items: [
       { name: 'Digital Evolution', path: '/services/digital-evolution', icon: TrendingUp, desc: 'Digital transformation strategy' },
       { name: 'Fixed Price', path: '/services/fixed-price', icon: Coins, desc: 'Predictable milestone pricing' },
@@ -120,6 +127,7 @@ const SERVICES_DATA: ServiceCategory[] = [
   },
   {
     category: 'Sales & Revenue Growth',
+    icon: Target,
     items: [
       { name: 'Full-Cycle Sales Execution & AE', path: '/services/sales-execution-ae', icon: Target, desc: 'End-to-end sales handling from lead to signed deal' },
       { name: 'Outbound Demand Generation', path: '/services/outbound-demand-gen', icon: Rocket, desc: 'Proactive cold outreach & predictable pipeline' },
@@ -131,30 +139,160 @@ const SERVICES_DATA: ServiceCategory[] = [
 ];
 
 const INDUSTRIES_DATA: IndustryItem[] = [
-  { name: 'Finance', path: '/industries/finance', icon: Coins },
-  { name: 'Healthcare', path: '/industries/healthcare', icon: Activity },
-  { name: 'Mid-Sized Businesses', path: '/industries/mid-sized-businesses', icon: Briefcase },
-  { name: 'Wholesale and Retail', path: '/industries/wholesale-retail', icon: Store },
-  { name: 'EdTech', path: '/industries/edtech', icon: GraduationCap },
-  { name: 'Construction', path: '/industries/construction', icon: HardHat },
-  { name: 'Entertainment', path: '/industries/entertainment', icon: Tv },
-  { name: 'Real Estate', path: '/industries/real-estate', icon: Building },
-  { name: 'Transportation', path: '/industries/transportation', icon: Truck },
-  { name: 'Energy', path: '/industries/energy', icon: Zap },
-  { name: 'Automotive', path: '/industries/automotive', icon: Car },
-  { name: 'Compliance', path: '/industries/compliance', icon: FileCheck },
-  { name: 'Startups', path: '/industries/startups', icon: Rocket },
+  { name: 'Finance', path: '/industries/finance', icon: Coins, desc: 'Fintech, banking & DeFi solutions' },
+  { name: 'Healthcare', path: '/industries/healthcare', icon: Activity, desc: 'HIPAA-compliant digital health' },
+  { name: 'Mid-Sized Businesses', path: '/industries/mid-sized-businesses', icon: Briefcase, desc: 'Custom ERP & enterprise scaling' },
+  { name: 'Wholesale and Retail', path: '/industries/wholesale-retail', icon: Store, desc: 'Omnichannel commerce & inventory' },
+  { name: 'EdTech', path: '/industries/edtech', icon: GraduationCap, desc: 'LMS platforms & interactive tech' },
+  { name: 'Construction', path: '/industries/construction', icon: HardHat, desc: 'Project telemetry & field tracking' },
+  { name: 'Entertainment', path: '/industries/entertainment', icon: Tv, desc: 'Streaming, media & gaming pipelines' },
+  { name: 'Real Estate', path: '/industries/real-estate', icon: Building, desc: 'PropTech, MLS & virtual tours' },
+  { name: 'Transportation', path: '/industries/transportation', icon: Truck, desc: 'Fleet telemetry & routing engines' },
+  { name: 'Energy', path: '/industries/energy', icon: Zap, desc: 'Smart grid & IoT utility management' },
+  { name: 'Automotive', path: '/industries/automotive', icon: Car, desc: 'Connected vehicles & supply chain' },
+  { name: 'Compliance', path: '/industries/compliance', icon: FileCheck, desc: 'RegTech & automated audit logs' },
+  { name: 'Startups', path: '/industries/startups', icon: Rocket, desc: 'MVP launch & hyper-growth scaling' },
 ];
 
 const ABOUT_DATA: AboutItem[] = [
   { name: 'About Leapsofts', path: '/about', icon: Building2, desc: 'Our journey & engineering ethos' },
-  { name: 'Engineering Insights', path: '/blog', icon: Sparkles, desc: 'Articles & tech insights' },
   { name: 'Mission & Creed', path: '/about/mission', icon: Target, desc: 'Core vision & principles' },
   { name: 'Engineering Leadership', path: '/about/leadership', icon: Users, desc: 'Executive leadership team' },
-  { name: 'Global Footprint & Compliance', path: '/about/global-footprint', icon: Globe2, desc: 'Regional hubs & security' },
+  { name: 'Global Footprint', path: '/about/global-footprint', icon: Globe2, desc: 'Regional hubs & security' },
+  { name: 'Engineering Insights', path: '/blog', icon: Sparkles, desc: 'Articles & tech insights' },
   { name: 'Strategic Partnerships', path: '/partners', icon: Handshake, desc: 'Cloud & tech ecosystem' },
-  { name: 'Contact Us', path: '/contact', icon: Mail, desc: 'Get in touch with our engineers' },
+  { name: 'Case Studies', path: '/projects', icon: Briefcase, desc: 'Client success stories & ROI' },
+  { name: 'Contact Us', path: '/contact', icon: Mail, desc: 'Get in touch with our team' },
 ];
+
+/* Memoized Single Rail Button (0ms Hover Execution) */
+const RailButton = memo(({
+  category,
+  isSelected,
+  onHover,
+  onClick,
+}: {
+  category: ServiceCategory;
+  isSelected: boolean;
+  onHover: () => void;
+  onClick: () => void;
+}) => {
+  const CategoryIcon = category.icon;
+  return (
+    <button
+      type="button"
+      className={`${styles['rail-item']} ${isSelected ? styles['rail-item-active'] : ''}`}
+      onMouseEnter={onHover}
+      onClick={onClick}
+    >
+      <div className={styles['rail-item-left']}>
+        <div className={styles['rail-item-icon']}>
+          <CategoryIcon size={16} />
+        </div>
+        <span className={styles['rail-item-title']}>{category.category}</span>
+      </div>
+      <div className={styles['rail-item-right']}>
+        <span className={styles['rail-item-count']}>{category.items.length}</span>
+        <ChevronRight size={13} className={styles['rail-item-arrow']} />
+      </div>
+    </button>
+  );
+});
+
+/* Memoized Single Category Pane (0ms DOM Mutation on Hover) */
+const CategoryPane = memo(({
+  category,
+  isActive,
+  currentLocation,
+  onClose,
+}: {
+  category: ServiceCategory;
+  isActive: boolean;
+  currentLocation: string;
+  onClose: () => void;
+}) => {
+  return (
+    <div
+      className={`${styles['cockpit-pane']} ${isActive ? styles['cockpit-pane-active'] : ''}`}
+    >
+      <div className={styles['center-header']}>
+        <div className={styles['center-header-title-row']}>
+          <h4 className={styles['center-title']}>{category.category}</h4>
+          <span className={styles['center-badge']}>
+            {category.items.length} Services
+          </span>
+        </div>
+      </div>
+
+      <div className={styles['services-grid-cockpit']}>
+        {category.items.map((item, itemIndex) => {
+          const ItemIcon = item.icon;
+          const isActiveLink = currentLocation === item.path;
+          return (
+            <Link
+              key={itemIndex}
+              to={item.path}
+              className={`${styles['service-cockpit-link']} ${isActiveLink ? styles['active'] : ''}`}
+              onClick={onClose}
+            >
+              <div className={styles['service-cockpit-icon']}>
+                <ItemIcon size={16} />
+              </div>
+              <div className={styles['service-cockpit-text']}>
+                <span className={styles['service-cockpit-title']}>{item.name}</span>
+                {item.desc && (
+                  <span className={styles['service-cockpit-desc']}>{item.desc}</span>
+                )}
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
+});
+
+const ServicesCockpit: React.FC<{
+  currentLocation: string;
+  onClose: () => void;
+}> = memo(({ currentLocation, onClose }) => {
+  const [activeCategory, setActiveCategory] = useState(0);
+
+  return (
+    <div className={styles['cockpit-container']}>
+      {/* Left Rail: Categories */}
+      <div className={styles['cockpit-rail']}>
+        <div className={styles['rail-header']}>
+          <span className={styles['rail-header-label']}>Capabilities</span>
+        </div>
+        <div className={styles['rail-list']}>
+          {SERVICES_DATA.map((category, index) => (
+            <RailButton
+              key={index}
+              category={category}
+              isSelected={activeCategory === index}
+              onHover={() => setActiveCategory(index)}
+              onClick={() => setActiveCategory(index)}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Center Column: Pre-rendered Panels */}
+      <div className={styles['cockpit-center']}>
+        {SERVICES_DATA.map((category, catIndex) => (
+          <CategoryPane
+            key={catIndex}
+            category={category}
+            isActive={activeCategory === catIndex}
+            currentLocation={currentLocation}
+            onClose={onClose}
+          />
+        ))}
+      </div>
+    </div>
+  );
+});
 
 const Navbar = memo(() => {
   const location = useLocation().pathname;
@@ -168,6 +306,8 @@ const Navbar = memo(() => {
 
   const scrollTicking = useRef(false);
   const scrollStateRef = useRef(false);
+  const activeDropdownRef = useRef<ActiveDropdown>(null);
+  activeDropdownRef.current = activeDropdown;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -179,7 +319,7 @@ const Navbar = memo(() => {
             scrollStateRef.current = shouldBeScrolled;
             setIsScrolled(shouldBeScrolled);
           }
-          if (currentScroll > 100) {
+          if (currentScroll > 100 && activeDropdownRef.current !== null) {
             setActiveDropdown(null);
           }
           scrollTicking.current = false;
@@ -226,7 +366,11 @@ const Navbar = memo(() => {
       <nav className={`${styles['navbar']} ${isScrolled ? styles['scrolled'] : ''}`}>
         <div className={styles['nav-container']}>
           <Link to="/" className={styles['nav-logo']} onClick={closeDropdowns}>
-            <img src="/logo/Leap-soft-01.png" width="100" height="100" alt="Leapsofts Logo" />
+            <img src="/logo/Leap-soft-01.png" width="100" height="100" alt="Leapsofts Logo" className={styles['nav-logo-img']} />
+            <span className={styles['nav-brand-text']}>
+              <span className={styles['brand-leap']}>Leap</span>
+              <span className={styles['brand-softs']}>softs</span>
+            </span>
           </Link>
 
           {/* Desktop Navigation Links */}
@@ -299,130 +443,106 @@ const Navbar = memo(() => {
       <div className={styles['dropdown-container']}>
         <div className={`${styles['mega-dropdown-shell']} ${activeDropdown ? styles['open'] : ''}`}>
           <div className={styles['dropdown-content']}>
-            {/* Services Tab Content */}
-            {activeDropdown === 'services' && (
-              <div className={styles['dropdown-tab-pane']} key="services">
-                <div className={styles['services-grid']}>
-                  {SERVICES_DATA.map((category, index) => (
-                    <div key={index} className={styles['service-category']}>
-                      <h4 className={styles['category-title']}>{category.category}</h4>
-                      <ul className={styles['category-items']}>
-                        {category.items.map((item, itemIndex) => {
-                          const ItemIcon = item.icon;
-                          return (
-                            <li key={itemIndex}>
-                              <Link
-                                to={item.path}
-                                className={`${styles['service-link']} ${location === item.path ? styles['active'] : ''}`}
-                                onClick={closeDropdowns}
-                              >
-                                <div className={styles['service-link-icon']}>
-                                  <ItemIcon size={15} />
-                                </div>
-                                <div className={styles['service-link-text']}>
-                                  <span className={styles['service-link-title']}>{item.name}</span>
-                                  {item.desc && <span className={styles['service-link-desc']}>{item.desc}</span>}
-                                </div>
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+            {/* Services Tab Content - Pre-rendered Master-Detail Cockpit */}
+            <div
+              className={`${styles['dropdown-tab-pane']} ${activeDropdown === 'services' ? styles['dropdown-tab-pane-active'] : ''}`}
+            >
+              <ServicesCockpit
+                currentLocation={location}
+                onClose={closeDropdowns}
+              />
+            </div>
 
-            {/* Industries Tab Content */}
-            {activeDropdown === 'industries' && (
-              <div className={styles['dropdown-tab-pane']} key="industries">
-                <div className={styles['dropdown-header']}>
-                  <div className={styles['dropdown-header-left']}>
-                    <div className={styles['dropdown-header-icon']}>
-                      <Building2 size={18} />
-                    </div>
-                    <h3>Industries We Serve</h3>
+            {/* Industries Tab Content - Pre-rendered Grid */}
+            <div
+              className={`${styles['dropdown-tab-pane']} ${activeDropdown === 'industries' ? styles['dropdown-tab-pane-active'] : ''}`}
+            >
+              <div className={styles['dropdown-header']}>
+                <div className={styles['dropdown-header-left']}>
+                  <div className={styles['dropdown-header-icon']}>
+                    <Building2 size={18} />
                   </div>
-                  <span className={styles['dropdown-header-tag']}>Domain Expertise</span>
+                  <h3>Industries We Serve</h3>
                 </div>
-
-                <div className={styles['industries-grid']}>
-                  {INDUSTRIES_DATA.map((industry, index) => {
-                    const IndIcon = industry.icon;
-                    return (
-                      <Link
-                        key={index}
-                        to={industry.path}
-                        className={`${styles['industry-card']} ${location === industry.path ? styles['active'] : ''}`}
-                        onClick={closeDropdowns}
-                      >
-                        <div className={styles['industry-card-icon']}>
-                          <IndIcon size={18} />
-                        </div>
-                        <div className={styles['industry-card-info']}>
-                          <span className={styles['industry-card-name']}>{industry.name}</span>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                </div>
+                <span className={styles['dropdown-header-tag']}>Domain Expertise</span>
               </div>
-            )}
 
-            {/* About Tab Content */}
-            {activeDropdown === 'about' && (
-              <div className={styles['dropdown-tab-pane']} key="about">
-                <div className={styles['dropdown-header']}>
-                  <div className={styles['dropdown-header-left']}>
-                    <div className={styles['dropdown-header-icon']}>
-                      <Building2 size={18} />
-                    </div>
-                    <h3>Who We Are</h3>
+              <div className={styles['industries-grid']}>
+                {INDUSTRIES_DATA.map((industry, index) => {
+                  const IndIcon = industry.icon;
+                  return (
+                    <Link
+                      key={index}
+                      to={industry.path}
+                      className={`${styles['industry-card']} ${location === industry.path ? styles['active'] : ''}`}
+                      onClick={closeDropdowns}
+                    >
+                      <div className={styles['industry-card-icon']}>
+                        <IndIcon size={18} />
+                      </div>
+                      <div className={styles['industry-card-info']}>
+                        <span className={styles['industry-card-name']}>{industry.name}</span>
+                        {industry.desc && (
+                          <span className={styles['industry-card-desc']}>{industry.desc}</span>
+                        )}
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* About Tab Content - Pre-rendered Grid */}
+            <div
+              className={`${styles['dropdown-tab-pane']} ${activeDropdown === 'about' ? styles['dropdown-tab-pane-active'] : ''}`}
+            >
+              <div className={styles['dropdown-header']}>
+                <div className={styles['dropdown-header-left']}>
+                  <div className={styles['dropdown-header-icon']}>
+                    <Building2 size={18} />
                   </div>
-                  <span className={styles['dropdown-header-tag']}>Company & Insights</span>
+                  <h3>Who We Are</h3>
                 </div>
-
-                <div className={styles['about-grid']}>
-                  {ABOUT_DATA.map((item, index) => {
-                    const AboutIcon = item.icon;
-                    return (
-                      <Link
-                        key={index}
-                        to={item.path}
-                        className={`${styles['industry-card']} ${location === item.path ? styles['active'] : ''}`}
-                        onClick={closeDropdowns}
-                      >
-                        <div className={styles['industry-card-icon']}>
-                          <AboutIcon size={18} />
-                        </div>
-                        <div className={styles['industry-card-info']}>
-                          <span className={styles['industry-card-name']}>{item.name}</span>
-                          {item.desc && <span className={styles['service-link-desc']}>{item.desc}</span>}
-                        </div>
-                      </Link>
-                    );
-                  })}
-                </div>
+                <span className={styles['dropdown-header-tag']}>Company & Insights</span>
               </div>
-            )}
+
+              <div className={styles['about-grid']}>
+                {ABOUT_DATA.map((item, index) => {
+                  const AboutIcon = item.icon;
+                  return (
+                    <Link
+                      key={index}
+                      to={item.path}
+                      className={`${styles['industry-card']} ${location === item.path ? styles['active'] : ''}`}
+                      onClick={closeDropdowns}
+                    >
+                      <div className={styles['industry-card-icon']}>
+                        <AboutIcon size={18} />
+                      </div>
+                      <div className={styles['industry-card-info']}>
+                        <span className={styles['industry-card-name']}>{item.name}</span>
+                        {item.desc && <span className={styles['industry-card-desc']}>{item.desc}</span>}
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Backdrop Blur Overlay */}
-      {activeDropdown && (
-        <div
-          className={styles['dropdown-overlay']}
-          onClick={closeDropdowns}
-        />
-      )}
+      {/* Persistent Backdrop Blur Overlay (Zero Mount Thrashing) */}
+      <div
+        className={`${styles['dropdown-overlay']} ${activeDropdown ? styles['open'] : ''}`}
+        onClick={closeDropdowns}
+      />
 
       {/* Mobile Drawer */}
       <div className={`${styles['mobile-nav']} ${isMobileMenuOpen ? styles['open'] : ''}`}>
         <div className={styles['mobile-nav-content']}>
           {/* Services Accordion */}
-          <div className={styles['mobile-accordion']}>
+          <div className={`${styles['mobile-accordion']} ${mobileServicesOpen ? styles['mobile-accordion-open'] : ''}`}>
             <button
               className={`${styles['mobile-accordion-header']} ${mobileServicesOpen ? styles['active'] : ''}`}
               onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
@@ -445,7 +565,9 @@ const Navbar = memo(() => {
                               className={`${styles['mobile-service-link']} ${location === item.path ? styles['active'] : ''}`}
                               onClick={closeMobileMenu}
                             >
-                              <ItemIcon size={16} />
+                              <div className={styles['mobile-link-icon-box']}>
+                                <ItemIcon size={16} />
+                              </div>
                               <span>{item.name}</span>
                             </Link>
                           </li>
@@ -459,7 +581,7 @@ const Navbar = memo(() => {
           </div>
 
           {/* Industries Accordion */}
-          <div className={styles['mobile-accordion']}>
+          <div className={`${styles['mobile-accordion']} ${mobileIndustriesOpen ? styles['mobile-accordion-open'] : ''}`}>
             <button
               className={`${styles['mobile-accordion-header']} ${mobileIndustriesOpen ? styles['active'] : ''}`}
               onClick={() => setMobileIndustriesOpen(!mobileIndustriesOpen)}
@@ -479,7 +601,9 @@ const Navbar = memo(() => {
                         className={`${styles['mobile-service-link']} ${location === ind.path ? styles['active'] : ''}`}
                         onClick={closeMobileMenu}
                       >
-                        <IndIcon size={16} />
+                        <div className={styles['mobile-link-icon-box']}>
+                          <IndIcon size={16} />
+                        </div>
                         <span>{ind.name}</span>
                       </Link>
                     );
@@ -496,7 +620,7 @@ const Navbar = memo(() => {
           </Link>
 
           {/* About Accordion */}
-          <div className={styles['mobile-accordion']}>
+          <div className={`${styles['mobile-accordion']} ${mobileAboutOpen ? styles['mobile-accordion-open'] : ''}`}>
             <button
               className={`${styles['mobile-accordion-header']} ${mobileAboutOpen ? styles['active'] : ''}`}
               onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
@@ -516,7 +640,9 @@ const Navbar = memo(() => {
                         className={`${styles['mobile-service-link']} ${location === ab.path ? styles['active'] : ''}`}
                         onClick={closeMobileMenu}
                       >
-                        <AbIcon size={16} />
+                        <div className={styles['mobile-link-icon-box']}>
+                          <AbIcon size={16} />
+                        </div>
                         <span>{ab.name}</span>
                       </Link>
                     );

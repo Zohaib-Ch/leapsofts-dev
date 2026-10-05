@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import { useServicePage } from '../../hooks/useServicePage';
 import { getSanityServiceBySlug } from '../../sanity/queries';
-import { buildPageMeta } from '../../utils/seoHelper';
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 
 const SLUG = 'paid-media-performance';
 const FALLBACK_DATA: GrowthServicePillar = GROWTH_SERVICES_DATA[SLUG]!;
@@ -210,8 +210,16 @@ export default function PaidMediaPerformance() {
     }
   ];
 
+  const schemaData = buildServiceSchema({
+    name: service.title,
+    description: service.seo.description,
+    canonicalUrl: currentCanonicalUrl,
+    faqs: service.faqs,
+  });
+
   return (
     <div className={styles['page-container']}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <MetaSEO
         defaultTitle={service.seo.title}
         defaultDescription={service.seo.description}

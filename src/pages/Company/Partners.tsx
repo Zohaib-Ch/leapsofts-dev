@@ -1,13 +1,13 @@
-import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
-import React, { useEffect } from 'react'
-import styles from './partners.module.css'
-import PartnerHero from '../../components/PartnerHero/PartnerHero'
-import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
-import InfoGrid from '../../components/InfoGrid/InfoGrid'
-import { type InfoGridProps } from '../../components/InfoGrid/InfoGrid'
-import ContactForm from '../../components/ContactForm/ContactForm'
-import Processes from '../../components/Processes/Processes'
-import { type ProcessPhase } from '../../components/Processes/Processes'
+import { buildPageMeta } from '../../utils/seoHelper';
+import React from 'react';
+import styles from './partners.module.css';
+import PartnerHero from '../../components/PartnerHero/PartnerHero';
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
+import InfoGrid from '../../components/InfoGrid/InfoGrid';
+import { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
+import ContactForm from '../../components/ContactForm/ContactForm';
+import Processes from '../../components/Processes/Processes';
+import { type ProcessPhase } from '../../components/Processes/Processes';
 import { getSanityAboutPage } from '../../sanity/queries';
 
 export async function loader() {
@@ -169,9 +169,51 @@ const Partners: React.FC = () => {
     "GROWTH & EVOLUTION",
   ];
 
+  const partnersSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.leapsofts.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Company",
+            "item": "https://www.leapsofts.com/about"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Strategic Partnerships",
+            "item": "https://www.leapsofts.com/partners"
+          }
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.leapsofts.com/partners#webpage",
+        "url": "https://www.leapsofts.com/partners",
+        "name": "Strategic Technology Partnerships | Leapsofts",
+        "description": "Leapsofts partners with global technology leaders to deliver cutting-edge software solutions. Explore our strategic partnerships and certified alliances.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Leapsofts",
+          "url": "https://www.leapsofts.com",
+          "logo": "https://www.leapsofts.com/logo/Leap-soft-01.png"
+        }
+      }
+    ]
+  };
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(partnersSchema) }} />
       <div id="partners" className="partners-page" style={{ background: 'var(--bg-dark)' }}>
         <PartnerHero
           title="Strategic"
@@ -227,8 +269,7 @@ const Partners: React.FC = () => {
         <ContactForm />
       </div>
     </>
+  );
+};
 
-  )
-}
-
-export default Partners
+export default Partners;

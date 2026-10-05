@@ -146,7 +146,7 @@ const contactSchema = {
       "name": "Leapsofts",
       "image": "https://www.leapsofts.com/logo/Leap-soft-01.png",
       "url": "https://www.leapsofts.com/contact",
-      "telephone": "+1-123-456-7890",
+      "telephone": "+971-56-830-9734",
       "priceRange": "$$$",
       "address": {
         "@type": "PostalAddress",

@@ -4,9 +4,11 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "react-router";
 import type { LinksFunction } from "react-router";
-import "../src/index.css"; // We will pull from src/index.css
+import { Analytics } from "@vercel/analytics/react";
+import "../src/index.css";
 import Navbar from "../src/components/Navbar/Navbar";
 import Footer from "../src/components/Footer/Footer";
 import ContactModal from "../src/components/ContactModal/ContactModal";
@@ -22,7 +24,7 @@ export const links: LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Dancing+Script:wght@700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap",
   },
 ];
 
@@ -91,8 +93,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-import { useLocation } from "react-router";
-
 export default function App() {
   const location = useLocation();
   const isStudio = location.pathname.startsWith("/studio");
@@ -107,6 +107,7 @@ export default function App() {
           </main>
           {!isStudio && <ContactModal />}
           {!isStudio && <Footer />}
+          {!isStudio && <Analytics />}
         </div>
       </ContactModalProvider>
     </HelmetProvider>

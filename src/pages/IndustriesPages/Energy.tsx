@@ -10,6 +10,7 @@ import EmergingTech, { type EmergingTechProps } from '../../components/EmergingT
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
+import type { DeliverMVPProps } from '../../components/DeliverMVP/DeliverMVP';
 import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
@@ -83,6 +84,50 @@ const energySolutionsData: EmergingTechProps['data'] = {
   ]
 };
 
+const energyDeliverMVPData: DeliverMVPProps['data'] = {
+  label: "WHY CHOOSE LEAPSOFTS FOR ENERGY & CLEANTECH",
+  title: "How We Deliver Your CleanTech MVP in",
+  accentText: "3-5 months",
+  description: "Utilities, renewable energy operators, and CleanTech innovators need mission-critical reliability, SCADA protocol compatibility, and strict NERC CIP cybersecurity. Our specialized CleanTech engineering pods build smart grid telemetry pipelines, automated carbon accounting portals, and distributed battery energy storage (BESS) dashboards in 3 to 5 months.",
+  items: [
+    {
+      title: "SCADA, Modbus & DNP3 Protocol Ingestion.",
+      description: "We build secure edge gateways translating legacy industrial SCADA, Modbus TCP/RTU, and DNP3 protocols into high-throughput cloud MQTT and Kafka streams."
+    },
+    {
+      title: "NERC CIP & Critical Infrastructure Cybersecurity.",
+      description: "We enforce zero-trust network segmentation, air-gapped data brokers, hardware security module (HSM) encryption, and continuous intrusion detection to protect electrical assets."
+    },
+    {
+      title: "Smart Grid Load Balancing & Battery Optimization.",
+      description: "We deploy predictive algorithms forecasting renewable generation curves against peak municipal demands, orchestrating automated BESS charge/discharge cycles."
+    },
+    {
+      title: "Automated Carbon Tracking & ESG Verification.",
+      description: "We develop tamper-proof carbon accounting ledgers aggregating facility energy draw and solar offset metrics for auditable EPA and CSRD sustainability disclosures."
+    }
+  ]
+};
+
+const fallbackFaqs = [
+  {
+    question: "How do your energy platforms connect legacy SCADA systems to modern cloud dashboards?",
+    answer: "We deploy secure edge IoT gateways running protocol translators for Modbus, DNP3, IEC 61850, and OPC-UA. These gateways safely normalize operational technology (OT) telemetry into encrypted JSON payloads over MQTT/mTLS for cloud-based monitoring without exposing industrial control networks."
+  },
+  {
+    question: "How do you ensure cybersecurity compliance with NERC CIP regulations for critical infrastructure?",
+    answer: "We design software following NERC CIP and NIST SP 800-82 guidelines. This includes strict network isolation between OT and IT layers, hardware-backed multi-factor authentication, immutable audit logging, and automated threat anomaly detection."
+  },
+  {
+    question: "Can your CleanTech software optimize Battery Energy Storage Systems (BESS)?",
+    answer: "Yes. We build battery analytics platforms that monitor cell voltages, state of charge (SoC), state of health (SoH), and internal temperatures to automate intelligent arbitrage: charging during low-cost solar/wind generation and discharging during high-rate peak demand."
+  },
+  {
+    question: "How do your carbon accounting modules calculate and verify greenhouse gas (GHG) emissions?",
+    answer: "We integrate directly with smart meters, utility billing APIs, and IoT emissions sensors to calculate Scope 1, 2, and 3 emissions in real time, formatted strictly to GHG Protocol, EPA, and European CSRD reporting standards."
+  }
+];
+
 const streamlineDescription = [
   { text: "Lead the ", bold: false },
   { text: "energy transition ", bold: true },
@@ -111,13 +156,16 @@ export function meta({ data }: { data?: any }) {
     sanityData: data?.sanityData,
     defaultTitle: "Energy & Utilities Software Development | Smart Grid & IoT | Leapsofts",
     defaultDescription: "Leapsofts engineers custom energy software, smart grid automation platforms, SCADA IoT telemetry engines, and renewable energy management systems.",
-    defaultKeywords: "energy software development, utilities software company, renewable energy software, smart grid software, scada iot integration",
+    defaultKeywords: "energy software development, cleantech software development company, smart grid software development, scada modbus dnp3 integration, nerc cip cybersecurity compliance, renewable energy monitoring software, battery energy storage system bess software, derms distributed energy resource management, solar wind farm telemetry platform, utility billing smart metering ami, carbon accounting esg software",
     canonicalUrl: "https://www.leapsofts.com/industries/energy",
   });
 }
 
 const Energy: React.FC = () => {
   const { data } = useIndustryPage('energy');
+  const { setProcessTitle, setDeliverMVPData } = useOutletContext<IndustriesContextType>();
+
+  const activeFaqs = (data?.faqs && data.faqs.length > 0) ? data.faqs : fallbackFaqs;
 
   const schemaCanonicalUrl = "https://www.leapsofts.com/industries/energy";
   const schemaData = buildIndustrySchema({
@@ -125,9 +173,8 @@ const Energy: React.FC = () => {
     description: "Custom energy management software — SCADA systems, smart grid solutions, and renewable energy platforms.",
     canonicalUrl: schemaCanonicalUrl,
     industryName: "Energy & Utilities",
-    faqs: data?.faqs,
+    faqs: activeFaqs,
   });
-  const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
@@ -135,11 +182,15 @@ const Energy: React.FC = () => {
     ? [{ text: data.hero.introText, bold: false }]
     : introDescription;
 
-  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+  const activeCommitmentData: CommitmentSectionProps['data'] = (data?.commitmentSection && data.commitmentSection.items?.length)
     ? {
         subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
         title: data.commitmentSection.title || commitmentData.title,
-        items: data.commitmentSection.items
+        items: data.commitmentSection.items.map((item, idx) => ({
+          icon: item.icon || commitmentData.items?.[idx]?.icon || '/industryicons/sphere.svg',
+          title: item.title,
+          description: item.description
+        }))
       }
     : commitmentData;
 
@@ -157,6 +208,19 @@ const Energy: React.FC = () => {
       }
     : energySolutionsData;
 
+  const activeDeliverMVPData: DeliverMVPProps['data'] = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || energyDeliverMVPData.label,
+        title: data.deliverMVP.title || energyDeliverMVPData.title,
+        accentText: data.deliverMVP.accentText || energyDeliverMVPData.accentText,
+        description: data.deliverMVP.description || energyDeliverMVPData.description,
+        items: data.deliverMVP.items.map(item => ({
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : energyDeliverMVPData;
+
   const processTitleMain = data?.processHeader?.titleMain || "Energy Software Engineering";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
@@ -165,7 +229,10 @@ const Energy: React.FC = () => {
       titleMain: processTitleMain,
       titleAccent: processTitleAccent
     });
-  }, [setProcessTitle, processTitleMain, processTitleAccent]);
+    if (setDeliverMVPData) {
+      setDeliverMVPData(activeDeliverMVPData);
+    }
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items
@@ -212,7 +279,7 @@ const Energy: React.FC = () => {
       <FAQs
         title="Energy & Utilities Software FAQ"
         subtitle="Common questions about SCADA protocol integration, NERC CIP compliance, smart grid telemetry, and carbon accounting."
-        faqs={data?.faqs} items={data?.faqs}
+        faqs={activeFaqs} items={activeFaqs}
       />
       <RelatedServices
         title={data?.relatedServices?.title || "Recommended Energy Software Services"}

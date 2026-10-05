@@ -12,6 +12,7 @@ import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTe
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
+import type { DeliverMVPProps } from '../../components/DeliverMVP/DeliverMVP';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO AUTOMOTIVE",
@@ -84,6 +85,50 @@ const automotiveSolutionsData: EmergingTechProps['data'] = {
   ]
 };
 
+const automotiveDeliverMVPData: DeliverMVPProps['data'] = {
+  label: "WHY CHOOSE LEAPSOFTS FOR AUTOMOTIVE",
+  title: "How We Deliver Your Automotive MVP in",
+  accentText: "3-5 months",
+  description: "Transitioning to software-defined mobility requires specialized firmware engineering, real-time edge telemetry protocols, and stringent functional safety compliance. Our dedicated automotive engineering pods combine deep domain expertise in CAN-bus communication, ISO 26262 standards, and cloud IoT telemetry to bring connected vehicle platforms and fleet management MVPs to market rapidly without sacrificing safety or reliability.",
+  items: [
+    {
+      title: "CAN-bus, OBD-II & Edge Telemetry Ingestion.",
+      description: "We build high-throughput, low-latency edge ingestion gateways with MQTT and Protobuf, capturing sub-second vehicle diagnostics, engine parameters, and GPS coordinate tracking."
+    },
+    {
+      title: "ISO 26262 & Automotive Functional Safety.",
+      description: "Our engineering adheres to MISRA C/C++ coding guidelines and ISO 26262 ASIL standards, ensuring bulletproof safety, fault tolerance, and deterministic execution for mission-critical vehicle software."
+    },
+    {
+      title: "EV Battery Management & OCPP Smart Charging.",
+      description: "We develop intelligent EV fleet software integrating OCPP 1.6/2.0.1 and ISO 15118 protocols to balance electrical grid loads, automate billing, and extend battery lifecycle health."
+    },
+    {
+      title: "Secure Over-The-Air (OTA) Firmware Vaults.",
+      description: "We architect double-buffered, cryptographically signed OTA update pipelines backed by Hardware Security Modules (HSM) to deploy ECU firmware updates securely without brick risks."
+    }
+  ]
+};
+
+const fallbackFaqs = [
+  {
+    question: "How do you handle CAN-bus and OBD-II telemetry ingestion from diverse vehicle fleets?",
+    answer: "We engineer modular edge-to-cloud gateways using MQTT, Protobuf, and WebSockets that ingest high-frequency CAN-bus and OBD-II diagnostics. Our architecture normalizes disparate OEM telemetry standards into a unified data schema for real-time processing and storage."
+  },
+  {
+    question: "How do you ensure cybersecurity and safety compliance (ISO 26262 / UNECE R155/R156)?",
+    answer: "We design software in compliance with ISO 26262 functional safety and UNECE R155/R156 cybersecurity regulations. Every firmware delivery channel utilizes hardware security module (HSM) root-of-trust, mTLS encryption, and automated rollback mechanisms for secure Over-The-Air (OTA) updates."
+  },
+  {
+    question: "Can your automotive software integrate with EV charging infrastructure and battery management systems?",
+    answer: "Yes. We develop smart EV fleet software integrating OCPP (Open Charge Point Protocol), ISO 15118 (Plug & Charge), and telemetry from Battery Management Systems (BMS) to optimize charging schedules, battery health, and grid load balancing."
+  },
+  {
+    question: "Do you build custom mobile companion apps for connected car drivers and fleet operators?",
+    answer: "We build native iOS/Android and cross-platform React Native companion applications featuring remote vehicle control (climate, lock/unlock), digital key authorization (BLE/NFC), live GPS tracking, trip analytics, and charging status monitoring."
+  }
+];
+
 const streamlineDescription = [
   { text: "Accelerate your ", bold: false },
   { text: "automotive innovation ", bold: true },
@@ -114,15 +159,16 @@ export function meta({ data }: { data?: any }) {
     sanityData: data?.sanityData,
     defaultTitle: "Automotive Software Development Services | Leapsofts",
     defaultDescription: "Custom automotive software — dealer management, connected vehicle platforms & EV integration. Leapsofts builds next-gen digital solutions for the auto industry.",
-    defaultKeywords: "automotive software development, dealer management software, connected vehicle software, EV software development",
+    defaultKeywords: "automotive software development, connected vehicle software company, custom automotive software development, dealer management software development, fleet telematics platform, ev charging software ocpp, can-bus telemetry integration, iso 26262 automotive software, ota firmware update platform, automotive embedded software, connected car app development, dealership inventory software, vehicle diagnostics predictive maintenance",
     canonicalUrl: "https://www.leapsofts.com/industries/automotive",
   });
 }
 
-
-
 const Automotive: React.FC = () => {
   const { data } = useIndustryPage('automotive');
+  const { setProcessTitle, setDeliverMVPData } = useOutletContext<IndustriesContextType>();
+
+  const activeFaqs = (data?.faqs && data.faqs.length > 0) ? data.faqs : fallbackFaqs;
 
   const schemaCanonicalUrl = "https://www.leapsofts.com/industries/automotive";
   const schemaData = buildIndustrySchema({
@@ -130,9 +176,8 @@ const Automotive: React.FC = () => {
     description: "Custom automotive software — fleet management, telematics, connected vehicle platforms.",
     canonicalUrl: schemaCanonicalUrl,
     industryName: "Automotive & Transportation",
-    faqs: data?.faqs,
+    faqs: activeFaqs,
   });
-  const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
@@ -140,11 +185,15 @@ const Automotive: React.FC = () => {
     ? [{ text: data.hero.introText, bold: false }]
     : introDescription;
 
-  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+  const activeCommitmentData: CommitmentSectionProps['data'] = (data?.commitmentSection && data.commitmentSection.items?.length)
     ? {
         subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
         title: data.commitmentSection.title || commitmentData.title,
-        items: data.commitmentSection.items
+        items: data.commitmentSection.items.map((item, idx) => ({
+          icon: item.icon || commitmentData.items?.[idx]?.icon || '/industryicons/sphere.svg',
+          title: item.title,
+          description: item.description
+        }))
       }
     : commitmentData;
 
@@ -162,6 +211,19 @@ const Automotive: React.FC = () => {
       }
     : automotiveSolutionsData;
 
+  const activeDeliverMVPData: DeliverMVPProps['data'] = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || automotiveDeliverMVPData.label,
+        title: data.deliverMVP.title || automotiveDeliverMVPData.title,
+        accentText: data.deliverMVP.accentText || automotiveDeliverMVPData.accentText,
+        description: data.deliverMVP.description || automotiveDeliverMVPData.description,
+        items: data.deliverMVP.items.map(item => ({
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : automotiveDeliverMVPData;
+
   const processTitleMain = data?.processHeader?.titleMain || "Automotive Product Development";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
@@ -170,7 +232,10 @@ const Automotive: React.FC = () => {
       titleMain: processTitleMain,
       titleAccent: processTitleAccent
     });
-  }, [setProcessTitle, processTitleMain, processTitleAccent]);
+    if (setDeliverMVPData) {
+      setDeliverMVPData(activeDeliverMVPData);
+    }
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items
@@ -217,7 +282,7 @@ const Automotive: React.FC = () => {
       <FAQs
         title="Automotive & Mobility Engineering FAQ"
         subtitle="Common questions about ISO 26262 compliance, OTA firmware update pipelines, V2X telematics, and dealer management platforms."
-        faqs={data?.faqs} items={data?.faqs}
+        faqs={activeFaqs} items={activeFaqs}
       />
       <RelatedServices
         title={data?.relatedServices?.title || "Recommended Automotive Software Services"}

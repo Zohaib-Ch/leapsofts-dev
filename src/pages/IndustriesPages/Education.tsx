@@ -10,6 +10,8 @@ import EmergingTech, { type EmergingTechProps } from '../../components/EmergingT
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
+import type { DeliverMVPProps } from '../../components/DeliverMVP/DeliverMVP';
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO EDUCATIONAL INSTITUTIONS",
@@ -82,6 +84,50 @@ const educationSolutionsData: EmergingTechProps['data'] = {
   ]
 };
 
+const edtechDeliverMVPData: DeliverMVPProps['data'] = {
+  label: "WHY CHOOSE LEAPSOFTS FOR EDTECH & LEARNING",
+  title: "How We Deliver Your EdTech MVP in",
+  accentText: "3-5 months",
+  description: "Educational technology demands rich interactive multimedia delivery, uncompromising student privacy compliance, and interoperability with established academic standards. Our specialized EdTech engineering pods build custom LMS platforms, AI-driven adaptive learning tutors, and interactive WebRTC virtual classrooms in 3 to 5 months while ensuring full FERPA, COPPA, and GDPR compliance.",
+  items: [
+    {
+      title: "SCORM, xAPI & LTI 1.3 Interoperability.",
+      description: "We engineer seamless integrations with Canvas, Blackboard, Moodle, and Google Classroom, adhering to IMS Global and 1EdTech interoperability standards."
+    },
+    {
+      title: "FERPA & COPPA-Compliant Student Data Vaults.",
+      description: "We implement zero-knowledge encryption, strict parental consent gates, anonymized telemetry, and automated data deletion workflows to protect minor student privacy."
+    },
+    {
+      title: "Low-Latency WebRTC & Interactive Virtual Classrooms.",
+      description: "We build browser-based virtual classrooms featuring real-time whiteboards, breakout rooms, screen sharing, and adaptive bitrate video optimized for low-bandwidth regions."
+    },
+    {
+      title: "AI-Powered Adaptive Learning & Automated Grading.",
+      description: "We integrate custom machine learning pipelines that assess individual student mastery, adjust quiz difficulty on the fly, and assist educators with instant rubric-based grading."
+    }
+  ]
+};
+
+const fallbackFaqs = [
+  {
+    question: "How do you ensure student privacy and compliance with FERPA and COPPA regulations?",
+    answer: "We design privacy-by-design architectures that segregate student identifiable information (PII) using AES-256 encryption, verifiable parental consent verification workflows, strict role-based access controls (RBAC), and automated data retention and purge schedules."
+  },
+  {
+    question: "Can your custom LMS integrate with existing academic platforms like Canvas, Blackboard, or Moodle?",
+    answer: "Yes. We build interoperable systems using LTI 1.3 (Learning Tools Interoperability), OneRoster, Caliper Analytics, SCORM 2004, and xAPI (Tin Can API) to ensure two-way synchronization of rosters, assignments, and grades with all major LMS ecosystems."
+  },
+  {
+    question: "How do your virtual classroom applications perform under low-bandwidth conditions?",
+    answer: "We utilize adaptive bitrate WebRTC media pipelines, audio-first prioritization algorithms, and selective forwarding units (SFUs). This ensures that live lectures and collaborative whiteboards remain crystal clear even for students on slow cellular or rural connections."
+  },
+  {
+    question: "How can AI be integrated into our e-learning platform responsibly?",
+    answer: "We build guardrailed AI features such as personalized Socratic tutors, automated diagnostic assessment generators, and smart plagiarism/AI-content indicators that support educators without hallucinating inaccurate academic content."
+  }
+];
+
 const streamlineDescription = [
   { text: "Enhance your ", bold: false },
   { text: "educational delivery ", bold: true },
@@ -100,8 +146,6 @@ const introDescription = [
   { text: "engineered to elevate student engagement and streamline administrative lifecycles. By integrating FERPA/COPPA privacy vaults, virtual classroom media pipelines, and AI adaptive learning models, we power global EdTech innovation.", bold: false }
 ];
 
-import { getSanityIndustryBySlug } from '../../sanity/queries';
-
 export async function loader() {
   const sanityData = await getSanityIndustryBySlug('edtech');
   return { sanityData };
@@ -112,15 +156,16 @@ export function meta({ data }: { data?: any }) {
     sanityData: data?.sanityData,
     defaultTitle: "EdTech Software Development Services | Leapsofts",
     defaultDescription: "Custom eLearning & EdTech software development — LMS, mobile learning apps & virtual classrooms. Leapsofts builds scalable education platforms. Start building.",
-    defaultKeywords: "EdTech software development, eLearning platform development, LMS development company, education app development",
+    defaultKeywords: "edtech software development, elearning platform development company, custom lms development, learning management system development, scorm compliant software, xapi integration services, lti 1.3 canvas moodle integration, ai personalized learning platform, virtual classroom webrtc development, student information system sis, interactive quiz assessment software, ferpa coppa compliant software",
     canonicalUrl: "https://www.leapsofts.com/industries/edtech",
   });
 }
 
-
-
 const Education: React.FC = () => {
   const { data } = useIndustryPage('edtech');
+  const { setProcessTitle, setDeliverMVPData } = useOutletContext<IndustriesContextType>();
+
+  const activeFaqs = (data?.faqs && data.faqs.length > 0) ? data.faqs : fallbackFaqs;
 
   const schemaCanonicalUrl = "https://www.leapsofts.com/industries/edtech";
   const schemaData = buildIndustrySchema({
@@ -128,9 +173,8 @@ const Education: React.FC = () => {
     description: "Custom education technology software — LMS platforms, student portals, e-learning tools.",
     canonicalUrl: schemaCanonicalUrl,
     industryName: "Education & EdTech",
-    faqs: data?.faqs,
+    faqs: activeFaqs,
   });
-  const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
@@ -138,11 +182,15 @@ const Education: React.FC = () => {
     ? [{ text: data.hero.introText, bold: false }]
     : introDescription;
 
-  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+  const activeCommitmentData: CommitmentSectionProps['data'] = (data?.commitmentSection && data.commitmentSection.items?.length)
     ? {
         subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
         title: data.commitmentSection.title || commitmentData.title,
-        items: data.commitmentSection.items
+        items: data.commitmentSection.items.map((item, idx) => ({
+          icon: item.icon || commitmentData.items?.[idx]?.icon || '/industryicons/sphere.svg',
+          title: item.title,
+          description: item.description
+        }))
       }
     : commitmentData;
 
@@ -160,6 +208,19 @@ const Education: React.FC = () => {
       }
     : educationSolutionsData;
 
+  const activeDeliverMVPData: DeliverMVPProps['data'] = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || edtechDeliverMVPData.label,
+        title: data.deliverMVP.title || edtechDeliverMVPData.title,
+        accentText: data.deliverMVP.accentText || edtechDeliverMVPData.accentText,
+        description: data.deliverMVP.description || edtechDeliverMVPData.description,
+        items: data.deliverMVP.items.map(item => ({
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : edtechDeliverMVPData;
+
   const processTitleMain = data?.processHeader?.titleMain || "EdTech Product Development";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
@@ -168,7 +229,10 @@ const Education: React.FC = () => {
       titleMain: processTitleMain,
       titleAccent: processTitleAccent
     });
-  }, [setProcessTitle, processTitleMain, processTitleAccent]);
+    if (setDeliverMVPData) {
+      setDeliverMVPData(activeDeliverMVPData);
+    }
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items
@@ -215,7 +279,7 @@ const Education: React.FC = () => {
       <FAQs
         title="EdTech & Learning Platforms FAQ"
         subtitle="Common questions about FERPA/COPPA compliance, custom LMS standards (LTI 1.3/SCORM), AI adaptive learning engines, and online proctoring security."
-        faqs={data?.faqs} items={data?.faqs}
+        faqs={activeFaqs} items={activeFaqs}
       />
       <RelatedServices
         title={data?.relatedServices?.title || "Recommended EdTech Software Services"}

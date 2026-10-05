@@ -12,6 +12,7 @@ import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTe
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
+import type { DeliverMVPProps } from '../../components/DeliverMVP/DeliverMVP';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO HEALTHCARE",
@@ -84,16 +85,60 @@ const ourTechInnovationsData: EmergingTechProps['data'] = {
   ]
 };
 
+const healthcareDeliverMVPData: DeliverMVPProps['data'] = {
+  label: "WHY CHOOSE LEAPSOFTS FOR HEALTHTECH",
+  title: "How We Deliver Your HealthTech MVP in",
+  accentText: "3-5 months",
+  description: "Engineering digital health platforms requires a strict convergence of medical workflow precision, bulletproof patient data security, and agile execution speed. Our specialized HealthTech engineering pods follow proven HIPAA blueprints, deploying HL7/FHIR interoperability, telehealth video streams, and EHR connectors to launch production-grade clinical MVPs within 3 to 5 months.",
+  items: [
+    {
+      title: "HIPAA, HITECH & SOC2 Type II Compliance.",
+      description: "From sprint one, we enforce encrypted PHI storage (AES-256), TLS 1.3 in-transit security, signed BAA agreements, and automated audit logging to guarantee zero compliance exposure."
+    },
+    {
+      title: "HL7 FHIR & Bidirectional EHR/EMR Sync.",
+      description: "We build standardized FHIR REST APIs and bidirectional connectors for Epic Systems, Cerner, Athenahealth, and Allscripts, ensuring frictionless clinical interoperability."
+    },
+    {
+      title: "Encrypted Telehealth & Real-Time IoT Telemetry.",
+      description: "We architect low-latency WebRTC video consultation rooms, dynamic patient waiting queues, and high-frequency Bluetooth/cellular medical IoT device ingest pipelines."
+    },
+    {
+      title: "FDA SaMD & Clinical Workflow Validation.",
+      description: "We follow ISO 13485 and IEC 62304 software lifecycle standards, providing comprehensive traceability documentation for Software as a Medical Device (SaMD) clearances."
+    }
+  ]
+};
+
+const fallbackFaqs = [
+  {
+    question: "How do you ensure HIPAA compliance when developing custom medical software?",
+    answer: "We sign a Business Associate Agreement (BAA), implement role-based access controls (RBAC), enforce AES-256 encryption for data at rest and in transit, configure immutable audit trails, and conduct third-party penetration testing before deployment."
+  },
+  {
+    question: "Can your team integrate with our existing EHR/EMR systems like Epic or Cerner?",
+    answer: "Yes. We specialize in building HL7 FHIR-compliant API middleware and SMART on FHIR applications that seamlessly synchronize patient demographics, clinical notes, and lab results with Epic, Cerner, Athenahealth, and legacy practice management systems."
+  },
+  {
+    question: "What protocols do you use for secure telemedicine and remote patient monitoring?",
+    answer: "We utilize end-to-end encrypted WebRTC for low-latency peer-to-peer and SFU video consultations, coupled with MQTT/WebSocket protocols for streaming real-time vitals from medical IoT wearables and remote patient monitoring (RPM) hubs."
+  },
+  {
+    question: "Do you support FDA Software as a Medical Device (SaMD) regulatory pathways?",
+    answer: "Yes. Our engineering pods follow ISO 13485, IEC 62304, and FDA design control guidelines, creating rigorous verification and validation (V&V) test suites and cybersecurity documentation required for 510(k) submissions."
+  }
+];
+
 const streamlineDescription = [
-  { text: "Whether you're modernizing an ", bold: false },
+  { text: "Whether modernizing an ", bold: false },
   { text: "existing healthcare software system ", bold: true },
   { text: "or launching a ", bold: false },
   { text: "new digital patient product", bold: true },
   { text: ", Leapsofts offers a ", bold: false },
   { text: "complimentary software strategy session ", bold: true },
-  { text: "designed to deliver value almost immediately. We take the time to understand your medical objectives, technical landscape, and compliance challenges then provide actionable insights on how ", bold: false },
+  { text: "designed to deliver value almost immediately. We assess your medical workflows, review HIPAA/FHIR compliance requirements, and provide actionable blueprints on how ", bold: false },
   { text: "bespoke, HIPAA-compliant custom software solutions ", bold: true },
-  { text: "can streamline workflows, improve efficiency, and support scalable clinical growth.", bold: false },
+  { text: "can streamline clinical operations and accelerate patient care delivery.", bold: false },
 ];
 
 const title = "Healthcare Software Development, HIPAA Compliance & Patient-Centric Topologies";
@@ -115,26 +160,26 @@ export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
     defaultTitle: "Healthcare Software Development Services | Leapsofts",
-    defaultDescription: "HIPAA-compliant healthcare software development — EHR, patient portals & telehealth. Leapsofts builds secure digital health solutions. Schedule a consultation.",
-    defaultKeywords: "healthcare software development, HIPAA compliant software, EHR software development, digital health solutions",
+    defaultDescription: "HIPAA-compliant healthcare software development — EHR integrations, patient portals & telehealth platforms. Leapsofts builds secure digital health solutions.",
+    defaultKeywords: "healthcare software development, hipaa compliant software development, custom healthcare software company, ehr integration services, hl7 fhir api integration, telehealth app development, patient portal software development, remote patient monitoring software, medical practice management software, dicom imaging viewer development, e-prescribing epcs software, clinical workflow automation, digital health software engineering",
     canonicalUrl: "https://www.leapsofts.com/industries/healthcare",
   });
 }
 
-
-
 const Healthcare: React.FC = () => {
   const { data } = useIndustryPage('healthcare');
 
+  const activeFaqs = (data?.faqs && data.faqs.length > 0) ? data.faqs : fallbackFaqs;
+
   const schemaCanonicalUrl = "https://www.leapsofts.com/industries/healthcare";
   const schemaData = buildIndustrySchema({
-    name: "Healthcare Software Development Services",
+    name: "Healthcare & Life Sciences Software Development Services",
     description: "HIPAA-compliant healthcare software development — EHR, patient portals & telehealth.",
     canonicalUrl: schemaCanonicalUrl,
     industryName: "Healthcare & Life Sciences",
-    faqs: data?.faqs,
+    faqs: activeFaqs,
   });
-  const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+  const { setProcessTitle, setDeliverMVPData } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
@@ -142,11 +187,15 @@ const Healthcare: React.FC = () => {
     ? [{ text: data.hero.introText, bold: false }]
     : introDescription;
 
-  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+  const activeCommitmentData: CommitmentSectionProps['data'] = (data?.commitmentSection && data.commitmentSection.items?.length)
     ? {
         subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
         title: data.commitmentSection.title || commitmentData.title,
-        items: data.commitmentSection.items
+        items: data.commitmentSection.items.map((item, idx) => ({
+          icon: item.icon || commitmentData.items?.[idx]?.icon || '/industryicons/sphere.svg',
+          title: item.title,
+          description: item.description
+        }))
       }
     : commitmentData;
 
@@ -164,6 +213,19 @@ const Healthcare: React.FC = () => {
       }
     : ourTechInnovationsData;
 
+  const activeDeliverMVPData: DeliverMVPProps['data'] = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || healthcareDeliverMVPData.label,
+        title: data.deliverMVP.title || healthcareDeliverMVPData.title,
+        accentText: data.deliverMVP.accentText || healthcareDeliverMVPData.accentText,
+        description: data.deliverMVP.description || healthcareDeliverMVPData.description,
+        items: data.deliverMVP.items.map(item => ({
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : healthcareDeliverMVPData;
+
   const processTitleMain = data?.processHeader?.titleMain || "Healthcare Product Development";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
@@ -172,7 +234,10 @@ const Healthcare: React.FC = () => {
       titleMain: processTitleMain,
       titleAccent: processTitleAccent
     });
-  }, [setProcessTitle, processTitleMain, processTitleAccent]);
+    if (setDeliverMVPData) {
+      setDeliverMVPData(activeDeliverMVPData);
+    }
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items
@@ -219,7 +284,7 @@ const Healthcare: React.FC = () => {
       <FAQs
         title="Healthcare & Life Sciences Software FAQ"
         subtitle="Common questions about HIPAA compliance, HL7 FHIR integrations, WebRTC telehealth portals, and medical IoT security."
-        faqs={data?.faqs} items={data?.faqs}
+        faqs={activeFaqs} items={activeFaqs}
       />
       <RelatedServices
         title={data?.relatedServices?.title || "Recommended Healthcare Software Services"}

@@ -10,6 +10,7 @@ import EmergingTech, { type EmergingTechProps } from '../../components/EmergingT
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
+import type { DeliverMVPProps } from '../../components/DeliverMVP/DeliverMVP';
 import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
@@ -83,6 +84,50 @@ const transportationSolutionsData: EmergingTechProps['data'] = {
   ]
 };
 
+const transportationDeliverMVPData: DeliverMVPProps['data'] = {
+  label: "WHY CHOOSE LEAPSOFTS FOR TRANSPORTATION & LOGISTICS",
+  title: "How We Deliver Your Logistics MVP in",
+  accentText: "3-5 months",
+  description: "Global freight forwarders, 3PL providers, and carrier fleets require real-time vehicle telemetry, algorithmic load-matching, and automated driver dispatching. Our specialized logistics engineering pods build custom Transportation Management Systems (TMS), ELD-compliant driver mobile apps, and IoT tracking platforms in 3 to 5 months to eliminate empty miles and reduce fuel burn.",
+  items: [
+    {
+      title: "Real-Time Fleet Telematics & ELD/HOS Compliance.",
+      description: "We integrate electronic logging devices (ELD), OBD-II diagnostic ports, and sub-second GPS tracking to automate Hours of Service (HOS) logs and IFTA fuel tax calculations."
+    },
+    {
+      title: "Algorithmic Load Matching & Route Optimization.",
+      description: "We engineer constraint-based routing algorithms (VRP) that factor in traffic conditions, weight limits, delivery time windows, and multi-stop drop-offs to maximize truck capacity."
+    },
+    {
+      title: "IoT Cold-Chain & Environmental Telemetry.",
+      description: "We deploy Bluetooth Low Energy (BLE) and cellular IoT sensors inside refrigerated trailers, alerting dispatchers instantly if temperatures breach safe thresholds for pharmaceuticals or perishables."
+    },
+    {
+      title: "Automated Carrier Settlement & Instant Quick-Pay.",
+      description: "We build automated rate-con generation, digitized Proof of Delivery (e-POD) scanning, and Stripe/ACH quick-pay disbursements for carriers upon delivery confirmation."
+    }
+  ]
+};
+
+const fallbackFaqs = [
+  {
+    question: "How do your logistics platforms ensure FMCSA ELD and Hours of Service (HOS) compliance?",
+    answer: "We build direct integrations with certified hardware Electronic Logging Devices (ELD) via Bluetooth and CAN-bus. The platform automatically logs driving hours, rest breaks, and duty status changes in real time, alerting fleet dispatchers to potential HOS violations before they occur."
+  },
+  {
+    question: "Can your custom TMS software optimize multi-stop delivery routes and reduce empty miles?",
+    answer: "Yes. We engineer Vehicle Routing Problem (VRP) solvers that dynamically calculate optimal multi-stop routes based on live traffic, delivery appointment windows, bridge weight restrictions, and fuel consumption curves, saving up to 25% in fleet transit costs."
+  },
+  {
+    question: "How do you track temperature-sensitive freight across cold-chain logistics networks?",
+    answer: "We deploy cloud-connected IoT sensors that transmit live temperature, humidity, door-open events, and GPS coordinates directly to our telemetry dashboard. Instant SMS and push alerts trigger if refrigerated trailers deviate from safe holding ranges."
+  },
+  {
+    question: "Can your system automate bill of lading (BOL) and proof of delivery (POD) capture?",
+    answer: "Yes. Our driver mobile apps feature on-device document scanning, OCR text extraction, digital signature capture (e-POD), and instant PDF upload to automatically generate and send invoices to shippers upon delivery."
+  }
+];
+
 const streamlineDescription = [
   { text: "Accelerate your ", bold: false },
   { text: "logistics supply chain ", bold: true },
@@ -110,13 +155,16 @@ export function meta({ data }: { data?: any }) {
     sanityData: data?.sanityData,
     defaultTitle: "Transportation Software Development & Logistics Solutions | Leapsofts",
     defaultDescription: "Leapsofts engineers custom transportation software, fleet telematics platforms, custom TMS solutions, IoT cold-chain tracking, and automated carrier payout gateways.",
-    defaultKeywords: "transportation software development, logistics software company, fleet management software, custom tms development, supply chain software, eld compliance software",
+    defaultKeywords: "transportation software development, logistics software development company, custom tms software development, fleet telematics management software, fmcsa eld compliance software, freight broker dispatch software, gps tracking logistics mobile app, vehicle routing optimization algorithm, cold chain iot temperature monitoring, cross dock warehouse management, carrier payout billing automation, supply chain visibility platform",
     canonicalUrl: "https://www.leapsofts.com/industries/transportation",
   });
 }
 
 const Transportation: React.FC = () => {
   const { data } = useIndustryPage('transportation');
+  const { setProcessTitle, setDeliverMVPData } = useOutletContext<IndustriesContextType>();
+
+  const activeFaqs = (data?.faqs && data.faqs.length > 0) ? data.faqs : fallbackFaqs;
 
   const schemaCanonicalUrl = "https://www.leapsofts.com/industries/transportation";
   const schemaData = buildIndustrySchema({
@@ -124,9 +172,8 @@ const Transportation: React.FC = () => {
     description: "Custom logistics software — route optimization, fleet tracking, supply chain, and freight management.",
     canonicalUrl: schemaCanonicalUrl,
     industryName: "Transportation & Logistics",
-    faqs: data?.faqs,
+    faqs: activeFaqs,
   });
-  const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
@@ -134,11 +181,15 @@ const Transportation: React.FC = () => {
     ? [{ text: data.hero.introText, bold: false }]
     : introDescription;
 
-  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+  const activeCommitmentData: CommitmentSectionProps['data'] = (data?.commitmentSection && data.commitmentSection.items?.length)
     ? {
         subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
         title: data.commitmentSection.title || commitmentData.title,
-        items: data.commitmentSection.items
+        items: data.commitmentSection.items.map((item, idx) => ({
+          icon: item.icon || commitmentData.items?.[idx]?.icon || '/industryicons/sphere.svg',
+          title: item.title,
+          description: item.description
+        }))
       }
     : commitmentData;
 
@@ -156,6 +207,19 @@ const Transportation: React.FC = () => {
       }
     : transportationSolutionsData;
 
+  const activeDeliverMVPData: DeliverMVPProps['data'] = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || transportationDeliverMVPData.label,
+        title: data.deliverMVP.title || transportationDeliverMVPData.title,
+        accentText: data.deliverMVP.accentText || transportationDeliverMVPData.accentText,
+        description: data.deliverMVP.description || transportationDeliverMVPData.description,
+        items: data.deliverMVP.items.map(item => ({
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : transportationDeliverMVPData;
+
   const processTitleMain = data?.processHeader?.titleMain || "Logistics Software Engineering";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
@@ -164,7 +228,10 @@ const Transportation: React.FC = () => {
       titleMain: processTitleMain,
       titleAccent: processTitleAccent
     });
-  }, [setProcessTitle, processTitleMain, processTitleAccent]);
+    if (setDeliverMVPData) {
+      setDeliverMVPData(activeDeliverMVPData);
+    }
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items
@@ -211,7 +278,7 @@ const Transportation: React.FC = () => {
       <FAQs
         title="Transportation & Logistics Software FAQ"
         subtitle="Common questions about carrier ELD integration, automated load-matching algorithms, IoT cold-chain tracking, and custom TMS architectures."
-        faqs={data?.faqs} items={data?.faqs}
+        faqs={activeFaqs} items={activeFaqs}
       />
       <RelatedServices
         title={data?.relatedServices?.title || "Recommended Logistics Software Services"}

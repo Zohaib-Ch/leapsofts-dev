@@ -10,6 +10,7 @@ import EmergingTech, { type EmergingTechProps } from '../../components/EmergingT
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
+import type { DeliverMVPProps } from '../../components/DeliverMVP/DeliverMVP';
 import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
@@ -83,6 +84,50 @@ const entertainmentSolutionsData: EmergingTechProps['data'] = {
   ]
 };
 
+const entertainmentDeliverMVPData: DeliverMVPProps['data'] = {
+  label: "WHY CHOOSE LEAPSOFTS FOR MEDIA & ENTERTAINMENT",
+  title: "How We Deliver Your Media MVP in",
+  accentText: "3-5 months",
+  description: "Modern entertainment, streaming, and gaming platforms require sub-second video latency, multi-DRM studio-grade encryption, and seamless monetized paywalls. Our specialized media engineering pods build low-latency HLS/DASH video delivery pipelines, custom OTT web and mobile apps, and high-concurrency gaming hubs in 3 to 5 months to help entertainment brands engage global audiences.",
+  items: [
+    {
+      title: "Low-Latency 4K HLS/DASH Video Streaming.",
+      description: "We architect multi-bitrate, adaptive video streaming pipelines integrated with global edge CDNs (Cloudflare, Fastly, AWS CloudFront) ensuring zero buffering and sub-second latency."
+    },
+    {
+      title: "Studio-Grade Multi-DRM Content Protection.",
+      description: "We enforce Google Widevine, Apple FairPlay, and Microsoft PlayReady DRM encryption keys to protect premium video, audio, and gaming intellectual property from piracy."
+    },
+    {
+      title: "Server-Side Ad Insertion (SSAI) & Monetization.",
+      description: "We implement seamless server-side ad stitching (SSAI/VAST/VMAP) that bypasses client ad-blockers while preserving continuous, broadcast-quality video playback."
+    },
+    {
+      title: "High-Concurrency Real-Time Gaming & Esports.",
+      description: "We engineer WebSocket and WebRTC matchmaking engines, live leaderboard sync, and low-latency interactive chats supporting millions of concurrent viewers."
+    }
+  ]
+};
+
+const fallbackFaqs = [
+  {
+    question: "How do your streaming platforms deliver 4K video with low latency across global audiences?",
+    answer: "We engineer adaptive bitrate (ABR) streaming using modern HLS and MPEG-DASH protocols, integrated directly with tiered global Content Delivery Networks (CDNs) and edge caching. This guarantees sub-second video start times and zero buffering across diverse mobile and desktop connections."
+  },
+  {
+    question: "How do you protect copyrighted media content using Digital Rights Management (DRM)?",
+    answer: "We implement studio-grade Multi-DRM security pipelines supporting Apple FairPlay, Google Widevine Modular, and Microsoft PlayReady. Every stream chunk is encrypted with AES-128 keys and decrypted only inside secure hardware-backed playback environments."
+  },
+  {
+    question: "Can your media software handle dynamic ad insertion without interrupting the video stream?",
+    answer: "Yes. We implement Server-Side Ad Insertion (SSAI) adhering to IAB VAST and VMAP standards. Ads are dynamically stitched directly into the video manifest on the server side, ensuring seamless transitions, bypassing ad-blockers, and delivering personalized ads."
+  },
+  {
+    question: "What platforms and devices do your media applications support?",
+    answer: "We build unified cross-platform media applications supporting iOS, Android, web browsers, Apple TV (tvOS), Android TV, Roku, Amazon Fire TV, and Smart TV operating systems (Samsung Tizen, LG webOS)."
+  }
+];
+
 const streamlineDescription = [
   { text: "Captivate your ", bold: false },
   { text: "digital audience ", bold: true },
@@ -111,13 +156,16 @@ export function meta({ data }: { data?: any }) {
     sanityData: data?.sanityData,
     defaultTitle: "Media & Entertainment Software Development | Streaming & DRM | Leapsofts",
     defaultDescription: "Leapsofts engineers custom media & entertainment software, low-latency 4K HLS/DASH streaming platforms, Widevine DRM security, and server-side ad insertion (SSAI).",
-    defaultKeywords: "entertainment software development, media software company, streaming platform development, drm media security, low latency streaming software, ssai ad insertion",
+    defaultKeywords: "entertainment software development, media software development company, video streaming platform development, 4k hls dash streaming software, multi drm security widevine fairplay, server side ad insertion ssai, ott video app development, webrtc live streaming platform, video on demand vod software, digital asset management dam for media, interactive live broadcast software, audio streaming app development",
     canonicalUrl: "https://www.leapsofts.com/industries/entertainment",
   });
 }
 
 const Entertainment: React.FC = () => {
   const { data } = useIndustryPage('entertainment');
+  const { setProcessTitle, setDeliverMVPData } = useOutletContext<IndustriesContextType>();
+
+  const activeFaqs = (data?.faqs && data.faqs.length > 0) ? data.faqs : fallbackFaqs;
 
   const schemaCanonicalUrl = "https://www.leapsofts.com/industries/entertainment";
   const schemaData = buildIndustrySchema({
@@ -125,9 +173,8 @@ const Entertainment: React.FC = () => {
     description: "Custom media software — OTT streaming platforms, content management systems, and digital distribution.",
     canonicalUrl: schemaCanonicalUrl,
     industryName: "Entertainment & Media",
-    faqs: data?.faqs,
+    faqs: activeFaqs,
   });
-  const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
@@ -135,11 +182,15 @@ const Entertainment: React.FC = () => {
     ? [{ text: data.hero.introText, bold: false }]
     : introDescription;
 
-  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+  const activeCommitmentData: CommitmentSectionProps['data'] = (data?.commitmentSection && data.commitmentSection.items?.length)
     ? {
         subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
         title: data.commitmentSection.title || commitmentData.title,
-        items: data.commitmentSection.items
+        items: data.commitmentSection.items.map((item, idx) => ({
+          icon: item.icon || commitmentData.items?.[idx]?.icon || '/industryicons/sphere.svg',
+          title: item.title,
+          description: item.description
+        }))
       }
     : commitmentData;
 
@@ -157,6 +208,19 @@ const Entertainment: React.FC = () => {
       }
     : entertainmentSolutionsData;
 
+  const activeDeliverMVPData: DeliverMVPProps['data'] = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || entertainmentDeliverMVPData.label,
+        title: data.deliverMVP.title || entertainmentDeliverMVPData.title,
+        accentText: data.deliverMVP.accentText || entertainmentDeliverMVPData.accentText,
+        description: data.deliverMVP.description || entertainmentDeliverMVPData.description,
+        items: data.deliverMVP.items.map(item => ({
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : entertainmentDeliverMVPData;
+
   const processTitleMain = data?.processHeader?.titleMain || "Media & Entertainment Engineering";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
@@ -165,7 +229,10 @@ const Entertainment: React.FC = () => {
       titleMain: processTitleMain,
       titleAccent: processTitleAccent
     });
-  }, [setProcessTitle, processTitleMain, processTitleAccent]);
+    if (setDeliverMVPData) {
+      setDeliverMVPData(activeDeliverMVPData);
+    }
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items
@@ -212,7 +279,7 @@ const Entertainment: React.FC = () => {
       <FAQs
         title="Entertainment & Media Software FAQ"
         subtitle="Common questions about low-latency streaming, DRM content protection, SSAI ad insertion, and esports portals."
-        faqs={data?.faqs} items={data?.faqs}
+        faqs={activeFaqs} items={activeFaqs}
       />
       <RelatedServices
         title={data?.relatedServices?.title || "Recommended Media Software Services"}

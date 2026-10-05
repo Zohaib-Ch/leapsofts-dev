@@ -10,10 +10,11 @@ import CommitmentSection, { type CommitmentSectionProps } from '../../components
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
+import type { DeliverMVPProps } from '../../components/DeliverMVP/DeliverMVP';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO FINANCIAL ORGANIZATIONS",
-  title: "Custom FinTech software built to scale transactions and secure assets",
+  title: "Custom FinTech software built to scale transactions and secure institutional assets",
   items: [
     {
       icon: '/industryicons/sphere.svg',
@@ -82,24 +83,66 @@ const ourTechInnovationsData: EmergingTechProps['data'] = {
   ]
 };
 
+const fintechDeliverMVPData: DeliverMVPProps['data'] = {
+  label: "WHY CHOOSE LEAPSOFTS FOR FINTECH",
+  title: "How We Deliver Your FinTech MVP in",
+  accentText: "3-5 months",
+  description: "Building financial technology requires an uncompromising balance of rapid go-to-market speed, strict banking security standards, and high-throughput transactional resilience. Our specialized FinTech engineering pods follow proven agile blueprints, integrating payment gateways, open banking APIs, and automated compliance pipelines to deliver production-grade MVPs on time, every time.",
+  items: [
+    {
+      title: "PCI-DSS Level 1 & Bank-Grade Security.",
+      description: "From day one, we build with tokenized payment vaults, end-to-end data encryption (AES-256), mTLS authentication, and automated vulnerability scanning to ensure strict compliance."
+    },
+    {
+      title: "Seamless Open Banking & API Integrations.",
+      description: "We architect bidirectional connectors for Plaid, Stripe, Yodlee, core banking APIs, and localized clearing houses, enabling instant account verification and fund settlement."
+    },
+    {
+      title: "Sub-50ms Transaction Latency & High Concurrency.",
+      description: "Using distributed caching, event-driven microservices (Kafka), and decoupled relational databases, our systems process high-volume transactions with zero bottlenecks."
+    },
+    {
+      title: "Automated KYC/AML Compliance Workflows.",
+      description: "We implement turnkey onboarding identity verification, sanction list screening, and real-time fraud scoring pipelines to satisfy strict global financial regulations."
+    }
+  ]
+};
+
+const fallbackFaqs = [
+  {
+    question: "How do you ensure PCI-DSS compliance when building custom FinTech software?",
+    answer: "We implement PCI-DSS Level 1 security architectures from inception, including tokenized credit card vaults, strict network segmentation, TLS 1.3 encryption in transit, AES-256 encryption at rest, and automated continuous compliance logging."
+  },
+  {
+    question: "Can you modernize our legacy banking core without operational downtime?",
+    answer: "Yes. We use the Strangler Fig pattern to gradually decouple monolithic banking systems into event-driven microservices, running shadow transactions and automated reconciliation loops to guarantee zero downtime during cutover."
+  },
+  {
+    question: "What third-party financial APIs and payment gateways do you integrate?",
+    answer: "We have deep expertise integrating Open Banking APIs (Plaid, Yodlee, MX), payment processors (Stripe, Adyen, PayPal), core banking systems (FIS, Fiserv, Thought Machine), and crypto/DLT settlement protocols."
+  },
+  {
+    question: "How do your FinTech engineering pods handle high-volume transaction spikes?",
+    answer: "We engineer horizontal auto-scaling cloud architectures on AWS and Azure using Kubernetes, Redis distributed caching, and Apache Kafka message brokers to reliably handle thousands of concurrent transactions per second."
+  }
+];
+
 const streamlineDescription = [
-  { text: "Whether it is an ", bold: false },
-  { text: "existing enterprise software system ", bold: true },
-  { text: "or a ", bold: false },
-  { text: "brand-new fintech startup", bold: true },
-  { text: ", we offer a ", bold: false },
-  { text: "no-charge strategy session", bold: true },
-  { text: ", which can bring value to the table almost in real-time. We learn about your unique compliance needs and share how to streamline your transactions by using ", bold: false },
-  { text: "bespoke, PCI-DSS-compliant custom software solutions", bold: true },
-  { text: ".", bold: false },
+  { text: "Whether modernizing an ", bold: false },
+  { text: "enterprise banking infrastructure ", bold: true },
+  { text: "or engineering a ", bold: false },
+  { text: "next-gen FinTech application", bold: true },
+  { text: ", our technical architects provide immediate strategic clarity. We assess your transaction flows, review regulatory compliance requirements, and map out a ", bold: false },
+  { text: "bespoke, PCI-DSS compliant engineering roadmap ", bold: true },
+  { text: "tailored for scale.", bold: false },
 ];
 
 const title = "FinTech Software Development, Secure Payment Gateways & Trading Architectures";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we build highly secure, transaction-resilient ", bold: false },
+  { text: "At Leapsofts, we engineer highly secure, transaction-resilient ", bold: false },
   { text: "financial technology (FinTech) platforms, custom banking portals, and algorithmic trading systems ", bold: true },
-  { text: "engineered to handle hyper-scale transaction volumes with absolute precision. By integrating PCI-DSS compliant checkout structures, automating multi-currency clearing runs, and designing real-time risk telemetry engines, we future-proof financial firms and enable zero-friction asset movement.", bold: false }
+  { text: "built to handle hyper-scale transaction volumes with absolute precision. By integrating PCI-DSS compliant checkout structures, automating multi-currency clearing runs, and deploying real-time risk telemetry engines, we future-proof financial firms and enable zero-friction asset movement.", bold: false }
 ];
 
 import { getSanityIndustryBySlug } from '../../sanity/queries';
@@ -113,16 +156,16 @@ export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
     defaultTitle: "Fintech Software Development Services | Leapsofts",
-    defaultDescription: "Custom fintech software development for banks, insurance & investment firms. Leapsofts builds secure, compliance-ready financial platforms. Get a consultation.",
-    defaultKeywords: "fintech software development, banking software company, financial software development, insurance software",
+    defaultDescription: "Custom fintech software development for banks, investment firms & fintech startups. Leapsofts builds secure, PCI-DSS compliant financial platforms.",
+    defaultKeywords: "fintech software development, financial software development services, banking software company, custom fintech solutions, pci dss level 1 software, open banking api integration, algorithmic trading software, core banking modernization, payment gateway integration, automated loan origination software, wealth management software development, financial risk analytics platform, blockchain digital wallet development, sub-50ms trading execution engine",
     canonicalUrl: "https://www.leapsofts.com/industries/finance",
   });
 }
 
-
-
 const Finance: React.FC = () => {
   const { data } = useIndustryPage('finance');
+
+  const activeFaqs = (data?.faqs && data.faqs.length > 0) ? data.faqs : fallbackFaqs;
 
   const schemaCanonicalUrl = "https://www.leapsofts.com/industries/finance";
   const schemaData = buildIndustrySchema({
@@ -130,9 +173,9 @@ const Finance: React.FC = () => {
     description: "Secure financial software development — banking platforms, payment gateways, PCI-DSS compliance.",
     canonicalUrl: schemaCanonicalUrl,
     industryName: "Finance & FinTech",
-    faqs: data?.faqs,
+    faqs: activeFaqs,
   });
-  const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+  const { setProcessTitle, setDeliverMVPData } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
@@ -140,11 +183,15 @@ const Finance: React.FC = () => {
     ? [{ text: data.hero.introText, bold: false }]
     : introDescription;
 
-  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+  const activeCommitmentData: CommitmentSectionProps['data'] = (data?.commitmentSection && data.commitmentSection.items?.length)
     ? {
         subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
         title: data.commitmentSection.title || commitmentData.title,
-        items: data.commitmentSection.items
+        items: data.commitmentSection.items.map((item, idx) => ({
+          icon: item.icon || commitmentData.items?.[idx]?.icon || '/industryicons/sphere.svg',
+          title: item.title,
+          description: item.description
+        }))
       }
     : commitmentData;
 
@@ -162,6 +209,19 @@ const Finance: React.FC = () => {
       }
     : ourTechInnovationsData;
 
+  const activeDeliverMVPData: DeliverMVPProps['data'] = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || fintechDeliverMVPData.label,
+        title: data.deliverMVP.title || fintechDeliverMVPData.title,
+        accentText: data.deliverMVP.accentText || fintechDeliverMVPData.accentText,
+        description: data.deliverMVP.description || fintechDeliverMVPData.description,
+        items: data.deliverMVP.items.map(item => ({
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : fintechDeliverMVPData;
+
   const processTitleMain = data?.processHeader?.titleMain || "Fintech Software Development";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
@@ -170,7 +230,10 @@ const Finance: React.FC = () => {
       titleMain: processTitleMain,
       titleAccent: processTitleAccent
     });
-  }, [setProcessTitle, processTitleMain, processTitleAccent]);
+    if (setDeliverMVPData) {
+      setDeliverMVPData(activeDeliverMVPData);
+    }
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items
@@ -217,7 +280,7 @@ const Finance: React.FC = () => {
       <FAQs
         title="FinTech & Banking Software FAQ"
         subtitle="Common questions about PCI-DSS compliance, core banking migrations, fraud detection, and automated KYC/AML verification."
-        faqs={data?.faqs} items={data?.faqs}
+        faqs={activeFaqs} items={activeFaqs}
       />
       <RelatedServices
         title={data?.relatedServices?.title || "Recommended FinTech Engineering Services"}

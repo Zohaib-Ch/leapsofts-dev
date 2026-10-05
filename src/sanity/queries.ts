@@ -309,6 +309,16 @@ export const INDUSTRY_BY_SLUG_QUERY = `*[_type == "industry" && (slug.current ==
   },
   servicesSection,
   processHeader,
+  deliverMVP {
+    label,
+    title,
+    accentText,
+    description,
+    items[] {
+      title,
+      description
+    }
+  },
   relatedServices {
     title,
     sectionLabel,

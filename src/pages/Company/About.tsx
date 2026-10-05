@@ -23,11 +23,7 @@ import {
   Terminal,
   Database,
   Building2,
-  Stethoscope,
-  CreditCard,
   ShoppingBag,
-  Shirt,
-  Home as HomeIcon,
 } from 'lucide-react';
 import Button from '../../components/Button/Button';
 import AnimatedCounter from '../../components/AnimatedCounter/AnimatedCounter';

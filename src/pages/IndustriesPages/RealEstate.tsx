@@ -10,6 +10,7 @@ import EmergingTech, { type EmergingTechProps } from '../../components/EmergingT
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
+import type { DeliverMVPProps } from '../../components/DeliverMVP/DeliverMVP';
 import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
@@ -83,6 +84,50 @@ const realEstateSolutionsData: EmergingTechProps['data'] = {
   ]
 };
 
+const realEstateDeliverMVPData: DeliverMVPProps['data'] = {
+  label: "WHY CHOOSE LEAPSOFTS FOR PROPTECH & REAL ESTATE",
+  title: "How We Deliver Your PropTech MVP in",
+  accentText: "3-5 months",
+  description: "Real estate developers, property managers, and PropTech innovators need fast-performing listing portals, automated lease workflows, and IoT smart building controls. Our dedicated PropTech engineering pods build MLS/IDX-integrated marketplaces, tenant mobile companion apps, and automated asset management platforms in 3 to 5 months to maximize net operating income (NOI).",
+  items: [
+    {
+      title: "RESO Web API & RETS/IDX Real-Time Normalization.",
+      description: "We build high-speed MLS search engines ingesting normalized property feeds via RESO Web API and RETS, supporting lightning-fast geospatial map searches and instant listing updates."
+    },
+    {
+      title: "Automated Digital Lease Execution & Tenant Screening.",
+      description: "We integrate DocuSign/HelloSign e-signature workflows, TransUnion/Experian credit/background checks, and identity verification into a zero-friction tenant onboarding portal."
+    },
+    {
+      title: "Automated Rent Collection & Split Accounting.",
+      description: "We deploy Stripe ACH and credit card processing with automated late-fee triggers, tenant deposit escrows, and direct multi-owner distribution payouts."
+    },
+    {
+      title: "Smart Building IoT & Digital Key Access.",
+      description: "We connect smart door locks (Salto, Latch, Dormakaba), HVAC sensors, and energy meters to a centralized management hub and tenant mobile application."
+    }
+  ]
+};
+
+const fallbackFaqs = [
+  {
+    question: "How do you integrate with multiple MLS systems and handle RESO Web API standards?",
+    answer: "We engineer high-performance data pipelines that connect directly to Multiple Listing Services (MLS) via RESO Web API and RETS. Our backend normalizes disparate field schemas, geocodes listings, and optimizes database search indices for sub-100ms property searches."
+  },
+  {
+    question: "Can your real estate software automate tenant screening and lease signing?",
+    answer: "Yes. We build end-to-end leasing portals that integrate automated identity verification, background/credit checks via TransUnion or Experian, and compliant digital lease execution via e-signature APIs like DocuSign or HelloSign."
+  },
+  {
+    question: "How do your tenant mobile applications integrate with smart building hardware and IoT locks?",
+    answer: "We build native iOS and Android apps integrating Bluetooth Low Energy (BLE), NFC, and cloud IoT APIs to communicate with smart access control systems (Latch, Salto, Brivo), letting residents unlock doors, grant visitor guest passes, and adjust climate controls."
+  },
+  {
+    question: "Can your PropTech platform handle automated recurring rent payments and owner distribution payouts?",
+    answer: "Yes. We integrate Stripe, Dwolla, or Plaid to support zero-fee ACH bank debits, automated recurring rent charges, payment failure retries, security deposit escrow tracking, and automated disbursement payouts to property owners."
+  }
+];
+
 const streamlineDescription = [
   { text: "Transform your ", bold: false },
   { text: "property portfolio ", bold: true },
@@ -111,13 +156,16 @@ export function meta({ data }: { data?: any }) {
     sanityData: data?.sanityData,
     defaultTitle: "Real Estate Software Development Services & PropTech | Leapsofts",
     defaultDescription: "Leapsofts engineers custom real estate software, property management platforms, MLS RETS/RESO Web API integrations, and tenant portal mobile apps.",
-    defaultKeywords: "real estate software development, proptech software company, property management software, mls integration software, tenant portal mobile app, reso web api integration",
+    defaultKeywords: "real estate software development, proptech software development company, property management software development, reso web api mls integration, custom real estate crm, tenant portal mobile app, digital lease signing automation, hoa management software, smart building iot lock software, real estate listing platform development, commercial property management software, automated rent payment processing",
     canonicalUrl: "https://www.leapsofts.com/industries/real-estate",
   });
 }
 
 const RealEstate: React.FC = () => {
   const { data } = useIndustryPage('real-estate');
+  const { setProcessTitle, setDeliverMVPData } = useOutletContext<IndustriesContextType>();
+
+  const activeFaqs = (data?.faqs && data.faqs.length > 0) ? data.faqs : fallbackFaqs;
 
   const schemaCanonicalUrl = "https://www.leapsofts.com/industries/real-estate";
   const schemaData = buildIndustrySchema({
@@ -125,9 +173,8 @@ const RealEstate: React.FC = () => {
     description: "Custom property technology software — listing platforms, CRM, property management, and virtual tours.",
     canonicalUrl: schemaCanonicalUrl,
     industryName: "Real Estate & PropTech",
-    faqs: data?.faqs,
+    faqs: activeFaqs,
   });
-  const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
@@ -135,11 +182,15 @@ const RealEstate: React.FC = () => {
     ? [{ text: data.hero.introText, bold: false }]
     : introDescription;
 
-  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+  const activeCommitmentData: CommitmentSectionProps['data'] = (data?.commitmentSection && data.commitmentSection.items?.length)
     ? {
         subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
         title: data.commitmentSection.title || commitmentData.title,
-        items: data.commitmentSection.items
+        items: data.commitmentSection.items.map((item, idx) => ({
+          icon: item.icon || commitmentData.items?.[idx]?.icon || '/industryicons/sphere.svg',
+          title: item.title,
+          description: item.description
+        }))
       }
     : commitmentData;
 
@@ -157,6 +208,19 @@ const RealEstate: React.FC = () => {
       }
     : realEstateSolutionsData;
 
+  const activeDeliverMVPData: DeliverMVPProps['data'] = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || realEstateDeliverMVPData.label,
+        title: data.deliverMVP.title || realEstateDeliverMVPData.title,
+        accentText: data.deliverMVP.accentText || realEstateDeliverMVPData.accentText,
+        description: data.deliverMVP.description || realEstateDeliverMVPData.description,
+        items: data.deliverMVP.items.map(item => ({
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : realEstateDeliverMVPData;
+
   const processTitleMain = data?.processHeader?.titleMain || "PropTech Software Engineering";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
@@ -165,7 +229,10 @@ const RealEstate: React.FC = () => {
       titleMain: processTitleMain,
       titleAccent: processTitleAccent
     });
-  }, [setProcessTitle, processTitleMain, processTitleAccent]);
+    if (setDeliverMVPData) {
+      setDeliverMVPData(activeDeliverMVPData);
+    }
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items
@@ -212,7 +279,7 @@ const RealEstate: React.FC = () => {
       <FAQs
         title="Real Estate & PropTech Software FAQ"
         subtitle="Common questions about RESO Web API MLS integration, automated lease signing, tenant mobile apps, and smart building IoT."
-        faqs={data?.faqs} items={data?.faqs}
+        faqs={activeFaqs} items={activeFaqs}
       />
       <RelatedServices
         title={data?.relatedServices?.title || "Recommended PropTech Software Services"}

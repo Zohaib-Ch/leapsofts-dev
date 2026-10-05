@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './CommitmentSection.module.css';
 
 export interface CommitmentItem {
-    icon: string; // URL to the SVG icon
+    icon?: string; // URL to the SVG icon
     title: string;
     description: string;
 }
@@ -53,7 +53,7 @@ const Card: React.FC<CommitmentItemProps> = ({ icon, title, description, index }
         <div className={`${styles.card} ${colorClass}`}>
             <div className={styles.cardHeader}>
                 <div className={styles.iconWrapper}>
-                    <img src={icon} alt={title} className={styles.industryIcon} />
+                    <img src={icon || '/industryicons/sphere.svg'} alt={title} className={styles.industryIcon} />
                     {index === 0 && (
                         <img src="/industryicons/lens-blue-1.svg" alt="" className={styles.lensGlow} />
                     )}

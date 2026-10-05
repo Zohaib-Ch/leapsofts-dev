@@ -10,6 +10,8 @@ import EmergingTech, { type EmergingTechProps } from '../../components/EmergingT
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
+import type { DeliverMVPProps } from '../../components/DeliverMVP/DeliverMVP';
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO WHOLESALE AND RETAIL",
@@ -82,6 +84,50 @@ const retailSolutionsData: EmergingTechProps['data'] = {
   ]
 };
 
+const retailDeliverMVPData: DeliverMVPProps['data'] = {
+  label: "WHY CHOOSE LEAPSOFTS FOR WHOLESALE & RETAIL",
+  title: "How We Deliver Your Retail MVP in",
+  accentText: "3-5 months",
+  description: "Modern retail and wholesale enterprises demand sub-second checkout speeds, unified multi-warehouse inventory visibility, and high-concurrency peak load resilience. We engineer headless e-commerce architectures, custom B2B wholesale portals, and automated order fulfillment engines within 3 to 5 months to help retailers capture more market share and expand margins.",
+  items: [
+    {
+      title: "Real-Time Multi-Warehouse Inventory Sync.",
+      description: "We deploy unified stock ledgers that eliminate stockouts by synchronizing physical store POS, Shopify/Hydrogen headless storefronts, and 3PL warehouse databases in real time."
+    },
+    {
+      title: "High-Volume Flash Sale & Peak Load Resilience.",
+      description: "Our distributed cloud architecture auto-scales during Black Friday/Cyber Monday rushes, handling tens of thousands of concurrent checkouts with sub-second page loads."
+    },
+    {
+      title: "Custom B2B Wholesale Portals & Dynamic Pricing.",
+      description: "We build dedicated self-service customer dashboards with tiered volume pricing tables, custom credit terms, net-30 invoicing, and automated reorder triggers."
+    },
+    {
+      title: "Seamless POS, ERP & Logistics Integrations.",
+      description: "We connect your storefronts with Square, Clover, Lightspeed, SAP, NetSuite, and shipping carriers (FedEx, UPS, DHL) for automated label generation and tracking."
+    }
+  ]
+};
+
+const fallbackFaqs = [
+  {
+    question: "How do your retail platforms synchronize inventory across multiple physical stores and online channels?",
+    answer: "We build centralized event-driven inventory middleware (using Redis and WebSockets/Webhooks) that updates stock levels instantly across all brick-and-mortar POS terminals, e-commerce storefronts, and regional fulfillment centers the moment a sale or return occurs."
+  },
+  {
+    question: "Can you build a custom B2B wholesale portal that integrates with our existing ERP?",
+    answer: "Yes. We engineer bespoke B2B self-service portals featuring customer-specific wholesale price lists, bulk SKU uploaders, credit limit checks, and automated PDF purchase order generation, directly synced with ERPs like NetSuite, SAP, or QuickBooks."
+  },
+  {
+    question: "What e-commerce technologies and architectures do you specialize in?",
+    answer: "We specialize in headless commerce architectures utilizing Shopify Hydrogen, Next.js, Medusa.js, and custom Node.js/GraphQL backends, ensuring lightning-fast load times and infinite design customization."
+  },
+  {
+    question: "How do you ensure our online retail store handles massive traffic surges during holiday flash sales?",
+    answer: "We design cloud-native architectures with serverless edge caching (Cloudflare/Fastly), elastic auto-scaling Kubernetes clusters, and decoupled payment queues to guarantee 99.99% uptime and instant checkouts even under extreme concurrency."
+  }
+];
+
 const streamlineDescription = [
   { text: "Streamline your ", bold: false },
   { text: "wholesale and retail operations ", bold: true },
@@ -99,8 +145,6 @@ const introDescription = [
   { text: "engineered to optimize supply chains and increase margins. By building automated stock replenishment workflows, multi-warehouse routing engines, and B2B portal integrations, we empower retailers and distributors to scale effortlessly.", bold: false }
 ];
 
-import { getSanityIndustryBySlug } from '../../sanity/queries';
-
 export async function loader() {
   const sanityData = await getSanityIndustryBySlug('wholesale-retail');
   return { sanityData };
@@ -111,15 +155,16 @@ export function meta({ data }: { data?: any }) {
     sanityData: data?.sanityData,
     defaultTitle: "Retail & Wholesale Software Development | Leapsofts",
     defaultDescription: "Custom retail & wholesale software — POS, inventory management & ecommerce platforms. Leapsofts modernizes operations for scaling retailers. Get a quote.",
-    defaultKeywords: "retail software development, wholesale management software, inventory management system, ecommerce software development",
+    defaultKeywords: "retail software development, wholesale software development company, ecommerce software development services, multi-warehouse inventory management software, omnichannel pos software development, headless commerce development, b2b wholesale portal development, custom erp order fulfillment, shopify plus custom development, supply chain inventory sync, automated pricing engine, retail mobile app development",
     canonicalUrl: "https://www.leapsofts.com/industries/wholesale-retail",
   });
 }
 
-
-
 const WholesaleRetail: React.FC = () => {
   const { data } = useIndustryPage('wholesale-retail');
+  const { setProcessTitle, setDeliverMVPData } = useOutletContext<IndustriesContextType>();
+
+  const activeFaqs = (data?.faqs && data.faqs.length > 0) ? data.faqs : fallbackFaqs;
 
   const schemaCanonicalUrl = "https://www.leapsofts.com/industries/wholesale-retail";
   const schemaData = buildIndustrySchema({
@@ -127,9 +172,8 @@ const WholesaleRetail: React.FC = () => {
     description: "Custom retail software — inventory management, POS systems, eCommerce platforms, and supply chain tools.",
     canonicalUrl: schemaCanonicalUrl,
     industryName: "Wholesale & Retail",
-    faqs: data?.faqs,
+    faqs: activeFaqs,
   });
-  const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
@@ -137,11 +181,15 @@ const WholesaleRetail: React.FC = () => {
     ? [{ text: data.hero.introText, bold: false }]
     : introDescription;
 
-  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+  const activeCommitmentData: CommitmentSectionProps['data'] = (data?.commitmentSection && data.commitmentSection.items?.length)
     ? {
         subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
         title: data.commitmentSection.title || commitmentData.title,
-        items: data.commitmentSection.items
+        items: data.commitmentSection.items.map((item, idx) => ({
+          icon: item.icon || commitmentData.items?.[idx]?.icon || '/industryicons/sphere.svg',
+          title: item.title,
+          description: item.description
+        }))
       }
     : commitmentData;
 
@@ -159,6 +207,19 @@ const WholesaleRetail: React.FC = () => {
       }
     : retailSolutionsData;
 
+  const activeDeliverMVPData: DeliverMVPProps['data'] = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || retailDeliverMVPData.label,
+        title: data.deliverMVP.title || retailDeliverMVPData.title,
+        accentText: data.deliverMVP.accentText || retailDeliverMVPData.accentText,
+        description: data.deliverMVP.description || retailDeliverMVPData.description,
+        items: data.deliverMVP.items.map(item => ({
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : retailDeliverMVPData;
+
   const processTitleMain = data?.processHeader?.titleMain || "E-Commerce Software Engineering";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
@@ -167,7 +228,10 @@ const WholesaleRetail: React.FC = () => {
       titleMain: processTitleMain,
       titleAccent: processTitleAccent
     });
-  }, [setProcessTitle, processTitleMain, processTitleAccent]);
+    if (setDeliverMVPData) {
+      setDeliverMVPData(activeDeliverMVPData);
+    }
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items
@@ -214,7 +278,7 @@ const WholesaleRetail: React.FC = () => {
       <FAQs
         title="Wholesale & Retail Software FAQ"
         subtitle="Common questions about omnichannel POS integration, B2B wholesale portals, predictive inventory, and headless commerce."
-        faqs={data?.faqs} items={data?.faqs}
+        faqs={activeFaqs} items={activeFaqs}
       />
       <RelatedServices
         title={data?.relatedServices?.title || "Recommended Retail Software Services"}

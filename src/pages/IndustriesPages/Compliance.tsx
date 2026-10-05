@@ -10,6 +10,7 @@ import EmergingTech, { type EmergingTechProps } from '../../components/EmergingT
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
+import type { DeliverMVPProps } from '../../components/DeliverMVP/DeliverMVP';
 import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
@@ -83,6 +84,50 @@ const complianceSolutionsData: EmergingTechProps['data'] = {
   ]
 };
 
+const complianceDeliverMVPData: DeliverMVPProps['data'] = {
+  label: "WHY CHOOSE LEAPSOFTS FOR COMPLIANCE & REGTECH",
+  title: "How We Deliver Your RegTech MVP in",
+  accentText: "3-5 months",
+  description: "Navigating volatile regulatory mandates requires software engineering that combines airtight cryptographic integrity, continuous compliance automation, and audit-ready data pipelines. Our specialized RegTech engineering pods build scalable governance engines, automated KYC/AML verification workflows, and immutable audit logs that empower enterprises to satisfy SOC2 Type II, ISO 27001, GDPR, and FedRAMP requirements on schedule.",
+  items: [
+    {
+      title: "Immutable Audit Trails & Cryptographic Ledgering.",
+      description: "We implement tamper-proof write-once-read-many (WORM) audit logs and SHA-256 cryptographic hashing to provide auditors with indisputable proof of data lineage and user access events."
+    },
+    {
+      title: "Automated Evidence Collection & Continuous Auditing.",
+      description: "Our pipelines automatically pull configuration snapshots, infrastructure changes, and access records from AWS/Azure, compiling audit-ready evidence packs for SOC2, ISO 27001, and HIPAA."
+    },
+    {
+      title: "Real-Time Transaction Monitoring & AML Screening.",
+      description: "We engineer low-latency screening engines matching transaction flows against global sanction lists, PEP databases, and behavioral anomaly heuristics to detect fraud instantly."
+    },
+    {
+      title: "Zero-Trust Architecture & Granular Access Governance.",
+      description: "We enforce role-based access control (RBAC), attribute-based access control (ABAC), hardware-backed MFA, and automated session termination to safeguard sensitive enterprise data."
+    }
+  ]
+};
+
+const fallbackFaqs = [
+  {
+    question: "How do your compliance platforms automate SOC 2 Type II and ISO 27001 audits?",
+    answer: "We engineer continuous compliance monitoring systems that integrate directly with cloud infrastructure (AWS, Azure, GCP), identity providers, and GitHub/GitLab. The platform automatically collects configuration logs, access reviews, and encryption verifications, compiling audit-ready compliance packages in real time."
+  },
+  {
+    question: "How do you guarantee that system audit logs and data records cannot be altered or deleted?",
+    answer: "We employ append-only immutable storage, cryptographic block chaining (SHA-256 hashes), and Write-Once-Read-Many (WORM) storage policies. Any unauthorized tampering or deletion attempt immediately triggers security alerting and creates an indelible record."
+  },
+  {
+    question: "Can your RegTech software handle multi-jurisdictional privacy laws like GDPR, CCPA, and CPRA?",
+    answer: "Yes. We build automated data privacy management modules supporting Data Subject Access Requests (DSAR), automated personal data discovery/tagging, granular consent tracking, and verifiable right-to-be-forgotten deletion workflows."
+  },
+  {
+    question: "How fast can you build and deploy a custom regulatory reporting or AML screening engine?",
+    answer: "Our dedicated engineering pods leverage pre-built, battle-tested compliance modules and open-standard integrations to deliver a production-ready RegTech MVP within 3 to 5 months, fully customized to your industry's regulatory framework."
+  }
+];
+
 const streamlineDescription = [
   { text: "Simplify your ", bold: false },
   { text: "regulatory compliance ", bold: true },
@@ -111,13 +156,16 @@ export function meta({ data }: { data?: any }) {
     sanityData: data?.sanityData,
     defaultTitle: "Compliance Management Software Development & RegTech | Leapsofts",
     defaultDescription: "Leapsofts engineers enterprise regulatory compliance software, automated risk management platforms, zero-trust audit trails & SOC2/KYC/AML RegTech engines.",
-    defaultKeywords: "compliance software development, regulatory compliance software, risk management software, audit management software, regtech solutions",
+    defaultKeywords: "compliance software development, regtech software development company, regulatory compliance software, automated compliance management software, risk management software development, soc2 compliance automation, iso 27001 compliance software, gdpr regulatory compliance platform, aml kyc screening software, audit management software, continuous compliance monitoring, worm immutable audit trail, enterprise grc software development",
     canonicalUrl: "https://www.leapsofts.com/industries/compliance",
   });
 }
 
 const Compliance: React.FC = () => {
   const { data } = useIndustryPage('compliance');
+  const { setProcessTitle, setDeliverMVPData } = useOutletContext<IndustriesContextType>();
+
+  const activeFaqs = (data?.faqs && data.faqs.length > 0) ? data.faqs : fallbackFaqs;
 
   const schemaCanonicalUrl = "https://www.leapsofts.com/industries/compliance";
   const schemaData = buildIndustrySchema({
@@ -125,9 +173,8 @@ const Compliance: React.FC = () => {
     description: "Custom compliance management systems — GDPR, ISO 27001, SOC2 and regulatory reporting.",
     canonicalUrl: schemaCanonicalUrl,
     industryName: "Regulatory Compliance",
-    faqs: data?.faqs,
+    faqs: activeFaqs,
   });
-  const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
@@ -135,11 +182,15 @@ const Compliance: React.FC = () => {
     ? [{ text: data.hero.introText, bold: false }]
     : introDescription;
 
-  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+  const activeCommitmentData: CommitmentSectionProps['data'] = (data?.commitmentSection && data.commitmentSection.items?.length)
     ? {
         subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
         title: data.commitmentSection.title || commitmentData.title,
-        items: data.commitmentSection.items
+        items: data.commitmentSection.items.map((item, idx) => ({
+          icon: item.icon || commitmentData.items?.[idx]?.icon || '/industryicons/sphere.svg',
+          title: item.title,
+          description: item.description
+        }))
       }
     : commitmentData;
 
@@ -157,6 +208,19 @@ const Compliance: React.FC = () => {
       }
     : complianceSolutionsData;
 
+  const activeDeliverMVPData: DeliverMVPProps['data'] = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || complianceDeliverMVPData.label,
+        title: data.deliverMVP.title || complianceDeliverMVPData.title,
+        accentText: data.deliverMVP.accentText || complianceDeliverMVPData.accentText,
+        description: data.deliverMVP.description || complianceDeliverMVPData.description,
+        items: data.deliverMVP.items.map(item => ({
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : complianceDeliverMVPData;
+
   const processTitleMain = data?.processHeader?.titleMain || "Compliance Product Development";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
@@ -165,7 +229,10 @@ const Compliance: React.FC = () => {
       titleMain: processTitleMain,
       titleAccent: processTitleAccent
     });
-  }, [setProcessTitle, processTitleMain, processTitleAccent]);
+    if (setDeliverMVPData) {
+      setDeliverMVPData(activeDeliverMVPData);
+    }
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items
@@ -212,7 +279,7 @@ const Compliance: React.FC = () => {
       <FAQs
         title="Compliance & RegTech Software FAQ"
         subtitle="Common questions about regulatory frameworks, automated audit trails, zero-trust security, and KYC/AML automation."
-        faqs={data?.faqs} items={data?.faqs}
+        faqs={activeFaqs} items={activeFaqs}
       />
       <RelatedServices
         title={data?.relatedServices?.title || "Recommended RegTech & Compliance Services"}

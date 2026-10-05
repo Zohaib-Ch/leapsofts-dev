@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo,} from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import styles from "./ContactForm.module.css";
 import Button from "../Button/Button";
@@ -52,6 +52,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false, isEmbedded 
         message: "",
         consent: false,
     });
+    const [honeypot, setHoneypot] = useState("");
     const now = new Date();
     const projectDate = new Date(now.getFullYear(), now.getMonth() + 3, now.getDate());
 
@@ -170,6 +171,24 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false, isEmbedded 
         });
 
         if (Object.keys(newErrors).length === 0) {
+            // Anti-spam bot trap: silently succeed if honeypot was populated
+            if (honeypot.trim() !== "") {
+                setIsSuccessDialogOpen(true);
+                setFormData({
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    countryCode: "US",
+                    phone: "",
+                    company: "",
+                    message: "",
+                    consent: false,
+                });
+                setTouched({});
+                setErrors({});
+                return;
+            }
+
             setIsSubmitting(true);
             setSubmitError(null);
 
@@ -227,6 +246,19 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false, isEmbedded 
             )}
             <div className={styles.formContainer}>
                 <form onSubmit={handleSubmit} noValidate>
+                    {/* Hidden Honeypot field for spam prevention */}
+                    <div style={{ display: 'none', position: 'absolute', left: '-9999px' }} aria-hidden="true">
+                        <label htmlFor="company_website_url_hp">Do not fill this out</label>
+                        <input
+                            type="text"
+                            id="company_website_url_hp"
+                            name="company_website_url_hp"
+                            tabIndex={-1}
+                            autoComplete="off"
+                            value={honeypot}
+                            onChange={(e) => setHoneypot(e.target.value)}
+                        />
+                    </div>
                     <div className={styles.formGrid}>
                         {/* First Name */}
                         <div className={styles.formGroup}>

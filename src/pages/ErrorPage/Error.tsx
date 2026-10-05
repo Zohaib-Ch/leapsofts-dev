@@ -20,6 +20,7 @@ const Error: React.FC = () => {
                 loop
                 muted
                 playsInline
+                preload="metadata"
                 className={styles.videoBackground}
             >
                 <source src="/bg_video/leapsofts2.mp4" type="video/mp4" />

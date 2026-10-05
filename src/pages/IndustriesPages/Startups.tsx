@@ -10,6 +10,7 @@ import EmergingTech, { type EmergingTechProps } from '../../components/EmergingT
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
+import type { DeliverMVPProps } from '../../components/DeliverMVP/DeliverMVP';
 import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
@@ -83,6 +84,50 @@ const startupSolutionsData: EmergingTechProps['data'] = {
   ]
 };
 
+const startupDeliverMVPData: DeliverMVPProps['data'] = {
+  label: "WHY CHOOSE LEAPSOFTS FOR STARTUPS",
+  title: "How We Deliver Your Startup MVP in",
+  accentText: "3-5 months",
+  description: "For early-stage and venture-backed founders, speed-to-market and capital efficiency make or break product survival. We operate as your dedicated technical co-founder and rapid engineering pod, translating product briefs into investor-grade, scalable cloud software within 3 to 5 months while ensuring complete IP ownership and zero technical debt.",
+  items: [
+    {
+      title: "Agile 2-Week Sprints & Full Transparency.",
+      description: "We run rapid, continuous deployment sprints with live staging environments, weekly milestone demos, and complete visibility into our GitHub commits and Jira boards."
+    },
+    {
+      title: "Cost-Optimized Serverless & Cloud Architecture.",
+      description: "We architect pay-per-use serverless backends on AWS/GCP with automated scaling rules, keeping monthly burn low while effortlessly handling sudden launch-day traffic spikes."
+    },
+    {
+      title: "Turnkey Stripe Billing & SaaS Subscription Tiers.",
+      description: "From day one, we integrate Stripe Checkout, customer billing portals, metered usage tracking, and multi-currency payment options to monetize your product from the first user."
+    },
+    {
+      title: "100% IP Ownership & Clean, Handover-Ready Code.",
+      description: "All intellectual property, repositories, and cloud assets remain 100% yours. We write modular, well-documented TypeScript code that your in-house team can easily inherit."
+    }
+  ]
+};
+
+const fallbackFaqs = [
+  {
+    question: "How do you deliver a production-ready SaaS MVP in only 3 to 5 months?",
+    answer: "We utilize battle-tested architectural boilerplates, modular React/Node micro-frontends, and automated CI/CD pipelines. This eliminates repetitive scaffolding and lets our senior engineers focus exclusively on your unique core business logic and differentiators."
+  },
+  {
+    question: "Do founders retain 100% ownership of the code and intellectual property?",
+    answer: "Yes, absolutely. All source code, Git repositories, software architecture diagrams, and cloud infrastructure accounts are 100% owned by your company under strict IP assignment and confidentiality agreements."
+  },
+  {
+    question: "Can Leapsofts provide fractional CTO and technical advisory support for fundraising?",
+    answer: "Yes. Our senior architects provide CTO-as-a-Service, assisting founders with investor pitch technical decks, software architecture reviews, scalability plans, and technical due diligence preparation for Seed and Series A rounds."
+  },
+  {
+    question: "What happens after our MVP is successfully launched?",
+    answer: "We support seamless post-launch scaling: our embedded engineering pods can continue iterating on product features, manage cloud infrastructure, optimize conversion funnels, or help hire and onboard your in-house technical team."
+  }
+];
+
 const streamlineDescription = [
   { text: "Launch your ", bold: false },
   { text: "startup vision ", bold: true },
@@ -111,13 +156,16 @@ export function meta({ data }: { data?: any }) {
     sanityData: data?.sanityData,
     defaultTitle: "Software Development for Startups & Rapid MVP Delivery | Leapsofts",
     defaultDescription: "Launch your startup MVP in 3-5 months with Leapsofts. Custom software engineering, CTO-as-a-Service, serverless architecture & pitch-ready demos for founders.",
-    defaultKeywords: "software development for startups, startup mvp development, tech startup software company, cto as a service, mvp developers for startups, saas startup engineering",
+    defaultKeywords: "software development for startups, startup mvp development company, rapid mvp development services, mvp developers for startups, saas startup engineering, cto as a service for startups, seed stage mvp development, startup software product development, agile mvp delivery 3 to 5 months, startup cloud architecture, fractional cto consulting, venture backed startup software development, stripe billing saas multi-tenant architecture",
     canonicalUrl: "https://www.leapsofts.com/industries/startups",
   });
 }
 
 const Startups: React.FC = () => {
   const { data } = useIndustryPage('startups');
+  const { setProcessTitle, setDeliverMVPData } = useOutletContext<IndustriesContextType>();
+
+  const activeFaqs = (data?.faqs && data.faqs.length > 0) ? data.faqs : fallbackFaqs;
 
   const schemaCanonicalUrl = "https://www.leapsofts.com/industries/startups";
   const schemaData = buildIndustrySchema({
@@ -125,9 +173,8 @@ const Startups: React.FC = () => {
     description: "Fast-track MVP development and startup software engineering — from ideation to investor-ready product.",
     canonicalUrl: schemaCanonicalUrl,
     industryName: "Startups & Scale-ups",
-    faqs: data?.faqs,
+    faqs: activeFaqs,
   });
-  const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
@@ -135,11 +182,15 @@ const Startups: React.FC = () => {
     ? [{ text: data.hero.introText, bold: false }]
     : introDescription;
 
-  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+  const activeCommitmentData: CommitmentSectionProps['data'] = (data?.commitmentSection && data.commitmentSection.items?.length)
     ? {
         subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
         title: data.commitmentSection.title || commitmentData.title,
-        items: data.commitmentSection.items
+        items: data.commitmentSection.items.map((item, idx) => ({
+          icon: item.icon || commitmentData.items?.[idx]?.icon || '/industryicons/sphere.svg',
+          title: item.title,
+          description: item.description
+        }))
       }
     : commitmentData;
 
@@ -157,6 +208,19 @@ const Startups: React.FC = () => {
       }
     : startupSolutionsData;
 
+  const activeDeliverMVPData: DeliverMVPProps['data'] = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || startupDeliverMVPData.label,
+        title: data.deliverMVP.title || startupDeliverMVPData.title,
+        accentText: data.deliverMVP.accentText || startupDeliverMVPData.accentText,
+        description: data.deliverMVP.description || startupDeliverMVPData.description,
+        items: data.deliverMVP.items.map(item => ({
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : startupDeliverMVPData;
+
   const processTitleMain = data?.processHeader?.titleMain || "High-Velocity MVP Engineering";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
@@ -165,7 +229,10 @@ const Startups: React.FC = () => {
       titleMain: processTitleMain,
       titleAccent: processTitleAccent
     });
-  }, [setProcessTitle, processTitleMain, processTitleAccent]);
+    if (setDeliverMVPData) {
+      setDeliverMVPData(activeDeliverMVPData);
+    }
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items
@@ -212,7 +279,7 @@ const Startups: React.FC = () => {
       <FAQs
         title="Startup Software Development FAQ"
         subtitle="Common questions about MVP delivery timelines, CTO-as-a-Service, IP ownership, and serverless scaling."
-        faqs={data?.faqs} items={data?.faqs}
+        faqs={activeFaqs} items={activeFaqs}
       />
       <RelatedServices
         title={data?.relatedServices?.title || "Recommended Services for Startups"}

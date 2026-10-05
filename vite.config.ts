@@ -14,4 +14,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ['styled-components', 'sanity', '@sanity/vision'],
   },
+  build: {
+    chunkSizeWarningLimit: 1500,
+  },
 })

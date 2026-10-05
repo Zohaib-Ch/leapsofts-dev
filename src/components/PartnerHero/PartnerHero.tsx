@@ -141,9 +141,10 @@ const PartnerHero: React.FC<PartnerHeroProps> = ({
                     transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
                 >
                     <img
-                        src="/hand-shake.png"
+                        src="/hand-shake.webp"
                         alt="Strategic Partnership Collaboration"
                         className={styles.heroImage}
+                        loading="lazy"
                     />
                 </motion.div>
             </div>

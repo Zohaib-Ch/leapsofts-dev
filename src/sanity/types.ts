@@ -454,6 +454,13 @@ export interface SanityIndustry {
     titleMain?: string;
     titleAccent?: string;
   };
+  deliverMVP?: {
+    label?: string;
+    title?: string;
+    accentText?: string;
+    description?: string;
+    items?: { title: string; description: string }[];
+  };
   relatedServices?: {
     title?: string;
     sectionLabel?: string;

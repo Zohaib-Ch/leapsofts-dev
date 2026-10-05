@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate, useLoaderData } from 'react-router';
 import { motion } from 'framer-motion';
 import {
   ArrowLeft,
+  ArrowRight,
   Clock,
   Calendar,
   Share2,
@@ -40,6 +41,33 @@ export function meta({ data, params }: { data?: any; params?: any }) {
     canonicalUrl: `https://www.leapsofts.com/blog/${slug}`,
     defaultOgImage: sanityData?.coverImageUrl,
   });
+}
+
+function renderParagraphWithLinks(text: string): React.ReactNode {
+  const parts: React.ReactNode[] = [];
+  const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.substring(lastIndex, match.index));
+    }
+    const linkText = match[1];
+    const linkUrl = match[2];
+    parts.push(
+      <Link key={match.index} to={linkUrl} className={styles.inlineLink}>
+        {linkText}
+      </Link>
+    );
+    lastIndex = regex.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex));
+  }
+
+  return parts.length > 0 ? parts : text;
 }
 
 const fadeInVariant = {
@@ -105,16 +133,18 @@ const BlogDetail: React.FC = () => {
         publishedDate: sanityPost.publishedDate || (sanityPost.publishedAt ? new Date(sanityPost.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'September 2026'),
         featured: sanityPost.featured || false,
         author: {
-          name: sanityPost.author?.name || 'Leapsofts Engineering',
-          role: sanityPost.author?.role || 'Technical Lead',
-          avatar: sanityPost.author?.avatar || sanityPost.author?.avatarInitials || 'LS',
+          name: sanityPost.author?.name || 'Huzaifa Rasheed',
+          role: sanityPost.author?.role || 'CEO & Co-Founder',
+          avatar: sanityPost.author?.avatar || sanityPost.author?.avatarInitials || 'HR',
           avatarUrl: sanityPost.author?.avatarUrl,
-          bio: sanityPost.author?.bio || '',
+          bio: sanityPost.author?.bio || 'Pioneering custom AI architectures and scalable cloud solutions across Healthcare, FinTech, and Enterprise SaaS.',
+          linkedin: 'https://www.linkedin.com/company/leapsofts',
         },
         coverImage: sanityPost.coverImageUrl || sanityPost.coverImage || '/projectImages/agileauto.png',
         excerpt: sanityPost.excerpt || sanityPost.subtitle || '',
         tags: sanityPost.tags || [],
         content: sanityPost.content && sanityPost.content.length > 0 ? (sanityPost.content as any) : (localPost?.content || []),
+        relatedSolutions: localPost?.relatedSolutions || [],
       };
     }
     return localPost || null;
@@ -205,7 +235,7 @@ const BlogDetail: React.FC = () => {
         defaultOgImage={post.coverImage}
       />
 
-      {/* JSON-LD Structured Data (BlogPosting & BreadcrumbList) for Googlebot */}
+      {/* JSON-LD Structured Data (BlogPosting & BreadcrumbList) with full E-E-A-T */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -245,15 +275,22 @@ const BlogDetail: React.FC = () => {
                   : `https://www.leapsofts.com${post.coverImage}`,
               ],
               datePublished: '2026-09-12T00:00:00+00:00',
-              dateModified: '2026-09-30T00:00:00+00:00',
+              dateModified: '2026-10-05T00:00:00+00:00',
+              inLanguage: 'en-US',
               author: {
                 '@type': 'Person',
                 name: post.author.name,
                 jobTitle: post.author.role,
                 description: post.author.bio,
+                url: 'https://www.leapsofts.com/about',
+                sameAs: [
+                  'https://www.linkedin.com/company/leapsofts',
+                  'https://www.leapsofts.com/about',
+                ],
                 worksFor: {
                   '@type': 'Organization',
                   name: 'Leapsofts',
+                  url: 'https://www.leapsofts.com',
                 },
               },
               publisher: {
@@ -458,7 +495,7 @@ const BlogDetail: React.FC = () => {
                 {section.paragraphs &&
                   section.paragraphs.map((pText, pIdx) => (
                     <p key={pIdx} className={styles.paragraph}>
-                      {pText}
+                      {renderParagraphWithLinks(pText)}
                     </p>
                   ))}
 
@@ -524,6 +561,35 @@ const BlogDetail: React.FC = () => {
                 )}
               </motion.section>
             ))}
+
+            {/* Related Engineering Solutions & Industry Verticals */}
+            {post.relatedSolutions && post.relatedSolutions.length > 0 && (
+              <div className={styles.relatedSolutionsSection}>
+                <h3 className={styles.relatedSolutionsHeading}>
+                  <Sparkles size={20} color="#ff7917" />
+                  Related Engineering Capabilities & Industry Verticals
+                </h3>
+                <p className={styles.relatedSolutionsSub}>
+                  Explore specialized Leapsofts engineering practices and domain solutions referenced in this technical brief:
+                </p>
+                <div className={styles.solutionsGrid}>
+                  {post.relatedSolutions.map((sol, sIdx) => (
+                    <Link key={sIdx} to={sol.path} className={styles.solutionCard}>
+                      <div>
+                        <div className={styles.solutionCardTop}>
+                          <span className={styles.solutionTypeBadge}>{sol.type}</span>
+                        </div>
+                        <h4 className={styles.solutionTitle}>{sol.title}</h4>
+                        <p className={styles.solutionDesc}>{sol.description}</p>
+                      </div>
+                      <span className={styles.solutionAction}>
+                        View Solution <ArrowRight size={14} />
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Article Tags Footer */}
             <div className={styles.tagsRow}>

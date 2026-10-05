@@ -10,6 +10,7 @@ import EmergingTech, { type EmergingTechProps } from '../../components/EmergingT
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
+import type { DeliverMVPProps } from '../../components/DeliverMVP/DeliverMVP';
 import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
@@ -83,6 +84,50 @@ const businessSolutionsData: EmergingTechProps['data'] = {
   ]
 };
 
+const midSizedDeliverMVPData: DeliverMVPProps['data'] = {
+  label: "WHY CHOOSE LEAPSOFTS FOR MID-SIZED ENTERPRISES",
+  title: "How We Deliver Your Enterprise Solution in",
+  accentText: "3-5 months",
+  description: "Mid-sized organizations often struggle with fragmented off-the-shelf software subscriptions that do not talk to each other and exorbitant per-seat licensing costs. We engineer custom, fully owned enterprise platforms and modernize legacy back-office tools within 3 to 5 months—streamlining operations, integrating ERPs/CRMs, and delivering massive operational cost savings.",
+  items: [
+    {
+      title: "Consolidated Operations & Zero Per-User Fees.",
+      description: "We replace fragmented, costly SaaS stacks with unified, tailor-made corporate portals that eliminate recurring per-seat subscription overheads across your organization."
+    },
+    {
+      title: "Seamless ERP, CRM & Legacy Database Modernization.",
+      description: "We bridge legacy databases, QuickBooks, NetSuite, SAP, or Salesforce using modern API layers and real-time bidirectional data synchronizations."
+    },
+    {
+      title: "Role-Based Security & Executive BI Dashboards.",
+      description: "We configure granular departmental access controls (RBAC), multi-factor authentication, and executive business intelligence dashboards for real-time KPI tracking."
+    },
+    {
+      title: "Predictable Fixed-Price & Agile Pod Delivery.",
+      description: "Our structured delivery models give mid-market leaders complete budget predictability, transparent sprint milestones, and dedicated senior engineering pods."
+    }
+  ]
+};
+
+const fallbackFaqs = [
+  {
+    question: "Why should a mid-sized business choose custom software over commercial off-the-shelf SaaS?",
+    answer: "Off-the-shelf SaaS often forces businesses into rigid workflows and charges escalating per-seat monthly subscription fees. Custom software gives you 100% intellectual property ownership, zero recurring per-user fees, seamless integration with your existing legacy systems, and features tailored precisely to your operational advantage."
+  },
+  {
+    question: "Can you modernize our legacy desktop software or outdated databases without disrupting daily operations?",
+    answer: "Yes. We specialize in application re-engineering and legacy modernization. We use phased transition strategies and real-time database replication to ensure your team experiences zero operational downtime while migrating to modern, cloud-native web and mobile applications."
+  },
+  {
+    question: "What ERP, CRM, and accounting systems can your software integrate with?",
+    answer: "We build custom connectors and bidirectional API integrations for SAP, NetSuite, Microsoft Dynamics 365, Salesforce, HubSpot, QuickBooks Enterprise, and industry-specific legacy database systems."
+  },
+  {
+    question: "How do you guarantee budget predictability for mid-sized enterprise projects?",
+    answer: "We offer both fixed-price project contracts with crystal-clear milestone deliverables and agile dedicated engineering pods. We perform comprehensive technical discovery before development begins to eliminate scope creep and unexpected costs."
+  }
+];
+
 const streamlineDescription = [
   { text: "Scale your ", bold: false },
   { text: "mid-sized business ", bold: true },
@@ -111,13 +156,16 @@ export function meta({ data }: { data?: any }) {
     sanityData: data?.sanityData,
     defaultTitle: "Software Development for Mid-Sized Businesses & Enterprises | Leapsofts",
     defaultDescription: "Leapsofts engineers custom software for mid-sized businesses & mid-market companies — enterprise ERP integration, legacy app re-engineering, paperless mobile apps & BI analytics.",
-    defaultKeywords: "software development for mid-sized businesses, mid-market software solutions, custom software smb, enterprise application re-engineering, business process automation software, legacy software modernization",
+    defaultKeywords: "software development for mid-sized businesses, mid-market custom software development, enterprise application development, custom business process automation, legacy software modernization, mid-sized enterprise erp crm development, custom workflow automation software, database migration services, internal tool development, proprietary enterprise software, cloud modernization for mid-market, zero license fee custom software",
     canonicalUrl: "https://www.leapsofts.com/industries/mid-sized-businesses",
   });
 }
 
 const MidSizedBusinesses: React.FC = () => {
   const { data } = useIndustryPage('mid-sized-businesses');
+  const { setProcessTitle, setDeliverMVPData } = useOutletContext<IndustriesContextType>();
+
+  const activeFaqs = (data?.faqs && data.faqs.length > 0) ? data.faqs : fallbackFaqs;
 
   const schemaCanonicalUrl = "https://www.leapsofts.com/industries/mid-sized-businesses";
   const schemaData = buildIndustrySchema({
@@ -125,9 +173,8 @@ const MidSizedBusinesses: React.FC = () => {
     description: "Custom software solutions for mid-sized businesses — modernization, automation, and digital transformation.",
     canonicalUrl: schemaCanonicalUrl,
     industryName: "Mid-Sized Enterprise",
-    faqs: data?.faqs,
+    faqs: activeFaqs,
   });
-  const { setProcessTitle } = useOutletContext<IndustriesContextType>();
 
   const activeTitle = data?.hero?.title || title;
   const activeSubtitle = data?.hero?.subtitle || subtitle;
@@ -135,11 +182,15 @@ const MidSizedBusinesses: React.FC = () => {
     ? [{ text: data.hero.introText, bold: false }]
     : introDescription;
 
-  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+  const activeCommitmentData: CommitmentSectionProps['data'] = (data?.commitmentSection && data.commitmentSection.items?.length)
     ? {
         subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
         title: data.commitmentSection.title || commitmentData.title,
-        items: data.commitmentSection.items
+        items: data.commitmentSection.items.map((item, idx) => ({
+          icon: item.icon || commitmentData.items?.[idx]?.icon || '/industryicons/sphere.svg',
+          title: item.title,
+          description: item.description
+        }))
       }
     : commitmentData;
 
@@ -157,6 +208,19 @@ const MidSizedBusinesses: React.FC = () => {
       }
     : businessSolutionsData;
 
+  const activeDeliverMVPData: DeliverMVPProps['data'] = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || midSizedDeliverMVPData.label,
+        title: data.deliverMVP.title || midSizedDeliverMVPData.title,
+        accentText: data.deliverMVP.accentText || midSizedDeliverMVPData.accentText,
+        description: data.deliverMVP.description || midSizedDeliverMVPData.description,
+        items: data.deliverMVP.items.map(item => ({
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : midSizedDeliverMVPData;
+
   const processTitleMain = data?.processHeader?.titleMain || "Enterprise Application Engineering";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
@@ -165,7 +229,10 @@ const MidSizedBusinesses: React.FC = () => {
       titleMain: processTitleMain,
       titleAccent: processTitleAccent
     });
-  }, [setProcessTitle, processTitleMain, processTitleAccent]);
+    if (setDeliverMVPData) {
+      setDeliverMVPData(activeDeliverMVPData);
+    }
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items
@@ -212,7 +279,7 @@ const MidSizedBusinesses: React.FC = () => {
       <FAQs
         title="Mid-Sized Business Software FAQ"
         subtitle="Common questions about custom enterprise software vs SaaS, legacy app re-engineering, ERP integration, and IP ownership."
-        faqs={data?.faqs} items={data?.faqs}
+        faqs={activeFaqs} items={activeFaqs}
       />
       <RelatedServices
         title={data?.relatedServices?.title || "Recommended Enterprise Modernization Services"}

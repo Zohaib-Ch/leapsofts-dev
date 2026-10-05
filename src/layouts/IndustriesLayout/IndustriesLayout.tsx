@@ -1,10 +1,10 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import { Outlet } from 'react-router'
 import Partners from '../../components/Partners/Partners'
 import IndustryProcess from '../../components/IndustryProcess/IndustryProcess'
 import Technologies from '../../components/Slider/Slider'
 import ContactForm from '../../components/ContactForm/ContactForm'
-import DeliverMVP from '../../components/DeliverMVP/DeliverMVP'
+import DeliverMVP, { type DeliverMVPProps } from '../../components/DeliverMVP/DeliverMVP'
 
 export interface ProcessTitleData {
     titleMain: string;
@@ -14,29 +14,30 @@ export interface ProcessTitleData {
 
 export interface IndustriesContextType {
     setProcessTitle: React.Dispatch<React.SetStateAction<ProcessTitleData>>;
+    setDeliverMVPData?: React.Dispatch<React.SetStateAction<DeliverMVPProps['data'] | null>>;
 }
 
-const deliverMVPData = {
+const DEFAULT_DELIVER_MVP_DATA: DeliverMVPProps['data'] = {
     label: "WHY CHOOSE LEAPSOFTS",
     title: "How Can We Deliver Your MVP in",
     accentText: "3-5 months?",
-    description: "Leapsofts is a custom software development company that offers software products tailored to your unique business objectives. Leveraging our structured end-to-end processes, custom project management tool, agile methodology, and AI integration expertise, we solve complex business challenges, accelerate growth, and consistently deliver MVPs within 3 to 5 months, on time, every time.",
+    description: "Leapsofts is a custom software development company that engineers tailored digital platforms for enterprise scale and startup velocity. Leveraging structured agile sprints, proprietary delivery frameworks, CI/CD pipelines, and deep domain intelligence, we consistently ship production-grade MVPs within 3 to 5 months.",
     items: [
         {
-            title: "Proven Methodologies & Processes.",
-            description: "We follow agile workflows, CI/CD pipelines, and DevOps practices to accelerate delivery while maintaining top-tier quality and compliance."
+            title: "Proven Engineering Methodologies.",
+            description: "We follow automated test-driven development, zero-trust security reviews, and continuous deployment pipelines to accelerate delivery while ensuring enterprise-grade stability."
         },
         {
-            title: "Client-First Approach.",
-            description: "From discovery to post-launch support, we collaborate with your team and stakeholders to build solutions aligned with your specific needs and business workflows."
+            title: "Domain-Specific Architecture.",
+            description: "From day one, our systems are architected with industry-specific compliance, high-concurrency data models, and resilient third-party integrations tailored to your sector."
         },
         {
-            title: "Transparent Pricing Models.",
-            description: "Whether it's fixed-scope development or continuous product engineering, we provide clarity, flexibility, and no hidden costs."
+            title: "Transparent, Milestone-Driven Governance.",
+            description: "Whether engaging via dedicated engineering pods or fixed-scope sprints, we provide full transparency, weekly demo deliverables, and clear sprint velocity metrics."
         },
         {
-            title: "Healthcare Software Expertise.",
-            description: "With years of experience building healthcare applications, we understand the nuances of EMRs, patient engagement, HIPAA compliance, and third-party integrations."
+            title: "Rapid Market Validation & Scale.",
+            description: "We build with modular microservices and scalable cloud foundations, ensuring your MVP transitions seamlessly from pilot traction into high-volume enterprise operations."
         }
     ]
 };
@@ -46,16 +47,20 @@ const IndustriesLayout: React.FC = () => {
         titleMain: "App Development",
         titleAccent: "Process"
     });
+    const [deliverMVPData, setDeliverMVPData] = useState<DeliverMVPProps['data'] | null>(null);
 
     const contextValue: IndustriesContextType = {
-        setProcessTitle
+        setProcessTitle,
+        setDeliverMVPData
     };
+
+    const activeDeliverMVP = deliverMVPData || DEFAULT_DELIVER_MVP_DATA;
 
     return (
         <>
             <Outlet context={contextValue} />
             <Partners />
-            <DeliverMVP data={deliverMVPData}/>
+            <DeliverMVP data={activeDeliverMVP} />
             <Technologies />
             <IndustryProcess
                 titleMain={processTitle.titleMain}

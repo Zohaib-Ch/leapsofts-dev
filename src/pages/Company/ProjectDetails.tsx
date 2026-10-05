@@ -123,8 +123,55 @@ const ProjectDetails: React.FC = () => {
             : projectData?.techStack?.items || [],
     };
 
+    const projectSchema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Home",
+                        "item": "https://www.leapsofts.com/"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Case Studies",
+                        "item": "https://www.leapsofts.com/projects"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": title,
+                        "item": `https://www.leapsofts.com/projects/${id || ''}`
+                    }
+                ]
+            },
+            {
+                "@type": "CreativeWork",
+                "name": title,
+                "headline": title,
+                "description": summaryText,
+                "url": `https://www.leapsofts.com/projects/${id || ''}`,
+                "author": {
+                    "@type": "Organization",
+                    "name": "Leapsofts",
+                    "url": "https://www.leapsofts.com"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Leapsofts",
+                    "logo": "https://www.leapsofts.com/logo/Leap-soft-01.png"
+                }
+            }
+        ]
+    };
+
     return (
         <div className={styles.pagePadding}>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }} />
             <MetaSEO
                 seo={sanityProject?.seo}
                 defaultTitle={`${title} | Case Study | Leapsofts`}

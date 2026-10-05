@@ -62,7 +62,7 @@ const About: React.FC<AboutProps> = ({
         }
     };
 
-    const finalImage = imageUrl;
+    const finalImage = imageUrl || "/leapsofts.webp";
     const descSegments = parseFormattedText(descriptionText || defaultAboutDescription);
 
     return (
@@ -109,6 +109,7 @@ const About: React.FC<AboutProps> = ({
                             src={finalImage}
                             alt="Futuristic Tech Visualization"
                             className={styles.dashboardImage}
+                            loading="lazy"
                         />
                         <div className={styles.spotlightOverlay}></div>
                         <div className={styles.spotlightLens}></div>
