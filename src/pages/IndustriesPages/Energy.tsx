@@ -1,11 +1,14 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENTS TO ENERGY INNOVATION",
@@ -91,43 +94,119 @@ const streamlineDescription = [
 const title = "Energy Software Development, Smart Grid Automation & IoT Telemetry";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we engineer highly resilient, security-critical ", bold: false },
-  { text: "smart grid automation systems, energy IoT telemetry architectures, and automated carbon emissions reporting engines ", bold: true },
-  { text: "designed to support the global clean energy transition. By integrating real-time telemetry from remote turbine arrays, optimizing substation power routing algorithms, and building immutable compliance data vaults, we empower utility firms and sustainable energy producers to operate with absolute uptime and transparency.", bold: false }
+  { text: "We deliver full-spectrum ", bold: false },
+  { text: "energy software development, smart grid software, and renewable energy platforms ", bold: true },
+  { text: "engineered to support clean energy transitions. By building real-time turbine IoT telemetry, load balancing algorithms, and automated carbon emissions tracking, we help utility firms operate with maximum uptime and transparency.", bold: false }
 ];
 
+import { getSanityIndustryBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('energy');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Energy Sector Software Development | Leapsofts",
+    defaultDescription: "Custom software for energy companies — grid management, asset tracking & renewable energy platforms. Leapsofts builds IoT-integrated energy solutions. Get started.",
+    defaultKeywords: "energy software development, utilities software company, renewable energy software, smart grid software",
+    canonicalUrl: "https://www.leapsofts.com/industries/energy",
+  });
+}
+
+
+
 const Energy: React.FC = () => {
+  const { data } = useIndustryPage('energy');
+
+  const schemaData = buildServiceSchema({
+    name: "Energy Sector Software Development",
+    description: "Custom software for energy companies — grid management, asset tracking & renewable energy platforms.",
+    canonicalUrl: "https://www.leapsofts.com/industries/energy",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+    ? {
+        subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
+        title: data.commitmentSection.title || commitmentData.title,
+        items: data.commitmentSection.items
+      }
+    : commitmentData;
+
+  const activeSolutionsData = (data?.solutionsSection && data.solutionsSection.items?.length)
+    ? {
+        label: data.solutionsSection.label || energySolutionsData.label,
+        titleAccent: data.solutionsSection.titleAccent || energySolutionsData.titleAccent,
+        titleMain: data.solutionsSection.titleMain || energySolutionsData.titleMain,
+        description: data.solutionsSection.description || energySolutionsData.description,
+        items: data.solutionsSection.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : energySolutionsData;
+
+  const processTitleMain = data?.processHeader?.titleMain || "Energy Software Engineering";
+  const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
   useEffect(() => {
     setProcessTitle({
-      titleMain: "Energy System Modernization",
-      titleAccent: "Process"
+      titleMain: processTitleMain,
+      titleAccent: processTitleAccent
     });
-  }, [setProcessTitle]);
+  }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
   return (
     <>
-      <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
-      />
-      <CommitmentSection data={commitmentData} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Energy "
-        titleAccent="Strategy"
-        titleEnd=" Session"
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
+        titleMain={data?.strategyCTA?.titleMain || "Software "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
+        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <EmergingTech data={energySolutionsData} />
+      <EmergingTech data={activeSolutionsData} />
       <Services
         label="OUR CAPABILITIES"
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" energy organizations"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Data Science & AI Solutions",
+            description: "Deploy machine learning models for predictive grid load and cell degradation forecasting.",
+            link: "/services/data-science-ai"
+          },
+          {
+            title: "Cloud Engineering & Infrastructure",
+            description: "Architect high-frequency SCADA and IoT sensor data gateways on AWS & Azure.",
+            link: "/services/cloud-engineering"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Build custom smart metering dashboards and carbon emissions compliance portals.",
+            link: "/services/custom-software-development"
+          }
+        ]}
       />
     </>
   );

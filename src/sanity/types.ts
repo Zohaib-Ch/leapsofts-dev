@@ -3,8 +3,13 @@ export interface SanitySEO {
   metaDescription?: string;
   keywords?: string[];
   ogImage?: any;
+  ogImageUrl?: string;
+  twitterImage?: any;
+  twitterImageUrl?: string;
   canonicalUrl?: string;
+  robots?: string;
   noIndex?: boolean;
+  structuredDataType?: string;
 }
 
 export interface SanityHero {
@@ -52,6 +57,7 @@ export interface SanityAboutStat {
 export interface SanityAboutUs {
   label?: string;
   headline?: string;
+  titleAccent?: string;
   descriptionText?: string;
   imageUrl?: string;
   stats?: SanityAboutStat[];
@@ -120,16 +126,50 @@ export interface SanityHomePage {
 }
 
 export interface SanityAboutPage {
-  hero?: SanityHero;
-  missionVision?: {
+  hero?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    metrics?: { value: string; label: string; sub?: string }[];
+  };
+  creed?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
     missionTitle?: string;
     missionText?: string;
     visionTitle?: string;
     visionText?: string;
   };
-  executiveSummary?: {
+  corePrinciples?: {
+    label?: string;
     title?: string;
-    description?: string;
+    subtitle?: string;
+    principles?: { title: string; text: string; icon?: string }[];
+  };
+  timeline?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    events?: { year: string; title: string; desc: string }[];
+  };
+  leadership?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    members?: SanityTeamMember[];
+  };
+  globalDelivery?: {
+    label?: string;
+    title?: string;
+    subtitle?: string;
+    hubs?: { name: string; desc: string; badge?: string; list?: string[] }[];
+    compliance?: { title?: string; subtitle?: string; tag?: string; desc?: string; name?: string }[];
+  };
+  cta?: {
+    title?: string;
+    subtitle?: string;
+    buttonText?: string;
   };
   seo?: SanitySEO;
 }
@@ -208,6 +248,8 @@ export interface SanityService {
     titleAccent?: string;
     titleEnd?: string;
     descriptionText?: string;
+    buttonText?: string;
+    buttonPath?: string;
     imageUrl?: string;
   };
   serviceFeatures?: {
@@ -239,6 +281,11 @@ export interface SanityService {
       features?: { title: string; description: string }[];
     }[];
   };
+  relatedServices?: {
+    title?: string;
+    sectionLabel?: string;
+    items?: { title: string; description: string; link: string }[];
+  };
   faqs?: { question: string; answer: string }[];
   seo?: SanitySEO;
 }
@@ -249,6 +296,48 @@ export interface SanityIndustry {
   slug: string;
   badgeText?: string;
   shortDescription?: string;
+  hero?: {
+    title?: string;
+    subtitle?: string;
+    introText?: string;
+  };
+  commitmentSection?: {
+    subtitle?: string;
+    title?: string;
+    items?: { icon?: string; title: string; description: string }[];
+  };
+  strategyCTA?: {
+    label?: string;
+    titleMain?: string;
+    titleAccent?: string;
+    titleEnd?: string;
+    descriptionText?: string;
+    buttonText?: string;
+    buttonPath?: string;
+    imageUrl?: string;
+  };
+  solutionsSection?: {
+    label?: string;
+    titleAccent?: string;
+    titleMain?: string;
+    description?: string;
+    items?: { icon?: string; title: string; description: string }[];
+  };
+  servicesSection?: {
+    label?: string;
+    titleMain?: string;
+    titleAccent?: string;
+    titleEnd?: string;
+  };
+  processHeader?: {
+    titleMain?: string;
+    titleAccent?: string;
+  };
+  relatedServices?: {
+    title?: string;
+    sectionLabel?: string;
+    items?: { title: string; description: string; link: string }[];
+  };
   whoWeServe?: string[];
   solutions?: { title: string; description: string }[];
   impactStats?: SanityStat[];

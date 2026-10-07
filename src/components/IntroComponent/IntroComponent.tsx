@@ -3,16 +3,17 @@ import type { ReactNode } from 'react';
 import styles from './intro.module.css';
 import Button from '../Button/Button';
 import { useContactModal } from '../../context/ContactModalContext';
+import { parseFormattedText, type FormattedSegment } from '../../utils/textParser';
 
 interface IntroComponentProps {
     title: string;
     title2?: string;
-    description: string;
+    description: string | FormattedSegment[];
     videoSrc?: string;
     buttonText?: string;
     onButtonClick?: () => void;
     children?: ReactNode;
-    introDescription?: {text: string, bold: boolean}[];
+    introDescription?: FormattedSegment[];
 }
 
 const IntroComponent: React.FC<IntroComponentProps> = ({
@@ -26,11 +27,14 @@ const IntroComponent: React.FC<IntroComponentProps> = ({
 }) => {
 
     const { openContactModal } = useContactModal();
-    console.log(description);
     const handleClick = () => {
         openContactModal();
         onButtonClick && onButtonClick();
     };
+
+    const segments = introDescription && introDescription.length > 0 
+        ? parseFormattedText(introDescription)
+        : parseFormattedText(description);
 
     return (
         <section className={styles.intro} id="intro">
@@ -39,6 +43,8 @@ const IntroComponent: React.FC<IntroComponentProps> = ({
                 loop
                 muted
                 playsInline
+                preload="metadata"
+                poster="/hero-poster.webp"
                 className={styles.videoBackground}
             >
                 <source src={videoSrc} type="video/mp4" />
@@ -50,9 +56,9 @@ const IntroComponent: React.FC<IntroComponentProps> = ({
             <div className={styles.container}>
                 <div className={styles.content}>
                     <h1 className={styles.title}>{title}</h1>
-                    {title2 && <h2 className={styles.title} style={{ marginTop: '-0.5rem', fontSize: '2.5rem', opacity: 0.9 }}>{title2}</h2>}
+                    {title2 && <span className={styles.title} style={{ display: 'block', marginTop: '-0.5rem', fontSize: '2.5rem', opacity: 0.9 }}>{title2}</span>}
                     <p className={styles.subtitle}>
-                        {introDescription?.map((item, index) => (
+                        {segments.map((item, index) => (
                             <span key={index} className={item.bold ? styles.bold : ''}>
                                 {item.text}
                             </span>

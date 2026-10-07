@@ -1,3 +1,5 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useServicePage } from '../../hooks/useServicePage';
 import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import EmergingTech from '../../components/EmergingTech/EmergingTech';
@@ -9,83 +11,86 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes from '../../components/Processes/Processes';
 import { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import ServiceFeatures from '../../components/ServiceFeatures/ServiceFeatures';
 import { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
-import laptopImg from "../../assets/about_laptop_3d.png";
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
+const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
 
 const ourServicesData: EmergingTechProps['data'] = {
-  label: 'AI SERVICES',
-  titleAccent: 'AI &',
-  titleMain: ' Data Science',
+  label: 'DATA SCIENCE & AI DEVELOPMENT SERVICES',
+  titleAccent: 'Enterprise Artificial Intelligence',
+  titleMain: ' & Machine Learning Solutions',
   description:
-    'End-to-end AI services designed to unlock insights, improve decision-making, and accelerate intelligent transformation.',
+    'End-to-end custom AI development services, machine learning models, and Generative AI solutions engineered to automate decisions and unlock enterprise data value.',
   items: [
     {
       icon: 'enterprise' as const,
-      title: 'Natural Language Processing & LLM Tuning',
+      title: 'Generative AI & Custom LLM Fine-Tuning',
       description:
-        'Fine-tuning custom LLMs (e.g. Llama-3, Mistral) via LoRA/QLoRA methods and building secure RAG (Retrieval-Augmented Generation) architectures for semantic data retrieval.'
+        'Fine-tuning open-source Large Language Models (LLMs like Llama 3 & Mistral) using LoRA/QLoRA techniques and building secure Retrieval-Augmented Generation (RAG) vector architectures.'
     },
     {
       icon: 'product' as const,
-      title: 'Predictive Modeling & Statistical Forecasting',
+      title: 'Predictive Modeling & Machine Learning',
       description:
-        'Designing multi-variable regression, classification, and time-series forecasting scripts using Scikit-Learn, XGBoost, and Prophet to anticipate supply chain and pricing movements.'
+        'Engineering multi-variable predictive regression, classification, and time-series forecasting models using Scikit-Learn, PyTorch, and XGBoost to predict demand and revenue.'
     },
     {
       icon: 'enterprise' as const,
-      title: 'Computer Vision & Edge Image Processing',
+      title: 'Computer Vision & Real-Time Image AI',
       description:
-        'Building high-velocity convolutional networks (CNNs) using PyTorch and YOLO for real-time object identification, video analysis, and quality inspections.'
+        'Building high-velocity Convolutional Neural Networks (CNNs) using PyTorch and YOLO for real-time object detection, automated visual inspection, and video analytics.'
     },
     {
       icon: 'saas' as const,
-      title: 'Distributed Data Processing & Lakehouses',
+      title: 'Enterprise Data Lakehouses & ETL Pipelines',
       description:
-        'Orchestrating large-scale data cleansing and aggregation pipelines using Apache Spark, Databricks, and dbt to feed machine learning schemas.'
+        'Orchestrating high-scale data pipeline engineering using Apache Spark, Databricks, Snowflake, and dbt to feed clean structured data into machine learning models.'
     },
     {
       icon: 'product' as const,
-      title: 'MLOps & Continuous Model Deployment',
+      title: 'MLOps & Automated Model Deployment',
       description:
-        'Implementing continuous integration for machine learning (CT/CD), registry tracking via MLflow, and high-concurrency model serving on Kubernetes via Triton or BentoML.'
+        'Implementing continuous training (CT/CD), model registry tracking via MLflow, and high-concurrency inference API serving on Kubernetes using Triton Inference Server.'
     },
     {
       icon: 'enterprise' as const,
-      title: 'Recommendation Engines & User Profiling',
+      title: 'AI Recommendation Engines & Personalization',
       description:
-        'Crafting collaborative and content-based recommendation systems to personalize digital layouts, boosting customer average order value (AOV).'
+        'Building collaborative and content-based AI recommendation systems to personalize digital product experiences and boost customer retention.'
     }
   ]
 };
 
 const processData: InfoGridProps['data'] = {
-  label: 'WORKING PROCESS',
-  title: 'AI Implementation Pathway',
+  label: 'ENTERPRISE AI ADVANTAGES',
+  title: 'Why Top Brands Build Production AI Systems with Leapsofts',
   items: [
     {
       icon: '01',
-      title: 'High-Throughput Model Inference',
+      title: 'Sub-100ms Model Inference Speeds',
       description:
-        'Guarantee sub-100ms model inference speeds under high transactional request volumes.'
+        'Guarantee low-latency, real-time AI model inference performance under high-concurrency API query traffic.'
     },
     {
       icon: '02',
-      title: 'Algorithmic Bias & Safety Governance',
+      title: 'Algorithmic Safety & SOC2/HIPAA Governance',
       description:
-        'Enforcing strict model validation controls, feature drift audits, and data privacy safeguards (HIPAA/GDPR).'
+        'Enforcing strict model validation gates, data anonymization, bias auditing, and compliance safeguards (HIPAA, GDPR, SOC2).'
     },
     {
       icon: '03',
-      title: 'Decoupled Lakehouse Pipelines',
+      title: 'Decoupled Cloud Lakehouse Data Pipelines',
       description:
-        'Integrating scalable ETL data extraction that structures dirty enterprise logs cleanly for model training.'
+        'Integrating scalable ETL data pipelines that transform unstructured enterprise logs into clean, vectorized training datasets.'
     },
     {
       icon: '04',
-      title: 'Robust Real-World MLOps Scaling',
+      title: 'Automated MLOps Drift & Model Monitoring',
       description:
-        'Keeping systems secure and peak-performing via continuous feature tracking, automated drift alerts, and containerized rollouts.'
+        'Sustaining accuracy over time via automated data drift alerts, continuous feature monitoring, and zero-downtime model updates.'
     }
   ]
 };
@@ -278,39 +283,163 @@ const introDescription = [
   { text: ", and predictive analytics algorithms. By combining high-velocity Apache Spark data processing with robust MLOps orchestration (MLflow, Triton Server), we help organizations deploy resilient AI systems that automate decision mechanics and optimize user actions.", bold: false }
 ]
 
+import { getSanityServiceBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('data-science-ai');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Data Science & AI Development Services | Leapsofts",
+    defaultDescription: "AI & data science solutions for enterprises. Leapsofts builds ML models, AI integrations & data pipelines to automate decisions. Schedule a consultation.",
+    defaultKeywords: "AI development company, data science services, machine learning development, AI integration services, artificial intelligence solutions",
+    canonicalUrl: "https://www.leapsofts.com/services/data-science-ai",
+  });
+}
+
+
+
 const DataScienceAI: React.FC = () => {
+  const { data } = useServicePage('data-science-ai');
+
+  const schemaData = buildServiceSchema({
+    name: "Data Science & AI Development Services",
+    description: "AI & data science solutions for enterprises. Leapsofts builds ML models, AI integrations & data pipelines.",
+    canonicalUrl: "https://www.leapsofts.com/services/data-science-ai",
+    faqs: data?.faqs,
+  });
+
+  
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || (typeof processData !== 'undefined' ? processData.label : ''),
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof processData !== 'undefined' ? processData.title : ''),
+        description: data.infoGrid.description || (typeof processData !== 'undefined' ? processData.description : ''),
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof processData !== 'undefined' ? processData : { items: [] });
+
+  
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || (typeof ourServicesData !== 'undefined' ? ourServicesData.label : ''),
+        titleAccent: data.emergingTech.titleAccent || (typeof ourServicesData !== 'undefined' ? ourServicesData.titleAccent : ''),
+        titleMain: data.emergingTech.titleMain || (typeof ourServicesData !== 'undefined' ? ourServicesData.titleMain : ''),
+        description: data.emergingTech.description || (typeof ourServicesData !== 'undefined' ? ourServicesData.description : ''),
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof ourServicesData !== 'undefined' ? ourServicesData : { label: '', titleAccent: '', titleMain: '', description: '', items: [] });
+
+  
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.label : ''),
+        title: data.deliverMVP.title || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.title : ''),
+        accentText: data.deliverMVP.accentText || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.accentText : ''),
+        description: data.deliverMVP.description || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.description : ''),
+        items: data.deliverMVP.items || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.items : [])
+      }
+    : (typeof deliverMVPData !== 'undefined' ? deliverMVPData : { label: '', title: '', accentText: '', description: '', items: [] });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || "DATA SCIENCE & AI",
+        titleMain: data.serviceOverview.titleMain || "Transforming Raw ",
+        titleAccent: data.serviceOverview.titleAccent || "Enterprise Data ",
+        titleEnd: data.serviceOverview.titleEnd || "into Real-Time Intelligence",
+        description: data.serviceOverview.description || "At Leapsofts, we bridge the gap between academic AI research and reliable, scalable production systems. By building secure data pipelines inside modern lakehouses (Databricks, Snowflake), training custom deep learning models for NLP and computer vision, and establishing robust MLOps governance gates, we empower enterprises to forecast market trends, automate document analysis, and deploy high-performance generative AI systems with complete algorithmic transparency.",
+        imagePath: data.serviceOverview.imageUrl || laptopImg
+      }
+    : null;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
       <ServiceOverview
-        label="PREDICTIVE SYSTEMS & APPLIED AI"
-        titleMain="Transforming Raw Data into"
-        titleAccent="Predictive "
-        titleEnd="Intelligence"
-        description="At Leapsofts, we bridge the gap between academic AI research and reliable, scalable production systems. By building secure data pipelines inside modern lakehouses (Databricks, Snowflake), training custom deep learning models for NLP and computer vision, and establishing robust MLOps governance gates, we empower enterprises to forecast market trends, automate document analysis, and deploy high-performance generative AI systems with complete algorithmic transparency."
-        imagePath={laptopImg}
+        label={activeOverviewData?.label || "DATA SCIENCE & AI"}
+        titleMain={activeOverviewData?.titleMain || "Transforming Raw "}
+        titleAccent={activeOverviewData?.titleAccent || "Enterprise Data "}
+        titleEnd={activeOverviewData?.titleEnd || "into Real-Time Intelligence"}
+        description={activeOverviewData?.description || "At Leapsofts, we bridge the gap between academic AI research and reliable, scalable production systems. By building secure data pipelines inside modern lakehouses (Databricks, Snowflake), training custom deep learning models for NLP and computer vision, and establishing robust MLOps governance gates, we empower enterprises to forecast market trends, automate document analysis, and deploy high-performance generative AI systems with complete algorithmic transparency."}
+        imagePath={activeOverviewData?.imagePath || laptopImg}
       />
-      <InfoGrid data={processData} />
+      <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="Applied AI"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Applied AI"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Core AI Capabilities'
-        description='Every business has different needs. Whether you are building private LLM applications, time-series forecasting, or edge computer vision pipelines, we customize the ML architecture to fit your enterprise.'
-        items={defaultItems}
+        title={data?.serviceFeatures?.title || 'Core AI Capabilities'}
+        description={data?.serviceFeatures?.description || 'Every business has different needs. Whether you are building private LLM applications, time-series forecasting, or edge computer vision pipelines, we customize the ML architecture to fit your enterprise.'}
+        items={data?.serviceFeatures?.items || defaultItems}
       />
-      <DeliverMVP data={deliverMVPData} />
-      <EmergingTech data={ourServicesData} />
-      <Processes title="OUR Applied AI PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <EmergingTech data={activeEmergingTechData} />
+      <Processes
+        title={data?.processes?.title || "OUR Applied AI PROCESS"}
+        processPhases={activeProcessPhases}
+        phaseLabels={activePhaseLabels}
+      />
+      <FAQs
+        title="Data Science & AI Development FAQ"
+        subtitle="Everything you need to know about LLM fine-tuning, RAG vector architectures, predictive models, MLOps, and algorithmic data security."
+        faqs={data?.faqs} items={data?.faqs}
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Data Governance Services",
+            description: "Build robust compliance frameworks, audit trails, and data security policies for AI models.",
+            link: "/services/data-governance"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Integrate predictive ML models and custom AI algorithms directly into core enterprise software.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Cloud Engineering & Architecture",
+            description: "Design high-throughput, elastic cloud environments to host scalable machine learning workloads.",
+            link: "/services/cloud-engineering"
+          }
+        ]}
+      />
     </>
   );
 };

@@ -4,17 +4,27 @@ export const serviceSchema = defineType({
   name: 'service',
   title: 'Service Page',
   type: 'document',
+  groups: [
+    { name: 'main', title: 'Main Info' },
+    { name: 'hero', title: 'Hero & Overview' },
+    { name: 'content', title: 'Content & Grids' },
+    { name: 'process', title: 'Process & CTAs' },
+    { name: 'faqs', title: 'FAQs' },
+    { name: 'seo', title: 'SEO Metadata' },
+  ],
   fields: [
     defineField({
       name: 'title',
       title: 'Service Title',
       type: 'string',
+      group: 'main',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
       title: 'URL Slug Path',
       type: 'slug',
+      group: 'main',
       options: { source: 'title', maxLength: 96 },
       validation: (Rule) => Rule.required(),
     }),
@@ -22,6 +32,7 @@ export const serviceSchema = defineType({
       name: 'category',
       title: 'Service Category',
       type: 'string',
+      group: 'main',
       options: {
         list: [
           { title: 'Product Engineering', value: 'Product Engineering' },
@@ -35,11 +46,13 @@ export const serviceSchema = defineType({
       name: 'badgeText',
       title: 'Category Badge Text',
       type: 'string',
+      group: 'main',
     }),
     defineField({
       name: 'shortDescription',
       title: 'Short Subtitle',
       type: 'text',
+      group: 'main',
       rows: 2,
     }),
 
@@ -48,6 +61,7 @@ export const serviceSchema = defineType({
       name: 'hero',
       title: 'Hero / Intro Section',
       type: 'object',
+      group: 'hero',
       fields: [
         defineField({ name: 'title', title: 'Hero Main Title', type: 'string' }),
         defineField({ name: 'subtitle', title: 'Hero Subtitle', type: 'string' }),
@@ -60,6 +74,11 @@ export const serviceSchema = defineType({
       name: 'serviceOverview',
       title: 'Service Overview Section',
       type: 'object',
+      group: 'hero',
+      hidden: ({ document }) => {
+        const slug = document?.slug?.current || '';
+        return slug === 'custom-software-development';
+      },
       fields: [
         defineField({ name: 'label', title: 'Section Label', type: 'string' }),
         defineField({ name: 'titleMain', title: 'Title Main', type: 'string' }),
@@ -67,14 +86,21 @@ export const serviceSchema = defineType({
         defineField({ name: 'titleEnd', title: 'Title End', type: 'string' }),
         defineField({ name: 'description', title: 'Overview Description', type: 'text' }),
         defineField({ name: 'image', title: 'Section Image', type: 'image', options: { hotspot: true } }),
+        defineField({ name: 'imageUrl', title: 'Section Image URL', type: 'string' }),
       ],
     }),
 
     // Section 3: Capabilities (Slide-based)
     defineField({
       name: 'capabilitiesSection',
-      title: 'Capabilities Section',
+      title: 'Capabilities Section (Slide-based)',
       type: 'object',
+      group: 'content',
+      hidden: ({ document }) => {
+        const slug = document?.slug?.current || '';
+        const pagesWithCapabilities = ['custom-software-development', 'azure', 'cloud-migration', 'dedicated-teams', 'mobile-app-development', 'proof-of-concept-development', 'salesforce', 'web-app-development'];
+        return !!slug && !pagesWithCapabilities.includes(slug);
+      },
       fields: [
         defineField({ name: 'title', title: 'Capabilities Title', type: 'string' }),
         defineField({ name: 'description', title: 'Capabilities Subhead', type: 'text' }),
@@ -90,6 +116,7 @@ export const serviceSchema = defineType({
                 defineField({ name: 'number', title: 'Index Code (e.g. < 01 >)', type: 'string' }),
                 defineField({ name: 'title', title: 'Slide Title', type: 'string' }),
                 defineField({ name: 'image', title: 'Slide Image', type: 'image' }),
+                defineField({ name: 'imageUrl', title: 'Slide Image URL', type: 'string' }),
                 defineField({
                   name: 'items',
                   title: 'Capability Bullet Points',
@@ -114,8 +141,14 @@ export const serviceSchema = defineType({
     // Section 4: Info Grid (Grid of key details)
     defineField({
       name: 'infoGrid',
-      title: 'Info Grid Section',
+      title: 'Info Grid Cards Section',
       type: 'object',
+      group: 'content',
+      hidden: ({ document }) => {
+        const slug = document?.slug?.current || '';
+        const pagesWithoutInfoGrid = ['custom-software-development', 'mobile-app-development'];
+        return !!slug && pagesWithoutInfoGrid.includes(slug);
+      },
       fields: [
         defineField({ name: 'label', title: 'Section Label', type: 'string' }),
         defineField({ name: 'titleAccent', title: 'Title Accent', type: 'string' }),
@@ -141,8 +174,13 @@ export const serviceSchema = defineType({
     // Section 5: Comparison Table (e.g. Custom vs Off-The-Shelf)
     defineField({
       name: 'comparisonTable',
-      title: 'Comparison Table Section',
+      title: 'Comparison Table Section (Custom vs SaaS)',
       type: 'object',
+      group: 'content',
+      hidden: ({ document }) => {
+        const slug = document?.slug?.current || '';
+        return !!slug && slug !== 'custom-software-development';
+      },
       fields: [
         defineField({ name: 'label', title: 'Section Label', type: 'string' }),
         defineField({ name: 'titleAccent', title: 'Title Accent', type: 'string' }),
@@ -164,12 +202,20 @@ export const serviceSchema = defineType({
           type: 'array',
           of: [
             {
+              name: 'comparisonRow',
+              title: 'Comparison Row',
               type: 'object',
               fields: [
                 defineField({ name: 'feature', title: 'Feature Title', type: 'string' }),
                 defineField({ name: 'custom', title: 'Custom Detail', type: 'text' }),
                 defineField({ name: 'offTheShelf', title: 'Off-The-Shelf Detail', type: 'text' }),
               ],
+              preview: {
+                select: {
+                  title: 'feature',
+                  subtitle: 'custom',
+                },
+              },
             },
           ],
         }),
@@ -181,63 +227,129 @@ export const serviceSchema = defineType({
       name: 'strategyCTA',
       title: 'Strategy Session CTA Banner',
       type: 'object',
+      group: 'process',
       fields: [
         defineField({ name: 'label', title: 'CTA Label', type: 'string' }),
         defineField({ name: 'titleMain', title: 'Title Main', type: 'string' }),
         defineField({ name: 'titleAccent', title: 'Title Accent', type: 'string' }),
         defineField({ name: 'titleEnd', title: 'Title End', type: 'string' }),
         defineField({ name: 'descriptionText', title: 'Description Text', type: 'text' }),
-        defineField({ name: 'image', title: 'CTA Image', type: 'image' }),
+        defineField({ name: 'buttonText', title: 'Button Text', type: 'string' }),
+        defineField({ name: 'buttonPath', title: 'Button Path / Link (e.g. #contact)', type: 'string' }),
+        defineField({ name: 'image', title: 'CTA Image', type: 'image', options: { hotspot: true } }),
+        defineField({ name: 'imageUrl', title: 'CTA Image URL', type: 'string' }),
       ],
     }),
 
     // Section 7: Service Features Grid
     defineField({
       name: 'serviceFeatures',
-      title: 'Service Features Grid',
+      title: 'Core Service Capabilities / Features Grid',
       type: 'object',
+      group: 'content',
+      hidden: ({ document }) => {
+        const slug = document?.slug?.current || '';
+        const pagesWithoutFeatures = ['custom-software-development', 'cloud-engineering', 'devops'];
+        return !!slug && pagesWithoutFeatures.includes(slug);
+      },
       fields: [
         defineField({ name: 'title', title: 'Features Section Title', type: 'string' }),
+        defineField({ name: 'description', title: 'Features Section Description', type: 'text' }),
         defineField({
           name: 'items',
           title: 'Feature Items',
           type: 'array',
           of: [
             {
+              name: 'featureItem',
+              title: 'Feature Item',
               type: 'object',
               fields: [
                 defineField({ name: 'title', title: 'Feature Title', type: 'string' }),
                 defineField({ name: 'description', title: 'Feature Description', type: 'text' }),
-                defineField({ name: 'icon', title: 'Icon Path / Name', type: 'string' }),
+                defineField({
+                  name: 'icon',
+                  title: 'Icon Selection',
+                  type: 'string',
+                  options: {
+                    list: [
+                      { title: 'Sphere Icon', value: '/industryicons/sphere.svg' },
+                      { title: 'Bipiramida Icon', value: '/industryicons/bipiramida.svg' },
+                      { title: 'Diamond Icon', value: '/industryicons/diamond.svg' },
+                      { title: 'Lens Blue Icon', value: '/industryicons/lens-blue-1.svg' },
+                      { title: 'Vector Icon', value: '/industryicons/vector-1.svg' },
+                    ],
+                  },
+                  initialValue: '/industryicons/sphere.svg',
+                }),
               ],
+              preview: {
+                select: {
+                  title: 'title',
+                  subtitle: 'description',
+                },
+              },
             },
           ],
         }),
       ],
     }),
 
-    // Section 8: Emerging Technologies Grid
+    // Section 8: Specialised Services / Emerging Technologies Grid
     defineField({
       name: 'emergingTech',
-      title: 'Emerging Technologies Section',
+      title: 'Specialised Services / Emerging Tech Grid (e.g. QA Services / AWS Stack)',
       type: 'object',
+      group: 'content',
+      hidden: ({ document }) => {
+        const slug = document?.slug?.current || '';
+        const pagesWithoutEmergingTech = ['custom-software-development', 'cloud-migration', 'dedicated-teams', 'proof-of-concept-development', 'salesforce'];
+        return !!slug && pagesWithoutEmergingTech.includes(slug);
+      },
       fields: [
         defineField({ name: 'label', title: 'Section Label', type: 'string' }),
         defineField({ name: 'titleAccent', title: 'Title Accent', type: 'string' }),
         defineField({ name: 'titleMain', title: 'Title Main', type: 'string' }),
         defineField({ name: 'description', title: 'Section Description', type: 'text' }),
+        defineField({ name: 'image', title: 'Section Image Asset', type: 'image', options: { hotspot: true } }),
+        defineField({ name: 'imageUrl', title: 'Section Image URL', type: 'string' }),
         defineField({
           name: 'items',
-          title: 'Technology Items',
+          title: 'Technology / Service Items',
           type: 'array',
           of: [
             {
+              name: 'techItem',
+              title: 'Tech Item',
               type: 'object',
               fields: [
-                defineField({ name: 'title', title: 'Tech Title', type: 'string' }),
-                defineField({ name: 'description', title: 'Tech Description', type: 'text' }),
-                defineField({ name: 'icon', title: 'Icon Type (e.g. enterprise, mobile, ecommerce)', type: 'string' }),
+                defineField({ name: 'title', title: 'Item Title', type: 'string' }),
+                defineField({ name: 'description', title: 'Item Description', type: 'text' }),
+                defineField({
+                  name: 'icon',
+                  title: 'Icon Selection',
+                  type: 'string',
+                  options: {
+                    list: [
+                      { title: 'Product (Parallelepipeds)', value: 'product' },
+                      { title: 'Enterprise (Bipiramida)', value: 'enterprise' },
+                      { title: 'HIPAA & Health', value: 'hipaa' },
+                      { title: 'SaaS & Cloud (Sphere)', value: 'saas' },
+                      { title: 'E-Commerce (Diamond)', value: 'ecommerce' },
+                      { title: 'Mobile & Startup', value: 'mobile' },
+                      { title: 'Legacy & Modernization (Tetris)', value: 'legacy' },
+                      { title: 'Third-Party Integration (Tetris 2)', value: 'thirdParty' },
+                    ],
+                  },
+                  initialValue: 'enterprise',
+                }),
               ],
+              preview: {
+                select: {
+                  title: 'title',
+                  subtitle: 'description',
+                },
+              },
             },
           ],
         }),
@@ -249,6 +361,7 @@ export const serviceSchema = defineType({
       name: 'deliverMVP',
       title: 'Why Choose Us / Deliver MVP Section',
       type: 'object',
+      group: 'process',
       fields: [
         defineField({ name: 'label', title: 'Section Label', type: 'string' }),
         defineField({ name: 'title', title: 'Main Title', type: 'string' }),
@@ -260,11 +373,19 @@ export const serviceSchema = defineType({
           type: 'array',
           of: [
             {
+              name: 'valuePoint',
+              title: 'Value Point',
               type: 'object',
               fields: [
                 defineField({ name: 'title', title: 'Value Title', type: 'string' }),
                 defineField({ name: 'description', title: 'Value Description', type: 'text' }),
               ],
+              preview: {
+                select: {
+                  title: 'title',
+                  subtitle: 'description',
+                },
+              },
             },
           ],
         }),
@@ -276,6 +397,7 @@ export const serviceSchema = defineType({
       name: 'processes',
       title: 'Engineering Process Phases Section',
       type: 'object',
+      group: 'process',
       fields: [
         defineField({ name: 'title', title: 'Process Title', type: 'string' }),
         defineField({
@@ -290,6 +412,8 @@ export const serviceSchema = defineType({
           type: 'array',
           of: [
             {
+              name: 'processPhase',
+              title: 'Process Phase',
               type: 'object',
               fields: [
                 defineField({ name: 'id', title: 'Phase Step Number', type: 'number' }),
@@ -302,15 +426,29 @@ export const serviceSchema = defineType({
                   type: 'array',
                   of: [
                     {
+                      name: 'phaseFeature',
+                      title: 'Phase Feature',
                       type: 'object',
                       fields: [
                         defineField({ name: 'title', title: 'Feature Title', type: 'string' }),
                         defineField({ name: 'description', title: 'Feature Description', type: 'text' }),
                       ],
+                      preview: {
+                        select: {
+                          title: 'title',
+                          subtitle: 'description',
+                        },
+                      },
                     },
                   ],
                 }),
               ],
+              preview: {
+                select: {
+                  title: 'title',
+                  subtitle: 'phase',
+                },
+              },
             },
           ],
         }),
@@ -319,16 +457,60 @@ export const serviceSchema = defineType({
 
     // Section 11: Service FAQs
     defineField({
+      name: 'relatedServices',
+      title: 'Related Services / Engineering Capabilities',
+      type: 'object',
+      group: 'content',
+      fields: [
+        defineField({ name: 'title', title: 'Section Title', type: 'string' }),
+        defineField({ name: 'sectionLabel', title: 'Section Label', type: 'string' }),
+        defineField({
+          name: 'items',
+          title: 'Related Service Cards',
+          type: 'array',
+          of: [
+            {
+              name: 'relatedServiceCard',
+              title: 'Related Service Card',
+              type: 'object',
+              fields: [
+                defineField({ name: 'title', title: 'Service Title', type: 'string' }),
+                defineField({ name: 'description', title: 'Service Description', type: 'text' }),
+                defineField({ name: 'link', title: 'URL Link (e.g. /services/custom-software-development)', type: 'string' }),
+              ],
+              preview: {
+                select: {
+                  title: 'title',
+                  subtitle: 'link',
+                },
+              },
+            },
+          ],
+        }),
+      ],
+    }),
+
+    // Section 12: Service FAQs
+    defineField({
       name: 'faqs',
       title: 'Service FAQs',
       type: 'array',
+      group: ['content', 'faqs'],
       of: [
         {
+          name: 'faqItem',
+          title: 'FAQ Item',
           type: 'object',
           fields: [
             defineField({ name: 'question', title: 'Question', type: 'string' }),
             defineField({ name: 'answer', title: 'Answer', type: 'text' }),
           ],
+          preview: {
+            select: {
+              title: 'question',
+              subtitle: 'answer',
+            },
+          },
         },
       ],
     }),
@@ -338,6 +520,7 @@ export const serviceSchema = defineType({
       name: 'seo',
       title: 'Page SEO Metadata',
       type: 'seo',
+      group: 'seo',
     }),
   ],
   preview: {

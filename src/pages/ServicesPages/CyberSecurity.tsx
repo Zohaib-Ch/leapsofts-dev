@@ -1,3 +1,5 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
@@ -6,7 +8,10 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
-import laptopImg from "../../assets/about_laptop_3d.png";
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
+const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
 
 const serviceOverviewData = {
     label: "CYBERSECURITY",
@@ -256,39 +261,163 @@ const introDescription = [
   { text: ", and continuous SOC security operations monitoring. By streamlining automated static code analysis, vulnerability assessments, and multi-region database encryption networks, we engineer secure systems constructed to repel intrusion events and enforce global compliance standards.", bold: false }
 ]
 
+import { getSanityServiceBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('cyber-security');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Cyber Security Services | Leapsofts",
+    defaultDescription: "Enterprise-grade cybersecurity services including penetration testing, zero-trust architecture & compliance. Leapsofts protects your digital assets. Get started.",
+    defaultKeywords: "cybersecurity services, penetration testing company, zero-trust security, enterprise security solutions, cybersecurity consulting",
+    canonicalUrl: "https://www.leapsofts.com/services/cyber-security",
+  });
+}
+
+
+
 const CyberSecurity: React.FC = () => {
+  const { data } = useServicePage('cyber-security');
+
+  const schemaData = buildServiceSchema({
+    name: "Cyber Security Services",
+    description: "Enterprise-grade cybersecurity services including penetration testing, zero-trust architecture & compliance.",
+    canonicalUrl: "https://www.leapsofts.com/services/cyber-security",
+    faqs: data?.faqs,
+  });
+
+  
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || (typeof infoGridData !== 'undefined' ? infoGridData.label : ''),
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof infoGridData !== 'undefined' ? infoGridData.title : ''),
+        description: data.infoGrid.description || (typeof infoGridData !== 'undefined' ? infoGridData.description : ''),
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof infoGridData !== 'undefined' ? infoGridData : { items: [] });
+
+  
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || (typeof cyberSecurityData !== 'undefined' ? cyberSecurityData.label : ''),
+        titleAccent: data.emergingTech.titleAccent || (typeof cyberSecurityData !== 'undefined' ? cyberSecurityData.titleAccent : ''),
+        titleMain: data.emergingTech.titleMain || (typeof cyberSecurityData !== 'undefined' ? cyberSecurityData.titleMain : ''),
+        description: data.emergingTech.description || (typeof cyberSecurityData !== 'undefined' ? cyberSecurityData.description : ''),
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof cyberSecurityData !== 'undefined' ? cyberSecurityData : { label: '', titleAccent: '', titleMain: '', description: '', items: [] });
+
+  
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.label : ''),
+        title: data.deliverMVP.title || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.title : ''),
+        accentText: data.deliverMVP.accentText || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.accentText : ''),
+        description: data.deliverMVP.description || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.description : ''),
+        items: data.deliverMVP.items || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.items : [])
+      }
+    : (typeof deliverMVPData !== 'undefined' ? deliverMVPData : { label: '', title: '', accentText: '', description: '', items: [] });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || serviceOverviewData.label,
+        titleMain: data.serviceOverview.titleMain || serviceOverviewData.titleMain,
+        titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
+        titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
+        description: data.serviceOverview.description || serviceOverviewData.description,
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath
+      }
+    : serviceOverviewData;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
             <IntroComponent
-                title={title}
-                description={subtitle}
-                introDescription={introDescription}
-            />
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
+      />
             <ServiceOverview
-                label={serviceOverviewData.label}
-                titleMain={serviceOverviewData.titleMain}
-                titleAccent={serviceOverviewData.titleAccent}
-                titleEnd={serviceOverviewData.titleEnd}
-                description={serviceOverviewData.description}
-                imagePath={serviceOverviewData.imagePath}
+                label={activeOverviewData?.label || serviceOverviewData.label}
+                titleMain={activeOverviewData?.titleMain || serviceOverviewData.titleMain}
+                titleAccent={activeOverviewData?.titleAccent || serviceOverviewData.titleAccent}
+                titleEnd={activeOverviewData?.titleEnd || serviceOverviewData.titleEnd}
+                description={activeOverviewData?.description || serviceOverviewData.description}
+                imagePath={activeOverviewData?.imagePath || serviceOverviewData.imagePath}
             />
-            <InfoGrid data={infoGridData} />
+            <InfoGrid data={activeInfoGridData} />
             <StreamlineSuccess
-                label="COMPLIMENTARY STRATEGY SESSION"
-                titleMain="Map your "
-                titleAccent="cybersecurity"
-                titleEnd=" roadmap."
-                description={streamlineDescription}
-                imageUrl="/streamline.png"
+                label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+                titleMain={data?.strategyCTA?.titleMain || "Map your "}
+                titleAccent={data?.strategyCTA?.titleAccent || "cybersecurity"}
+                titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+                description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+                buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+                buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+                imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
             />
             <ServiceFeatures
-                title='Expert Defensive Skills'
-                description='We deliver specialized security services to support your entire organization.'
-                items={serviceFeaturesData}
+                title={data?.serviceFeatures?.title || 'Expert Defensive Skills'}
+                description={data?.serviceFeatures?.description || 'We deliver specialized security services to support your entire organization.'}
+                items={data?.serviceFeatures?.items || serviceFeaturesData}
             />
-            <DeliverMVP data={deliverMVPData} />
-            <EmergingTech data={cyberSecurityData} />
-            <Processes title="OUR CUSTOM CYBERSECURITY PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+            <DeliverMVP data={activeDeliverMVPData} />
+            <EmergingTech data={activeEmergingTechData} />
+            <Processes
+                title={data?.processes?.title || "OUR CUSTOM CYBERSECURITY PROCESS"}
+                processPhases={activeProcessPhases}
+                phaseLabels={activePhaseLabels}
+            />
+            <FAQs
+                title="Cyber Security & Compliance FAQ"
+                subtitle="Everything you need to know about penetration testing, SOC2/HIPAA compliance audits, Zero-Trust IAM, and SIEM monitoring."
+                faqs={data?.faqs} items={data?.faqs}
+            />
+            <RelatedServices
+                services={[
+                    {
+                        title: "Data Governance Services",
+                        description: "Establish zero-trust data access controls, audit trails, and compliance management.",
+                        link: "/services/data-governance"
+                    },
+                    {
+                        title: "Cloud Engineering & Security",
+                        description: "Harden cloud networks, IAM roles, and infrastructure subnets on AWS, Azure & GCP.",
+                        link: "/services/cloud-engineering"
+                    },
+                    {
+                        title: "DevOps & DevSecOps",
+                        description: "Automate security scanning, static code analysis, and container vulnerability checks.",
+                        link: "/services/devops"
+                    }
+                ]}
+            />
         </>
     );
 };

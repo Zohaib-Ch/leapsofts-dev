@@ -1,17 +1,20 @@
 import styles from './about.module.css';
 import React, { useEffect, useRef, useState } from 'react';
 import laptopImg from '../../../assets/about_laptop_3d.webp';
+import { parseFormattedText, parseEmphasisText } from '../../../utils/textParser';
 
 export interface AboutProps {
     label?: string;
     headline?: string;
+    titleAccent?: string;
     descriptionText?: string;
     imageUrl?: string;
 }
 
 const About: React.FC<AboutProps> = ({
     label = "About Us",
-    headline = "Engineered for execution. Scale without friction.",
+    headline = "Engineered for <em>execution</em>. Scale without friction.",
+    titleAccent,
     descriptionText,
     imageUrl
 }) => {
@@ -61,6 +64,7 @@ const About: React.FC<AboutProps> = ({
     };
 
     const finalImage = imageUrl || laptopImg;
+    const descSegments = parseFormattedText(descriptionText || defaultAboutDescription);
 
     return (
         <section ref={sectionRef} className={styles.aboutSection}>
@@ -71,24 +75,16 @@ const About: React.FC<AboutProps> = ({
                     <div className={styles.brandContent}>
                         <span className={styles.label}>{label}</span>
                         <h2 className={styles.headline}>
-                            {headline.includes('execution') ? (
-                                <>Engineered for <em>execution</em>. Scale without friction.</>
-                            ) : (
-                                headline
-                            )}
+                            {parseEmphasisText(headline, titleAccent)}
                         </h2>
                         <p className={styles.description}>
-                            {descriptionText ? (
-                                descriptionText
-                            ) : (
-                                defaultAboutDescription.map((segment, index) => (
-                                    segment.bold ? (
-                                        <strong key={index}>{segment.text}</strong>
-                                    ) : (
-                                        <span key={index}>{segment.text}</span>
-                                    )
-                                ))
-                            )}
+                            {descSegments.map((segment, index) => (
+                                segment.bold ? (
+                                    <strong key={index}>{segment.text}</strong>
+                                ) : (
+                                    <span key={index}>{segment.text}</span>
+                                )
+                            ))}
                         </p>
                         <a href="#figures" className={styles.readMore}>
                             Read more

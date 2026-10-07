@@ -1,11 +1,14 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENTS TO REAL ESTATE LEADERS",
@@ -91,43 +94,119 @@ const streamlineDescription = [
 const title = "Real Estate Software Development, PropTech Solutions & Property Management Systems";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we architect highly performant, security-first ", bold: false },
-  { text: "PropTech platforms, smart building IoT networks, and automated HOA management ecosystems ", bold: true },
-  { text: "designed to streamline operations across expansive property portfolios. By deploying unified digital lease execution paths, automating subcontractor maintenance dispatches, and integrating robust tenant billing gateways, we empower asset owners and property managers to maximize occupancy and yields with absolute ease.", bold: false }
+  { text: "We deliver full-spectrum ", bold: false },
+  { text: "real estate software development, PropTech software solutions, and property management systems ", bold: true },
+  { text: "engineered for asset managers, real estate agencies, and property developers. By deploying automated lease execution paths, tenant portal mobile apps, and smart building IoT bridges, we optimize property yields and occupancy.", bold: false }
 ];
 
+import { getSanityIndustryBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('real-estate');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Real Estate Software Development Services | Leapsofts",
+    defaultDescription: "Custom real estate software — property listing platforms, CRM & investment analytics tools. Leapsofts builds proptech solutions for modern agencies. Get a quote.",
+    defaultKeywords: "real estate software development, proptech software company, property management software, MLS integration",
+    canonicalUrl: "https://www.leapsofts.com/industries/real-estate",
+  });
+}
+
+
+
 const RealEstate: React.FC = () => {
+  const { data } = useIndustryPage('real-estate');
+
+  const schemaData = buildServiceSchema({
+    name: "Real Estate Software Development Services",
+    description: "Custom real estate software — property listing platforms, CRM & investment analytics tools.",
+    canonicalUrl: "https://www.leapsofts.com/industries/real-estate",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+    ? {
+        subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
+        title: data.commitmentSection.title || commitmentData.title,
+        items: data.commitmentSection.items
+      }
+    : commitmentData;
+
+  const activeSolutionsData = (data?.solutionsSection && data.solutionsSection.items?.length)
+    ? {
+        label: data.solutionsSection.label || realEstateSolutionsData.label,
+        titleAccent: data.solutionsSection.titleAccent || realEstateSolutionsData.titleAccent,
+        titleMain: data.solutionsSection.titleMain || realEstateSolutionsData.titleMain,
+        description: data.solutionsSection.description || realEstateSolutionsData.description,
+        items: data.solutionsSection.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : realEstateSolutionsData;
+
+  const processTitleMain = data?.processHeader?.titleMain || "PropTech Software Engineering";
+  const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
   useEffect(() => {
     setProcessTitle({
-      titleMain: "Real Estate Tech Ecosystems",
-      titleAccent: "Process"
+      titleMain: processTitleMain,
+      titleAccent: processTitleAccent
     });
-  }, [setProcessTitle]);
+  }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
   return (
     <>
-      <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
-      />
-      <CommitmentSection data={commitmentData} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Property "
-        titleAccent="Strategy"
-        titleEnd=" Session"
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
+        titleMain={data?.strategyCTA?.titleMain || "Software "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
+        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <EmergingTech data={realEstateSolutionsData} />
+      <EmergingTech data={activeSolutionsData} />
       <Services
         label="OUR CAPABILITIES"
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" real estate businesses"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Web App Development",
+            description: "Engineer custom property listing portals and tenant management dashboards.",
+            link: "/services/web-app-development"
+          },
+          {
+            title: "Mobile App Development",
+            description: "Build iOS & Android mobile apps for tenant maintenance requests and digital keys.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Build tailored MLS integrations, lease execution engines, and HOA portals.",
+            link: "/services/custom-software-development"
+          }
+        ]}
       />
     </>
   );

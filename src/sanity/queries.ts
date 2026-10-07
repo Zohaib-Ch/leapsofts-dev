@@ -11,6 +11,13 @@ import type {
   SanityTeamMember,
 } from './types';
 
+// GROQ Query fragments
+const SEO_FRAGMENT = `seo {
+  ...,
+  "ogImageUrl": ogImage.asset->url,
+  "twitterImageUrl": twitterImage.asset->url
+}`;
+
 // GROQ Query strings
 export const HOME_PAGE_QUERY = `*[_type == "homePage"] | order(_updatedAt desc)[0]{
   hero,
@@ -18,6 +25,7 @@ export const HOME_PAGE_QUERY = `*[_type == "homePage"] | order(_updatedAt desc)[
   aboutUs {
     label,
     headline,
+    titleAccent,
     descriptionText,
     "imageUrl": image.asset->url,
     stats
@@ -46,7 +54,7 @@ export const HOME_PAGE_QUERY = `*[_type == "homePage"] | order(_updatedAt desc)[
     }
   },
   blogSection,
-  seo
+  ${SEO_FRAGMENT}
 }`;
 
 export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage" && (_id == "aboutPage" || _id == "drafts.aboutPage")] | order(_updatedAt desc)[0]{
@@ -89,7 +97,13 @@ export const CONTACT_PAGE_QUERY = `*[_type == "contactPage"][0]{
   offices,
   phones,
   email,
-  seo
+  ${SEO_FRAGMENT}
+}`;
+
+export const CASE_STUDIES_PAGE_QUERY = `*[_type == "caseStudiesPage" && (_id == "caseStudiesPage" || _id == "drafts.caseStudiesPage")] | order(_updatedAt desc)[0]{
+  hero,
+  cta,
+  ${SEO_FRAGMENT}
 }`;
 
 export const CASE_STUDIES_PAGE_QUERY = `*[_type == "caseStudiesPage" && (_id == "caseStudiesPage" || _id == "drafts.caseStudiesPage")] | order(_updatedAt desc)[0]{
@@ -105,10 +119,10 @@ export const ALL_SERVICES_QUERY = `*[_type == "service"]{
   category,
   badgeText,
   shortDescription,
-  seo
+  ${SEO_FRAGMENT}
 }`;
 
-export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && slug.current == $slug][0]{
+export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && (slug.current == $slug || _id == $slug || _id == "service-" + $slug || _id == "drafts.service-" + $slug)] | order(_updatedAt desc)[0]{
   _id,
   title,
   "slug": slug.current,
@@ -122,7 +136,7 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && slug.current == $s
     titleAccent,
     titleEnd,
     description,
-    "imageUrl": image.asset->url
+    "imageUrl": coalesce(imageUrl, image.asset->url)
   },
   capabilitiesSection {
     title,
@@ -131,26 +145,97 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && slug.current == $s
       id,
       number,
       title,
-      "imageUrl": image.asset->url,
+      "imageUrl": coalesce(imageUrl, image.asset->url),
       items
     }
   },
-  infoGrid,
-  comparisonTable,
+  infoGrid {
+    label,
+    titleAccent,
+    titleMain,
+    description,
+    items[] {
+      title,
+      description
+    }
+  },
+  comparisonTable {
+    label,
+    titleAccent,
+    titleMain,
+    description,
+    headers,
+    items[] {
+      feature,
+      custom,
+      offTheShelf
+    }
+  },
   strategyCTA {
     label,
     titleMain,
     titleAccent,
     titleEnd,
     descriptionText,
-    "imageUrl": image.asset->url
+    buttonText,
+    buttonPath,
+    "imageUrl": coalesce(imageUrl, image.asset->url)
   },
-  serviceFeatures,
-  emergingTech,
-  deliverMVP,
-  processes,
+  serviceFeatures {
+    title,
+    items[] {
+      title,
+      description,
+      icon
+    }
+  },
+  emergingTech {
+    label,
+    titleAccent,
+    titleMain,
+    description,
+    "imageUrl": coalesce(imageUrl, image.asset->url),
+    items[] {
+      title,
+      description,
+      icon
+    }
+  },
+  deliverMVP {
+    label,
+    title,
+    accentText,
+    description,
+    items[] {
+      title,
+      description
+    }
+  },
+  processes {
+    title,
+    phaseLabels,
+    processPhases[] {
+      id,
+      phase,
+      title,
+      description,
+      features[] {
+        title,
+        description
+      }
+    }
+  },
+  relatedServices {
+    title,
+    sectionLabel,
+    items[] {
+      title,
+      description,
+      link
+    }
+  },
   faqs,
-  seo
+  ${SEO_FRAGMENT}
 }`;
 
 export const ALL_INDUSTRIES_QUERY = `*[_type == "industry"]{
@@ -159,20 +244,62 @@ export const ALL_INDUSTRIES_QUERY = `*[_type == "industry"]{
   "slug": slug.current,
   badgeText,
   shortDescription,
-  seo
+  ${SEO_FRAGMENT}
 }`;
 
-export const INDUSTRY_BY_SLUG_QUERY = `*[_type == "industry" && slug.current == $slug][0]{
+export const INDUSTRY_BY_SLUG_QUERY = `*[_type == "industry" && (slug.current == $slug || _id == $slug || _id == "industry-" + $slug || _id == "drafts.industry-" + $slug)] | order(_updatedAt desc)[0]{
   _id,
   title,
   "slug": slug.current,
   badgeText,
   shortDescription,
+  hero,
+  commitmentSection {
+    subtitle,
+    title,
+    items[] {
+      title,
+      description,
+      icon
+    }
+  },
+  strategyCTA {
+    label,
+    titleMain,
+    titleAccent,
+    titleEnd,
+    descriptionText,
+    buttonText,
+    buttonPath,
+    "imageUrl": image.asset->url
+  },
+  solutionsSection {
+    label,
+    titleAccent,
+    titleMain,
+    description,
+    items[] {
+      title,
+      description,
+      icon
+    }
+  },
+  servicesSection,
+  processHeader,
+  relatedServices {
+    title,
+    sectionLabel,
+    items[] {
+      title,
+      description,
+      link
+    }
+  },
   whoWeServe,
   solutions,
   impactStats,
   faqs,
-  seo
+  ${SEO_FRAGMENT}
 }`;
 
 export const ALL_CASE_STUDIES_QUERY = `*[_type == "caseStudy"]{
@@ -335,9 +462,9 @@ export async function getSanityHomePage(): Promise<SanityHomePage | null> {
   }
 }
 
-export async function getSanityAboutPage(): Promise<SanityAboutPage | null> {
+export async function getSanityAboutPage(id: string = 'aboutPage'): Promise<SanityAboutPage | null> {
   try {
-    const res = await client.fetch(ABOUT_PAGE_QUERY);
+    const res = await client.fetch(ABOUT_PAGE_QUERY, { id });
     return res || null;
   } catch (e) {
     return null;

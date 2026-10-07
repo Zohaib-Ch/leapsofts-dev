@@ -1,11 +1,14 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO WHOLESALE AND RETAIL",
@@ -90,43 +93,119 @@ const streamlineDescription = [
 const title = "Wholesale & Retail Software Development, Omnichannel E-commerce & Smart Logistics";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we engineer highly performant, security-first ", bold: false },
-  { text: "wholesale distribution systems, omnichannel retail engines, and multi-channel inventory management platforms ", bold: true },
-  { text: "tailored to clear supply chain complexities and expand profit margins. By integrating automated stock replenishment workflows, optimizing multi-warehouse coordinate routing, and deploying unified e-commerce checkout paths, we empower retail brands and wholesale distributors to achieve global scale with absolute operational efficiency.", bold: false }
+  { text: "We deliver cutting-edge ", bold: false },
+  { text: "retail software development, wholesale management software, and inventory management systems ", bold: true },
+  { text: "engineered to optimize supply chains and increase margins. By building automated stock replenishment workflows, multi-warehouse routing engines, and B2B portal integrations, we empower retailers and distributors to scale effortlessly.", bold: false }
 ];
 
+import { getSanityIndustryBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('wholesale-retail');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Retail & Wholesale Software Development | Leapsofts",
+    defaultDescription: "Custom retail & wholesale software — POS, inventory management & ecommerce platforms. Leapsofts modernizes operations for scaling retailers. Get a quote.",
+    defaultKeywords: "retail software development, wholesale management software, inventory management system, ecommerce software development",
+    canonicalUrl: "https://www.leapsofts.com/industries/wholesale-retail",
+  });
+}
+
+
+
 const WholesaleRetail: React.FC = () => {
+  const { data } = useIndustryPage('wholesale-retail');
+
+  const schemaData = buildServiceSchema({
+    name: "Retail & Wholesale Software Development",
+    description: "Custom retail & wholesale software — POS, inventory management & ecommerce platforms.",
+    canonicalUrl: "https://www.leapsofts.com/industries/wholesale-retail",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+    ? {
+        subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
+        title: data.commitmentSection.title || commitmentData.title,
+        items: data.commitmentSection.items
+      }
+    : commitmentData;
+
+  const activeSolutionsData = (data?.solutionsSection && data.solutionsSection.items?.length)
+    ? {
+        label: data.solutionsSection.label || retailSolutionsData.label,
+        titleAccent: data.solutionsSection.titleAccent || retailSolutionsData.titleAccent,
+        titleMain: data.solutionsSection.titleMain || retailSolutionsData.titleMain,
+        description: data.solutionsSection.description || retailSolutionsData.description,
+        items: data.solutionsSection.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : retailSolutionsData;
+
+  const processTitleMain = data?.processHeader?.titleMain || "E-Commerce Software Engineering";
+  const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
   useEffect(() => {
     setProcessTitle({
-      titleMain: "Retail & Commerce Platforms",
-      titleAccent: "Process"
+      titleMain: processTitleMain,
+      titleAccent: processTitleAccent
     });
-  }, [setProcessTitle]);
+  }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
   return (
     <>
-      <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
-      />
-      <CommitmentSection data={commitmentData} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Retail "
-        titleAccent="Strategy"
-        titleEnd=" Session"
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
+        titleMain={data?.strategyCTA?.titleMain || "Software "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
+        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <EmergingTech data={retailSolutionsData} />
+      <EmergingTech data={activeSolutionsData} />
       <Services
         label="OUR CAPABILITIES"
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" retail businesses"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Shopify Store Development",
+            description: "Build custom Shopify themes and Hydrogen headless storefronts.",
+            link: "/services/shopify"
+          },
+          {
+            title: "Web App Development",
+            description: "Engineer custom B2B wholesale portals and inventory management dashboards.",
+            link: "/services/web-app-development"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Build bespoke supply chain management and logistics automation platforms.",
+            link: "/services/custom-software-development"
+          }
+        ]}
       />
     </>
   );

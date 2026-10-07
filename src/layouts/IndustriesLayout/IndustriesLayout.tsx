@@ -1,5 +1,5 @@
 import React, { useState} from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router'
 import Partners from '../../components/Partners/Partners'
 import IndustryProcess from '../../components/IndustryProcess/IndustryProcess'
 import Technologies from '../../components/Slider/Slider'

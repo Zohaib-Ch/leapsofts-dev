@@ -1,4 +1,6 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import React, { useEffect } from 'react'
+import styles from './partners.module.css'
 import PartnerHero from '../../components/PartnerHero/PartnerHero'
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
 import InfoGrid from '../../components/InfoGrid/InfoGrid'
@@ -6,99 +8,24 @@ import { type InfoGridProps } from '../../components/InfoGrid/InfoGrid'
 import ContactForm from '../../components/ContactForm/ContactForm'
 import Processes from '../../components/Processes/Processes'
 import { type ProcessPhase } from '../../components/Processes/Processes'
-import styles from './partners.module.css'
+import { getSanityAboutPage } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityAboutPage('aboutPage');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Strategic Technology Partnerships | Leapsofts",
+    defaultDescription: "Leapsofts partners with global technology leaders to deliver cutting-edge software solutions. Explore our strategic partnerships and certified alliances.",
+    defaultKeywords: "technology partnerships, software development partners, certified technology partner, strategic technology alliances",
+    canonicalUrl: "https://www.leapsofts.com/partners",
+  });
+}
 
 const Partners: React.FC = () => {
-  useEffect(() => {
-    // Set document title
-    const prevTitle = document.title;
-    document.title = 'Strategic Alliances & Software Partnerships | Leapsofts';
-
-    // Manage meta description
-    let metaDescription = document.querySelector('meta[name="description"]');
-    let prevDescription = '';
-    if (metaDescription) {
-      prevDescription = metaDescription.getAttribute('content') || '';
-      metaDescription.setAttribute('content', 'Discover premium strategic partnerships, custom software co-development models, and AI-driven enterprise software joint ventures with Leapsofts to accelerate business transformation.');
-    } else {
-      metaDescription = document.createElement('meta');
-      metaDescription.setAttribute('name', 'description');
-      metaDescription.setAttribute('content', 'Discover premium strategic partnerships, custom software co-development models, and AI-driven enterprise software joint ventures with Leapsofts to accelerate business transformation.');
-      document.head.appendChild(metaDescription);
-    }
-
-    // Manage meta keywords
-    let metaKeywords = document.querySelector('meta[name="keywords"]');
-    let prevKeywords = '';
-    if (metaKeywords) {
-      prevKeywords = metaKeywords.getAttribute('content') || '';
-      metaKeywords.setAttribute('content', 'software partnerships, strategic alliances, custom software co-delivery, enterprise software ventures, AI development partners, Leapsofts partnerships');
-    } else {
-      metaKeywords = document.createElement('meta');
-      metaKeywords.setAttribute('name', 'keywords');
-      metaKeywords.setAttribute('content', 'software partnerships, strategic alliances, custom software co-delivery, enterprise software ventures, AI development partners, Leapsofts partnerships');
-      document.head.appendChild(metaKeywords);
-    }
-
-    // Manage Open Graph Title
-    let ogTitle = document.querySelector('meta[property="og:title"]');
-    let prevOgTitle = '';
-    if (ogTitle) {
-      prevOgTitle = ogTitle.getAttribute('content') || '';
-      ogTitle.setAttribute('content', 'Strategic Alliances & Software Partnerships | Leapsofts');
-    } else {
-      ogTitle = document.createElement('meta');
-      ogTitle.setAttribute('property', 'og:title');
-      ogTitle.setAttribute('content', 'Strategic Alliances & Software Partnerships | Leapsofts');
-      document.head.appendChild(ogTitle);
-    }
-
-    // Manage Open Graph Description
-    let ogDesc = document.querySelector('meta[property="og:description"]');
-    let prevOgDesc = '';
-    if (ogDesc) {
-      prevOgDesc = ogDesc.getAttribute('content') || '';
-      ogDesc.setAttribute('content', 'Accelerate your digital evolution with Leapsofts strategic software alliances, mutual co-delivery, and advanced artificial intelligence partnerships.');
-    } else {
-      ogDesc = document.createElement('meta');
-      ogDesc.setAttribute('property', 'og:description');
-      ogDesc.setAttribute('content', 'Accelerate your digital evolution with Leapsofts strategic software alliances, mutual co-delivery, and advanced artificial intelligence partnerships.');
-      document.head.appendChild(ogDesc);
-    }
-
-    return () => {
-      document.title = prevTitle;
-      if (metaDescription) {
-        if (prevDescription) {
-          metaDescription.setAttribute('content', prevDescription);
-        } else {
-          metaDescription.remove();
-        }
-      }
-      if (metaKeywords) {
-        if (prevKeywords) {
-          metaKeywords.setAttribute('content', prevKeywords);
-        } else {
-          metaKeywords.remove();
-        }
-      }
-      if (ogTitle) {
-        if (prevOgTitle) {
-          ogTitle.setAttribute('content', prevOgTitle);
-        } else {
-          ogTitle.remove();
-        }
-      }
-      if (ogDesc) {
-        if (prevOgDesc) {
-          ogDesc.setAttribute('content', prevOgDesc);
-        } else {
-          ogDesc.remove();
-        }
-      }
-    };
-  }, []);
-
   const benefitsData: InfoGridProps['data'] = {
     label: 'BENEFITS',
     title: 'Simplified incentives, smarter tools, greater impact.',
@@ -250,16 +177,19 @@ const Partners: React.FC = () => {
           title="Strategic"
           description={[
             [
-              { text: "we empower organizations to achieve meaningful business transformation through ", bold: false },
-              { text: "AI-driven ", bold: true },
-              { text: "strategic partnerships and enterprise software development", bold: true },
-              { text: ". By combining advanced ", bold: false },
+              { text: "At Leapsofts, we empower organizations to achieve meaningful business transformation through ", bold: false },
+              { text: "strategic technology partnerships ", bold: true },
+              { text: "with AWS, Microsoft Azure, and Salesforce, alongside high-performance ", bold: false },
+              { text: "custom software development", bold: true },
+              { text: " and ", bold: false },
+              { text: "enterprise software engineering", bold: true },
+              { text: " co-delivery models. By combining advanced ", bold: false },
               { text: "artificial intelligence", bold: true },
               { text: ", ", bold: false },
-              { text: "custom software engineering", bold: true },
-              { text: ", and deep domain expertise, we help businesses design, build, and scale intelligent digital solutions that drive measurable impact.", bold: false },
+              { text: "cloud engineering", bold: true },
+              { text: ", and deep domain expertise, we help businesses design, build, and scale intelligent digital solutions.", bold: false },
             ],
-            "Our approach extends beyond traditional software development. With 2 decades of software experience, from strategy and architecture to development, integration, and continuous optimization, every solution is engineered to align with long-term business objectives.",
+            "Our collaborative ecosystem extends beyond traditional software outsourcing to deliver mutual growth, joint technological innovation, and scalable co-development models.",
           ]}
         />
       </div>

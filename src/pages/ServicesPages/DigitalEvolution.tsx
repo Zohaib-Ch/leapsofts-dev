@@ -1,3 +1,6 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { parseFormattedText } from '../../utils/textParser';
+import { useServicePage } from '../../hooks/useServicePage';
 import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
@@ -7,7 +10,9 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
-import laptopImg from "../../assets/about_laptop_3d.png";
+import FAQs from '../../components/FAQs/FAQs';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
+const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
 
 const serviceOverviewData = {
   label: "ENTERPRISE MODERNIZATION",
@@ -212,44 +217,168 @@ const title = "Digital Evolution, Legacy Modernization & Enterprise Systems Tran
 const subtitle = "";
 
 const introDescription = [
-  { text: "We orchestrate continuous technical and operational ", bold: false },
-  { text: "enterprise digital transformations", bold: true },
-  { text: ", decoupling obsolete monolithic core networks, modernizing high-latency data pathways, and automating customer-facing workflows. By combining distributed cloud-native microservices, deep analytics integrations, and robust security blueprints, we guide established enterprises through zero-downtime modernization processes that unlock sustained agility.", bold: false }
+  { text: "We deliver full-scale ", bold: false },
+  { text: "digital transformation services & digital evolution consulting ", bold: true },
+  { text: "to re-architect monolithic core networks, modernize data pathways, and automate customer-facing workflows. As an enterprise digital transformation partner, we build cloud-native microservices and intelligent process automations with zero business downtime.", bold: false }
 ];
 
+import { getSanityServiceBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('digital-evolution');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Digital Transformation Services | Leapsofts",
+    defaultDescription: "End-to-end digital transformation consulting & implementation. Leapsofts modernizes enterprise operations through technology strategy & AI adoption. Talk to us.",
+    defaultKeywords: "digital transformation services, digital evolution consulting, enterprise digital transformation, technology modernization",
+    canonicalUrl: "https://www.leapsofts.com/services/digital-evolution",
+  });
+}
+
+
+
 const DigitalEvolution: React.FC = () => {
+  const { data } = useServicePage('digital-evolution');
+
+  const schemaData = buildServiceSchema({
+    name: "Digital Transformation Services",
+    description: "End-to-end digital transformation consulting & implementation.",
+    canonicalUrl: "https://www.leapsofts.com/services/digital-evolution",
+    faqs: data?.faqs,
+  });
+
+  
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || (typeof digitalEvolutionProcessData !== 'undefined' ? digitalEvolutionProcessData.label : ''),
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof digitalEvolutionProcessData !== 'undefined' ? digitalEvolutionProcessData.title : ''),
+        description: data.infoGrid.description || (typeof digitalEvolutionProcessData !== 'undefined' ? digitalEvolutionProcessData.description : ''),
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof digitalEvolutionProcessData !== 'undefined' ? digitalEvolutionProcessData : { items: [] });
+
+  
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || (typeof emergingTechData !== 'undefined' ? emergingTechData.label : ''),
+        titleAccent: data.emergingTech.titleAccent || (typeof emergingTechData !== 'undefined' ? emergingTechData.titleAccent : ''),
+        titleMain: data.emergingTech.titleMain || (typeof emergingTechData !== 'undefined' ? emergingTechData.titleMain : ''),
+        description: data.emergingTech.description || (typeof emergingTechData !== 'undefined' ? emergingTechData.description : ''),
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof emergingTechData !== 'undefined' ? emergingTechData : { label: '', titleAccent: '', titleMain: '', description: '', items: [] });
+
+  
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.label : ''),
+        title: data.deliverMVP.title || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.title : ''),
+        accentText: data.deliverMVP.accentText || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.accentText : ''),
+        description: data.deliverMVP.description || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.description : ''),
+        items: data.deliverMVP.items || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.items : [])
+      }
+    : (typeof deliverMVPData !== 'undefined' ? deliverMVPData : { label: '', title: '', accentText: '', description: '', items: [] });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.label : ''),
+        titleMain: data.serviceOverview.titleMain || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleMain : ''),
+        titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
+        titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
+        description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
+        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+      }
+    : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
+  const activeServiceFeatures = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items
+    : serviceFeaturesData;
+
+  const strategyCTA = data?.strategyCTA;
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
-      <ServiceOverview
-        label={serviceOverviewData.label}
-        titleMain={serviceOverviewData.titleMain}
-        titleAccent={serviceOverviewData.titleAccent}
-        titleEnd={serviceOverviewData.titleEnd}
-        description={serviceOverviewData.description}
-        imagePath={serviceOverviewData.imagePath}
-      />
-      <InfoGrid data={digitalEvolutionProcessData} />
+      {activeOverviewData && (
+        <ServiceOverview
+          label={activeOverviewData.label}
+          titleMain={activeOverviewData.titleMain}
+          titleAccent={activeOverviewData.titleAccent}
+          titleEnd={activeOverviewData.titleEnd}
+          description={activeOverviewData.description}
+          imagePath={activeOverviewData.imagePath}
+        />
+      )}
+      <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="business transformation"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={strategyCTA?.titleMain || "Map your "}
+        titleAccent={strategyCTA?.titleAccent || "business transformation"}
+        titleEnd={strategyCTA?.titleEnd || " roadmap."}
+        description={strategyCTA?.descriptionText ? [{ text: strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={strategyCTA?.buttonText}
+        buttonPath={strategyCTA?.buttonPath}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Expert Services'
-        description='We deliver specialized digital services to support your entire organization.'
-        items={serviceFeaturesData}
+        title={data?.serviceFeatures?.title || 'Expert Services'}
+        description={data?.serviceFeatures?.description || 'We deliver specialized digital services to support your entire organization.'}
+        items={activeServiceFeatures}
       />
-      <DeliverMVP data={deliverMVPData} />
-      <EmergingTech data={emergingTechData} />
-      <Processes title="OUR CUSTOM DIGITAL EVOLUTION PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <EmergingTech data={activeEmergingTechData} />
+      <Processes title={data?.processes?.title || "OUR CUSTOM DIGITAL EVOLUTION PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <FAQs faqs={data?.faqs} items={data?.faqs} />
+      <RelatedServices
+        services={[
+          {
+            title: "Application Re-Engineering",
+            description: "Modernize monolithic legacy applications into decoupled cloud-native microservices.",
+            link: "/services/app-reengineering"
+          },
+          {
+            title: "Cloud Engineering & Architecture",
+            description: "Design resilient cloud infrastructure and high-availability server clusters on AWS & Azure.",
+            link: "/services/cloud-engineering"
+          },
+          {
+            title: "Data Science & AI Solutions",
+            description: "Embed machine learning algorithms and predictive telemetry into core workflows.",
+            link: "/services/data-science-ai"
+          }
+        ]}
+      />
     </>
   );
 };

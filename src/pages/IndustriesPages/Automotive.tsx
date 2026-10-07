@@ -1,5 +1,7 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection from '../../components/CommitmentSection/CommitmentSection';
@@ -8,6 +10,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech from '../../components/EmergingTech/EmergingTech';
 import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO AUTOMOTIVE",
@@ -93,43 +96,119 @@ const streamlineDescription = [
 const title = "Automotive Software Development, Connected Car Telematics & V2X IoT Systems";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we engineer highly performant, safety-critical ", bold: false },
-  { text: "automotive software architectures, high-telemetry connected car systems, and predictive manufacturing IoT portals ", bold: true },
-  { text: "designed to power the next generation of electric and autonomous vehicles. By integrating real-time vehicle-to-everything (V2X) messaging pipelines, compiling safety-compliant ADAS sensor suites, and constructing smart logistics trackers, we help global automotive manufacturers scale their operations with absolute precision and low-latency metrics delivery.", bold: false }
+  { text: "We deliver cutting-edge ", bold: false },
+  { text: "automotive software development services, dealer management software, and connected vehicle telematics ", bold: true },
+  { text: "engineered for auto manufacturers and EV fleet operators. By building real-time V2X messaging gateways, ADAS sensor integrations, and predictive factory IoT portals, we accelerate digital mobility across global supply chains.", bold: false }
 ];
 
+import { getSanityIndustryBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('automotive');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Automotive Software Development Services | Leapsofts",
+    defaultDescription: "Custom automotive software — dealer management, connected vehicle platforms & EV integration. Leapsofts builds next-gen digital solutions for the auto industry.",
+    defaultKeywords: "automotive software development, dealer management software, connected vehicle software, EV software development",
+    canonicalUrl: "https://www.leapsofts.com/industries/automotive",
+  });
+}
+
+
+
 const Automotive: React.FC = () => {
+  const { data } = useIndustryPage('automotive');
+
+  const schemaData = buildServiceSchema({
+    name: "Automotive Software Development Services",
+    description: "Custom automotive software — dealer management, connected vehicle platforms & EV integration.",
+    canonicalUrl: "https://www.leapsofts.com/industries/automotive",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+    ? {
+        subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
+        title: data.commitmentSection.title || commitmentData.title,
+        items: data.commitmentSection.items
+      }
+    : commitmentData;
+
+  const activeSolutionsData = (data?.solutionsSection && data.solutionsSection.items?.length)
+    ? {
+        label: data.solutionsSection.label || automotiveSolutionsData.label,
+        titleAccent: data.solutionsSection.titleAccent || automotiveSolutionsData.titleAccent,
+        titleMain: data.solutionsSection.titleMain || automotiveSolutionsData.titleMain,
+        description: data.solutionsSection.description || automotiveSolutionsData.description,
+        items: data.solutionsSection.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : automotiveSolutionsData;
+
+  const processTitleMain = data?.processHeader?.titleMain || "Automotive Product Development";
+  const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
   useEffect(() => {
     setProcessTitle({
-      titleMain: "Automotive Product Development",
-      titleAccent: "Process"
+      titleMain: processTitleMain,
+      titleAccent: processTitleAccent
     });
-  }, [setProcessTitle]);
+  }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
   return (
     <>
-      <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
-      />
-      <CommitmentSection data={commitmentData} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Automotive "
-        titleAccent="Strategy"
-        titleEnd=" Session"
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
+        titleMain={data?.strategyCTA?.titleMain || "Software "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
+        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <EmergingTech data={automotiveSolutionsData} />
+      <EmergingTech data={activeSolutionsData} />
       <Services
         label="OUR CAPABILITIES"
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" automotive businesses"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Custom Software Development",
+            description: "Engineer custom automotive telematics and enterprise IoT management dashboards.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Mobile App Development",
+            description: "Build connected iOS & Android driver companion mobile applications.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Cloud Engineering & Infrastructure",
+            description: "Architect low-latency IoT cloud gateways on AWS & Azure.",
+            link: "/services/cloud-engineering"
+          }
+        ]}
       />
     </>
   );

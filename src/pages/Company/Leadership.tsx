@@ -1,4 +1,6 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import React, { useEffect } from 'react';
+import styles from './Leadership.module.css';
 import { motion } from 'framer-motion';
 import {
   Users,
@@ -139,7 +141,10 @@ const cardChildVariant = {
   },
 };
 
+export { DEFAULT_LEADERSHIP_PAGE_DATA };
+
 const Leadership: React.FC = () => {
+  const loaderData = useLoaderData<typeof loader>();
   const { openContactModal } = useContactModal();
   const [sanityTeam, setSanityTeam] = React.useState<SanityTeamMember[] | null>(null);
 
@@ -188,6 +193,11 @@ const Leadership: React.FC = () => {
 
   return (
     <div className={styles.leadershipPage}>
+      <MetaSEO
+        seo={sanityPage?.seo}
+        defaultTitle="Executive Engineering Leadership | CEO Huzaifa Rasheed | Leapsofts"
+        defaultDescription="Meet the executive leaders, AI researchers, and cloud architects behind Leapsofts. Led by CEO & Co-Founder Huzaifa Rasheed, building custom enterprise software solutions."
+      />
       {/* Chapter 1: Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
@@ -197,12 +207,19 @@ const Leadership: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className={styles.label}>EXECUTIVE LEADERSHIP</span>
+            <span className={styles.label}>{sanityPage?.hero?.label || 'EXECUTIVE LEADERSHIP'}</span>
             <h1 className={styles.heroTitle}>
-              Led by <em>Founders & Architects</em>, Not Sales Reps
+              {renderFormattedTitle({
+                title: sanityPage?.hero?.title,
+                titleMain: (sanityPage?.hero as any)?.titleMain,
+                titleAccent: (sanityPage?.hero as any)?.titleAccent,
+                titleEnd: (sanityPage?.hero as any)?.titleEnd,
+                defaultAccentPhrase: 'Founders & Architects',
+                defaultTitle: <>Led by <em>Founders & Architects</em>, Not Sales Reps</>,
+              })}
             </h1>
             <p className={styles.heroSub}>
-              Direct strategic partnerships with technology founders, AI researchers, and cloud architects who have engineered over 100+ mission-critical enterprise systems.
+              {sanityPage?.hero?.subtitle || 'Direct strategic partnerships with global CTOs, software architects, and domain experts who have engineered over 100+ mission-critical custom enterprise systems.'}
             </p>
           </motion.div>
 
@@ -210,8 +227,7 @@ const Leadership: React.FC = () => {
             className={styles.ribbonGrid}
             variants={staggerContainer}
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            animate="visible"
           >
             {ribbonData.map((item, idx) => (
               <motion.div key={idx} className={styles.ribbonCard} variants={cardChildVariant}>

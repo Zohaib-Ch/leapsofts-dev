@@ -1,3 +1,6 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { parseFormattedText } from '../../utils/textParser';
+import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview'
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
@@ -6,7 +9,9 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures'
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP'
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes'
-import laptopImg from "../../assets/about_laptop_3d.png";
+import FAQs from '../../components/FAQs/FAQs';
+import RelatedServices from '../../components/RelatedServices/RelatedServices'
+const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
 
 const serviceOverviewData = {
   label: "SHOPIFY DEVELOPMENT",
@@ -252,44 +257,168 @@ const title = "Enterprise Headless Shopify Development & E-Commerce Engineering"
 const subtitle = "";
 
 const introDescription = [
-  { text: "We engineer highly optimized, high-converting ", bold: false },
-  { text: "headless Shopify storefronts using Hydrogen & Oxygen", bold: true },
-  { text: ", custom private App installations, and secure ERP/inventory integrations. By leveraging advanced Liquid customizations, Shopify Plus API layers, and secure payment pathways, we deliver fast, conversion-optimized e-commerce sites constructed for heavy transactional loads.", bold: false }
+  { text: "As a leading ", bold: false },
+  { text: "Shopify development company & eCommerce engineering partner", bold: true },
+  { text: ", we build custom Shopify themes, Hydrogen & Oxygen headless storefronts, private app integrations, and zero-downtime database migrations. We help retail brands engineer high-converting, lightning-fast digital storefronts.", bold: false }
 ]
 
+import { getSanityServiceBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('shopify');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Shopify Development Services | Leapsofts",
+    defaultDescription: "Expert Shopify store development, custom theme design & app integration. Leapsofts builds high-converting Shopify eCommerce stores. Start your project.",
+    defaultKeywords: "Shopify development company, Shopify store development, custom Shopify theme, Shopify ecommerce development",
+    canonicalUrl: "https://www.leapsofts.com/services/shopify",
+  });
+}
+
+
+
 const Shopify: React.FC = () => {
+  const { data } = useServicePage('shopify');
+
+  const schemaData = buildServiceSchema({
+    name: "Shopify Development Services",
+    description: "Expert Shopify store development, custom theme design & app integration.",
+    canonicalUrl: "https://www.leapsofts.com/services/shopify",
+    faqs: data?.faqs,
+  });
+
+  
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || (typeof infoGridData !== 'undefined' ? infoGridData.label : ''),
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof infoGridData !== 'undefined' ? infoGridData.title : ''),
+        description: data.infoGrid.description || (typeof infoGridData !== 'undefined' ? infoGridData.description : ''),
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof infoGridData !== 'undefined' ? infoGridData : { items: [] });
+
+  
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || (typeof emergingTechData !== 'undefined' ? emergingTechData.label : ''),
+        titleAccent: data.emergingTech.titleAccent || (typeof emergingTechData !== 'undefined' ? emergingTechData.titleAccent : ''),
+        titleMain: data.emergingTech.titleMain || (typeof emergingTechData !== 'undefined' ? emergingTechData.titleMain : ''),
+        description: data.emergingTech.description || (typeof emergingTechData !== 'undefined' ? emergingTechData.description : ''),
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof emergingTechData !== 'undefined' ? emergingTechData : { label: '', titleAccent: '', titleMain: '', description: '', items: [] });
+
+  
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.label : ''),
+        title: data.deliverMVP.title || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.title : ''),
+        accentText: data.deliverMVP.accentText || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.accentText : ''),
+        description: data.deliverMVP.description || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.description : ''),
+        items: data.deliverMVP.items || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.items : [])
+      }
+    : (typeof deliverMVPData !== 'undefined' ? deliverMVPData : { label: '', title: '', accentText: '', description: '', items: [] });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.label : ''),
+        titleMain: data.serviceOverview.titleMain || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleMain : ''),
+        titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
+        titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
+        description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
+        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+      }
+    : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
+  const activeServiceFeatures = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items
+    : serviceFeaturesData;
+
+  const strategyCTA = data?.strategyCTA;
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
-      <ServiceOverview
-        label={serviceOverviewData.label}
-        titleMain={serviceOverviewData.titleMain}
-        titleAccent={serviceOverviewData.titleAccent}
-        titleEnd={serviceOverviewData.titleEnd}
-        description={serviceOverviewData.description}
-        imagePath={serviceOverviewData.imagePath}
-      />
-      <InfoGrid data={infoGridData} />
+      {activeOverviewData && (
+        <ServiceOverview
+          label={activeOverviewData.label}
+          titleMain={activeOverviewData.titleMain}
+          titleAccent={activeOverviewData.titleAccent}
+          titleEnd={activeOverviewData.titleEnd}
+          description={activeOverviewData.description}
+          imagePath={activeOverviewData.imagePath}
+        />
+      )}
+      <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="e-commerce"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={strategyCTA?.titleMain || "Map your "}
+        titleAccent={strategyCTA?.titleAccent || "e-commerce"}
+        titleEnd={strategyCTA?.titleEnd || " roadmap."}
+        description={strategyCTA?.descriptionText ? [{ text: strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={strategyCTA?.buttonText}
+        buttonPath={strategyCTA?.buttonPath}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Expert E-comm Skills'
-        description='Our teams bring deep expertise in Shopify and modern e-commerce architectures.'
-        items={serviceFeaturesData}
+        title={data?.serviceFeatures?.title || 'Expert E-comm Skills'}
+        description={data?.serviceFeatures?.description || 'Our teams bring deep expertise in Shopify and modern e-commerce architectures.'}
+        items={activeServiceFeatures}
       />
-      <DeliverMVP data={deliverMVPData} />
-      <EmergingTech data={emergingTechData} />
-      <Processes title="OUR CUSTOM SHOPIFY DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <EmergingTech data={activeEmergingTechData} />
+      <Processes title={data?.processes?.title || "OUR CUSTOM SHOPIFY DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <FAQs faqs={data?.faqs} items={data?.faqs} />
+      <RelatedServices
+        services={[
+          {
+            title: "Web App Development",
+            description: "Build scalable web applications and custom merchant admin portals.",
+            link: "/services/web-app-development"
+          },
+          {
+            title: "Mobile App Development",
+            description: "Engineer native iOS & Android shopping applications for mobile commerce.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Salesforce Development & CRM Integration",
+            description: "Sync your Shopify store with Salesforce Sales & Marketing Clouds.",
+            link: "/services/salesforce"
+          }
+        ]}
+      />
     </>
   )
 }

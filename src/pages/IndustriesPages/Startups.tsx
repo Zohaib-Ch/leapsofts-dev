@@ -1,5 +1,7 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection from '../../components/CommitmentSection/CommitmentSection';
@@ -8,6 +10,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech from '../../components/EmergingTech/EmergingTech';
 import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO STARTUPS",
@@ -98,38 +101,115 @@ const introDescription = [
   { text: "designed to take disruptive ideas to market in record time. By establishing rapid prototyping sandboxes, designing cost-efficient serverless infrastructures, and building pitch-perfect interactive demonstrations, we provide early-stage and high-growth startups with the technical agility required to validate ideas and secure investor funding.", bold: false }
 ];
 
+import { getSanityIndustryBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('startups');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Software Development for Startups | Leapsofts",
+    defaultDescription: "Launch your startup MVP in 3-5 months with Leapsofts. Expert custom software engineering, product strategy & scalable architecture for venture-backed teams.",
+    defaultKeywords: "software development for startups, startup MVP development, tech startup software company, MVP developers for startups",
+    canonicalUrl: "https://www.leapsofts.com/industries/startups",
+  });
+}
+
+
+
 const Startups: React.FC = () => {
+  const { data } = useIndustryPage('startups');
+
+  const schemaData = buildServiceSchema({
+    name: "Software Development for Startups",
+    description: "Launch your startup MVP in 3-5 months with Leapsofts.",
+    canonicalUrl: "https://www.leapsofts.com/industries/startups",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+    ? {
+        subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
+        title: data.commitmentSection.title || commitmentData.title,
+        items: data.commitmentSection.items
+      }
+    : commitmentData;
+
+  const activeSolutionsData = (data?.solutionsSection && data.solutionsSection.items?.length)
+    ? {
+        label: data.solutionsSection.label || startupSolutionsData.label,
+        titleAccent: data.solutionsSection.titleAccent || startupSolutionsData.titleAccent,
+        titleMain: data.solutionsSection.titleMain || startupSolutionsData.titleMain,
+        description: data.solutionsSection.description || startupSolutionsData.description,
+        items: data.solutionsSection.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : startupSolutionsData;
+
+  const processTitleMain = data?.processHeader?.titleMain || "High-Velocity MVP Engineering";
+  const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
   useEffect(() => {
     setProcessTitle({
-      titleMain: "Startup Product Development",
-      titleAccent: "Process"
+      titleMain: processTitleMain,
+      titleAccent: processTitleAccent
     });
-  }, [setProcessTitle]);
+  }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
   return (
     <>
-      <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
-      />
-      <CommitmentSection data={commitmentData} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Startup "
-        titleAccent="Strategy"
-        titleEnd=" Session"
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
+        titleMain={data?.strategyCTA?.titleMain || "Software "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
+        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <EmergingTech data={startupSolutionsData} />
+      <EmergingTech data={activeSolutionsData} />
       <Services
         label="OUR CAPABILITIES"
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" disruptive startups"
+      />
+      <RelatedServices
+        title="Recommended Services for Startups"
+        services={[
+          {
+            title: "Proof of Concept & MVP Development",
+            description: "Launch your validated product in 3-5 months with zero compromise on scalability.",
+            link: "/services/proof-of-concept-development"
+          },
+          {
+            title: "Custom Web App Development",
+            description: "Build high-performance SaaS web applications designed for rapid investor scaling.",
+            link: "/services/web-app-development"
+          },
+          {
+            title: "Dedicated Development Teams",
+            description: "Scale your engineering capacity instantly with embedded senior developers.",
+            link: "/services/dedicated-teams"
+          }
+        ]}
       />
     </>
   );

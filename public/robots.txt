@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /api/
+Disallow: /studio/
+
+Host: https://www.leapsofts.com
+Sitemap: https://www.leapsofts.com/sitemap.xml
+

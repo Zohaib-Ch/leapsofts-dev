@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getSanityCaseStudies } from '../../sanity/queries';
 import 'swiper/css';

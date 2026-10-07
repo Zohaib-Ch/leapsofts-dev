@@ -1,11 +1,14 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO CONSTRUCTION SUCCESS",
@@ -91,43 +94,119 @@ const streamlineDescription = [
 const title = "Construction Software Development, Offline-First Field Apps & BIM Integrations";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we engineer highly robust, safety-centric ", bold: false },
-  { text: "construction management platforms, offline-first field logging systems, and intelligent BIM telemetry connectors ", bold: true },
-  { text: "designed to provide total visibility across complex job sites and high-stakes projects. By automating subcontractor task dispatches, deploying real-time fleet utilization trackers, and integrating secure payment checkpoints, we help builders scale operations, control budget leakages, and guarantee safety standard compliance.", bold: false }
+  { text: "We deliver full-scale ", bold: false },
+  { text: "construction software development, construction management software, and offline-first field apps ", bold: true },
+  { text: "engineered to provide total visibility across complex job sites. By automating subcontractor task dispatches, integrating BIM 3D models, and deploying IoT equipment telemetry, we help builders prevent budget leaks and ensure safety compliance.", bold: false }
 ];
 
+import { getSanityIndustryBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('construction');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Construction Software Development Services | Leapsofts",
+    defaultDescription: "Custom construction management software — project tracking, estimating & BIM integration. Leapsofts builds digital tools for modern construction firms. Get started.",
+    defaultKeywords: "construction software development, construction management software, project management software construction",
+    canonicalUrl: "https://www.leapsofts.com/industries/construction",
+  });
+}
+
+
+
 const Construction: React.FC = () => {
+  const { data } = useIndustryPage('construction');
+
+  const schemaData = buildServiceSchema({
+    name: "Construction Software Development Services",
+    description: "Custom construction management software — project tracking, estimating & BIM integration.",
+    canonicalUrl: "https://www.leapsofts.com/industries/construction",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+    ? {
+        subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
+        title: data.commitmentSection.title || commitmentData.title,
+        items: data.commitmentSection.items
+      }
+    : commitmentData;
+
+  const activeSolutionsData = (data?.solutionsSection && data.solutionsSection.items?.length)
+    ? {
+        label: data.solutionsSection.label || constructionSolutionsData.label,
+        titleAccent: data.solutionsSection.titleAccent || constructionSolutionsData.titleAccent,
+        titleMain: data.solutionsSection.titleMain || constructionSolutionsData.titleMain,
+        description: data.solutionsSection.description || constructionSolutionsData.description,
+        items: data.solutionsSection.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : constructionSolutionsData;
+
+  const processTitleMain = data?.processHeader?.titleMain || "Construction Product Development";
+  const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
   useEffect(() => {
     setProcessTitle({
-      titleMain: "Construction Management Software",
-      titleAccent: "Process"
+      titleMain: processTitleMain,
+      titleAccent: processTitleAccent
     });
-  }, [setProcessTitle]);
+  }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
   return (
     <>
-      <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
-      />
-      <CommitmentSection data={commitmentData} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Project "
-        titleAccent="Strategy"
-        titleEnd=" Session"
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
+        titleMain={data?.strategyCTA?.titleMain || "Software "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
+        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <EmergingTech data={constructionSolutionsData} />
+      <EmergingTech data={activeSolutionsData} />
       <Services
         label="OUR CAPABILITIES"
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" construction businesses"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Mobile App Development",
+            description: "Engineer offline-first mobile apps for construction site crews and inspectors.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Build bespoke construction ERP tools, subcontractor bidding engines, and portals.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Cloud Engineering & Infrastructure",
+            description: "Deploy scalable cloud databases to handle IoT equipment telemetry streams.",
+            link: "/services/cloud-engineering"
+          }
+        ]}
       />
     </>
   );

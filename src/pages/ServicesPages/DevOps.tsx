@@ -1,3 +1,5 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useServicePage } from '../../hooks/useServicePage';
 import React from 'react';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
@@ -7,67 +9,70 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes from '../../components/Processes/Processes';
 import { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
 
 const servicesData: EmergingTechProps['data'] = {
-    label: "DEVOPS SERVICES",
-    titleMain: "Continuous Delivery",
-    titleAccent: "Capabilities",
-    description: "We provide comprehensive DevOps solutions to automate your infrastructure, streamline delivery, and ensure high availability.",
+    label: "DEVOPS SERVICES & AUTOMATION CAPABILITIES",
+    titleAccent: "DevOps Solutions & ",
+    titleMain: "Continuous Integration",
+    description: "We provide end-to-end DevOps consulting and automation services to provision infrastructure as code, build CI/CD pipelines, and guarantee high-availability cloud releases.",
     items: [
         {
             icon: "enterprise" as const,
-            title: "Infrastructure as Code (IaC)",
-            description: "Writing reusable, modular Terraform or Pulumi scripts to provision secure, version-controlled cloud environments."
+            title: "Infrastructure as Code (IaC) & Terraform",
+            description: "Writing reusable, version-controlled Terraform, Pulumi, and AWS CloudFormation templates to automate cloud infrastructure provisioning."
         },
         {
             icon: "saas" as const,
-            title: "Automated CI/CD Pipelines",
-            description: "Structuring robust release tracks using GitHub Actions, GitLab CI, or Jenkins to test, build, and deploy code automatically."
+            title: "Automated CI/CD Pipeline Engineering",
+            description: "Structuring automated build, test, and deployment tracks using GitHub Actions, GitLab CI, Jenkins, and Azure DevOps pipelines."
         },
         {
             icon: "enterprise" as const,
-            title: "Container Orchestration",
-            description: "Configuring high-availability Kubernetes or Docker Swarm clusters to run, scale, and manage application containers seamlessly."
+            title: "Kubernetes & Container Orchestration",
+            description: "Deploying high-availability Kubernetes clusters (AWS EKS, Azure AKS, GCP GKE) with automated pod scaling, Helm charts, and ingress controllers."
         },
         {
             icon: "saas" as const,
-            title: "Logs Observability & Telemetry",
-            description: "Deploying comprehensive monitoring suites via Prometheus, Grafana, and ELK to collect, query, and alert on system performance metrics."
+            title: "Prometheus & Grafana Telemetry",
+            description: "Deploying full-stack observability suites using Prometheus, Grafana, and Datadog to capture real-time latency, error rates, and CPU metrics."
         },
         {
             icon: "thirdParty" as const,
-            title: "DevSecOps Security Audits",
-            description: "Integrating static codebase scans (SAST via SonarQube) and automated container vulnerability audits into active CI/CD pipelines."
+            title: "DevSecOps Security & Vulnerability Audits",
+            description: "Integrating static code analysis (SAST via SonarQube), dependency scanners, and container image vulnerability audits into commit loops."
         },
         {
             icon: "legacy" as const,
-            title: "Global Configuration Management",
-            description: "Automating server provisioning and configuration updates across dynamic clusters using Ansible, Chef, or Puppet scripts."
+            title: "Automated Configuration Management",
+            description: "Automating server node setups, patch distributions, and cluster configuration syncs using Ansible, Chef, and Puppet scripts."
         }
     ]
 };
 
 const deliverMVPData = {
-    label: "DEVOPS EXCELLENCE",
-    title: "Our Commitment to Deliver Your DevOps Infrastructure in",
-    accentText: "3-5 months?",
-    description: "Leapsofts is a leading DevOps and continuous delivery systems consulting partner. By combining fully integrated automated tooling, certified systems architects, and dedicated DevOps engineers, we build, secure, and deliver enterprise-ready release infrastructures within an accelerated 3 to 5 month timeline—on time, every time.",
+    label: "DEVOPS AUTOMATION EXCELLENCE",
+    title: "Build & Deploy Your Production DevOps Infrastructure in",
+    accentText: "3-5 months",
+    description: "Leapsofts is a premier DevOps services and CI/CD consulting company. Combining certified DevOps architects, pre-tested Terraform modules, and automated pipeline scripts, we engineer production-ready deployment environments within 3 to 5 months.",
     items: [
         {
-            title: "Declarative IaC Blueprints.",
-            description: "Building secure, repeatable staging and production environments using modular Terraform and Pulumi code."
+            title: "Modular IaC Templates.",
+            description: "Provisioning reproducible staging and production cloud environments using modular Terraform and Pulumi code repositories."
         },
         {
-            title: "GitLab CI/CD Run gates.",
-            description: "Structuring robust automated testing pipelines, code quality checks, and container image scans."
+            title: "GitLab/GitHub Run Gates.",
+            description: "Structuring automated unit testing runs, SonarQube static code checks, and Docker container vulnerability scans."
         },
         {
-            title: "Kubernetes Orchestrations.",
-            description: "Deploying high-availability Amazon EKS clusters and automated scaling policies to handle traffic peaks."
+            title: "Kubernetes Auto-Scaling.",
+            description: "Deploying elastic Amazon EKS/Azure AKS clusters with Horizontal Pod Autoscalers (HPA) to absorb sudden traffic spikes."
         },
         {
-            title: "Prometheus Observabilities.",
-            description: "Setting up Prometheus latency logging, Grafana telemetry overlays, and real-time alert triggers."
+            title: "Real-Time Observability.",
+            description: "Configuring Prometheus metric collectors, Grafana dashboard overlays, and automated PagerDuty alert triggers."
         }
     ]
 };
@@ -198,38 +203,165 @@ const title = "Enterprise DevOps Automation, Continuous Delivery & Infrastructur
 const subtitle = "";
 
 const introDescription = [
-  { text: "We deliver advanced DevOps engineering, automated ", bold: false },
+  { text: "We provide end-to-end ", bold: false },
+  { text: "DevOps services & consulting ", bold: true },
+  { text: "to accelerate continuous integration and software delivery. As a top DevOps automation company, we build automated ", bold: false },
   { text: "CI/CD release pipelines", bold: true },
-  { text: ", and secure infrastructure-as-code (IaC) architectures. By integrating container orchestration systems, active telemetry monitors, and automated security scans, we empower software teams to deploy clean, high-performance features with zero operational friction.", bold: false }
+  { text: ", Kubernetes container orchestrations, and Terraform infrastructure-as-code (IaC) solutions designed to eliminate release friction and maintain 99.99% operational uptime.", bold: false }
 ];
 
+import { getSanityServiceBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('devops');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "DevOps Services & Consulting | Leapsofts",
+    defaultDescription: "Accelerate software delivery with expert DevOps services. Leapsofts implements CI/CD pipelines, container orchestration & monitoring for enterprises. Talk to us.",
+    defaultKeywords: "DevOps services, DevOps consulting, CI/CD pipeline development, Kubernetes DevOps, DevOps automation",
+    canonicalUrl: "https://www.leapsofts.com/services/devops",
+  });
+}
+
+
+
 const DevOps: React.FC = () => {
+  const { data } = useServicePage('devops');
+
+  const schemaData = buildServiceSchema({
+    name: "DevOps Services & Consulting",
+    description: "Accelerate software delivery with expert DevOps services. Leapsofts implements CI/CD pipelines.",
+    canonicalUrl: "https://www.leapsofts.com/services/devops",
+    faqs: data?.faqs,
+  });
+
+  
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || (typeof strategyData !== 'undefined' ? strategyData.label : ''),
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof strategyData !== 'undefined' ? strategyData.title : ''),
+        description: data.infoGrid.description || (typeof strategyData !== 'undefined' ? strategyData.description : ''),
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof strategyData !== 'undefined' ? strategyData : { items: [] });
+
+  
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || (typeof servicesData !== 'undefined' ? servicesData.label : ''),
+        titleAccent: data.emergingTech.titleAccent || (typeof servicesData !== 'undefined' ? servicesData.titleAccent : ''),
+        titleMain: data.emergingTech.titleMain || (typeof servicesData !== 'undefined' ? servicesData.titleMain : ''),
+        description: data.emergingTech.description || (typeof servicesData !== 'undefined' ? servicesData.description : ''),
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof servicesData !== 'undefined' ? servicesData : { label: '', titleAccent: '', titleMain: '', description: '', items: [] });
+
+  
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.label : ''),
+        title: data.deliverMVP.title || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.title : ''),
+        accentText: data.deliverMVP.accentText || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.accentText : ''),
+        description: data.deliverMVP.description || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.description : ''),
+        items: data.deliverMVP.items || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.items : [])
+      }
+    : (typeof deliverMVPData !== 'undefined' ? deliverMVPData : { label: '', title: '', accentText: '', description: '', items: [] });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || "DEVOPS ENGINEERING",
+        titleMain: data.serviceOverview.titleMain || "Maximize ",
+        titleAccent: data.serviceOverview.titleAccent || "Operational Agility ",
+        titleEnd: data.serviceOverview.titleEnd || "with DevOps",
+        description: data.serviceOverview.description || "At Leapsofts, we specialize in building highly resilient, secure DevOps environments designed to accelerate release cycles and eliminate build errors. By writing reusable Terraform modules, containerizing application nodes, and setting up automated testing check gates, our engineers transition development teams into high-velocity continuous deployment setups with maximum uptime.",
+        imagePath: data.serviceOverview.imageUrl || "/icons/images/cloud.webp"
+      }
+    : null;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
             <IntroComponent
-                title={title}
-                description={subtitle}
-                introDescription={introDescription}
-            />
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
+      />
             <ServiceOverview
-                titleMain="Maximize"
-                titleAccent='Operational Agility'
-                titleEnd='with DevOps'
-                description="At Leapsofts, we specialize in building highly resilient, secure DevOps environments designed to accelerate release cycles and eliminate build errors. By writing reusable Terraform modules, containerizing application nodes, and setting up automated testing check gates, our engineers transition development teams into high-velocity continuous deployment setups with maximum uptime."
-                imagePath="/icons/images/cloud.webp"
+                label={activeOverviewData?.label || "DEVOPS ENGINEERING"}
+                titleMain={activeOverviewData?.titleMain || "Maximize "}
+                titleAccent={activeOverviewData?.titleAccent || "Operational Agility "}
+                titleEnd={activeOverviewData?.titleEnd || "with DevOps"}
+                description={activeOverviewData?.description || "At Leapsofts, we specialize in building highly resilient, secure DevOps environments designed to accelerate release cycles and eliminate build errors. By writing reusable Terraform modules, containerizing application nodes, and setting up automated testing check gates, our engineers transition development teams into high-velocity continuous deployment setups with maximum uptime."}
+                imagePath={activeOverviewData?.imagePath || "/icons/images/cloud.webp"}
             />
-            <InfoGrid data={strategyData} />
+            <InfoGrid data={activeInfoGridData} />
             <StreamlineSuccess
-                label="COMPLIMENTARY STRATEGY SESSION"
-                titleMain="Map your "
-                titleAccent="DevOps automation"
-                titleEnd=" roadmap."
-                description={streamlineDescription}
-                imageUrl="/streamline.png"
+                label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+                titleMain={data?.strategyCTA?.titleMain || "Map your "}
+                titleAccent={data?.strategyCTA?.titleAccent || "DevOps automation"}
+                titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+                description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+                buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+                buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+                imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
             />
-            <DeliverMVP data={deliverMVPData} />
-            <EmergingTech data={servicesData} />
-            <Processes title="OUR CUSTOM DEVOPS PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+            <DeliverMVP data={activeDeliverMVPData} />
+            <EmergingTech data={activeEmergingTechData} />
+            <Processes
+                title={data?.processes?.title || "OUR CUSTOM DEVOPS PROCESS"}
+                processPhases={activeProcessPhases}
+                phaseLabels={activePhaseLabels}
+            />
+            <FAQs
+                title="DevOps & CI/CD Services FAQ"
+                subtitle="Everything you need to know about automated deployments, Kubernetes scaling, Terraform IaC, and continuous monitoring."
+                faqs={data?.faqs} items={data?.faqs}
+            />
+            <RelatedServices
+                services={[
+                    {
+                        title: "Cloud Engineering & Infrastructure",
+                        description: "Design resilient cloud architectures, VPC networks, and microservices topologies on AWS & Azure.",
+                        link: "/services/cloud-engineering"
+                    },
+                    {
+                        title: "Quality Assurance & Testing",
+                        description: "Integrate automated unit tests, regression suites, and static code linters into CI/CD build loops.",
+                        link: "/services/quality-assurance"
+                    },
+                    {
+                        title: "Cyber Security & DevSecOps",
+                        description: "Embed zero-trust security checks and automated vulnerability scanners directly into deployment pipelines.",
+                        link: "/services/cyber-security"
+                    }
+                ]}
+            />
         </>
     );
 };

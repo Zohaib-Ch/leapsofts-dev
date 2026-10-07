@@ -1,11 +1,14 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENTS TO LOGISTICS EXCELLENCE",
@@ -90,43 +93,119 @@ const streamlineDescription = [
 const title = "Transportation Software Development, Fleet Telematics & Custom TMS Solutions";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we engineer resilient, enterprise-grade ", bold: false },
-  { text: "Transportation Management Systems (TMS), real-time fleet telematics platforms, and multi-warehouse coordination portals ", bold: true },
-  { text: "designed to streamline global supply chains and logistics corridors. By implementing automated driver dispatch engines, tracking live cargo temperature telemetry, and deploying intelligent route optimization algorithms, we help fleet operators and shipping lines maximize capacity and lower fuel burn overheads.", bold: false }
+  { text: "We engineer enterprise-grade ", bold: false },
+  { text: "transportation software development, fleet management systems, and logistics software solutions ", bold: true },
+  { text: "designed to streamline global supply chains. By deploying automated dispatch engines, IoT cold-chain telemetry, and route optimization algorithms, we empower shipping and freight companies to lower transit overheads.", bold: false }
 ];
 
+import { getSanityIndustryBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('transportation');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Transportation & Logistics Software | Leapsofts",
+    defaultDescription: "Custom transportation & logistics software — fleet management, route optimization & supply chain platforms. Leapsofts engineers mobility solutions. Talk to us.",
+    defaultKeywords: "transportation software development, logistics software company, fleet management software, supply chain software",
+    canonicalUrl: "https://www.leapsofts.com/industries/transportation",
+  });
+}
+
+
+
 const Transportation: React.FC = () => {
+  const { data } = useIndustryPage('transportation');
+
+  const schemaData = buildServiceSchema({
+    name: "Transportation & Logistics Software",
+    description: "Custom transportation & logistics software — fleet management, route optimization & supply chain platforms.",
+    canonicalUrl: "https://www.leapsofts.com/industries/transportation",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+    ? {
+        subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
+        title: data.commitmentSection.title || commitmentData.title,
+        items: data.commitmentSection.items
+      }
+    : commitmentData;
+
+  const activeSolutionsData = (data?.solutionsSection && data.solutionsSection.items?.length)
+    ? {
+        label: data.solutionsSection.label || transportationSolutionsData.label,
+        titleAccent: data.solutionsSection.titleAccent || transportationSolutionsData.titleAccent,
+        titleMain: data.solutionsSection.titleMain || transportationSolutionsData.titleMain,
+        description: data.solutionsSection.description || transportationSolutionsData.description,
+        items: data.solutionsSection.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : transportationSolutionsData;
+
+  const processTitleMain = data?.processHeader?.titleMain || "Logistics Software Engineering";
+  const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
   useEffect(() => {
     setProcessTitle({
-      titleMain: "Logistics & Fleet Solutions",
-      titleAccent: "Process"
+      titleMain: processTitleMain,
+      titleAccent: processTitleAccent
     });
-  }, [setProcessTitle]);
+  }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
   return (
     <>
-      <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
-      />
-      <CommitmentSection data={commitmentData} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Logistics "
-        titleAccent="Strategy"
-        titleEnd=" Session"
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
+        titleMain={data?.strategyCTA?.titleMain || "Software "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
+        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <EmergingTech data={transportationSolutionsData} />
+      <EmergingTech data={activeSolutionsData} />
       <Services
         label="OUR CAPABILITIES"
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" transportation businesses"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Custom Software Development",
+            description: "Build custom Transportation Management Systems (TMS) and dispatch boards.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Mobile App Development",
+            description: "Engineer native iOS & Android driver companion and ELD logging mobile apps.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Cloud Engineering & Infrastructure",
+            description: "Architect high-frequency GPS telemetry and IoT data pipelines on AWS & Azure.",
+            link: "/services/cloud-engineering"
+          }
+        ]}
       />
     </>
   );

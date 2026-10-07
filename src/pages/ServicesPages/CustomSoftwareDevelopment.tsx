@@ -1,11 +1,18 @@
-import IntroComponent from "../../components/IntroComponent/IntroComponent"
+import React from 'react';
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import IntroComponent from "../../components/IntroComponent/IntroComponent";
 import Capabilities, { type CapabilitySlide } from "../../components/Capabilities/Capabilities";
-import capabilitiesImg from "../../assets/capabilities_3d.png";
-import platformImg from "../../assets/capabilities_platform.png";
+const capabilitiesImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
+const platformImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
 import ComparisonTable from "../../components/ComparisonTable/ComparisonTable";
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
+import { useServicePage } from '../../hooks/useServicePage';
+import { getSanityServiceBySlug } from '../../sanity/queries';
 
 const capabilitiesSlides: CapabilitySlide[] = [
   {
@@ -43,40 +50,40 @@ const capabilitiesSlides: CapabilitySlide[] = [
 ];
 
 const comparisonData = {
-  label: 'VALUE FOR THE CLIENT',
-  titleAccent: 'Custom App Development',
-  titleMain: 'vs. Off-The-Shelf Solution',
-  description: 'Choosing custom application development over off-the-shelf software provides numerous strategic benefits:',
+  label: 'ENTERPRISE ADVANTAGE',
+  titleAccent: 'Bespoke Custom Software Development',
+  titleMain: 'vs. Off-The-Shelf SaaS Platforms',
+  description: 'Investing in custom software engineering over off-the-shelf software packages delivers strategic long-term advantages:',
   headers: {
-    feature: 'Feature',
-    custom: 'Custom Software',
-    offTheShelf: 'Off-the-Shelf Software'
+    feature: 'Evaluation Criteria',
+    custom: 'Custom Software Solution',
+    offTheShelf: 'Off-the-Shelf Commercial Software'
   },
   items: [
     {
-      feature: 'Tailored Functionality',
-      custom: 'Custom software is engineered from the ground up to support your specific regulatory, data model, and workflow requirements.',
-      offTheShelf: 'Packaged platforms rely on generic, opinionated structures that force your teams to adapt their workflows to the software.'
+      feature: 'Tailored Business Logic',
+      custom: 'Custom software applications are engineered from the ground up to support your specific business model, regulatory constraints, and proprietary workflows.',
+      offTheShelf: 'Packaged SaaS platforms force your operational teams to adapt their internal processes to rigid, pre-built software constraints.'
     },
     {
-      feature: 'Scalability',
-      custom: 'Built on microservices and dynamic cloud databases that scale automatically alongside your transaction and user volume.',
-      offTheShelf: 'Constrained by strict multi-tenant limits, rigid licensing bounds, and high fees for custom databases.'
+      feature: 'Enterprise Scalability',
+      custom: 'Built on elastic microservices and distributed cloud databases (AWS/Azure) that scale automatically alongside transaction volume.',
+      offTheShelf: 'Restricted by seat-based licensing tiers, multi-tenant usage caps, and steep API call overage charges.'
     },
     {
-      feature: 'Integration',
-      custom: 'Bespoke API mappings and data connectors built to sync with your existing legacy systems without downtime.',
-      offTheShelf: 'Dependent on static, fragile plugins that frequently break during core software and library updates.'
+      feature: 'API & Database Integration',
+      custom: 'Bespoke REST/GraphQL API bridges engineered to synchronize seamlessly with legacy enterprise systems and third-party tools.',
+      offTheShelf: 'Dependent on static, fragile plugins that break during core framework or third-party software updates.'
     },
     {
-      feature: 'Cost Efficiency',
-      custom: 'Strategic long-term asset value with zero ongoing licensing, seat-based overhead, or vendor lock-in fees.',
-      offTheShelf: 'Predictable immediate setup but high, compounding licensing fees and mandatory paid feature add-ons.'
+      feature: 'Total Cost of Ownership (TCO)',
+      custom: 'High-ROI digital asset with 100% IP ownership, zero recurring user seat fees, and zero vendor lock-in overhead.',
+      offTheShelf: 'Compounding monthly subscription costs, per-user seat fees, and forced upgrades for basic enterprise features.'
     },
     {
-      feature: 'Competitive Advantage',
-      custom: 'Proprietary intellectual property (IP) that delivers exclusive functional capabilities, keeping you ahead of the market.',
-      offTheShelf: 'Common infrastructure shared directly with your primary market competitors, leaving zero room for product differentiation.'
+      feature: 'Competitive IP Advantage',
+      custom: 'Exclusive proprietary source code and intellectual property that creates a defensible digital moat over industry competitors.',
+      offTheShelf: 'Generic digital infrastructure shared directly with your competitors, providing zero product differentiation.'
     }
   ]
 };
@@ -231,36 +238,132 @@ const title = "Enterprise Custom Software Development Engineered to Scale";
 const subtitle = "";
 
 const introDescription = [
-  { text: "We design and deliver highly performant, security-first ", bold: false },
-  { text: "custom application development services ", bold: true },
-  { text: "tailored to the complex operational demands of modern enterprises. By combining resilient microservice architectures, secure cloud database models, and intelligent process automation, we build scalable software systems that eliminate technical debt and drive sustainable business growth.", bold: false }
+  { text: "We engineer enterprise-grade ", bold: false },
+  { text: "custom software development services ", bold: true },
+  { text: "tailored to the complex operational demands of modern businesses. As a leading ", bold: false },
+  { text: "custom software development company", bold: true },
+  { text: ", we combine resilient microservice architectures, cloud database models, and secure API integrations to deliver bespoke software solutions that eliminate technical debt and accelerate enterprise growth.", bold: false }
 ];
 
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('custom-software-development');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Custom Software Development Services | Leapsofts",
+    defaultDescription: "Build secure, scalable custom software tailored to your enterprise. Leapsofts delivers full-cycle development from architecture to deployment. Get a free quote.",
+    defaultKeywords: "custom software development services, bespoke software development, enterprise application development, software development company",
+    canonicalUrl: "https://www.leapsofts.com/services/custom-software-development",
+  });
+}
+
 function CustomSoftwareDevelopment() {
+  const { data } = useServicePage('custom-software-development');
+
+  const schemaData = buildServiceSchema({
+    name: "Custom Software Development Services",
+    description: "Build secure, scalable custom software tailored to your enterprise. Leapsofts delivers full-cycle development from architecture to deployment.",
+    canonicalUrl: "https://www.leapsofts.com/services/custom-software-development",
+    faqs: data?.faqs,
+  });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
+
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || capabilitiesImg,
+        items: slide.items || []
+      }))
+    : capabilitiesSlides;
+
+  const activeComparisonData = (data?.comparisonTable && data.comparisonTable.items?.length)
+    ? {
+        label: data.comparisonTable.label || comparisonData.label,
+        titleAccent: data.comparisonTable.titleAccent || comparisonData.titleAccent,
+        titleMain: data.comparisonTable.titleMain || comparisonData.titleMain,
+        description: data.comparisonTable.description || comparisonData.description,
+        headers: data.comparisonTable.headers || comparisonData.headers,
+        items: data.comparisonTable.items || comparisonData.items
+      }
+    : comparisonData;
+
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || deliverMVPData.label,
+        title: data.deliverMVP.title || deliverMVPData.title,
+        accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
+        description: data.deliverMVP.description || deliverMVPData.description,
+        items: data.deliverMVP.items || deliverMVPData.items
+      }
+    : deliverMVPData;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
+  const strategyCTA = data?.strategyCTA;
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
       <Capabilities
-        title="Our Key Capabilities"
-        description="We offer end-to-end custom application development services across various platforms and business functions."
-        slides={capabilitiesSlides}
+        title={data?.capabilitiesSection?.title || "Our Key Capabilities"}
+        description={data?.capabilitiesSection?.description || "We offer end-to-end custom application development services across various platforms and business functions."}
+        slides={activeCapabilitiesSlides}
         defaultImage={capabilitiesImg}
       />
-      <ComparisonTable data={comparisonData} />
+      <ComparisonTable data={activeComparisonData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="technical"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={strategyCTA?.titleMain || "Map your "}
+        titleAccent={strategyCTA?.titleAccent || "technical"}
+        titleEnd={strategyCTA?.titleEnd || " roadmap."}
+        description={strategyCTA?.descriptionText ? parseFormattedText(strategyCTA.descriptionText) : streamlineDescription}
+        buttonText={strategyCTA?.buttonText}
+        buttonPath={strategyCTA?.buttonPath}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <DeliverMVP data={deliverMVPData} />
-      <Processes title="OUR CUSTOM SOFTWARE DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <Processes title={data?.processes?.title || "OUR CUSTOM SOFTWARE DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <FAQs title="Custom Software Development FAQ" subtitle="Everything you need to know about our enterprise custom software development services, timelines, and IP ownership." faqs={data?.faqs} items={data?.faqs} />
+      <RelatedServices
+        services={[
+          {
+            title: "Web Application Development",
+            description: "Build scalable, enterprise-grade cloud web platforms and SaaS solutions tailored for high performance.",
+            link: "/services/web-app-development"
+          },
+          {
+            title: "Mobile App Development",
+            description: "High-performance iOS and Android mobile app development engineered with native Swift, Kotlin & Flutter.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Cloud Engineering & Architecture",
+            description: "Modernize infrastructure with resilient cloud-native architectures on AWS, Azure, and Google Cloud.",
+            link: "/services/cloud-engineering"
+          }
+        ]}
+      />
     </>
   );
 }

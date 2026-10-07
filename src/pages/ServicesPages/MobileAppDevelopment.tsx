@@ -1,15 +1,20 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import React from 'react'
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import Capabilities, { type CapabilitySlide } from '../../components/Capabilities/Capabilities'
-import capabilitiesImg from "../../assets/capabilities_3d.png";
-import platformImg from "../../assets/capabilities_platform.png";
+const capabilitiesImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
+const platformImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
-import mobileAppImg from "../../assets/phones.webp";
+const mobileAppImg = "https://cdn.sanity.io/images/egqy3ztp/production/9a8d2074c4c6748e73587c6d3e57b16f215d2062-1024x1024.webp";
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
+import { useServicePage } from '../../hooks/useServicePage';
 
 const mobileAppSlides: CapabilitySlide[] = [
   {
@@ -177,26 +182,26 @@ const defaultItems: ServiceFeatureItem[] = [
 ];
 
 const deliverMVPData = {
-    label: "MOBILE EXCELLENCE",
-    title: "How Can We Deliver Your Mobile App in",
-    accentText: "3-5 months?",
-    description: "Leapsofts is an elite custom mobile engineering partner. By combining fully integrated CI/CD, pre-built modular mobile packages, and dedicated agile pods, we build and deploy enterprise-ready mobile platforms within an accelerated 3 to 5 month timeline—on time, every time.",
+    label: "MOBILE APPLICATION ENGINEERING EXCELLENCE",
+    title: "Deploy Your Custom iOS & Android Mobile App in",
+    accentText: "3-5 months",
+    description: "Leapsofts is a top-rated custom mobile app development company. Utilizing automated Fastlane release pipelines, modular native Swift/Kotlin frameworks, and dedicated agile pods, we build and deploy enterprise mobile apps within 3 to 5 months.",
     items: [
         {
-            title: "Agile Development Pods.",
-            description: "Leveraging iterative bi-weekly sprint cycles and transparent task dashboards to deliver incremental value and maintain visual alignment."
+            title: "Agile Development Squads.",
+            description: "Leveraging bi-weekly sprint deliverables and transparent Kanban dashboards for total project execution visibility."
         },
         {
-            title: "Mobile Secure Storage.",
-            description: "Integrating AES-256 databases (Room/SQLite), FaceID verification, OAuth2 tokens, and secure keychain structures to protect user identity."
+            title: "Bank-Grade Mobile Security.",
+            description: "Implementing AES-256 data encryption, biometric authentication (FaceID/TouchID), OAuth2 tokens, and secure iOS/Android keychains."
         },
         {
-            title: "UX Touch Optimizations.",
-            description: "Drafting technical wireframes, touch target dimensions, and fluid screen transitions that ensure friction-free mobile navigation."
+            title: "UX/UI Touch Optimization.",
+            description: "Designing responsive touch targets, dark mode interfaces, and fluid 60fps animations for flawless mobile user navigation."
         },
         {
-            title: "OS Version Support.",
-            description: "Proactive system upgrades, cloud resource balancing, security patch audits, and performance tuning to secure long-term digital authority."
+            title: "App Store & Play Store Approval.",
+            description: "Managing complete Apple App Store and Google Play Store review lifecycles, Store guidelines compliance, and post-launch updates."
         }
     ]
 };
@@ -321,43 +326,157 @@ const title = "Enterprise Mobile Engineering & Architecture";
 const subtitle = "";
 
 const introDescription = [
-  { text: "We engineer high-performance, security-first ", bold: false },
-  { text: "custom mobile applications ", bold: true },
-  { text: "designed to support complex enterprise workflows, high-velocity transactions, and seamless user experiences. By utilizing native Swift, Kotlin, and highly optimized cross-platform Flutter/React Native frameworks, we deliver resilient apps engineered for long-term growth and immediate deployment on the Apple App Store and Google Play Store.", bold: false }
-]
+  { text: "We deliver full-cycle ", bold: false },
+  { text: "mobile app development services ", bold: true },
+  { text: "and ", bold: false },
+  { text: "iOS & Android mobile app engineering ", bold: true },
+  { text: "for startups and enterprises worldwide. As a premier mobile app development company, we craft secure native Swift, Kotlin, and cross-platform Flutter/React Native solutions built for maximum performance, engagement, and scalability.", bold: false }
+];
+
+import { getSanityServiceBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('mobile-app-development');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Mobile App Development Services | Leapsofts",
+    defaultDescription: "iOS & Android mobile app development for enterprises & startups. Leapsofts builds high-performance, scalable mobile apps with clean UX. Get a free estimate.",
+    defaultKeywords: "mobile app development company, iOS app development, Android app development, custom mobile application development",
+    canonicalUrl: "https://www.leapsofts.com/services/mobile-app-development",
+  });
+}
+
+
 
 const MobileAppDevelopment: React.FC = () => {
+  const { data } = useServicePage('mobile-app-development');
+
+  const schemaData = buildServiceSchema({
+    name: "Mobile App Development Services",
+    description: "iOS & Android mobile app development for enterprises & startups.",
+    canonicalUrl: "https://www.leapsofts.com/services/mobile-app-development",
+    faqs: data?.faqs,
+  });
+
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || 'MOBILE APP DEVELOPMENT COMPANY',
+        titleMain: data.serviceOverview.titleMain || 'High-Performance Enterprise',
+        titleAccent: data.serviceOverview.titleAccent || 'iOS & Android',
+        titleEnd: data.serviceOverview.titleEnd || 'Mobile Applications',
+        description: data.serviceOverview.description || 'At Leapsofts, as a full-service mobile app development company, we design and engineer custom mobile applications that bridge corporate cloud backends, real-time databases, and device sensors. By managing full-cycle app development—from Swift and Kotlin native coding to React Native and Flutter cross-platform frameworks, offline-first data sync, and automated App Store releases—we deliver secure, responsive mobile solutions that drive user retention.',
+        imagePath: data.serviceOverview.imageUrl || mobileAppImg
+      }
+    : null;
+
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || capabilitiesImg,
+        items: slide.items || []
+      }))
+    : mobileAppSlides;
+
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || emergingTechData.label,
+        titleAccent: data.emergingTech.titleAccent || emergingTechData.titleAccent,
+        titleMain: data.emergingTech.titleMain || emergingTechData.titleMain,
+        description: data.emergingTech.description || emergingTechData.description,
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : emergingTechData;
+
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || deliverMVPData.label,
+        title: data.deliverMVP.title || deliverMVPData.title,
+        accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
+        description: data.deliverMVP.description || deliverMVPData.description,
+        items: data.deliverMVP.items || deliverMVPData.items
+      }
+    : deliverMVPData;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
       <ServiceOverview
-        label='BRIEF OVERVIEW'
-        titleMain='High-Performance Mobile Systems'
-        titleAccent='Engineered for '
-        titleEnd='Execution'
-        description='At Leapsofts, we design and develop custom mobile architectures that bridge corporate databases, cloud services, and device capabilities. By managing end-to-end cycles—from technical wireframes and offline data synchronization to automated background services and localized caching grids—we deliver intuitive, responsive platforms that optimize operational velocity and secure absolute user retention.'
-        imagePath={mobileAppImg}
+        label={activeOverviewData?.label || 'MOBILE APP DEVELOPMENT COMPANY'}
+        titleMain={activeOverviewData?.titleMain || 'High-Performance Enterprise'}
+        titleAccent={activeOverviewData?.titleAccent || 'iOS & Android'}
+        titleEnd={activeOverviewData?.titleEnd || 'Mobile Applications'}
+        description={activeOverviewData?.description || 'At Leapsofts, as a full-service mobile app development company, we design and engineer custom mobile applications that bridge corporate cloud backends, real-time databases, and device sensors. By managing full-cycle app development—from Swift and Kotlin native coding to React Native and Flutter cross-platform frameworks, offline-first data sync, and automated App Store releases—we deliver secure, responsive mobile solutions that drive user retention.'}
+        imagePath={activeOverviewData?.imagePath || mobileAppImg}
       />
-      <Capabilities title="Our Mobile App Development Capabilities" slides={mobileAppSlides} />
+      <Capabilities
+        title={data?.capabilitiesSection?.title || "Our Mobile App Development Capabilities"}
+        slides={activeCapabilitiesSlides}
+      />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="mobile"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "mobile"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Custom Mobile App Development Services We Provide'
-        items={defaultItems}
+        title={data?.serviceFeatures?.title || 'Custom Mobile App Development Services We Provide'}
+        items={data?.serviceFeatures?.items || defaultItems}
       />
-      <EmergingTech data={emergingTechData} />
-      <DeliverMVP data={deliverMVPData} />
-      <Processes title="OUR CUSTOM MOBILE DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <EmergingTech data={activeEmergingTechData} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <Processes title={data?.processes?.title || "OUR CUSTOM MOBILE DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <FAQs title="Mobile App Development FAQ" subtitle="Everything you need to know about our iOS, Android, Flutter/React Native, and Store submission services." faqs={data?.faqs} items={data?.faqs} />
+      <RelatedServices
+        services={[
+          {
+            title: "Web App Development",
+            description: "Custom web application development for enterprise SaaS, dynamic portals, and progressive web applications.",
+            link: "/services/web-app-development"
+          },
+          {
+            title: "Custom Software Development",
+            description: "End-to-end custom software engineering, legacy modernizations, and scalable microservices.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Data Science & AI Solutions",
+            description: "Integrate machine learning, AI models, and predictive data pipelines into mobile ecosystems.",
+            link: "/services/data-science-ai"
+          }
+        ]}
+      />
     </>
   )
 }

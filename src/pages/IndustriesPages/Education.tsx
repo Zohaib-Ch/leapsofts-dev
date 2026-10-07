@@ -1,11 +1,14 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO EDUCATIONAL INSTITUTIONS",
@@ -91,43 +94,119 @@ const streamlineDescription = [
 const title = "EdTech Software Development, Custom LMS Platforms & AI Personalized Learning";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we engineer highly interactive, enterprise-grade ", bold: false },
-  { text: "Learning Management Systems (LMS), AI-driven adaptive learning engines, and secure collaborative university portals ", bold: true },
-  { text: "designed to elevate student engagement and streamline administrative lifecycles. By integrating strict FERPA/COPPA student privacy vaults, configuring low-latency live class streaming corridors, and deploying intelligent grading assistants, we empower global universities and scaling EdTech startups to deliver elite education at limitless scale.", bold: false }
+  { text: "We deliver full-scale ", bold: false },
+  { text: "EdTech software development services, eLearning platform development, and custom LMS solutions ", bold: true },
+  { text: "engineered to elevate student engagement and streamline administrative lifecycles. By integrating FERPA/COPPA privacy vaults, virtual classroom media pipelines, and AI adaptive learning models, we power global EdTech innovation.", bold: false }
 ];
 
+import { getSanityIndustryBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('edtech');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "EdTech Software Development Services | Leapsofts",
+    defaultDescription: "Custom eLearning & EdTech software development — LMS, mobile learning apps & virtual classrooms. Leapsofts builds scalable education platforms. Start building.",
+    defaultKeywords: "EdTech software development, eLearning platform development, LMS development company, education app development",
+    canonicalUrl: "https://www.leapsofts.com/industries/edtech",
+  });
+}
+
+
+
 const Education: React.FC = () => {
+  const { data } = useIndustryPage('education');
+
+  const schemaData = buildServiceSchema({
+    name: "EdTech Software Development Services",
+    description: "Custom eLearning & EdTech software development — LMS, mobile learning apps & virtual classrooms.",
+    canonicalUrl: "https://www.leapsofts.com/industries/edtech",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+    ? {
+        subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
+        title: data.commitmentSection.title || commitmentData.title,
+        items: data.commitmentSection.items
+      }
+    : commitmentData;
+
+  const activeSolutionsData = (data?.solutionsSection && data.solutionsSection.items?.length)
+    ? {
+        label: data.solutionsSection.label || educationSolutionsData.label,
+        titleAccent: data.solutionsSection.titleAccent || educationSolutionsData.titleAccent,
+        titleMain: data.solutionsSection.titleMain || educationSolutionsData.titleMain,
+        description: data.solutionsSection.description || educationSolutionsData.description,
+        items: data.solutionsSection.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : educationSolutionsData;
+
+  const processTitleMain = data?.processHeader?.titleMain || "EdTech Product Development";
+  const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
   useEffect(() => {
     setProcessTitle({
-      titleMain: "EdTech Solution Development",
-      titleAccent: "Process"
+      titleMain: processTitleMain,
+      titleAccent: processTitleAccent
     });
-  }, [setProcessTitle]);
+  }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
   return (
     <>
-      <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
-      />
-      <CommitmentSection data={commitmentData} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Learning "
-        titleAccent="Strategy"
-        titleEnd=" Session"
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
+        titleMain={data?.strategyCTA?.titleMain || "Software "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
+        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <EmergingTech data={educationSolutionsData} />
+      <EmergingTech data={activeSolutionsData} />
       <Services
         label="OUR CAPABILITIES"
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" educational institutions"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Web App Development",
+            description: "Build custom multi-tenant LMS portals and interactive student dashboards.",
+            link: "/services/web-app-development"
+          },
+          {
+            title: "Mobile App Development",
+            description: "Engineer native iOS & Android mobile learning applications.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Data Science & AI Solutions",
+            description: "Integrate predictive student progress analytics and NLP tutoring bots.",
+            link: "/services/data-science-ai"
+          }
+        ]}
       />
     </>
   );

@@ -1,7 +1,14 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import styles from './error.module.css';
 import Button from '../../components/Button/Button';
+
+export function meta() {
+  return [
+    { title: "Page Not Found | Leapsofts" },
+    { name: "robots", content: "noindex, nofollow" },
+  ];
+}
 
 const Error: React.FC = () => {
     const navigate = useNavigate();

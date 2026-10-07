@@ -1,11 +1,14 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO FINANCIAL ORGANIZATIONS",
@@ -98,38 +101,115 @@ const introDescription = [
   { text: "engineered to handle hyper-scale transaction volumes with absolute precision. By integrating PCI-DSS compliant checkout structures, automating multi-currency clearing runs, and designing real-time risk telemetry engines, we future-proof financial firms and enable zero-friction asset movement.", bold: false }
 ];
 
+import { getSanityIndustryBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('finance');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Fintech Software Development Services | Leapsofts",
+    defaultDescription: "Custom fintech software development for banks, insurance & investment firms. Leapsofts builds secure, compliance-ready financial platforms. Get a consultation.",
+    defaultKeywords: "fintech software development, banking software company, financial software development, insurance software",
+    canonicalUrl: "https://www.leapsofts.com/industries/finance",
+  });
+}
+
+
+
 const Finance: React.FC = () => {
+  const { data } = useIndustryPage('finance');
+
+  const schemaData = buildServiceSchema({
+    name: "Fintech Software Development Services",
+    description: "Custom fintech software development for banks, insurance & investment firms.",
+    canonicalUrl: "https://www.leapsofts.com/industries/finance",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+    ? {
+        subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
+        title: data.commitmentSection.title || commitmentData.title,
+        items: data.commitmentSection.items
+      }
+    : commitmentData;
+
+  const activeSolutionsData = (data?.solutionsSection && data.solutionsSection.items?.length)
+    ? {
+        label: data.solutionsSection.label || ourTechInnovationsData.label,
+        titleAccent: data.solutionsSection.titleAccent || ourTechInnovationsData.titleAccent,
+        titleMain: data.solutionsSection.titleMain || ourTechInnovationsData.titleMain,
+        description: data.solutionsSection.description || ourTechInnovationsData.description,
+        items: data.solutionsSection.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : ourTechInnovationsData;
+
+  const processTitleMain = data?.processHeader?.titleMain || "Fintech Software Development";
+  const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
   useEffect(() => {
     setProcessTitle({
-      titleMain: "FinTech App Development",
-      titleAccent: "Process"
+      titleMain: processTitleMain,
+      titleAccent: processTitleAccent
     });
-  }, [setProcessTitle]);
+  }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
   return (
     <>
-      <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
-      />
-      <CommitmentSection data={commitmentData} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Software "
-        titleAccent="Strategy"
-        titleEnd=" Session"
-        description={streamlineDescription}
-        imageUrl="/strategy_session_dashboard.png"
+        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
+        titleMain={data?.strategyCTA?.titleMain || "Software "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
+        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <EmergingTech data={ourTechInnovationsData} />
+      <EmergingTech data={activeSolutionsData} />
       <Services
         label="OUR CAPABILITIES"
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" financial businesses"
+      />
+      <RelatedServices
+        title="Recommended FinTech Engineering Services"
+        services={[
+          {
+            title: "Cyber Security & Threat Defense",
+            description: "Penetration testing, encryption protocols, and SOC2 financial threat defense.",
+            link: "/services/cyber-security"
+          },
+          {
+            title: "Data Governance & Compliance",
+            description: "Automated KYC/AML verification workflows, data audits, and regulatory tracking.",
+            link: "/services/data-governance"
+          },
+          {
+            title: "Web App Development",
+            description: "High-frequency financial web portals, trading dashboards, and banking applications.",
+            link: "/services/web-app-development"
+          }
+        ]}
       />
     </>
   );

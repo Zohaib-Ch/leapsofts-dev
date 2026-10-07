@@ -1,3 +1,5 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import Capabilities, { type CapabilitySlide } from '../../components/Capabilities/Capabilities';
@@ -6,9 +8,12 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
-import capabilitiesImg from "../../assets/capabilities_3d.png";
-import platformImg from "../../assets/capabilities_platform.png";
-import laptopImg from "../../assets/about_laptop_3d.png";
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
+const capabilitiesImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
+const platformImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
+const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
 
 const processPhasesDefault: ProcessPhase[] = [
   {
@@ -235,48 +240,159 @@ const title = "Elite Dedicated Engineering Teams & Elastic Agile Pods";
 const subtitle = "";
 
 const introDescription = [
-  { text: "We deliver highly integrated agile pods, custom ", bold: false },
-  { text: "dedicated engineering teams", bold: true },
-  { text: ", and secure remote governance structures. By streamlining continuous knowledge transfer, Git-based workflows, and integrated automated testing scripts, we assemble elite talent pods designed to act as a seamless extension of your internal technical department.", bold: false }
-]
+  { text: "Hire ", bold: false },
+  { text: "dedicated software development teams ", bold: true },
+  { text: "and elastic engineering pods embedded directly in your workflows. As a premier provider of ", bold: false },
+  { text: "IT staff augmentation services", bold: true },
+  { text: ", we deploy senior software architects, full-stack developers, and certified Scrum Masters ready to scale your product velocity with zero onboarding friction.", bold: false }
+];
+
+import { getSanityServiceBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('dedicated-teams');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Dedicated Development Teams | Leapsofts",
+    defaultDescription: "Hire dedicated software development teams from Leapsofts. Scale your engineering capacity with senior developers embedded in your workflows. Start today.",
+    defaultKeywords: "dedicated development team, hire dedicated developers, staff augmentation services, offshore development team",
+    canonicalUrl: "https://www.leapsofts.com/services/dedicated-teams",
+  });
+}
+
+
 
 const DedicatedTeams: React.FC = () => {
+  const { data } = useServicePage('dedicated-teams');
+
+  const schemaData = buildServiceSchema({
+    name: "Dedicated Development Teams",
+    description: "Hire dedicated software development teams from Leapsofts. Scale your engineering capacity.",
+    canonicalUrl: "https://www.leapsofts.com/services/dedicated-teams",
+    faqs: data?.faqs,
+  });
+
+  
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || (typeof infoGridData !== 'undefined' ? infoGridData.label : ''),
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof infoGridData !== 'undefined' ? infoGridData.title : ''),
+        description: data.infoGrid.description || (typeof infoGridData !== 'undefined' ? infoGridData.description : ''),
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof infoGridData !== 'undefined' ? infoGridData : { items: [] });
+
+  
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.label : ''),
+        title: data.deliverMVP.title || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.title : ''),
+        accentText: data.deliverMVP.accentText || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.accentText : ''),
+        description: data.deliverMVP.description || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.description : ''),
+        items: data.deliverMVP.items || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.items : [])
+      }
+    : (typeof deliverMVPData !== 'undefined' ? deliverMVPData : { label: '', title: '', accentText: '', description: '', items: [] });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || serviceOverviewData.label,
+        titleMain: data.serviceOverview.titleMain || serviceOverviewData.titleMain,
+        titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
+        titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
+        description: data.serviceOverview.description || serviceOverviewData.description,
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath
+      }
+    : serviceOverviewData;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
       <ServiceOverview
-        label={serviceOverviewData.label}
-        titleMain={serviceOverviewData.titleMain}
-        titleAccent={serviceOverviewData.titleAccent}
-        titleEnd={serviceOverviewData.titleEnd}
-        description={serviceOverviewData.description}
-        imagePath={serviceOverviewData.imagePath}
+        label={activeOverviewData?.label || serviceOverviewData.label}
+        titleMain={activeOverviewData?.titleMain || serviceOverviewData.titleMain}
+        titleAccent={activeOverviewData?.titleAccent || serviceOverviewData.titleAccent}
+        titleEnd={activeOverviewData?.titleEnd || serviceOverviewData.titleEnd}
+        description={activeOverviewData?.description || serviceOverviewData.description}
+        imagePath={activeOverviewData?.imagePath || serviceOverviewData.imagePath}
       />
       <Capabilities
-        title="Dedicated Team Capabilities"
-        slides={capabilitiesData}
+        title={data?.capabilitiesSection?.title || "Dedicated Team Capabilities"}
+        slides={data?.capabilitiesSection?.slides || capabilitiesData}
         defaultImage={capabilitiesImg}
       />
-      <InfoGrid data={infoGridData} />
+      <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="dedicated team"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "dedicated team"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Expert Engineering Pods'
-        description='Our dedicated teams offer a full spectrum of engineering and management services to support your product lifecycle.'
-        items={serviceFeaturesData}
+        title={data?.serviceFeatures?.title || 'Expert Engineering Pods'}
+        description={data?.serviceFeatures?.description || 'Our dedicated teams offer a full spectrum of engineering and management services to support your product lifecycle.'}
+        items={data?.serviceFeatures?.items || serviceFeaturesData}
       />
-      <DeliverMVP data={deliverMVPData} />
-      <Processes title="OUR CUSTOM DEDICATED TEAMS PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <Processes
+        title={data?.processes?.title || "OUR CUSTOM DEDICATED TEAMS PROCESS"}
+        processPhases={activeProcessPhases}
+        phaseLabels={activePhaseLabels}
+      />
+      <FAQs
+        title="Dedicated Development Teams FAQ"
+        subtitle="Everything you need to know about hiring software pods, time-zone synchronization, IP security, and sprint integration."
+        faqs={data?.faqs} items={data?.faqs}
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Fixed Price Development Model",
+            description: "On-budget, milestone-driven software execution model for clearly defined product specifications.",
+            link: "/services/fixed-price"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Full-cycle enterprise software engineering, bespoke applications, and legacy platform modernization.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Quality Assurance & Testing Teams",
+            description: "Dedicated manual and automated QA squads to ensure zero-defect software releases.",
+            link: "/services/quality-assurance"
+          }
+        ]}
+      />
     </>
   );
 };

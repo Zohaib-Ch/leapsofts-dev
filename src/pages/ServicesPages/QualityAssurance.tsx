@@ -1,3 +1,5 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
@@ -6,7 +8,10 @@ import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
-import phoneImg from "../../assets/phones.webp";
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
+const phoneImg = "https://cdn.sanity.io/images/egqy3ztp/production/9a8d2074c4c6748e73587c6d3e57b16f215d2062-1024x1024.webp";
 
 const ourServicesData: EmergingTechProps['data'] = {
     label: 'QA SERVICES',
@@ -262,47 +267,165 @@ const title = "Enterprise Quality Assurance & Test Engineering";
 const subtitle = "";
 
 const introDescription = [
-  { text: "We deliver systematic, high-coverage ", bold: false },
-  { text: "quality assurance and test automation ", bold: true },
-  { text: "engineered to eliminate functional regressions, stress-test database limits, and secure critical API networks. By integrating automated end-to-end testing frameworks into your active CI/CD pipelines, we ensure your software platforms run flawlessly under extreme loads with zero downtime.", bold: false }
+  { text: "We deliver full-spectrum ", bold: false },
+  { text: "quality assurance services & software testing solutions ", bold: true },
+  { text: "engineered to eliminate functional regressions, stress-test database limits, and secure critical software networks. As a premier software testing company, we integrate automated QA testing frameworks and manual security audits directly into your CI/CD pipelines for 100% bug-free deployments.", bold: false }
 ]
 
+import { getSanityServiceBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('quality-assurance');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Quality Assurance Services | Leapsofts",
+    defaultDescription: "Comprehensive software QA & testing services to ensure bug-free, high-performance releases. Leapsofts delivers automated and manual testing. Get started.",
+    defaultKeywords: "quality assurance services, software testing company, QA testing services, automated testing, manual QA testing",
+    canonicalUrl: "https://www.leapsofts.com/services/quality-assurance",
+  });
+}
+
+
+
 const QualityAssurance: React.FC = () => {
+  const { data } = useServicePage('quality-assurance');
+
+  const schemaData = buildServiceSchema({
+    name: "Quality Assurance Services",
+    description: "Comprehensive software QA & testing services to ensure bug-free, high-performance releases.",
+    canonicalUrl: "https://www.leapsofts.com/services/quality-assurance",
+    faqs: data?.faqs,
+  });
+
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || "QUALITY ENGINEERING",
+        titleMain: data.serviceOverview.titleMain || "Continuous ",
+        titleAccent: data.serviceOverview.titleAccent || "Validation & ",
+        titleEnd: data.serviceOverview.titleEnd || "Security",
+        description: data.serviceOverview.description || "At Leapsofts, we establish strict software validation layers that identify system vulnerabilities and logical errors long before production deployment. By combining automated regression suites, localized API integration mocks, and intensive cloud-native load testing setups, we ensure your applications achieve absolute performance reliability, robust SOC2 compliance, and optimal core web vitals.",
+        imagePath: data.serviceOverview.imageUrl || phoneImg
+      }
+    : null;
+
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || infoGridData.label,
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || infoGridData.title,
+        description: data.infoGrid.description || infoGridData.description,
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : infoGridData;
+
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || ourServicesData.label,
+        titleAccent: data.emergingTech.titleAccent || ourServicesData.titleAccent,
+        titleMain: data.emergingTech.titleMain || ourServicesData.titleMain,
+        description: data.emergingTech.description || ourServicesData.description,
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : ourServicesData;
+
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || deliverMVPData.label,
+        title: data.deliverMVP.title || deliverMVPData.title,
+        accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
+        description: data.deliverMVP.description || deliverMVPData.description,
+        items: data.deliverMVP.items || deliverMVPData.items
+      }
+    : deliverMVPData;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : (typeof processesData !== 'undefined' ? processesData : []);
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : (typeof phaseLabelsDefault !== 'undefined' ? phaseLabelsDefault : (typeof phaseLabels !== 'undefined' ? phaseLabels : []));
+
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
             <IntroComponent
-                title={title}
-                description={subtitle}
-                introDescription={introDescription}
-            />
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
+      />
             <ServiceOverview
-                label="QUALITY ENGINEERING"
-                titleMain="Continuous "
-                titleAccent="Validation & "
-                titleEnd="Security"
-                description="At Leapsofts, we establish strict software validation layers that identify system vulnerabilities and logical errors long before production deployment. By combining automated regression suites, localized API integration mocks, and intensive cloud-native load testing setups, we ensure your applications achieve absolute performance reliability, robust SOC2 compliance, and optimal core web vitals."
-                imagePath={phoneImg}
+                label={activeOverviewData?.label || "QUALITY ENGINEERING"}
+                titleMain={activeOverviewData?.titleMain || "Continuous "}
+                titleAccent={activeOverviewData?.titleAccent || "Validation & "}
+                titleEnd={activeOverviewData?.titleEnd || "Security"}
+                description={activeOverviewData?.description || "At Leapsofts, we establish strict software validation layers that identify system vulnerabilities and logical errors long before production deployment. By combining automated regression suites, localized API integration mocks, and intensive cloud-native load testing setups, we ensure your applications achieve absolute performance reliability, robust SOC2 compliance, and optimal core web vitals."}
+                imagePath={activeOverviewData?.imagePath || phoneImg}
             />
-            <InfoGrid data={infoGridData} />
+            <InfoGrid data={activeInfoGridData} />
             <StreamlineSuccess
-                label="COMPLIMENTARY STRATEGY SESSION"
-                titleMain="Map your "
-                titleAccent="testing"
-                titleEnd=" roadmap."
-                description={streamlineDescription}
-                imageUrl="/streamline.png"
+                label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+                titleMain={data?.strategyCTA?.titleMain || "Map your "}
+                titleAccent={data?.strategyCTA?.titleAccent || "testing"}
+                titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+                description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+                buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+                buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+                imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
             />
             <ServiceFeatures
-                title='Our QA Services'
-                description='We offer specialized testing services tailored to your project requirements, ensuring robust performance and security.'
-                items={serviceFeaturesData}
+                title={data?.serviceFeatures?.title || 'Our QA Services'}
+                description={data?.serviceFeatures?.description || 'We offer specialized testing services tailored to your project requirements, ensuring robust performance and security.'}
+                items={data?.serviceFeatures?.items || serviceFeaturesData}
             />
-            <DeliverMVP data={deliverMVPData} />
-            <EmergingTech data={ourServicesData} />
+            <DeliverMVP data={activeDeliverMVPData} />
+            <EmergingTech data={activeEmergingTechData} />
             <Processes
-                title="Software Verification & Validation Framework"
-                phaseLabels={phaseLabelsDefault}
-                processPhases={processesData}
+                title={data?.processes?.title || "Software Verification & Validation Framework"}
+                phaseLabels={activePhaseLabels}
+                processPhases={activeProcessPhases}
+            />
+            <FAQs
+                title="Quality Assurance & Software Testing FAQ"
+                subtitle="Everything you need to know about automated testing, Playwright/Cypress frameworks, load testing, and continuous regression shielding."
+                faqs={data?.faqs} items={data?.faqs}
+            />
+            <RelatedServices
+                services={[
+                    {
+                        title: "Custom Software Development",
+                        description: "Engineer scalable web and mobile software tailored for enterprise workflows.",
+                        link: "/services/custom-software-development"
+                    },
+                    {
+                        title: "DevOps Services & CI/CD",
+                        description: "Integrate automated testing and security scans into your continuous delivery pipelines.",
+                        link: "/services/devops"
+                    },
+                    {
+                        title: "Cyber Security & Compliance",
+                        description: "Conduct thorough penetration audits and zero-trust vulnerability assessments.",
+                        link: "/services/cyber-security"
+                    }
+                ]}
             />
         </>
     );

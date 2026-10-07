@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronsUp } from 'lucide-react';
 import styles from './sidebar.module.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 const navItems = [
     { id: 'contact', label: 'CONTACT' },

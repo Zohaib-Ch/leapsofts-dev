@@ -1,5 +1,14 @@
-import React, { useEffect } from 'react';
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import React, { useState, useEffect } from 'react';
+import styles from './Mission.module.css';
 import { motion } from 'framer-motion';
+import { useContactModal } from '../../context/ContactModalContext';
+import Button from '../../components/Button/Button';
+import MetaSEO from '../../components/SEO/MetaSEO';
+import { getSanityAboutPage } from '../../sanity/queries';
+import type { SanityAboutPage } from '../../sanity/types';
+import { renderFormattedTitle } from '../../utils/titleFormatter';
+import { DEFAULT_MISSION_PAGE_DATA } from '../../data/companyFallback';
 import {
   Target,
   ShieldCheck,
@@ -12,9 +21,22 @@ import {
   FileCode2,
   CheckSquare,
 } from 'lucide-react';
-import Button from '../../components/Button/Button';
-import { useContactModal } from '../../context/ContactModalContext';
-import styles from './Mission.module.css';
+import { useLoaderData } from 'react-router';
+
+export async function loader() {
+  const sanityData = await getSanityAboutPage('aboutMissionPage');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Our Mission & Engineering Creed | Leapsofts",
+    defaultDescription: "Leapsofts is driven by a mission to deliver honest, high-quality software engineering that creates lasting business value for enterprises worldwide.",
+    defaultKeywords: "Leapsofts mission, engineering creed, software values, enterprise engineering principles",
+    canonicalUrl: "https://www.leapsofts.com/about/mission",
+  });
+}
 
 const ribbonData = [
   {
@@ -161,25 +183,21 @@ const slideRightVariant = {
   },
 };
 
+export { DEFAULT_MISSION_PAGE_DATA };
+
 const Mission: React.FC = () => {
+  const loaderData = useLoaderData<typeof loader>();
   const { openContactModal } = useContactModal();
 
-  useEffect(() => {
-    document.title = 'Our Mission & Engineering Creed | Leapsofts';
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta');
-      metaDesc.setAttribute('name', 'description');
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.setAttribute(
-      'content',
-      "Explore Leapsofts' core mission, zero-tech-debt philosophy, AI-augmented development velocity, and software engineering craftsmanship standards."
-    );
-  }, []);
+  const sanityData: SanityAboutPage = loaderData?.sanityData || DEFAULT_MISSION_PAGE_DATA;
 
   return (
     <div className={styles.missionPage}>
+      <MetaSEO
+        seo={sanityData?.seo}
+        defaultTitle="Our Mission & Engineering Creed | Leapsofts"
+        defaultDescription="Explore Leapsofts' core mission, zero-tech-debt philosophy, AI-augmented development velocity, and software engineering craftsmanship standards."
+      />
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
@@ -189,12 +207,19 @@ const Mission: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className={styles.label}>MISSION & ENGINEERING CREED</span>
+            <span className={styles.label}>{sanityData?.hero?.label || 'MISSION & ENGINEERING CREED'}</span>
             <h1 className={styles.heroTitle}>
-              Engineered for <em>Zero Tech Debt</em> & Rapid Launch
+              {renderFormattedTitle({
+                title: sanityData?.hero?.title,
+                titleMain: (sanityData?.hero as any)?.titleMain,
+                titleAccent: (sanityData?.hero as any)?.titleAccent,
+                titleEnd: (sanityData?.hero as any)?.titleEnd,
+                defaultAccentPhrase: 'Zero Tech Debt',
+                defaultTitle: <>Engineered for <em>Zero Tech Debt</em> & Rapid Launch</>,
+              })}
             </h1>
             <p className={styles.heroSub}>
-              We exist to eliminate software complexity, compress time-to-market, and build digital infrastructure that scales effortlessly for forward-thinking enterprises.
+              {sanityData?.hero?.subtitle || 'We exist to eliminate software complexity, compress time-to-market, and build honest, high-quality enterprise software engineering solutions for forward-thinking companies.'}
             </p>
           </motion.div>
 
@@ -202,8 +227,7 @@ const Mission: React.FC = () => {
             className={styles.ribbonGrid}
             variants={staggerContainer}
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            animate="visible"
           >
             {ribbonData.map((item, idx) => (
               <motion.div key={idx} className={styles.ribbonCard} variants={cardChildVariant}>

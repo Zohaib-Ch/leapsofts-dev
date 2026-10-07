@@ -3,8 +3,7 @@ interface FAQItem {
     answer: string;
 }
 
-const response = await fetch('/FAQs/faqs.json');
-const data = await response.json();
+import data from '../data/faqs.json';
 
 const fetchFaqs = (serviceKey: string): FAQItem[] => {
     const FAQsData = data[serviceKey] || [];

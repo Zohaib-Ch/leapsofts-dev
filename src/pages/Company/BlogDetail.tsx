@@ -21,6 +21,27 @@ import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityBlogBySlug } from '../../sanity/queries';
 import type { SanityBlog } from '../../sanity/types';
 
+import { buildPageMeta } from '../../utils/seoHelper';
+
+export async function loader({ params }: { params: { slug?: string } }) {
+  if (!params.slug) return { sanityData: null };
+  const sanityData = await getSanityBlogBySlug(params.slug);
+  return { sanityData };
+}
+
+export function meta({ data, params }: { data?: any; params?: any }) {
+  const sanityData = data?.sanityData;
+  const slug = params?.slug || '';
+  return buildPageMeta({
+    sanityData,
+    defaultTitle: sanityData?.title || "Engineering Insights | Leapsofts Blog",
+    defaultDescription: sanityData?.excerpt || "Read technical insights and enterprise engineering strategies from Leapsofts.",
+    defaultKeywords: "software engineering, tech blog, leapsofts insights",
+    canonicalUrl: `https://www.leapsofts.com/blog/${slug}`,
+    defaultOgImage: sanityData?.coverImageUrl,
+  });
+}
+
 const fadeInVariant = {
   hidden: { opacity: 0, y: 25 },
   visible: {
@@ -31,6 +52,7 @@ const fadeInVariant = {
 };
 
 const BlogDetail: React.FC = () => {
+  const loaderData = useLoaderData<typeof loader>();
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { openContactModal } = useContactModal();

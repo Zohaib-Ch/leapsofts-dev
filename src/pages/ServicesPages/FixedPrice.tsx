@@ -1,3 +1,6 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { parseFormattedText } from '../../utils/textParser';
+import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
@@ -6,7 +9,9 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
-import laptopImg from "../../assets/about_laptop_3d.png";
+import FAQs from '../../components/FAQs/FAQs';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
+const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
 
 const serviceOverviewData = {
   label: "FIXED PRICE PARTNERSHIP",
@@ -211,44 +216,168 @@ const title = "Fixed Price Software Development, Precise Scoping & Guaranteed Mi
 const subtitle = "";
 
 const introDescription = [
-  { text: "We deliver elite software development services backed by ", bold: false },
-  { text: "guaranteed fixed-price budgets and precise scopes", bold: true },
-  { text: ". By conducting exhaustive early technical discovery phases, authoring complete software requirement specifications (SRS), and mapping exact architectural modules before active coding, we protect your organization from budget creep and ensure turnkey delivery on strict timelines.", bold: false }
+  { text: "We offer transparent ", bold: false },
+  { text: "fixed price software development services & predictable project delivery ", bold: true },
+  { text: "backed by firm milestone timelines. By conducting exhaustive technical discovery, authoring detailed software requirements specifications (SRS), and committing to fixed-cost budgets upfront, we eliminate financial risk and guarantee high-quality software delivery.", bold: false }
 ];
 
+import { getSanityServiceBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('fixed-price');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Fixed Price Software Development | Leapsofts",
+    defaultDescription: "Predictable, fixed-price software development with transparent milestones. Leapsofts delivers on-budget, on-time projects for enterprises. Request a quote.",
+    defaultKeywords: "fixed price software development, fixed cost software project, predictable software delivery, offshore fixed price development",
+    canonicalUrl: "https://www.leapsofts.com/services/fixed-price",
+  });
+}
+
+
+
 const FixedPrice: React.FC = () => {
+  const { data } = useServicePage('fixed-price');
+
+  const schemaData = buildServiceSchema({
+    name: "Fixed Price Software Development",
+    description: "Predictable, fixed-price software development with transparent milestones.",
+    canonicalUrl: "https://www.leapsofts.com/services/fixed-price",
+    faqs: data?.faqs,
+  });
+
+  
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || (typeof fixedPriceProcessData !== 'undefined' ? fixedPriceProcessData.label : ''),
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof fixedPriceProcessData !== 'undefined' ? fixedPriceProcessData.title : ''),
+        description: data.infoGrid.description || (typeof fixedPriceProcessData !== 'undefined' ? fixedPriceProcessData.description : ''),
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof fixedPriceProcessData !== 'undefined' ? fixedPriceProcessData : { items: [] });
+
+  
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || (typeof ourServicesData !== 'undefined' ? ourServicesData.label : ''),
+        titleAccent: data.emergingTech.titleAccent || (typeof ourServicesData !== 'undefined' ? ourServicesData.titleAccent : ''),
+        titleMain: data.emergingTech.titleMain || (typeof ourServicesData !== 'undefined' ? ourServicesData.titleMain : ''),
+        description: data.emergingTech.description || (typeof ourServicesData !== 'undefined' ? ourServicesData.description : ''),
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof ourServicesData !== 'undefined' ? ourServicesData : { label: '', titleAccent: '', titleMain: '', description: '', items: [] });
+
+  
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.label : ''),
+        title: data.deliverMVP.title || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.title : ''),
+        accentText: data.deliverMVP.accentText || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.accentText : ''),
+        description: data.deliverMVP.description || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.description : ''),
+        items: data.deliverMVP.items || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.items : [])
+      }
+    : (typeof deliverMVPData !== 'undefined' ? deliverMVPData : { label: '', title: '', accentText: '', description: '', items: [] });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.label : ''),
+        titleMain: data.serviceOverview.titleMain || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleMain : ''),
+        titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
+        titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
+        description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
+        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+      }
+    : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
+  const activeServiceFeatures = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items
+    : serviceFeaturesData;
+
+  const strategyCTA = data?.strategyCTA;
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
-      <ServiceOverview
-        label={serviceOverviewData.label}
-        titleMain={serviceOverviewData.titleMain}
-        titleAccent={serviceOverviewData.titleAccent}
-        titleEnd={serviceOverviewData.titleEnd}
-        description={serviceOverviewData.description}
-        imagePath={serviceOverviewData.imagePath}
-      />
-      <InfoGrid data={fixedPriceProcessData} />
+      {activeOverviewData && (
+        <ServiceOverview
+          label={activeOverviewData.label}
+          titleMain={activeOverviewData.titleMain}
+          titleAccent={activeOverviewData.titleAccent}
+          titleEnd={activeOverviewData.titleEnd}
+          description={activeOverviewData.description}
+          imagePath={activeOverviewData.imagePath}
+        />
+      )}
+      <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="project execution"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={strategyCTA?.titleMain || "Map your "}
+        titleAccent={strategyCTA?.titleAccent || "project execution"}
+        titleEnd={strategyCTA?.titleEnd || " roadmap."}
+        description={strategyCTA?.descriptionText ? [{ text: strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={strategyCTA?.buttonText}
+        buttonPath={strategyCTA?.buttonPath}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Expert Services'
-        description='We deliver specialized services to support your fixed-price engagements.'
-        items={serviceFeaturesData}
+        title={data?.serviceFeatures?.title || 'Expert Services'}
+        description={data?.serviceFeatures?.description || 'We deliver specialized services to support your fixed-price engagements.'}
+        items={activeServiceFeatures}
       />
-      <DeliverMVP data={deliverMVPData} />
-      <EmergingTech data={ourServicesData} />
-      <Processes title="OUR FIXED PRICE PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <EmergingTech data={activeEmergingTechData} />
+      <Processes title={data?.processes?.title || "OUR FIXED PRICE PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <FAQs faqs={data?.faqs} items={data?.faqs} />
+      <RelatedServices
+        services={[
+          {
+            title: "Custom Software Development",
+            description: "Build custom web and mobile software tailored for your business needs.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Product Ideation Workshop",
+            description: "Define your product vision, technical scope, and prototype wireframes.",
+            link: "/services/ideation-workshop"
+          },
+          {
+            title: "Proof of Concept (PoC) Development",
+            description: "Validate core technical feasibility before committing to a full fixed-price build.",
+            link: "/services/proof-of-concept-development"
+          }
+        ]}
+      />
     </>
   );
 };

@@ -1,142 +1,150 @@
-import IntroComponent from '../../components/IntroComponent/IntroComponent'
-import ServiceOverview from '../../components/ServiceOverview/ServiceOverview'
-import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
-import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid'
-import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
-import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures'
-import DeliverMVP from '../../components/DeliverMVP/DeliverMVP'
-import Processes, { type ProcessPhase } from '../../components/Processes/Processes'
-import laptopImg from "../../assets/about_laptop_3d.png";
+import React from 'react';
+import IntroComponent from '../../components/IntroComponent/IntroComponent';
+import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
+import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
+import InfoGrid, { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
+import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
+import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
+import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
+import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
+const webAppOverviewImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
+const webAppTechImg = "https://cdn.sanity.io/images/egqy3ztp/production/9ab00d29af5410a9ce17df81d285f750c8591a86-1200x896.webp";
+import { useServicePage } from '../../hooks/useServicePage';
+import { getSanityServiceBySlug } from '../../sanity/queries';
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 
 const serviceOverviewData = {
-  label: "WEB DEVELOPMENT",
-  titleMain: "Building Scalable",
-  titleAccent: "Modern",
-  titleEnd: "Web Applications",
-  description: "At Leapsofts, we engineer highly performant web applications that bridge strategic business objectives with robust tech execution. By leveraging containerized microservices, distributed data management systems, and advanced browser rendering patterns, we deliver enterprise SaaS platforms, secure portals, and interactive dashboards engineered for absolute speed, strict security compliance, and effortless scalability.",
-  imagePath: laptopImg
+  label: "WEB APPLICATION DEVELOPMENT SERVICES",
+  titleMain: "Building High-Performance",
+  titleAccent: "Enterprise Web",
+  titleEnd: "Applications",
+  description: "At Leapsofts, as a specialized web application development company, we engineer custom web applications that combine modern frontend frameworks with resilient cloud backends. Leveraging React, Next.js, Node.js, and serverless cloud infrastructure (AWS/Azure), we build secure SaaS platforms, enterprise client portals, and real-time web dashboards optimized for Core Web Vitals, conversion speed, and long-term scalability.",
+  imagePath: webAppOverviewImg
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
-  label: 'EMERGING TECHNOLOGIES',
-  titleAccent: 'Web Innovation',
-  titleMain: 'Tools We Use',
-  description: 'To take your app from great to unforgettable, we integrate the latest technologies and enhancements that improve functionality, user engagement, and business insights.',
+  label: 'MODERN WEB STACK & INNOVATION',
+  titleAccent: 'Enterprise Web Application',
+  titleMain: 'Technologies We Master',
+  description: 'We integrate cutting-edge web technologies to deliver lightning-fast response times, flawless mobile responsiveness, and bank-grade data security.',
   items: [
     {
       icon: 'enterprise' as const,
-      title: 'User Interface (UI) Design & Client Side Rendering',
-      description: 'Designing intuitive, accessible web interfaces that optimize user flows, using atomic design principles and modern state management to deliver instant response times.'
+      title: 'Custom SaaS Platform Architecture',
+      description: 'Designing multi-tenant SaaS application backends with isolated database schemas, subscription billing, and automated user onboarding pipelines.'
     },
     {
       icon: 'saas' as const,
-      title: 'Dynamic Single Page Applications (SPA) & Server Side Rendering (SSR)',
-      description: 'Building blazing-fast frontends using React, Next.js, and TypeScript, utilizing advanced routing, asset lazy loading, and edge rendering to achieve high core web vitals.'
+      title: 'React & Next.js Full-Stack Web Development',
+      description: 'Building blazing-fast web applications using React 19, Next.js App Router, TypeScript, and Server-Side Rendering (SSR) for maximum SEO search engine indexing.'
     },
     {
       icon: 'hipaa' as const,
-      title: 'Scalable RESTful & GraphQL Microservice Backends',
-      description: 'Architecting secure, distributed backends utilizing Node.js, Python, and C# to manage complex business logic, transactional database reads/writes, and zero-trust API layers.'
+      title: 'Scalable RESTful & GraphQL Microservice APIs',
+      description: 'Architecting secure, distributed API gateways utilizing Node.js, Python, and C# .NET to manage high-concurrency database queries and third-party integrations.'
     },
     {
       icon: 'ecommerce' as const,
-      title: 'High-Volume Transactional & Payment Portals',
-      description: 'Developing enterprise-grade e-commerce ecosystems and customized transactional platforms integrated with secure stripe networks, billing ledgers, and inventory systems.'
+      title: 'Progressive Web Application (PWA) Development',
+      description: 'Engineering offline-capable Progressive Web Apps with service worker caching, instant push notifications, and native-like mobile responsiveness.'
     },
     {
       icon: 'mobile' as const,
-      title: 'Ongoing Performance Tuning & System Maintenance',
-      description: 'Providing proactive post-launch maintenance, cloud environment audits, runtime memory analysis, and dependency upgrades to guarantee constant performance and stability.'
+      title: 'Core Web Vitals & Speed Performance Tuning',
+      description: 'Optimizing Largest Contentful Paint (LCP), Interaction to Next Paint (INP), and Cumulative Layout Shift (CLS) to guarantee top Google search performance.'
     },
     {
       icon: 'legacy' as const,
-      title: 'Rigorous Automated Testing & Security Audits',
-      description: 'Conducting comprehensive functional, end-to-end (Playwright/Cypress), load testing, and static analysis checks to guarantee zero defects and SOC2 database compliance before launch.'
+      title: 'Enterprise Web Security & SOC2 Compliance',
+      description: 'Implementing OAuth2/OpenID authentication, role-based access control (RBAC), TLS 1.3 encryption, and automated Cypress/Playwright security testing.'
     },
   ]
-}
+};
 
 const infoGridData: InfoGridProps['data'] = {
-  label: 'WHY US',
-  title: 'Value of Modern Web Apps',
+  label: 'BUSINESS ADVANTAGES',
+  title: 'Why Enterprise Brands Choose Our Web Application Developers',
   items: [
     {
       icon: '01',
-      title: 'Global Accessibility & Device Agnostic Optimization',
-      description: 'Reach your customer base globally with web applications that are fully responsive, mobile-optimized, and verified across all browsers and viewport sizes.'
+      title: 'Cross-Device Responsive Accessibility',
+      description: 'Deliver uniform, pixel-perfect user experiences across desktop monitors, tablets, and mobile viewports with fluid CSS breakpoints.'
     },
     {
       icon: '02',
-      title: 'Zero-Downtime Hot Reloads & Continuous Deployment',
-      description: 'Ship critical system updates, platform features, and hotfixes seamlessly using CI/CD pipelines without interrupting the user session or requiring updates.'
+      title: 'Zero-Downtime Continuous Deployment',
+      description: 'Deploy new web app features, security patches, and hotfixes seamlessly using automated Vercel & AWS CI/CD pipelines without user session interruption.'
     },
     {
       icon: '03',
-      title: 'Auto-Scaling Cloud Serverless Infrastructure',
-      description: 'Deploy onto resilient cloud environments (AWS/Azure) utilizing serverless computing, edge databases, and content delivery networks (CDNs) that expand on demand.'
+      title: 'Auto-Scaling Serverless Cloud Infrastructure',
+      description: 'Deploy onto resilient multi-region cloud networks (AWS Elastic Beanstalk / Azure App Services) that scale automatically during peak traffic spikes.'
     },
     {
       icon: '04',
-      title: 'Optimized Infrastructure Costs & Reduced TCO',
-      description: 'Achieve significant operational cost reductions by leveraging headless services, microservice reusability, and automated resource allocations.'
+      title: 'Reduced Total Cost of Ownership (TCO)',
+      description: 'Maximize engineering ROI with reusable React component libraries, decoupled microservices, and efficient cloud resource utilization.'
     }
   ]
 };
 
 const streamlineDescription = [
-  { text: "Whether modernizing a complex ", bold: false },
-  { text: "legacy enterprise web portal ", bold: true },
-  { text: "or engineering a ", bold: false },
-  { text: "new SaaS web platform", bold: true },
-  { text: ", our experts deliver immediate technical clarity. We conduct a deep-dive analysis of your current systems, map out front-end components, evaluate serverless and container options, and formulate a ", bold: false },
-  { text: "highly efficient, core-web-vitals optimized engineering plan ", bold: true },
-  { text: "built to unlock massive digital growth and streamline user retention.", bold: false }
+  { text: "Whether modernizing a legacy ", bold: false },
+  { text: "enterprise web portal ", bold: true },
+  { text: "or engineering a new ", bold: false },
+  { text: "custom SaaS web platform", bold: true },
+  { text: ", our senior web architects deliver complete technical execution. We analyze your tech stack, optimize API data flows, and build a ", bold: false },
+  { text: "high-converting, Core-Web-Vitals optimized web application ", bold: true },
+  { text: "engineered for long-term market leadership.", bold: false }
 ];
 
 const serviceFeaturesData: ServiceFeatureItem[] = [
   {
     icon: '/industryicons/sphere.svg',
-    title: 'React & Next.js',
-    description: 'Blazing-fast, SEO-optimized frontends leveraging React 19, Next.js, and static site generation (SSG) to achieve maximum performance scores.'
+    title: 'Custom React & Next.js Apps',
+    description: 'Blazing-fast, SEO-optimized web frontends utilizing Next.js, Server-Side Rendering (SSR), and TypeScript for peak performance.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
-    title: 'Node.js & Python',
-    description: 'High-concurrency backend services designed for real-time data flows, rapid API integrations, and robust memory allocations.'
+    title: 'Node.js & Python Web APIs',
+    description: 'High-concurrency backend web services engineered for real-time data streaming, OAuth security, and database ORM query optimization.'
   },
   {
     icon: '/industryicons/sphere.svg',
-    title: 'PWA Development',
-    description: 'Progressive Web Apps utilizing service workers and local caching layers to deliver fully responsive, offline-capable app experiences.'
+    title: 'Progressive Web Apps (PWA)',
+    description: 'Mobile-first Progressive Web Applications featuring offline service workers, app-like interactions, and cross-platform compatibility.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
-    title: 'Microservices',
-    description: 'Architecting loosely coupled, modular service patterns that permit continuous local deployments and isolate system dependencies.'
+    title: 'Cloud Microservices & SaaS',
+    description: 'Decoupled SaaS microservices architecture supporting multi-tenant isolation, automated billing, and zero-downtime releases.'
   }
 ];
 
 const deliverMVPData = {
-  label: "WEB EXCELLENCE",
-  title: "How Can We Deliver Your Web App in",
-  accentText: "3-5 months?",
-  description: "Leapsofts is an elite custom web engineering partner. By combining automated Vercel/AWS deployments, pre-built high-performance web modules, and dedicated agile squads, we deploy custom enterprise web applications within an accelerated 3 to 5 month timeline—on time, every time.",
+  label: "WEB DEVELOPMENT EXCELLENCE",
+  title: "Deploy Your Production-Ready Custom Web Application in",
+  accentText: "3-5 months",
+  description: "Leapsofts is an elite custom web application development company. Leveraging automated Vercel/AWS release pipelines, modular React component libraries, and dedicated agile pods, we build and deploy enterprise web applications within 3 to 5 months.",
   items: [
     {
-      title: "Agile Sprint Delivery.",
-      description: "Leveraging iterative bi-weekly sprint cycles and transparent task dashboards to deliver incremental value and maintain visual alignment."
+      title: "Agile Development Pods.",
+      description: "Utilizing bi-weekly sprint deliverables and transparent Kanban boards to maintain full execution visibility."
     },
     {
-      title: "Comprehensive Security.",
-      description: "Integrating SOC2 database controls, SSL encryption, OAuth2 verification, and strict cross-origin resource sharing (CORS) rules to secure all transactions."
+      title: "Bank-Grade Web Security.",
+      description: "Implementing OAuth2 authentication, CORS headers, CSRF protections, and SOC2 compliant database encryption."
     },
     {
-      title: "UX-Driven Responsive Architecture.",
-      description: "Drafting technical wireframes, interactive user maps, and accessible UI grids that ensure friction-free task execution across mobile and desktop."
+      title: "Core Web Vitals Optimization.",
+      description: "Engineering lightweight JS bundles and lazy-loaded assets to guarantee top-tier Lighthouse speed scores."
     },
     {
-      title: "Post-Launch Web Support.",
-      description: "Proactive system upgrades, cloud resource balancing, security patch audits, and performance tuning to secure long-term digital authority."
+      title: "Continuous Post-Launch Support.",
+      description: "Providing proactive cloud infrastructure monitoring, security patch updates, and ongoing feature enhancements."
     }
   ]
 };
@@ -251,46 +259,156 @@ const title = "Enterprise Web Application Engineering";
 const subtitle = "";
 
 const introDescription = [
-  { text: "We engineer high-performance, responsive ", bold: false },
-  { text: "enterprise web applications ", bold: true },
-  { text: "designed to streamline operational complexity and support global user scale. Leveraging modern frontend rendering and secure backend microservices, we build reliable SaaS platforms and digital products that eliminate latency and scale seamlessly with your growth.", bold: false }
-]
+  { text: "We deliver industry-leading ", bold: false },
+  { text: "web app development services ", bold: true },
+  { text: "and ", bold: false },
+  { text: "custom web application development ", bold: true },
+  { text: "tailored for high-growth enterprises. As an experienced web app development company, we build high-performance SaaS platforms, progressive web apps, and enterprise portals engineered for speed, security, and effortless scalability.", bold: false }
+];
 
-const WebAppDevelopment: React.FC = () => {
-  return (
-    <>
-      <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
-      />
-      <ServiceOverview
-        label={serviceOverviewData.label}
-        titleMain={serviceOverviewData.titleMain}
-        titleAccent={serviceOverviewData.titleAccent}
-        titleEnd={serviceOverviewData.titleEnd}
-        description={serviceOverviewData.description}
-        imagePath={serviceOverviewData.imagePath}
-      />
-      <InfoGrid data={infoGridData} />
-      <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="web"
-        titleEnd=" architecture."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
-      />
-      <ServiceFeatures
-        title='Core Web Capabilities'
-        description='We utilize industry-leading tools and architectural patterns to deliver robust web applications.'
-        items={serviceFeaturesData}
-      />
-      <DeliverMVP data={deliverMVPData} />
-      <EmergingTech data={emergingTechData} />
-      <Processes title="OUR WEB APP DEVELOPMENT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
-    </>
-  )
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('web-app-development');
+  return { sanityData };
 }
 
-export default WebAppDevelopment
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Web App Development Services | Leapsofts",
+    defaultDescription: "Custom web application development for enterprises. Leapsofts builds high-performance, secure web apps using modern stacks. Start your project today.",
+    defaultKeywords: "web app development company, custom web application development, enterprise web development services, web application developers",
+    canonicalUrl: "https://www.leapsofts.com/services/web-app-development",
+  });
+}
+
+const WebAppDevelopment: React.FC = () => {
+  const { data } = useServicePage('web-app-development');
+
+  const schemaData = buildServiceSchema({
+    name: "Web App Development Services",
+    description: "Custom web application development for enterprises.",
+    canonicalUrl: "https://www.leapsofts.com/services/web-app-development",
+    faqs: data?.faqs,
+  });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || serviceOverviewData.label,
+        titleMain: data.serviceOverview.titleMain || serviceOverviewData.titleMain,
+        titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
+        titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
+        description: data.serviceOverview.description || serviceOverviewData.description,
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath
+      }
+    : serviceOverviewData;
+
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || infoGridData.label,
+        titleAccent: data.infoGrid.titleAccent || infoGridData.titleAccent,
+        titleMain: data.infoGrid.titleMain || infoGridData.titleMain,
+        description: data.infoGrid.description || infoGridData.description,
+        items: data.infoGrid.items || infoGridData.items
+      }
+    : infoGridData;
+
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || emergingTechData.label,
+        titleAccent: data.emergingTech.titleAccent || emergingTechData.titleAccent,
+        titleMain: data.emergingTech.titleMain || emergingTechData.titleMain,
+        description: data.emergingTech.description || emergingTechData.description,
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : emergingTechData;
+
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || deliverMVPData.label,
+        title: data.deliverMVP.title || deliverMVPData.title,
+        accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
+        description: data.deliverMVP.description || deliverMVPData.description,
+        items: data.deliverMVP.items || deliverMVPData.items
+      }
+    : deliverMVPData;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
+  const strategyCTA = data?.strategyCTA;
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
+      />
+      <ServiceOverview
+        label={activeOverviewData.label}
+        titleMain={activeOverviewData.titleMain}
+        titleAccent={activeOverviewData.titleAccent}
+        titleEnd={activeOverviewData.titleEnd}
+        description={activeOverviewData.description}
+        imagePath={activeOverviewData.imagePath}
+      />
+      <InfoGrid data={activeInfoGridData} />
+      <StreamlineSuccess
+        label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={strategyCTA?.titleMain || "Map your "}
+        titleAccent={strategyCTA?.titleAccent || "web"}
+        titleEnd={strategyCTA?.titleEnd || " architecture."}
+        description={strategyCTA?.descriptionText ? parseFormattedText(strategyCTA.descriptionText) : streamlineDescription}
+        buttonText={strategyCTA?.buttonText}
+        buttonPath={strategyCTA?.buttonPath}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
+      />
+      <ServiceFeatures
+        title={data?.serviceFeatures?.title || 'Core Web Capabilities'}
+        description={data?.serviceFeatures?.description || 'We utilize industry-leading tools and architectural patterns to deliver robust web applications.'}
+        items={data?.serviceFeatures?.items || serviceFeaturesData}
+      />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <EmergingTech data={activeEmergingTechData} />
+      <Processes title={data?.processes?.title || "OUR WEB APP DEVELOPMENT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <FAQs title="Web Application Development FAQ" subtitle="Everything you need to know about custom web apps, Next.js/React architecture, Core Web Vitals, and IP ownership." faqs={data?.faqs} items={data?.faqs} />
+      <RelatedServices
+        services={[
+          {
+            title: "Custom Software Development",
+            description: "Bespoke enterprise software architecture, legacy system re-engineering, and tailored business platforms.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Mobile App Development",
+            description: "High-performance iOS and Android mobile apps engineered with native Swift, Kotlin & cross-platform Flutter.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "DevOps & Cloud Automation",
+            description: "Automate CI/CD delivery pipelines, container orchestration with Kubernetes, and cloud infrastructure.",
+            link: "/services/devops"
+          }
+        ]}
+      />
+    </>
+  );
+};
+
+export default WebAppDevelopment;

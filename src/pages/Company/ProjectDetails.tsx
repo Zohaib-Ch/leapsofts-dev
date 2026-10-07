@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { projectsData } from '../../data/projectsData';
 import ImpactShowcase from '../../components/ImpactShowcase/ImpactShowcase';
 import ExecutiveSummary from '../../components/ExecutiveSummary/ExecutiveSummary';

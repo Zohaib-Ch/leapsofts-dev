@@ -1,11 +1,14 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO MID-SIZED BUSINESSES",
@@ -91,43 +94,119 @@ const streamlineDescription = [
 const title = "Custom Software Development, Enterprise Workflows & Scalable IT for Mid-Sized Businesses";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we engineer custom enterprise-grade ", bold: false },
-  { text: "ERP synchronization platforms, operations orchestration portals, and legacy system modernizations ", bold: true },
-  { text: "tailored specifically to bridge the technology gap for mid-market and scaling businesses. By integrating centralized inventory management hubs, deploying paperless field workforce dispatchers, and connecting secure payment gateways, we eliminate operational bottlenecks to fuel high-efficiency corporate expansion.", bold: false }
+  { text: "We deliver specialized ", bold: false },
+  { text: "software development for mid-sized businesses & mid-market companies ", bold: true },
+  { text: "seeking enterprise-quality engineering. By building custom ERP sync platforms, operations management portals, and paperless field mobile apps, we help growing SMBs bridge technical gaps and accelerate scalable corporate expansion.", bold: false }
 ];
 
+import { getSanityIndustryBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('mid-sized-businesses');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Software Development for Mid-Sized Businesses | Leapsofts",
+    defaultDescription: "Scalable custom software solutions built for mid-market companies. Leapsofts delivers enterprise-quality engineering at a competitive pace and cost. Talk to us.",
+    defaultKeywords: "software development for mid-sized businesses, mid-market software solutions, custom software SMB",
+    canonicalUrl: "https://www.leapsofts.com/industries/mid-sized-businesses",
+  });
+}
+
+
+
 const MidSizedBusinesses: React.FC = () => {
+  const { data } = useIndustryPage('mid-sized-businesses');
+
+  const schemaData = buildServiceSchema({
+    name: "Software Development for Mid-Sized Businesses",
+    description: "Scalable custom software solutions built for mid-market companies.",
+    canonicalUrl: "https://www.leapsofts.com/industries/mid-sized-businesses",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+    ? {
+        subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
+        title: data.commitmentSection.title || commitmentData.title,
+        items: data.commitmentSection.items
+      }
+    : commitmentData;
+
+  const activeSolutionsData = (data?.solutionsSection && data.solutionsSection.items?.length)
+    ? {
+        label: data.solutionsSection.label || businessSolutionsData.label,
+        titleAccent: data.solutionsSection.titleAccent || businessSolutionsData.titleAccent,
+        titleMain: data.solutionsSection.titleMain || businessSolutionsData.titleMain,
+        description: data.solutionsSection.description || businessSolutionsData.description,
+        items: data.solutionsSection.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : businessSolutionsData;
+
+  const processTitleMain = data?.processHeader?.titleMain || "Enterprise Application Engineering";
+  const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
   useEffect(() => {
     setProcessTitle({
-      titleMain: "Enterprise Business Solutions",
-      titleAccent: "Process"
+      titleMain: processTitleMain,
+      titleAccent: processTitleAccent
     });
-  }, [setProcessTitle]);
+  }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
   return (
     <>
-      <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
-      />
-      <CommitmentSection data={commitmentData} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Business "
-        titleAccent="Strategy"
-        titleEnd=" Session"
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
+        titleMain={data?.strategyCTA?.titleMain || "Software "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
+        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <EmergingTech data={businessSolutionsData} />
+      <EmergingTech data={activeSolutionsData} />
       <Services
         label="OUR CAPABILITIES"
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" mid-sized businesses"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Custom Software Development",
+            description: "Build bespoke business management software tailored to your workflows.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Fixed Price Software Development",
+            description: "Deliver your software project on a predictable, fixed-cost budget.",
+            link: "/services/fixed-price"
+          },
+          {
+            title: "Application Re-Engineering",
+            description: "Modernize legacy database tools and desktop software into web applications.",
+            link: "/services/app-reengineering"
+          }
+        ]}
       />
     </>
   );

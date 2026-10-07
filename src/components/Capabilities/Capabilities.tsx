@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, EffectFade } from 'swiper/modules';
-import { Swiper as SwiperType } from 'swiper';
+import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import styles from './capabilities.module.css';
 import { ChevronLeft, ChevronRight } from 'lucide-react';

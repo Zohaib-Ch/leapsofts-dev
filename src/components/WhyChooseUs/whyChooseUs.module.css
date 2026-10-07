@@ -70,7 +70,7 @@
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     backdrop-filter: blur(10px);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: default;
 }
 
@@ -95,7 +95,7 @@
     font-weight: 700;
     color: white;
     box-shadow: 0 4px 15px var(--color-primary);
-    transition: all 0.4s ease;
+    transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, opacity 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
 }
 
 .item:hover .numberWrapper {
@@ -107,7 +107,7 @@
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--text-secondary);
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .item:hover .text {

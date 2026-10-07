@@ -1,5 +1,7 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection from '../../components/CommitmentSection/CommitmentSection';
@@ -8,6 +10,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech from '../../components/EmergingTech/EmergingTech';
 import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO HEALTHCARE",
@@ -100,38 +103,115 @@ const introDescription = [
   { text: "tailored to the operational complexities of clinical systems. By implementing robust HIPAA and GDPR security baselines, designing intuitive HL7 FHIR interfaces, and establishing safe remote-patient monitoring pipelines, we help medical institutions optimize care delivery and eliminate administrative drag.", bold: false }
 ];
 
+import { getSanityIndustryBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('healthcare');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Healthcare Software Development Services | Leapsofts",
+    defaultDescription: "HIPAA-compliant healthcare software development — EHR, patient portals & telehealth. Leapsofts builds secure digital health solutions. Schedule a consultation.",
+    defaultKeywords: "healthcare software development, HIPAA compliant software, EHR software development, digital health solutions",
+    canonicalUrl: "https://www.leapsofts.com/industries/healthcare",
+  });
+}
+
+
+
 const Healthcare: React.FC = () => {
+  const { data } = useIndustryPage('healthcare');
+
+  const schemaData = buildServiceSchema({
+    name: "Healthcare Software Development Services",
+    description: "HIPAA-compliant healthcare software development — EHR, patient portals & telehealth.",
+    canonicalUrl: "https://www.leapsofts.com/industries/healthcare",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+    ? {
+        subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
+        title: data.commitmentSection.title || commitmentData.title,
+        items: data.commitmentSection.items
+      }
+    : commitmentData;
+
+  const activeSolutionsData = (data?.solutionsSection && data.solutionsSection.items?.length)
+    ? {
+        label: data.solutionsSection.label || ourTechInnovationsData.label,
+        titleAccent: data.solutionsSection.titleAccent || ourTechInnovationsData.titleAccent,
+        titleMain: data.solutionsSection.titleMain || ourTechInnovationsData.titleMain,
+        description: data.solutionsSection.description || ourTechInnovationsData.description,
+        items: data.solutionsSection.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : ourTechInnovationsData;
+
+  const processTitleMain = data?.processHeader?.titleMain || "Healthcare Product Development";
+  const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
   useEffect(() => {
     setProcessTitle({
-      titleMain: "Healthcare Product Development",
-      titleAccent: "Process"
+      titleMain: processTitleMain,
+      titleAccent: processTitleAccent
     });
-  }, [setProcessTitle]);
+  }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
   return (
     <>
-      <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
-      />
-      <CommitmentSection data={commitmentData} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Software "
-        titleAccent="Strategy"
-        titleEnd=" Session"
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
+        titleMain={data?.strategyCTA?.titleMain || "Software "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
+        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <EmergingTech data={ourTechInnovationsData} />
+      <EmergingTech data={activeSolutionsData} />
       <Services
         label="OUR CAPABILITIES"
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" healthcare businesses"
+      />
+      <RelatedServices
+        title="Recommended Healthcare Software Services"
+        services={[
+          {
+            title: "Cyber Security & HIPAA Compliance",
+            description: "Enterprise-grade penetration testing, zero-trust access, and HIPAA compliance auditing.",
+            link: "/services/cyber-security"
+          },
+          {
+            title: "Custom Mobile App Development",
+            description: "Telehealth apps, remote patient monitoring portals, and secure mobile EHR systems.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Data Science & AI Solutions",
+            description: "AI clinical decision support, medical image processing, and predictive diagnostic analytics.",
+            link: "/services/data-science-ai"
+          }
+        ]}
       />
     </>
   );

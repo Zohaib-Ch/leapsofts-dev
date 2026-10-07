@@ -59,7 +59,7 @@
     width: 100%;
     pointer-events: none;
     /* Disable clicks on the wrapper */
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), color 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* The inner container that receives clicks */
@@ -110,7 +110,7 @@
     color: rgba(255, 255, 255, 0.25);
     text-transform: uppercase;
     white-space: nowrap;
-    transition: all 0.5s ease;
+    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, opacity 0.5s ease, box-shadow 0.5s ease, transform 0.5s ease;
     pointer-events: auto;
     /* display: none; */
     opacity: 0;
@@ -166,7 +166,7 @@
     /* background: linear-gradient(135deg, #a855f7 0%, #9333ea 30%, #7c3aed 60%, #6d28d9 100%); */
     background: transparent;
     border-radius: 20px;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
 }
 
@@ -335,7 +335,7 @@
     cursor: pointer;
     background: linear-gradient(180deg, #1f2128 0%, #16181d 100%);
     /* background: linear-gradient(270deg, #6d28d9 100%, #9333ea 30%, #7c3aed 60%, #a855f7 100%); */
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     border-left: 2px solid transparent;
     border-radius: 0 20px 20px 0;
     /* background: transparent; */
@@ -397,7 +397,7 @@
     text-transform: uppercase;
     cursor: pointer;
     padding: 12px 0;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     position: relative;
 }
 

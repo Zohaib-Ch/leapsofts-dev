@@ -1,5 +1,7 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection from '../../components/CommitmentSection/CommitmentSection';
@@ -8,6 +10,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech from '../../components/EmergingTech/EmergingTech';
 import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO COMPLIANCE",
@@ -93,43 +96,119 @@ const streamlineDescription = [
 const title = "Compliance & RegTech Solutions, Risk Mitigation & Automated Audit Trails";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we engineer highly secure, enterprise-grade ", bold: false },
-  { text: "regulatory technology (RegTech) solutions, automated compliance checkers, and centralized audit platforms ", bold: true },
-  { text: "designed to mitigate operational risk across complex global jurisdictions. By enforcing strict zero-trust access frameworks, structuring immutable transaction audit logs, and integrating intelligent sanction screening engines, we empower organizations to confidently satisfy rigorous corporate audits and regulatory reporting mandates.", bold: false }
+  { text: "We engineer enterprise-grade ", bold: false },
+  { text: "regulatory compliance software development, risk management systems, and automated audit trail platforms ", bold: true },
+  { text: "designed for highly regulated sectors. By implementing zero-trust access controls, automated KYC/AML checks, and SOC2/HIPAA compliance engines, we help organizations satisfy strict global auditing mandates.", bold: false }
 ];
 
+import { getSanityIndustryBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('compliance');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Compliance Management Software Development | Leapsofts",
+    defaultDescription: "Custom regulatory compliance software — risk management, audit trails & reporting platforms. Leapsofts builds compliance-ready systems for regulated industries.",
+    defaultKeywords: "compliance software development, regulatory compliance software, risk management software, audit management software",
+    canonicalUrl: "https://www.leapsofts.com/industries/compliance",
+  });
+}
+
+
+
 const Compliance: React.FC = () => {
+  const { data } = useIndustryPage('compliance');
+
+  const schemaData = buildServiceSchema({
+    name: "Compliance Management Software Development",
+    description: "Custom regulatory compliance software — risk management, audit trails & reporting platforms.",
+    canonicalUrl: "https://www.leapsofts.com/industries/compliance",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+    ? {
+        subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
+        title: data.commitmentSection.title || commitmentData.title,
+        items: data.commitmentSection.items
+      }
+    : commitmentData;
+
+  const activeSolutionsData = (data?.solutionsSection && data.solutionsSection.items?.length)
+    ? {
+        label: data.solutionsSection.label || complianceSolutionsData.label,
+        titleAccent: data.solutionsSection.titleAccent || complianceSolutionsData.titleAccent,
+        titleMain: data.solutionsSection.titleMain || complianceSolutionsData.titleMain,
+        description: data.solutionsSection.description || complianceSolutionsData.description,
+        items: data.solutionsSection.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : complianceSolutionsData;
+
+  const processTitleMain = data?.processHeader?.titleMain || "Compliance Product Development";
+  const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
   useEffect(() => {
     setProcessTitle({
-      titleMain: "Compliance Software Development",
-      titleAccent: "Process"
+      titleMain: processTitleMain,
+      titleAccent: processTitleAccent
     });
-  }, [setProcessTitle]);
+  }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
   return (
     <>
-      <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
-      />
-      <CommitmentSection data={commitmentData} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Compliance "
-        titleAccent="Strategy"
-        titleEnd=" Session"
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
+        titleMain={data?.strategyCTA?.titleMain || "Software "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
+        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <EmergingTech data={complianceSolutionsData} />
+      <EmergingTech data={activeSolutionsData} />
       <Services
         label="OUR CAPABILITIES"
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" compliant organizations"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Data Governance & Compliance",
+            description: "Deploy Master Data Management (MDM) and GDPR/HIPAA compliance frameworks.",
+            link: "/services/data-governance"
+          },
+          {
+            title: "Cyber Security & Auditing",
+            description: "Conduct penetration audits and zero-trust vulnerability scans.",
+            link: "/services/cyber-security"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Build custom enterprise risk management software and reporting dashboards.",
+            link: "/services/custom-software-development"
+          }
+        ]}
       />
     </>
   );

@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview'
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech'
@@ -6,7 +7,11 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess'
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures'
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP'
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes'
-import laptopImg from "../../assets/about_laptop_3d.png";
+import RelatedServices from '../../components/RelatedServices/RelatedServices'
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
+const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
+import { useServicePage } from '../../hooks/useServicePage';
 
 const serviceOverviewData = {
   label: "RE-ENGINEERING",
@@ -251,44 +256,157 @@ const title = "Legacy Software & Architecture Re-Engineering";
 const subtitle = "";
 
 const introDescription = [
-  { text: "We modernize aging, brittle, and monolithic ", bold: false },
-  { text: "legacy enterprise applications ", bold: true },
-  { text: "into high-performance, cloud-native systems. By refactoring complex database schemas, decoupling core service dependencies into secure microservices, and eliminating historical technical debt, we deliver resilient architectures engineered for double execution velocity and reduced operational overhead.", bold: false }
+  { text: "We provide end-to-end ", bold: false },
+  { text: "application re-engineering services & legacy modernization ", bold: true },
+  { text: "to transform aging, monolithic software into high-performance, cloud-native platforms. As a trusted software re-engineering company, we refactor legacy database schemas, decouple core microservices, and eliminate technical debt to accelerate release velocity and cut operational costs.", bold: false }
 ]
 
+import { getSanityServiceBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('app-reengineering');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Application Re-Engineering Services | Leapsofts",
+    defaultDescription: "Modernize legacy systems without disruption. Leapsofts re-engineers outdated applications into scalable, cloud-native platforms. Book a free assessment.",
+    defaultKeywords: "application re-engineering, legacy modernization, software modernization services, legacy system migration",
+    canonicalUrl: "https://www.leapsofts.com/services/app-reengineering",
+  });
+}
+
+
+
 const AppReengineering: React.FC = () => {
+  const { data } = useServicePage('app-reengineering');
+
+  const schemaData = buildServiceSchema({
+    name: "Application Re-Engineering Services",
+    description: "Modernize legacy systems without disruption.",
+    canonicalUrl: "https://www.leapsofts.com/services/app-reengineering",
+    faqs: data?.faqs,
+  });
+
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || serviceOverviewData.label,
+        titleMain: data.serviceOverview.titleMain || serviceOverviewData.titleMain,
+        titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
+        titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
+        description: data.serviceOverview.description || serviceOverviewData.description,
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath
+      }
+    : serviceOverviewData;
+
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || reEngineeringProcessData.label,
+        titleAccent: data.infoGrid.titleAccent || reEngineeringProcessData.titleAccent,
+        titleMain: data.infoGrid.titleMain || reEngineeringProcessData.titleMain,
+        description: data.infoGrid.description || reEngineeringProcessData.description,
+        items: data.infoGrid.items || reEngineeringProcessData.items
+      }
+    : reEngineeringProcessData;
+
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || ourServicesData.label,
+        titleAccent: data.emergingTech.titleAccent || ourServicesData.titleAccent,
+        titleMain: data.emergingTech.titleMain || ourServicesData.titleMain,
+        description: data.emergingTech.description || ourServicesData.description,
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : ourServicesData;
+
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || deliverMVPData.label,
+        title: data.deliverMVP.title || deliverMVPData.title,
+        accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
+        description: data.deliverMVP.description || deliverMVPData.description,
+        items: data.deliverMVP.items || deliverMVPData.items
+      }
+    : deliverMVPData;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
       <ServiceOverview
-        label={serviceOverviewData.label}
-        titleMain={serviceOverviewData.titleMain}
-        titleAccent={serviceOverviewData.titleAccent}
-        titleEnd={serviceOverviewData.titleEnd}
-        description={serviceOverviewData.description}
-        imagePath={serviceOverviewData.imagePath}
+        label={activeOverviewData.label}
+        titleMain={activeOverviewData.titleMain}
+        titleAccent={activeOverviewData.titleAccent}
+        titleEnd={activeOverviewData.titleEnd}
+        description={activeOverviewData.description}
+        imagePath={activeOverviewData.imagePath}
       />
-      <InfoGrid data={reEngineeringProcessData} />
+      <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="modernization"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "modernization"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Core Revamp Skills'
+        title={data?.serviceFeatures?.title || 'Core Revamp Skills'}
         description='Our teams bring deep expertise in translating legacy code to modern stacks.'
-        items={serviceFeaturesData}
+        items={data?.serviceFeatures?.items || serviceFeaturesData}
       />
-      <DeliverMVP data={deliverMVPData} />
-      <EmergingTech data={ourServicesData} />
-      <Processes title="OUR SYSTEM RE-ENGINEERING PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <EmergingTech data={activeEmergingTechData} />
+      <Processes title={data?.processes?.title || "OUR SYSTEM RE-ENGINEERING PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <FAQs
+        title="App Re-Engineering & Legacy Modernization FAQ"
+        subtitle="Everything you need to know about code refactoring, monolith decoupling, database migration, and zero-downtime cloud cutovers."
+        faqs={data?.faqs} items={data?.faqs}
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Custom Software Development",
+            description: "Build scalable enterprise web and mobile platforms engineered for long-term growth.",
+            link: "/services/custom-software-development"
+          },
+          {
+            title: "Cloud Engineering & Infrastructure",
+            description: "Architect cloud-native environments, VPC networks, and serverless infrastructures on AWS & Azure.",
+            link: "/services/cloud-engineering"
+          },
+          {
+            title: "DevOps & Continuous Integration",
+            description: "Automate build pipelines, container orchestration, and infrastructure-as-code deployments.",
+            link: "/services/devops"
+          }
+        ]}
+      />
     </>
   )
 }

@@ -1,11 +1,14 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENTS TO MEDIA INNOVATION",
@@ -91,43 +94,119 @@ const streamlineDescription = [
 const title = "Media & Entertainment Software Development, Low-Latency Streaming & Digital Rights";
 const subtitle = "";
 const introDescription = [
-  { text: "At Leapsofts, we build high-fidelity, high-concurrency ", bold: false },
-  { text: "video and music streaming architectures, esports platform portals, and digital rights management (DRM) systems ", bold: true },
-  { text: "engineered to deliver flawless media playback to global audiences. By implementing low-latency CDN routing, secure server-side dynamic ad insertions, and zero-knowledge paywall architectures, we help media companies and digital creators scale their content distribution with absolute telemetry controls.", bold: false }
+  { text: "We deliver full-scale ", bold: false },
+  { text: "entertainment software development services, low-latency media streaming platforms, and digital rights management (DRM) architectures ", bold: true },
+  { text: "engineered for global content reach. By building multi-bitrate HLS/DASH video pipelines, server-side ad insertions (SSAI), and esports portals, we help media companies scale audience engagement.", bold: false }
 ];
 
+import { getSanityIndustryBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityIndustryBySlug('entertainment');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Entertainment Software Development Services | Leapsofts",
+    defaultDescription: "Custom media & entertainment software — streaming platforms, content management & audience engagement tools. Leapsofts builds digital entertainment solutions.",
+    defaultKeywords: "entertainment software development, media software company, streaming platform development, content management software",
+    canonicalUrl: "https://www.leapsofts.com/industries/entertainment",
+  });
+}
+
+
+
 const Entertainment: React.FC = () => {
+  const { data } = useIndustryPage('entertainment');
+
+  const schemaData = buildServiceSchema({
+    name: "Entertainment Software Development Services",
+    description: "Custom media & entertainment software — streaming platforms, content management & audience engagement tools.",
+    canonicalUrl: "https://www.leapsofts.com/industries/entertainment",
+    faqs: data?.faqs,
+  });
   const { setProcessTitle } = useOutletContext<IndustriesContextType>();
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? [{ text: data.hero.introText, bold: false }]
+    : introDescription;
+
+  const activeCommitmentData = (data?.commitmentSection && data.commitmentSection.items?.length)
+    ? {
+        subtitle: data.commitmentSection.subtitle || commitmentData.subtitle,
+        title: data.commitmentSection.title || commitmentData.title,
+        items: data.commitmentSection.items
+      }
+    : commitmentData;
+
+  const activeSolutionsData = (data?.solutionsSection && data.solutionsSection.items?.length)
+    ? {
+        label: data.solutionsSection.label || entertainmentSolutionsData.label,
+        titleAccent: data.solutionsSection.titleAccent || entertainmentSolutionsData.titleAccent,
+        titleMain: data.solutionsSection.titleMain || entertainmentSolutionsData.titleMain,
+        description: data.solutionsSection.description || entertainmentSolutionsData.description,
+        items: data.solutionsSection.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : entertainmentSolutionsData;
+
+  const processTitleMain = data?.processHeader?.titleMain || "Media & Entertainment Engineering";
+  const processTitleAccent = data?.processHeader?.titleAccent || "Process";
 
   useEffect(() => {
     setProcessTitle({
-      titleMain: "Entertainment Media Solutions",
-      titleAccent: "Process"
+      titleMain: processTitleMain,
+      titleAccent: processTitleAccent
     });
-  }, [setProcessTitle]);
+  }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
   return (
     <>
-      <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
-      />
-      <CommitmentSection data={commitmentData} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label="STREAMLINE YOUR SUCCESS"
-        titleMain="Media "
-        titleAccent="Strategy"
-        titleEnd=" Session"
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
+        titleMain={data?.strategyCTA?.titleMain || "Software "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
+        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
-      <EmergingTech data={entertainmentSolutionsData} />
+      <EmergingTech data={activeSolutionsData} />
       <Services
         label="OUR CAPABILITIES"
         titleMain="How we "
         titleAccent="empower"
         titleEnd=" entertainment businesses"
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Web App Development",
+            description: "Build custom high-concurrency media portals and streaming web interfaces.",
+            link: "/services/web-app-development"
+          },
+          {
+            title: "Mobile App Development",
+            description: "Engineer native iOS & Android video and audio streaming mobile apps.",
+            link: "/services/mobile-app-development"
+          },
+          {
+            title: "Cloud Engineering & Infrastructure",
+            description: "Architect global CDN distribution and serverless transcoding pipelines.",
+            link: "/services/cloud-engineering"
+          }
+        ]}
       />
     </>
   );

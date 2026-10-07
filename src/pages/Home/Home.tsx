@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router';
+import type { Route } from "../../../.react-router/types/app/+types/routes";
 import Services from './CompanyServices/Services';
 import About from './About/About';
 import StreamlineSuccess from './Streamline/StreamlineSuccess';
@@ -13,34 +14,49 @@ import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import Figures from './Figures/Figures';
 import IndustrySlider from '../../components/IndustrySlider/IndustrySlider';
 import style from './home.module.css';
-import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityHomePage } from '../../sanity/queries';
 import type { SanityHomePage } from '../../sanity/types';
 
-const Home = () => {
-  const [sanityData, setSanityData] = useState<SanityHomePage | null>(null);
+export async function loader() {
+  const data = await getSanityHomePage();
+  return { sanityData: data };
+}
 
-  useEffect(() => {
-    getSanityHomePage().then((data) => {
-      if (data) setSanityData(data);
-    });
-  }, []);
+export function meta({ data }: Route.MetaArgs) {
+  const sanityData = data?.sanityData;
+  const title = sanityData?.seo?.metaTitle || "Enterprise Custom Software Development Company | Leapsofts";
+  const description = sanityData?.seo?.metaDescription || "Leapsofts engineers enterprise-grade custom software, cloud platforms & AI solutions. Launch your MVP in 3-5 months with zero compromise on scalability. Schedule a free strategy session today.";
+  const keywords = sanityData?.seo?.keywords || "custom software development company, enterprise software engineering, cloud architecture, AI solutions, web app development, MVP development, dedicated development team";
+  const canonicalUrl = sanityData?.seo?.canonicalUrl || "https://www.leapsofts.com/";
+  const ogImage = sanityData?.seo?.ogImage || "https://www.leapsofts.com/logo/Leap-soft-01.png";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+    { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: ogImage },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: "Leapsofts" },
+    { property: "og:locale", content: "en_US" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@leapsofts" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: ogImage },
+    { tagName: "link", rel: "canonical", href: canonicalUrl }
+  ];
+}
+
+const Home = ({ loaderData }: Route.ComponentProps) => {
+  const { sanityData } = loaderData;
 
   const title = sanityData?.hero?.title || "Custom Software Engineered for Enterprise Velocity";
   const title2 = sanityData?.hero?.title2 || "Launch your product in 3-5 months with zero compromise on scalability.";
   const subtitle = sanityData?.hero?.subtitle || "Leapsofts engineers enterprise-grade custom software and scalable cloud solutions that power modern digital transformation. From proof of concept (PoC) and resilient software architecture to accelerated MVP development and AI-driven system orchestrations, we translate complex business objectives into secure, high-performance platforms engineered for long-term growth and bulletproof operations.";
-
-  const introDescription = [
-    { text: "Leapsofts engineers ", bold: false },
-    { text: "enterprise-grade custom software ", bold: true },
-    { text: "and scalable cloud solutions that power modern digital transformation. From ", bold: false },
-    { text: "proof of concept (PoC) ", bold: true },
-    { text: "and ", bold: false },
-    { text: "resilient software architecture ", bold: true },
-    { text: "to accelerated ", bold: false },
-    { text: "MVP development", bold: true },
-    { text: " and AI-driven system orchestrations, we translate complex business objectives into secure, high-performance platforms engineered for long-term growth and bulletproof operations.", bold: false }
-  ];
 
   const processPhasesDefault: ProcessPhase[] = [
     {
@@ -168,13 +184,68 @@ const Home = () => {
     : processPhasesDefault;
 
   const phaseLabels = sanityData?.processes?.phaseLabels && sanityData.processes.phaseLabels.length > 0
-    ? sanityData.processes.phaseLabels
+    ? (sanityData.processes.phaseLabels as string[])
     : phaseLabelsDefault;
+
+  const homeSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.leapsofts.com/#organization",
+        "name": "Leapsofts",
+        "url": "https://www.leapsofts.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.leapsofts.com/logo/Leap-soft-01.png"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+971-56-830-9734",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Arabic"]
+        },
+        "sameAs": [
+          "https://twitter.com/leapsofts",
+          "https://www.linkedin.com/company/leapsofts"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.leapsofts.com/#website",
+        "url": "https://www.leapsofts.com",
+        "name": "Leapsofts",
+        "publisher": {
+          "@id": "https://www.leapsofts.com/#organization"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.leapsofts.com/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://www.leapsofts.com/#service",
+        "name": "Leapsofts Custom Software Development",
+        "url": "https://www.leapsofts.com",
+        "priceRange": "$$$",
+        "image": "https://www.leapsofts.com/logo/Leap-soft-01.png",
+        "telephone": "+971-56-830-9734",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "AE",
+          "addressRegion": "Dubai"
+        },
+        "areaServed": ["Global", "United Arab Emirates", "United States", "Saudi Arabia", "United Kingdom"],
+        "description": "Enterprise-grade custom software development, cloud infrastructure architecture, mobile application engineering, and AI solution integrations."
+      }
+    ]
+  };
 
   return (
     <>
-      <MetaSEO seo={sanityData?.seo} defaultTitle="Leapsofts | Custom Software Engineered for Enterprise Velocity" />
-
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }} />
       <IntroComponent
         title={title}
         title2={title2}
@@ -189,7 +260,6 @@ const Home = () => {
             window.location.href = path;
           }
         }}
-        introDescription={introDescription}
       />
 
       <div id="services">
@@ -206,6 +276,7 @@ const Home = () => {
         <About
           label={sanityData?.aboutUs?.label}
           headline={sanityData?.aboutUs?.headline}
+          titleAccent={sanityData?.aboutUs?.titleAccent}
           descriptionText={sanityData?.aboutUs?.descriptionText}
           imageUrl={sanityData?.aboutUs?.imageUrl}
         />

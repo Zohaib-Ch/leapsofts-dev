@@ -1,3 +1,4 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
@@ -6,12 +7,16 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
-import cloudImg from "../../assets/about_laptop_3d.png";
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
+const cloudImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
+import { useServicePage } from '../../hooks/useServicePage';
 
 const serviceOverviewData = {
   label: "AWS CLOUD ARCHITECTURE",
-  titleMain: "Orchestrating Highly Secure",
-  titleAccent: "Enterprise AWS",
+  titleMain: "Orchestrating Highly Secure ",
+  titleAccent: "Enterprise AWS ",
   titleEnd: "Environments",
   description: "At Leapsofts, we help modern enterprises maximize their infrastructure performance, scale computing capacity automatically, and reduce resource costs on Amazon Web Services. Our AWS-certified solutions architects construct custom AWS CDK blueprints, deploy high-availability Kubernetes systems via Amazon EKS, and build fault-tolerant databases that meet strict SOC2 and HIPAA compliance requirements.",
   imagePath: cloudImg
@@ -19,22 +24,22 @@ const serviceOverviewData = {
 
 const emergingTechData: EmergingTechProps['data'] = {
   label: 'AWS CAPABILITIES',
-  titleAccent: 'Advanced AWS',
+  titleAccent: 'Advanced AWS ',
   titleMain: 'Service Integrations',
   description: 'We integrate a wide range of AWS services to build robust, scalable, and intelligent cloud solutions tailored to your business needs.',
   items: [
-    { icon: 'enterprise' as const, title: 'AWS Lambda Serverless', description: 'Deploying event-driven, microsecond-billing serverless pipelines to build highly scalable backend functions.' },
+    { icon: 'enterprise' as const, title: 'AWS Lambda Serverless Pipelines', description: 'Deploying event-driven, microsecond-billing serverless pipelines to build highly scalable backend functions.' },
     { icon: 'saas' as const, title: 'Amazon ECS & EKS (Kubernetes)', description: 'Orchestrating containerized backend nodes and microservices utilizing AWS Fargate or managed Amazon EKS clusters.' },
     { icon: 'hipaa' as const, title: 'Amazon Aurora Serverless v2', description: 'Configuring auto-scaling, highly resilient relational databases (PostgreSQL/MySQL) with active multi-region replicas.' },
     { icon: 'ecommerce' as const, title: 'Amazon DynamoDB Global Tables', description: 'Building globally distributed NoSQL datastores with sub-10ms latency capabilities and active-active replication.' },
     { icon: 'mobile' as const, title: 'AWS Cloud Development Kit (CDK)', description: 'Enforcing Infrastructure as Code (IaC) version-control using type-safe TypeScript CDK constructs.' },
-    { icon: 'legacy' as const, title: 'AWS IAM & KMS Security', description: 'Hardening platform boundaries utilizing fine-grained IAM roles, AWS Organizations SCPs, and KMS key envelope encryption.' },
+    { icon: 'legacy' as const, title: 'AWS IAM & KMS Security Hardening', description: 'Hardening platform boundaries utilizing fine-grained IAM roles, AWS Organizations SCPs, and KMS key envelope encryption.' },
   ]
 };
 
 const servicesData: InfoGridProps['data'] = {
   label: 'AWS VALUE ADVANTAGE',
-  title: 'Why Build Your Digital Workloads on AWS',
+  title: 'Why Build Your Digital Workloads on Amazon Web Services',
   items: [
     {
       icon: '01',
@@ -72,30 +77,30 @@ const streamlineDescription = [
 const serviceFeaturesData: ServiceFeatureItem[] = [
   {
     icon: '/industryicons/sphere.svg',
-    title: 'Cloud Migration',
-    description: 'Seamlessly move your on-premises workloads to AWS with minimal downtime.'
+    title: 'Zero-Downtime AWS Migration',
+    description: 'Seamlessly move your on-premises workloads and physical databases to AWS using AWS MGN and DMS.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
-    title: 'DevOps on AWS',
-    description: 'Automate your development pipelines with AWS CodePipeline and CodeDeploy.'
+    title: 'DevOps on AWS (CI/CD)',
+    description: 'Automate your development deployment pipelines with AWS CodePipeline, CodeDeploy, and GitHub Actions.'
   },
   {
     icon: '/industryicons/sphere.svg',
-    title: 'Managed Services',
-    description: 'Ongoing monitoring, patching, and optimization of your AWS environment.'
+    title: 'Managed AWS Cloud Support',
+    description: 'Ongoing 24/7 telemetry monitoring, patch management, security sweeps, and infrastructure optimization.'
   },
   {
     icon: '/industryicons/bipiramida.svg',
-    title: 'Security Audits',
-    description: 'Comprehensive security assessments to ensure your AWS setup meets compliance standards.'
+    title: 'AWS Security & Compliance Audits',
+    description: 'Comprehensive Well-Architected framework reviews to ensure your AWS setup satisfies SOC2, HIPAA, and GDPR.'
   }
 ];
 
 const deliverMVPData = {
   label: "AWS EXCELLENCE",
   title: "Our Commitment to Deliver Your AWS Infrastructure in",
-  accentText: "3-5 months?",
+  accentText: "3-5 months",
   description: "Leapsofts is an elite AWS consulting and infrastructure advisory partner. By combining fully integrated automated tooling, certified AWS solutions architects, and dedicated DevOps engineers, we design, build, and hand over production-ready AWS environments within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {
@@ -211,46 +216,165 @@ const title = "AWS Consulting Services, Serverless Scaling & Multi-Region Cloud 
 const subtitle = "";
 
 const introDescription = [
-  { text: "We design and deploy highly secure, robust ", bold: false },
-  { text: "Amazon Web Services (AWS) cloud platform topologies", bold: true },
-  { text: ", leveraging serverless microservices, modular AWS Cloud Development Kit (CDK) constructs, and automated containerization. By integrating multi-region Amazon Aurora relational datastores, AWS Transit Gateways, and WAF shields, we build elite digital architectures designed to handle extreme global scaling with maximum durability.", bold: false }
+  { text: "As a certified ", bold: false },
+  { text: "AWS development company & Amazon Web Services consulting partner", bold: true },
+  { text: ", we design serverless topologies, modular AWS CDK constructs, and managed EKS Kubernetes clusters. We optimize cloud infrastructure for high availability, zero-downtime database migrations, and 99.99% uptime.", bold: false }
 ];
 
+import { getSanityServiceBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('aws');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "AWS Cloud Services & Development | Amazon Consulting | Leapsofts",
+    defaultDescription: "Certified AWS development company offering serverless architecture, Kubernetes EKS, CDK IaC, and cloud cost optimization. Contact our AWS architects today.",
+    defaultKeywords: "AWS development company, AWS cloud services, Amazon Web Services consulting, AWS managed services, AWS serverless architecture, AWS CDK consulting",
+    canonicalUrl: "https://www.leapsofts.com/services/aws",
+  });
+}
+
 const AWS: React.FC = () => {
+  const { data } = useServicePage('aws');
+
+  const schemaData = buildServiceSchema({
+    name: "AWS Cloud Services & Development",
+    description: "Certified AWS development company offering serverless architecture, Kubernetes EKS, CDK IaC, and cloud cost optimization.",
+    canonicalUrl: "https://www.leapsofts.com/services/aws",
+    faqs: data?.faqs,
+  });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || serviceOverviewData.label,
+        titleMain: data.serviceOverview.titleMain || serviceOverviewData.titleMain,
+        titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
+        titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
+        description: data.serviceOverview.description || serviceOverviewData.description,
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath
+      }
+    : serviceOverviewData;
+
+  const activeServicesData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || servicesData.label,
+        title: data.infoGrid.titleMain || servicesData.title,
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : servicesData;
+
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || emergingTechData.label,
+        titleAccent: data.emergingTech.titleAccent || emergingTechData.titleAccent,
+        titleMain: data.emergingTech.titleMain || emergingTechData.titleMain,
+        description: data.emergingTech.description || emergingTechData.description,
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : emergingTechData;
+
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || deliverMVPData.label,
+        title: data.deliverMVP.title || deliverMVPData.title,
+        accentText: data.deliverMVP.accentText || deliverMVPData.accentText,
+        description: data.deliverMVP.description || deliverMVPData.description,
+        items: data.deliverMVP.items || deliverMVPData.items
+      }
+    : deliverMVPData;
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
       <ServiceOverview
-        label={serviceOverviewData.label}
-        titleMain={serviceOverviewData.titleMain}
-        titleAccent={serviceOverviewData.titleAccent}
-        titleEnd={serviceOverviewData.titleEnd}
-        description={serviceOverviewData.description}
-        imagePath={serviceOverviewData.imagePath}
+        label={activeOverviewData.label}
+        titleMain={activeOverviewData.titleMain}
+        titleAccent={activeOverviewData.titleAccent}
+        titleEnd={activeOverviewData.titleEnd}
+        description={activeOverviewData.description}
+        imagePath={activeOverviewData.imagePath}
       />
-      <InfoGrid data={servicesData} />
+      <InfoGrid data={activeServicesData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="AWS architecture"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "AWS architecture"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='AWS Capabilities'
-        description='We deliver expert services across the entire AWS ecosystem.'
-        items={serviceFeaturesData}
+        title={data?.serviceFeatures?.title || 'Expert AWS Capabilities & Services'}
+        description={data?.serviceFeatures?.description || 'We deliver specialized cloud engineering services across the entire Amazon Web Services ecosystem.'}
+        items={data?.serviceFeatures?.items || serviceFeaturesData}
       />
-      <DeliverMVP data={deliverMVPData} />
-      <EmergingTech data={emergingTechData} />
-      <Processes title="OUR AWS CLOUD PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <EmergingTech data={activeEmergingTechData} />
+      <Processes
+        title={data?.processes?.title || "OUR AWS CLOUD PROCESS"}
+        processPhases={activeProcessPhases}
+        phaseLabels={activePhaseLabels}
+      />
+      <FAQs
+        title="AWS Cloud Consulting & Development FAQ"
+        subtitle="Everything you need to know about AWS serverless architecture, EKS Kubernetes clusters, AWS CDK IaC, database migrations, and cloud cost optimization."
+        faqs={data?.faqs} items={data?.faqs}
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Cloud Migration Services",
+            description: "Migrate legacy on-premises databases and servers to AWS with zero downtime.",
+            link: "/services/cloud-migration"
+          },
+          {
+            title: "DevOps Services & Continuous Delivery",
+            description: "Automate build tracks using AWS CodePipeline and GitHub Actions.",
+            link: "/services/devops"
+          },
+          {
+            title: "Azure Cloud Engineering",
+            description: "Deploy multi-cloud strategies across Microsoft Azure & Amazon Web Services.",
+            link: "/services/azure"
+          }
+        ]}
+      />
     </>
   );
 };
 
 export default AWS;
+

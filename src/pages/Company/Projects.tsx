@@ -1,4 +1,6 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
 import React, { useState, useRef, useEffect } from 'react'
+import { useLoaderData } from 'react-router';
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
 import PartnerShowcase from '../../components/PartnerShowcase/PartnerShowcase';
 import WhoWeServe from '../../components/WhoWeServe/WhoWeServe';
@@ -9,17 +11,39 @@ import { projectsData } from '../../data/projectsData';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityCaseStudies } from '../../sanity/queries';
 import type { SanityCaseStudy } from '../../sanity/types';
+import { getSanityCaseStudiesPage } from '../../sanity/queries';
+
+export async function loader() {
+  const [sanityData, sanityProjects] = await Promise.all([
+    getSanityCaseStudiesPage(),
+    getSanityCaseStudies(),
+  ]);
+  return { sanityData, sanityProjects };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Software Development Case Studies | Leapsofts Portfolio",
+    defaultDescription: "Explore Leapsofts",
+    defaultKeywords: "software development portfolio, custom software case studies, enterprise software projects, development portfolio",
+    canonicalUrl: "https://www.leapsofts.com/projects",
+  });
+}
 
 const Projects: React.FC = () => {
+  const loaderData = useLoaderData<typeof loader>();
   const [activeIndustryId, setActiveIndustryId] = useState<string | undefined>(undefined);
-  const [sanityProjects, setSanityProjects] = useState<SanityCaseStudy[] | null>(null);
+  const [sanityProjects, setSanityProjects] = useState<SanityCaseStudy[] | null>(loaderData?.sanityProjects || null);
   const showcaseRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     getSanityCaseStudies().then((data) => {
       if (data && data.length > 0) setSanityProjects(data);
     });
-  }, []);
+
+    return combinedList;
+  }, [sanityProjects]);
 
   const industryProjects = React.useMemo(() => {
     const fallbackProjects = projectsData.filter(project => project.type === 'industry');
@@ -81,7 +105,7 @@ const Projects: React.FC = () => {
   }, [sanityProjects]);
 
   const introDescription = [
-    { text: "Our case studies showcase how Leapsofts combines domain expertise, modern architectures, and AI-ready software development to build real products used by businesses worldwide.", bold: false },
+    { text: "Our custom software development case studies showcase how Leapsofts combines domain expertise, cloud engineering architectures, and production-ready AI software development to build high-performance products used by global enterprises and scaling businesses worldwide.", bold: false },
   ];
 
   const handleIndustryClick = (name: string) => {

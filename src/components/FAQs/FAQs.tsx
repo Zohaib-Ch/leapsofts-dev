@@ -1,7 +1,7 @@
 import React, { useState, useRef, useMemo } from 'react';
 import { Plus, Minus } from 'lucide-react';
 import styles from './FAQs.module.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import fetchFaqs from '../../services/FAQService';
 
 interface FAQItem {
@@ -12,16 +12,24 @@ interface FAQItem {
 interface FAQsProps {
     title?: string;
     subtitle?: string;
+    faqs?: FAQItem[];
+    items?: FAQItem[];
 }
 
 const FAQs: React.FC<FAQsProps> = ({
     title = "FAQ's",
-    subtitle
+    subtitle,
+    faqs: propFaqs,
+    items
 }) => {
-    const serviceKey = useLocation().pathname.split('/')[2];
+    const location = useLocation();
+    const serviceKey = location.pathname.split('/')[2] || '';
     const [isExpanded, setIsExpanded] = useState(true);
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const faqs: FAQItem[] = useMemo(() => fetchFaqs(serviceKey), [serviceKey]);
+
+    const fetchedFaqs: FAQItem[] = useMemo(() => fetchFaqs(serviceKey), [serviceKey]);
+    const inputFaqs = propFaqs || items;
+    const faqs: FAQItem[] = inputFaqs && inputFaqs.length > 0 ? inputFaqs : fetchedFaqs;
     const contentRef = useRef<HTMLDivElement>(null);
 
     const defaultSubtitle = `Common questions about ${serviceKey.replace(/-/g, ' ')}`;
@@ -41,8 +49,22 @@ const FAQs: React.FC<FAQsProps> = ({
         return null;
     }
 
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+            }
+        }))
+    };
+
     return (
         <section className={styles.section}>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <div className={styles.container}>
                 <span className={styles.sectionLabel}>FAQS</span>
 

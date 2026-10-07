@@ -45,7 +45,8 @@ const ServiceOverview: React.FC<ServiceOverviewProps> = ({
                     </div>
                 </div>
                 <div className={styles.contentRight}>
-                    <img src={imagePath} alt="Software Testing Solution" />
+                    <img src={imagePath} alt={`${titleMain || ''} ${titleAccent || ''} ${titleEnd || ''} - Leapsofts`.trim() || "Leapsofts Enterprise Service Overview"} />
+                    <img src="/industryicons/arrow-with-plume-pink.svg" alt="" className={styles.arrowAccent} />
                 </div>
             </div>
         </div>

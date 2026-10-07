@@ -1,3 +1,6 @@
+import React from 'react';
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import Capabilities, { type CapabilitySlide } from '../../components/Capabilities/Capabilities';
@@ -6,9 +9,12 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
-import capabilitiesImg from '../../assets/capabilities_3d.png';
-import platformImg from '../../assets/capabilities_platform.png';
-import laptopImg from "../../assets/about_laptop_3d.png";
+import FAQs from '../../components/FAQs/FAQs';
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import { parseFormattedText } from '../../utils/textParser';
+const capabilitiesImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
+const platformImg = "https://cdn.sanity.io/images/egqy3ztp/production/5f3a29d131d28568ef0b90f5fe02d69cd0a3d065-1200x896.webp";
+const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
 
 const capabilitiesSlides: CapabilitySlide[] = [
   {
@@ -71,8 +77,8 @@ const capabilitiesSlides: CapabilitySlide[] = [
 
 const serviceOverviewData = {
   label: "TECHNICAL FEASIBILITY VALIDATION",
-  titleMain: "Validating Complex",
-  titleAccent: "POC Topologies",
+  titleMain: "Validating Complex ",
+  titleAccent: "POC Topologies ",
   titleEnd: "With Absolute Rigor",
   description: "At Leapsofts, we help modern enterprises and fast-growing startups validate complex technical concepts, address architectural uncertainties, and demonstrate software viability. Our senior engineers construct fully integrated cloud-native prototypes, verify advanced integration endpoints, and build isolated software demonstrators that satisfy strict performance and feasibility metrics.",
   imagePath: laptopImg
@@ -252,49 +258,154 @@ const title = "Proof of Concept Development, Rapid Prototyping & Technical Feasi
 const subtitle = "";
 
 const introDescription = [
-  { text: "We engineer highly functional, lightweight ", bold: false },
-  { text: "Proof of Concept (POC) systems and high-fidelity prototypes", bold: true },
-  { text: ", validating complex algorithmic logic, high-concurrency data flows, and third-party integrations before full-scale investments. By constructing isolated sandbox platforms, executing technical boundary stress runs, and validating core architectural feasibility, we provide the absolute evidence needed to unlock executive alignment and launch features safely.", bold: false }
+  { text: "We deliver full-spectrum ", bold: false },
+  { text: "proof of concept development services & rapid prototype engineering ", bold: true },
+  { text: "to validate complex algorithms, technical integrations, and platform performance before full-scale software investments. As a trusted PoC development company, we construct isolated sandboxes to de-risk technology decisions and secure executive buy-in.", bold: false }
 ];
 
+import { getSanityServiceBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('proof-of-concept-development');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Proof of Concept (PoC) Development Services | Leapsofts",
+    defaultDescription: "De-risk software investments with rapid PoC development services. We build scalable prototypes, perform API integrations, & validate feasibility in weeks.",
+    defaultKeywords: "proof of concept development, PoC development company, software prototype development, MVP proof of concept",
+    canonicalUrl: "https://www.leapsofts.com/services/proof-of-concept-development",
+  });
+}
+
 const ProofOfConceptDevelopment: React.FC = () => {
+  const { data } = useServicePage('proof-of-concept-development');
+
+  const schemaData = buildServiceSchema({
+    name: "Proof of Concept Development Services",
+    description: "Build a validated PoC in weeks, not months.",
+    canonicalUrl: "https://www.leapsofts.com/services/proof-of-concept-development",
+    faqs: data?.faqs,
+  });
+
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || (typeof infoGridData !== 'undefined' ? infoGridData.label : ''),
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof infoGridData !== 'undefined' ? infoGridData.title : ''),
+        description: data.infoGrid.description || (typeof infoGridData !== 'undefined' ? infoGridData.description : ''),
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof infoGridData !== 'undefined' ? infoGridData : { items: [] });
+
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.label : ''),
+        title: data.deliverMVP.title || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.title : ''),
+        accentText: data.deliverMVP.accentText || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.accentText : ''),
+        description: data.deliverMVP.description || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.description : ''),
+        items: data.deliverMVP.items || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.items : [])
+      }
+    : (typeof deliverMVPData !== 'undefined' ? deliverMVPData : { label: '', title: '', accentText: '', description: '', items: [] });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.label : ''),
+        titleMain: data.serviceOverview.titleMain || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleMain : ''),
+        titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
+        titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
+        description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
+        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+      }
+    : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : processPhasesDefault;
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : phaseLabelsDefault;
+
+  const activeServiceFeatures = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items
+    : serviceFeaturesData;
+
+  const strategyCTA = data?.strategyCTA;
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent
-        title={title}
-        description={subtitle}
-        introDescription={introDescription}
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
       />
-      <ServiceOverview
-        label={serviceOverviewData.label}
-        titleMain={serviceOverviewData.titleMain}
-        titleAccent={serviceOverviewData.titleAccent}
-        titleEnd={serviceOverviewData.titleEnd}
-        description={serviceOverviewData.description}
-        imagePath={serviceOverviewData.imagePath}
-      />
+      {activeOverviewData && (
+        <ServiceOverview
+          label={activeOverviewData.label}
+          titleMain={activeOverviewData.titleMain}
+          titleAccent={activeOverviewData.titleAccent}
+          titleEnd={activeOverviewData.titleEnd}
+          description={activeOverviewData.description}
+          imagePath={activeOverviewData.imagePath}
+        />
+      )}
       <Capabilities
         title="Our Key Capabilities"
         description="We offer end-to-end custom application development services."
         slides={capabilitiesSlides}
         defaultImage={capabilitiesImg}
       />
-      <InfoGrid data={infoGridData} />
+      <InfoGrid data={activeInfoGridData} />
       <StreamlineSuccess
-        label="COMPLIMENTARY STRATEGY SESSION"
-        titleMain="Map your "
-        titleAccent="POC feasibility"
-        titleEnd=" roadmap."
-        description={streamlineDescription}
-        imageUrl="/streamline.png"
+        label={strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={strategyCTA?.titleMain || "Map your "}
+        titleAccent={strategyCTA?.titleAccent || "POC feasibility"}
+        titleEnd={strategyCTA?.titleEnd || " roadmap."}
+        description={strategyCTA?.descriptionText ? parseFormattedText(strategyCTA.descriptionText) : streamlineDescription}
+        buttonText={strategyCTA?.buttonText}
+        buttonPath={strategyCTA?.buttonPath}
+        imageUrl={strategyCTA?.imageUrl || "/streamline.png"}
       />
       <ServiceFeatures
-        title='Expert POC Services'
-        description='We deliver specialized services to validate your digital innovations.'
-        items={serviceFeaturesData}
+        title={data?.serviceFeatures?.title || 'Expert PoC Services'}
+        description={data?.serviceFeatures?.description || 'We deliver specialized services to validate your digital innovations.'}
+        items={activeServiceFeatures}
       />
-      <DeliverMVP data={deliverMVPData} />
-      <Processes title="OUR PROOF OF CONCEPT PROCESS" processPhases={processPhasesDefault} phaseLabels={phaseLabelsDefault} />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <Processes title={data?.processes?.title || "OUR PROOF OF CONCEPT PROCESS"} processPhases={activeProcessPhases} phaseLabels={activePhaseLabels} />
+      <FAQs faqs={data?.faqs} items={data?.faqs} />
+      <RelatedServices
+        services={[
+          {
+            title: "Product Ideation Workshop",
+            description: "Refine user flows and feature sets during interactive discovery sessions.",
+            link: "/services/ideation-workshop"
+          },
+          {
+            title: "Fixed Price Software Development",
+            description: "Transition your validated PoC into a turnkey, budget-guaranteed software build.",
+            link: "/services/fixed-price"
+          },
+          {
+            title: "Custom Software Development",
+            description: "Scale your validated prototype into a full enterprise software platform.",
+            link: "/services/custom-software-development"
+          }
+        ]}
+      />
     </>
   );
 };

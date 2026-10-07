@@ -1,4 +1,7 @@
+import { buildPageMeta } from '../../utils/seoHelper';
 import React, { useState, useEffect } from 'react';
+import { useLoaderData } from 'react-router';
+import styles from './About.module.css';
 import { motion, type Variants } from 'framer-motion';
 import {
   Target,
@@ -17,7 +20,6 @@ import {
 import Button from '../../components/Button/Button';
 import AnimatedCounter from '../../components/AnimatedCounter/AnimatedCounter';
 import { useContactModal } from '../../context/ContactModalContext';
-import styles from './About.module.css';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityAboutPage, getSanityTeamMembers } from '../../sanity/queries';
 import type { SanityAboutPage, SanityTeamMember } from '../../sanity/types';
@@ -174,15 +176,20 @@ const slideRightVariant: Variants = {
   },
 };
 
+export { DEFAULT_ABOUT_PAGE_DATA };
+
 const About: React.FC = () => {
+  const loaderData = useLoaderData<typeof loader>();
   const [activeTimeline, setActiveTimeline] = useState(0);
   const [sanityData, setSanityData] = useState<SanityAboutPage | null>(null);
   const [sanityTeam, setSanityTeam] = useState<SanityTeamMember[] | null>(null);
   const { openContactModal } = useContactModal();
 
+  const sanityData: SanityAboutPage = loaderData?.sanityData || DEFAULT_ABOUT_PAGE_DATA;
+
   useEffect(() => {
-    getSanityAboutPage().then((data) => {
-      if (data) setSanityData(data);
+    getSanityTeamMembers().then((data) => {
+      if (data) setSanityTeam(data);
     });
     getSanityTeamMembers().then((data) => {
       if (data) setSanityTeam(data);
@@ -231,12 +238,19 @@ const About: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className={styles.label}>ABOUT LEAPSOFTS</span>
+            <span className={styles.label}>{sanityData?.hero?.label || 'ABOUT LEAPSOFTS'}</span>
             <h1 className={styles.heroTitle}>
-              Architecting <em>Enterprise Velocity</em> Through Engineering Rigor
+              {renderFormattedTitle({
+                title: sanityData?.hero?.title,
+                titleMain: (sanityData?.hero as any)?.titleMain,
+                titleAccent: (sanityData?.hero as any)?.titleAccent,
+                titleEnd: (sanityData?.hero as any)?.titleEnd,
+                defaultAccentPhrase: 'Enterprise Velocity',
+                defaultTitle: <>Architecting <em>Enterprise Velocity</em> Through Engineering Rigor</>,
+              })}
             </h1>
             <p className={styles.heroSub}>
-              We combine deep cloud architecture, AI innovation, and agile pod delivery to build mission-critical custom software for scaling enterprises and industry pioneers.
+              {sanityData?.hero?.subtitle || 'Leapsofts is a premier enterprise software engineering firm with 250+ specialists across 5 global offices. We build custom software development, cloud infrastructure & AI solutions for scaling enterprises and Fortune-level companies.'}
             </p>
           </motion.div>
 
@@ -244,40 +258,51 @@ const About: React.FC = () => {
             className={styles.metricsGrid}
             variants={staggerContainer}
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            animate="visible"
           >
-            <motion.div className={styles.metricCard} variants={cardChildVariant}>
-              <div className={styles.metricValue}>
-                <AnimatedCounter value={100} />+
-              </div>
-              <div className={styles.metricLabel}>Production Deployments</div>
-              <div className={styles.metricSub}>Engineered to Enterprise Scale</div>
-            </motion.div>
+            {sanityData?.hero?.metrics && sanityData.hero.metrics.length > 0 ? (
+              sanityData.hero.metrics.map((m, idx) => (
+                <motion.div key={idx} className={styles.metricCard} variants={cardChildVariant}>
+                  <div className={styles.metricValue}>{m.value}</div>
+                  <div className={styles.metricLabel}>{m.label}</div>
+                  {m.sub && <div className={styles.metricSub}>{m.sub}</div>}
+                </motion.div>
+              ))
+            ) : (
+              <>
+                <motion.div className={styles.metricCard} variants={cardChildVariant}>
+                  <div className={styles.metricValue}>
+                    <AnimatedCounter value={100} />+
+                  </div>
+                  <div className={styles.metricLabel}>Production Deployments</div>
+                  <div className={styles.metricSub}>Engineered to Enterprise Scale</div>
+                </motion.div>
 
-            <motion.div className={styles.metricCard} variants={cardChildVariant}>
-              <div className={styles.metricValue}>
-                <AnimatedCounter value={98} />%
-              </div>
-              <div className={styles.metricLabel}>Client Retention Rate</div>
-              <div className={styles.metricSub}>Sustained Technical Execution</div>
-            </motion.div>
+                <motion.div className={styles.metricCard} variants={cardChildVariant}>
+                  <div className={styles.metricValue}>
+                    <AnimatedCounter value={98} />%
+                  </div>
+                  <div className={styles.metricLabel}>Client Retention Rate</div>
+                  <div className={styles.metricSub}>Sustained Technical Execution</div>
+                </motion.div>
 
-            <motion.div className={styles.metricCard} variants={cardChildVariant}>
-              <div className={styles.metricValue}>
-                3-5 <span className={styles.metricUnit}>Mo</span>
-              </div>
-              <div className={styles.metricLabel}>Average MVP Launch</div>
-              <div className={styles.metricSub}>Accelerated Time-to-Market</div>
-            </motion.div>
+                <motion.div className={styles.metricCard} variants={cardChildVariant}>
+                  <div className={styles.metricValue}>
+                    3-5 <span className={styles.metricUnit}>Mo</span>
+                  </div>
+                  <div className={styles.metricLabel}>Average MVP Launch</div>
+                  <div className={styles.metricSub}>Accelerated Time-to-Market</div>
+                </motion.div>
 
-            <motion.div className={styles.metricCard} variants={cardChildVariant}>
-              <div className={styles.metricValue}>
-                <AnimatedCounter value={2} /> <span className={styles.metricUnit}>Hubs</span>
-              </div>
-              <div className={styles.metricLabel}>Dubai & USA Operations</div>
-              <div className={styles.metricSub}>24/7 Global Delivery</div>
-            </motion.div>
+                <motion.div className={styles.metricCard} variants={cardChildVariant}>
+                  <div className={styles.metricValue}>
+                    <AnimatedCounter value={2} /> <span className={styles.metricUnit}>Hubs</span>
+                  </div>
+                  <div className={styles.metricLabel}>Dubai & USA Operations</div>
+                  <div className={styles.metricSub}>24/7 Global Delivery</div>
+                </motion.div>
+              </>
+            )}
           </motion.div>
         </div>
       </section>
@@ -291,12 +316,19 @@ const About: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <span className={styles.label}>OUR ENGINEERING CREED</span>
+          <span className={styles.label}>{sanityData?.creed?.label || 'OUR ENGINEERING CREED'}</span>
           <h2 className={styles.title}>
-            Purpose-Driven <em>Software Craftsmanship</em>
+            {renderFormattedTitle({
+              title: sanityData?.creed?.title,
+              titleMain: (sanityData?.creed as any)?.titleMain,
+              titleAccent: (sanityData?.creed as any)?.titleAccent,
+              titleEnd: (sanityData?.creed as any)?.titleEnd,
+              defaultAccentPhrase: 'Software Craftsmanship',
+              defaultTitle: <>Purpose-Driven <em>Software Craftsmanship</em></>,
+            })}
           </h2>
           <p className={styles.subtitle}>
-            Empowering organizations with digital infrastructure that turns complex technical challenges into sustainable market dominance.
+            {sanityData?.creed?.subtitle || 'Empowering organizations with digital infrastructure that turns complex technical challenges into sustainable market dominance.'}
           </p>
         </motion.div>
 
@@ -311,9 +343,9 @@ const About: React.FC = () => {
             <div className={styles.missionCardIcon}>
               <Target className="w-8 h-8" />
             </div>
-            <h3 className={styles.missionTitle}>Our Mission</h3>
+            <h3 className={styles.missionTitle}>{sanityData?.creed?.missionTitle || 'Our Mission'}</h3>
             <p className={styles.missionText}>
-              To eliminate technical debt and compress time-to-market for scaling enterprises through resilient microservice architecture, clean code standards, and dedicated engineering pods.
+              {sanityData?.creed?.missionText || 'To eliminate technical debt and compress time-to-market for scaling enterprises through resilient microservice architecture, clean code standards, and dedicated engineering pods.'}
             </p>
           </motion.div>
 
@@ -327,9 +359,9 @@ const About: React.FC = () => {
             <div className={styles.missionCardIcon}>
               <Compass className="w-8 h-8" />
             </div>
-            <h3 className={styles.missionTitle}>Our Vision</h3>
+            <h3 className={styles.missionTitle}>{sanityData?.creed?.visionTitle || 'Our Vision'}</h3>
             <p className={styles.missionText}>
-              To set the global standard for custom software development, where technical excellence, AI integration, and long-term partnership drive tangible business transformation.
+              {sanityData?.creed?.visionText || 'To set the global standard for custom software development, where technical excellence, AI integration, and long-term partnership drive tangible business transformation.'}
             </p>
           </motion.div>
         </div>
@@ -344,12 +376,19 @@ const About: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <span className={styles.label}>HOW WE ENGINEER</span>
+          <span className={styles.label}>{sanityData?.corePrinciples?.label || 'HOW WE ENGINEER'}</span>
           <h2 className={styles.title}>
-            Core Operating <em>Principles</em>
+            {renderFormattedTitle({
+              title: sanityData?.corePrinciples?.title,
+              titleMain: (sanityData?.corePrinciples as any)?.titleMain,
+              titleAccent: (sanityData?.corePrinciples as any)?.titleAccent,
+              titleEnd: (sanityData?.corePrinciples as any)?.titleEnd,
+              defaultAccentPhrase: 'Principles',
+              defaultTitle: <>Core Operating <em>Principles</em></>,
+            })}
           </h2>
           <p className={styles.subtitle}>
-            Every line of code we write is governed by six fundamental engineering values.
+            {sanityData?.corePrinciples?.subtitle || 'Every line of code we write is governed by six fundamental engineering values.'}
           </p>
         </motion.div>
 
@@ -360,17 +399,31 @@ const About: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {coreValues.map((item, index) => (
-            <motion.div
-              key={index}
-              className={styles.glassCard}
-              variants={cardChildVariant}
-            >
-              <div className={styles.valueIcon}>{item.icon}</div>
-              <h3 className={styles.valueTitle}>{item.title}</h3>
-              <p className={styles.valueText}>{item.text}</p>
-            </motion.div>
-          ))}
+          {sanityData?.corePrinciples?.principles && sanityData.corePrinciples.principles.length > 0 ? (
+            sanityData.corePrinciples.principles.map((item, index) => (
+              <motion.div
+                key={index}
+                className={styles.glassCard}
+                variants={cardChildVariant}
+              >
+                <div className={styles.valueIcon}><Cpu className="w-6 h-6" /></div>
+                <h3 className={styles.valueTitle}>{item.title}</h3>
+                <p className={styles.valueText}>{item.text}</p>
+              </motion.div>
+            ))
+          ) : (
+            coreValues.map((item, index) => (
+              <motion.div
+                key={index}
+                className={styles.glassCard}
+                variants={cardChildVariant}
+              >
+                <div className={styles.valueIcon}>{item.icon}</div>
+                <h3 className={styles.valueTitle}>{item.title}</h3>
+                <p className={styles.valueText}>{item.text}</p>
+              </motion.div>
+            ))
+          )}
         </motion.div>
       </section>
 
@@ -383,12 +436,19 @@ const About: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <span className={styles.label}>OUR EVOLUTION</span>
+          <span className={styles.label}>{sanityData?.timeline?.label || 'OUR EVOLUTION'}</span>
           <h2 className={styles.title}>
-            The Leapsofts <em>Journey</em>
+            {renderFormattedTitle({
+              title: sanityData?.timeline?.title,
+              titleMain: (sanityData?.timeline as any)?.titleMain,
+              titleAccent: (sanityData?.timeline as any)?.titleAccent,
+              titleEnd: (sanityData?.timeline as any)?.titleEnd,
+              defaultAccentPhrase: 'Journey',
+              defaultTitle: <>The Leapsofts <em>Journey</em></>,
+            })}
           </h2>
           <p className={styles.subtitle}>
-            From a specialized cloud architecture firm to a full-spectrum custom enterprise software partner.
+            {sanityData?.timeline?.subtitle || 'From a specialized cloud architecture firm to a full-spectrum custom enterprise software partner.'}
           </p>
         </motion.div>
 
@@ -399,7 +459,7 @@ const About: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          {timelineData.map((item, idx) => (
+          {activeTimelineEvents.map((item, idx) => (
             <button
               key={idx}
               className={`${styles.timelineBtn} ${activeTimeline === idx ? styles.activeTimelineBtn : ''}`}
@@ -410,17 +470,19 @@ const About: React.FC = () => {
           ))}
         </motion.div>
 
-        <motion.div
-          className={`${styles.glassCard} ${styles.timelineCard}`}
-          key={activeTimeline}
-          initial={{ opacity: 0, y: 20, scale: 0.97 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
-        >
-          <div className={styles.timelineYear}>{timelineData[activeTimeline].year}</div>
-          <h3 className={styles.timelineCardTitle}>{timelineData[activeTimeline].title}</h3>
-          <p className={styles.timelineCardDesc}>{timelineData[activeTimeline].desc}</p>
-        </motion.div>
+        {activeTimelineEvents[activeTimeline] && (
+          <motion.div
+            className={`${styles.glassCard} ${styles.timelineCard}`}
+            key={activeTimeline}
+            initial={{ opacity: 0, y: 20, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
+          >
+            <div className={styles.timelineYear}>{activeTimelineEvents[activeTimeline].year}</div>
+            <h3 className={styles.timelineCardTitle}>{activeTimelineEvents[activeTimeline].title}</h3>
+            <p className={styles.timelineCardDesc}>{activeTimelineEvents[activeTimeline].desc}</p>
+          </motion.div>
+        )}
       </section>
 
       {/* Chapter 5: Executive Leadership & Craftsmen */}
@@ -432,12 +494,19 @@ const About: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <span className={styles.label}>EXECUTIVE LEADERSHIP</span>
+          <span className={styles.label}>{sanityData?.leadership?.label || 'EXECUTIVE LEADERSHIP'}</span>
           <h2 className={styles.title}>
-            Engineers Leading <em>Engineers</em>
+            {renderFormattedTitle({
+              title: sanityData?.leadership?.title,
+              titleMain: (sanityData?.leadership as any)?.titleMain,
+              titleAccent: (sanityData?.leadership as any)?.titleAccent,
+              titleEnd: (sanityData?.leadership as any)?.titleEnd,
+              defaultAccentPhrase: 'Engineers',
+              defaultTitle: <>Engineers Leading <em>Engineers</em></>,
+            })}
           </h2>
           <p className={styles.subtitle}>
-            Direct strategic partnerships with technology founders and solution architects.
+            {sanityData?.leadership?.subtitle || 'Direct strategic partnerships with technology founders and solution architects.'}
           </p>
         </motion.div>
 
@@ -503,12 +572,19 @@ const About: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <span className={styles.label}>GLOBAL DELIVERY & COMPLIANCE</span>
+          <span className={styles.label}>{sanityData?.globalDelivery?.label || 'GLOBAL DELIVERY & COMPLIANCE'}</span>
           <h2 className={styles.title}>
-            Built for <em>International Scale</em>
+            {renderFormattedTitle({
+              title: sanityData?.globalDelivery?.title,
+              titleMain: (sanityData?.globalDelivery as any)?.titleMain,
+              titleAccent: (sanityData?.globalDelivery as any)?.titleAccent,
+              titleEnd: (sanityData?.globalDelivery as any)?.titleEnd,
+              defaultAccentPhrase: 'International Scale',
+              defaultTitle: <>Built for <em>International Scale</em></>,
+            })}
           </h2>
           <p className={styles.subtitle}>
-            Operating across strategic timezones with enterprise security compliance.
+            {sanityData?.globalDelivery?.subtitle || 'Operating across strategic timezones with enterprise security compliance.'}
           </p>
         </motion.div>
 
@@ -528,24 +604,40 @@ const About: React.FC = () => {
               Our dual-hub delivery model ensures continuous round-the-clock software development and immediate client support.
             </p>
             <div className={styles.hubList}>
-              <div className={styles.hubItem}>
-                <div className={styles.hubIcon}>
-                  <CheckCircle2 className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className={styles.hubName}>Dubai Hub (UAE)</div>
-                  <div className={styles.hubDesc}>Middle East & Europe Enterprise Delivery Center</div>
-                </div>
-              </div>
-              <div className={styles.hubItem}>
-                <div className={styles.hubIcon}>
-                  <CheckCircle2 className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className={styles.hubName}>US Operations</div>
-                  <div className={styles.hubDesc}>North American Client Success & Solutions Architecture</div>
-                </div>
-              </div>
+              {sanityData?.globalDelivery?.hubs && sanityData.globalDelivery.hubs.length > 0 ? (
+                sanityData.globalDelivery.hubs.map((hub, hIdx) => (
+                  <div key={hIdx} className={styles.hubItem}>
+                    <div className={styles.hubIcon}>
+                      <CheckCircle2 className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className={styles.hubName}>{hub.name}</div>
+                      <div className={styles.hubDesc}>{hub.desc}</div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <>
+                  <div className={styles.hubItem}>
+                    <div className={styles.hubIcon}>
+                      <CheckCircle2 className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className={styles.hubName}>Dubai Hub (UAE)</div>
+                      <div className={styles.hubDesc}>Middle East & Europe Enterprise Delivery Center</div>
+                    </div>
+                  </div>
+                  <div className={styles.hubItem}>
+                    <div className={styles.hubIcon}>
+                      <CheckCircle2 className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className={styles.hubName}>US Operations</div>
+                      <div className={styles.hubDesc}>North American Client Success & Solutions Architecture</div>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </motion.div>
 
@@ -564,22 +656,33 @@ const About: React.FC = () => {
               Rigorous security protocols ensuring seamless audits and risk-free cloud deployments.
             </p>
             <div className={styles.complianceBadges}>
-              <div className={styles.complianceItem}>
-                <div className={styles.complianceTitle}>ISO 27001</div>
-                <div className={styles.complianceSubtitle}>Security Ready</div>
-              </div>
-              <div className={styles.complianceItem}>
-                <div className={styles.complianceTitle}>HIPAA</div>
-                <div className={styles.complianceSubtitle}>Health Compliance</div>
-              </div>
-              <div className={styles.complianceItem}>
-                <div className={styles.complianceTitle}>SOC 2</div>
-                <div className={styles.complianceSubtitle}>Trust & Audit</div>
-              </div>
-              <div className={styles.complianceItem}>
-                <div className={styles.complianceTitle}>GDPR</div>
-                <div className={styles.complianceSubtitle}>Data Protection</div>
-              </div>
+              {sanityData?.globalDelivery?.compliance && sanityData.globalDelivery.compliance.length > 0 ? (
+                sanityData.globalDelivery.compliance.map((c, cIdx) => (
+                  <div key={cIdx} className={styles.complianceItem}>
+                    <div className={styles.complianceTitle}>{c.title || c.name}</div>
+                    <div className={styles.complianceSubtitle}>{c.subtitle || c.tag}</div>
+                  </div>
+                ))
+              ) : (
+                <>
+                  <div className={styles.complianceItem}>
+                    <div className={styles.complianceTitle}>ISO 27001</div>
+                    <div className={styles.complianceSubtitle}>Security Ready</div>
+                  </div>
+                  <div className={styles.complianceItem}>
+                    <div className={styles.complianceTitle}>HIPAA</div>
+                    <div className={styles.complianceSubtitle}>Health Compliance</div>
+                  </div>
+                  <div className={styles.complianceItem}>
+                    <div className={styles.complianceTitle}>SOC 2</div>
+                    <div className={styles.complianceSubtitle}>Trust & Audit</div>
+                  </div>
+                  <div className={styles.complianceItem}>
+                    <div className={styles.complianceTitle}>GDPR</div>
+                    <div className={styles.complianceSubtitle}>Data Protection</div>
+                  </div>
+                </>
+              )}
             </div>
           </motion.div>
         </div>
@@ -595,14 +698,21 @@ const About: React.FC = () => {
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] as const }}
         >
           <h2 className={styles.ctaTitle}>
-            Ready to Build Your <em>Enterprise Platform</em>?
+            {renderFormattedTitle({
+              title: sanityData?.cta?.title,
+              titleMain: (sanityData?.cta as any)?.titleMain,
+              titleAccent: (sanityData?.cta as any)?.titleAccent,
+              titleEnd: (sanityData?.cta as any)?.titleEnd,
+              defaultAccentPhrase: 'Enterprise Platform',
+              defaultTitle: <>Ready to Build Your <em>Enterprise Platform</em>?</>,
+            })}
           </h2>
           <p className={styles.ctaSub}>
-            Book a direct technical session with our lead solutions architect to discuss your software roadmap, technology stack, and timeline.
+            {sanityData?.cta?.subtitle || 'Book a direct technical session with our lead solutions architect to discuss your software roadmap, technology stack, and timeline.'}
           </p>
           <div className={styles.ctaBtnWrapper}>
             <Button
-              text="Schedule Architecture Consultation"
+              text={sanityData?.cta?.buttonText || 'Schedule Architecture Consultation'}
               color1="var(--color-primary)"
               color2="var(--color-primary-light)"
               onClick={openContactModal}

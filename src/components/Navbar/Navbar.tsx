@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import Button from '../Button/Button';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router';
+import { useLocation } from 'react-router';
 import styles from './Navbar.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 const Navbar = () => {
   const location = useLocation().pathname;

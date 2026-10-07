@@ -1,3 +1,5 @@
+import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { useServicePage } from '../../hooks/useServicePage';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
 import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
@@ -6,22 +8,25 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import ServiceFeatures, { type ServiceFeatureItem } from '../../components/ServiceFeatures/ServiceFeatures';
 import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
-import laptopImg from "../../assets/about_laptop_3d.png";
+import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { parseFormattedText } from '../../utils/textParser';
+const laptopImg = "https://cdn.sanity.io/images/egqy3ztp/production/40281c9c0b62835bf679122eb535feb8aef2fd24-1200x896.webp";
 
 const serviceOverviewData = {
     label: "DATA GOVERNANCE",
-    titleMain: "Orchestrating Trustworthy",
-    titleAccent: "Enterprise",
+    titleMain: "Orchestrating Trustworthy ",
+    titleAccent: "Enterprise Data ",
     titleEnd: "Environments",
-    description: "At Leapsofts, we customize and engineer resilient Data Governance frameworks designed to convert fragmented corporate databases into a single, highly audited source of truth. By designing unified Master Data Management rules, charting visual end-to-end data lineage logs, configuring automated catalog platforms (Collibra, Alation), and setting up role-based query filters, we enable major enterprises to preserve data integrity, protect sensitive PII, and achieve absolute compliance readiness.",
+    description: "At Leapsofts, we customize and engineer resilient Data Governance frameworks designed to convert fragmented corporate databases into a single, highly audited source of truth. By designing unified Master Data Management (MDM) rules, charting visual end-to-end data lineage logs, configuring automated catalog platforms (Collibra, Alation, Apache Atlas), and setting up role-based query filters (Apache Ranger), we enable major enterprises to preserve data integrity, protect sensitive PII, and achieve absolute compliance readiness.",
     imagePath: laptopImg
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
     label: 'GOVERNANCE SERVICES',
-    titleAccent: 'Data',
-    titleMain: 'Integrity',
-    description: 'We offer a range of services to ensure your data remains accurate, compliant, and accessible across your organization.',
+    titleAccent: 'Data Integrity ',
+    titleMain: '& Compliance Solutions',
+    description: 'We offer a range of specialized services to ensure your enterprise data remains accurate, compliant, and accessible across your organization.',
     items: [
         {
             icon: 'enterprise' as const,
@@ -31,7 +36,7 @@ const emergingTechData: EmergingTechProps['data'] = {
         {
             icon: 'enterprise' as const,
             title: 'Global Compliance (GDPR, HIPAA) Auditing',
-            description: 'Configuring strict PII data masking, retention timelines, and audit trails to align systems with international laws.'
+            description: 'Configuring strict PII data masking, retention timelines, and audit trails to align systems with international privacy laws.'
         },
         {
             icon: 'enterprise' as const,
@@ -46,19 +51,19 @@ const emergingTechData: EmergingTechProps['data'] = {
         {
             icon: 'saas' as const,
             title: 'Metadata Tagging & Catalog Engines',
-            description: 'Integrating advanced automated schemas, indexing dynamic metadata, and configuring interactive search portals.'
+            description: 'Integrating advanced automated schemas, indexing dynamic metadata, and configuring interactive catalog search portals.'
         },
         {
             icon: 'thirdParty' as const,
             title: 'Granular Access Controls & Query Filters',
-            description: 'Enforcing Apache Ranger role policies, row-level filters, and database permission models to protect fields.'
+            description: 'Enforcing Apache Ranger role policies, row-level filters, and database permission models to protect sensitive fields.'
         },
     ]
 };
 
 const infoGridData: InfoGridProps['data'] = {
     label: 'WHY GOVERNANCE',
-    title: 'Value of Trusted Data',
+    title: 'Value of Trusted Data & Verified Integrity',
     items: [
         {
             icon: "01",
@@ -73,7 +78,7 @@ const infoGridData: InfoGridProps['data'] = {
         {
             icon: "03",
             title: "Robust System Audit Trails",
-            description: "Minimize the risk of expensive regulatory data leaks by installing strict access control locks."
+            description: "Minimize the risk of expensive regulatory data leaks by installing strict access control locks and lineage monitoring."
         },
         {
             icon: "04",
@@ -85,7 +90,7 @@ const infoGridData: InfoGridProps['data'] = {
 
 const streamlineDescription = [
   { text: "Whether modernizing a complex ", bold: false },
-  { text: "legacy enterprise web portal ", bold: true },
+  { text: "legacy database network ", bold: true },
   { text: "or engineering a ", bold: false },
   { text: "new metadata catalog", bold: true },
   { text: ", our experts deliver immediate technical clarity. We conduct a deep-dive analysis of your current database environments, map out potential compliance gaps, evaluate stewardship rules, and formulate a ", bold: false },
@@ -101,33 +106,33 @@ const serviceFeaturesData: ServiceFeatureItem[] = [
     },
     {
         icon: '/industryicons/bipiramida.svg',
-        title: 'Tool Selection',
+        title: 'Tool Selection & Integration',
         description: 'Selecting and configuring optimal catalog suites including Collibra, Alation, or Apache Atlas.'
     },
     {
         icon: '/industryicons/sphere.svg',
-        title: 'Data Stewardship',
+        title: 'Data Stewardship Frameworks',
         description: 'Defining clear ownership, steward roles, and query approval pipelines across global divisions.'
     },
     {
         icon: '/industryicons/bipiramida.svg',
-        title: 'Auditing & Reporting',
-        description: 'Orchestrating regular system compliance reviews, metadata checks, and performance reporting charts.'
+        title: 'Auditing & Compliance Reporting',
+        description: 'Orchestrating regular system compliance reviews, metadata checks, and performance reporting dashboards.'
     }
 ];
 
 const deliverMVPData = {
     label: "DATA EXCELLENCE",
     title: "Our Commitment to Deliver Your Governance Framework in",
-    accentText: "3-5 months?",
+    accentText: "3-5 months",
     description: "Leapsofts is an elite custom data architecture and governance advisory partner. By combining fully integrated CI/CD, certified data architects, and dedicated cataloging pods, we implement and deploy enterprise-ready data governance frameworks within an accelerated 3 to 5 month timeline—on time, every time.",
     items: [
         {
-            title: "Holistic Overview.",
+            title: "Holistic Data Overview.",
             description: "Scanning and mapping all relational, unstructured, and stream databases across your enterprise."
         },
         {
-            title: "Security Integrated.",
+            title: "Security-Integrated Controls.",
             description: "Aligning data access rules directly with your Zero-Trust network infrastructure and SSO portals."
         },
         {
@@ -243,58 +248,178 @@ const processesData: ProcessPhase[] = [
 const phaseLabels = [
   "STRATEGY & DISCOVERY",
   "GOVERNANCE & LINEAGE DESIGN",
-  "CATALOG DEPLOYMENT Sprints",
+  "CATALOG DEPLOYMENT SPRINTS",
   "COMPLIANCE TELEMETRY",
 ];
 
-const title = "Enterprise Data Governance, Data Cataloging & Compliance Shields";
+const title = "Enterprise Data Governance Services & Data Management Shields";
 const subtitle = "";
 
 const introDescription = [
-  { text: "We deliver advanced data cataloging, custom ", bold: false },
-  { text: "Master Data Management (MDM) frameworks", bold: true },
-  { text: ", and secure data lineage orchestration. By streamlining metadata classifications, compliance shielding registries (GDPR, HIPAA), and automated access directories, we help enterprises deploy robust data governance systems built to maximize data utility and protect corporate integrity.", bold: false }
-]
+  { text: "We provide full-cycle ", bold: false },
+  { text: "data governance services", bold: true },
+  { text: ", ", bold: false },
+  { text: "Master Data Management (MDM)", bold: true },
+  { text: ", and ", bold: false },
+  { text: "GDPR/HIPAA compliance frameworks", bold: true },
+  { text: ". As a trusted data management company, we engineer automated metadata cataloging, data quality validation pipelines, and role-based security access controls to preserve data integrity across enterprise datastores.", bold: false }
+];
+
+import { getSanityServiceBySlug } from '../../sanity/queries';
+
+export async function loader() {
+  const sanityData = await getSanityServiceBySlug('data-governance');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Data Governance Services | MDM & Compliance | Leapsofts",
+    defaultDescription: "Enterprise data governance services, Master Data Management (MDM), data cataloging & GDPR/HIPAA compliance frameworks. Secure your data assets with Leapsofts.",
+    defaultKeywords: "data governance services, enterprise data management, master data management, MDM consulting, data cataloging services, data quality management",
+    canonicalUrl: "https://www.leapsofts.com/services/data-governance",
+  });
+}
 
 const DataGovernance: React.FC = () => {
-    return (
-        <>
-            <IntroComponent
-                title={title}
-                description={subtitle}
-                introDescription={introDescription}
-            />
-            <ServiceOverview
-                label={serviceOverviewData.label}
-                titleMain={serviceOverviewData.titleMain}
-                titleAccent={serviceOverviewData.titleAccent}
-                titleEnd={serviceOverviewData.titleEnd}
-                description={serviceOverviewData.description}
-                imagePath={serviceOverviewData.imagePath}
-            />
-            <InfoGrid data={infoGridData} />
-            <StreamlineSuccess
-                label="COMPLIMENTARY STRATEGY SESSION"
-                titleMain="Map your "
-                titleAccent="data governance"
-                titleEnd=" roadmap."
-                description={streamlineDescription}
-                imageUrl="/streamline.png"
-            />
-            <ServiceFeatures
-                title='Expert Data Systems'
-                description='We deliver specialized governance services to support your enterprise workflows.'
-                items={serviceFeaturesData}
-            />
-            <DeliverMVP data={deliverMVPData} />
-            <EmergingTech data={emergingTechData} />
-            <Processes
-                title="OUR CUSTOM DATA GOVERNANCE PROCESS"
-                phaseLabels={phaseLabels}
-                processPhases={processesData}
-            />
-        </>
-    );
+  const { data } = useServicePage('data-governance');
+
+  const schemaData = buildServiceSchema({
+    name: "Data Governance Services",
+    description: "Enterprise data governance services, Master Data Management (MDM), data cataloging & GDPR/HIPAA compliance frameworks.",
+    canonicalUrl: "https://www.leapsofts.com/services/data-governance",
+    faqs: data?.faqs,
+  });
+
+  const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
+    ? {
+        label: data.infoGrid.label || (typeof infoGridData !== 'undefined' ? infoGridData.label : ''),
+        title: data.infoGrid.titleMain || data.infoGrid.titleAccent || (typeof infoGridData !== 'undefined' ? infoGridData.title : ''),
+        description: data.infoGrid.description || (typeof infoGridData !== 'undefined' ? infoGridData.description : ''),
+        items: data.infoGrid.items.map((item, index) => ({
+          icon: String(index + 1).padStart(2, '0'),
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof infoGridData !== 'undefined' ? infoGridData : { items: [] });
+
+  const activeEmergingTechData = (data?.emergingTech && data.emergingTech.items?.length)
+    ? {
+        label: data.emergingTech.label || (typeof emergingTechData !== 'undefined' ? emergingTechData.label : ''),
+        titleAccent: data.emergingTech.titleAccent || (typeof emergingTechData !== 'undefined' ? emergingTechData.titleAccent : ''),
+        titleMain: data.emergingTech.titleMain || (typeof emergingTechData !== 'undefined' ? emergingTechData.titleMain : ''),
+        description: data.emergingTech.description || (typeof emergingTechData !== 'undefined' ? emergingTechData.description : ''),
+        items: data.emergingTech.items.map(item => ({
+          icon: (item.icon || 'enterprise') as any,
+          title: item.title,
+          description: item.description
+        }))
+      }
+    : (typeof emergingTechData !== 'undefined' ? emergingTechData : { label: '', titleAccent: '', titleMain: '', description: '', items: [] });
+
+  const activeDeliverMVPData = (data?.deliverMVP && data.deliverMVP.items?.length)
+    ? {
+        label: data.deliverMVP.label || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.label : ''),
+        title: data.deliverMVP.title || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.title : ''),
+        accentText: data.deliverMVP.accentText || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.accentText : ''),
+        description: data.deliverMVP.description || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.description : ''),
+        items: data.deliverMVP.items || (typeof deliverMVPData !== 'undefined' ? deliverMVPData.items : [])
+      }
+    : (typeof deliverMVPData !== 'undefined' ? deliverMVPData : { label: '', title: '', accentText: '', description: '', items: [] });
+
+  const activeTitle = data?.hero?.title || title;
+  const activeSubtitle = data?.hero?.subtitle || subtitle;
+  const activeIntroDescription = data?.hero?.introText
+    ? parseFormattedText(data.hero.introText)
+    : introDescription;
+
+  const activeOverviewData = (data?.serviceOverview)
+    ? {
+        label: data.serviceOverview.label || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.label : ''),
+        titleMain: data.serviceOverview.titleMain || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleMain : ''),
+        titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
+        titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
+        description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
+        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+      }
+    : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
+
+  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases
+    : (typeof processesData !== 'undefined' ? processesData : []);
+
+  const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
+    ? data.processes.phaseLabels
+    : (typeof phaseLabels !== 'undefined' ? phaseLabels : []);
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <IntroComponent
+        title={activeTitle}
+        description={activeSubtitle}
+        introDescription={activeIntroDescription}
+      />
+      <ServiceOverview
+        label={activeOverviewData?.label || "DATA GOVERNANCE"}
+        titleMain={activeOverviewData?.titleMain || "Orchestrating Trustworthy "}
+        titleAccent={activeOverviewData?.titleAccent || "Enterprise Data "}
+        titleEnd={activeOverviewData?.titleEnd || "Environments"}
+        description={activeOverviewData?.description || "At Leapsofts, we customize and engineer resilient Data Governance frameworks designed to convert fragmented corporate databases into a single, highly audited source of truth."}
+        imagePath={activeOverviewData?.imagePath || laptopImg}
+      />
+      <InfoGrid data={activeInfoGridData} />
+      <StreamlineSuccess
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Map your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "data governance"}
+        titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
+        description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+      />
+      <ServiceFeatures
+        title={data?.serviceFeatures?.title || 'Expert Data Governance Capabilities'}
+        description={data?.serviceFeatures?.description || 'We deliver specialized governance services to support your enterprise data workflows and regulatory compliance.'}
+        items={data?.serviceFeatures?.items || serviceFeaturesData}
+      />
+      <DeliverMVP data={activeDeliverMVPData} />
+      <EmergingTech data={activeEmergingTechData} />
+      <Processes
+        title={data?.processes?.title || "OUR CUSTOM DATA GOVERNANCE PROCESS"}
+        phaseLabels={activePhaseLabels}
+        processPhases={activeProcessPhases}
+      />
+      <FAQs
+        title="Data Governance & Data Management FAQ"
+        subtitle="Everything you need to know about Master Data Management (MDM), data cataloging, GDPR/HIPAA compliance audits, and data quality pipelines."
+        faqs={data?.faqs} items={data?.faqs}
+      />
+      <RelatedServices
+        services={[
+          {
+            title: "Data Science & AI Solutions",
+            description: "Leverage governed data assets to train predictive machine learning models.",
+            link: "/services/data-science-ai"
+          },
+          {
+            title: "Cyber Security & Compliance Audits",
+            description: "Audit data encryption, OAuth2 keychains, and zero-trust access boundaries.",
+            link: "/services/cyber-security"
+          },
+          {
+            title: "Cloud Engineering & Data Warehousing",
+            description: "Architect secure data lakes on AWS Redshift, Snowflake, and Azure Synapse.",
+            link: "/services/cloud-engineering"
+          }
+        ]}
+      />
+    </>
+  );
 };
 
 export default DataGovernance;
+

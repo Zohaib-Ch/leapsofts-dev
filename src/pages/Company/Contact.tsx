@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { buildPageMeta } from '../../utils/seoHelper';
+import React, { useState } from 'react';
+import { useLoaderData } from 'react-router';
+import styles from './Contact.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Globe,
@@ -14,10 +17,23 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import ContactForm from '../../components/ContactForm/ContactForm';
-import styles from './Contact.module.css';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityContactPage } from '../../sanity/queries';
 import type { SanityContactPage } from '../../sanity/types';
+export async function loader() {
+  const sanityData = await getSanityContactPage();
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Contact Leapsofts | Get a Free Software Consultation",
+    defaultDescription: "Ready to start your project? Contact Leapsofts today for a free software strategy consultation. Let",
+    defaultKeywords: "contact Leapsofts, software development consultation, hire software developers, software development company contact",
+    canonicalUrl: "https://www.leapsofts.com/contact",
+  });
+}
 
 const ribbonData = [
   {
@@ -114,21 +130,41 @@ const cardChildVariant = {
 };
 
 const Contact: React.FC = () => {
+  const loaderData = useLoaderData<typeof loader>();
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0); // First item open by default
-  const [sanityData, setSanityData] = useState<SanityContactPage | null>(null);
-
-  useEffect(() => {
-    getSanityContactPage().then((data) => {
-      if (data) setSanityData(data);
-    });
-  }, []);
+  const sanityData: SanityContactPage | null = loaderData?.sanityData || null;
 
   const toggleFaq = (index: number) => {
     setOpenFaqIndex((prev) => (prev === index ? null : index));
   };
 
+const contactSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "name": "Leapsofts",
+      "image": "https://www.leapsofts.com/logo/Leap-soft-01.png",
+      "url": "https://www.leapsofts.com/contact",
+      "telephone": "+1-123-456-7890",
+      "priceRange": "$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "AE",
+        "addressLocality": "Dubai"
+      }
+    },
+    {
+      "@type": "ContactPage",
+      "name": "Contact Leapsofts",
+      "url": "https://www.leapsofts.com/contact"
+    }
+  ]
+};
+
   return (
     <div className={styles.contactPage}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }} />
       <MetaSEO
         seo={sanityData?.seo}
         defaultTitle="Contact Us | Custom Software & AI Engineering Consultation | Leapsofts"
@@ -148,7 +184,7 @@ const Contact: React.FC = () => {
               Let's Build Your <em>Next Enterprise System</em>
             </h1>
             <p className={styles.heroSub}>
-              Have an enterprise software initiative, AI project, or product re-engineering roadmap? Speak directly with our solution architects and executive leads.
+              Have an enterprise software initiative, AI project, or product re-engineering roadmap? Book a free 30-minute enterprise software strategy session directly with our lead architects and executive team.
             </p>
           </motion.div>
 
