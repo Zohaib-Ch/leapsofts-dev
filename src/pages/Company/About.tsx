@@ -31,23 +31,6 @@ import { useContactModal } from '../../context/ContactModalContext';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityAboutPage, getSanityTeamMembers } from '../../sanity/queries';
 import type { SanityAboutPage, SanityTeamMember } from '../../sanity/types';
-import { renderFormattedTitle } from '../../utils/titleFormatter';
-import { DEFAULT_ABOUT_PAGE_DATA } from '../../data/companyFallback';
-
-export async function loader() {
-  const sanityData = await getSanityAboutPage('aboutPage');
-  return { sanityData };
-}
-
-export function meta({ data }: { data?: any }) {
-  return buildPageMeta({
-    sanityData: data?.sanityData,
-    defaultTitle: "About Leapsofts | Enterprise Software Engineering Company | Dubai & US",
-    defaultDescription: "Discover Leapsofts, an enterprise software engineering company delivering custom cloud architectures, AI solutions, and dedicated agile pods with 250+ engineers globally.",
-    defaultKeywords: "enterprise software engineering company, custom software development firm Dubai, agile software development pods, AI software development agency, cloud microservices architecture, software engineering agency US Dubai",
-    canonicalUrl: "https://www.leapsofts.com/about",
-  });
-}
 
 const timelineData = [
   {
@@ -206,13 +189,16 @@ export { DEFAULT_ABOUT_PAGE_DATA };
 const About: React.FC = () => {
   const loaderData = useLoaderData<typeof loader>();
   const [activeTimeline, setActiveTimeline] = useState(0);
-  const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
+  const [sanityData, setSanityData] = useState<SanityAboutPage | null>(null);
   const [sanityTeam, setSanityTeam] = useState<SanityTeamMember[] | null>(null);
   const { openContactModal } = useContactModal();
 
   const sanityData: SanityAboutPage = loaderData?.sanityData || DEFAULT_ABOUT_PAGE_DATA;
 
   useEffect(() => {
+    getSanityTeamMembers().then((data) => {
+      if (data) setSanityTeam(data);
+    });
     getSanityTeamMembers().then((data) => {
       if (data) setSanityTeam(data);
     });
@@ -243,110 +229,6 @@ const About: React.FC = () => {
     }
     return leadershipData;
   }, [sanityData, sanityTeam]);
-
-  const activeTimelineEvents = React.useMemo(() => {
-    return sanityData?.timeline?.events && sanityData.timeline.events.length > 0
-      ? sanityData.timeline.events
-      : timelineData;
-  }, [sanityData]);
-
-  const whyChooseUsData = React.useMemo(() => {
-    return sanityData?.whyChooseUs || DEFAULT_ABOUT_PAGE_DATA.whyChooseUs;
-  }, [sanityData]);
-
-  const industryImpactData = React.useMemo(() => {
-    return sanityData?.industryImpact || DEFAULT_ABOUT_PAGE_DATA.industryImpact;
-  }, [sanityData]);
-
-  const techStackData = React.useMemo(() => {
-    return sanityData?.techStack || DEFAULT_ABOUT_PAGE_DATA.techStack;
-  }, [sanityData]);
-
-  const faqData = React.useMemo(() => {
-    return sanityData?.faq || DEFAULT_ABOUT_PAGE_DATA.faq;
-  }, [sanityData]);
-
-  // Structured Data (JSON-LD) Schemas for Googlebot Crawling
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Leapsofts",
-    "legalName": "Leapsofts Technology Solutions FZ-LLC",
-    "url": "https://www.leapsofts.com",
-    "logo": "https://www.leapsofts.com/logo/Leap-soft-01.png",
-    "foundingDate": "2021",
-    "description": "Leapsofts is an enterprise software engineering company delivering custom cloud architectures, AI solutions, and dedicated agile pods.",
-    "address": [
-      {
-        "@type": "PostalAddress",
-        "addressLocality": "Dubai",
-        "addressCountry": "AE",
-        "streetAddress": "Dubai Internet City"
-      },
-      {
-        "@type": "PostalAddress",
-        "addressLocality": "New York",
-        "addressRegion": "NY",
-        "addressCountry": "US"
-      }
-    ],
-    "sameAs": [
-      "https://www.linkedin.com/company/leapsofts",
-      "https://twitter.com/leapsofts",
-      "https://github.com/leapsofts"
-    ]
-  };
-
-  const aboutPageSchema = {
-    "@context": "https://schema.org",
-    "@type": "AboutPage",
-    "name": "About Leapsofts | Enterprise Software Engineering Company",
-    "description": "Learn about Leapsofts, a premier custom software engineering consultancy delivering resilient cloud architectures, AI integration, and dedicated agile pods.",
-    "url": "https://www.leapsofts.com/about",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Leapsofts",
-      "logo": "https://www.leapsofts.com/logo/Leap-soft-01.png"
-    }
-  };
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://www.leapsofts.com/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Company",
-        "item": "https://www.leapsofts.com/about"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "About Us",
-        "item": "https://www.leapsofts.com/about"
-      }
-    ]
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": (faqData?.items || []).map((item) => ({
-      "@type": "Question",
-      "name": item.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": item.answer
-      }
-    }))
-  };
 
   return (
     <div className={styles.aboutPage}>

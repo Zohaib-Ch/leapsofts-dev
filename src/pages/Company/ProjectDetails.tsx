@@ -89,24 +89,14 @@ const ProjectDetails: React.FC = () => {
         ? sanityProject.summary
         : sanityProject?.summary?.description || projectData?.summary?.description || '';
 
-    const rawDeliverables = sanityProject?.projectList && sanityProject.projectList.length > 0
-        ? sanityProject.projectList
-        : projectData?.projectList || [];
-
-    const deliverables = rawDeliverables.map((item: any) => {
-        if (typeof item === 'string') return item;
-        if (typeof item === 'object' && item !== null) {
-            return item.name || item.title || item._ref || '';
-        }
-        return String(item || '');
-    }).filter(Boolean);
-
     const impactData = {
         title: sanityProject?.impact?.title || projectData?.impact?.title || title,
         images: sanityProject?.impact?.images && sanityProject.impact.images.length > 0
             ? sanityProject.impact.images
             : projectData?.impact?.images || [],
-        deliverables: deliverables,
+        deliverables: sanityProject?.projectList && sanityProject.projectList.length > 0
+            ? sanityProject.projectList
+            : projectData?.projectList || [],
     };
 
     const executiveSummaryData = {

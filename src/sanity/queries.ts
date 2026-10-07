@@ -57,7 +57,7 @@ export const HOME_PAGE_QUERY = `*[_type == "homePage"] | order(_updatedAt desc)[
   ${SEO_FRAGMENT}
 }`;
 
-export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage" && (_id == $id || _id == "drafts." + $id || _id == "aboutPage")] | order(_updatedAt desc)[0]{
+export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage" && (_id == "aboutPage" || _id == "drafts.aboutPage")] | order(_updatedAt desc)[0]{
   hero,
   creed,
   corePrinciples,
@@ -115,7 +115,7 @@ export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage" && (_id == $id || _id ==
   internalLinks,
   faq,
   cta,
-  ${SEO_FRAGMENT}
+  seo
 }`;
 
 export const CONTACT_PAGE_QUERY = `*[_type == "contactPage"][0]{
@@ -130,6 +130,12 @@ export const CASE_STUDIES_PAGE_QUERY = `*[_type == "caseStudiesPage" && (_id == 
   hero,
   cta,
   ${SEO_FRAGMENT}
+}`;
+
+export const CASE_STUDIES_PAGE_QUERY = `*[_type == "caseStudiesPage" && (_id == "caseStudiesPage" || _id == "drafts.caseStudiesPage")] | order(_updatedAt desc)[0]{
+  hero,
+  cta,
+  seo
 }`;
 
 export const ALL_SERVICES_QUERY = `*[_type == "service"]{
@@ -365,10 +371,6 @@ export const ALL_CASE_STUDIES_QUERY = `*[_type == "caseStudy"]{
     title,
     "images": images[].asset->url
   },
-  tabImages[] {
-    tabId,
-    "imageUrl": image.asset->url
-  },
   details,
   techStack {
     title,
@@ -418,10 +420,6 @@ export const CASE_STUDY_BY_ID_QUERY = `*[_type == "caseStudy" && (id == $id || s
   impact {
     title,
     "images": images[].asset->url
-  },
-  tabImages[] {
-    tabId,
-    "imageUrl": image.asset->url
   },
   details,
   techStack {

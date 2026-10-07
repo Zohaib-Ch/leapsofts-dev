@@ -110,8 +110,41 @@ const BlogListing: React.FC = () => {
       }
     });
 
-    return Array.from(uniqueMap.values()) as any[];
-  }, [loaderData, sanityBlogs]);
+  const normalizedPosts = React.useMemo(() => {
+    const rawList = (sanityBlogs && sanityBlogs.length > 0) ? sanityBlogs : blogsData;
+    return rawList.map((blog: any) => {
+      const slug = blog.slug?.current || blog.slug || '';
+      const title = blog.title || '';
+      const subtitle = blog.subtitle || '';
+      const category = blog.category || 'Enterprise AI';
+      const readTime = blog.readTime || '5 min read';
+      const publishedDate = blog.publishedDate || (blog.publishedAt ? new Date(blog.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'September 2026');
+      const featured = blog.featured || false;
+      const excerpt = blog.excerpt || blog.subtitle || '';
+      const coverImage = blog.coverImageUrl || blog.coverImage || '/projectImages/agileauto.png';
+
+      const author = {
+        name: blog.author?.name || 'Leapsofts Engineering',
+        role: blog.author?.role || 'Technical Lead',
+        avatar: blog.author?.avatar || blog.author?.avatarInitials || 'LS',
+      };
+
+      return {
+        id: blog._id || blog.id || slug,
+        slug,
+        title,
+        subtitle,
+        category,
+        readTime,
+        publishedDate,
+        featured,
+        coverImage,
+        excerpt,
+        author,
+        tags: blog.tags || [],
+      };
+    });
+  }, [sanityBlogs]);
 
   const featuredPost = normalizedPosts.find((post) => post.featured) || normalizedPosts[0];
 

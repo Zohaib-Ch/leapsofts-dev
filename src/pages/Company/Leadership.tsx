@@ -17,26 +17,9 @@ import {
 } from 'lucide-react';
 import Button from '../../components/Button/Button';
 import { useContactModal } from '../../context/ContactModalContext';
-import MetaSEO from '../../components/SEO/MetaSEO';
-import { getSanityTeamMembers, getSanityAboutPage } from '../../sanity/queries';
-import type { SanityTeamMember, SanityAboutPage } from '../../sanity/types';
-import { renderFormattedTitle } from '../../utils/titleFormatter';
-import { DEFAULT_LEADERSHIP_PAGE_DATA } from '../../data/companyFallback';
-
-export async function loader() {
-  const sanityData = await getSanityAboutPage('aboutLeadershipPage');
-  return { sanityData };
-}
-
-export function meta({ data }: { data?: any }) {
-  return buildPageMeta({
-    sanityData: data?.sanityData,
-    defaultTitle: "Executive Engineering Leadership | CEO Huzaifa Rasheed | Leapsofts",
-    defaultDescription: "Meet the executive leaders, AI researchers, and cloud architects behind Leapsofts. Led by CEO & Co-Founder Huzaifa Rasheed, building custom enterprise software solutions.",
-    defaultKeywords: "Leapsofts leadership, CEO Huzaifa Rasheed, software engineering leaders, enterprise CTO advisory, software architects Dubai US",
-    canonicalUrl: "https://www.leapsofts.com/about/leadership",
-  });
-}
+import { getSanityTeamMembers } from '../../sanity/queries';
+import type { SanityTeamMember } from '../../sanity/types';
+import styles from './Leadership.module.css';
 
 const ribbonData = [
   {
@@ -170,10 +153,19 @@ const Leadership: React.FC = () => {
   const { openContactModal } = useContactModal();
   const [sanityTeam, setSanityTeam] = React.useState<SanityTeamMember[] | null>(null);
 
-  const sanityPage: SanityAboutPage = loaderData?.sanityData || DEFAULT_LEADERSHIP_PAGE_DATA;
-  const pageData = (sanityPage as any) || DEFAULT_LEADERSHIP_PAGE_DATA;
-
   useEffect(() => {
+    document.title = 'Executive Engineering Leadership | CEO Huzaifa Rasheed | Leapsofts';
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute(
+      'content',
+      'Meet the executive leaders, AI researchers, and cloud architects behind Leapsofts. Led by CEO & Co-Founder Huzaifa Rasheed, building custom enterprise software solutions.'
+    );
+
     getSanityTeamMembers().then((data) => {
       if (data) setSanityTeam(data);
     });
