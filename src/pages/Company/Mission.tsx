@@ -454,7 +454,7 @@ const Mission: React.FC = () => {
           {(missionData.manifesto?.rules || manifestData).map((item: any, idx: number) => (
             <motion.div key={idx} className={styles.manifestCard} variants={cardChildVariant}>
               <div className={styles.manifestIndex}>{item.num}</div>
-              {item.title && <h3 className={styles.manifestTitle} style={{ color: '#fff', fontSize: '18px', fontWeight: 700, marginBottom: '8px' }}>{item.title}</h3>}
+              {item.title && <h3 className={styles.manifestTitle}>{item.title}</h3>}
               <div className={styles.manifestText}>{item.text}</div>
             </motion.div>
           ))}

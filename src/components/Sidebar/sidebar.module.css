@@ -99,3 +99,23 @@
         display: none;
     }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR SIDEBAR NAVIGATION
+   ========================================================================= */
+:global([data-theme="light"]) .label {
+    color: #64748b;
+}
+
+:global([data-theme="light"]) .menuItem:hover .label {
+    color: var(--color-orange);
+}
+
+:global([data-theme="light"]) .active .label {
+    color: var(--color-orange);
+    text-shadow: none;
+}
+
+:global([data-theme="light"]) .dot {
+    background-color: rgba(0, 0, 0, 0.15);
+}

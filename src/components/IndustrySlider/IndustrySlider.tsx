@@ -34,7 +34,30 @@ const defaultIndustries = [
 const IndustrySlider: React.FC<IndustrySliderProps> = ({ onIndustryClick, excludeIndustries = [] }) => {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
   const [sanityCaseStudies, setSanityCaseStudies] = useState<any[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     getSanityCaseStudies().then((data) => {
@@ -80,7 +103,7 @@ const IndustrySlider: React.FC<IndustrySliderProps> = ({ onIndustryClick, exclud
     : allIndustries;
 
   return (
-    <section className={styles.sliderSection}>
+    <section ref={sectionRef} className={`${styles.sliderSection} ${isVisible ? styles.revealed : ''}`}>
       <div className={styles.container}>
         <span className={styles.label}>INDUSTRIES WE WORK IN</span>
 

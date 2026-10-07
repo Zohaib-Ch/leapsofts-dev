@@ -293,7 +293,7 @@ const BlogListing: React.FC = () => {
                     </div>
                     <div>
                       <div className={styles.authorName}>{featuredPost.author.name}</div>
-                      <div className="text-xs text-gray-400">{featuredPost.author.role}</div>
+                      <div className={styles.authorRole}>{featuredPost.author.role}</div>
                     </div>
                   </div>
 
@@ -312,9 +312,9 @@ const BlogListing: React.FC = () => {
         </h2>
 
         {gridPosts.length === 0 ? (
-          <div className="text-center py-16 bg-white/5 rounded-2xl border border-white/10 my-8">
-            <h3 className="text-xl font-bold text-white mb-2">No Articles Found</h3>
-            <p className="text-gray-400 text-sm">Try broadening your search query or selecting another category.</p>
+          <div className={styles.noArticlesBox}>
+            <h3 className={styles.noArticlesTitle}>No Articles Found</h3>
+            <p className={styles.noArticlesText}>Try broadening your search query or selecting another category.</p>
           </div>
         ) : (
           <motion.div

@@ -677,3 +677,242 @@
     font-size: 20px;
   }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR MISSION PAGE
+   ========================================================================= */
+:global([data-theme="light"]) .missionPage {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .hero {
+  background: linear-gradient(180deg, #f8fafc 0%, #f3e8ff 50%, #ffffff 100%);
+}
+
+:global([data-theme="light"]) .heroGlow {
+  background: radial-gradient(circle, rgba(234, 88, 12, 0.12) 0%, rgba(168, 85, 247, 0.08) 50%, transparent 70%);
+}
+
+:global([data-theme="light"]) .label {
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .heroTitle,
+:global([data-theme="light"]) .title {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .heroTitle em,
+:global([data-theme="light"]) .title em {
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .title .accent {
+  color: #7c3aed;
+}
+
+:global([data-theme="light"]) .heroSub,
+:global([data-theme="light"]) .subtitle {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .ribbonCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+:global([data-theme="light"]) .ribbonCard:hover {
+  background: #ffffff;
+  border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .ribbonIcon {
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.2);
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .ribbonTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .ribbonDesc {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .glassCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .glassCard:hover {
+  background: #ffffff;
+  border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .splitCardIcon {
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.2);
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .splitCardTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .splitCardText {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .pillarCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .pillarCard:hover {
+  border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .pillarNum {
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .pillarTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .pillarDesc {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .manifestCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+:global([data-theme="light"]) .manifestCard:hover {
+  background: #ffffff;
+  border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .manifestIndex {
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .manifestText {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .qaCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+:global([data-theme="light"]) .qaCard:hover {
+  border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .qaIcon {
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.2);
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .qaTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .qaDesc {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .breadcrumbs a {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .breadcrumbs a:hover {
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .breadcrumbSeparator {
+  color: #cbd5e1;
+}
+
+:global([data-theme="light"]) .breadcrumbCurrent {
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .serviceCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+:global([data-theme="light"]) .serviceCard:hover {
+  background: #ffffff;
+  border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .serviceTag {
+  color: #ea580c;
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.25);
+}
+
+:global([data-theme="light"]) .serviceName {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .serviceDesc {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .faqItem {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+:global([data-theme="light"]) .faqItemActive {
+  border-color: rgba(234, 88, 12, 0.4);
+  background: #ffffff;
+}
+
+:global([data-theme="light"]) .faqQuestion {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .faqQuestion:hover {
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .faqAnswer {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .ctaBox {
+  background: linear-gradient(135deg, #faf5ff 0%, #fff7ed 100%);
+  border: 1px solid rgba(192, 38, 211, 0.2);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+}
+
+:global([data-theme="light"]) .ctaTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .ctaSub {
+  color: #475569;
+}
+

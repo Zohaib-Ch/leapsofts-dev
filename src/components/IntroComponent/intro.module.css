@@ -7,11 +7,13 @@
     align-items: center;
     overflow: hidden;
     background-color: #000;
-    padding-top: calc(90px + env(safe-area-inset-top, 0px));
-    padding-bottom: 4rem;
+    padding-top: calc(100px + env(safe-area-inset-top, 0px));
+    padding-bottom: 5rem;
+    box-sizing: border-box;
 }
 
-.videoBackground {
+.videoBackground,
+.particleWrapper {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -22,6 +24,13 @@
     z-index: 0;
     transform: translate(-50%, -50%);
     object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.isLoaded .videoBackground,
+.isLoaded .particleWrapper {
+    opacity: 1;
 }
 
 .overlay {
@@ -43,67 +52,309 @@
             rgba(10, 10, 15, 0.2) 100%);
     z-index: 1;
     mix-blend-mode: multiply;
+    opacity: 0;
+    transition: opacity 0.8s ease 0.1s;
+}
+
+.isLoaded .overlay {
+    opacity: 1;
 }
 
 .container {
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 1400px;
+    max-width: 1440px;
     margin: 0 auto;
     /* content padding + sidebar space (60px + 40px offset + gap) */
-    padding: 0 1.5rem 0 120px;
+    padding: 1.5rem 3rem 0 120px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
 }
 
 .content {
-    max-width: 850px;
+    position: relative;
+    flex: 1;
+    max-width: 760px;
     color: white;
     text-align: left;
 }
 
+/* Ambient Backlight Aura Behind Heading */
+.ambientTextAura {
+    position: absolute;
+    top: -10%;
+    left: -15%;
+    width: 520px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(255, 107, 0, 0.14) 0%, rgba(147, 51, 234, 0.08) 45%, transparent 70%);
+    filter: blur(80px);
+    -webkit-filter: blur(80px);
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.isLoaded .ambientTextAura {
+    opacity: 0.9;
+    transform: scale(1);
+}
+
+/* Award-Winning Main Heading */
 .title {
-    font-size: 48px;
-    font-weight: 600;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.7) 100%);
+    font-size: clamp(2.4rem, 4.3vw, 3.85rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.25rem;
+    color: #ffffff;
+    text-wrap: balance;
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    will-change: transform, opacity, filter;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
+                filter 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
+}
+
+.isLoaded .title {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+    -webkit-filter: blur(0);
+}
+
+/* Radiant Multi-Tone Gradient Accent */
+.gradientAccent {
+    display: inline;
+    background: linear-gradient(135deg, #ff6b00 0%, #ff8c33 45%, #ffa64d 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    filter: drop-shadow(0 0 25px rgba(255, 107, 0, 0.35));
+    font-weight: 800;
+}
+
+/* Sub-Hero Callout Card */
+.title2Callout {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.8rem 1.15rem;
+    margin-bottom: 1.35rem;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    max-width: 680px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+    will-change: transform, opacity;
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.22s,
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.22s;
+}
+
+.isLoaded .title2Callout {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.title2AccentBar {
+    width: 3.5px;
+    align-self: stretch;
+    border-radius: 4px;
+    background: linear-gradient(180deg, var(--color-orange, #ff6b00) 0%, #ffa34d 100%);
+    flex-shrink: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
+}
+
+.isLoaded .title2AccentBar {
+    transform: scaleY(1);
+}
+
+.title2Text {
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.92);
+    margin: 0;
+}
+
+.title2Highlight {
+    font-weight: 700;
+    color: var(--color-orange, #ff6b00);
 }
 
 .heroSubtitle {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 500;
     line-height: 1.4;
     color: #ff9d54;
-    margin-top: -0.5rem;
-    margin-bottom: 1.25rem;
+    margin-top: -0.25rem;
+    margin-bottom: 1.15rem;
     letter-spacing: -0.01em;
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    will-change: transform, opacity;
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.32s,
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.32s;
+}
+
+.isLoaded .heroSubtitle {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
 }
 
 .subtitle {
-    font-size: 18px;
+    font-size: 16.5px;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 2.5rem;
+    color: rgba(255, 255, 255, 0.78);
+    margin-bottom: 2rem;
+    max-width: 700px;
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    will-change: transform, opacity;
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.42s,
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.42s;
 }
+
+.isLoaded .subtitle {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
 .subtitle .bold {
     font-weight: 600;
     color: white;
 }
 
+.ctaWrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    transform: translate3d(0, 16px, 0) scale(0.97);
+    will-change: transform, opacity;
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.52s,
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.52s;
+}
+
+.isLoaded .ctaWrapper {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Micro Trust & Conversion Badges Row */
+.trustRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    will-change: transform, opacity;
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.62s,
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.62s;
+}
+
+.isLoaded .trustRow {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.trustItem {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: -0.01em;
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.isLoaded .trustItem:nth-child(1) {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition-delay: 0.66s;
+}
+
+.isLoaded .trustItem:nth-child(3) {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition-delay: 0.74s;
+}
+
+.isLoaded .trustItem:nth-child(5) {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition-delay: 0.82s;
+}
+
+.trustIcon {
+    color: var(--color-orange, #ff6b00);
+    flex-shrink: 0;
+}
+
+.trustDivider {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.85rem;
+}
+
+.visualCol {
+    display: none;
+}
+
+/* =========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================= */
+@media (max-width: 1200px) {
+    .container {
+        padding: 1rem 1.5rem 0 90px;
+        gap: 1.5rem;
+    }
+}
+
 @media (max-width: 1024px) {
     .intro {
-        padding-top: calc(95px + env(safe-area-inset-top, 0px));
-        padding-bottom: 3.5rem;
+        padding-top: calc(135px + env(safe-area-inset-top, 0px));
+        padding-bottom: 4rem;
     }
 
     .container {
-        padding: 0 1.5rem 0 30px;
+        padding: 0.75rem 1.5rem 0 30px;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .visualCol {
+        display: none !important;
+    }
+
+    .content {
+        max-width: 100%;
     }
 }
 
@@ -111,61 +362,92 @@
     .intro {
         min-height: 100dvh;
         height: auto;
-        padding-top: calc(115px + env(safe-area-inset-top, 0px));
+        padding-top: calc(130px + env(safe-area-inset-top, 0px));
         padding-bottom: 4rem;
     }
 
     .container {
-        padding: 0 1.25rem;
+        padding: 0.5rem 1.25rem 0;
+    }
+
+    .content {
+        text-align: center;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .title {
-        font-size: 32px;
-        line-height: 1.2;
-        margin-bottom: 1.25rem;
+        font-size: clamp(2rem, 6.5vw, 2.65rem);
+        line-height: 1.18;
+        margin-bottom: 1.15rem;
+    }
+
+    .title2Callout {
+        margin: 0 auto 1.25rem;
+        text-align: left;
     }
 
     .heroSubtitle {
-        font-size: 18px;
+        font-size: 17px;
         line-height: 1.35;
         margin-top: -0.25rem;
         margin-bottom: 1rem;
     }
 
     .subtitle {
-        font-size: 16px;
+        font-size: 15px;
         line-height: 1.55;
-        margin-bottom: 2rem;
+        margin-bottom: 1.75rem;
     }
 
-    .content {
-        text-align: center;
-        margin: 0 auto;
+    .ctaWrapper {
+        justify-content: center;
+    }
+
+    .trustRow {
+        justify-content: center;
+        gap: 0.65rem;
     }
 }
 
 @media (max-width: 480px) {
     .intro {
-        padding-top: calc(110px + env(safe-area-inset-top, 0px));
+        padding-top: calc(125px + env(safe-area-inset-top, 0px));
         padding-bottom: 3.5rem;
     }
 
     .title {
-        font-size: 26px;
+        font-size: 25px;
         line-height: 1.22;
         margin-bottom: 1rem;
     }
 
+    .title2Text {
+        font-size: 0.92rem;
+    }
+
     .heroSubtitle {
-        font-size: 16px;
+        font-size: 15.5px;
         line-height: 1.35;
         margin-bottom: 0.85rem;
     }
 
     .subtitle {
-        font-size: 14.5px;
+        font-size: 14px;
         line-height: 1.5;
-        margin-bottom: 1.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .trustRow {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .trustDivider {
+        display: none;
     }
 }
 
@@ -176,12 +458,139 @@
     }
 
     .title {
-        font-size: 23px;
+        font-size: 22px;
         line-height: 1.2;
     }
 
     .subtitle {
         font-size: 13.5px;
         line-height: 1.45;
+    }
+}
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR INTRO / HERO COMPONENT
+   ========================================================================= */
+:global([data-theme="light"]) .intro {
+    background-color: #f8fafc;
+}
+
+:global([data-theme="light"]) .videoBackground {
+    display: none !important;
+}
+
+:global([data-theme="light"]) .visualCol {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 3;
+    margin-right: 30px;
+    transform: translate3d(5px, 0, 0) scale(0.95);
+    opacity: 0;
+    filter: blur(6px);
+    -webkit-filter: blur(6px);
+    will-change: transform, opacity, filter;
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.3s,
+                transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.3s,
+                filter 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+
+:global([data-theme="light"]) .isLoaded .visualCol {
+    opacity: 1;
+    transform: translate3d(-35px, 0, 0) scale(1);
+    filter: blur(0);
+    -webkit-filter: blur(0);
+}
+
+:global([data-theme="light"]) .overlay {
+    display: none;
+}
+
+:global([data-theme="light"]) .ambientTextAura {
+    background: radial-gradient(circle, rgba(255, 107, 0, 0.08) 0%, rgba(59, 130, 246, 0.06) 50%, transparent 70%);
+}
+
+:global([data-theme="light"]) .title {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .gradientAccent {
+    background: linear-gradient(135deg, #ea580c 0%, #ff6b00 55%, #f97316 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: none;
+}
+
+:global([data-theme="light"]) .title2Callout {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 6px 20px -6px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .title2Text {
+    color: #1e293b;
+}
+
+:global([data-theme="light"]) .title2Highlight {
+    color: #ea580c;
+}
+
+:global([data-theme="light"]) .heroSubtitle {
+    color: var(--color-orange);
+}
+
+:global([data-theme="light"]) .subtitle {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .subtitle .bold {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .trustRow {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .trustItem {
+    color: #475569;
+}
+
+:global([data-theme="light"]) .trustIcon {
+    color: #ea580c;
+}
+
+:global([data-theme="light"]) .trustDivider {
+    color: rgba(0, 0, 0, 0.2);
+}
+
+/* =========================================================================
+   ACCESSIBILITY - REDUCED MOTION
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+    .videoBackground,
+    .particleWrapper,
+    .overlay,
+    .ambientTextAura,
+    .title,
+    .title2Callout,
+    .title2AccentBar,
+    .heroSubtitle,
+    .subtitle,
+    .ctaWrapper,
+    .trustRow,
+    .trustItem,
+    :global([data-theme="light"]) .visualCol {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+        transition: none !important;
+    }
+
+    :global([data-theme="light"]) .visualCol {
+        transform: translateX(-35px) !important;
     }
 }

@@ -671,3 +671,180 @@
     font-size: 20px;
   }
 }
+
+/* ==========================================================================
+   Light Mode Theme Overrides
+   ========================================================================== */
+:global([data-theme="light"]) .globalPage {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .hero {
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 60%, #ffffff 100%);
+}
+
+:global([data-theme="light"]) .heroGlow {
+  background: radial-gradient(circle, rgba(255, 121, 23, 0.08) 0%, rgba(198, 60, 146, 0.04) 50%, transparent 70%);
+}
+
+:global([data-theme="light"]) .heroTitle,
+:global([data-theme="light"]) .title {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .heroSub,
+:global([data-theme="light"]) .subtitle {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .ribbonCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .ribbonCard:hover {
+  background: #faf5ff;
+  border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: 0 10px 25px rgba(234, 88, 12, 0.08);
+}
+
+:global([data-theme="light"]) .ribbonTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .ribbonDesc {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .hubCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .hubCard:hover {
+  border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: 0 16px 40px rgba(234, 88, 12, 0.1);
+}
+
+:global([data-theme="light"]) .hubTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .hubText {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .hubList {
+  border-top-color: rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .hubListItem {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .complianceCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+:global([data-theme="light"]) .complianceCard:hover {
+  background: #faf5ff;
+  border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: 0 12px 30px rgba(234, 88, 12, 0.08);
+}
+
+:global([data-theme="light"]) .complianceName {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .complianceDesc {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .securityCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+:global([data-theme="light"]) .securityCard:hover {
+  background: #faf5ff;
+  border-color: rgba(234, 88, 12, 0.4);
+}
+
+:global([data-theme="light"]) .securityTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .securityDesc {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .breadcrumbs {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .breadcrumbs a {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .breadcrumbSeparator {
+  color: #cbd5e1;
+}
+
+:global([data-theme="light"]) .serviceCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+:global([data-theme="light"]) .serviceCard:hover {
+  background: #faf5ff;
+  border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: 0 16px 36px rgba(234, 88, 12, 0.1);
+}
+
+:global([data-theme="light"]) .serviceName {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .serviceDesc {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .faqItem {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+}
+
+:global([data-theme="light"]) .faqItemActive {
+  background: #faf5ff;
+  border-color: rgba(234, 88, 12, 0.4);
+}
+
+:global([data-theme="light"]) .faqQuestion {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .faqAnswer {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .ctaBox {
+  background: linear-gradient(135deg, rgba(243, 232, 255, 0.8) 0%, rgba(254, 242, 242, 0.8) 100%);
+  border: 1px solid rgba(198, 60, 146, 0.25);
+  box-shadow: 0 16px 40px rgba(198, 60, 146, 0.08);
+}
+
+:global([data-theme="light"]) .ctaTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .ctaSub {
+  color: #475569;
+}

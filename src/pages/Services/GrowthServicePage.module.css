@@ -744,3 +744,181 @@
     padding: 0 0.75rem;
   }
 }
+
+/* ==========================================================================
+   Light Mode Theme Overrides
+   ========================================================================== */
+:global([data-theme="light"]) .page-container {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .breadcrumb-bar {
+  background: #f8fafc;
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .breadcrumb-container {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .breadcrumb-container a {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .breadcrumb-separator {
+  color: #cbd5e1;
+}
+
+:global([data-theme="light"]) .hero-title {
+  background: linear-gradient(135deg, #0f172a 30%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global([data-theme="light"]) .hero-description {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .secondary-btn {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #0f172a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .secondary-btn:hover {
+  background: #f8fafc;
+  border-color: rgba(255, 107, 0, 0.5);
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .metric-card {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .metric-label {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .metric-desc {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .positioning-inner {
+  background: linear-gradient(90deg, rgba(255, 107, 0, 0.08) 0%, rgba(248, 250, 252, 0.95) 100%);
+  border-color: rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+:global([data-theme="light"]) .positioning-text {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .section-title {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .section-subtitle {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .subservice-card {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .subservice-card:hover {
+  background: #faf5ff;
+  border-color: rgba(255, 107, 0, 0.4);
+  box-shadow: 0 16px 36px rgba(255, 107, 0, 0.1);
+}
+
+:global([data-theme="light"]) .card-title {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .card-description {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .bullet-item {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .deliverables-box {
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .deliverables-title {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .deliverable-tag {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #334155;
+}
+
+:global([data-theme="light"]) .comparison-card.traditional {
+  background: rgba(239, 68, 68, 0.05);
+  border-color: rgba(239, 68, 68, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+:global([data-theme="light"]) .comparison-card.traditional .comp-title {
+  color: #dc2626;
+}
+
+:global([data-theme="light"]) .comparison-card.traditional .comp-item {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .comparison-card.leapsofts {
+  background: #faf5ff;
+  border-color: rgba(255, 107, 0, 0.35);
+  box-shadow: 0 10px 30px rgba(255, 107, 0, 0.08);
+}
+
+:global([data-theme="light"]) .comparison-card.leapsofts .comp-item {
+  color: #1e293b;
+}
+
+:global([data-theme="light"]) .faq-card {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+}
+
+:global([data-theme="light"]) .faq-card:hover,
+:global([data-theme="light"]) .faq-card.open {
+  background: #faf5ff;
+  border-color: rgba(255, 107, 0, 0.4);
+}
+
+:global([data-theme="light"]) .faq-trigger {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .faq-body-content {
+  color: #475569;
+  border-top-color: rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .cta-banner {
+  background: linear-gradient(135deg, rgba(255, 237, 213, 0.8) 0%, rgba(243, 232, 255, 0.9) 100%);
+  border-color: rgba(255, 107, 0, 0.3);
+  box-shadow: 0 16px 40px rgba(255, 107, 0, 0.1);
+}
+
+:global([data-theme="light"]) .cta-title {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .cta-subtitle {
+  color: #475569;
+}

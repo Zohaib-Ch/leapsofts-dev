@@ -1,0 +1,290 @@
+/* =========================================================================
+   Hero Visual - Ultra High-Performance Light Theme Component
+   ========================================================================= */
+
+.visualWrapper {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    height: 460px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    pointer-events: none;
+    overflow: visible;
+    transform: translateZ(0);
+}
+
+/* Zero-Cost Ambient Gradient Auras */
+.ambientAuraPurple {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    top: 5%;
+    right: 10%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(147, 51, 234, 0.08) 0%, rgba(147, 51, 234, 0) 70%);
+    pointer-events: none;
+}
+
+.ambientAuraOrange {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    bottom: 5%;
+    left: 10%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.07) 0%, rgba(249, 115, 22, 0) 70%);
+    pointer-events: none;
+}
+
+/* Central Scene Container */
+.sceneContainer {
+    position: relative;
+    width: 360px;
+    height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    overflow: visible;
+}
+
+/* Lightweight Geometric Ring Accents */
+.orbitSystem {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px dashed rgba(147, 51, 234, 0.22);
+}
+
+.ring1 {
+    width: 270px;
+    height: 270px;
+    transform: rotate(15deg);
+}
+
+.ring2 {
+    width: 200px;
+    height: 200px;
+    border-color: rgba(249, 115, 22, 0.2);
+    transform: rotate(-25deg);
+}
+
+/* Central Tech Core */
+.coreHologram {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    border-radius: 20px;
+    background: #ffffff;
+    border: 1.5px solid rgba(147, 51, 234, 0.2);
+    box-shadow:
+        0 10px 25px rgba(147, 51, 234, 0.12),
+        0 2px 6px rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+}
+
+.coreInnerGlow {
+    position: absolute;
+    inset: 3px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.06), rgba(249, 115, 22, 0.06));
+    z-index: 1;
+}
+
+.coreIconWrapper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.coreIcon {
+    color: #9333ea;
+}
+
+/* Static Network Grid */
+.svgNetwork {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* Lightweight Floating Badges */
+.glassBadge {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 15px;
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    border-radius: 12px;
+    box-shadow:
+        0 10px 24px -4px rgba(15, 23, 42, 0.08),
+        0 3px 8px -1px rgba(15, 23, 42, 0.04);
+    z-index: 6;
+    pointer-events: auto;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transform: translateZ(0);
+    white-space: nowrap;
+}
+
+.glassBadge:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 14px 28px -4px rgba(15, 23, 42, 0.12),
+        0 5px 12px -1px rgba(15, 23, 42, 0.06);
+}
+
+.badgeIconBox {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.badgeContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.badgeHeader {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.badgeTitle {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f172a;
+    line-height: 1.2;
+}
+
+.badgeSubtitle {
+    font-size: 11px;
+    font-weight: 500;
+    color: #64748b;
+    line-height: 1.2;
+}
+
+.liveIndicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #16a34a;
+    background: rgba(22, 163, 74, 0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.liveDot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #16a34a;
+}
+
+.progressBarWrapper {
+    width: 100%;
+    height: 3.5px;
+    background: #f1f5f9;
+    border-radius: 2px;
+    margin-top: 3px;
+    overflow: hidden;
+}
+
+.progressBarFill {
+    width: 78%;
+    height: 100%;
+    background: linear-gradient(90deg, #f97316, #ea580c);
+    border-radius: 2px;
+}
+
+/* Badge Positioning (Safe inside bounds, no clipping) */
+.badgeTopRight {
+    top: 5px;
+    right: 0px;
+    animation: gentleFloat1 8s ease-in-out infinite alternate;
+}
+
+.badgeBottomLeft {
+    bottom: 25px;
+    left: 0px;
+    animation: gentleFloat2 9s ease-in-out infinite alternate;
+}
+
+.badgeBottomRight {
+    bottom: -5px;
+    right: 25px;
+    animation: gentleFloat1 7s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes gentleFloat1 {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(0, -6px, 0);
+    }
+}
+
+@keyframes gentleFloat2 {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(0, 6px, 0);
+    }
+}
+
+/* STRICT DARK MODE RULE: NEVER DISPLAY IN DARK MODE */
+:global([data-theme="dark"]) .visualWrapper,
+:global([data-theme="dark"]) .visualWrapper * {
+    display: none !important;
+}
+
+/* Responsive Scaling */
+@media (max-width: 1200px) {
+    .visualWrapper {
+        max-width: 440px;
+        height: 420px;
+    }
+    .badgeTopRight {
+        right: 0px;
+    }
+    .badgeBottomLeft {
+        left: 0px;
+    }
+}
+
+@media (max-width: 992px) {
+    .visualWrapper {
+        display: none !important;
+    }
+}

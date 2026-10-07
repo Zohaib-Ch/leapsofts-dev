@@ -1,10 +1,6 @@
 .benefits {
-    padding: 0 7rem;
-    background-color: #050001;
-}
-
-@media (max-width: 1024px) {
-    .benefits {
-        padding: 0;
-    }
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
 }

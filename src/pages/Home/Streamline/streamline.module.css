@@ -1,174 +1,442 @@
 .section {
     width: 100%;
     position: relative;
-    background: linear-gradient(180deg, #050001, rgba(67, 23, 81, 1), #050001);
-    padding: 100px 0;
+    background: linear-gradient(180deg, #050001 0%, #180524 50%, #050001 100%);
+    padding: 120px 0;
     overflow: hidden;
     z-index: 10;
 }
 
+/* =========================================================================
+   SOFT ORBITAL ARC & CELESTIAL BACKDROP
+   ========================================================================= */
+.orbitalBackdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 45%, transparent 95%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 45%, transparent 95%);
+}
+
+.ambientGlowPurple {
+    position: absolute;
+    top: 35%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 500px;
+    background: radial-gradient(circle at center, rgba(147, 51, 234, 0.1) 0%, rgba(217, 70, 239, 0.03) 50%, transparent 75%);
+    filter: blur(80px);
+    pointer-events: none;
+}
+
+.ambientGlowOrange {
+    position: absolute;
+    bottom: 25%;
+    right: 10%;
+    transform: translate(30%, 30%);
+    width: 650px;
+    height: 550px;
+    background: radial-gradient(circle at center, rgba(255, 107, 0, 0.08) 0%, rgba(251, 146, 60, 0.02) 50%, transparent 75%);
+    filter: blur(90px);
+    pointer-events: none;
+}
+
+.orbitalSvg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    min-width: 1300px;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    opacity: 0.18;
+    transition: opacity 0.4s ease;
+}
+
+/* =========================================================================
+   CONTAINER & LAYOUT
+   ========================================================================= */
 .container {
+    max-width: 1400px;
+    margin: 0 auto;
     padding: 0 100px 0 120px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.15fr 0.85fr;
     align-items: center;
-    gap: 100px;
+    gap: 80px;
+    position: relative;
+    z-index: 1;
 }
 
 .content {
-    flex: 1;
-    /* max-width: 540px; */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Scroll Reveal GPU Hardware Transitions */
+.animateIn {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+    will-change: transform, opacity;
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animateIn.visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.visualContainer.animateIn {
+    transform: translate3d(24px, 0, 0) scale(0.97);
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.visualContainer.animateIn.visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* =========================================================================
+   MONOSPACE SECTION TAG WITH REFINED LIVE DOT
+   ========================================================================= */
+.labelWrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.livePulseDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-orange, #ff6b00);
+    box-shadow: 0 0 6px rgba(255, 107, 0, 0.6);
+    animation: livePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes livePulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 0.6;
+    }
 }
 
 .label {
-    color: var(--color-orange);
-    font-family: 'DM Mono', monospace;
-    font-size: 14px;
-    font-weight: 500;
+    color: var(--color-orange, #ff6b00);
+    font-family: var(--font-mono, "DM Mono", monospace);
+    font-size: 13px;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 24px;
-    display: block;
 }
 
+/* =========================================================================
+   HEADLINE & GRADIENT ACCENT
+   ========================================================================= */
 .title {
     color: #ffffff;
     font-family: 'DM Sans', sans-serif;
-    font-size: 56px;
+    font-size: clamp(2.4rem, 4.2vw, 3.6rem);
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
     margin-bottom: 24px;
 }
 
-.accent {
-    color: var(--color-primary-light);
+.gradientAccent {
     font-style: italic;
+    font-family: serif;
+    background: linear-gradient(135deg, #d848ff 0%, #ff8c33 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    padding-right: 4px;
 }
 
+/* =========================================================================
+   DESCRIPTION TEXT
+   ========================================================================= */
 .description {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.76);
     font-family: 'DM Sans', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+.description strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.descriptionSecondary {
+    color: rgba(255, 255, 255, 0.65);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
     line-height: 1.6;
-    margin-bottom: 40px;
+    margin-bottom: 28px;
+}
+
+/* =========================================================================
+   MODERN SOFT ONE-LINE PERK BADGES
+   ========================================================================= */
+.perksRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    margin-bottom: 36px;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.perksRow::-webkit-scrollbar {
+    display: none;
+}
+
+.perkBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px 6px 7px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s ease, border-color 0.2s ease;
+    transform: translateZ(0);
+    cursor: default;
+}
+
+.perkBadge:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 107, 0, 0.25);
+    transform: translateY(-1px);
+}
+
+.perkIconWrapper {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(255, 107, 0, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%);
+    border: 1px solid rgba(255, 107, 0, 0.25);
+    flex-shrink: 0;
+}
+
+.perkIconWrapper svg {
+    width: 13px;
+    height: 13px;
+    stroke: var(--color-orange, #ff6b00);
+}
+
+.perkText {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.88);
+    letter-spacing: -0.01em;
+}
+
+/* =========================================================================
+   CTA ROW & TRUST MICRO-COPY
+   ========================================================================= */
+.ctaRow {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 .buttonWrapper {
     display: flex;
+    align-items: center;
 }
 
-/* Right side - Visual */
-.visual {
-    flex: 1;
+.trustMicro {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'DM Sans', sans-serif;
+}
+
+.trustCheck {
+    color: #10b981;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+/* =========================================================================
+   3D PERSPECTIVE VISUAL CARD (LAG-FREE GPU COMPOSITING)
+   ========================================================================= */
+.visualContainer {
     position: relative;
-    border-radius: 24px;
+    perspective: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateZ(0);
+}
+
+.visual {
+    position: relative;
+    border-radius: 28px;
     overflow: hidden;
     aspect-ratio: 1 / 1;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    min-width: 300px;
-    min-height: 300px;
-    max-width: 500px;
-    max-height: 500px;
     width: 100%;
-    justify-self: center;
+    max-width: 480px;
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.7),
+        0 0 35px rgba(147, 51, 234, 0.15);
+    transition: box-shadow 0.3s ease;
+    will-change: transform;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transform: translateZ(0);
 }
 
-.visual:hover .dashboardImage {
-    transform: scale(1.05);
+.visual:hover {
+    box-shadow: 
+        0 35px 65px -15px rgba(0, 0, 0, 0.8),
+        0 0 50px rgba(217, 70, 239, 0.25);
+}
+
+.glassBorderGlow {
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    border: 1.5px solid transparent;
+    background: linear-gradient(135deg, rgba(217, 70, 239, 0.35) 0%, transparent 50%, rgba(255, 107, 0, 0.3) 100%) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 4;
 }
 
 .dashboardImage {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
     transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateZ(0);
 }
 
-.customButton {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: transparent;
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 14px 28px;
-    border-radius: 50px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    overflow: hidden;
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-    background: linear-gradient(135deg, rgba(210, 93, 166, 0.1) 0%, rgba(86, 232, 129, 0.1) 100%);
+.visual:hover .dashboardImage {
+    transform: scale(1.04);
 }
 
-.customButton:hover {
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 0 20px rgba(210, 93, 166, 0.3);
-}
-
-.customButton::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(255, 255, 255, 0.1),
-            transparent);
-    transition: 0.5s;
-}
-
-.customButton:hover::before {
-    left: 100%;
-}
-
-.btnIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease;
-}
-
-.customButton:hover .btnIcon {
-    transform: translateX(4px);
-}
-
+/* Dynamic Interactive Lighting Overlays */
 .spotlightOverlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     pointer-events: none;
-    background: radial-gradient(circle var(--spotlight-size, 150px) at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+    background: radial-gradient(circle var(--spotlight-size, 200px) at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
             transparent 0%,
-            rgba(12, 17, 29, 0.4) 100%);
+            rgba(5, 0, 1, 0.45) 100%);
     z-index: 2;
 }
 
 .spotlightLens {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     pointer-events: none;
-    background: radial-gradient(circle var(--spotlight-size, 150px) at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
-            var(--color-orange) 0%,
+    background: radial-gradient(circle var(--spotlight-size, 200px) at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+            rgba(255, 107, 0, 0.15) 0%,
             transparent 100%);
     z-index: 3;
-    opacity: 0.5;
+    opacity: 0.8;
 }
 
-/* Animations */
+/* Floating Micro-Chips */
+.floatingChipTop {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 7, 26, 0.75);
+    border: 1px solid rgba(217, 70, 239, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 7px 14px;
+    border-radius: 100px;
+    font-family: var(--font-mono, "DM Mono", monospace);
+    font-size: 12px;
+    font-weight: 500;
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    animation: floatSlow 4s ease-in-out infinite alternate;
+}
+
+.floatingChipBottom {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(15, 7, 26, 0.75);
+    border: 1px solid rgba(255, 107, 0, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 7px 14px;
+    border-radius: 100px;
+    font-family: var(--font-mono, "DM Mono", monospace);
+    font-size: 12px;
+    font-weight: 500;
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    animation: floatSlow 4s ease-in-out infinite alternate-reverse;
+}
+
+.chipPulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #10b981;
+    box-shadow: 0 0 8px #10b981;
+}
+
+@keyframes floatSlow {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-6px);
+    }
+}
+
+/* =========================================================================
+   SCROLL ENTRANCE ANIMATIONS
+   ========================================================================= */
 .animateIn {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transform: translateY(35px);
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .visible {
@@ -176,64 +444,198 @@
     transform: translateY(0);
 }
 
+/* =========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================= */
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 60px;
+        gap: 50px;
+    }
+}
+
 @media (max-width: 1024px) {
+    .section {
+        padding: 90px 0;
+    }
+
     .container {
         grid-template-columns: 1fr;
         text-align: center;
-        gap: 60px;
+        gap: 50px;
         padding: 0 1.5rem;
     }
 
     .content {
-        max-width: 100%;
-        order: 1;
+        align-items: center;
     }
 
-    .visual {
-        width: 100%;
-        max-width: 450px;
-        min-width: 300px;
-        min-height: 300px;
-        max-height: 450px;
-        order: 2;
-        margin: 0 auto;
+    .labelWrapper {
+        justify-content: center;
+    }
+
+    .perksRow {
+        justify-content: center;
+    }
+
+    .ctaRow {
+        align-items: center;
     }
 
     .buttonWrapper {
         justify-content: center;
     }
 
-    .title {
-        font-size: 36px;
+    .trustMicro {
+        justify-content: center;
+    }
+
+    .visual {
+        max-width: 440px;
     }
 }
 
 @media (max-width: 768px) {
     .section {
-        padding: 60px 0;
+        padding: 70px 0;
     }
 
     .title {
-        font-size: 32px;
+        font-size: 2.2rem;
+    }
+
+    .description {
+        font-size: 15.5px;
+    }
+
+    .perksRow {
+        justify-content: flex-start;
+        padding-bottom: 4px;
     }
 
     .visual {
-        min-width: min(100%, 350px);
-        min-height: min(100%, 350px);
-        max-width: 400px;
-        max-height: 400px;
+        max-width: 360px;
+        border-radius: 20px;
+    }
+
+    .glassBorderGlow {
+        border-radius: 20px;
+    }
+
+    .floatingChipTop,
+    .floatingChipBottom {
+        padding: 5px 10px;
+        font-size: 11px;
     }
 }
-@media (max-width: 425px) {
-    .container {
-        margin: 0;
-        padding: 0 24px;
-    }
 
-    .visual {
-        min-width: min(calc(100vw - 48px), 300px);
-        min-height: min(calc(100vw - 48px), 300px);
-        max-width: 100%;
-        max-height: 350px;
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR STREAMLINE SECTION
+   ========================================================================= */
+:global([data-theme="light"]) .section {
+    background: linear-gradient(180deg, #ffffff 0%, #faf6fe 50%, #ffffff 100%);
+}
+
+:global([data-theme="light"]) .orbitalSvg {
+    opacity: 0.16;
+}
+
+:global([data-theme="light"]) .ambientGlowPurple {
+    background: radial-gradient(circle at center, rgba(147, 51, 234, 0.06) 0%, rgba(217, 70, 239, 0.02) 50%, transparent 75%);
+}
+
+:global([data-theme="light"]) .ambientGlowOrange {
+    background: radial-gradient(circle at center, rgba(255, 107, 0, 0.05) 0%, rgba(251, 146, 60, 0.015) 50%, transparent 75%);
+}
+
+:global([data-theme="light"]) .title {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .gradientAccent {
+    background: linear-gradient(135deg, #7c3aed 0%, #d946ef 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+:global([data-theme="light"]) .description {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .description strong {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .descriptionSecondary {
+    color: #475569;
+}
+
+/* Light Theme Soft Modern Badges */
+:global([data-theme="light"]) .perkBadge {
+    background: #ffffff;
+    border: 1px solid rgba(147, 51, 234, 0.14);
+    box-shadow: 0 2px 6px -1px rgba(107, 33, 168, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+:global([data-theme="light"]) .perkBadge:hover {
+    background: #ffffff;
+    border-color: rgba(255, 107, 0, 0.35);
+    box-shadow: 0 4px 12px -2px rgba(255, 107, 0, 0.12);
+    transform: translateY(-1px);
+}
+
+:global([data-theme="light"]) .perkIconWrapper {
+    background: linear-gradient(135deg, rgba(255, 107, 0, 0.1) 0%, rgba(147, 51, 234, 0.08) 100%);
+    border-color: rgba(255, 107, 0, 0.2);
+}
+
+:global([data-theme="light"]) .perkIconWrapper svg {
+    stroke: #ea580c;
+}
+
+:global([data-theme="light"]) .perkText {
+    color: #1e293b;
+    font-weight: 500;
+}
+
+:global([data-theme="light"]) .trustMicro {
+    color: #64748b;
+}
+
+:global([data-theme="light"]) .visual {
+    border: 1px solid rgba(147, 51, 234, 0.18);
+    box-shadow: 
+        0 20px 45px rgba(107, 33, 168, 0.12),
+        0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .visual:hover {
+    box-shadow: 
+        0 30px 60px rgba(107, 33, 168, 0.18),
+        0 0 30px rgba(217, 70, 239, 0.15);
+}
+
+:global([data-theme="light"]) .floatingChipTop,
+:global([data-theme="light"]) .floatingChipBottom {
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(147, 51, 234, 0.25);
+    color: #0f172a;
+    box-shadow: 0 8px 24px rgba(107, 33, 168, 0.15);
+}
+
+:global([data-theme="light"]) .spotlightOverlay {
+    display: none;
+}
+
+:global([data-theme="light"]) .spotlightLens {
+    display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animateIn,
+    .visualContainer.animateIn {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
     }
 }

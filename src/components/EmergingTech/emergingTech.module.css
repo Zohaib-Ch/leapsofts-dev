@@ -220,3 +220,65 @@
         height: 24px;
     }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR EMERGING TECH
+   ========================================================================= */
+:global([data-theme="light"]) .section {
+    background: linear-gradient(180deg, #ffffff 0%, #faf8fd 50%, #f6f3fa 100%);
+    color: #0f172a;
+    contain: layout style;
+}
+
+:global([data-theme="light"]) .bgGlow {
+    background: radial-gradient(circle at center, rgba(147, 51, 234, 0.07) 0%, rgba(249, 115, 22, 0.035) 45%, transparent 70%);
+    filter: none !important;
+    transform: translate(-50%, -50%) translateZ(0);
+}
+
+:global([data-theme="light"]) .title {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .titleAccent {
+    color: #7c3aed;
+}
+
+:global([data-theme="light"]) .description {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .card {
+    background: #ffffff;
+    border: 1px solid rgba(147, 51, 234, 0.12);
+    box-shadow: 0 10px 30px -10px rgba(107, 33, 168, 0.08);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+:global([data-theme="light"]) .card:hover {
+    background: #ffffff;
+    border-color: rgba(147, 51, 234, 0.35);
+    box-shadow: 0 20px 45px -10px rgba(107, 33, 168, 0.16);
+}
+
+:global([data-theme="light"]) .iconWrapper {
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.1), rgba(249, 115, 22, 0.1));
+    border: 1px solid rgba(147, 51, 234, 0.2);
+}
+
+:global([data-theme="light"]) .stepBadge {
+    color: #94a3b8;
+}
+
+:global([data-theme="light"]) .card:hover .stepBadge {
+    color: var(--color-orange);
+}
+
+:global([data-theme="light"]) .cardTitle {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .cardDesc {
+    color: #475569;
+}

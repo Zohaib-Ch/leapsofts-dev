@@ -343,3 +343,47 @@
         font-size: 1.5rem;
     }
 }
+
+/* ==========================================================================
+   Light Mode Theme Overrides
+   ========================================================================== */
+:global([data-theme="light"]) .errorPage {
+    background: #f8fafc;
+}
+
+:global([data-theme="light"]) .videoBackground {
+    opacity: 0.15;
+}
+
+:global([data-theme="light"]) .overlay {
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.4) 0%, rgba(248, 250, 252, 0.9) 100%);
+}
+
+:global([data-theme="light"]) .modernTitle {
+    background: linear-gradient(135deg, #0f172a 0%, var(--color-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+}
+
+:global([data-theme="light"]) .errorCode {
+    background: linear-gradient(to bottom, #0f172a 0%, rgba(15, 23, 42, 0.4) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(124, 58, 237, 0.15);
+}
+
+:global([data-theme="light"]) .message {
+    color: #475569;
+}
+
+:global([data-theme="light"]) .terminal {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    color: #334155;
+}
+
+:global([data-theme="light"]) .errorPage::before {
+    opacity: 0.2;
+}

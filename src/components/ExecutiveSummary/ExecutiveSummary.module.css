@@ -120,3 +120,38 @@
         padding: 16px 0;
     }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR EXECUTIVE SUMMARY
+   ========================================================================= */
+:global([data-theme="light"]) .title {
+    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+:global([data-theme="light"]) .description {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .detailsList {
+    border-top: 1px solid rgba(147, 51, 234, 0.12);
+}
+
+:global([data-theme="light"]) .detailItem {
+    border-bottom: 1px solid rgba(147, 51, 234, 0.12);
+}
+
+:global([data-theme="light"]) .detailItem:hover {
+    background: rgba(147, 51, 234, 0.04);
+    border-bottom-color: #7c3aed;
+}
+
+:global([data-theme="light"]) .detailKey {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .detailValue {
+    color: #334155;
+}

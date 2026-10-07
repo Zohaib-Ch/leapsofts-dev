@@ -98,6 +98,15 @@
     padding: 0 20px;
     position: relative;
     z-index: 2;
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+    will-change: transform, opacity;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.revealed .headerSection {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
 }
 
 .headline {
@@ -136,6 +145,17 @@
     padding: 0 40px;
     position: relative;
     z-index: 2;
+    opacity: 0;
+    transform: translate3d(0, 26px, 0);
+    will-change: transform, opacity;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.revealed .formContainer,
+.stickyVariant .formContainer,
+.embeddedVariant .formContainer {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
 }
 
 /* 5 Column Grid for Desktop */
@@ -163,8 +183,7 @@
 }
 
 .input,
-.textarea,
-.countrySelect {
+.textarea {
     width: 100%;
     padding: 14px 18px;
     background: #1f1f3e;
@@ -172,7 +191,9 @@
     border-radius: 12px;
     color: #ffffff;
     font-size: 15px;
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    line-height: 20px;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input::placeholder,
@@ -191,38 +212,61 @@
 .phoneGroup {
     display: flex;
     gap: 10px;
+    width: 100%;
 }
 
 .countrySelectContainer {
     position: relative;
-    width: 85px;
+    width: 86px;
+    min-width: 86px;
+    height: 50px;
     display: flex;
     align-items: center;
-}
-
-.selectedCountryCode {
-    position: absolute;
-    left: 18px;
-    color: #ffffff;
-    font-size: 15px;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.countrySelect {
-    width: 100%;
-    padding: 14px 18px;
+    justify-content: space-between;
+    padding: 0 12px 0 16px;
     background: #1f1f3e;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    color: transparent;
-    /* Hide the native selected text */
-    font-size: 15px;
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    box-sizing: border-box;
     cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.countrySelectContainer:focus-within {
+    border-color: #ff4d94;
+    background: #2a2a4e;
+}
+
+.selectedCountryCode {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    pointer-events: none;
+    z-index: 1;
+    user-select: none;
+}
+
+.countryChevron {
+    color: rgba(255, 255, 255, 0.6);
+    pointer-events: none;
+    z-index: 1;
+    flex-shrink: 0;
+}
+
+.countrySelect {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+    -webkit-appearance: none;
     appearance: none;
-    /* Remove default arrow to avoid overlap if needed, or keep for UX */
-    padding-left: 18px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
 }
 
 .countrySelect option {
@@ -230,14 +274,9 @@
     color: #ffffff;
 }
 
-.countrySelect:focus {
-    outline: none;
-    border-color: #ff4d94;
-    background: #2a2a4e;
-}
-
 .phoneInput {
     flex: 1;
+    min-width: 0;
 }
 
 .textarea {
@@ -264,6 +303,7 @@
     cursor: pointer;
     position: relative;
     margin-top: 4px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .checkbox:checked {
@@ -291,6 +331,11 @@
 .checkboxLabel a {
     color: #ffffff;
     text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.checkboxLabel a:hover {
+    color: var(--color-orange);
 }
 
 .recaptchaNotice {
@@ -302,6 +347,11 @@
 .recaptchaNotice a {
     color: #94a3b8;
     text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.recaptchaNotice a:hover {
+    color: #ffffff;
 }
 
 /* Submit Button Specifics */
@@ -353,16 +403,18 @@
 
 @media (max-width: 480px) {
     .countrySelectContainer {
-        width: 70px;
+        width: 76px;
+        min-width: 76px;
+        height: 46px;
+        padding: 0 8px 0 12px;
     }
 
-    .countrySelect {
-        font-size: 12px;
+    .selectedCountryCode {
+        font-size: 14px;
     }
 
     .input,
-    .textarea,
-    .countrySelect {
+    .textarea {
         padding: 12px 14px;
         font-size: 14px;
     }
@@ -371,3 +423,123 @@
         font-size: 13px;
     }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR CONTACT FORM
+   ========================================================================= */
+:global([data-theme="light"]) .contactSection {
+    background-color: #f8fafc;
+}
+
+:global([data-theme="light"]) .headline {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .subtitle {
+    color: #475569;
+}
+
+:global([data-theme="light"]) .label {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .input,
+:global([data-theme="light"]) .textarea {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    color: #0f172a;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .input::placeholder,
+:global([data-theme="light"]) .textarea::placeholder {
+    color: #94a3b8;
+}
+
+:global([data-theme="light"]) .input:focus,
+:global([data-theme="light"]) .textarea:focus {
+    background: #ffffff;
+    border-color: var(--color-primary-light);
+    box-shadow: 0 0 0 3px rgba(198, 60, 146, 0.15);
+}
+
+:global([data-theme="light"]) .countrySelectContainer {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .countrySelectContainer:focus-within {
+    background: #ffffff;
+    border-color: var(--color-primary-light);
+    box-shadow: 0 0 0 3px rgba(198, 60, 146, 0.15);
+}
+
+:global([data-theme="light"]) .selectedCountryCode {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .countryChevron {
+    color: #64748b;
+}
+
+:global([data-theme="light"]) .countrySelect option {
+    background: #ffffff;
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .checkbox {
+    background: #ffffff;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+:global([data-theme="light"]) .checkbox:checked {
+    background: var(--color-orange);
+    border-color: var(--color-orange);
+}
+
+:global([data-theme="light"]) .checkboxLabel {
+    color: #475569;
+}
+
+:global([data-theme="light"]) .checkboxLabel a {
+    color: var(--color-orange);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+:global([data-theme="light"]) .checkboxLabel a:hover {
+    color: #d97706;
+}
+
+:global([data-theme="light"]) .recaptchaNotice {
+    color: #64748b;
+}
+
+:global([data-theme="light"]) .recaptchaNotice a {
+    color: #334155;
+    text-decoration: underline;
+}
+
+:global([data-theme="light"]) .recaptchaNotice a:hover {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .contactSection.stickyVariant .formContainer {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .stickyTitle {
+    color: #0f172a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .headerSection,
+    .formContainer {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}

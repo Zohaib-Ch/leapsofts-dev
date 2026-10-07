@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, memo } from 'react';
 import Button from '../Button/Button';
 import { Link, useLocation, useNavigate } from 'react-router';
+import { useTheme } from '../../context/ThemeContext';
 import styles from './Navbar.module.css';
 import {
   Code2,
@@ -45,7 +46,9 @@ import {
   Mail,
   Menu,
   X,
-  ArrowRight
+  ArrowRight,
+  Sun,
+  Moon
 } from 'lucide-react';
 
 interface ServiceItem {
@@ -297,6 +300,7 @@ const ServicesCockpit: React.FC<{
 const Navbar = memo(() => {
   const location = useLocation().pathname;
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>(null);
@@ -308,6 +312,8 @@ const Navbar = memo(() => {
   const scrollStateRef = useRef(false);
   const activeDropdownRef = useRef<ActiveDropdown>(null);
   activeDropdownRef.current = activeDropdown;
+
+  const logoSrc = theme === 'light' ? '/logo/Leap-soft-01.png' : '/logo/Leap-soft-w.png';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -366,7 +372,7 @@ const Navbar = memo(() => {
       <nav className={`${styles['navbar']} ${isScrolled ? styles['scrolled'] : ''}`}>
         <div className={styles['nav-container']}>
           <Link to="/" className={styles['nav-logo']} onClick={closeDropdowns}>
-            <img src="/logo/Leap-soft-01.png" width="100" height="100" alt="Leapsofts Logo" className={styles['nav-logo-img']} />
+            <img src={logoSrc} width="100" height="100" alt="Leapsofts Logo" className={styles['nav-logo-img']} />
             <span className={styles['nav-brand-text']}>
               <span className={styles['brand-leap']}>Leap</span>
               <span className={styles['brand-softs']}>softs</span>
@@ -416,17 +422,34 @@ const Navbar = memo(() => {
             </li>
           </ul>
 
-          <div className={styles['nav-cta']}>
-            <Button
-              text="Strategic Partnerships"
-              color1="var(--color-primary)"
-              color2="var(--color-primary-light)"
-              className={styles['nav-btn-compact']}
-              onClick={() => {
-                closeDropdowns();
-                navigate('/partners');
-              }}
-            />
+          <div className={styles['nav-actions']}>
+            {/* Theme Toggle Button */}
+            <button
+              type="button"
+              className={styles['theme-toggle-btn']}
+              onClick={toggleTheme}
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              {theme === 'dark' ? (
+                <Sun size={17} className={styles['theme-icon-sun']} />
+              ) : (
+                <Moon size={17} className={styles['theme-icon-moon']} />
+              )}
+            </button>
+
+            <div className={styles['nav-cta']}>
+              <Button
+                text="Strategic Partnerships"
+                color1="var(--color-primary)"
+                color2="var(--color-primary-light)"
+                className={styles['nav-btn-compact']}
+                onClick={() => {
+                  closeDropdowns();
+                  navigate('/partners');
+                }}
+              />
+            </div>
           </div>
 
           <button
@@ -650,6 +673,27 @@ const Navbar = memo(() => {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className={styles['mobile-actions-row']}>
+            <button
+              type="button"
+              className={styles['mobile-theme-toggle-btn']}
+              onClick={toggleTheme}
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              {theme === 'dark' ? (
+                <>
+                  <Sun size={17} />
+                  <span>Switch to Light Mode</span>
+                </>
+              ) : (
+                <>
+                  <Moon size={17} />
+                  <span>Switch to Dark Mode</span>
+                </>
+              )}
+            </button>
           </div>
 
           <div className={styles['mobile-cta']}>

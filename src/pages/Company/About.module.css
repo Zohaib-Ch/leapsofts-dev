@@ -1021,3 +1021,273 @@
     font-size: 22px;
   }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR MAIN ABOUT US PAGE (/about)
+   ========================================================================= */
+:global([data-theme="light"]) .aboutPage {
+  background-color: #ffffff;
+  color: #0f172a;
+  contain: layout style;
+}
+
+:global([data-theme="light"]) .hero {
+  background: linear-gradient(180deg, #f8fafc 0%, #faf5ff 60%, #f8fafc 100%);
+}
+
+:global([data-theme="light"]) .heroGlow {
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.08) 0%, rgba(249, 115, 22, 0.04) 50%, transparent 70%);
+  filter: none !important;
+}
+
+:global([data-theme="light"]) .heroTitle,
+:global([data-theme="light"]) .title {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .heroSub,
+:global([data-theme="light"]) .subtitle {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .glassCard {
+  background: #ffffff;
+  border: 1px solid rgba(147, 51, 234, 0.12);
+  box-shadow: 0 10px 30px -10px rgba(107, 33, 168, 0.08);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+:global([data-theme="light"]) .glassCard:hover {
+  background: #ffffff;
+  border-color: rgba(147, 51, 234, 0.35);
+  box-shadow: 0 20px 45px -10px rgba(107, 33, 168, 0.16);
+}
+
+:global([data-theme="light"]) .metricCard {
+  background: #ffffff;
+  border: 1px solid rgba(147, 51, 234, 0.12);
+  border-left: 3px solid var(--color-orange);
+  box-shadow: 0 8px 24px -6px rgba(107, 33, 168, 0.06);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+:global([data-theme="light"]) .metricCard:hover {
+  background: #ffffff;
+  border-left-color: #7c3aed;
+  box-shadow: 0 16px 36px -8px rgba(107, 33, 168, 0.14);
+}
+
+:global([data-theme="light"]) .metricLabel {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .metricSub {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .missionCardIcon {
+  background: rgba(249, 115, 22, 0.1);
+  border-color: rgba(249, 115, 22, 0.25);
+}
+
+:global([data-theme="light"]) .missionTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .missionText {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .valueIcon {
+  background: rgba(147, 51, 234, 0.08);
+  border-color: rgba(147, 51, 234, 0.18);
+  color: #7c3aed;
+}
+
+:global([data-theme="light"]) .valueTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .valueText {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .timelineBtn {
+  background: #ffffff;
+  border: 1px solid rgba(147, 51, 234, 0.15);
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .timelineBtn:hover,
+:global([data-theme="light"]) .activeTimelineBtn {
+  background: linear-gradient(135deg, #7c3aed 0%, #9333ea 100%);
+  border-color: #7c3aed;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+}
+
+:global([data-theme="light"]) .timelineCardTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .timelineCardDesc {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .executiveCard {
+  background: #ffffff;
+  border: 1px solid rgba(147, 51, 234, 0.12);
+  box-shadow: 0 10px 30px -10px rgba(107, 33, 168, 0.08);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+:global([data-theme="light"]) .executiveCard::before {
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.06) 0%, rgba(249, 115, 22, 0.03) 50%, transparent 70%);
+}
+
+:global([data-theme="light"]) .executiveCard:hover {
+  background: #ffffff;
+  border-color: rgba(147, 51, 234, 0.35);
+  box-shadow: 0 20px 45px -10px rgba(107, 33, 168, 0.16);
+}
+
+:global([data-theme="light"]) .avatarImg {
+  background: #f1edf8;
+  border-color: rgba(147, 51, 234, 0.2);
+  color: #7c3aed;
+}
+
+:global([data-theme="light"]) .executiveName {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .executiveBio {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .executiveSkillPill {
+  color: #334155;
+  background: #f8f6fb;
+  border-color: rgba(147, 51, 234, 0.12);
+}
+
+:global([data-theme="light"]) .executiveCard:hover .executiveSkillPill {
+  border-color: rgba(147, 51, 234, 0.25);
+  background: #f1edf8;
+}
+
+:global([data-theme="light"]) .hubIcon {
+  background: rgba(147, 51, 234, 0.08);
+  border-color: rgba(147, 51, 234, 0.2);
+  color: #7c3aed;
+}
+
+:global([data-theme="light"]) .hubName {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .hubDesc {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .complianceItem {
+  background: #f8f6fb;
+  border-color: rgba(147, 51, 234, 0.12);
+}
+
+:global([data-theme="light"]) .complianceSubtitle {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .ctaBox {
+  background: linear-gradient(135deg, #f5f0fb 0%, #faf5ff 50%, #f0f7ff 100%);
+  border-color: rgba(147, 51, 234, 0.25);
+  box-shadow: 0 20px 50px -10px rgba(107, 33, 168, 0.15);
+}
+
+:global([data-theme="light"]) .ctaTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .ctaSub {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .breadcrumbs {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .breadcrumbs a {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .breadcrumbSeparator {
+  color: #cbd5e1;
+}
+
+:global([data-theme="light"]) .reasonTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .reasonDesc {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .industryCard {
+  background: #ffffff;
+  border-color: rgba(147, 51, 234, 0.12);
+  box-shadow: 0 10px 30px -10px rgba(107, 33, 168, 0.08);
+}
+
+:global([data-theme="light"]) .industryCard:hover {
+  background: #ffffff;
+  border-color: rgba(147, 51, 234, 0.35);
+  box-shadow: 0 20px 45px -10px rgba(107, 33, 168, 0.16);
+}
+
+:global([data-theme="light"]) .industryName {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .industryDesc {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .techCategoryCard {
+  background: #ffffff;
+  border-color: rgba(147, 51, 234, 0.12);
+  box-shadow: 0 10px 30px -10px rgba(107, 33, 168, 0.08);
+}
+
+:global([data-theme="light"]) .techPill {
+  color: #334155;
+  background: #f8f6fb;
+  border-color: rgba(147, 51, 234, 0.12);
+}
+
+:global([data-theme="light"]) .techPill:hover {
+  border-color: #7c3aed;
+  color: #7c3aed;
+  background: rgba(124, 58, 237, 0.08);
+}
+
+:global([data-theme="light"]) .faqItem {
+  background: #ffffff;
+  border-color: rgba(147, 51, 234, 0.12);
+}
+
+:global([data-theme="light"]) .faqItemActive {
+  background: #faf8fd;
+  border-color: rgba(147, 51, 234, 0.35);
+}
+
+:global([data-theme="light"]) .faqQuestion {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .faqAnswer {
+  color: #475569;
+}

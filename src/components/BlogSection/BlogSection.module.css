@@ -254,3 +254,51 @@
     padding: 1.35rem 1rem;
   }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR BLOG SECTION
+   ========================================================================= */
+:global([data-theme="light"]) .title {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .subtitle {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .blogCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .blogCard:hover {
+  background: #ffffff;
+  border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .cardTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .cardExcerpt {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .metaRow {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .authorName {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .authorRole {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .cardFooter {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+

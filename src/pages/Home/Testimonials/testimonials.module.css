@@ -1,43 +1,76 @@
 .testimonialsSection {
     position: relative;
     width: 100%;
-    min-height: 800px;
-    background-color: var(--bg-darker);
+    min-height: 750px;
+    background-color: #050001;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    padding: 4rem 2rem;
-    color: white;
+    padding: 6rem 2rem;
+    color: #ffffff;
 }
 
-/* Background Gradients/Effects (Subtle corners) */
-.testimonialsSection::before,
-.testimonialsSection::after {
-    content: '';
+/* =========================================================================
+   AMBIENT BACKGROUND LIGHTS
+   ========================================================================= */
+.ambientAuraPurple {
     position: absolute;
-    width: 500px;
-    height: 500px;
+    top: -10%;
+    left: 10%;
+    width: 600px;
+    height: 600px;
     border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.15;
+    background: radial-gradient(circle at center, rgba(147, 51, 234, 0.12) 0%, rgba(217, 70, 239, 0.03) 50%, transparent 70%);
+    filter: blur(100px);
+    pointer-events: none;
     z-index: 0;
 }
 
-.testimonialsSection::before {
-    top: -20%;
-    left: -10%;
-    background: var(--color-secondary);
+.ambientAuraOrange {
+    position: absolute;
+    bottom: -10%;
+    right: 10%;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(255, 107, 0, 0.1) 0%, rgba(251, 146, 60, 0.03) 50%, transparent 70%);
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
 }
 
-.testimonialsSection::after {
-    bottom: -20%;
-    right: -10%;
-    background: var(--color-primary);
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-image:
+        radial-gradient(rgba(255, 255, 255, 0.7) 1px, transparent 1px),
+        radial-gradient(rgba(255, 107, 0, 0.5) 1px, transparent 1px),
+        radial-gradient(rgba(147, 51, 234, 0.6) 1.5px, transparent 1.5px);
+    background-size: 450px 450px, 320px 320px, 220px 220px;
+    background-position: 0 0, 40px 60px, 130px 270px;
+    opacity: 0.25;
+    animation: drift 75s linear infinite;
+    pointer-events: none;
 }
 
-/* Container */
+@keyframes drift {
+    from {
+        background-position: 0 0, 40px 60px, 130px 270px;
+    }
+    to {
+        background-position: 450px 450px, 360px 380px, 570px 710px;
+    }
+}
+
+/* =========================================================================
+   CONTAINER & HEADER
+   ========================================================================= */
 .container {
     width: 100%;
     max-width: 1200px;
@@ -49,69 +82,98 @@
     align-items: center;
 }
 
-/* Header */
 .header {
-    /* position: absolute; */
-    top: 0;
-    left: 0;
-    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+    max-width: 800px;
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+    will-change: transform, opacity;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.revealed .header {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.labelWrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.liveDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-orange, #ff6b00);
+    box-shadow: 0 0 8px rgba(255, 107, 0, 0.6);
 }
 
 .sectionLabel {
-    font-family: var(--font-mono);
-    color: var(--color-orange);
+    display: block;
+    font-family: var(--font-mono, "DM Mono", monospace);
+    color: var(--color-orange, #ff6b00);
     text-transform: uppercase;
-    letter-spacing: 0.2em;
-    font-size: 0.9rem;
-    margin-bottom: 2rem;
-    font-weight: 700;
-    text-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
-    text-align: center;
-    margin-bottom: 2.5rem;
+    letter-spacing: 2px;
+    font-size: 13px;
+    font-weight: 600;
 }
 
+.title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(2rem, 3.4vw, 2.75rem);
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+    margin: 0 0 14px 0;
+    letter-spacing: -0.02em;
+}
 
-/* Central Spinner Container */
+.title em {
+    font-style: italic;
+    font-family: serif;
+    background: linear-gradient(135deg, #d848ff 0%, #ff8c33 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    padding-right: 4px;
+}
+
+.subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15.5px;
+    color: rgba(255, 255, 255, 0.72);
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* =========================================================================
+   CENTRAL SPINNER CONTAINER & HOLOGRAPHIC RINGS
+   ========================================================================= */
 .spinnerWrapper {
     position: relative;
-    width: 500px;
-    height: 500px;
+    width: 540px;
+    height: 540px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 2rem;
+    margin: 1.5rem auto 0;
+    opacity: 0;
+    transform: translate3d(0, 30px, 0) scale(0.96);
+    will-change: transform, opacity;
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
 }
 
-/* ... existing neon circle styles ... */
-/* Particles Background */
-.particles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    background-image:
-        radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 3px),
-        radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 2px),
-        radial-gradient(white, rgba(255, 255, 255, .1) 2px, transparent 3px);
-    background-size: 550px 550px, 350px 350px, 250px 250px;
-    background-position: 0 0, 40px 60px, 130px 270px;
-    opacity: 0.3;
-    animation: drift 60s linear infinite;
+.revealed .spinnerWrapper {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
 }
 
-@keyframes drift {
-    from {
-        background-position: 0 0, 40px 60px, 130px 270px;
-    }
-
-    to {
-        background-position: 550px 550px, 390px 410px, 680px 820px;
-    }
-}
-
-/* The glowing neon circle border - Enhanced */
 .neonCircle {
     position: absolute;
     top: 0;
@@ -119,48 +181,51 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    /* Thin golden/neon border effect */
     background: conic-gradient(from 180deg,
             transparent 0%,
-            rgba(255, 215, 0, 0.1) 40%,
-            rgba(255, 215, 0, 0.8) 50%,
-            rgba(255, 215, 0, 0.1) 60%,
+            rgba(217, 70, 239, 0.15) 30%,
+            rgba(255, 107, 0, 0.8) 50%,
+            rgba(147, 51, 234, 0.8) 65%,
             transparent 100%);
     -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #fff calc(100% - 2px));
     mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #fff calc(100% - 2px));
-
-    animation: spin 10s linear infinite;
-    box-shadow: 0 0 40px rgba(255, 215, 0, 0.3), 0 0 80px rgba(255, 215, 0, 0.1);
-    /* Richer glow */
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+    animation: spin 12s linear infinite;
+    box-shadow: 0 0 40px rgba(147, 51, 234, 0.25), 0 0 80px rgba(255, 107, 0, 0.15);
+    filter: drop-shadow(0 0 12px rgba(217, 70, 239, 0.4));
 }
 
-/* Secondary counter-rotating ring for complexity */
-.neonCircle::after {
-    content: '';
+.neonOuterRing {
     position: absolute;
-    top: -15px;
-    left: -15px;
-    right: -15px;
-    bottom: -15px;
+    top: -18px;
+    left: -18px;
+    right: -18px;
+    bottom: -18px;
     border-radius: 50%;
-    border: 1px solid rgba(255, 215, 0, 0.1);
-    border-top-color: rgba(255, 215, 0, 0.4);
-    border-bottom-color: transparent;
-    animation: spinReverse 15s linear infinite;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    border-top-color: rgba(255, 107, 0, 0.4);
+    border-bottom-color: rgba(147, 51, 234, 0.4);
+    animation: spinReverse 20s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes spinReverse {
     from {
         transform: rotate(360deg);
     }
-
     to {
         transform: rotate(0deg);
     }
 }
 
-/* Another layer for glow */
 .neonCircleGlow {
     position: absolute;
     top: 50%;
@@ -169,14 +234,14 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    /* subtle base border */
-    box-shadow: inset 0 0 50px rgba(255, 215, 0, 0.05);
+    background: radial-gradient(circle at center, rgba(147, 51, 234, 0.06) 0%, rgba(255, 107, 0, 0.04) 45%, transparent 70%);
+    box-shadow: inset 0 0 60px rgba(147, 51, 234, 0.08);
     pointer-events: none;
 }
 
-
-/* Testimonial Content (Centered in Circle) */
+/* =========================================================================
+   TESTIMONIAL CARD CONTENT
+   ========================================================================= */
 .testimonialContent {
     position: relative;
     z-index: 20;
@@ -187,17 +252,48 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 3rem;
+    padding: 3.5rem 3rem;
+}
+
+/* 5-Star Row */
+.starRatingRow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+}
+
+.stars {
+    display: flex;
+    gap: 3px;
+    color: #ff9800;
+}
+
+.starIcon {
+    width: 16px;
+    height: 16px;
+}
+
+.verifiedTag {
+    font-family: var(--font-mono, "DM Mono", monospace);
+    font-size: 11px;
+    font-weight: 600;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    padding: 3px 8px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 /* Animations for Active Slide */
 @keyframes blurInUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
-        filter: blur(10px);
+        transform: translateY(16px);
+        filter: blur(8px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -206,178 +302,133 @@
 }
 
 :global(.swiper-slide-active) .quoteText {
-    animation: blurInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    animation-delay: 0.1s;
+    animation: blurInUp 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 0.05s;
 }
 
 :global(.swiper-slide-active) .bodyText {
-    animation: blurInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    animation-delay: 0.3s;
+    animation: blurInUp 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 0.15s;
 }
 
 :global(.swiper-slide-active) .authorContainer {
-    animation: blurInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    animation-delay: 0.5s;
+    animation: blurInUp 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 0.25s;
 }
 
-/* Initial state for animation */
 .quoteText,
 .bodyText,
 .authorContainer {
     opacity: 0;
-    /* Hidden by default, revealed by animation */
 }
 
-/* ... existing author styles ... */
 .quoteText {
-    font-family: var(--font-mono);
-    font-size: 1.5rem;
-    color: var(--color-orange);
-    margin-bottom: 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.25rem;
+    color: var(--color-orange, #ff6b00);
+    margin-bottom: 1.2rem;
     font-style: italic;
-    font-weight: 500;
-    line-height: 1.5;
-    text-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
-    /* Stronger glow */
+    font-weight: 600;
+    line-height: 1.45;
+    max-width: 440px;
 }
 
 .bodyText {
-    font-size: 1rem;
-    color: var(--text-primary);
-    line-height: 1.7;
-    max-width: 600px;
-    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.6;
+    max-width: 440px;
+    margin-bottom: 1.5rem;
 }
 
+/* Author Container */
 .authorContainer {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 12px;
+}
+
+.authorAvatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 107, 0, 0.2) 0%, rgba(147, 51, 234, 0.2) 100%);
+    border: 1.5px solid rgba(255, 107, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 16px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.authorAvatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.authorInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
 }
 
 .authorName {
-    font-family: var(--font-mono);
-    color: var(--color-orange);
+    font-family: var(--font-mono, "DM Mono", monospace);
+    color: #ffffff;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    line-height: 1.2;
 }
 
 .authorRole {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
     font-weight: 500;
 }
 
-/* ... existing nav styles ... */
-/* Nav Arrows */
+/* =========================================================================
+   NAVIGATION BUTTONS
+   ========================================================================= */
 .navButton {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    background: transparent;
-    border: none;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 50%;
     cursor: pointer;
     z-index: 30;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform 0.2s ease;
-    color: #C63C92;
-    /* Magenta/Pink from image */
+    transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    color: #ffffff;
 }
 
 .navButton:hover {
     transform: translateY(-50%) scale(1.1);
+    background: rgba(255, 107, 0, 0.15);
+    border-color: rgba(255, 107, 0, 0.4);
+    box-shadow: 0 0 20px rgba(255, 107, 0, 0.25);
 }
 
 .navPrev {
-    left: -80px;
-    /* Moved slightly further out */
+    left: -70px;
 }
 
 .navNext {
-    right: -80px;
-    /* Moved slightly further out */
+    right: -70px;
 }
 
-/* ... badges ... */
-/* Review Badges */
-.badges {
-    margin-top: 4rem;
-    display: flex;
-    gap: 4rem;
-    /* Increased gap between the two main badges */
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.badge {
-    display: flex;
-    align-items: center;
-    /* Vertically align the two columns */
-    gap: 1.5rem;
-    /* Gap between "Clutch" side and "Stars" side */
-    opacity: 0.9;
-    transition: opacity 0.3s;
-}
-
-.badge:hover {
-    opacity: 1;
-}
-
-.badgeLeft {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.2rem;
-}
-
-.badgeRight {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.4rem;
-    padding-top: 0.2rem;
-    /* Align stars visually with logo text */
-}
-
-.badgeLabel {
-    font-size: 0.7rem;
-    letter-spacing: 0.05em;
-    color: #6b7280;
-    /* Muted grey */
-    text-transform: uppercase;
-    font-weight: 500;
-}
-
-.badgeLogo {
-    font-size: 2rem;
-    font-weight: 700;
-    color: white;
-    letter-spacing: -0.02em;
-    line-height: 1;
-    /* Neon Glow Effect */
-    text-shadow: 0 0 10px rgba(6, 182, 212, 0.6), 0 0 20px rgba(6, 182, 212, 0.4);
-}
-
-.starRating {
-    display: flex;
-    gap: 4px;
-    color: white;
-}
-
-.ratingText {
-    font-size: 0.8rem;
-    color: #6b7280;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-/* Swiper Fixes */
 .swiperContainer {
     width: 100%;
     height: 100%;
@@ -390,127 +441,173 @@
     height: 100%;
 }
 
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* Responsive */
+/* =========================================================================
+   RESPONSIVENESS
+   ========================================================================= */
 @media (max-width: 1024px) {
     .navPrev {
-        left: -40px;
+        left: -30px;
     }
-
     .navNext {
-        right: -40px;
+        right: -30px;
     }
 }
 
 @media (max-width: 768px) {
     .testimonialsSection {
-        /* padding: 4rem 1.5rem 4rem 0px; */
+        padding: 4rem 1.5rem;
         min-height: auto;
-    }
-    .sectionLabel {
-        padding-left: 0rem;
-        text-align: center;
-    }
-
-    .container {
-        padding: 0;
-        /* Tablet padding */
     }
 
     .spinnerWrapper {
         width: 100%;
-        max-width: 350px;
-        height: 350px;
-        /* Smaller circle for mobile */
-        margin-top: 2rem;
+        max-width: 380px;
+        height: 380px;
+        margin-top: 1.5rem;
     }
 
     .neonCircle,
     .neonCircleGlow {
         width: 100%;
         height: 100%;
-        max-width: 350px;
-        max-height: 350px;
-        /* Ensure it stays centered relative to the wrapper */
-        left: 0;
-        transform: none;
+        max-width: 380px;
+        max-height: 380px;
     }
 
-    .neonCircleGlow {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    /* Hide arrows, rely on swipe */
     .navButton {
         display: none;
     }
 
     .testimonialContent {
-        padding: 1rem;
+        padding: 2rem 1.5rem;
     }
 
     .quoteText {
-        font-size: 1rem;
-        margin-bottom: 1rem;
-        line-height: 1.4;
+        font-size: 1.05rem;
+        margin-bottom: 0.8rem;
     }
 
     .bodyText {
-        font-size: 0.9rem;
+        font-size: 0.88rem;
         line-height: 1.5;
         display: -webkit-box;
         -webkit-line-clamp: 4;
-        /* Limit lines on very small screens if needed */
         -webkit-box-orient: vertical;
         overflow: hidden;
-        margin-bottom: 1.5rem;
-    }
-
-    .authorName {
-        font-size: 1rem;
-    }
-
-    /* stack badges */
-    .badges {
-        margin-top: 3rem;
-        gap: 2rem;
-        flex-direction: column;
-    }
-
-    .badge {
-        gap: 1rem;
-    }
-
-    .badgeLogo {
-        font-size: 1.5rem;
+        margin-bottom: 1rem;
     }
 }
 
 @media (max-width: 480px) {
-    .testimonialsSection{
-        padding: 20px 10px;
-    }
-    .sectionLabel {
-        font-size: 0.75rem;
+    .testimonialsSection {
+        padding: 3rem 1rem;
     }
 
     .spinnerWrapper {
-        height: 300px;
-        max-width: 300px;
+        height: 330px;
+        max-width: 330px;
     }
 
     .bodyText {
         -webkit-line-clamp: 3;
+    }
+}
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR TESTIMONIALS SECTION
+   ========================================================================= */
+:global([data-theme="light"]) .testimonialsSection {
+    background-color: #f8fafc;
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .ambientAuraPurple {
+    background: radial-gradient(circle at center, rgba(147, 51, 234, 0.08) 0%, transparent 60%);
+}
+
+:global([data-theme="light"]) .ambientAuraOrange {
+    background: radial-gradient(circle at center, rgba(255, 107, 0, 0.06) 0%, transparent 60%);
+}
+
+:global([data-theme="light"]) .particles {
+    display: none;
+}
+
+:global([data-theme="light"]) .title {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .title em {
+    background: linear-gradient(135deg, #7c3aed 0%, #d946ef 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+:global([data-theme="light"]) .subtitle {
+    color: #475569;
+}
+
+:global([data-theme="light"]) .neonCircle {
+    background: conic-gradient(from 180deg,
+            transparent 0%,
+            rgba(147, 51, 234, 0.25) 30%,
+            rgba(255, 107, 0, 0.75) 50%,
+            rgba(147, 51, 234, 0.75) 65%,
+            transparent 100%);
+    box-shadow: 0 0 35px rgba(147, 51, 234, 0.12), 0 0 60px rgba(255, 107, 0, 0.08);
+}
+
+:global([data-theme="light"]) .neonCircleGlow {
+    background: radial-gradient(circle at center, #ffffff 0%, #fbf9ff 60%, transparent 75%);
+    box-shadow: inset 0 0 40px rgba(147, 51, 234, 0.05);
+}
+
+:global([data-theme="light"]) .neonOuterRing {
+    border-color: rgba(15, 23, 42, 0.08);
+    border-top-color: rgba(255, 107, 0, 0.35);
+    border-bottom-color: rgba(147, 51, 234, 0.35);
+}
+
+:global([data-theme="light"]) .quoteText {
+    color: #c2410c;
+}
+
+:global([data-theme="light"]) .bodyText {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .authorName {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .authorRole {
+    color: #64748b;
+}
+
+:global([data-theme="light"]) .authorAvatar {
+    background: #f1edf8;
+    border-color: rgba(147, 51, 234, 0.25);
+    color: #7c3aed;
+}
+
+:global([data-theme="light"]) .navButton {
+    background: #ffffff;
+    border: 1px solid rgba(147, 51, 234, 0.15);
+    color: #0f172a;
+    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.08);
+}
+
+:global([data-theme="light"]) .navButton:hover {
+    background: rgba(255, 107, 0, 0.1);
+    border-color: rgba(255, 107, 0, 0.35);
+    box-shadow: 0 6px 18px rgba(255, 107, 0, 0.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .header,
+    .spinnerWrapper {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
     }
 }

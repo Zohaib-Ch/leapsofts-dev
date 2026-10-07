@@ -1,7 +1,8 @@
-import { buildPageMeta } from '../../utils/seoHelper';
 import React from 'react';
 import styles from './partners.module.css';
+import { buildPageMeta } from '../../utils/seoHelper';
 import PartnerHero from '../../components/PartnerHero/PartnerHero';
+import PartnerSlider from '../../components/Partners/Partners';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import InfoGrid from '../../components/InfoGrid/InfoGrid';
 import { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
@@ -27,38 +28,44 @@ export function meta({ data }: { data?: any }) {
 
 const Partners: React.FC = () => {
   const benefitsData: InfoGridProps['data'] = {
-    label: 'BENEFITS',
+    label: 'BENEFITS & VALUE PILLARS',
     title: 'Simplified incentives, smarter tools, greater impact.',
     items: [
       {
         icon: '01',
         title: 'Accelerated Innovation',
         description:
-          'Strategic partnerships bring together complementary expertise and technologies, enabling faster innovation and the development of advanced, AI-driven software solutions.'
+          'Co-develop next-gen AI and cloud architectures with shared R&D, specialized engineering pods, and faster release cycles.'
       },
       {
         icon: '02',
         title: 'Enhanced Customer Acquisition',
         description:
-          'Strategic partnerships expand market reach by leveraging shared networks, co-selling opportunities, and established client relationships—helping businesses acquire customers faster and more cost-effectively.'
+          'Expand market reach through joint go-to-market strategies, certified co-selling, and cross-platform enterprise distribution.'
       },
       {
         icon: '03',
         title: 'Scalable Growth Opportunities',
         description:
-          'By sharing resources and market access, strategic partnerships enable scalable expansion into new regions and industries with reduced operational complexity.'
+          'Accelerate expansion across new industries and global territories with unified resources and minimal operational complexity.'
       },
       {
         icon: '04',
         title: 'Improved Operational Efficiency',
         description:
-          'Aligned processes, automation, and collaborative execution models streamline operations, reduce costs, and improve overall delivery efficiency.'
+          'Streamline delivery via automated CI/CD pipelines, synchronized agile topologies, and shared tooling infrastructure.'
       },
       {
         icon: '05',
-        title: 'Reduced Risk and Faster Time-to-Market',
+        title: 'Reduced Risk & Faster Time-to-Market',
         description:
-          'Leveraging proven delivery frameworks and shared accountability minimizes risk while accelerating time-to-market for complex enterprise software initiatives.'
+          'Leverage proven architectural blueprints and shared accountability to de-risk mission-critical enterprise deployments.'
+      },
+      {
+        icon: '06',
+        title: 'Dedicated Governance & Shared IP',
+        description:
+          'Ensure continuous strategic alignment through executive steering, clear SLA benchmarks, and co-created intellectual property.'
       }
     ]
   };
@@ -233,6 +240,13 @@ const Partners: React.FC = () => {
             ],
             "Our collaborative ecosystem extends beyond traditional software outsourcing to deliver mutual growth, joint technological innovation, and scalable co-development models.",
           ]}
+        />
+        <PartnerSlider
+          label="CERTIFIED CLOUD PLATFORMS & STRATEGIC ECOSYSTEM"
+          titleMain="Certified alliances with global "
+          titleAccent="technology leaders"
+          titleEnd="."
+          description="Collaborating with certified cloud platforms, enterprise CRM ecosystems, and global technology leaders to engineer scale-ready solutions."
         />
       </div>
       <div id="overview">

@@ -167,3 +167,35 @@
         opacity: 1;
     }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR SUCCESS DIALOG
+   ========================================================================= */
+:global([data-theme="light"]) .overlay {
+    background: rgba(15, 23, 42, 0.4);
+}
+
+:global([data-theme="light"]) .dialog {
+    background: #ffffff;
+    border: 1px solid rgba(147, 51, 234, 0.2);
+    box-shadow: 0 25px 60px -12px rgba(107, 33, 168, 0.2), 0 0 30px rgba(147, 51, 234, 0.1);
+}
+
+:global([data-theme="light"]) .title {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .message {
+    color: #475569;
+}
+
+:global([data-theme="light"]) .closeBtn {
+    background: linear-gradient(135deg, #7c3aed 0%, #ea580c 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.25);
+}
+
+:global([data-theme="light"]) .closeBtn:hover {
+    background: linear-gradient(135deg, #6d28d9 0%, #c2410c 100%);
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35);
+}

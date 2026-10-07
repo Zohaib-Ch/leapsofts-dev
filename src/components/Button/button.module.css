@@ -89,6 +89,20 @@
     font-size: 12px;
   }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR BUTTON COMPONENT
+   ========================================================================= */
+:global([data-theme="light"]) .leap-btn {
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.15);
+  color: #ffffff;
+}
+
+:global([data-theme="light"]) .leap-btn:hover {
+  border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.2);
+}
 /* 
 @keyframes gradientShift {
   0% {

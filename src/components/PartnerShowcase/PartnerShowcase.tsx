@@ -373,7 +373,7 @@ const ShowcaseItem: React.FC<{ data: PartnerData }> = ({ data }) => {
                     </div>
 
                     {tabsCount > 0 && (
-                        <div className={styles.tabsCard} onWheel={handleWheel}>
+                        <div className={styles.tabsCard}>
                             <motion.div
                                 className={styles.wheelContainer}
                                 onPanEnd={handlePanEnd}

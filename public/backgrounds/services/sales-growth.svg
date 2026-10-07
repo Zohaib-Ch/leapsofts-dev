@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" fill="none">
+  <g stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+    
+    <!-- 1. Exponential Revenue Growth Chart 📈 (Top Left: 25, 25) -->
+    <g stroke="rgba(249, 115, 22, 0.12)">
+      <path d="M22 65h50M22 25v40"/>
+      <path d="M28 55l14-14 10 8 16-20" stroke-width="1.8"/>
+      <path d="M62 29h6v6"/>
+      <circle cx="68" cy="29" r="2.5" fill="rgba(249, 115, 22, 0.25)"/>
+    </g>
+
+    <!-- 2. Sales Pipeline Conversion Funnel (Top Center: 140, 25) -->
+    <g stroke="rgba(147, 51, 234, 0.13)">
+      <polygon points="135,28 185,28 168,52 152,52" fill="rgba(147, 51, 234, 0.04)"/>
+      <polygon points="152,54 168,54 164,68 156,68" fill="rgba(249, 115, 22, 0.08)"/>
+      <path d="M160 68v6"/>
+    </g>
+
+    <!-- 3. Megaphone Outbound Campaign 📣 (Top Right: 260, 25) -->
+    <g stroke="rgba(249, 115, 22, 0.12)">
+      <polygon points="260,40 280,30 280,56 260,46"/>
+      <path d="M260 40h-8a3 3 0 0 0-3 3v0a3 3 0 0 0 3 3h8"/>
+      <path d="M285 35q6 8 0 16M290 30q12 13 0 26"/>
+      <path d="M255 46v8"/>
+    </g>
+
+    <!-- 4. Target Acquisition Bullseye 🎯 (Top Far-Right: 340, 25) -->
+    <g stroke="rgba(147, 51, 234, 0.12)">
+      <circle cx="360" cy="45" r="18"/>
+      <circle cx="360" cy="45" r="10"/>
+      <circle cx="360" cy="45" r="3.5" fill="rgba(147, 51, 234, 0.2)"/>
+    </g>
+
+    <!-- 5. Enterprise Deal Handshake 🤝 (Middle-Left: 25, 120) -->
+    <g stroke="rgba(147, 51, 234, 0.13)">
+      <path d="M20 135l14-10 12 10 10-6 14 10"/>
+      <path d="M34 125l6 6 8-4"/>
+      <path d="M30 145l10 8 12-10"/>
+      <rect x="18" y="130" width="10" height="18" rx="2"/>
+      <rect x="62" y="130" width="10" height="18" rx="2"/>
+    </g>
+
+    <!-- 6. RevOps Automation Gears (Center: 145, 120) -->
+    <g stroke="rgba(249, 115, 22, 0.12)">
+      <circle cx="155" cy="135" r="14"/>
+      <circle cx="155" cy="135" r="5" fill="rgba(249, 115, 22, 0.1)"/>
+      <path d="M155 117v4M155 149v4M137 135h4M169 135h4M142 122l3 3M165 145l3 3M142 148l3-3M165 125l3-3"/>
+      <circle cx="178" cy="150" r="9"/>
+      <circle cx="178" cy="150" r="3"/>
+    </g>
+
+    <!-- 7. Lead Generation Magnet (Middle-Right: 265, 120) -->
+    <g stroke="rgba(147, 51, 234, 0.12)">
+      <path d="M260 125v16a15 15 0 0 0 30 0v-16h-9v16a6 6 0 0 1-12 0v-16z"/>
+      <path d="M260 131h9M281 131h9"/>
+      <circle cx="275" cy="160" r="2" fill="rgba(147, 51, 234, 0.2)"/>
+    </g>
+
+    <!-- 8. Paid Media Ad Campaign Beacon (Far Right: 350, 120) -->
+    <g stroke="rgba(249, 115, 22, 0.12)">
+      <rect x="340" y="125" width="40" height="30" rx="4"/>
+      <polygon points="355,133 368,140 355,147" fill="rgba(249, 115, 22, 0.15)"/>
+      <circle cx="346" cy="131" r="1.5"/>
+    </g>
+
+    <!-- 9. SEO Organic Search Discovery (Bottom Left: 25, 220) -->
+    <g stroke="rgba(147, 51, 234, 0.12)">
+      <circle cx="45" cy="235" r="14"/>
+      <path d="M55 245l12 12"/>
+      <path d="M40 238l4-6 4 4 6-8"/>
+    </g>
+
+    <!-- 10. Performance Analytics Bar Stack (Bottom Center-Left: 135, 220) -->
+    <g stroke="rgba(147, 51, 234, 0.12)">
+      <rect x="135" y="240" width="8" height="18" rx="2" fill="rgba(147, 51, 234, 0.08)"/>
+      <rect x="148" y="230" width="8" height="28" rx="2" fill="rgba(147, 51, 234, 0.1)"/>
+      <rect x="161" y="222" width="8" height="36" rx="2" fill="rgba(249, 115, 22, 0.15)"/>
+      <rect x="174" y="215" width="8" height="43" rx="2" fill="rgba(147, 51, 234, 0.18)"/>
+      <path d="M130 258h58"/>
+    </g>
+
+    <!-- 11. Multi-Touch Attribution Node Graph (Center: 235, 225) -->
+    <g stroke="rgba(249, 115, 22, 0.11)">
+      <circle cx="240" cy="230" r="4"/>
+      <circle cx="270" cy="225" r="4"/>
+      <circle cx="255" cy="255" r="5" fill="rgba(249, 115, 22, 0.1)"/>
+      <path d="M240 230l30-5M240 230l15 25M270 225l-15 30"/>
+    </g>
+
+    <!-- 12. Email / Outbound Inbound Flywheel (Bottom Right: 325, 220) -->
+    <g stroke="rgba(147, 51, 234, 0.12)">
+      <rect x="335" y="228" width="40" height="26" rx="3"/>
+      <path d="M335 233l20 12 20-12"/>
+      <circle cx="370" cy="225" r="3.5" fill="#10b981" opacity="0.6"/>
+    </g>
+
+    <!-- 13. Customer Lifetime Value Matrix (Bottom Far-Left: 30, 315) -->
+    <g stroke="rgba(147, 51, 234, 0.11)">
+      <circle cx="45" cy="335" r="16"/>
+      <path d="M45 325v20M39 330c0-3 3-5 6-5s6 2 6 5-3 5-6 5-6 2-6 5 3 5 6 5"/>
+    </g>
+
+    <!-- 14. High-Velocity Sales Rocket Tag (Bottom Center: 130, 320) -->
+    <g stroke="rgba(249, 115, 22, 0.12)">
+      <path d="M140 345l15-25 15 15-25 15z"/>
+      <path d="M135 348l6-1M138 351l-1-6"/>
+      <circle cx="150" cy="335" r="2.5" fill="rgba(249, 115, 22, 0.2)"/>
+    </g>
+
+    <!-- 15. AE Account Executive Podium (Bottom Center-Right: 235, 320) -->
+    <g stroke="rgba(147, 51, 234, 0.12)">
+      <circle cx="260" cy="322" r="6"/>
+      <path d="M248 342c0-6 6-9 12-9s12 3 12 9"/>
+      <path d="M272 328l6 3-6 3"/>
+    </g>
+
+    <!-- 16. Qualified Opportunity Pipeline Stamp (Bottom Right: 335, 320) -->
+    <g stroke="rgba(249, 115, 22, 0.11)">
+      <rect x="335" y="325" width="44" height="24" rx="4"/>
+      <text x="340" y="341" font-family="monospace" font-size="10" font-weight="700" fill="rgba(249, 115, 22, 0.22)">SQL/AE</text>
+    </g>
+
+    <!-- Micro Crosshairs & Tech Dots -->
+    <g stroke="rgba(147, 51, 234, 0.08)">
+      <path d="M95 85v6M92 88h6"/>
+      <path d="M220 75v6M217 78h6"/>
+      <path d="M315 85v6M312 88h6"/>
+      <path d="M95 180v6M92 183h6"/>
+      <path d="M220 180v6M217 183h6"/>
+      <path d="M310 180v6M307 183h6"/>
+      <path d="M95 280v6M92 283h6"/>
+      <path d="M305 285v6M302 288h6"/>
+      <circle cx="100" cy="360" r="1.5" fill="rgba(147, 51, 234, 0.1)"/>
+      <circle cx="210" cy="275" r="1.5" fill="rgba(249, 115, 22, 0.1)"/>
+      <circle cx="290" cy="370" r="1.5" fill="rgba(147, 51, 234, 0.1)"/>
+    </g>
+  </g>
+</svg>

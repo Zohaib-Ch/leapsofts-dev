@@ -134,3 +134,33 @@
         font-size: 1.1rem;
     }
 }
+
+/* ==========================================================================
+   Light Mode Theme Overrides
+   ========================================================================== */
+:global([data-theme="light"]) .title {
+    background: linear-gradient(180deg, #0f172a 0%, #334155 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+:global([data-theme="light"]) .item {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .item:hover {
+    background: #faf5ff;
+    border-color: var(--color-primary);
+    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.12);
+}
+
+:global([data-theme="light"]) .text {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .item:hover .text {
+    color: #0f172a;
+}

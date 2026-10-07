@@ -1,5 +1,6 @@
-import React, { useState, useMemo,} from "react";
+import React, { useState, useMemo } from "react";
 import type { ChangeEvent, FormEvent } from "react";
+import { ChevronDown } from "lucide-react";
 import styles from "./ContactForm.module.css";
 import Button from "../Button/Button";
 import countryPhonePatterns from "./country-phone-patterns.json";
@@ -224,8 +225,37 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false, isEmbedded 
         }
     };
 
+    const sectionRef = React.useRef<HTMLDivElement>(null);
+    const [isVisible, setIsVisible] = React.useState(false);
+
+    React.useEffect(() => {
+        if (isSticky || isEmbedded) {
+            setIsVisible(true);
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                }
+            },
+            { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => {
+            if (sectionRef.current) {
+                observer.unobserve(sectionRef.current);
+            }
+        };
+    }, [isSticky, isEmbedded]);
+
     return (
-        <div className={`${styles.contactSection} ${isSticky ? styles.stickyVariant : ''} ${isEmbedded ? styles.embeddedVariant : ''}`}>
+        <div ref={sectionRef} className={`${styles.contactSection} ${isSticky ? styles.stickyVariant : ''} ${isEmbedded ? styles.embeddedVariant : ''} ${isVisible ? styles.revealed : ''}`}>
             {!isSticky && !isEmbedded && (
                 <div className={styles.headerSection}>
                     <h2 className={styles.headline}>
@@ -302,13 +332,16 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false, isEmbedded 
                             <div className={styles.phoneGroup}>
                                 <div className={styles.countrySelectContainer}>
                                     <span className={styles.selectedCountryCode}>
-                                        {selectedCountry?.code}
+                                        {selectedCountry?.code || "+1"}
                                     </span>
+                                    <ChevronDown size={14} className={styles.countryChevron} />
                                     <select
+                                        id="countryCode"
                                         name="countryCode"
                                         className={styles.countrySelect}
                                         value={formData.countryCode}
                                         onChange={handleChange}
+                                        aria-label="Select Country Dial Code"
                                     >
                                         {(countryPhonePatterns as CountryPattern[]).map((country) => (
                                             <option key={country.iso2} value={country.iso2}>
@@ -322,7 +355,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false, isEmbedded 
                                     id="phone"
                                     name="phone"
                                     className={`${styles.input} ${styles.phoneInput} ${errors.phone && touched.phone ? styles.error : ""}`}
-                                    placeholder={selectedCountry?.exampleNational || "Phone number"}
+                                    placeholder={selectedCountry?.exampleNational || "(201) 555-0123"}
                                     value={formData.phone}
                                     onChange={handleChange}
                                     onBlur={handleBlur}

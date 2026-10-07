@@ -24,6 +24,15 @@
     color: var(--color-orange);
     text-transform: uppercase;
     letter-spacing: 0.2em;
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+    will-change: transform, opacity;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.revealed .sectionTitle {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
 }
 
 .content {
@@ -44,6 +53,15 @@
     align-items: center;
     justify-content: center;
     padding-top: 40px;
+    opacity: 0;
+    transform: translate3d(-30px, 0, 0);
+    will-change: transform, opacity;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.revealed .tileStack {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
 }
 
 .tilesContainer {
@@ -58,6 +76,8 @@
     left: 0;
     width: 100%;
     pointer-events: none;
+    transform: translateZ(0);
+    will-change: transform;
     /* Disable clicks on the wrapper */
     transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), color 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -68,6 +88,8 @@
     display: inline-block;
     cursor: pointer;
     pointer-events: none;
+    transform: translateZ(0);
+    will-change: transform;
     /* Enable clicks only on children that need it */
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -144,6 +166,15 @@
     display: flex;
     align-items: stretch;
     border-radius: 20px;
+    opacity: 0;
+    transform: translate3d(30px, 0, 0);
+    will-change: transform, opacity;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.22s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.22s;
+}
+
+.revealed .cardsContainer {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
 }
 
 .cardsWrapper {
@@ -249,21 +280,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow-y: auto;
-    overflow-x: hidden;
-    overscroll-behavior: contain;
-    /* Hide scrollbar for Firefox */
-    scrollbar-width: none;
-    /* Hide scrollbar for IE, Edge and older browsers */
-    -ms-overflow-style: none;
-}
-
-/* Hide scrollbar for Chrome, Safari, Opera and WebKit */
-.cardMainArea::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    height: 0;
-    background: transparent;
+    overflow: hidden;
 }
 
 .titleContainer {
@@ -397,6 +414,15 @@
     margin-top: 80px;
     padding-top: 30px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+    will-change: transform, opacity;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
+}
+
+.revealed .bottomNav {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
 }
 
 .navLabel {
@@ -568,3 +594,147 @@
         font-size: 9px;
     }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR PROCESSES SECTION
+   ========================================================================= */
+:global([data-theme="light"]) .processes {
+    background: linear-gradient(180deg, #ffffff 0%, #fcfaff 50%, #f6f3fa 100%);
+}
+
+:global([data-theme="light"]) .sectionTitle {
+    color: var(--color-orange);
+}
+
+:global([data-theme="light"]) .tile img {
+    filter: drop-shadow(0 14px 28px rgba(147, 51, 234, 0.08)) drop-shadow(0 4px 10px rgba(249, 115, 22, 0.06));
+}
+
+:global([data-theme="light"]) .tile:not(.activeTile):hover img {
+    filter: brightness(1.04) drop-shadow(0 18px 36px rgba(147, 51, 234, 0.16)) drop-shadow(0 6px 14px rgba(249, 115, 22, 0.1));
+}
+
+:global([data-theme="light"]) .activeTile img {
+    filter: brightness(1.08) saturate(1.2) drop-shadow(0 20px 48px rgba(147, 51, 234, 0.35)) drop-shadow(0 10px 24px rgba(234, 88, 12, 0.25));
+}
+
+:global([data-theme="light"]) .tileLabel {
+    color: #64748b;
+    font-weight: 700;
+}
+
+:global([data-theme="light"]) .activeTileLabel {
+    color: #ffffff;
+    font-weight: 800;
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.95), 0 0 32px rgba(160, 68, 255, 0.95);
+}
+
+:global([data-theme="light"]) .cardsContainer {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 24px 50px -12px rgba(107, 33, 168, 0.12), 0 0 0 1px rgba(147, 51, 234, 0.15);
+}
+
+:global([data-theme="light"]) .cardsWrapper {
+    background: 
+        radial-gradient(circle at 10% 10%, rgba(249, 115, 22, 0.05) 0%, transparent 45%),
+        radial-gradient(circle at 90% 90%, rgba(147, 51, 234, 0.065) 0%, transparent 55%),
+        linear-gradient(135deg, #ffffff 0%, #fdfbfe 50%, #faf6fd 100%);
+    border: none;
+    border-radius: 20px 0 0 20px;
+}
+
+:global([data-theme="light"]) .cardTitle {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+:global([data-theme="light"]) .phaseLabel {
+    color: var(--color-orange);
+    font-weight: 600;
+}
+
+:global([data-theme="light"]) .phaseDescription {
+    color: #334155;
+    line-height: 1.6;
+}
+
+:global([data-theme="light"]) .divider {
+    background: linear-gradient(90deg, rgba(147, 51, 234, 0.3) 0%, rgba(249, 115, 22, 0.3) 60%, transparent 100%);
+    height: 1.5px;
+}
+
+:global([data-theme="light"]) .featureTitleText {
+    color: #0f172a;
+    font-weight: 600;
+}
+
+:global([data-theme="light"]) .descriptionText {
+    color: #475569;
+}
+
+:global([data-theme="light"]) .featureIcon {
+    color: var(--color-orange);
+    font-weight: 800;
+}
+
+:global([data-theme="light"]) .phaseTabs {
+    background: #faf8fc;
+    border-left: 1px solid rgba(147, 51, 234, 0.12);
+    border-radius: 0 20px 20px 0;
+    overflow: hidden;
+}
+
+:global([data-theme="light"]) .phaseTab {
+    background: #f8f6fb;
+    border-left: 2px solid transparent;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+:global([data-theme="light"]) .phaseTab:hover {
+    background: #f1edf8;
+}
+
+:global([data-theme="light"]) .activeTab {
+    background: linear-gradient(180deg, #7c3aed 0%, #9333ea 100%) !important;
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
+    border-left: 2px solid #a855f7;
+}
+
+:global([data-theme="light"]) .tabText {
+    color: #64748b;
+    font-weight: 600;
+}
+
+:global([data-theme="light"]) .activeTab .tabText {
+    color: #ffffff !important;
+    font-weight: 700;
+}
+
+:global([data-theme="light"]) .bottomNav {
+    border-top: 1px solid rgba(147, 51, 234, 0.12);
+}
+
+:global([data-theme="light"]) .navLabel {
+    color: #64748b;
+}
+
+:global([data-theme="light"]) .navLabel:hover {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .activeNavLabel {
+    color: var(--color-orange);
+    font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sectionTitle,
+    .tileStack,
+    .cardsContainer,
+    .bottomNav {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}

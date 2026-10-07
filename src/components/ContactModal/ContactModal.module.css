@@ -286,3 +286,28 @@
         padding: 0.25rem;
     }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR CONTACT MODAL
+   ========================================================================= */
+:global([data-theme="light"]) .overlay {
+    background: rgba(15, 23, 42, 0.45);
+}
+
+:global([data-theme="light"]) .modal {
+    background: #ffffff;
+    border: 1px solid rgba(147, 51, 234, 0.2);
+    box-shadow: 0 25px 60px -12px rgba(107, 33, 168, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+:global([data-theme="light"]) .closeButton {
+    background: #f1f5f9;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #475569;
+}
+
+:global([data-theme="light"]) .closeButton:hover {
+    background: rgba(234, 88, 12, 0.12);
+    border-color: #ea580c;
+    color: #ea580c;
+}

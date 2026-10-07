@@ -40,3 +40,24 @@
     line-height: 1.6;
     margin-bottom: 15px;
 }
+
+/* ==========================================================================
+   Light Mode Theme Overrides
+   ========================================================================== */
+:global([data-theme="light"]) .content {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .date {
+    color: #64748b;
+}
+
+:global([data-theme="light"]) .text h2 {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .text p {
+    color: #334155;
+}

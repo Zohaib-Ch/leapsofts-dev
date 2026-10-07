@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320" fill="none">
+  <!-- Tech Blueprint Grid -->
+  <path d="M0 80h320M0 160h320M0 240h320M80 0v320M160 0v320M240 0v320" stroke="rgba(147, 51, 234, 0.05)" stroke-width="1" stroke-dasharray="3 5"/>
+  
+  <!-- Corner Crosshairs -->
+  <path d="M75 80h10M80 75v10M235 80h10M240 75v10M75 240h10M80 235v10M235 240h10M240 235v10" stroke="rgba(147, 51, 234, 0.12)" stroke-width="1.2"/>
+  
+  <!-- Central Constellation Radar Node -->
+  <circle cx="160" cy="160" r="3.5" fill="rgba(147, 51, 234, 0.18)"/>
+  <circle cx="160" cy="160" r="28" stroke="rgba(147, 51, 234, 0.06)" stroke-width="1" stroke-dasharray="4 4"/>
+  <circle cx="160" cy="160" r="54" stroke="rgba(147, 51, 234, 0.04)" stroke-width="1"/>
+  <path d="M160 152v16M152 160h16" stroke="rgba(249, 115, 22, 0.16)" stroke-width="1.2"/>
+  
+  <!-- 4-Point Micro Stars -->
+  <path d="M240 156c0 2 2 4 4 4-2 0-4 2-4 4 0-2-2-4-4-4 2 0 4-2 4-4z" fill="rgba(147, 51, 234, 0.15)"/>
+  <path d="M80 156c0 2 2 4 4 4-2 0-4 2-4 4 0-2-2-4-4-4 2 0 4-2 4-4z" fill="rgba(249, 115, 22, 0.14)"/>
+  <path d="M160 76c0 2 2 4 4 4-2 0-4 2-4 4 0-2-2-4-4-4 2 0 4-2 4-4z" fill="rgba(147, 51, 234, 0.15)"/>
+  <path d="M160 236c0 2 2 4 4 4-2 0-4 2-4 4 0-2-2-4-4-4 2 0 4-2 4-4z" fill="rgba(249, 115, 22, 0.14)"/>
+  
+  <!-- Diagonal Constellation Link -->
+  <path d="M80 80L160 160L240 240" stroke="rgba(147, 51, 234, 0.04)" stroke-width="1" stroke-dasharray="2 4"/>
+</svg>

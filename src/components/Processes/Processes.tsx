@@ -1,5 +1,6 @@
-import { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "../../context/ThemeContext";
 import styles from "./Processes.module.css";
 
 export interface ProcessFeature {
@@ -145,14 +146,39 @@ interface ProcessPhaseProps {
 }
 
 const Processes: React.FC<ProcessPhaseProps> = ({ title, phaseLabels, processPhases }) => {
-    const [activePhase, setActivePhase] = useState(0); // 0-indexed, default to Engineering (index 2)
+    const { theme } = useTheme();
+    const isLight = theme === 'light';
+    const [activePhase, setActivePhase] = useState(0);
+    const [isVisible, setIsVisible] = useState(false);
+    const sectionRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                }
+            },
+            { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => {
+            if (sectionRef.current) {
+                observer.unobserve(sectionRef.current);
+            }
+        };
+    }, []);
 
     const handlePhaseClick = (index: number) => {
         setActivePhase(index);
     };
 
     return (
-        <section className={styles.processes}>
+        <section ref={sectionRef} className={`${styles.processes} ${isVisible ? styles.revealed : ''}`}>
             <div className={styles.container}>
                 <h2 className={styles.sectionTitle}>
                     {title}
@@ -168,8 +194,8 @@ const Processes: React.FC<ProcessPhaseProps> = ({ title, phaseLabels, processPha
                             {[3, 2, 1, 0].map((phaseIndex, stackIndex) => {
                                 const isActive = phaseIndex === activePhase;
                                 const tileImage = isActive
-                                    ? "/shapes/tile-dark-purple-gradient.svg"
-                                    : "/shapes/tile-black.svg";
+                                    ? (isLight ? "/shapes/tile-light-active.svg" : "/shapes/tile-dark-purple-gradient.svg")
+                                    : (isLight ? "/shapes/tile-light.svg" : "/shapes/tile-black.svg");
 
                                 // Vertical position: Phase 4 at bottom (stackIndex 0), Phase 1 at top (stackIndex 3)
                                 const verticalOffset = stackIndex * 60;

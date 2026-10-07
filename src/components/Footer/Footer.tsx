@@ -1,9 +1,14 @@
 import { Link } from 'react-router';
+import { useTheme } from '../../context/ThemeContext';
+import { useCookieConsent } from '../../context/CookieConsentContext';
 import styles from './Footer.module.css';
 import { Linkedin } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { theme } = useTheme();
+  const { openSettings } = useCookieConsent();
+  const footerLogo = theme === 'light' ? '/logo/Leap-soft-01.png' : '/logo/Leap-soft-w.png';
 
   const footerLinks = {
     services: [
@@ -42,7 +47,7 @@ const Footer = () => {
         <div className={styles["footer-main"]}>
           <div className={styles["footer-brand"]}>
             <Link to="/">
-              <img className={styles["footer-logo"]} src="/logo/Leap-soft-w.png" alt="Leapsofts Enterprise Custom Software Development" />
+              <img className={styles["footer-logo"]} src={footerLogo} alt="Leapsofts Enterprise Custom Software Development" />
             </Link>
             <div className={styles["footer-contact-info"]}>
               <div className={styles["contact-section"]}>
@@ -120,6 +125,14 @@ const Footer = () => {
               <Link to="/privacy-policy" className={styles["legal-link"]}>Privacy Policy</Link>
               <span className={styles["legal-divider"]}>•</span>
               <Link to="/cookies-policy" className={styles["legal-link"]}>Cookies Policy</Link>
+              <span className={styles["legal-divider"]}>•</span>
+              <button
+                type="button"
+                onClick={openSettings}
+                className={`${styles["legal-link"]} ${styles["legal-button"]}`}
+              >
+                Cookie Settings
+              </button>
             </div>
           </div>
           <div className={styles["social-links"]}>

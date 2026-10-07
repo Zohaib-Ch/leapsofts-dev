@@ -263,3 +263,82 @@
         font-size: 24px;
     }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR IMPACT SHOWCASE
+   ========================================================================= */
+:global([data-theme="light"]) .title {
+    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+:global([data-theme="light"]) .headerBadge {
+    background: rgba(147, 51, 234, 0.08);
+    border-color: rgba(147, 51, 234, 0.2);
+    color: #7c3aed;
+}
+
+:global([data-theme="light"]) .sparkleIcon {
+    color: #7c3aed;
+}
+
+:global([data-theme="light"]) .deliverablesWrapper {
+    border-top: 1px solid rgba(147, 51, 234, 0.12);
+}
+
+:global([data-theme="light"]) .resultsLabel {
+    color: #64748b;
+    opacity: 1;
+}
+
+:global([data-theme="light"]) .deliverableCard {
+    background: #ffffff;
+    border: 1px solid rgba(147, 51, 234, 0.12);
+    box-shadow: 0 4px 12px rgba(107, 33, 168, 0.06);
+}
+
+:global([data-theme="light"]) .deliverableCard:hover {
+    background: #faf8fd;
+    border-color: rgba(147, 51, 234, 0.35);
+    box-shadow: 0 8px 24px rgba(107, 33, 168, 0.12);
+}
+
+:global([data-theme="light"]) .deliverableIndicator {
+    background: rgba(147, 51, 234, 0.08);
+    color: #7c3aed;
+}
+
+:global([data-theme="light"]) .deliverableCard:hover .deliverableIndicator {
+    background: #7c3aed;
+    color: #ffffff;
+}
+
+:global([data-theme="light"]) .deliverableTitle,
+:global([data-theme="light"]) .deliverableText {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .deliverableCard:hover .deliverableText {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .statItem {
+    background: #ffffff;
+    border: 1px solid rgba(147, 51, 234, 0.12);
+    box-shadow: 0 4px 12px rgba(107, 33, 168, 0.06);
+}
+
+:global([data-theme="light"]) .statValue {
+    color: var(--color-orange);
+}
+
+:global([data-theme="light"]) .statLabel {
+    color: #475569;
+}
+
+:global([data-theme="light"]) .ambientGlow {
+    background: radial-gradient(circle, rgba(147, 51, 234, 0.08) 0%, transparent 70%);
+    filter: none !important;
+}

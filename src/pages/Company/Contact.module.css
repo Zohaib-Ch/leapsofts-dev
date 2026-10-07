@@ -482,3 +482,146 @@
     font-size: 20px;
   }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR CONTACT PAGE
+   ========================================================================= */
+:global([data-theme="light"]) .contactPage {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .hero {
+  background: linear-gradient(180deg, #f8fafc 0%, #f3e8ff 50%, #ffffff 100%);
+}
+
+:global([data-theme="light"]) .heroGlow {
+  background: radial-gradient(circle, rgba(234, 88, 12, 0.12) 0%, rgba(168, 85, 247, 0.08) 50%, transparent 70%);
+}
+
+:global([data-theme="light"]) .label {
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .heroTitle,
+:global([data-theme="light"]) .title {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .heroTitle em,
+:global([data-theme="light"]) .title em {
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .heroSub,
+:global([data-theme="light"]) .subtitle {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .ribbonCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+:global([data-theme="light"]) .ribbonCard:hover {
+  background: #ffffff;
+  border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .ribbonIcon {
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.2);
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .ribbonTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .ribbonDesc {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .officeCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .officeCard:hover {
+  background: #ffffff;
+  border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .officeBadge {
+  color: #ea580c;
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.25);
+}
+
+:global([data-theme="light"]) .officeTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .infoIcon {
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.2);
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .infoTextTitle {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .infoTextVal {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .infoTextVal a {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .infoTextVal a:hover {
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .infoItem {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .formCardWrapper {
+  background: #ffffff;
+  border: 1px solid rgba(234, 88, 12, 0.25);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .faqCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+:global([data-theme="light"]) .faqCard:hover,
+:global([data-theme="light"]) .activeFaqCard {
+  background: #ffffff;
+  border-color: rgba(234, 88, 12, 0.45);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .faqQuestion {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .faqIcon,
+:global([data-theme="light"]) .faqChevron {
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .faqAnswer {
+  color: #475569;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+

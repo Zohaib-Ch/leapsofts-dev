@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import { ChevronsUp } from 'lucide-react';
 import styles from './sidebar.module.css';
 import { useLocation } from 'react-router';
@@ -12,7 +12,7 @@ const navItems = [
     { id: 'intro', label: 'INTRO' },
 ];
 
-const Sidebar = () => {
+const Sidebar = memo(() => {
     const { pathname, hash } = useLocation();
 
     // Only show sidebar navigation on the Home page
@@ -21,70 +21,49 @@ const Sidebar = () => {
     }
 
     const items = navItems;
-
-    // Set initial active section to the last item (visually top)
     const [activeSection, setActiveSection] = useState(items[items.length - 1].id);
+
+    const scrollToSection = useCallback((id: string) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+            setActiveSection(id);
+        }
+    }, []);
 
     useEffect(() => {
         if (hash === '#contact') {
             scrollToSection('contact');
         }
-    }, [hash]);
+    }, [hash, scrollToSection]);
 
     useEffect(() => {
-        // Update active section when items change (e.g. route change)
-        setActiveSection(items[items.length - 1].id);
-
-        let ticking = false;
-
-        const handleScroll = () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const sections = items.map(item => document.getElementById(item.id));
-                    const scrollPosition = window.scrollY + window.innerHeight / 2;
-
-                    let currentSection = items[items.length - 1].id;
-                    // Special case for top
-                    if (window.scrollY < 100) {
-                        currentSection = items[items.length - 1].id;
-                    } else {
-                        for (const section of sections) {
-                            if (section) {
-                                const { offsetTop, offsetHeight } = section;
-                                if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-                                    currentSection = section.id;
-                                    setActiveSection(currentSection);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    ticking = false;
-                });
-                ticking = true;
-            }
+        // High-performance IntersectionObserver with 0 layout thrashing
+        const observerOptions = {
+            root: null,
+            rootMargin: '-15% 0px -40% 0px',
+            threshold: 0,
         };
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        // Trigger once to set initial state correctly
-        handleScroll();
 
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [items]);
-
-    const scrollToSection = (id: string) => {
-        const element = document.getElementById(id);
-        if (element) {
-            const offset = 0;
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: "smooth"
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setActiveSection(entry.target.id);
+                }
             });
-            setActiveSection(id);
-        }
-    };
+        }, observerOptions);
+
+        items.forEach((item) => {
+            const el = document.getElementById(item.id);
+            if (el) {
+                observer.observe(el);
+            }
+        });
+
+        return () => {
+            observer.disconnect();
+        };
+    }, [items]);
 
     return (
         <aside className={styles.sidebar}>
@@ -112,6 +91,8 @@ const Sidebar = () => {
             </div>
         </aside>
     );
-};
+});
+
+Sidebar.displayName = 'Sidebar';
 
 export default Sidebar;

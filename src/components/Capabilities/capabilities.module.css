@@ -67,6 +67,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transform: translateZ(0);
 }
 
 .mainImage {
@@ -76,6 +77,8 @@
     animation: float 6s ease-in-out infinite;
     max-width: 600px;
     border-radius: 20px;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 /* Right Side: Text Content */
@@ -254,4 +257,62 @@
     .slideTitle {
         font-size: 32px;
     }
+}
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR CAPABILITIES SECTION
+   ========================================================================= */
+:global([data-theme="light"]) .section {
+    background: linear-gradient(180deg, #ffffff 0%, #faf8fd 50%, #f6f3fa 100%);
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .title {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .titleAccent {
+    color: #7c3aed;
+}
+
+:global([data-theme="light"]) .description {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .slideTitle {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .itemText {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .itemName {
+    color: var(--color-orange);
+}
+
+:global([data-theme="light"]) .mainImage {
+    filter: drop-shadow(0 20px 45px rgba(107, 33, 168, 0.12));
+}
+
+:global([data-theme="light"]) .navBtn {
+    background: #ffffff;
+    border: 1px solid rgba(147, 51, 234, 0.2);
+    color: #7c3aed;
+    box-shadow: 0 4px 14px rgba(107, 33, 168, 0.08);
+}
+
+:global([data-theme="light"]) .navBtn:hover {
+    background: linear-gradient(135deg, #7c3aed 0%, #9333ea 100%);
+    color: #ffffff;
+    border-color: #7c3aed;
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.3);
+}
+
+:global([data-theme="light"]) .dot {
+    background: rgba(147, 51, 234, 0.2);
+}
+
+:global([data-theme="light"]) .dot.active {
+    background: var(--color-orange);
 }

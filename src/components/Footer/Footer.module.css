@@ -223,15 +223,34 @@
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
     transition: color 0.2s ease;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    font-family: inherit;
+    line-height: inherit;
 }
 
 .legal-link:hover {
     color: var(--color-white, #ffffff);
 }
 
+:global([data-theme="light"]) .legal-link {
+    color: #64748b;
+}
+
+:global([data-theme="light"]) .legal-link:hover {
+    color: var(--color-primary);
+}
+
 .legal-divider {
     font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.25);
+}
+
+:global([data-theme="light"]) .legal-divider {
+    color: rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 1024px) {
@@ -277,15 +296,81 @@
         margin: 0;
     }
 
-    .contact-detail {
-        font-size: 0.8rem;
-    }
-
-    .contact-sub-detail {
-        font-size: 0.6rem;
-    }
-
     .footer-logo {
         width: 110px;
     }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR FOOTER
+   ========================================================================= */
+:global([data-theme="light"]) .footer {
+    background: linear-gradient(180deg, #f8fafc 0%, #ede9fe 100%);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .contact-label {
+    color: var(--color-primary);
+}
+
+:global([data-theme="light"]) .address-item {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .contact-detail {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .contact-sub-detail {
+    color: #64748b;
+}
+
+:global([data-theme="light"]) .contact-email {
+    color: #0f172a;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+:global([data-theme="light"]) .contact-email:hover {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+:global([data-theme="light"]) .social-link {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #475569;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .social-link:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+:global([data-theme="light"]) .footer-column h4 {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .footer-column ul li a {
+    color: #475569;
+}
+
+:global([data-theme="light"]) .footer-column ul li a:hover {
+    color: var(--color-primary);
+}
+
+:global([data-theme="light"]) .footer-bottom {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .copyright {
+    color: #64748b;
+}
+
+:global([data-theme="light"]) .legal-links a {
+    color: #64748b;
+}
+
+:global([data-theme="light"]) .legal-links a:hover {
+    color: var(--color-primary);
+}

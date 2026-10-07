@@ -1,4 +1,6 @@
+import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router';
 import styles from './PartnerHero.module.css';
 import Button from '../Button/Button';
 import { useContactModal } from '../../context/ContactModalContext';
@@ -89,13 +91,28 @@ const PartnerHero: React.FC<PartnerHeroProps> = ({
             <div className={styles.overlay}></div>
             <FloatingElements />
 
+            {/* Breadcrumb Navigation */}
+            <div className={styles.breadcrumbBar}>
+                <div className={styles.breadcrumbContainer}>
+                    <Link to="/" className={styles.breadcrumbLink}>Home</Link>
+                    <span className={styles.breadcrumbSeparator}>/</span>
+                    <Link to="/about" className={styles.breadcrumbLink}>Company</Link>
+                    <span className={styles.breadcrumbSeparator}>/</span>
+                    <span className={styles.breadcrumbCurrent}>Strategic Partnerships</span>
+                </div>
+            </div>
+
             <div className={styles.container}>
                 <motion.div
                     className={styles.content}
-                    initial={{ x: -100, opacity: 0 }}
+                    initial={{ x: -60, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 >
+                    <span className={styles.label}>
+                        STRATEGIC TECHNOLOGY PARTNERSHIPS & ALLIANCES
+                    </span>
+
                     <h1 className={styles.title}>
                         Leapsofts <span className={styles.highlight}>{title}</span> Partners
                     </h1>
@@ -136,16 +153,18 @@ const PartnerHero: React.FC<PartnerHeroProps> = ({
 
                 <motion.div
                     className={styles.animationWrapper}
-                    initial={{ x: 100, opacity: 0 }}
+                    initial={{ x: 60, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+                    transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
                 >
-                    <img
-                        src="/hand-shake.webp"
-                        alt="Strategic Partnership Collaboration"
-                        className={styles.heroImage}
-                        loading="lazy"
-                    />
+                    <div className={styles.imageFrame}>
+                        <img
+                            src="/hand-shake.webp"
+                            alt="Strategic Partnership Collaboration"
+                            className={styles.heroImage}
+                            loading="lazy"
+                        />
+                    </div>
                 </motion.div>
             </div>
         </section>

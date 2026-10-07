@@ -215,3 +215,59 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR DELIVER MVP
+   ========================================================================= */
+:global([data-theme="light"]) .section {
+    background: linear-gradient(180deg, #f6f3fa 0%, #ffffff 50%, #faf8fd 100%);
+    color: #0f172a;
+    contain: layout style;
+}
+
+:global([data-theme="light"]) .title {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .description {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .readMoreBtn {
+    color: var(--color-orange);
+}
+
+:global([data-theme="light"]) .readMoreBtn:hover {
+    color: #7c3aed;
+}
+
+:global([data-theme="light"]) .dropdown {
+    border-top: 1px solid rgba(147, 51, 234, 0.12);
+}
+
+:global([data-theme="light"]) .item {
+    background: #ffffff;
+    border: 1px solid rgba(147, 51, 234, 0.12);
+    box-shadow: 0 10px 30px -10px rgba(107, 33, 168, 0.08);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+:global([data-theme="light"]) .item:hover {
+    background: #ffffff;
+    border-color: rgba(147, 51, 234, 0.35);
+    box-shadow: 0 20px 45px -10px rgba(107, 33, 168, 0.16);
+}
+
+:global([data-theme="light"]) .itemIcon {
+    background: rgba(249, 115, 22, 0.1);
+    color: var(--color-orange);
+}
+
+:global([data-theme="light"]) .itemTitle {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .itemDescription {
+    color: #475569;
+}

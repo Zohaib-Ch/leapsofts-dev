@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" fill="none">
+  <g stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+    
+    <!-- 1. Ideation Lightbulb with Energy Rays (Top Left: 25, 25) -->
+    <g stroke="rgba(249, 115, 22, 0.12)">
+      <path d="M45 28a15 15 0 0 0-9 27c2 2 3 5 3 8h12c0-3 1-6 3-8a15 15 0 0 0-9-27z"/>
+      <path d="M41 68h8M43 72h4"/>
+      <path d="M45 20v4M25 35l4 2M65 35l-4 2"/>
+    </g>
+
+    <!-- 2. Strategy Compass & Direction Pointer (Top Center: 140, 25) -->
+    <g stroke="rgba(147, 51, 234, 0.13)">
+      <circle cx="160" cy="45" r="18"/>
+      <polygon points="160,33 166,45 160,42 154,45" fill="rgba(147, 51, 234, 0.15)"/>
+      <polygon points="160,57 166,45 160,48 154,45" fill="rgba(249, 115, 22, 0.15)"/>
+      <circle cx="160" cy="45" r="2" fill="#ffffff" opacity="0.6"/>
+    </g>
+
+    <!-- 3. Rocket Launch Prototype 🚀 (Top Right: 260, 25) -->
+    <g stroke="rgba(249, 115, 22, 0.12)">
+      <path d="M280 25c12-3 24 5 28 17-5 5-13 7-20 5l-5 10-8-8 10-5c-2-7 0-15 5-19z"/>
+      <circle cx="293" cy="38" r="3" fill="rgba(249, 115, 22, 0.1)"/>
+      <path d="M268 57l8-3M271 67l5-5"/>
+    </g>
+
+    <!-- 4. Fixed Price Milestone Price Tag (Top Far-Right: 340, 25) -->
+    <g stroke="rgba(147, 51, 234, 0.11)">
+      <path d="M340 30l16-8 24 24-16 16-24-24z"/>
+      <circle cx="350" cy="32" r="2" fill="rgba(147, 51, 234, 0.2)"/>
+      <path d="M358 42l8 8"/>
+    </g>
+
+    <!-- 5. PoC Laboratory Science Flask (Middle-Left: 25, 120) -->
+    <g stroke="rgba(147, 51, 234, 0.13)">
+      <path d="M42 118h8M46 118v10l-16 24a4 4 0 0 0 3 6h34a4 4 0 0 0 3-6l-16-24v-10"/>
+      <path d="M35 146h24"/>
+      <circle cx="43" cy="151" r="1.5" fill="rgba(147, 51, 234, 0.2)"/>
+      <circle cx="51" cy="149" r="2" fill="rgba(249, 115, 22, 0.2)"/>
+    </g>
+
+    <!-- 6. Strategic Target Bullseye 🎯 (Center: 145, 120) -->
+    <g stroke="rgba(249, 115, 22, 0.12)">
+      <circle cx="160" cy="140" r="18"/>
+      <circle cx="160" cy="140" r="11"/>
+      <circle cx="160" cy="140" r="4" fill="rgba(249, 115, 22, 0.18)"/>
+      <path d="M160 118v4M160 158v4M138 140h4M178 140h4"/>
+    </g>
+
+    <!-- 7. Product Roadmap Timeline / Gantt (Middle-Right: 265, 120) -->
+    <g stroke="rgba(147, 51, 234, 0.12)">
+      <rect x="255" y="122" width="46" height="34" rx="4"/>
+      <rect x="262" y="130" width="18" height="4" rx="2" fill="rgba(249, 115, 22, 0.15)"/>
+      <rect x="274" y="138" width="20" height="4" rx="2" fill="rgba(147, 51, 234, 0.15)"/>
+      <rect x="266" y="146" width="24" height="4" rx="2" fill="rgba(249, 115, 22, 0.15)"/>
+    </g>
+
+    <!-- 8. Digital Evolution Spiral Growth (Far Right: 350, 120) -->
+    <g stroke="rgba(249, 115, 22, 0.12)">
+      <path d="M340 155c0-16 12-28 28-28s20 8 20 20-8 14-14 14-10-4-10-8"/>
+      <circle cx="364" cy="153" r="2.5" fill="rgba(249, 115, 22, 0.2)"/>
+    </g>
+
+    <!-- 9. Wireframe Prototype Canvas (Bottom Left: 25, 220) -->
+    <g stroke="rgba(249, 115, 22, 0.11)">
+      <rect x="24" y="222" width="44" height="32" rx="3"/>
+      <rect x="29" y="228" width="16" height="12" rx="2" fill="rgba(249, 115, 22, 0.04)"/>
+      <path d="M49 228h14M49 234h10M29 246h34"/>
+    </g>
+
+    <!-- 10. Ideation Workshop Sticky Note Board (Bottom Center-Left: 135, 220) -->
+    <g stroke="rgba(147, 51, 234, 0.12)">
+      <rect x="135" y="220" width="48" height="36" rx="4"/>
+      <rect x="141" y="226" width="14" height="12" rx="2" fill="rgba(147, 51, 234, 0.05)"/>
+      <rect x="161" y="226" width="14" height="12" rx="2" fill="rgba(249, 115, 22, 0.05)"/>
+      <rect x="151" y="242" width="16" height="10" rx="2" fill="rgba(147, 51, 234, 0.05)"/>
+    </g>
+
+    <!-- 11. Technology Architecture Blueprint Grid (Center: 235, 225) -->
+    <g stroke="rgba(249, 115, 22, 0.11)">
+      <rect x="240" y="220" width="36" height="36" rx="3"/>
+      <path d="M240 238h36M258 220v36"/>
+      <circle cx="249" cy="229" r="3" fill="rgba(249, 115, 22, 0.1)"/>
+      <circle cx="267" cy="247" r="3" fill="rgba(147, 51, 234, 0.1)"/>
+    </g>
+
+    <!-- 12. Strategic ROI Graph with Upward Target (Bottom Right: 325, 220) -->
+    <g stroke="rgba(147, 51, 234, 0.12)">
+      <path d="M330 255v-35"/>
+      <path d="M330 255h40"/>
+      <path d="M334 248l10-12 10 6 14-16"/>
+      <path d="M362 226h6v6"/>
+    </g>
+
+    <!-- 13. Market Validation Checklist (Bottom Far-Left: 30, 315) -->
+    <g stroke="rgba(147, 51, 234, 0.11)">
+      <rect x="25" y="318" width="40" height="32" rx="3"/>
+      <path d="M32 328l3 3 6-6M32 340l3 3 6-6M46 328h12M46 340h12"/>
+    </g>
+
+    <!-- 14. Architecture Decision Radar (Bottom Center: 130, 320) -->
+    <g stroke="rgba(249, 115, 22, 0.12)">
+      <polygon points="155,315 175,325 170,348 140,348 135,325"/>
+      <polygon points="155,323 167,330 164,342 146,342 143,330" fill="rgba(249, 115, 22, 0.05)"/>
+    </g>
+
+    <!-- 15. Risk Mitigation Shield (Bottom Center-Right: 235, 320) -->
+    <g stroke="rgba(147, 51, 234, 0.12)">
+      <path d="M245 320l15-6 15 6v14c0 12-9 18-15 22-6-4-15-10-15-22z"/>
+      <path d="M255 334l4 4 8-8"/>
+    </g>
+
+    <!-- 16. Rapid MVP Prototype Launch Tag (Bottom Right: 335, 320) -->
+    <g stroke="rgba(249, 115, 22, 0.11)">
+      <rect x="340" y="325" width="36" height="22" rx="4"/>
+      <text x="345" y="340" font-family="monospace" font-size="10" font-weight="700" fill="rgba(249, 115, 22, 0.22)">MVP</text>
+    </g>
+
+    <!-- Micro Crosshairs & Tech Dots -->
+    <g stroke="rgba(147, 51, 234, 0.08)">
+      <path d="M95 85v6M92 88h6"/>
+      <path d="M220 75v6M217 78h6"/>
+      <path d="M315 85v6M312 88h6"/>
+      <path d="M95 180v6M92 183h6"/>
+      <path d="M220 180v6M217 183h6"/>
+      <path d="M310 180v6M307 183h6"/>
+      <path d="M95 280v6M92 283h6"/>
+      <path d="M305 285v6M302 288h6"/>
+      <circle cx="100" cy="360" r="1.5" fill="rgba(147, 51, 234, 0.1)"/>
+      <circle cx="210" cy="275" r="1.5" fill="rgba(249, 115, 22, 0.1)"/>
+      <circle cx="290" cy="370" r="1.5" fill="rgba(147, 51, 234, 0.1)"/>
+    </g>
+  </g>
+</svg>

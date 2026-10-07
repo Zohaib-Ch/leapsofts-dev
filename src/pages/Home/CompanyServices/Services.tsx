@@ -80,6 +80,26 @@ const defaultServices: ServiceData[] = [
     },
 ];
 
+const serviceBgMap: Record<string, string> = {
+    '01': '/backgrounds/services/product-engineering.svg',
+    '02': '/backgrounds/services/nextgen-ai.svg',
+    '03': '/backgrounds/services/cloud-devops.svg',
+    '04': '/backgrounds/services/solutions.svg',
+    '05': '/backgrounds/services/sales-growth.svg',
+};
+
+const getServiceBg = (service: ServiceData, index: number): string => {
+    const id = service.id || String(index + 1).padStart(2, '0');
+    if (serviceBgMap[id]) return serviceBgMap[id];
+    const titleLower = service.title?.toLowerCase() || '';
+    if (titleLower.includes('product')) return serviceBgMap['01'];
+    if (titleLower.includes('next gen') || titleLower.includes('ai') || titleLower.includes('data')) return serviceBgMap['02'];
+    if (titleLower.includes('cloud') || titleLower.includes('devops')) return serviceBgMap['03'];
+    if (titleLower.includes('solution') || titleLower.includes('strategy') || titleLower.includes('digital')) return serviceBgMap['04'];
+    if (titleLower.includes('sales') || titleLower.includes('revenue')) return serviceBgMap['05'];
+    return serviceBgMap['01'];
+};
+
 export interface ServicesProps {
     label?: string;
     titleMain?: string;
@@ -105,9 +125,32 @@ const Services: React.FC<ServicesProps> = ({
     }, [sanityServices]);
 
     const [activeIndex, setActiveIndex] = useState(0);
+    const [isVisible, setIsVisible] = useState(false);
+    const sectionRef = React.useRef<HTMLElement>(null);
+
+    React.useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                }
+            },
+            { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => {
+            if (sectionRef.current) {
+                observer.unobserve(sectionRef.current);
+            }
+        };
+    }, []);
 
     return (
-        <section className={styles.servicesSection}>
+        <section ref={sectionRef} className={`${styles.servicesSection} ${isVisible ? styles.revealed : ''}`}>
             <div className={styles.container}>
                 <div className={styles.sectionHeader}>
                     <span className={styles.label}>{label}</span>
@@ -117,41 +160,47 @@ const Services: React.FC<ServicesProps> = ({
                 </div>
 
                 <div className={styles.accordion}>
-                    {activeServicesList.map((service, index) => (
-                        <div
-                            key={service.id || index}
-                            className={`${styles.card} ${activeIndex === index ? styles.active : ''}`}
-                            onClick={() => setActiveIndex(index)}
-                        >
-                            <span className={styles.cardNumber}>{service.number}</span>
+                    {activeServicesList.map((service, index) => {
+                        const bgPatternUrl = getServiceBg(service, index);
+                        return (
+                            <div
+                                key={service.id || index}
+                                className={`${styles.card} ${activeIndex === index ? styles.active : ''}`}
+                                onClick={() => setActiveIndex(index)}
+                                style={{
+                                    '--service-bg-pattern': `url('${bgPatternUrl}')`
+                                } as React.CSSProperties}
+                            >
+                                <span className={styles.cardNumber}>{service.number}</span>
 
-                            <h3 className={styles.cardTitleCollapsed}>{service.title}</h3>
+                                <h3 className={styles.cardTitleCollapsed}>{service.title}</h3>
 
-                            <div className={styles.expandedContent}>
-                                <h3 className={styles.cardTitleExpanded}>{service.title}</h3>
-                                <p className={styles.description}>{service.description}</p>
-                                <div className={styles.subServices}>
-                                    {service.items?.map((item, i) => (
-                                        <div key={i} className={styles.subServiceItem} onClick={() => window.location.href = item.path}>
-                                            <span className={styles.arrowIcon}>
-                                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M4 2L8 6L4 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                                </svg>
-                                            </span>
-                                            {item.name}
-                                        </div>
-                                    ))}
+                                <div className={styles.expandedContent}>
+                                    <h3 className={styles.cardTitleExpanded}>{service.title}</h3>
+                                    <p className={styles.description}>{service.description}</p>
+                                    <div className={styles.subServices}>
+                                        {service.items?.map((item, i) => (
+                                            <div key={i} className={styles.subServiceItem} onClick={() => window.location.href = item.path}>
+                                                <span className={styles.arrowIcon}>
+                                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M4 2L8 6L4 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                    </svg>
+                                                </span>
+                                                {item.name}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className={styles.footerIcon}>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <polyline points="19 12 12 19 5 12"></polyline>
+                                    </svg>
                                 </div>
                             </div>
-
-                            <div className={styles.footerIcon}>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                    <polyline points="19 12 12 19 5 12"></polyline>
-                                </svg>
-                            </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>

@@ -204,3 +204,48 @@
         font-size: 16px;
     }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR SERVICE FEATURES
+   ========================================================================= */
+:global([data-theme="light"]) .section {
+    background: linear-gradient(180deg, #faf8fd 0%, #ffffff 50%, #f6f3fa 100%);
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .title {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .description {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .card {
+    background: linear-gradient(135deg, #ffffff 0%, #faf5ff 50%, #f3ebfa 100%);
+    border: 1px solid rgba(147, 51, 234, 0.15);
+    box-shadow: 0 20px 45px -12px rgba(107, 33, 168, 0.1);
+    border-radius: 20px;
+}
+
+:global([data-theme="light"]) .itemTitle {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .itemDescription {
+    color: #475569;
+}
+
+:global([data-theme="light"]) .arrowSmall,
+:global([data-theme="light"]) .arrowLarge {
+    opacity: 0.12;
+    filter: invert(1) brightness(0.2) sepia(1) hue-rotate(240deg);
+}
+
+:global([data-theme="light"]) :global(.swiper-pagination-bullet) {
+    background: rgba(147, 51, 234, 0.25) !important;
+}
+
+:global([data-theme="light"]) :global(.swiper-pagination-bullet-active) {
+    background: var(--color-orange) !important;
+}

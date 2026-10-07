@@ -2,6 +2,7 @@
     padding: 100px 0;
     background: linear-gradient(180deg, #050001 0%, #28033d, #050001);
     overflow: hidden;
+    contain: layout style;
 }
 
 .container {
@@ -12,6 +13,15 @@
 
 .sectionHeader {
     margin-bottom: 60px;
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+    will-change: transform, opacity;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.revealed .sectionHeader {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
 }
 
 .title em {
@@ -56,9 +66,10 @@
 /* Accordion Container */
 .accordion {
     display: flex;
-    height: 600px;
-    gap: 8px;
+    height: 580px;
+    gap: 10px;
     width: 100%;
+    contain: layout;
 }
 
 /* Individual Card */
@@ -70,13 +81,43 @@
     border-radius: 20px;
     cursor: pointer;
     overflow: hidden;
-    transition: flex-basis 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-        flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-        background 0.3s ease,
-        height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 30px;
+    transform: translate3d(0, 28px, 0);
+    opacity: 0;
+    will-change: transform, opacity, flex-grow, flex-basis;
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        flex-grow 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+        flex-basis 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+        background-color 0.25s ease,
+        border-color 0.25s ease;
+    padding: 28px;
     display: flex;
     flex-direction: column;
+}
+
+.revealed .card {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.revealed .card:nth-child(1) {
+    transition-delay: 0.05s, 0.05s, 0s, 0s, 0s, 0s;
+}
+
+.revealed .card:nth-child(2) {
+    transition-delay: 0.12s, 0.12s, 0s, 0s, 0s, 0s;
+}
+
+.revealed .card:nth-child(3) {
+    transition-delay: 0.19s, 0.19s, 0s, 0s, 0s, 0s;
+}
+
+.revealed .card:nth-child(4) {
+    transition-delay: 0.26s, 0.26s, 0s, 0s, 0s, 0s;
+}
+
+.revealed .card:nth-child(5) {
+    transition-delay: 0.33s, 0.33s, 0s, 0s, 0s, 0s;
 }
 
 .card:hover:not(.active) {
@@ -88,7 +129,13 @@
 .active {
     flex-grow: 1;
     flex-basis: 0%;
-    background: linear-gradient(135deg, rgba(20, 18, 128, 0.4) 0%, rgba(112, 41, 134, 0.6) 100%);
+    background-color: #0c0824;
+    background-image: 
+        radial-gradient(circle at 85% 15%, rgba(255, 107, 0, 0.08) 0%, rgba(147, 51, 234, 0.12) 60%, transparent 80%),
+        var(--service-bg-pattern, url('/backgrounds/services/product-engineering.svg'));
+    background-repeat: no-repeat, repeat;
+    background-position: right top, center;
+    background-size: auto, 360px 360px;
     border-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -97,7 +144,7 @@
     font-family: var(--font-mono);
     font-size: 14px;
     color: var(--color-orange);
-    margin-bottom: 40px;
+    margin-bottom: 16px;
     display: block;
     flex-shrink: 0;
 }
@@ -112,9 +159,10 @@
     transform-origin: left top;
     transform: rotate(90deg) translateY(-100%);
     position: absolute;
-    top: 100px;
+    top: 80px;
     left: 50%;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
 }
 
 .active .cardTitleCollapsed {
@@ -126,11 +174,12 @@
 .expandedContent {
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
-    transform: translateY(20px);
+    transition: opacity 0.35s ease 0.15s, transform 0.35s ease 0.15s;
+    transform: translateY(12px);
     height: 100%;
     display: flex;
     flex-direction: column;
+    will-change: opacity, transform;
 }
 
 .active .expandedContent {
@@ -140,39 +189,47 @@
 }
 
 .cardTitleExpanded {
-    font-size: 42px;
+    font-size: 36px;
     font-weight: 700;
     color: var(--color-orange);
-    margin-bottom: 30px;
-    max-width: 500px;
+    margin-bottom: 14px;
+    max-width: 600px;
+    line-height: 1.15;
 }
 
 .description {
-    font-size: 18px;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 40px;
-    max-width: 600px;
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 18px;
+    max-width: 720px;
 }
 
 .subServices {
     display: grid;
-    grid-template-columns: repeat(2, minmax(250px, auto));
-    gap: 15px;
+    grid-template-columns: repeat(2, minmax(240px, 1fr));
+    gap: 10px;
+    max-width: 760px;
+    margin-bottom: 10px;
 }
 
 .subServiceItem {
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-size: 16px;
+    gap: 10px;
+    font-size: 14.5px;
     font-weight: 500;
     color: white;
-    transition: transform 0.2s ease;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .subServiceItem:hover {
-    transform: translateX(5px);
+    transform: translateX(4px);
     color: var(--color-orange);
 }
 
@@ -183,36 +240,37 @@
 /* Footer Icon */
 .footerIcon {
     position: absolute;
-    bottom: 30px;
+    bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
-    width: 48px;
-    height: 48px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
 
 .active .footerIcon {
     left: initial;
-    right: 30px;
+    right: 28px;
+    bottom: 28px;
     transform: translateX(0);
     background-color: var(--color-orange);
     border-color: var(--color-orange);
 }
 
 .footerIcon svg {
-    transition: transform 0.3s ease;
+    transition: transform 0.25s ease;
 }
 
 .active .footerIcon svg {
     transform: rotate(-45deg);
 }
 
-/* Responsiveness Fixes (Mobile \u0026 Tablet) */
+/* Responsiveness Fixes (Mobile & Tablet) */
 @media (max-width: 1024px) {
     .servicesSection {
         padding: 60px 0;
@@ -236,8 +294,8 @@
         padding: 24px;
         flex-direction: row;
         align-items: center;
-        transition: max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-            background 0.3s ease;
+        transition: max-height 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+            background-color 0.25s ease;
         overflow: hidden;
     }
 
@@ -278,8 +336,8 @@
     /* Expanded Content */
     .expandedContent {
         width: 100%;
-        transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
-        transform: translateY(20px);
+        transition: opacity 0.35s ease 0.15s, transform 0.35s ease 0.15s;
+        transform: translateY(12px);
     }
 
     .cardTitleExpanded {
@@ -309,8 +367,8 @@
         width: 40px;
         height: 40px;
     }
-
 }
+
 @media (max-width: 580px) {
     .subServices {
         grid-template-columns: 1fr;
@@ -329,3 +387,86 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR SERVICES ACCORDION (90+ FPS ZERO LAG)
+   ========================================================================= */
+:global([data-theme="light"]) .servicesSection {
+    background: #f8fafc;
+}
+
+:global([data-theme="light"]) .title {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .card:hover:not(.active) {
+    background: #faf5ff;
+    border-color: rgba(107, 33, 168, 0.35);
+}
+
+:global([data-theme="light"]) .card.active,
+:global([data-theme="light"]) .active {
+    flex-grow: 1;
+    flex-basis: 0%;
+    background-color: #ffffff;
+    background-image: 
+        radial-gradient(circle at 85% 15%, rgba(147, 51, 234, 0.04) 0%, transparent 60%),
+        var(--service-bg-pattern, url('/backgrounds/services/product-engineering.svg'));
+    background-repeat: no-repeat, repeat;
+    background-position: right top, center;
+    background-size: auto, 360px 360px;
+    border: 1px solid rgba(107, 33, 168, 0.35);
+}
+
+:global([data-theme="light"]) .cardTitleCollapsed {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .cardTitleExpanded {
+    color: var(--color-orange);
+}
+
+:global([data-theme="light"]) .description {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .subServiceItem {
+    color: #1e293b;
+    background: #ffffff;
+    border: 1px solid rgba(107, 33, 168, 0.12);
+    border-radius: 8px;
+    padding: 8px 14px;
+}
+
+:global([data-theme="light"]) .subServiceItem:hover {
+    background: rgba(255, 107, 0, 0.08);
+    border-color: var(--color-orange);
+    color: var(--color-orange);
+}
+
+:global([data-theme="light"]) .footerIcon {
+    background: rgba(107, 33, 168, 0.08);
+    color: var(--color-primary);
+    border: 1px solid rgba(107, 33, 168, 0.18);
+}
+
+:global([data-theme="light"]) .card.active .footerIcon,
+:global([data-theme="light"]) .active .footerIcon {
+    background-color: var(--color-orange) !important;
+    border-color: var(--color-orange) !important;
+    color: #ffffff !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sectionHeader,
+    .card {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}

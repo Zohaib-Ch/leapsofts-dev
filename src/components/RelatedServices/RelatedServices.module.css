@@ -121,3 +121,48 @@
     margin-bottom: 1rem;
   }
 }
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR RELATED SERVICES
+   ========================================================================= */
+:global([data-theme="light"]) .section {
+    background: linear-gradient(180deg, #ffffff 0%, #faf8fd 50%, #f6f3fa 100%);
+    color: #0f172a;
+    border-top: 1px solid rgba(147, 51, 234, 0.12);
+}
+
+:global([data-theme="light"]) .sectionLabel {
+    color: var(--color-orange);
+}
+
+:global([data-theme="light"]) .title {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .card {
+    background: #ffffff;
+    border: 1px solid rgba(147, 51, 234, 0.12);
+    box-shadow: 0 10px 30px -10px rgba(107, 33, 168, 0.08);
+}
+
+:global([data-theme="light"]) .card:hover {
+    background: #ffffff;
+    border-color: rgba(147, 51, 234, 0.35);
+    box-shadow: 0 20px 45px -10px rgba(107, 33, 168, 0.16);
+}
+
+:global([data-theme="light"]) .cardTitle {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .cardDesc {
+    color: #475569;
+}
+
+:global([data-theme="light"]) .cardLink {
+    color: #7c3aed;
+}
+
+:global([data-theme="light"]) .card:hover .cardLink {
+    color: var(--color-orange);
+}
