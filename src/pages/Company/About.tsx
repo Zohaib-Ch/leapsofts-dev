@@ -19,8 +19,8 @@ import AnimatedCounter from '../../components/AnimatedCounter/AnimatedCounter';
 import { useContactModal } from '../../context/ContactModalContext';
 import styles from './About.module.css';
 import MetaSEO from '../../components/SEO/MetaSEO';
-import { getSanityAboutPage } from '../../sanity/queries';
-import type { SanityAboutPage } from '../../sanity/types';
+import { getSanityAboutPage, getSanityTeamMembers } from '../../sanity/queries';
+import type { SanityAboutPage, SanityTeamMember } from '../../sanity/types';
 
 const timelineData = [
   {
@@ -50,7 +50,15 @@ const timelineData = [
   },
 ];
 
-const leadershipData = [
+const leadershipData: {
+  name: string;
+  role: string;
+  bio: string;
+  highlight?: string;
+  initials: string;
+  skills: string[];
+  imageUrl?: string;
+}[] = [
   {
     name: 'Huzaifa Rasheed',
     role: 'CEO & Co-Founder',
@@ -169,13 +177,43 @@ const slideRightVariant: Variants = {
 const About: React.FC = () => {
   const [activeTimeline, setActiveTimeline] = useState(0);
   const [sanityData, setSanityData] = useState<SanityAboutPage | null>(null);
+  const [sanityTeam, setSanityTeam] = useState<SanityTeamMember[] | null>(null);
   const { openContactModal } = useContactModal();
 
   useEffect(() => {
     getSanityAboutPage().then((data) => {
       if (data) setSanityData(data);
     });
+    getSanityTeamMembers().then((data) => {
+      if (data) setSanityTeam(data);
+    });
   }, []);
+
+  const displayLeadership = React.useMemo(() => {
+    if ((sanityData as any)?.leadership?.members && (sanityData as any).leadership.members.length > 0) {
+      return (sanityData as any).leadership.members.map((m: any) => ({
+        name: m.name,
+        role: m.role,
+        bio: m.bio || '',
+        highlight: m.highlight || '',
+        initials: m.initials || m.name.split(' ').map((n: string) => n[0]).join('').substring(0, 2),
+        skills: m.skills || [],
+        imageUrl: m.imageUrl || '',
+      }));
+    }
+    if (sanityTeam && sanityTeam.length > 0) {
+      return sanityTeam.map((m: any) => ({
+        name: m.name,
+        role: m.role,
+        bio: m.bio || '',
+        highlight: m.highlight || '',
+        initials: m.initials || m.name.split(' ').map((n: string) => n[0]).join('').substring(0, 2),
+        skills: m.skills || [],
+        imageUrl: m.imageUrl || '',
+      }));
+    }
+    return leadershipData;
+  }, [sanityData, sanityTeam]);
 
   return (
     <div className={styles.aboutPage}>
@@ -410,7 +448,7 @@ const About: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {leadershipData.map((member, idx) => (
+          {displayLeadership.map((member: any, idx: number) => (
             <motion.div
               key={idx}
               className={styles.executiveCard}
@@ -419,7 +457,13 @@ const About: React.FC = () => {
               <div className={styles.executiveHeader}>
                 <div className={styles.avatarContainer}>
                   <div className={styles.avatarGlow} />
-                  <div className={styles.avatarImg}>{member.initials}</div>
+                  <div className={styles.avatarImg}>
+                    {member.imageUrl ? (
+                      <img src={member.imageUrl} alt={member.name} style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+                    ) : (
+                      member.initials
+                    )}
+                  </div>
                 </div>
                 <div className={styles.executiveMeta}>
                   <div className={styles.executiveRoleTag}>{member.role}</div>
@@ -439,7 +483,7 @@ const About: React.FC = () => {
               )}
 
               <div className={styles.executiveSkills}>
-                {member.skills.map((skill, sIdx) => (
+                {member.skills.map((skill: string, sIdx: number) => (
                   <span key={sIdx} className={styles.executiveSkillPill}>
                     {skill}
                   </span>

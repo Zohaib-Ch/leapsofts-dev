@@ -11,6 +11,8 @@ import {
 } from 'lucide-react';
 import Button from '../../components/Button/Button';
 import { useContactModal } from '../../context/ContactModalContext';
+import { getSanityTeamMembers } from '../../sanity/queries';
+import type { SanityTeamMember } from '../../sanity/types';
 import styles from './Leadership.module.css';
 
 const ribbonData = [
@@ -36,7 +38,15 @@ const ribbonData = [
   },
 ];
 
-const leadershipTeam = [
+const leadershipTeam: {
+  name: string;
+  role: string;
+  bio: string;
+  highlight?: string;
+  initials: string;
+  skills: string[];
+  imageUrl?: string;
+}[] = [
   {
     name: 'Sarah Chen',
     role: 'Head of AI & Machine Learning',
@@ -131,6 +141,7 @@ const cardChildVariant = {
 
 const Leadership: React.FC = () => {
   const { openContactModal } = useContactModal();
+  const [sanityTeam, setSanityTeam] = React.useState<SanityTeamMember[] | null>(null);
 
   useEffect(() => {
     document.title = 'Executive Engineering Leadership | CEO Huzaifa Rasheed | Leapsofts';
@@ -144,7 +155,36 @@ const Leadership: React.FC = () => {
       'content',
       'Meet the executive leaders, AI researchers, and cloud architects behind Leapsofts. Led by CEO & Co-Founder Huzaifa Rasheed, building custom enterprise software solutions.'
     );
+
+    getSanityTeamMembers().then((data) => {
+      if (data) setSanityTeam(data);
+    });
   }, []);
+
+  const ceoMember = React.useMemo(() => {
+    if (sanityTeam) {
+      const found = sanityTeam.find((m) => m.isCeoSpotlight || m.name.toLowerCase().includes('huzaifa'));
+      if (found) return found;
+    }
+    return null;
+  }, [sanityTeam]);
+
+  const displayTeam = React.useMemo(() => {
+    if (sanityTeam && sanityTeam.length > 0) {
+      return sanityTeam
+        .filter((m) => !m.isCeoSpotlight && !m.name.toLowerCase().includes('huzaifa'))
+        .map((m) => ({
+          name: m.name,
+          role: m.role,
+          bio: m.bio || '',
+          highlight: m.highlight || '',
+          initials: m.initials || m.name.split(' ').map((n) => n[0]).join('').substring(0, 2),
+          skills: m.skills || [],
+          imageUrl: m.imageUrl || '',
+        }));
+    }
+    return leadershipTeam;
+  }, [sanityTeam]);
 
   return (
     <div className={styles.leadershipPage}>
@@ -210,15 +250,21 @@ const Leadership: React.FC = () => {
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] as const }}
         >
           <div className={styles.ceoAvatarWrapper}>
-            <div className={styles.ceoAvatarBox}>HR</div>
-            <span className={styles.ceoRoleBadge}>CEO & Co-Founder</span>
+            <div className={styles.ceoAvatarBox}>
+              {ceoMember?.imageUrl ? (
+                <img src={ceoMember.imageUrl} alt={ceoMember.name} style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+              ) : (
+                ceoMember?.initials || 'HR'
+              )}
+            </div>
+            <span className={styles.ceoRoleBadge}>{ceoMember?.role || 'CEO & Co-Founder'}</span>
           </div>
 
           <div>
-            <h3 className={styles.ceoName}>Huzaifa Rasheed</h3>
-            <div className={styles.ceoSubtitle}>Building Custom Enterprise AI & Scalable Cloud Solutions</div>
+            <h3 className={styles.ceoName}>{ceoMember?.name || 'Huzaifa Rasheed'}</h3>
+            <div className={styles.ceoSubtitle}>{ceoMember?.highlight || 'Building Custom Enterprise AI & Scalable Cloud Solutions'}</div>
             <p className={styles.ceoBio}>
-              Leading Leapsofts in delivering AI-driven and custom software engineering solutions across Healthcare, FinTech, Fashion Tech, and emerging industries. With hands-on involvement in over 45+ bespoke AI implementations, Huzaifa aligns high-level business strategy with rigorous software engineering.
+              {ceoMember?.bio || 'Leading Leapsofts in delivering AI-driven and custom software engineering solutions across Healthcare, FinTech, Fashion Tech, and emerging industries. With hands-on involvement in over 45+ bespoke AI implementations, Huzaifa aligns high-level business strategy with rigorous software engineering.'}
             </p>
 
             <blockquote className={styles.ceoQuote}>
@@ -226,7 +272,10 @@ const Leadership: React.FC = () => {
             </blockquote>
 
             <div className={styles.ceoSkillsGrid}>
-              {['Strategic Leadership', 'Enterprise AI', 'Cloud Microservices', 'CTO Advisory', 'FinTech & HealthTech', 'Global Operations'].map((skill, sIdx) => (
+              {(ceoMember?.skills && ceoMember.skills.length > 0
+                ? ceoMember.skills
+                : ['Strategic Leadership', 'Enterprise AI', 'Cloud Microservices', 'CTO Advisory', 'FinTech & HealthTech', 'Global Operations']
+              ).map((skill, sIdx) => (
                 <span key={sIdx} className={styles.ceoSkillPill}>
                   {skill}
                 </span>
@@ -261,11 +310,17 @@ const Leadership: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {leadershipTeam.map((member, idx) => (
+          {displayTeam.map((member, idx) => (
             <motion.div key={idx} className={styles.executiveCard} variants={cardChildVariant}>
               <div>
                 <div className={styles.executiveHeader}>
-                  <div className={styles.avatarContainer}>{member.initials}</div>
+                  <div className={styles.avatarContainer}>
+                    {member.imageUrl ? (
+                      <img src={member.imageUrl} alt={member.name} style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+                    ) : (
+                      member.initials
+                    )}
+                  </div>
                   <div>
                     <div className={styles.executiveRoleTag}>{member.role}</div>
                     <h3 className={styles.executiveName}>{member.name}</h3>

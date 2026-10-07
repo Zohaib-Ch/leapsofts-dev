@@ -3,6 +3,7 @@ import { portableTextSchema } from './objects/portableText';
 import { homePageSchema } from './documents/homePage';
 import { aboutPageSchema } from './documents/aboutPage';
 import { contactPageSchema } from './documents/contactPage';
+import { caseStudiesPageSchema } from './documents/caseStudiesPage';
 import { serviceSchema } from './documents/service';
 import { industrySchema } from './documents/industry';
 import { caseStudySchema } from './documents/caseStudy';
@@ -19,6 +20,7 @@ export const schemaTypes = [
   homePageSchema,
   aboutPageSchema,
   contactPageSchema,
+  caseStudiesPageSchema,
   serviceSchema,
   industrySchema,
   caseStudySchema,

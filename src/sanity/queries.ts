@@ -3,10 +3,12 @@ import type {
   SanityHomePage,
   SanityAboutPage,
   SanityContactPage,
+  SanityCaseStudiesPage,
   SanityService,
   SanityIndustry,
   SanityCaseStudy,
   SanityBlog,
+  SanityTeamMember,
 } from './types';
 
 // GROQ Query strings
@@ -47,10 +49,38 @@ export const HOME_PAGE_QUERY = `*[_type == "homePage"] | order(_updatedAt desc)[
   seo
 }`;
 
-export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage"][0]{
+export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage" && (_id == "aboutPage" || _id == "drafts.aboutPage")] | order(_updatedAt desc)[0]{
   hero,
-  missionVision,
-  executiveSummary,
+  creed,
+  corePrinciples,
+  timeline,
+  leadership {
+    label,
+    title,
+    subtitle,
+    members[] {
+      _type == "reference" => @->{
+        name,
+        role,
+        bio,
+        highlight,
+        initials,
+        skills,
+        "imageUrl": select(defined(image.asset) => image.asset->url, imageUrl)
+      },
+      _type != "reference" => {
+        name,
+        role,
+        bio,
+        highlight,
+        initials,
+        skills,
+        "imageUrl": select(defined(image.asset) => image.asset->url, imageUrl)
+      }
+    }
+  },
+  globalDelivery,
+  cta,
   seo
 }`;
 
@@ -59,6 +89,12 @@ export const CONTACT_PAGE_QUERY = `*[_type == "contactPage"][0]{
   offices,
   phones,
   email,
+  seo
+}`;
+
+export const CASE_STUDIES_PAGE_QUERY = `*[_type == "caseStudiesPage" && (_id == "caseStudiesPage" || _id == "drafts.caseStudiesPage")] | order(_updatedAt desc)[0]{
+  hero,
+  cta,
   seo
 }`;
 
@@ -141,58 +177,150 @@ export const INDUSTRY_BY_SLUG_QUERY = `*[_type == "industry" && slug.current == 
 
 export const ALL_CASE_STUDIES_QUERY = `*[_type == "caseStudy"]{
   id,
+  "slug": slug.current,
   title,
-  client,
+  type,
+  brand {
+    name,
+    description,
+    "logo": logo.asset->url,
+    logoPreset
+  },
   industry,
-  services,
-  coverImage,
+  projectList,
+  "coverImage": coverImage.asset->url,
+  "brandVisualImg": brandVisualImg.asset->url,
+  brandVisualImgPreset,
+  tabs[] {
+    id,
+    label,
+    isActive
+  },
+  highlightItems[] {
+    tabId,
+    projects
+  },
   summary,
+  impact {
+    title,
+    "images": images[].asset->url
+  },
+  details,
+  techStack {
+    title,
+    items[] {
+      label,
+      techs[] {
+        name,
+        icon,
+        iconPreset,
+        "iconImageUrl": iconImage.asset->url
+      }
+    }
+  },
   challenge,
   solution,
   results,
-  technologies,
-  seo
-}`;
-
-export const CASE_STUDY_BY_ID_QUERY = `*[_type == "caseStudy" && id == $id][0]{
-  id,
-  title,
-  client,
-  industry,
-  services,
-  coverImage,
-  summary,
-  challenge,
-  solution,
-  results,
-  technologies,
   testimonialQuote,
   seo
 }`;
 
-export const ALL_BLOGS_QUERY = `*[_type == "blog"] | order(publishedAt desc){
-  _id,
-  title,
+export const CASE_STUDY_BY_ID_QUERY = `*[_type == "caseStudy" && (id == $id || slug.current == $id || _id == $id || _id == "caseStudy-" + $id || _id == "drafts.caseStudy-" + $id)] | order(_updatedAt desc)[0]{
+  id,
   "slug": slug.current,
-  publishedAt,
-  author,
-  coverImage,
-  excerpt,
-  category,
-  readTime,
+  title,
+  type,
+  brand {
+    name,
+    description,
+    "logo": logo.asset->url,
+    logoPreset
+  },
+  industry,
+  projectList,
+  "coverImage": coverImage.asset->url,
+  "brandVisualImg": brandVisualImg.asset->url,
+  brandVisualImgPreset,
+  tabs[] {
+    id,
+    label,
+    isActive
+  },
+  highlightItems[] {
+    tabId,
+    projects
+  },
+  summary,
+  impact {
+    title,
+    "images": images[].asset->url
+  },
+  details,
+  techStack {
+    title,
+    items[] {
+      label,
+      techs[] {
+        name,
+        icon,
+        iconPreset,
+        "iconImageUrl": iconImage.asset->url
+      }
+    }
+  },
+  challenge,
+  solution,
+  results,
+  testimonialQuote,
   seo
 }`;
 
-export const BLOG_BY_SLUG_QUERY = `*[_type == "blog" && slug.current == $slug][0]{
+export const ALL_BLOGS_QUERY = `*[_type == "blog"] | order(_createdAt desc){
   _id,
   title,
   "slug": slug.current,
+  subtitle,
   publishedAt,
-  author,
-  coverImage,
-  excerpt,
+  publishedDate,
   category,
   readTime,
+  featured,
+  excerpt,
+  tags,
+  author {
+    name,
+    role,
+    avatarInitials,
+    bio,
+    "avatar": avatar.asset->url
+  },
+  "coverImageUrl": coalesce(coverImage.asset->url, coverImageUrl),
+  content,
+  body,
+  seo
+}`;
+
+export const BLOG_BY_SLUG_QUERY = `*[_type == "blog" && (slug.current == $slug || _id == $slug || _id == "blog-" + $slug)][0]{
+  _id,
+  title,
+  "slug": slug.current,
+  subtitle,
+  publishedAt,
+  publishedDate,
+  category,
+  readTime,
+  featured,
+  excerpt,
+  tags,
+  author {
+    name,
+    role,
+    avatarInitials,
+    bio,
+    "avatar": avatar.asset->url
+  },
+  "coverImageUrl": coalesce(coverImage.asset->url, coverImageUrl),
+  content,
   body,
   seo
 }`;
@@ -261,6 +389,23 @@ export async function getSanityCaseStudyById(id: string): Promise<SanityCaseStud
   }
 }
 
+export const ALL_TEAM_MEMBERS_QUERY = `*[_type == "teamMember"] | order(order asc, _createdAt desc){
+  _id,
+  name,
+  "slug": slug.current,
+  role,
+  bio,
+  highlight,
+  initials,
+  isCeoSpotlight,
+  order,
+  skills,
+  "imageUrl": coalesce(image.asset->url, imageUrl),
+  linkedin,
+  github,
+  twitter
+}`;
+
 export async function getSanityBlogs(): Promise<SanityBlog[] | null> {
   try {
     const res = await client.fetch(ALL_BLOGS_QUERY);
@@ -273,6 +418,24 @@ export async function getSanityBlogs(): Promise<SanityBlog[] | null> {
 export async function getSanityBlogBySlug(slug: string): Promise<SanityBlog | null> {
   try {
     const res = await client.fetch(BLOG_BY_SLUG_QUERY, { slug });
+    return res || null;
+  } catch (e) {
+    return null;
+  }
+}
+
+export async function getSanityTeamMembers(): Promise<SanityTeamMember[] | null> {
+  try {
+    const res = await client.fetch(ALL_TEAM_MEMBERS_QUERY);
+    return Array.isArray(res) && res.length > 0 ? res : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+export async function getSanityCaseStudiesPage(): Promise<SanityCaseStudiesPage | null> {
+  try {
+    const res = await client.fetch(CASE_STUDIES_PAGE_QUERY);
     return res || null;
   } catch (e) {
     return null;

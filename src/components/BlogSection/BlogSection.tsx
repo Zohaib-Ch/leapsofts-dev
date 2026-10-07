@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Clock, Calendar, ArrowRight } from 'lucide-react';
 import { blogsData } from '../../data/blogsData';
 import Button from '../Button/Button';
+import { getSanityBlogs } from '../../sanity/queries';
+import type { SanityBlog } from '../../sanity/types';
 import styles from './BlogSection.module.css';
 
 const headerVariant: Variants = {
@@ -37,8 +39,35 @@ const cardChildVariant: Variants = {
 
 const BlogSection: React.FC = () => {
   const navigate = useNavigate();
-  // Display top 3 latest articles
-  const latestArticles = blogsData.slice(0, 3);
+  const [sanityBlogs, setSanityBlogs] = React.useState<SanityBlog[] | null>(null);
+
+  React.useEffect(() => {
+    getSanityBlogs().then((data) => {
+      if (data) setSanityBlogs(data);
+    });
+  }, []);
+
+  const latestArticles = React.useMemo(() => {
+    const rawList = (sanityBlogs && sanityBlogs.length > 0) ? sanityBlogs : blogsData;
+    return rawList.slice(0, 3).map((blog: any) => {
+      const slug = blog.slug?.current || blog.slug || '';
+      return {
+        id: blog._id || blog.id || slug,
+        slug,
+        title: blog.title || '',
+        category: blog.category || 'Enterprise AI',
+        readTime: blog.readTime || '5 min read',
+        publishedDate: blog.publishedDate || (blog.publishedAt ? new Date(blog.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'September 2026'),
+        coverImage: blog.coverImageUrl || blog.coverImage || '/projectImages/agileauto.png',
+        excerpt: blog.excerpt || blog.subtitle || '',
+        author: {
+          name: blog.author?.name || 'Leapsofts Engineering',
+          role: blog.author?.role || 'Technical Lead',
+          avatar: blog.author?.avatar || blog.author?.avatarInitials || 'LS',
+        },
+      };
+    });
+  }, [sanityBlogs]);
 
   return (
     <section className={styles.blogSection} id="insights">

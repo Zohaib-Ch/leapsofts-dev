@@ -13,20 +13,43 @@ import styles from './ProjectDetails.module.css';
 const ProjectDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [sanityProject, setSanityProject] = useState<SanityCaseStudy | null>(null);
-
-    useEffect(() => {
-        if (id) {
-            getSanityCaseStudyById(id).then((data) => {
-                if (data) setSanityProject(data);
-            });
-        }
-    }, [id]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const projectData = useMemo(() => {
         return projectsData.find(project => project.id === id);
     }, [id]);
 
-    if (!projectData && !sanityProject) {
+    useEffect(() => {
+        let isMounted = true;
+        if (id) {
+            setIsLoading(true);
+            getSanityCaseStudyById(id)
+                .then((data) => {
+                    if (isMounted) {
+                        if (data) setSanityProject(data);
+                        setIsLoading(false);
+                    }
+                })
+                .catch(() => {
+                    if (isMounted) setIsLoading(false);
+                });
+        } else {
+            setIsLoading(false);
+        }
+        return () => {
+            isMounted = false;
+        };
+    }, [id]);
+
+    if (isLoading && !projectData) {
+        return (
+            <div className={styles.loadingContainer}>
+                <div className={styles.spinner} />
+            </div>
+        );
+    }
+
+    if (!isLoading && !projectData && !sanityProject) {
         return (
             <div className={styles.notFound}>
                 <MetaSEO defaultTitle="Project Not Found | Leapsofts" noIndex={true} />
@@ -36,45 +59,67 @@ const ProjectDetails: React.FC = () => {
         );
     }
 
-    const title = sanityProject?.title || projectData?.impact?.title || 'Case Study Details';
-    const summary = sanityProject?.summary || projectData?.summary?.description || '';
+    const title = sanityProject?.impact?.title || sanityProject?.title || projectData?.impact?.title || 'Case Study Details';
+    const summaryText = typeof sanityProject?.summary === 'string'
+        ? sanityProject.summary
+        : sanityProject?.summary?.description || projectData?.summary?.description || '';
+
+    const impactData = {
+        title: sanityProject?.impact?.title || projectData?.impact?.title || title,
+        images: sanityProject?.impact?.images && sanityProject.impact.images.length > 0
+            ? sanityProject.impact.images
+            : projectData?.impact?.images || [],
+        deliverables: sanityProject?.projectList && sanityProject.projectList.length > 0
+            ? sanityProject.projectList
+            : projectData?.projectList || [],
+    };
+
+    const executiveSummaryData = {
+        description: summaryText,
+        details: (typeof sanityProject?.summary === 'object' && sanityProject?.summary?.details)
+            ? sanityProject.summary.details
+            : sanityProject?.details || projectData?.summary?.details || [],
+    };
+
+    const techStackData = {
+        title: sanityProject?.techStack?.title || projectData?.techStack?.title || 'Tools and technologies',
+        items: sanityProject?.techStack?.items && sanityProject.techStack.items.length > 0
+            ? sanityProject.techStack.items
+            : projectData?.techStack?.items || [],
+    };
 
     return (
         <div className={styles.pagePadding}>
             <MetaSEO
                 seo={sanityProject?.seo}
                 defaultTitle={`${title} | Case Study | Leapsofts`}
-                defaultDescription={summary}
+                defaultDescription={summaryText}
             />
-            {projectData && (
-                <>
-                    <ImpactShowcase
-                        title={projectData.impact.title}
-                        images={projectData.impact.images}
-                        deliverables={projectData.projectList}
+            <ImpactShowcase
+                title={impactData.title}
+                images={impactData.images}
+                deliverables={impactData.deliverables}
+            />
+
+            <div className={styles.detailsContainer}>
+                <div className={styles.leftColumn}>
+                    <ExecutiveSummary
+                        description={executiveSummaryData.description}
+                        details={executiveSummaryData.details}
                     />
 
-                    <div className={styles.detailsContainer}>
-                        <div className={styles.leftColumn}>
-                            <ExecutiveSummary
-                                description={projectData.summary.description}
-                                details={projectData.summary.details}
-                            />
+                    <TechStack
+                        title={techStackData.title}
+                        items={techStackData.items}
+                    />
+                </div>
 
-                            <TechStack
-                                title={projectData.techStack.title}
-                                items={projectData.techStack.items}
-                            />
-                        </div>
-
-                        <div className={styles.rightColumn}>
-                            <ContactForm isSticky={true} />
-                        </div>
-                    </div>
-                </>
-            )}
+                <div className={styles.rightColumn}>
+                    <ContactForm isSticky={true} />
+                </div>
+            </div>
         </div>
     );
-}
+};
 
 export default ProjectDetails;
