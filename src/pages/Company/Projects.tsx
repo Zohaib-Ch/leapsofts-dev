@@ -38,11 +38,11 @@ const Projects: React.FC = () => {
   const showcaseRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!sanityProjects) {
-      getSanityCaseStudies().then((data) => {
-        if (data && data.length > 0) setSanityProjects(data);
-      });
-    }
+    getSanityCaseStudies().then((data) => {
+      if (data && data.length > 0) setSanityProjects(data);
+    });
+
+    return combinedList;
   }, [sanityProjects]);
 
   const industryProjects = React.useMemo(() => {
@@ -52,56 +52,46 @@ const Projects: React.FC = () => {
     const sanityIndustries = sanityProjects.filter(sp => sp.type === 'industry');
     const combinedList: any[] = [];
 
-      // 1. Process Sanity industries (including newly added ones)
-      sanityIndustries.forEach((sanityItem) => {
-        const fallback = fallbackProjects.find(fp => fp.id === sanityItem.id || fp.brand?.name === sanityItem.title || fp.brand?.name === sanityItem.brand?.name);
+    // 1. Process Sanity industries (including newly added ones)
+    sanityIndustries.forEach((sanityItem) => {
+      const fallback = fallbackProjects.find(fp => fp.id === sanityItem.id || fp.brand?.name === sanityItem.title || fp.brand?.name === sanityItem.brand?.name);
 
-        const highlightMap: Record<string, string[]> = { ...(fallback?.highlight || {}) };
-        if (sanityItem.highlightItems && sanityItem.highlightItems.length > 0) {
-          sanityItem.highlightItems.forEach((item) => {
-            if (item.tabId && item.projects) {
-              highlightMap[item.tabId] = item.projects;
-            }
-          });
-        }
-
-        const tabImagesMap: Record<string, string> = { ...(fallback?.tabImages || {}) };
-        if (sanityItem.tabImages && Array.isArray(sanityItem.tabImages)) {
-          sanityItem.tabImages.forEach((ti: any) => {
-            if (ti.tabId && (ti.imageUrl || ti.image)) {
-              tabImagesMap[ti.tabId] = ti.imageUrl || ti.image;
-            }
-          });
-        }
-
-        combinedList.push({
-          type: 'industry',
-          id: sanityItem.slug || sanityItem.id || fallback?.id || `industry-${sanityItem.title.toLowerCase().replace(/\s+/g, '-')}`,
-          brand: {
-            name: sanityItem.brand?.name || sanityItem.title || fallback?.brand?.name || '',
-            logo: sanityItem.brand?.logo || sanityItem.brand?.logoPreset || fallback?.brand?.logo || '/icons/industries/automotive-link.svg',
-            description: sanityItem.brand?.description || fallback?.brand?.description || '',
-          },
-          projectList: (() => {
-            const rawList = sanityItem.projectList && sanityItem.projectList.length > 0 ? sanityItem.projectList : fallback?.projectList || [];
-            return rawList.map((item: any) => {
-              if (typeof item === 'string') return item;
-              if (typeof item === 'object' && item !== null) {
-                return item.title || item.name || item._ref || '';
-              }
-              return String(item || '');
-            }).filter(Boolean);
-          })(),
-          brandVisualImg: sanityItem.brandVisualImg || sanityItem.brandVisualImgPreset || fallback?.brandVisualImg || sanityItem.brand?.logo || fallback?.brand?.logo || '/icons/industries/automotive-link.svg',
-          tabs: sanityItem.tabs && sanityItem.tabs.length > 0 ? sanityItem.tabs : fallback?.tabs || [],
-          highlight: highlightMap,
-          tabImages: tabImagesMap,
-          impact: {
-            title: sanityItem.impact?.title || fallback?.impact?.title || sanityItem.title,
-            images: sanityItem.impact?.images && sanityItem.impact.images.length > 0 ? sanityItem.impact.images : fallback?.impact?.images || [],
-          },
+      const highlightMap: Record<string, string[]> = { ...(fallback?.highlight || {}) };
+      if (sanityItem.highlightItems && sanityItem.highlightItems.length > 0) {
+        sanityItem.highlightItems.forEach((item) => {
+          if (item.tabId && item.projects) {
+            highlightMap[item.tabId] = item.projects;
+          }
         });
+      }
+
+      combinedList.push({
+        type: 'industry',
+        id: sanityItem.slug || sanityItem.id || fallback?.id || `industry-${sanityItem.title.toLowerCase().replace(/\s+/g, '-')}`,
+        brand: {
+          name: sanityItem.brand?.name || sanityItem.title || fallback?.brand?.name || '',
+          logo: sanityItem.brand?.logo || sanityItem.brand?.logoPreset || fallback?.brand?.logo || '/icons/industries/automotive-link.svg',
+          description: sanityItem.brand?.description || fallback?.brand?.description || '',
+        },
+        projectList: (() => {
+          const rawList = sanityItem.projectList && sanityItem.projectList.length > 0 ? sanityItem.projectList : fallback?.projectList || [];
+          return rawList.map((item: any) => {
+            if (typeof item === 'string') return item;
+            if (typeof item === 'object' && item !== null) {
+              return item.title || item.name || item._ref || '';
+            }
+            return String(item || '');
+          }).filter(Boolean);
+        })(),
+        brandVisualImg: sanityItem.brandVisualImg || sanityItem.brandVisualImgPreset || fallback?.brandVisualImg || sanityItem.brand?.logo || fallback?.brand?.logo || '/icons/industries/automotive-link.svg',
+        tabs: sanityItem.tabs && sanityItem.tabs.length > 0 ? sanityItem.tabs : fallback?.tabs || [],
+        highlight: highlightMap,
+        impact: {
+          title: sanityItem.impact?.title || fallback?.impact?.title || sanityItem.title,
+          images: sanityItem.impact?.images && sanityItem.impact.images.length > 0 ? sanityItem.impact.images : fallback?.impact?.images || [],
+        },
       });
+    });
 
     // 2. Add fallback industries that haven't been created in Sanity yet
     fallbackProjects.forEach((fallback) => {

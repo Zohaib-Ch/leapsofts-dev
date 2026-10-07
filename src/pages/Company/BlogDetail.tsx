@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useParams, Link, useNavigate, useLoaderData } from 'react-router';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   ArrowLeft,
@@ -57,8 +57,8 @@ const BlogDetail: React.FC = () => {
   const navigate = useNavigate();
   const { openContactModal } = useContactModal();
 
-  const [sanityPost, setSanityPost] = useState<SanityBlog | null>(loaderData?.sanityData || null);
-  const [isLoading, setIsLoading] = useState<boolean>(!loaderData?.sanityData);
+  const [sanityPost, setSanityPost] = useState<SanityBlog | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState<string>('');
   const [copiedCodeIndex, setCopiedCodeIndex] = useState<number | null>(null);

@@ -23,22 +23,6 @@ import { useContactModal } from '../../context/ContactModalContext';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityAboutPage, getSanityTeamMembers } from '../../sanity/queries';
 import type { SanityAboutPage, SanityTeamMember } from '../../sanity/types';
-import { renderFormattedTitle } from '../../utils/titleFormatter';
-import { DEFAULT_ABOUT_PAGE_DATA } from '../../data/companyFallback';
-export async function loader() {
-  const sanityData = await getSanityAboutPage('aboutPage');
-  return { sanityData };
-}
-
-export function meta({ data }: { data?: any }) {
-  return buildPageMeta({
-    sanityData: data?.sanityData,
-    defaultTitle: "About Leapsofts | Enterprise Software Engineering Company",
-    defaultDescription: "Leapsofts is an enterprise software engineering firm with 250+ specialists across 5 global offices. We build custom software, cloud & AI solutions for Fortune-level enterprises.",
-    defaultKeywords: "about Leapsofts, enterprise software company, software engineering firm, custom software development agency",
-    canonicalUrl: "https://www.leapsofts.com/about",
-  });
-}
 
 const timelineData = [
   {
@@ -197,12 +181,16 @@ export { DEFAULT_ABOUT_PAGE_DATA };
 const About: React.FC = () => {
   const loaderData = useLoaderData<typeof loader>();
   const [activeTimeline, setActiveTimeline] = useState(0);
+  const [sanityData, setSanityData] = useState<SanityAboutPage | null>(null);
   const [sanityTeam, setSanityTeam] = useState<SanityTeamMember[] | null>(null);
   const { openContactModal } = useContactModal();
 
   const sanityData: SanityAboutPage = loaderData?.sanityData || DEFAULT_ABOUT_PAGE_DATA;
 
   useEffect(() => {
+    getSanityTeamMembers().then((data) => {
+      if (data) setSanityTeam(data);
+    });
     getSanityTeamMembers().then((data) => {
       if (data) setSanityTeam(data);
     });
@@ -233,12 +221,6 @@ const About: React.FC = () => {
     }
     return leadershipData;
   }, [sanityData, sanityTeam]);
-
-  const activeTimelineEvents = React.useMemo(() => {
-    return sanityData?.timeline?.events && sanityData.timeline.events.length > 0
-      ? sanityData.timeline.events
-      : timelineData;
-  }, [sanityData]);
 
   return (
     <div className={styles.aboutPage}>

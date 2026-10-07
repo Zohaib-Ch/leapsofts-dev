@@ -231,25 +231,6 @@ export const caseStudySchema = defineType({
       ],
     }),
 
-    defineField({
-      name: 'tabImages',
-      title: 'Per-Tab Feature Screenshots',
-      type: 'array',
-      hidden: ({ document }) => document?.type === 'project',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            defineField({ name: 'tabId', title: 'Tab ID (e.g. tab-0-0)', type: 'string' }),
-            defineField({ name: 'image', title: 'Tab Feature Image', type: 'image' }),
-          ],
-          preview: {
-            select: { title: 'tabId', media: 'image' },
-          },
-        },
-      ],
-    }),
-
     // ==========================================
     // PROJECT CASE STUDY FIELDS (type === 'project')
     // ==========================================
