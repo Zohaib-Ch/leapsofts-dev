@@ -9,6 +9,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO WHOLESALE AND RETAIL",
@@ -166,46 +167,56 @@ const WholesaleRetail: React.FC = () => {
     });
   }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
+  const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
+    ? data.relatedServices.items
+    : [
+        {
+          title: "Shopify Store Development",
+          description: "Build custom Shopify themes and Hydrogen headless storefronts.",
+          link: "/services/shopify"
+        },
+        {
+          title: "Web App Development",
+          description: "Engineer custom B2B wholesale portals and inventory management dashboards.",
+          link: "/services/web-app-development"
+        },
+        {
+          title: "Custom Software Development",
+          description: "Build bespoke supply chain management and logistics automation platforms.",
+          link: "/services/custom-software-development"
+        }
+      ];
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
-        titleMain={data?.strategyCTA?.titleMain || "Software "}
-        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
-        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Streamline your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "Retail"}
+        titleEnd={data?.strategyCTA?.titleEnd || " supply chain."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Retail Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <EmergingTech data={activeSolutionsData} />
       <Services
-        label="OUR CAPABILITIES"
-        titleMain="How we "
-        titleAccent="empower"
-        titleEnd=" retail businesses"
+        label={data?.servicesSection?.label || "OUR CAPABILITIES"}
+        titleMain={data?.servicesSection?.titleMain || "How we "}
+        titleAccent={data?.servicesSection?.titleAccent || "empower"}
+        titleEnd={data?.servicesSection?.titleEnd || " retail businesses"}
+      />
+      <FAQs
+        title="Wholesale & Retail Software FAQ"
+        subtitle="Common questions about omnichannel POS integration, B2B wholesale portals, predictive inventory, and headless commerce."
+        faqs={data?.faqs} items={data?.faqs}
       />
       <RelatedServices
-        services={[
-          {
-            title: "Shopify Store Development",
-            description: "Build custom Shopify themes and Hydrogen headless storefronts.",
-            link: "/services/shopify"
-          },
-          {
-            title: "Web App Development",
-            description: "Engineer custom B2B wholesale portals and inventory management dashboards.",
-            link: "/services/web-app-development"
-          },
-          {
-            title: "Custom Software Development",
-            description: "Build bespoke supply chain management and logistics automation platforms.",
-            link: "/services/custom-software-development"
-          }
-        ]}
+        title={data?.relatedServices?.title || "Recommended Retail Software Services"}
+        services={activeRelatedServices}
       />
     </>
   );

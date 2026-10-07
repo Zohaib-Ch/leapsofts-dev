@@ -9,10 +9,12 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO CONSTRUCTION SUCCESS",
-  title: "Unwavering Standards for Builders",
+  title: "Unwavering Standards for Builders and Contractors",
   items: [
     {
       icon: '/industryicons/sphere.svg',
@@ -22,12 +24,12 @@ const commitmentData: CommitmentSectionProps['data'] = {
     {
       icon: '/industryicons/bipiramida.svg',
       title: 'Total Project Accountability',
-      description: "Centralizing city building permits, subcontractor timelines, daily log logs, and labor hours under a single dashboard that keeps everyone focused on project deadlines."
+      description: "Centralizing city building permits, subcontractor timelines, daily logs, and labor hours under a single dashboard that keeps everyone focused on project deadlines."
     },
     {
       icon: '/industryicons/diamond.svg',
       title: 'Seamless Financial Governance',
-      description: "Connecting construction operations with accounting ERP tools like QuickBooks and Sage to automate subcontractor payouts, materials purchases, and daily expense reports."
+      description: "Connecting construction operations with accounting ERP tools like QuickBooks, Sage, and Procore to automate subcontractor payouts, materials purchases, and daily expense reports."
     }
   ]
 };
@@ -41,7 +43,7 @@ const constructionSolutionsData: EmergingTechProps['data'] = {
     {
       icon: 'legacy',
       title: 'Offline-First Field Companions',
-      description: "Building responsive mobile apps letting foreman log materials, record labor hours, and submit photo-backed progress updates from remote areas without cell signals."
+      description: "Building responsive mobile apps letting foremen log materials, record labor hours, and submit photo-backed progress updates from remote job sites without cell signals."
     },
     {
       icon: 'enterprise',
@@ -51,7 +53,7 @@ const constructionSolutionsData: EmergingTechProps['data'] = {
     {
       icon: 'thirdParty',
       title: 'ERP & Sage Accounting Bridges',
-      description: "Developing safe billing synchronizations with Sage, QuickBooks, and Procore to manage contractor draws, lien waivers, and purchase orders."
+      description: "Developing secure billing synchronizations with Sage, QuickBooks, and Procore to manage contractor draws, lien waivers, and purchase orders."
     },
     {
       icon: 'product',
@@ -65,7 +67,7 @@ const constructionSolutionsData: EmergingTechProps['data'] = {
     },
     {
       icon: 'mobile',
-      title: 'Compliance & OSHA safety Audits',
+      title: 'Compliance & OSHA Safety Audits',
       description: "Digitizing safety checklists, managing OSHA incident reports, and running automated onsite risk evaluations to comply with building standards."
     },
     {
@@ -91,15 +93,13 @@ const streamlineDescription = [
   { text: "from bidding to delivery.", bold: false },
 ];
 
-const title = "Construction Software Development, Offline-First Field Apps & BIM Integrations";
+const title = "Construction Software Development Services & ConTech Solutions";
 const subtitle = "";
 const introDescription = [
   { text: "We deliver full-scale ", bold: false },
   { text: "construction software development, construction management software, and offline-first field apps ", bold: true },
   { text: "engineered to provide total visibility across complex job sites. By automating subcontractor task dispatches, integrating BIM 3D models, and deploying IoT equipment telemetry, we help builders prevent budget leaks and ensure safety compliance.", bold: false }
 ];
-
-import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 export async function loader() {
   const sanityData = await getSanityIndustryBySlug('construction');
@@ -109,21 +109,19 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Construction Software Development Services | Leapsofts",
-    defaultDescription: "Custom construction management software — project tracking, estimating & BIM integration. Leapsofts builds digital tools for modern construction firms. Get started.",
-    defaultKeywords: "construction software development, construction management software, project management software construction",
+    defaultTitle: "Construction Software Development Services & ConTech | Leapsofts",
+    defaultDescription: "Leapsofts engineers custom construction management software, offline-first field mobile apps, BIM 3D blueprint integrations, and equipment IoT platforms.",
+    defaultKeywords: "construction software development, construction management software, contech software development, bim integration software, offline construction apps",
     canonicalUrl: "https://www.leapsofts.com/industries/construction",
   });
 }
-
-
 
 const Construction: React.FC = () => {
   const { data } = useIndustryPage('construction');
 
   const schemaData = buildServiceSchema({
-    name: "Construction Software Development Services",
-    description: "Custom construction management software — project tracking, estimating & BIM integration.",
+    name: "Construction Software Development Services & ConTech",
+    description: "Leapsofts engineers custom construction management software, offline-first field mobile apps, BIM 3D blueprint integrations, and equipment IoT platforms.",
     canonicalUrl: "https://www.leapsofts.com/industries/construction",
     faqs: data?.faqs,
   });
@@ -167,49 +165,60 @@ const Construction: React.FC = () => {
     });
   }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
+  const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
+    ? data.relatedServices.items
+    : [
+        {
+          title: "Mobile App Development",
+          description: "Engineer offline-first mobile apps for construction site crews and inspectors.",
+          link: "/services/mobile-app-development"
+        },
+        {
+          title: "Custom Software Development",
+          description: "Build bespoke construction ERP tools, subcontractor bidding engines, and portals.",
+          link: "/services/custom-software-development"
+        },
+        {
+          title: "Cloud Engineering & Infrastructure",
+          description: "Deploy scalable cloud databases to handle IoT equipment telemetry streams.",
+          link: "/services/cloud-engineering"
+        }
+      ];
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
-        titleMain={data?.strategyCTA?.titleMain || "Software "}
-        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
-        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Build a "}
+        titleAccent={data?.strategyCTA?.titleAccent || "stronger"}
+        titleEnd={data?.strategyCTA?.titleEnd || " digital foundation."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Construction Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <EmergingTech data={activeSolutionsData} />
       <Services
-        label="OUR CAPABILITIES"
-        titleMain="How we "
-        titleAccent="empower"
-        titleEnd=" construction businesses"
+        label={data?.servicesSection?.label || "OUR CAPABILITIES"}
+        titleMain={data?.servicesSection?.titleMain || "How we "}
+        titleAccent={data?.servicesSection?.titleAccent || "empower"}
+        titleEnd={data?.servicesSection?.titleEnd || " construction businesses"}
+      />
+      <FAQs
+        title="Construction & ConTech Software FAQ"
+        subtitle="Common questions about offline field mobile apps, BIM 3D blueprint integrations, heavy equipment IoT, and ERP accounting sync."
+        faqs={data?.faqs} items={data?.faqs}
       />
       <RelatedServices
-        services={[
-          {
-            title: "Mobile App Development",
-            description: "Engineer offline-first mobile apps for construction site crews and inspectors.",
-            link: "/services/mobile-app-development"
-          },
-          {
-            title: "Custom Software Development",
-            description: "Build bespoke construction ERP tools, subcontractor bidding engines, and portals.",
-            link: "/services/custom-software-development"
-          },
-          {
-            title: "Cloud Engineering & Infrastructure",
-            description: "Deploy scalable cloud databases to handle IoT equipment telemetry streams.",
-            link: "/services/cloud-engineering"
-          }
-        ]}
+        title={data?.relatedServices?.title || "Recommended ConTech Software Services"}
+        services={activeRelatedServices}
       />
     </>
   );
 };
 
 export default Construction;
+

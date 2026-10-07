@@ -9,6 +9,8 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENTS TO ENERGY INNOVATION",
@@ -91,15 +93,13 @@ const streamlineDescription = [
   { text: "goals through custom software.", bold: false },
 ];
 
-const title = "Energy Software Development, Smart Grid Automation & IoT Telemetry";
+const title = "Energy & Utilities Software Development & Smart Grid Platforms";
 const subtitle = "";
 const introDescription = [
   { text: "We deliver full-spectrum ", bold: false },
   { text: "energy software development, smart grid software, and renewable energy platforms ", bold: true },
   { text: "engineered to support clean energy transitions. By building real-time turbine IoT telemetry, load balancing algorithms, and automated carbon emissions tracking, we help utility firms operate with maximum uptime and transparency.", bold: false }
 ];
-
-import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 export async function loader() {
   const sanityData = await getSanityIndustryBySlug('energy');
@@ -109,21 +109,19 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Energy Sector Software Development | Leapsofts",
-    defaultDescription: "Custom software for energy companies — grid management, asset tracking & renewable energy platforms. Leapsofts builds IoT-integrated energy solutions. Get started.",
-    defaultKeywords: "energy software development, utilities software company, renewable energy software, smart grid software",
+    defaultTitle: "Energy & Utilities Software Development | Smart Grid & IoT | Leapsofts",
+    defaultDescription: "Leapsofts engineers custom energy software, smart grid automation platforms, SCADA IoT telemetry engines, and renewable energy management systems.",
+    defaultKeywords: "energy software development, utilities software company, renewable energy software, smart grid software, scada iot integration",
     canonicalUrl: "https://www.leapsofts.com/industries/energy",
   });
 }
-
-
 
 const Energy: React.FC = () => {
   const { data } = useIndustryPage('energy');
 
   const schemaData = buildServiceSchema({
-    name: "Energy Sector Software Development",
-    description: "Custom software for energy companies — grid management, asset tracking & renewable energy platforms.",
+    name: "Energy & Utilities Software Development",
+    description: "Leapsofts engineers custom energy software, smart grid automation platforms, SCADA IoT telemetry engines, and renewable energy management systems.",
     canonicalUrl: "https://www.leapsofts.com/industries/energy",
     faqs: data?.faqs,
   });
@@ -167,49 +165,60 @@ const Energy: React.FC = () => {
     });
   }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
+  const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
+    ? data.relatedServices.items
+    : [
+        {
+          title: "Data Science & AI Solutions",
+          description: "Deploy machine learning models for predictive grid load and cell degradation forecasting.",
+          link: "/services/data-science-ai"
+        },
+        {
+          title: "Cloud Engineering & Infrastructure",
+          description: "Architect high-frequency SCADA and IoT sensor data gateways on AWS & Azure.",
+          link: "/services/cloud-engineering"
+        },
+        {
+          title: "Custom Software Development",
+          description: "Build custom smart metering dashboards and carbon emissions compliance portals.",
+          link: "/services/custom-software-development"
+        }
+      ];
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
-        titleMain={data?.strategyCTA?.titleMain || "Software "}
-        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
-        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Lead the "}
+        titleAccent={data?.strategyCTA?.titleAccent || "energy transition"}
+        titleEnd={data?.strategyCTA?.titleEnd || " with custom software."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Energy Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <EmergingTech data={activeSolutionsData} />
       <Services
-        label="OUR CAPABILITIES"
-        titleMain="How we "
-        titleAccent="empower"
-        titleEnd=" energy organizations"
+        label={data?.servicesSection?.label || "OUR CAPABILITIES"}
+        titleMain={data?.servicesSection?.titleMain || "How we "}
+        titleAccent={data?.servicesSection?.titleAccent || "empower"}
+        titleEnd={data?.servicesSection?.titleEnd || " energy organizations"}
+      />
+      <FAQs
+        title="Energy & Utilities Software FAQ"
+        subtitle="Common questions about SCADA protocol integration, NERC CIP compliance, smart grid telemetry, and carbon accounting."
+        faqs={data?.faqs} items={data?.faqs}
       />
       <RelatedServices
-        services={[
-          {
-            title: "Data Science & AI Solutions",
-            description: "Deploy machine learning models for predictive grid load and cell degradation forecasting.",
-            link: "/services/data-science-ai"
-          },
-          {
-            title: "Cloud Engineering & Infrastructure",
-            description: "Architect high-frequency SCADA and IoT sensor data gateways on AWS & Azure.",
-            link: "/services/cloud-engineering"
-          },
-          {
-            title: "Custom Software Development",
-            description: "Build custom smart metering dashboards and carbon emissions compliance portals.",
-            link: "/services/custom-software-development"
-          }
-        ]}
+        title={data?.relatedServices?.title || "Recommended Energy Software Services"}
+        services={activeRelatedServices}
       />
     </>
   );
 };
 
 export default Energy;
+

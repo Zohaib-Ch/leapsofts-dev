@@ -11,6 +11,7 @@ import EmergingTech from '../../components/EmergingTech/EmergingTech';
 import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO HEALTHCARE",
@@ -171,47 +172,56 @@ const Healthcare: React.FC = () => {
     });
   }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
+  const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
+    ? data.relatedServices.items
+    : [
+        {
+          title: "Cyber Security & HIPAA Compliance",
+          description: "Enterprise-grade penetration testing, zero-trust access, and HIPAA compliance auditing.",
+          link: "/services/cyber-security"
+        },
+        {
+          title: "Custom Mobile App Development",
+          description: "Telehealth apps, remote patient monitoring portals, and secure mobile EHR systems.",
+          link: "/services/mobile-app-development"
+        },
+        {
+          title: "Data Science & AI Solutions",
+          description: "AI clinical decision support, medical image processing, and predictive diagnostic analytics.",
+          link: "/services/data-science-ai"
+        }
+      ];
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
-        titleMain={data?.strategyCTA?.titleMain || "Software "}
-        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
-        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Accelerate your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "HealthTech"}
+        titleEnd={data?.strategyCTA?.titleEnd || " clinical vision."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Healthcare Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <EmergingTech data={activeSolutionsData} />
       <Services
-        label="OUR CAPABILITIES"
-        titleMain="How we "
-        titleAccent="empower"
-        titleEnd=" healthcare businesses"
+        label={data?.servicesSection?.label || "OUR CAPABILITIES"}
+        titleMain={data?.servicesSection?.titleMain || "How we "}
+        titleAccent={data?.servicesSection?.titleAccent || "empower"}
+        titleEnd={data?.servicesSection?.titleEnd || " healthcare businesses"}
+      />
+      <FAQs
+        title="Healthcare & Life Sciences Software FAQ"
+        subtitle="Common questions about HIPAA compliance, HL7 FHIR integrations, WebRTC telehealth portals, and medical IoT security."
+        faqs={data?.faqs} items={data?.faqs}
       />
       <RelatedServices
-        title="Recommended Healthcare Software Services"
-        services={[
-          {
-            title: "Cyber Security & HIPAA Compliance",
-            description: "Enterprise-grade penetration testing, zero-trust access, and HIPAA compliance auditing.",
-            link: "/services/cyber-security"
-          },
-          {
-            title: "Custom Mobile App Development",
-            description: "Telehealth apps, remote patient monitoring portals, and secure mobile EHR systems.",
-            link: "/services/mobile-app-development"
-          },
-          {
-            title: "Data Science & AI Solutions",
-            description: "AI clinical decision support, medical image processing, and predictive diagnostic analytics.",
-            link: "/services/data-science-ai"
-          }
-        ]}
+        title={data?.relatedServices?.title || "Recommended Healthcare Software Services"}
+        services={activeRelatedServices}
       />
     </>
   );

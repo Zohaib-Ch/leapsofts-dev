@@ -9,6 +9,8 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENTS TO MEDIA INNOVATION",
@@ -91,15 +93,13 @@ const streamlineDescription = [
   { text: "and monetization model.", bold: false },
 ];
 
-const title = "Media & Entertainment Software Development, Low-Latency Streaming & Digital Rights";
+const title = "Media & Entertainment Software Development & Streaming Platforms";
 const subtitle = "";
 const introDescription = [
   { text: "We deliver full-scale ", bold: false },
   { text: "entertainment software development services, low-latency media streaming platforms, and digital rights management (DRM) architectures ", bold: true },
   { text: "engineered for global content reach. By building multi-bitrate HLS/DASH video pipelines, server-side ad insertions (SSAI), and esports portals, we help media companies scale audience engagement.", bold: false }
 ];
-
-import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 export async function loader() {
   const sanityData = await getSanityIndustryBySlug('entertainment');
@@ -109,21 +109,19 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Entertainment Software Development Services | Leapsofts",
-    defaultDescription: "Custom media & entertainment software — streaming platforms, content management & audience engagement tools. Leapsofts builds digital entertainment solutions.",
-    defaultKeywords: "entertainment software development, media software company, streaming platform development, content management software",
+    defaultTitle: "Media & Entertainment Software Development | Streaming & DRM | Leapsofts",
+    defaultDescription: "Leapsofts engineers custom media & entertainment software, low-latency 4K HLS/DASH streaming platforms, Widevine DRM security, and server-side ad insertion (SSAI).",
+    defaultKeywords: "entertainment software development, media software company, streaming platform development, drm media security, low latency streaming software, ssai ad insertion",
     canonicalUrl: "https://www.leapsofts.com/industries/entertainment",
   });
 }
-
-
 
 const Entertainment: React.FC = () => {
   const { data } = useIndustryPage('entertainment');
 
   const schemaData = buildServiceSchema({
-    name: "Entertainment Software Development Services",
-    description: "Custom media & entertainment software — streaming platforms, content management & audience engagement tools.",
+    name: "Media & Entertainment Software Development",
+    description: "Leapsofts engineers custom media & entertainment software, low-latency 4K HLS/DASH streaming platforms, Widevine DRM security, and server-side ad insertion (SSAI).",
     canonicalUrl: "https://www.leapsofts.com/industries/entertainment",
     faqs: data?.faqs,
   });
@@ -167,49 +165,60 @@ const Entertainment: React.FC = () => {
     });
   }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
+  const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
+    ? data.relatedServices.items
+    : [
+        {
+          title: "Web App Development",
+          description: "Build custom high-concurrency media portals and streaming web interfaces.",
+          link: "/services/web-app-development"
+        },
+        {
+          title: "Mobile App Development",
+          description: "Engineer native iOS & Android video and audio streaming mobile apps.",
+          link: "/services/mobile-app-development"
+        },
+        {
+          title: "Cloud Engineering & Infrastructure",
+          description: "Architect global CDN distribution and serverless transcoding pipelines.",
+          link: "/services/cloud-engineering"
+        }
+      ];
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
-        titleMain={data?.strategyCTA?.titleMain || "Software "}
-        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
-        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Captivate your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "digital audience"}
+        titleEnd={data?.strategyCTA?.titleEnd || " with a robust platform."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Media Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <EmergingTech data={activeSolutionsData} />
       <Services
-        label="OUR CAPABILITIES"
-        titleMain="How we "
-        titleAccent="empower"
-        titleEnd=" entertainment businesses"
+        label={data?.servicesSection?.label || "OUR CAPABILITIES"}
+        titleMain={data?.servicesSection?.titleMain || "How we "}
+        titleAccent={data?.servicesSection?.titleAccent || "empower"}
+        titleEnd={data?.servicesSection?.titleEnd || " entertainment businesses"}
+      />
+      <FAQs
+        title="Entertainment & Media Software FAQ"
+        subtitle="Common questions about low-latency streaming, DRM content protection, SSAI ad insertion, and esports portals."
+        faqs={data?.faqs} items={data?.faqs}
       />
       <RelatedServices
-        services={[
-          {
-            title: "Web App Development",
-            description: "Build custom high-concurrency media portals and streaming web interfaces.",
-            link: "/services/web-app-development"
-          },
-          {
-            title: "Mobile App Development",
-            description: "Engineer native iOS & Android video and audio streaming mobile apps.",
-            link: "/services/mobile-app-development"
-          },
-          {
-            title: "Cloud Engineering & Infrastructure",
-            description: "Architect global CDN distribution and serverless transcoding pipelines.",
-            link: "/services/cloud-engineering"
-          }
-        ]}
+        title={data?.relatedServices?.title || "Recommended Media Software Services"}
+        services={activeRelatedServices}
       />
     </>
   );
 };
 
 export default Entertainment;
+

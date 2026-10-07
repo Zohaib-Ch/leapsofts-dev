@@ -9,10 +9,12 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENTS TO REAL ESTATE LEADERS",
-  title: "Tailored for Build, Buy, and Scale",
+  title: "Tailored for Build, Buy, and Scale Property Operations",
   items: [
     {
       icon: '/industryicons/sphere.svg',
@@ -91,15 +93,13 @@ const streamlineDescription = [
   { text: "and increase resident satisfaction.", bold: false },
 ];
 
-const title = "Real Estate Software Development, PropTech Solutions & Property Management Systems";
+const title = "Real Estate Software Development Services & PropTech Solutions";
 const subtitle = "";
 const introDescription = [
   { text: "We deliver full-spectrum ", bold: false },
   { text: "real estate software development, PropTech software solutions, and property management systems ", bold: true },
   { text: "engineered for asset managers, real estate agencies, and property developers. By deploying automated lease execution paths, tenant portal mobile apps, and smart building IoT bridges, we optimize property yields and occupancy.", bold: false }
 ];
-
-import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 export async function loader() {
   const sanityData = await getSanityIndustryBySlug('real-estate');
@@ -109,21 +109,19 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Real Estate Software Development Services | Leapsofts",
-    defaultDescription: "Custom real estate software — property listing platforms, CRM & investment analytics tools. Leapsofts builds proptech solutions for modern agencies. Get a quote.",
-    defaultKeywords: "real estate software development, proptech software company, property management software, MLS integration",
+    defaultTitle: "Real Estate Software Development Services & PropTech | Leapsofts",
+    defaultDescription: "Leapsofts engineers custom real estate software, property management platforms, MLS RETS/RESO Web API integrations, and tenant portal mobile apps.",
+    defaultKeywords: "real estate software development, proptech software company, property management software, mls integration software, tenant portal mobile app, reso web api integration",
     canonicalUrl: "https://www.leapsofts.com/industries/real-estate",
   });
 }
-
-
 
 const RealEstate: React.FC = () => {
   const { data } = useIndustryPage('real-estate');
 
   const schemaData = buildServiceSchema({
-    name: "Real Estate Software Development Services",
-    description: "Custom real estate software — property listing platforms, CRM & investment analytics tools.",
+    name: "Real Estate Software Development Services & PropTech",
+    description: "Leapsofts engineers custom real estate software, property management platforms, MLS RETS/RESO Web API integrations, and tenant portal mobile apps.",
     canonicalUrl: "https://www.leapsofts.com/industries/real-estate",
     faqs: data?.faqs,
   });
@@ -167,49 +165,60 @@ const RealEstate: React.FC = () => {
     });
   }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
+  const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
+    ? data.relatedServices.items
+    : [
+        {
+          title: "Web App Development",
+          description: "Engineer custom property listing portals and tenant management dashboards.",
+          link: "/services/web-app-development"
+        },
+        {
+          title: "Mobile App Development",
+          description: "Build iOS & Android mobile apps for tenant maintenance requests and digital keys.",
+          link: "/services/mobile-app-development"
+        },
+        {
+          title: "Custom Software Development",
+          description: "Build tailored MLS integrations, lease execution engines, and HOA portals.",
+          link: "/services/custom-software-development"
+        }
+      ];
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
-        titleMain={data?.strategyCTA?.titleMain || "Software "}
-        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
-        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Transform your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "property portfolio"}
+        titleEnd={data?.strategyCTA?.titleEnd || " with a robust foundation."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Real Estate Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <EmergingTech data={activeSolutionsData} />
       <Services
-        label="OUR CAPABILITIES"
-        titleMain="How we "
-        titleAccent="empower"
-        titleEnd=" real estate businesses"
+        label={data?.servicesSection?.label || "OUR CAPABILITIES"}
+        titleMain={data?.servicesSection?.titleMain || "How we "}
+        titleAccent={data?.servicesSection?.titleAccent || "empower"}
+        titleEnd={data?.servicesSection?.titleEnd || " real estate businesses"}
+      />
+      <FAQs
+        title="Real Estate & PropTech Software FAQ"
+        subtitle="Common questions about RESO Web API MLS integration, automated lease signing, tenant mobile apps, and smart building IoT."
+        faqs={data?.faqs} items={data?.faqs}
       />
       <RelatedServices
-        services={[
-          {
-            title: "Web App Development",
-            description: "Engineer custom property listing portals and tenant management dashboards.",
-            link: "/services/web-app-development"
-          },
-          {
-            title: "Mobile App Development",
-            description: "Build iOS & Android mobile apps for tenant maintenance requests and digital keys.",
-            link: "/services/mobile-app-development"
-          },
-          {
-            title: "Custom Software Development",
-            description: "Build tailored MLS integrations, lease execution engines, and HOA portals.",
-            link: "/services/custom-software-development"
-          }
-        ]}
+        title={data?.relatedServices?.title || "Recommended PropTech Software Services"}
+        services={activeRelatedServices}
       />
     </>
   );
 };
 
 export default RealEstate;
+

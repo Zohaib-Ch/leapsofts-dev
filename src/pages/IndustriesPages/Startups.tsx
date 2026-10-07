@@ -4,13 +4,13 @@ import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
 import IntroComponent from '../../components/IntroComponent/IntroComponent';
-import CommitmentSection from '../../components/CommitmentSection/CommitmentSection';
-import { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
+import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
-import EmergingTech from '../../components/EmergingTech/EmergingTech';
-import { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
+import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
+import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO STARTUPS",
@@ -29,7 +29,7 @@ const commitmentData: CommitmentSectionProps['data'] = {
     {
       icon: '/industryicons/diamond.svg',
       title: 'Continuous Technical Innovation',
-      description: "Serving as your strategic engineering partner to rapidly inject advanced AI features, LLM workflows, and web3 technologies directly into your core product."
+      description: "Serving as your strategic engineering partner to rapidly inject advanced AI features, LLM workflows, and Web3 technologies directly into your core product."
     }
   ]
 };
@@ -93,15 +93,13 @@ const streamlineDescription = [
   { text: "and long-term scaling strategy.", bold: false },
 ];
 
-const title = "Startup Software Development, Rapid MVP Delivery & CTO-as-a-Service";
+const title = "Startup Software Development Services, Rapid MVP Delivery & CTO-as-a-Service";
 const subtitle = "";
 const introDescription = [
   { text: "At Leapsofts, we act as a high-velocity ", bold: false },
   { text: "startup engineering partner, MVP delivery engine, and technical scaling strategist ", bold: true },
   { text: "designed to take disruptive ideas to market in record time. By establishing rapid prototyping sandboxes, designing cost-efficient serverless infrastructures, and building pitch-perfect interactive demonstrations, we provide early-stage and high-growth startups with the technical agility required to validate ideas and secure investor funding.", bold: false }
 ];
-
-import { getSanityIndustryBySlug } from '../../sanity/queries';
 
 export async function loader() {
   const sanityData = await getSanityIndustryBySlug('startups');
@@ -111,21 +109,19 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Software Development for Startups | Leapsofts",
-    defaultDescription: "Launch your startup MVP in 3-5 months with Leapsofts. Expert custom software engineering, product strategy & scalable architecture for venture-backed teams.",
-    defaultKeywords: "software development for startups, startup MVP development, tech startup software company, MVP developers for startups",
+    defaultTitle: "Software Development for Startups & Rapid MVP Delivery | Leapsofts",
+    defaultDescription: "Launch your startup MVP in 3-5 months with Leapsofts. Custom software engineering, CTO-as-a-Service, serverless architecture & pitch-ready demos for founders.",
+    defaultKeywords: "software development for startups, startup mvp development, tech startup software company, cto as a service, mvp developers for startups, saas startup engineering",
     canonicalUrl: "https://www.leapsofts.com/industries/startups",
   });
 }
-
-
 
 const Startups: React.FC = () => {
   const { data } = useIndustryPage('startups');
 
   const schemaData = buildServiceSchema({
-    name: "Software Development for Startups",
-    description: "Launch your startup MVP in 3-5 months with Leapsofts.",
+    name: "Software Development for Startups & Rapid MVP Delivery",
+    description: "Launch your startup MVP in 3-5 months with Leapsofts. Custom software engineering, CTO-as-a-Service, serverless architecture & pitch-ready demos for founders.",
     canonicalUrl: "https://www.leapsofts.com/industries/startups",
     faqs: data?.faqs,
   });
@@ -169,50 +165,60 @@ const Startups: React.FC = () => {
     });
   }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
+  const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
+    ? data.relatedServices.items
+    : [
+        {
+          title: "Proof of Concept & MVP Development",
+          description: "Launch your validated product in 3-5 months with zero compromise on scalability.",
+          link: "/services/proof-of-concept-development"
+        },
+        {
+          title: "Custom Web App Development",
+          description: "Build high-performance SaaS web applications designed for rapid investor scaling.",
+          link: "/services/web-app-development"
+        },
+        {
+          title: "Dedicated Development Teams",
+          description: "Scale your engineering capacity instantly with embedded senior developers.",
+          link: "/services/dedicated-teams"
+        }
+      ];
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
-        titleMain={data?.strategyCTA?.titleMain || "Software "}
-        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
-        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Launch your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "startup vision"}
+        titleEnd={data?.strategyCTA?.titleEnd || " with custom engineering."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonText={data?.strategyCTA?.buttonText || "Claim Startup Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <EmergingTech data={activeSolutionsData} />
       <Services
-        label="OUR CAPABILITIES"
-        titleMain="How we "
-        titleAccent="empower"
-        titleEnd=" disruptive startups"
+        label={data?.servicesSection?.label || "OUR CAPABILITIES"}
+        titleMain={data?.servicesSection?.titleMain || "How we "}
+        titleAccent={data?.servicesSection?.titleAccent || "empower"}
+        titleEnd={data?.servicesSection?.titleEnd || " disruptive startups"}
+      />
+      <FAQs
+        title="Startup Software Development FAQ"
+        subtitle="Common questions about MVP delivery timelines, CTO-as-a-Service, IP ownership, and serverless scaling."
+        faqs={data?.faqs} items={data?.faqs}
       />
       <RelatedServices
-        title="Recommended Services for Startups"
-        services={[
-          {
-            title: "Proof of Concept & MVP Development",
-            description: "Launch your validated product in 3-5 months with zero compromise on scalability.",
-            link: "/services/proof-of-concept-development"
-          },
-          {
-            title: "Custom Web App Development",
-            description: "Build high-performance SaaS web applications designed for rapid investor scaling.",
-            link: "/services/web-app-development"
-          },
-          {
-            title: "Dedicated Development Teams",
-            description: "Scale your engineering capacity instantly with embedded senior developers.",
-            link: "/services/dedicated-teams"
-          }
-        ]}
+        title={data?.relatedServices?.title || "Recommended Services for Startups"}
+        services={activeRelatedServices}
       />
     </>
   );
 };
 
 export default Startups;
+

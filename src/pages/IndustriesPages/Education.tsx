@@ -9,6 +9,7 @@ import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import Services from '../Home/CompanyServices/Services';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
+import FAQs from '../../components/FAQs/FAQs';
 
 const commitmentData: CommitmentSectionProps['data'] = {
   subtitle: "OUR COMMITMENT TO EDUCATIONAL INSTITUTIONS",
@@ -119,7 +120,7 @@ export function meta({ data }: { data?: any }) {
 
 
 const Education: React.FC = () => {
-  const { data } = useIndustryPage('education');
+  const { data } = useIndustryPage('edtech');
 
   const schemaData = buildServiceSchema({
     name: "EdTech Software Development Services",
@@ -167,46 +168,56 @@ const Education: React.FC = () => {
     });
   }, [setProcessTitle, processTitleMain, processTitleAccent]);
 
+  const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
+    ? data.relatedServices.items
+    : [
+        {
+          title: "Web App Development",
+          description: "Build custom multi-tenant LMS portals and interactive student dashboards.",
+          link: "/services/web-app-development"
+        },
+        {
+          title: "Mobile App Development",
+          description: "Engineer native iOS & Android mobile learning applications.",
+          link: "/services/mobile-app-development"
+        },
+        {
+          title: "Data Science & AI Solutions",
+          description: "Integrate predictive student progress analytics and NLP tutoring bots.",
+          link: "/services/data-science-ai"
+        }
+      ];
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
-        label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}
-        titleMain={data?.strategyCTA?.titleMain || "Software "}
-        titleAccent={data?.strategyCTA?.titleAccent || "Strategy"}
-        titleEnd={data?.strategyCTA?.titleEnd || " Session"}
+        label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}
+        titleMain={data?.strategyCTA?.titleMain || "Transform your "}
+        titleAccent={data?.strategyCTA?.titleAccent || "EdTech"}
+        titleEnd={data?.strategyCTA?.titleEnd || " learning platform."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
+        buttonText={data?.strategyCTA?.buttonText || "Claim EdTech Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.png"}
+        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
       />
       <EmergingTech data={activeSolutionsData} />
       <Services
-        label="OUR CAPABILITIES"
-        titleMain="How we "
-        titleAccent="empower"
-        titleEnd=" educational institutions"
+        label={data?.servicesSection?.label || "OUR CAPABILITIES"}
+        titleMain={data?.servicesSection?.titleMain || "How we "}
+        titleAccent={data?.servicesSection?.titleAccent || "empower"}
+        titleEnd={data?.servicesSection?.titleEnd || " educational institutions"}
+      />
+      <FAQs
+        title="EdTech & Learning Platforms FAQ"
+        subtitle="Common questions about FERPA/COPPA compliance, custom LMS standards (LTI 1.3/SCORM), AI adaptive learning engines, and online proctoring security."
+        faqs={data?.faqs} items={data?.faqs}
       />
       <RelatedServices
-        services={[
-          {
-            title: "Web App Development",
-            description: "Build custom multi-tenant LMS portals and interactive student dashboards.",
-            link: "/services/web-app-development"
-          },
-          {
-            title: "Mobile App Development",
-            description: "Engineer native iOS & Android mobile learning applications.",
-            link: "/services/mobile-app-development"
-          },
-          {
-            title: "Data Science & AI Solutions",
-            description: "Integrate predictive student progress analytics and NLP tutoring bots.",
-            link: "/services/data-science-ai"
-          }
-        ]}
+        title={data?.relatedServices?.title || "Recommended EdTech Software Services"}
+        services={activeRelatedServices}
       />
     </>
   );
