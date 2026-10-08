@@ -19,7 +19,6 @@ import Button from '../../components/Button/Button';
 import { useContactModal } from '../../context/ContactModalContext';
 import { getSanityTeamMembers } from '../../sanity/queries';
 import type { SanityTeamMember } from '../../sanity/types';
-import styles from './Leadership.module.css';
 
 const ribbonData = [
   {

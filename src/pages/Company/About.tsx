@@ -189,7 +189,6 @@ export { DEFAULT_ABOUT_PAGE_DATA };
 const About: React.FC = () => {
   const loaderData = useLoaderData<typeof loader>();
   const [activeTimeline, setActiveTimeline] = useState(0);
-  const [sanityData, setSanityData] = useState<SanityAboutPage | null>(null);
   const [sanityTeam, setSanityTeam] = useState<SanityTeamMember[] | null>(null);
   const { openContactModal } = useContactModal();
 

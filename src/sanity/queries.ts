@@ -132,12 +132,6 @@ export const CASE_STUDIES_PAGE_QUERY = `*[_type == "caseStudiesPage" && (_id == 
   ${SEO_FRAGMENT}
 }`;
 
-export const CASE_STUDIES_PAGE_QUERY = `*[_type == "caseStudiesPage" && (_id == "caseStudiesPage" || _id == "drafts.caseStudiesPage")] | order(_updatedAt desc)[0]{
-  hero,
-  cta,
-  seo
-}`;
-
 export const ALL_SERVICES_QUERY = `*[_type == "service"]{
   _id,
   title,
