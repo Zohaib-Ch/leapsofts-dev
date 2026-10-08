@@ -8,6 +8,8 @@ import { getSanityBlogs } from '../../sanity/queries';
 import type { SanityBlog } from '../../sanity/types';
 import styles from './BlogSection.module.css';
 
+// Dummy Pr
+
 const headerVariant: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
