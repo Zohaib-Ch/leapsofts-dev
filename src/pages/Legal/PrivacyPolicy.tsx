@@ -5,20 +5,14 @@ import styles from './PrivacyPolicy.module.css';
 import {
   ShieldCheck,
   Lock,
-  FileText,
   CheckCircle2,
-  Database,
-  Cpu,
-  Eye,
   Globe,
   Clock,
   Mail,
-  ExternalLink,
   ChevronRight,
   ArrowRight,
   Scale,
   Server,
-  Building2,
 } from 'lucide-react';
 
 export function meta() {

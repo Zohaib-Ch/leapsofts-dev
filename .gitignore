@@ -14,6 +14,7 @@ dist
 dist-ssr
 build/
 .react-router/
+.vercel/
 *.local
 
 # Editor directories and files
