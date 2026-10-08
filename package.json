@@ -5,14 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev --host",
-    "sitemap": "npx tsx scripts/generateSitemap.ts",
-    "build": "npx tsx scripts/generateSitemap.ts && react-router build",
+    "sitemap": "tsx scripts/generateSitemap.ts",
+    "build": "tsx scripts/generateSitemap.ts && react-router build",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
     "lint": "eslint ."
   },
   "dependencies": {
-    "@vercel/analytics": "^2.0.1",
     "@portabletext/react": "^8.0.1",
     "@react-router/fs-routes": "^8.4.0",
     "@react-router/node": "^8.4.0",
@@ -20,6 +19,7 @@
     "@sanity/client": "^8.6.2",
     "@sanity/image-url": "^2.1.1",
     "@sanity/vision": "^6.14.1",
+    "@vercel/analytics": "^2.0.1",
     "axios": "^1.13.3",
     "framer-motion": "^11.18.2",
     "isbot": "^5.2.2",
@@ -41,6 +41,7 @@
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@types/styled-components": "^5.1.34",
+    "@vercel/react-router": "^1.3.7",
     "@vitejs/plugin-react": "^5.1.1",
     "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.39.1",
@@ -50,6 +51,7 @@
     "sass-embedded": "^1.97.1",
     "sharp": "^0.35.4",
     "tailwindcss": "^4.1.18",
+    "tsx": "^4.23.15",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4"

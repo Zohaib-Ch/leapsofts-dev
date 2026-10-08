@@ -10,15 +10,11 @@ import {
   Settings2,
   CheckCircle2,
   Sliders,
-  ExternalLink,
   ChevronRight,
   Clock,
   Globe,
-  Mail,
   ArrowRight,
   Server,
-  FileText,
-  AlertCircle,
 } from 'lucide-react';
 
 export function meta() {
