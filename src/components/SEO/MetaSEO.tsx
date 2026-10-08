@@ -1,6 +1,9 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import * as HelmetPkg from 'react-helmet-async';
 import { useLocation } from 'react-router';
+
+const HelmetComponent: any = (HelmetPkg as any).Helmet || (HelmetPkg as any).default?.Helmet || (HelmetPkg as any).default;
+const Helmet = HelmetComponent;
 import type { SanitySEO } from '../../sanity/types';
 import { urlFor } from '../../sanity/image';
 

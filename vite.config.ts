@@ -14,6 +14,9 @@ export default defineConfig({
   optimizeDeps: {
     include: ['styled-components', 'sanity', '@sanity/vision'],
   },
+  ssr: {
+    noExternal: ['react-helmet-async'],
+  },
   build: {
     chunkSizeWarningLimit: 1500,
   },

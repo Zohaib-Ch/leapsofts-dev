@@ -16,7 +16,10 @@ import { ContactModalProvider } from "../src/context/ContactModalContext";
 import { ThemeProvider } from "../src/context/ThemeContext";
 import { CookieConsentProvider } from "../src/context/CookieConsentContext";
 import CookieBanner from "../src/components/CookieBanner/CookieBanner";
-import { HelmetProvider } from "react-helmet-async";
+import * as HelmetPkg from "react-helmet-async";
+
+const HelmetProviderComponent: any = (HelmetPkg as any).HelmetProvider || (HelmetPkg as any).default?.HelmetProvider || (HelmetPkg as any).default;
+const HelmetProvider = HelmetProviderComponent;
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
