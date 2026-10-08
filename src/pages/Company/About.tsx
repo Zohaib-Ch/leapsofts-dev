@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useLoaderData, Link } from 'react-router';
 import styles from './About.module.css';
 import { motion, type Variants } from 'framer-motion';
+//added
 import {
   Target,
   Compass,
