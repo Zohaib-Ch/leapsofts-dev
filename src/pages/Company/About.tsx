@@ -32,6 +32,7 @@ import { useContactModal } from '../../context/ContactModalContext';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityAboutPage, getSanityTeamMembers } from '../../sanity/queries';
 import type { SanityAboutPage, SanityTeamMember } from '../../sanity/types';
+import { DEFAULT_ABOUT_PAGE_DATA } from '../../data/companyFallback';
 
 const timelineData = [
   {
