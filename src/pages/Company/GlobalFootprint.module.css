@@ -107,7 +107,7 @@
   margin-right: auto;
 }
 
-/* Ribbon Highlights Grid */
+/* Ribbon Highlights Grid (Hero 4-Column Cards) */
 .ribbonGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -116,51 +116,107 @@
 }
 
 .ribbonCard {
-  background: var(--bg-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(20, 10, 30, 0.5) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 24px 16px;
+  border-radius: 18px;
+  padding: 26px 18px;
   text-align: center;
-  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, opacity 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+}
+
+.ribbonCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 121, 23, 0.5), rgba(168, 85, 247, 0.4), transparent);
+  opacity: 0.3;
+  transition: opacity 0.4s ease, left 0.4s ease, right 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ribbonCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: radial-gradient(400px circle at 50% 0%, rgba(255, 121, 23, 0.07), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .ribbonCard:hover {
   border-color: rgba(255, 121, 23, 0.4);
-  transform: translateY(-4px);
-  background: rgba(255, 255, 255, 0.05);
+  transform: translate3d(0, -6px, 0);
+  box-shadow: 0 20px 42px -10px rgba(0, 0, 0, 0.55), 0 0 25px -5px rgba(255, 121, 23, 0.12);
+}
+
+.ribbonCard:hover::before {
+  opacity: 1;
+  left: 6%;
+  right: 6%;
+}
+
+.ribbonCard:hover::after {
+  opacity: 1;
 }
 
 .ribbonIcon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgba(255, 121, 23, 0.1);
-  border: 1px solid rgba(255, 121, 23, 0.3);
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 121, 23, 0.18) 0%, rgba(168, 85, 247, 0.12) 100%);
+  border: 1px solid rgba(255, 121, 23, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-orange);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 14px rgba(255, 121, 23, 0.15);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.ribbonCard:hover .ribbonIcon {
+  transform: scale(1.08) rotate(3deg);
+  border-color: rgba(255, 121, 23, 0.55);
 }
 
 .ribbonTitle {
   font-size: 16px;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  position: relative;
+  z-index: 2;
 }
 
 .ribbonDesc {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.55);
+  position: relative;
+  z-index: 2;
 }
 
-/* Regional Hubs Grid (2 Columns) */
+/* Regional Delivery Centers (Hubs Grid 2-Column) */
 .hubsGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -168,22 +224,63 @@
 }
 
 .hubCard {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(18, 10, 28, 0.65) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.085);
   border-radius: 24px;
   padding: 2.5rem;
-  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, opacity 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
   position: relative;
   overflow: hidden;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 12px 35px -10px rgba(0, 0, 0, 0.45);
+}
+
+.hubCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 121, 23, 0.55), rgba(168, 85, 247, 0.45), transparent);
+  opacity: 0.35;
+  transition: opacity 0.4s ease, left 0.4s ease, right 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hubCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: radial-gradient(500px circle at 50% 0%, rgba(255, 121, 23, 0.08), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .hubCard:hover {
   border-color: rgba(255, 121, 23, 0.4);
-  transform: translateY(-6px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  transform: translate3d(0, -6px, 0);
+  box-shadow: 0 22px 48px -10px rgba(0, 0, 0, 0.6), 0 0 25px -5px rgba(255, 121, 23, 0.12);
+}
+
+.hubCard:hover::before {
+  opacity: 1;
+  left: 4%;
+  right: 4%;
+}
+
+.hubCard:hover::after {
+  opacity: 1;
 }
 
 .hubBadge {
@@ -192,111 +289,187 @@
   font-size: 12px;
   font-weight: 700;
   color: var(--color-orange);
-  background: rgba(255, 121, 23, 0.1);
-  border: 1px solid rgba(255, 121, 23, 0.25);
-  padding: 0.35rem 0.85rem;
+  background: rgba(255, 121, 23, 0.12);
+  border: 1px solid rgba(255, 121, 23, 0.3);
+  padding: 0.35rem 0.95rem;
   border-radius: 9999px;
+  text-transform: uppercase;
   letter-spacing: 1.5px;
   margin-bottom: 1.25rem;
-  text-transform: uppercase;
+  width: fit-content;
+  position: relative;
+  z-index: 2;
   word-break: break-word;
 }
 
 .hubTitle {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
 }
 
 .hubText {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.75);
   font-size: 15px;
-  line-height: 1.65;
+  line-height: 1.7;
   margin-bottom: 1.75rem;
+  position: relative;
+  z-index: 2;
 }
 
 .hubList {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.95rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 1.5rem;
+  position: relative;
+  z-index: 2;
 }
 
 .hubListItem {
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: 0.85rem;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.85);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .hubListCheck {
   color: var(--color-orange);
   flex-shrink: 0;
   margin-top: 3px;
+  width: 18px;
+  height: 18px;
 }
 
 /* Compliance Grid (4 Columns) */
 .complianceGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 24px;
 }
 
 .complianceCard {
-  background: var(--bg-card);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(20, 10, 30, 0.5) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  padding: 2rem 1.5rem;
+  border-radius: 22px;
+  padding: 2.25rem 1.65rem;
   text-align: left;
-  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, opacity 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+}
+
+.complianceCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 121, 23, 0.5), rgba(168, 85, 247, 0.4), transparent);
+  opacity: 0.3;
+  transition: opacity 0.4s ease, left 0.4s ease, right 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.complianceCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background: radial-gradient(400px circle at 50% 0%, rgba(255, 121, 23, 0.07), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .complianceCard:hover {
   border-color: rgba(255, 121, 23, 0.4);
-  transform: translateY(-4px);
-  background: rgba(255, 255, 255, 0.05);
+  transform: translate3d(0, -6px, 0);
+  box-shadow: 0 20px 42px -10px rgba(0, 0, 0, 0.55), 0 0 25px -5px rgba(255, 121, 23, 0.12);
+}
+
+.complianceCard:hover::before {
+  opacity: 1;
+  left: 5%;
+  right: 5%;
+}
+
+.complianceCard:hover::after {
+  opacity: 1;
 }
 
 .complianceIcon {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   border-radius: 14px;
-  background: rgba(255, 121, 23, 0.1);
-  border: 1px solid rgba(255, 121, 23, 0.3);
+  background: linear-gradient(135deg, rgba(255, 121, 23, 0.18) 0%, rgba(168, 85, 247, 0.12) 100%);
+  border: 1px solid rgba(255, 121, 23, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-orange);
   margin-bottom: 1.25rem;
+  box-shadow: 0 4px 14px rgba(255, 121, 23, 0.15);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.complianceCard:hover .complianceIcon {
+  transform: scale(1.08) rotate(3deg);
+  border-color: rgba(255, 121, 23, 0.55);
 }
 
 .complianceName {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 0.35rem;
+  position: relative;
+  z-index: 2;
 }
 
 .complianceTag {
+  display: inline-block;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 600;
   color: var(--color-orange);
-  letter-spacing: 1px;
-  margin-bottom: 1rem;
+  background: rgba(255, 121, 23, 0.1);
+  border: 1px solid rgba(255, 121, 23, 0.25);
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.15rem;
+  position: relative;
+  z-index: 2;
 }
 
 .complianceDesc {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.65);
-  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.65;
+  position: relative;
+  z-index: 2;
 }
 
 /* Security Standards Grid (4 Columns) */
@@ -307,61 +480,117 @@
 }
 
 .securityCard {
-  background: var(--bg-card);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(20, 10, 30, 0.5) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 1.75rem 1.25rem;
+  border-radius: 20px;
+  padding: 2rem 1.4rem;
   text-align: center;
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+}
+
+.securityCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 121, 23, 0.5), rgba(168, 85, 247, 0.4), transparent);
+  opacity: 0.3;
+  transition: opacity 0.4s ease, left 0.4s ease, right 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.securityCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: radial-gradient(400px circle at 50% 0%, rgba(255, 121, 23, 0.07), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .securityCard:hover {
   border-color: rgba(255, 121, 23, 0.4);
-  transform: translateY(-4px);
-  background: rgba(255, 255, 255, 0.05);
+  transform: translate3d(0, -6px, 0);
+  box-shadow: 0 20px 42px -10px rgba(0, 0, 0, 0.55), 0 0 25px -5px rgba(255, 121, 23, 0.12);
+}
+
+.securityCard:hover::before {
+  opacity: 1;
+  left: 6%;
+  right: 6%;
+}
+
+.securityCard:hover::after {
+  opacity: 1;
 }
 
 .securityIcon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: rgba(255, 121, 23, 0.1);
-  border: 1px solid rgba(255, 121, 23, 0.3);
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 121, 23, 0.18) 0%, rgba(168, 85, 247, 0.12) 100%);
+  border: 1px solid rgba(255, 121, 23, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-orange);
-  margin: 0 auto 1rem;
+  margin: 0 auto 1.25rem;
+  box-shadow: 0 4px 14px rgba(255, 121, 23, 0.15);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.securityCard:hover .securityIcon {
+  transform: scale(1.08) rotate(3deg);
+  border-color: rgba(255, 121, 23, 0.55);
 }
 
 .securityTitle {
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.65rem;
+  position: relative;
+  z-index: 2;
 }
 
 .securityDesc {
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 13px;
-  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13.5px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 2;
 }
 
 /* Breadcrumb Navigation */
 .breadcrumbs {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 100px 20px 0;
+  padding: 30px 20px 0;
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.5);
-  font-family: var(--font-sans);
 }
 
 .breadcrumbs a {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -376,10 +605,9 @@
 
 .breadcrumbCurrent {
   color: var(--color-orange);
-  font-weight: 500;
 }
 
-/* Service Links Grid */
+/* Service Links Grid (3 Columns) */
 .serviceGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -394,33 +622,78 @@
 }
 
 .serviceCard {
-  background: rgba(18, 14, 26, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(18, 10, 28, 0.65) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  border-radius: 22px;
   padding: 2.25rem;
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   display: flex;
   flex-direction: column;
   height: 100%;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+}
+
+.serviceCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 121, 23, 0.55), rgba(168, 85, 247, 0.45), transparent);
+  opacity: 0.35;
+  transition: opacity 0.4s ease, left 0.4s ease, right 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.serviceCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background: radial-gradient(400px circle at 50% 0%, rgba(255, 121, 23, 0.08), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .serviceCard:hover {
-  background: rgba(32, 22, 48, 0.95);
   border-color: rgba(255, 121, 23, 0.4);
-  transform: translateY(-6px);
-  box-shadow: 0 20px 45px rgba(255, 121, 23, 0.15);
+  transform: translate3d(0, -6px, 0);
+  box-shadow: 0 22px 48px -10px rgba(0, 0, 0, 0.6), 0 0 25px -5px rgba(255, 121, 23, 0.12);
+}
+
+.serviceCard:hover::before {
+  opacity: 1;
+  left: 4%;
+  right: 4%;
+}
+
+.serviceCard:hover::after {
+  opacity: 1;
 }
 
 .serviceTag {
   align-self: flex-start;
   font-family: var(--font-mono);
   font-size: 11px;
+  font-weight: 600;
   color: var(--color-orange);
   background: rgba(255, 121, 23, 0.1);
   border: 1px solid rgba(255, 121, 23, 0.25);
   padding: 4px 10px;
-  border-radius: 12px;
+  border-radius: 8px;
   margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
 }
 
 .serviceName {
@@ -431,11 +704,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  z-index: 2;
 }
 
 .serviceArrow {
   color: var(--color-orange);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .serviceCard:hover .serviceArrow {
@@ -446,6 +721,8 @@
   font-size: 15px;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.6;
+  position: relative;
+  z-index: 2;
 }
 
 /* FAQ Accordion Section */
@@ -458,16 +735,27 @@
 }
 
 .faqItem {
-  background: rgba(18, 14, 26, 0.85);
+  background: linear-gradient(145deg, rgba(22, 16, 32, 0.75) 0%, rgba(13, 9, 20, 0.85) 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.faqItem:hover {
+  border-color: rgba(255, 121, 23, 0.35);
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.4);
 }
 
 .faqItemActive {
-  border-color: rgba(255, 121, 23, 0.4);
-  background: rgba(26, 20, 38, 0.95);
+  border-color: rgba(255, 121, 23, 0.45);
+  background: linear-gradient(145deg, rgba(28, 20, 42, 0.95) 0%, rgba(16, 11, 25, 0.98) 100%);
+  box-shadow: 0 12px 32px -6px rgba(0, 0, 0, 0.45), 0 0 20px -5px rgba(255, 121, 23, 0.08);
 }
 
 .faqQuestion {
@@ -528,6 +816,12 @@
   word-break: break-word;
 }
 
+.ctaTitle em {
+  font-style: italic;
+  font-family: serif;
+  color: var(--color-orange);
+}
+
 .ctaSub {
   color: rgba(255, 255, 255, 0.8);
   font-size: 18px;
@@ -543,137 +837,8 @@
   flex-wrap: wrap;
 }
 
-/* Responsive Breakpoints */
-@media (max-width: 1024px) {
-  .section {
-    padding: 80px 20px;
-  }
-  .sectionHeader {
-    margin-bottom: 45px;
-  }
-  .heroTitle {
-    font-size: 44px;
-  }
-  .title {
-    font-size: 38px;
-  }
-  .ribbonGrid,
-  .complianceGrid,
-  .securityGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .hubsGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .section {
-    padding: 60px 16px;
-  }
-  .sectionHeader {
-    margin-bottom: 35px;
-  }
-  .hero {
-    padding: 100px 16px 50px;
-  }
-  .heroTitle {
-    font-size: 34px;
-    line-height: 1.2;
-    margin-bottom: 16px;
-  }
-  .heroSub {
-    font-size: 16px;
-    margin-bottom: 35px;
-  }
-  .title {
-    font-size: 30px;
-    margin-bottom: 14px;
-  }
-  .subtitle {
-    font-size: 15px;
-  }
-  .ribbonGrid,
-  .complianceGrid,
-  .securityGrid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  .hubCard {
-    padding: 1.75rem 1.25rem;
-  }
-  .complianceCard,
-  .securityCard {
-    padding: 1.5rem 1.25rem;
-  }
-  .ctaBox {
-    padding: 3rem 1.5rem;
-  }
-  .ctaTitle {
-    font-size: 28px;
-  }
-  .ctaSub {
-    font-size: 15px;
-    margin-bottom: 1.75rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero {
-    padding: 90px 12px 35px;
-  }
-  .heroTitle {
-    font-size: 26px;
-    line-height: 1.25;
-  }
-  .heroSub {
-    font-size: 14px;
-  }
-  .label {
-    font-size: 12px;
-    margin-bottom: 12px;
-  }
-  .title {
-    font-size: 24px;
-  }
-  .subtitle {
-    font-size: 14px;
-  }
-  .hubCard {
-    padding: 1.35rem 1rem;
-    border-radius: 18px;
-  }
-  .hubTitle {
-    font-size: 20px;
-  }
-  .complianceCard,
-  .securityCard {
-    padding: 1.35rem 1rem;
-    border-radius: 16px;
-  }
-  .ctaBox {
-    padding: 2.25rem 1rem;
-    border-radius: 20px;
-  }
-  .ctaTitle {
-    font-size: 22px;
-  }
-  .ctaBtnWrapper {
-    width: 100%;
-  }
-}
-
-@media (max-width: 360px) {
-  .heroTitle {
-    font-size: 22px;
-  }
-  .title {
-    font-size: 20px;
-  }
-}
-
 /* ==========================================================================
-   Light Mode Theme Overrides
+   LIGHT MODE OVERRIDES
    ========================================================================== */
 :global([data-theme="light"]) .globalPage {
   background-color: #ffffff;
@@ -681,11 +846,15 @@
 }
 
 :global([data-theme="light"]) .hero {
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 60%, #ffffff 100%);
+  background: linear-gradient(180deg, #f8f6fb 0%, #ede6f5 60%, #f8f6fb 100%);
 }
 
 :global([data-theme="light"]) .heroGlow {
-  background: radial-gradient(circle, rgba(255, 121, 23, 0.08) 0%, rgba(198, 60, 146, 0.04) 50%, transparent 70%);
+  background: radial-gradient(circle, rgba(234, 88, 12, 0.12) 0%, rgba(168, 85, 247, 0.08) 50%, transparent 70%);
+}
+
+:global([data-theme="light"]) .label {
+  color: #ea580c;
 }
 
 :global([data-theme="light"]) .heroTitle,
@@ -693,21 +862,43 @@
   color: #0f172a;
 }
 
+:global([data-theme="light"]) .heroTitle em,
+:global([data-theme="light"]) .title em {
+  color: #ea580c;
+}
+
 :global([data-theme="light"]) .heroSub,
 :global([data-theme="light"]) .subtitle {
   color: #475569;
 }
 
+/* Ribbon Cards - Light */
 :global([data-theme="light"]) .ribbonCard {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  background: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%);
+  border: 1px solid rgba(147, 51, 234, 0.12);
+  box-shadow: 0 8px 24px -6px rgba(147, 51, 234, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .ribbonCard::before {
+  background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.6), rgba(147, 51, 234, 0.5), transparent);
+  opacity: 0.4;
+}
+
+:global([data-theme="light"]) .ribbonCard::after {
+  background: radial-gradient(400px circle at 50% 0%, rgba(234, 88, 12, 0.06), transparent 70%);
 }
 
 :global([data-theme="light"]) .ribbonCard:hover {
-  background: #faf5ff;
+  background: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%);
   border-color: rgba(234, 88, 12, 0.4);
-  box-shadow: 0 10px 25px rgba(234, 88, 12, 0.08);
+  box-shadow: 0 20px 40px -10px rgba(147, 51, 234, 0.14), 0 4px 14px rgba(234, 88, 12, 0.1);
+}
+
+:global([data-theme="light"]) .ribbonIcon {
+  background: linear-gradient(135deg, rgba(234, 88, 12, 0.12) 0%, rgba(147, 51, 234, 0.08) 100%);
+  border: 1px solid rgba(234, 88, 12, 0.28);
+  color: #ea580c;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.1);
 }
 
 :global([data-theme="light"]) .ribbonTitle {
@@ -718,15 +909,32 @@
   color: #64748b;
 }
 
+/* Hub Cards - Light */
 :global([data-theme="light"]) .hubCard {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  background: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%);
+  border: 1px solid rgba(147, 51, 234, 0.14);
+  box-shadow: 0 12px 35px -10px rgba(147, 51, 234, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .hubCard::before {
+  background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.65), rgba(147, 51, 234, 0.55), transparent);
+  opacity: 0.5;
+}
+
+:global([data-theme="light"]) .hubCard::after {
+  background: radial-gradient(500px circle at 50% 0%, rgba(234, 88, 12, 0.07), transparent 70%);
 }
 
 :global([data-theme="light"]) .hubCard:hover {
-  border-color: rgba(234, 88, 12, 0.4);
-  box-shadow: 0 16px 40px rgba(234, 88, 12, 0.1);
+  background: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%);
+  border-color: rgba(234, 88, 12, 0.45);
+  box-shadow: 0 22px 48px -10px rgba(147, 51, 234, 0.16), 0 6px 16px rgba(234, 88, 12, 0.1);
+}
+
+:global([data-theme="light"]) .hubBadge {
+  color: #ea580c;
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.25);
 }
 
 :global([data-theme="light"]) .hubTitle {
@@ -745,35 +953,80 @@
   color: #334155;
 }
 
+:global([data-theme="light"]) .hubListCheck {
+  color: #ea580c;
+}
+
+/* Compliance Cards - Light */
 :global([data-theme="light"]) .complianceCard {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  background: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%);
+  border: 1px solid rgba(147, 51, 234, 0.14);
+  box-shadow: 0 10px 30px -8px rgba(147, 51, 234, 0.07), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .complianceCard::before {
+  background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.6), rgba(147, 51, 234, 0.5), transparent);
+  opacity: 0.45;
+}
+
+:global([data-theme="light"]) .complianceCard::after {
+  background: radial-gradient(400px circle at 50% 0%, rgba(234, 88, 12, 0.06), transparent 70%);
 }
 
 :global([data-theme="light"]) .complianceCard:hover {
-  background: #faf5ff;
-  border-color: rgba(234, 88, 12, 0.4);
-  box-shadow: 0 12px 30px rgba(234, 88, 12, 0.08);
+  background: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%);
+  border-color: rgba(234, 88, 12, 0.45);
+  box-shadow: 0 20px 42px -10px rgba(147, 51, 234, 0.15), 0 6px 16px rgba(234, 88, 12, 0.1);
+}
+
+:global([data-theme="light"]) .complianceIcon {
+  background: linear-gradient(135deg, rgba(234, 88, 12, 0.12) 0%, rgba(147, 51, 234, 0.08) 100%);
+  border: 1px solid rgba(234, 88, 12, 0.28);
+  color: #ea580c;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.1);
 }
 
 :global([data-theme="light"]) .complianceName {
   color: #0f172a;
 }
 
-:global([data-theme="light"]) .complianceDesc {
-  color: #64748b;
+:global([data-theme="light"]) .complianceTag {
+  color: #ea580c;
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.25);
 }
 
+:global([data-theme="light"]) .complianceDesc {
+  color: #475569;
+}
+
+/* Security Standards Cards - Light */
 :global([data-theme="light"]) .securityCard {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  background: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%);
+  border: 1px solid rgba(147, 51, 234, 0.12);
+  box-shadow: 0 8px 24px -6px rgba(147, 51, 234, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .securityCard::before {
+  background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.6), rgba(147, 51, 234, 0.5), transparent);
+  opacity: 0.4;
+}
+
+:global([data-theme="light"]) .securityCard::after {
+  background: radial-gradient(400px circle at 50% 0%, rgba(234, 88, 12, 0.06), transparent 70%);
 }
 
 :global([data-theme="light"]) .securityCard:hover {
-  background: #faf5ff;
+  background: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%);
   border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: 0 20px 40px -10px rgba(147, 51, 234, 0.14), 0 4px 14px rgba(234, 88, 12, 0.1);
+}
+
+:global([data-theme="light"]) .securityIcon {
+  background: linear-gradient(135deg, rgba(234, 88, 12, 0.12) 0%, rgba(147, 51, 234, 0.08) 100%);
+  border: 1px solid rgba(234, 88, 12, 0.28);
+  color: #ea580c;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.1);
 }
 
 :global([data-theme="light"]) .securityTitle {
@@ -784,28 +1037,49 @@
   color: #64748b;
 }
 
-:global([data-theme="light"]) .breadcrumbs {
+/* Breadcrumbs - Light */
+:global([data-theme="light"]) .breadcrumbs a {
   color: #64748b;
 }
 
-:global([data-theme="light"]) .breadcrumbs a {
-  color: #475569;
+:global([data-theme="light"]) .breadcrumbs a:hover {
+  color: #ea580c;
 }
 
 :global([data-theme="light"]) .breadcrumbSeparator {
   color: #cbd5e1;
 }
 
+:global([data-theme="light"]) .breadcrumbCurrent {
+  color: #ea580c;
+}
+
+/* Service Cards - Light */
 :global([data-theme="light"]) .serviceCard {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  background: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%);
+  border: 1px solid rgba(147, 51, 234, 0.14);
+  box-shadow: 0 10px 30px -8px rgba(147, 51, 234, 0.07), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .serviceCard::before {
+  background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.65), rgba(147, 51, 234, 0.55), transparent);
+  opacity: 0.45;
+}
+
+:global([data-theme="light"]) .serviceCard::after {
+  background: radial-gradient(500px circle at 50% 0%, rgba(234, 88, 12, 0.07), transparent 70%);
 }
 
 :global([data-theme="light"]) .serviceCard:hover {
-  background: #faf5ff;
-  border-color: rgba(234, 88, 12, 0.4);
-  box-shadow: 0 16px 36px rgba(234, 88, 12, 0.1);
+  background: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%);
+  border-color: rgba(234, 88, 12, 0.45);
+  box-shadow: 0 22px 48px -10px rgba(147, 51, 234, 0.16), 0 6px 16px rgba(234, 88, 12, 0.1);
+}
+
+:global([data-theme="light"]) .serviceTag {
+  color: #ea580c;
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.25);
 }
 
 :global([data-theme="light"]) .serviceName {
@@ -813,32 +1087,44 @@
 }
 
 :global([data-theme="light"]) .serviceDesc {
-  color: #64748b;
+  color: #475569;
 }
 
+/* FAQ Accordion - Light */
 :global([data-theme="light"]) .faqItem {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+  background: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%);
+  border: 1px solid rgba(147, 51, 234, 0.12);
+  box-shadow: 0 4px 16px rgba(147, 51, 234, 0.04);
+}
+
+:global([data-theme="light"]) .faqItem:hover {
+  border-color: rgba(234, 88, 12, 0.35);
+  box-shadow: 0 10px 24px -6px rgba(147, 51, 234, 0.08);
 }
 
 :global([data-theme="light"]) .faqItemActive {
-  background: #faf5ff;
-  border-color: rgba(234, 88, 12, 0.4);
+  border-color: rgba(234, 88, 12, 0.45);
+  background: linear-gradient(180deg, #ffffff 0%, #fff7ed 100%);
+  box-shadow: 0 12px 30px -8px rgba(147, 51, 234, 0.12), 0 4px 12px rgba(234, 88, 12, 0.08);
 }
 
 :global([data-theme="light"]) .faqQuestion {
   color: #0f172a;
 }
 
+:global([data-theme="light"]) .faqQuestion:hover {
+  color: #ea580c;
+}
+
 :global([data-theme="light"]) .faqAnswer {
   color: #475569;
 }
 
+/* CTA Banner - Light */
 :global([data-theme="light"]) .ctaBox {
-  background: linear-gradient(135deg, rgba(243, 232, 255, 0.8) 0%, rgba(254, 242, 242, 0.8) 100%);
-  border: 1px solid rgba(198, 60, 146, 0.25);
-  box-shadow: 0 16px 40px rgba(198, 60, 146, 0.08);
+  background: linear-gradient(135deg, #faf5ff 0%, #fff7ed 100%);
+  border: 1px solid rgba(192, 38, 211, 0.2);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
 }
 
 :global([data-theme="light"]) .ctaTitle {
@@ -847,4 +1133,135 @@
 
 :global([data-theme="light"]) .ctaSub {
   color: #475569;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   ========================================================================== */
+/* Laptop & Tablet (1024px) */
+@media (max-width: 1024px) {
+  .heroTitle {
+    font-size: 46px;
+  }
+  .title {
+    font-size: 38px;
+  }
+  .ribbonGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .hubsGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .complianceGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .securityGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .serviceGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+/* Tablet & Mobile (768px) */
+@media (max-width: 768px) {
+  .section {
+    padding: 65px 16px;
+  }
+  .sectionHeader {
+    margin-bottom: 40px;
+  }
+  .hero {
+    padding: 105px 16px 50px;
+  }
+  .heroTitle {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+  .heroSub {
+    font-size: 16px;
+    margin-bottom: 35px;
+  }
+  .title {
+    font-size: 32px;
+  }
+  .subtitle {
+    font-size: 15px;
+  }
+  .ribbonGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .ribbonCard {
+    padding: 20px 14px;
+    border-radius: 16px;
+  }
+  .hubCard {
+    padding: 1.75rem 1.25rem;
+    border-radius: 20px;
+  }
+  .complianceGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .complianceCard {
+    padding: 1.75rem 1.25rem;
+    border-radius: 18px;
+  }
+  .securityGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .securityCard {
+    padding: 1.75rem 1.25rem;
+    border-radius: 18px;
+  }
+  .serviceGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .serviceCard {
+    padding: 1.75rem 1.25rem;
+    border-radius: 18px;
+  }
+  .faqQuestion {
+    padding: 20px 20px;
+    font-size: 16px;
+  }
+  .faqAnswer {
+    padding: 0 20px 20px;
+    font-size: 14.5px;
+  }
+  .ctaBox {
+    padding: 3rem 1.25rem;
+    border-radius: 20px;
+  }
+  .ctaTitle {
+    font-size: 28px;
+  }
+  .ctaSub {
+    font-size: 15px;
+  }
+}
+
+/* Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .hero {
+    padding: 85px 12px 36px;
+  }
+  .heroTitle {
+    font-size: 29px;
+  }
+  .title {
+    font-size: 26px;
+  }
+  .ribbonGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 }

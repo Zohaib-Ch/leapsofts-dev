@@ -1045,6 +1045,47 @@
   line-height: 1.7;
 }
 
+/* CTA Banner */
+.ctaBox {
+  background: linear-gradient(135deg, rgba(84, 20, 122, 0.4) 0%, rgba(198, 60, 146, 0.3) 100%);
+  border: 1px solid rgba(198, 60, 146, 0.4);
+  border-radius: 28px;
+  padding: 4rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.ctaTitle {
+  font-size: 40px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+  word-break: break-word;
+}
+
+.ctaTitle em {
+  font-style: italic;
+  font-family: serif;
+  color: var(--color-orange);
+}
+
+.ctaSub {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 18px;
+  max-width: 650px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+}
+
+.ctaBtnWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
 /* Laptop & Tablet (1024px) */
 @media (max-width: 1024px) {
   .heroTitle {
