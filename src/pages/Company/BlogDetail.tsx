@@ -85,8 +85,8 @@ const BlogDetail: React.FC = () => {
   const navigate = useNavigate();
   const { openContactModal } = useContactModal();
 
-  const [sanityPost, setSanityPost] = useState<SanityBlog | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [sanityPost, setSanityPost] = useState<SanityBlog | null>(loaderData?.sanityData || null);
+  const [isLoading, setIsLoading] = useState<boolean>(!loaderData?.sanityData);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState<string>('');
   const [copiedCodeIndex, setCopiedCodeIndex] = useState<number | null>(null);
@@ -101,7 +101,7 @@ const BlogDetail: React.FC = () => {
     window.scrollTo(0, 0);
     let isMounted = true;
     if (slug) {
-      setIsLoading(true);
+      if (!loaderData?.sanityData) setIsLoading(true);
       getSanityBlogBySlug(slug)
         .then((data) => {
           if (isMounted) {
@@ -118,7 +118,7 @@ const BlogDetail: React.FC = () => {
     return () => {
       isMounted = false;
     };
-  }, [slug]);
+  }, [slug, loaderData]);
 
   const post: BlogPost | null = useMemo(() => {
     if (sanityPost) {
