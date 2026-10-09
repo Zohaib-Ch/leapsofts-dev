@@ -485,7 +485,7 @@ export interface SanityCaseStudy {
     logoPreset?: string;
   };
   industry?: string;
-  projectList?: string[];
+  projectList?: any[];
   coverImage?: any;
   brandVisualImg?: string;
   brandVisualImgPreset?: string;

@@ -92,9 +92,23 @@ const ShowcaseItem: React.FC<{ data: PartnerData }> = ({ data }) => {
     const currentTabId = tabs[activeIndex]?.id || '';
     const currentTabLabel = tabs[activeIndex]?.label || '';
     const highlightMap = data.highlight || {};
-    let highlightProjects = currentTabId ? (highlightMap[currentTabId] || []) : [];
+    const rawHighlightProjects = currentTabId ? (highlightMap[currentTabId] || []) : [];
+    let highlightProjects: string[] = rawHighlightProjects.map((p: any) => {
+        if (typeof p === 'string') return p;
+        if (p && typeof p === 'object') {
+            return p.name || p.title || p.label || '';
+        }
+        return String(p || '');
+    }).filter(Boolean);
     const impactImages = data.impact?.images || [];
-    const projectList = data.projectList || [];
+    const rawProjectList = (data.projectList || []) as any[];
+    const projectList: string[] = rawProjectList.map((p: any) => {
+        if (typeof p === 'string') return p;
+        if (p && typeof p === 'object') {
+            return p.name || p.title || p.label || '';
+        }
+        return String(p || '');
+    }).filter(Boolean);
 
     // Smart fallback if highlight mapping is not explicitly set for active tab
     if (highlightProjects.length === 0) {
