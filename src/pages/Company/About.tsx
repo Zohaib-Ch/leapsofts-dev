@@ -255,10 +255,10 @@ const About: React.FC = () => {
 
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
 
-  const whyChooseUsData = (sanityData as any)?.whyChooseUs;
-  const industryImpactData = (sanityData as any)?.industryImpact;
-  const techStackData = (sanityData as any)?.techStack;
-  const faqData = (sanityData as any)?.faq;
+  const whyChooseUsData = sanityData?.whyChooseUs;
+  const industryImpactData = sanityData?.industryImpact;
+  const techStackData = sanityData?.techStack;
+  const faqData = sanityData?.faq;
 
   const organizationSchema = {
     "@context": "https://schema.org",

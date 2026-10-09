@@ -7,6 +7,7 @@ import { blogsData, DEFAULT_BLOG_FALLBACK_IMAGE } from '../../data/blogsData';
 import Button from '../../components/Button/Button';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityBlogs } from '../../sanity/queries';
+import type { SanityBlog } from '../../sanity/types';
 import { sendMail } from '../../services/mailService';
 import { buildPageMeta } from '../../utils/seoHelper';
 
