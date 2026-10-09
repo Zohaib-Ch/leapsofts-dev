@@ -131,8 +131,16 @@ const cardChildVariant = {
 
 const Contact: React.FC = () => {
   const loaderData = useLoaderData<typeof loader>();
+  const [sanityContact, setSanityContact] = useState<SanityContactPage | null>(null);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0); // First item open by default
-  const sanityData: SanityContactPage | null = loaderData?.sanityData || null;
+
+  React.useEffect(() => {
+    getSanityContactPage().then((data) => {
+      if (data) setSanityContact(data);
+    });
+  }, []);
+
+  const sanityData: SanityContactPage | null = sanityContact || loaderData?.sanityData || null;
 
   const toggleFaq = (index: number) => {
     setOpenFaqIndex((prev) => (prev === index ? null : index));

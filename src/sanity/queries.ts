@@ -118,7 +118,7 @@ export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage" && (_id == $id || _id ==
   seo
 }`;
 
-export const CONTACT_PAGE_QUERY = `*[_type == "contactPage"][0]{
+export const CONTACT_PAGE_QUERY = `*[_type == "contactPage"] | order(_updatedAt desc)[0]{
   hero,
   offices,
   phones,

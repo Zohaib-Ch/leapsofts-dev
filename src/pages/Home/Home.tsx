@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router';
+import { useState, useEffect } from 'react';
+import { useLocation, useLoaderData } from 'react-router';
 import Services from './CompanyServices/Services';
 import About from './About/About';
 import StreamlineSuccess from './Streamline/StreamlineSuccess';
@@ -52,8 +52,23 @@ export function meta({ data }: { data?: any }) {
   ];
 }
 
-const Home = ({ loaderData }: { loaderData?: any }) => {
-  const { sanityData, blogs } = loaderData || {};
+const Home = (props: { loaderData?: any }) => {
+  const dataFromHook = useLoaderData<typeof loader>();
+  const initialData = props.loaderData || dataFromHook;
+  const [sanityHome, setSanityHome] = useState<any>(initialData?.sanityData || null);
+  const [blogsList, setBlogsList] = useState<any>(initialData?.blogs || null);
+
+  useEffect(() => {
+    getSanityHomePage().then((data) => {
+      if (data) setSanityHome(data);
+    });
+    getSanityBlogs().then((blogs) => {
+      if (blogs && blogs.length > 0) setBlogsList(blogs);
+    });
+  }, []);
+
+  const sanityData = sanityHome || initialData?.sanityData;
+  const blogs = blogsList || initialData?.blogs;
 
   const title = sanityData?.hero?.title || "Custom Software Engineered for Enterprise Velocity";
   const title2 = sanityData?.hero?.title2 || "Launch your product in 3-5 months with zero compromise on scalability.";

@@ -35,11 +35,15 @@ const Projects: React.FC = () => {
   const loaderData = useLoaderData<typeof loader>();
   const [activeIndustryId, setActiveIndustryId] = useState<string | undefined>(undefined);
   const [sanityProjects, setSanityProjects] = useState<SanityCaseStudy[] | null>(loaderData?.sanityProjects || null);
+  const [sanityPage, setSanityPage] = useState<any>(loaderData?.sanityData || null);
   const showcaseRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     getSanityCaseStudies().then((data) => {
       if (data && data.length > 0) setSanityProjects(data);
+    });
+    getSanityCaseStudiesPage().then((data) => {
+      if (data) setSanityPage(data);
     });
   }, []);
 
@@ -137,9 +141,9 @@ const Projects: React.FC = () => {
       />
       <div id="projects-hero-section">
         <IntroComponent
-          title="Enterprise Software Case Studies"
-          title2="Built for Scale. Proven in Production"
-          description=''
+          title={sanityPage?.hero?.title || "Enterprise Software Case Studies"}
+          title2={sanityPage?.hero?.title2 || "Built for Scale. Proven in Production"}
+          description={sanityPage?.hero?.description || ''}
           introDescription={introDescription}
         />
       </div>
