@@ -35,6 +35,21 @@ import { getSanityAboutPage, getSanityTeamMembers } from '../../sanity/queries';
 import type { SanityAboutPage, SanityTeamMember } from '../../sanity/types';
 import { DEFAULT_ABOUT_PAGE_DATA } from '../../data/companyFallback';
 
+export async function loader() {
+  const sanityData = await getSanityAboutPage('aboutPage');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "About Leapsofts | Enterprise Software Engineering Company | Dubai & US",
+    defaultDescription: "Discover Leapsofts, an enterprise software engineering company delivering custom cloud architectures, AI solutions, and dedicated agile pods with 250+ engineers globally.",
+    defaultKeywords: "about Leapsofts, enterprise software development, agile pods, software architecture Dubai US",
+    canonicalUrl: "https://www.leapsofts.com/about",
+  });
+}
+
 const timelineData = [
   {
     year: '2021',

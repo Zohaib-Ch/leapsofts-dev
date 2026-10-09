@@ -17,9 +17,24 @@ import {
 } from 'lucide-react';
 import Button from '../../components/Button/Button';
 import { useContactModal } from '../../context/ContactModalContext';
-import { getSanityTeamMembers } from '../../sanity/queries';
-import type { SanityTeamMember } from '../../sanity/types';
+import { getSanityAboutPage, getSanityTeamMembers } from '../../sanity/queries';
+import type { SanityAboutPage, SanityTeamMember } from '../../sanity/types';
 import { DEFAULT_LEADERSHIP_PAGE_DATA } from '../../data/companyFallback';
+
+export async function loader() {
+  const sanityData = await getSanityAboutPage('aboutLeadershipPage');
+  return { sanityData };
+}
+
+export function meta({ data }: { data?: any }) {
+  return buildPageMeta({
+    sanityData: data?.sanityData,
+    defaultTitle: "Executive Engineering Leadership | CEO Huzaifa Rasheed | Leapsofts",
+    defaultDescription: "Meet the executive leaders, AI researchers, and cloud architects behind Leapsofts. Led by CEO & Co-Founder Huzaifa Rasheed, building custom enterprise software solutions.",
+    defaultKeywords: "Leapsofts leadership, Huzaifa Rasheed, enterprise tech leadership, executive software engineers",
+    canonicalUrl: "https://www.leapsofts.com/about/leadership",
+  });
+}
 
 const ribbonData = [
   {
