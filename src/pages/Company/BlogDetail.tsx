@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useParams, Link, useNavigate } from 'react-router';
+import { useParams, Link, useNavigate, useLoaderData } from 'react-router';
 import { motion } from 'framer-motion';
 import {
   ArrowLeft,
