@@ -274,25 +274,25 @@
         },
         {
           "name": "Fintech & Financial Services",
-          "link": "/industries/fintech",
+          "link": "/industries/finance",
           "desc": "PCI-DSS compliant payment gateways, neo-banking backends, algorithmic trading tools, and fraud detection microservices.",
           "tag": "PCI-DSS Compliant"
         },
         {
           "name": "E-Commerce & Digital Retail",
-          "link": "/industries/ecommerce",
+          "link": "/industries/wholesale-retail",
           "desc": "Headless storefronts, real-time inventory synchronization engines, personalized AI recommendation systems, and high-concurrency checkout pipelines.",
           "tag": "Sub-Second Latency"
         },
         {
           "name": "Fashion Tech & Apparel SaaS",
-          "link": "/industries/fashiontech",
+          "link": "/industries/wholesale-retail",
           "desc": "3D garment visualization platforms, AI trend analytics, supply chain tracking software, and custom ERP management suites.",
           "tag": "AI Visual Search"
         },
         {
           "name": "Real Estate & PropTech",
-          "link": "/industries/realestate",
+          "link": "/industries/real-estate",
           "desc": "Smart property management dashboards, automated lease generation systems, and virtual property tour integration tools.",
           "tag": "Automated Workflows"
         }

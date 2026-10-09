@@ -59,6 +59,11 @@ export default [
     route("industries/real-estate", "../src/pages/IndustriesPages/RealEstate.tsx"),
     route("industries/transportation", "../src/pages/IndustriesPages/Transportation.tsx"),
     route("industries/energy", "../src/pages/IndustriesPages/Energy.tsx"),
+    // Aliases for alternate industry URLs to guarantee they always open the real pages
+    route("industries/fintech", "../src/pages/IndustriesPages/Finance.tsx", { id: "industries-fintech" }),
+    route("industries/ecommerce", "../src/pages/IndustriesPages/WholesaleRetail.tsx", { id: "industries-ecommerce" }),
+    route("industries/realestate", "../src/pages/IndustriesPages/RealEstate.tsx", { id: "industries-realestate" }),
+    route("industries/fashiontech", "../src/pages/IndustriesPages/WholesaleRetail.tsx", { id: "industries-fashiontech" }),
   ]),
   route("projects", "../src/pages/Company/Projects.tsx"),
   route("projects/:id", "../src/pages/Company/ProjectDetails.tsx"),

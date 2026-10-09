@@ -202,6 +202,15 @@ const slideRightVariant: Variants = {
 
 export { DEFAULT_ABOUT_PAGE_DATA };
 
+const resolveIndustryLink = (link?: string) => {
+  if (!link) return '/industries/healthcare';
+  const clean = link.toLowerCase().trim();
+  if (clean === '/industries/fintech' || clean.endsWith('/fintech')) return '/industries/finance';
+  if (clean === '/industries/ecommerce' || clean.endsWith('/ecommerce') || clean.endsWith('/fashiontech')) return '/industries/wholesale-retail';
+  if (clean === '/industries/realestate' || clean.endsWith('/realestate')) return '/industries/real-estate';
+  return link;
+};
+
 const About: React.FC = () => {
   const loaderData = useLoaderData<typeof loader>();
   const [activeTimeline, setActiveTimeline] = useState(0);
@@ -678,7 +687,7 @@ const About: React.FC = () => {
             viewport={{ once: true, amount: 0.2 }}
           >
             {industryImpactData.industries?.map((ind, iIdx) => (
-              <Link key={iIdx} to={ind.link} className={styles.industryCardLink}>
+              <Link key={iIdx} to={resolveIndustryLink(ind.link)} className={styles.industryCardLink}>
                 <motion.div className={styles.industryCard} variants={cardChildVariant}>
                   {ind.tag && <span className={styles.industryTag}>{ind.tag}</span>}
                   <h3 className={styles.industryName}>
