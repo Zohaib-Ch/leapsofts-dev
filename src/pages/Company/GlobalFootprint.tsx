@@ -193,6 +193,14 @@ const slideRightVariant = {
 
 export { DEFAULT_GLOBAL_PAGE_DATA };
 
+const resolveServiceLink = (link?: string): string => {
+  if (!link) return '/services/custom-software-development';
+  if (link.includes('product-engineering')) return '/services/custom-software-development';
+  if (link.includes('cloud-devops')) return '/services/cloud-engineering';
+  if (link.includes('ai-solutions')) return '/services/data-science-ai';
+  return link;
+};
+
 const GlobalFootprint: React.FC = () => {
   const loaderData = useLoaderData<typeof loader>();
   const [sanityAbout, setSanityAbout] = useState<SanityAboutPage | null>(null);
@@ -513,7 +521,7 @@ const GlobalFootprint: React.FC = () => {
             viewport={{ once: true, amount: 0.2 }}
           >
             {pageData.internalLinks.services?.map((svc: any, sIdx: number) => (
-              <Link key={sIdx} to={svc.link} className={styles.serviceCardLink}>
+              <Link key={sIdx} to={resolveServiceLink(svc.link)} className={styles.serviceCardLink}>
                 <motion.div className={styles.serviceCard} variants={cardChildVariant}>
                   {svc.tag && <span className={styles.serviceTag}>{svc.tag}</span>}
                   <h3 className={styles.serviceName}>

@@ -549,19 +549,19 @@
       "services": [
         {
           "name": "Custom Product Engineering",
-          "link": "/services/product-engineering",
+          "link": "/services/custom-software-development",
           "desc": "End-to-end web and mobile product development with dedicated agile pods.",
           "tag": "Product Engineering"
         },
         {
           "name": "Cloud & DevOps Architecture",
-          "link": "/services/cloud-devops",
+          "link": "/services/cloud-engineering",
           "desc": "Zero-trust microservices, Kubernetes orchestration, and AWS/Azure cloud migration.",
           "tag": "Cloud & DevOps"
         },
         {
           "name": "Enterprise AI & Data Solutions",
-          "link": "/services/ai-solutions",
+          "link": "/services/data-science-ai",
           "desc": "LLM fine-tuning, vector search pipelines, and autonomous AI business workflows.",
           "tag": "AI Engineering"
         }
@@ -756,19 +756,19 @@
       "services": [
         {
           "name": "Custom Product Engineering",
-          "link": "/services/product-engineering",
+          "link": "/services/custom-software-development",
           "desc": "End-to-end web and mobile product development with dedicated agile pods.",
           "tag": "Product Engineering"
         },
         {
           "name": "Cloud & DevOps Architecture",
-          "link": "/services/cloud-devops",
+          "link": "/services/cloud-engineering",
           "desc": "Zero-trust microservices, Kubernetes orchestration, and AWS/Azure cloud migration.",
           "tag": "Cloud & DevOps"
         },
         {
           "name": "Enterprise AI & Data Solutions",
-          "link": "/services/ai-solutions",
+          "link": "/services/data-science-ai",
           "desc": "LLM fine-tuning, vector search pipelines, and autonomous AI business workflows.",
           "tag": "AI Engineering"
         }
@@ -936,19 +936,19 @@
       "services": [
         {
           "name": "Cloud & DevOps Architecture",
-          "link": "/services/cloud-devops",
+          "link": "/services/cloud-engineering",
           "desc": "Zero-trust microservices, Kubernetes orchestration, and AWS/Azure cloud migration.",
           "tag": "Cloud & DevOps"
         },
         {
           "name": "Custom Product Engineering",
-          "link": "/services/product-engineering",
+          "link": "/services/custom-software-development",
           "desc": "End-to-end web and mobile product development with dedicated agile pods.",
           "tag": "Product Engineering"
         },
         {
           "name": "Enterprise AI & Data Solutions",
-          "link": "/services/ai-solutions",
+          "link": "/services/data-science-ai",
           "desc": "LLM fine-tuning, vector search pipelines, and autonomous AI business workflows.",
           "tag": "AI Engineering"
         }

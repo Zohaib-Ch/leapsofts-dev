@@ -44,6 +44,10 @@ export default [
     route("services/paid-media-performance", "../src/pages/ServicesPages/PaidMediaPerformance.tsx"),
     route("services/inbound-organic-growth", "../src/pages/ServicesPages/InboundOrganicGrowth.tsx"),
     route("services/revenue-operations-systems", "../src/pages/ServicesPages/RevenueOperationsSystems.tsx"),
+    // Aliases for alternate service URLs to guarantee they always open the real pages
+    route("services/product-engineering", "../src/pages/ServicesPages/CustomSoftwareDevelopment.tsx", { id: "services-product-engineering" }),
+    route("services/cloud-devops", "../src/pages/ServicesPages/CloudEngineering.tsx", { id: "services-cloud-devops" }),
+    route("services/ai-solutions", "../src/pages/ServicesPages/DataScienceAI.tsx", { id: "services-ai-solutions" }),
   ]),
   layout("../src/layouts/IndustriesLayout/IndustriesLayout.tsx", [
     route("industries/finance", "../src/pages/IndustriesPages/Finance.tsx"),
