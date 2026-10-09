@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useLoaderData, Link } from 'react-router';
 import styles from './About.module.css';
 import { motion, type Variants } from 'framer-motion';
+import { renderFormattedTitle } from '../../utils/titleFormatter';
 //added
 import {
   Target,
@@ -192,18 +193,26 @@ const About: React.FC = () => {
   const loaderData = useLoaderData<typeof loader>();
   const [activeTimeline, setActiveTimeline] = useState(0);
   const [sanityTeam, setSanityTeam] = useState<SanityTeamMember[] | null>(null);
+  const [sanityAbout, setSanityAbout] = useState<SanityAboutPage | null>(null);
   const { openContactModal } = useContactModal();
 
-  const sanityData: SanityAboutPage = loaderData?.sanityData || DEFAULT_ABOUT_PAGE_DATA;
+  const sanityData: SanityAboutPage = sanityAbout || loaderData?.sanityData || DEFAULT_ABOUT_PAGE_DATA;
 
   useEffect(() => {
-    getSanityTeamMembers().then((data) => {
-      if (data) setSanityTeam(data);
+    getSanityAboutPage().then((data) => {
+      if (data) setSanityAbout(data);
     });
     getSanityTeamMembers().then((data) => {
       if (data) setSanityTeam(data);
     });
   }, []);
+
+  const activeTimelineEvents = React.useMemo(() => {
+    if (sanityData?.timeline?.events && sanityData.timeline.events.length > 0) {
+      return sanityData.timeline.events;
+    }
+    return timelineData;
+  }, [sanityData]);
 
   const displayLeadership = React.useMemo(() => {
     if ((sanityData as any)?.leadership?.members && (sanityData as any).leadership.members.length > 0) {
@@ -230,6 +239,62 @@ const About: React.FC = () => {
     }
     return leadershipData;
   }, [sanityData, sanityTeam]);
+
+  const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
+
+  const whyChooseUsData = (sanityData as any)?.whyChooseUs;
+  const industryImpactData = (sanityData as any)?.industryImpact;
+  const techStackData = (sanityData as any)?.techStack;
+  const faqData = (sanityData as any)?.faq;
+
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Leapsofts",
+    "url": "https://www.leapsofts.com",
+    "logo": "https://www.leapsofts.com/logo/Leap-soft-01.png",
+    "description": "Enterprise software engineering company delivering custom cloud architectures, AI solutions, and dedicated agile pods.",
+  };
+
+  const aboutPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Leapsofts | Enterprise Software Engineering",
+    "description": "Discover Leapsofts, an enterprise software engineering company delivering custom cloud architectures, AI solutions, and dedicated agile pods.",
+    "url": "https://www.leapsofts.com/about",
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.leapsofts.com/",
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "About Us",
+        "item": "https://www.leapsofts.com/about",
+      },
+    ],
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": (faqData?.items || []).map((faq: any) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer,
+      },
+    })),
+  };
 
   return (
     <div className={styles.aboutPage}>

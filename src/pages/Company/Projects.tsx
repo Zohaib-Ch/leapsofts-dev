@@ -41,9 +41,7 @@ const Projects: React.FC = () => {
     getSanityCaseStudies().then((data) => {
       if (data && data.length > 0) setSanityProjects(data);
     });
-
-    return combinedList;
-  }, [sanityProjects]);
+  }, []);
 
   const industryProjects = React.useMemo(() => {
     const fallbackProjects = projectsData.filter(project => project.type === 'industry');

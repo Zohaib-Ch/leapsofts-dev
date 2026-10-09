@@ -153,6 +153,9 @@ const Leadership: React.FC = () => {
   const { openContactModal } = useContactModal();
   const [sanityTeam, setSanityTeam] = React.useState<SanityTeamMember[] | null>(null);
 
+  const sanityData: SanityAboutPage = loaderData?.sanityData || DEFAULT_LEADERSHIP_PAGE_DATA;
+  const pageData = (sanityData as any) || DEFAULT_LEADERSHIP_PAGE_DATA;
+
   useEffect(() => {
     document.title = 'Executive Engineering Leadership | CEO Huzaifa Rasheed | Leapsofts';
     let metaDesc = document.querySelector('meta[name="description"]');
