@@ -352,3 +352,245 @@
   display: inline-flex;
   align-items: center;
 }
+
+/* =========================================================================
+   MODERN ENTERPRISE HIGH-CONTRAST PILL (VERCEL / LINEAR STYLE)
+   ========================================================================= */
+.contrast-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #ffffff;
+  color: #0b0f19;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25), 0 0 16px rgba(255, 255, 255, 0.12);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s ease,
+              background-color 0.2s ease,
+              border-color 0.2s ease,
+              color 0.2s ease;
+  user-select: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.contrast-btn:hover {
+  transform: translateY(-1px);
+  background: #f8fafc;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.22), 0 3px 10px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.contrast-btn:active {
+  transform: scale(0.975);
+}
+
+.contrast-text {
+  position: relative;
+  z-index: 2;
+  font-weight: 600;
+}
+
+.contrast-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contrast-arrow-icon {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contrast-btn:hover .contrast-arrow-icon {
+  transform: translateX(3px);
+}
+
+/* Light Theme High-Contrast Pill Override */
+:global([data-theme="light"]) .contrast-btn {
+  background: #0f172a;
+  color: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15), 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+:global([data-theme="light"]) .contrast-btn:hover {
+  background: #1e293b;
+  border-color: rgba(15, 23, 42, 0.25);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.2), 0 2px 4px rgba(15, 23, 42, 0.1);
+  color: #ffffff;
+}
+
+/* =========================================================================
+   LUXURY FLOWING LIQUID GRADIENT BUTTON
+   ========================================================================= */
+.luxury-liquid-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  color: #ffffff;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  isolation: isolate;
+  user-select: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  /* Flowing Liquid Stream (Deep Violet -> Magenta -> Amber Orange -> Warm Sunset -> Magenta -> Violet) */
+  background: linear-gradient(
+    120deg,
+    #4a0e68 0%,
+    #8b2292 20%,
+    #c63c92 40%,
+    #e85a2a 60%,
+    #ff7917 78%,
+    #a82988 90%,
+    #4a0e68 100%
+  );
+  background-size: 260% 260%;
+  animation: luxuryLiquidFlow 8s ease-in-out infinite;
+
+  /* Crisp luxury glass bevel and radiant underglow */
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 
+    0 4px 18px -2px rgba(198, 60, 146, 0.42),
+    0 2px 8px -1px rgba(255, 121, 23, 0.32),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.35);
+
+  transition: 
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* Glass curved top specular highlight */
+.luxury-liquid-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 52%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.04) 80%,
+    transparent 100%
+  );
+  border-radius: 9999px 9999px 0 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Diagonal luxury shimmer sweep on hover */
+.luxury-liquid-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -80%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.luxury-liquid-btn:hover {
+  transform: translateY(-1px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 
+    0 6px 26px -2px rgba(198, 60, 146, 0.58),
+    0 3px 14px -1px rgba(255, 121, 23, 0.48),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+.luxury-liquid-btn:hover::after {
+  opacity: 1;
+  animation: luxuryShimmerSweep 1.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.luxury-liquid-btn:active {
+  transform: scale(0.975);
+}
+
+.luxury-liquid-content {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.luxury-liquid-text {
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.luxury-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-arrow-icon {
+  width: 14px;
+  height: 14px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-liquid-btn:hover .luxury-arrow-icon {
+  transform: translateX(4px);
+}
+
+@keyframes luxuryLiquidFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes luxuryShimmerSweep {
+  0% {
+    left: -80%;
+  }
+  100% {
+    left: 140%;
+  }
+}

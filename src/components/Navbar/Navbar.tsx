@@ -441,7 +441,7 @@ const Navbar = memo(() => {
             <div className={styles['nav-cta']}>
               <Button
                 text="Strategic Partnerships"
-                variant="liquid"
+                variant="luxury-liquid"
                 className={styles['nav-btn-compact']}
                 onClick={() => {
                   closeDropdowns();
@@ -698,7 +698,7 @@ const Navbar = memo(() => {
           <div className={styles['mobile-cta']}>
             <Button
               text="Strategic Partnerships"
-              variant="liquid"
+              variant="luxury-liquid"
               className={styles['nav-btn-compact']}
               onClick={() => {
                 closeMobileMenu();

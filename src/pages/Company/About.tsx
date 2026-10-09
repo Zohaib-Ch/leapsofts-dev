@@ -24,8 +24,6 @@ import {
   Layers,
   Terminal,
   Database,
-  Building2,
-  ShoppingBag,
 } from 'lucide-react';
 import Button from '../../components/Button/Button';
 import AnimatedCounter from '../../components/AnimatedCounter/AnimatedCounter';

@@ -12,7 +12,7 @@ interface ButtonProps {
     className?: string;
     disabled?: boolean;
     type?: 'button' | 'submit' | 'reset';
-    variant?: 'default' | 'liquid' | 'linear' | 'orbit' | 'aurora';
+    variant?: 'default' | 'liquid' | 'linear' | 'orbit' | 'aurora' | 'contrast' | 'luxury-liquid';
 }
 
 const Button = ({
@@ -27,6 +27,48 @@ const Button = ({
     type = 'submit',
     variant = 'default',
 }: ButtonProps) => {
+    // Luxury Flowing Liquid Gradient Button
+    if (variant === 'luxury-liquid') {
+        const showIcon = hasIcon !== false;
+        return (
+            <button
+                type={type}
+                disabled={disabled}
+                className={`${styles['luxury-liquid-btn']} ${className} ${disabled ? styles['btn-disabled'] : ''}`.trim()}
+                onClick={onClick}
+            >
+                <span className={styles['luxury-liquid-content']}>
+                    <span className={styles['luxury-liquid-text']}>{text}</span>
+                    {showIcon && (
+                        <span className={styles['luxury-icon-wrap']}>
+                            {icon || <ArrowRight size={14} className={styles['luxury-arrow-icon']} />}
+                        </span>
+                    )}
+                </span>
+            </button>
+        );
+    }
+
+    // Modern Enterprise High-Contrast Pill (Vercel / Linear Style)
+    if (variant === 'contrast') {
+        const showIcon = hasIcon !== false;
+        return (
+            <button
+                type={type}
+                disabled={disabled}
+                className={`${styles['contrast-btn']} ${className} ${disabled ? styles['btn-disabled'] : ''}`.trim()}
+                onClick={onClick}
+            >
+                <span className={styles['contrast-text']}>{text}</span>
+                {showIcon && (
+                    <span className={styles['contrast-icon-wrap']}>
+                        {icon || <ArrowRight size={14} className={styles['contrast-arrow-icon']} />}
+                    </span>
+                )}
+            </button>
+        );
+    }
+
     // Liquid Fluid Gradient Button (Mixture of Leapsofts logo colors: Violet, Magenta & Amber Orange)
     if (variant === 'liquid' || variant === 'linear' || variant === 'orbit' || variant === 'aurora') {
         const showIcon = hasIcon !== false;
