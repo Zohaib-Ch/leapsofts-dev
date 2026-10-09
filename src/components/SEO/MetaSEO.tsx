@@ -1,9 +1,5 @@
-import React from 'react';
-import * as HelmetPkg from 'react-helmet-async';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router';
-
-const HelmetComponent: any = (HelmetPkg as any).Helmet || (HelmetPkg as any).default?.Helmet || (HelmetPkg as any).default;
-const Helmet = HelmetComponent;
 import type { SanitySEO } from '../../sanity/types';
 import { urlFor } from '../../sanity/image';
 
@@ -49,8 +45,14 @@ export const MetaSEO: React.FC<MetaSEOProps> = ({
   const canonicalUrl = seo?.canonicalUrl || propCanonicalUrl || currentUrl;
   const ogImage = seo?.ogImage ? urlFor(seo.ogImage) : (defaultOgImage || DEFAULT_OG_IMAGE);
 
+  useEffect(() => {
+    if (typeof document !== 'undefined' && title) {
+      document.title = title;
+    }
+  }, [title]);
+
   return (
-    <Helmet>
+    <>
       {/* Title & Standard Meta Tags */}
       <title>{title}</title>
       <meta name="description" content={description} />
@@ -74,11 +76,12 @@ export const MetaSEO: React.FC<MetaSEOProps> = ({
 
       {/* Structured Data (JSON-LD) */}
       {schema && (
-        <script type="application/ld+json">
-          {JSON.stringify(schema)}
-        </script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
       )}
-    </Helmet>
+    </>
   );
 };
 

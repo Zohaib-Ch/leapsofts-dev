@@ -16,10 +16,6 @@ import { ContactModalProvider } from "../src/context/ContactModalContext";
 import { ThemeProvider } from "../src/context/ThemeContext";
 import { CookieConsentProvider } from "../src/context/CookieConsentContext";
 import CookieBanner from "../src/components/CookieBanner/CookieBanner";
-import * as HelmetPkg from "react-helmet-async";
-
-const HelmetProviderComponent: any = (HelmetPkg as any).HelmetProvider || (HelmetPkg as any).default?.HelmetProvider || (HelmetPkg as any).default;
-const HelmetProvider = HelmetProviderComponent;
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -118,24 +114,22 @@ export default function App() {
   const isStudio = location.pathname.startsWith("/studio");
 
   return (
-    <HelmetProvider>
-      <ThemeProvider>
-        <CookieConsentProvider>
-          <ContactModalProvider>
-            <div className="app">
-              {!isStudio && <Navbar />}
-              <main className={isStudio ? "" : "main-content"}>
-                <Outlet />
-              </main>
-              {!isStudio && <ContactModal />}
-              {!isStudio && <CookieBanner />}
-              {!isStudio && <Footer />}
-              {!isStudio && <Analytics />}
-            </div>
-          </ContactModalProvider>
-        </CookieConsentProvider>
-      </ThemeProvider>
-    </HelmetProvider>
+    <ThemeProvider>
+      <CookieConsentProvider>
+        <ContactModalProvider>
+          <div className="app">
+            {!isStudio && <Navbar />}
+            <main className={isStudio ? "" : "main-content"}>
+              <Outlet />
+            </main>
+            {!isStudio && <ContactModal />}
+            {!isStudio && <CookieBanner />}
+            {!isStudio && <Footer />}
+            {!isStudio && <Analytics />}
+          </div>
+        </ContactModalProvider>
+      </CookieConsentProvider>
+    </ThemeProvider>
   );
 }
 
