@@ -16,6 +16,7 @@ import { ContactModalProvider } from "../src/context/ContactModalContext";
 import { ThemeProvider } from "../src/context/ThemeContext";
 import { CookieConsentProvider } from "../src/context/CookieConsentContext";
 import CookieBanner from "../src/components/CookieBanner/CookieBanner";
+import ScrollToTop from "../src/components/ScrollToTop/ScrollToTop";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -118,6 +119,7 @@ export default function App() {
       <CookieConsentProvider>
         <ContactModalProvider>
           <div className="app">
+            <ScrollToTop />
             {!isStudio && <Navbar />}
             <main className={isStudio ? "" : "main-content"}>
               <Outlet />
