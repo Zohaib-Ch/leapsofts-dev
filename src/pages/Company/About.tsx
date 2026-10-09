@@ -214,7 +214,7 @@ const About: React.FC = () => {
   const sanityData: SanityAboutPage = sanityAbout || loaderData?.sanityData || DEFAULT_ABOUT_PAGE_DATA;
 
   useEffect(() => {
-    getSanityAboutPage().then((data) => {
+    getSanityAboutPage('aboutPage').then((data) => {
       if (data) setSanityAbout(data);
     });
     getSanityTeamMembers().then((data) => {

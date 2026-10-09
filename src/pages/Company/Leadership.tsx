@@ -168,9 +168,10 @@ const Leadership: React.FC = () => {
   const loaderData = useLoaderData<typeof loader>();
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
   const { openContactModal } = useContactModal();
+  const [sanityAbout, setSanityAbout] = React.useState<SanityAboutPage | null>(null);
   const [sanityTeam, setSanityTeam] = React.useState<SanityTeamMember[] | null>(null);
 
-  const sanityData: SanityAboutPage = loaderData?.sanityData || DEFAULT_LEADERSHIP_PAGE_DATA;
+  const sanityData: SanityAboutPage = sanityAbout || loaderData?.sanityData || DEFAULT_LEADERSHIP_PAGE_DATA;
   const pageData = (sanityData as any) || DEFAULT_LEADERSHIP_PAGE_DATA;
 
   useEffect(() => {
@@ -185,6 +186,10 @@ const Leadership: React.FC = () => {
       'content',
       'Meet the executive leaders, AI researchers, and cloud architects behind Leapsofts. Led by CEO & Co-Founder Huzaifa Rasheed, building custom enterprise software solutions.'
     );
+
+    getSanityAboutPage('aboutLeadershipPage').then((data) => {
+      if (data) setSanityAbout(data);
+    });
 
     getSanityTeamMembers().then((data) => {
       if (data) setSanityTeam(data);

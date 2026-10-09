@@ -196,10 +196,17 @@ export { DEFAULT_MISSION_PAGE_DATA };
 
 const Mission: React.FC = () => {
   const loaderData = useLoaderData<typeof loader>();
+  const [sanityAbout, setSanityAbout] = useState<SanityAboutPage | null>(null);
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
   const { openContactModal } = useContactModal();
 
-  const sanityData: SanityAboutPage = loaderData?.sanityData || DEFAULT_MISSION_PAGE_DATA;
+  React.useEffect(() => {
+    getSanityAboutPage('aboutMissionPage').then((data) => {
+      if (data) setSanityAbout(data);
+    });
+  }, []);
+
+  const sanityData: SanityAboutPage = sanityAbout || loaderData?.sanityData || DEFAULT_MISSION_PAGE_DATA;
 
   const missionData = (sanityData as any) || DEFAULT_MISSION_PAGE_DATA;
 

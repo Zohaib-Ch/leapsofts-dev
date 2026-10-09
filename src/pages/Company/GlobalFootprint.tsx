@@ -195,10 +195,17 @@ export { DEFAULT_GLOBAL_PAGE_DATA };
 
 const GlobalFootprint: React.FC = () => {
   const loaderData = useLoaderData<typeof loader>();
+  const [sanityAbout, setSanityAbout] = useState<SanityAboutPage | null>(null);
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
   const { openContactModal } = useContactModal();
 
-  const sanityPage: SanityAboutPage = loaderData?.sanityData || DEFAULT_GLOBAL_PAGE_DATA;
+  React.useEffect(() => {
+    getSanityAboutPage('aboutGlobalPage').then((data) => {
+      if (data) setSanityAbout(data);
+    });
+  }, []);
+
+  const sanityPage: SanityAboutPage = sanityAbout || loaderData?.sanityData || DEFAULT_GLOBAL_PAGE_DATA;
   const pageData = (sanityPage as any) || DEFAULT_GLOBAL_PAGE_DATA;
 
   // JSON-LD Schemas for Googlebot Crawling

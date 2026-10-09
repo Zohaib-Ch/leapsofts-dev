@@ -57,7 +57,7 @@ export const HOME_PAGE_QUERY = `*[_type == "homePage"] | order(_updatedAt desc)[
   ${SEO_FRAGMENT}
 }`;
 
-export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage" && (_id == "aboutPage" || _id == "drafts.aboutPage")] | order(_updatedAt desc)[0]{
+export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage" && (_id == $id || _id == "drafts." + $id)] | order(_updatedAt desc)[0]{
   hero,
   creed,
   corePrinciples,
