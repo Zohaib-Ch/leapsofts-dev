@@ -8,9 +8,6 @@ export default defineConfig({
     reactRouter(),
     tailwindcss(),
   ],
-  define: {
-    'process.env': {},
-  },
   optimizeDeps: {
     include: ['styled-components', 'sanity', '@sanity/vision'],
   },
