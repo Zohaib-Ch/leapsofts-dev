@@ -1,4 +1,4 @@
-import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import { buildPageMeta } from '../../utils/seoHelper';
 import React, { useState, useRef, useEffect } from 'react'
 import { useLoaderData } from 'react-router';
 import IntroComponent from '../../components/IntroComponent/IntroComponent'
