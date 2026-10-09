@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useLoaderData, Link } from 'react-router';
 import styles from './Leadership.module.css';
 import { motion } from 'framer-motion';
+import { renderFormattedTitle } from '../../utils/titleFormatter';
 import {
   Users,
   Award,
