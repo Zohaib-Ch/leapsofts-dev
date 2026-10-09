@@ -58,24 +58,26 @@ const TechStack: React.FC<TechStackProps> = ({ title, items }) => {
                             key={index}
                             className={styles.stackItem}
                             variants={itemVariants}
-                            whileHover={{
-                                x: 10,
-                                backgroundColor: 'rgba(255, 255, 255, 0.03)'
-                            }}
+                            whileHover={{ x: 8 }}
                         >
-                            <span className={styles.itemLabel}>{item.label}</span>
+                            <span className={styles.itemLabel}>
+                                {typeof item.label === 'object' ? (item.label as any)?.name || (item.label as any)?.title || '' : item.label}
+                            </span>
                             <div className={styles.techGroup}>
-                                {item.techs.map((tech, tIdx) => {
+                                {item.techs?.map((tech: any, tIdx: number) => {
                                     const iconSrc = tech.iconImageUrl || tech.iconPreset || tech.icon;
+                                    const techName = typeof tech === 'string'
+                                        ? tech
+                                        : (typeof tech.name === 'object' ? (tech.name as any)?.name || (tech.name as any)?.title || '' : tech.name);
                                     return (
                                         <div key={tIdx} className={styles.techBadge}>
                                             <div className={styles.hexagonWrapper}>
                                                 <div className={styles.hexagonBorder}>
                                                     <div className={styles.hexagonContent}>
                                                         {iconSrc && (
-                                                            <img src={iconSrc} alt={tech.name} className={styles.techIcon} />
+                                                            <img src={iconSrc} alt={techName} className={styles.techIcon} />
                                                         )}
-                                                        <span className={styles.itemValue}>{tech.name}</span>
+                                                        <span className={styles.itemValue}>{techName}</span>
                                                     </div>
                                                 </div>
                                             </div>

@@ -61,12 +61,14 @@ const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({
                                 key={index}
                                 className={styles.detailItem}
                                 variants={itemVariants}
-                                whileHover={{
-                                    backgroundColor: 'rgba(255, 255, 255, 0.03)'
-                                }}
+                                whileHover={{ x: 6 }}
                             >
-                                <span className={styles.detailKey}>{detail.label}</span>
-                                <span className={styles.detailValue}>{detail.value}</span>
+                                <span className={styles.detailKey}>
+                                    {typeof detail.label === 'object' ? (detail.label as any)?.name || (detail.label as any)?.title || '' : detail.label}
+                                </span>
+                                <span className={styles.detailValue}>
+                                    {typeof detail.value === 'object' ? (detail.value as any)?.name || (detail.value as any)?.title || '' : detail.value}
+                                </span>
                             </motion.div>
                         ))}
                     </div>

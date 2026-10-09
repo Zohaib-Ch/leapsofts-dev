@@ -12,7 +12,7 @@ import 'swiper/css/pagination';
 interface ImpactShowcaseProps {
     title: string;
     images: string[];
-    deliverables?: string[];
+    deliverables?: (string | { name?: string; title?: string; label?: string; [key: string]: any })[];
 }
 
 const ImpactShowcase: React.FC<ImpactShowcaseProps> = ({
@@ -74,26 +74,28 @@ const ImpactShowcase: React.FC<ImpactShowcaseProps> = ({
                         </motion.p>
 
                         <div className={styles.deliverablesGrid}>
-                            {deliverables.map((item, index) => (
-                                <motion.div
-                                    key={index}
-                                    className={styles.deliverableCard}
-                                    variants={itemVariants}
-                                    whileHover={{
-                                        y: -5,
-                                        backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                                        borderColor: 'rgba(var(--color-primary-rgb), 0.3)'
-                                    }}
-                                >
-                                    <div className={styles.deliverableContent}>
-                                        <div className={styles.deliverableIndicator}>
-                                            <ArrowRight size={16} />
+                            {deliverables.map((item, index) => {
+                                const text = typeof item === 'string'
+                                    ? item
+                                    : (item?.name || item?.title || item?.label || '');
+                                if (!text) return null;
+                                return (
+                                    <motion.div
+                                        key={index}
+                                        className={styles.deliverableCard}
+                                        variants={itemVariants}
+                                        whileHover={{ y: -4 }}
+                                    >
+                                        <div className={styles.deliverableContent}>
+                                            <div className={styles.deliverableIndicator}>
+                                                <ArrowRight size={16} />
+                                            </div>
+                                            <span className={styles.deliverableText}>{text}</span>
                                         </div>
-                                        <span className={styles.deliverableText}>{item}</span>
-                                    </div>
-                                    <div className={styles.cardGlow} />
-                                </motion.div>
-                            ))}
+                                        <div className={styles.cardGlow} />
+                                    </motion.div>
+                                );
+                            })}
                         </div>
                     </div>
                 </motion.div>

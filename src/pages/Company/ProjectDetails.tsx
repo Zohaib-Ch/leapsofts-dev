@@ -89,28 +89,62 @@ const ProjectDetails: React.FC = () => {
         ? sanityProject.summary
         : sanityProject?.summary?.description || projectData?.summary?.description || '';
 
+    const rawDeliverables = sanityProject?.projectList && sanityProject.projectList.length > 0
+        ? sanityProject.projectList
+        : projectData?.projectList || [];
+
+    const normalizedDeliverables = rawDeliverables.map((item: any) => {
+        if (typeof item === 'string') return item;
+        if (item && typeof item === 'object') {
+            return item.name || item.title || item.label || '';
+        }
+        return String(item || '');
+    }).filter(Boolean);
+
     const impactData = {
-        title: sanityProject?.impact?.title || projectData?.impact?.title || title,
+        title: typeof title === 'object' ? (title as any)?.title || (title as any)?.name || 'Case Study Details' : title,
         images: sanityProject?.impact?.images && sanityProject.impact.images.length > 0
             ? sanityProject.impact.images
             : projectData?.impact?.images || [],
-        deliverables: sanityProject?.projectList && sanityProject.projectList.length > 0
-            ? sanityProject.projectList
-            : projectData?.projectList || [],
+        deliverables: normalizedDeliverables,
     };
+
+    const rawDetails = (typeof sanityProject?.summary === 'object' && sanityProject?.summary?.details)
+        ? sanityProject.summary.details
+        : sanityProject?.details || projectData?.summary?.details || [];
+
+    const normalizedDetails = Array.isArray(rawDetails) ? rawDetails.map((detail: any) => ({
+        label: typeof detail?.label === 'object' ? (detail.label?.name || detail.label?.title || '') : String(detail?.label || ''),
+        value: typeof detail?.value === 'object' ? (detail.value?.name || detail.value?.title || '') : String(detail?.value || ''),
+    })) : [];
 
     const executiveSummaryData = {
-        description: summaryText,
-        details: (typeof sanityProject?.summary === 'object' && sanityProject?.summary?.details)
-            ? sanityProject.summary.details
-            : sanityProject?.details || projectData?.summary?.details || [],
+        description: typeof summaryText === 'object' ? ((summaryText as any)?.description || (summaryText as any)?.text || '') : String(summaryText || ''),
+        details: normalizedDetails,
     };
 
+    const rawTechStackItems = sanityProject?.techStack?.items && sanityProject.techStack.items.length > 0
+        ? sanityProject.techStack.items
+        : projectData?.techStack?.items || [];
+
+    const normalizedTechStackItems = Array.isArray(rawTechStackItems) ? rawTechStackItems.map((item: any) => ({
+        label: typeof item?.label === 'object' ? (item.label?.name || item.label?.title || '') : String(item?.label || ''),
+        techs: Array.isArray(item?.techs) ? item.techs.map((tech: any) => {
+            if (typeof tech === 'string') return { name: tech };
+            return {
+                name: typeof tech?.name === 'object' ? (tech.name?.name || tech.name?.title || '') : String(tech?.name || ''),
+                icon: tech?.icon,
+                iconPreset: tech?.iconPreset,
+                iconImageUrl: tech?.iconImageUrl,
+            };
+        }) : [],
+    })) : [];
+
     const techStackData = {
-        title: sanityProject?.techStack?.title || projectData?.techStack?.title || 'Tools and technologies',
-        items: sanityProject?.techStack?.items && sanityProject.techStack.items.length > 0
-            ? sanityProject.techStack.items
-            : projectData?.techStack?.items || [],
+        title: typeof sanityProject?.techStack?.title === 'object'
+            ? (sanityProject.techStack.title as any)?.name || 'Tools and technologies'
+            : (sanityProject?.techStack?.title || projectData?.techStack?.title || 'Tools and technologies'),
+        items: normalizedTechStackItems,
     };
 
     const projectSchema = {
