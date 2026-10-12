@@ -367,6 +367,21 @@ const Navbar = memo(() => {
     setMobileAboutOpen(false);
   };
 
+  // Lock background scroll when mobile menu is open to eliminate touch conflicts
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    };
+  }, [isMobileMenuOpen]);
+
   return (
     <>
       <nav className={`${styles['navbar']} ${isScrolled ? styles['scrolled'] : ''}`}>
@@ -564,7 +579,7 @@ const Navbar = memo(() => {
       <div className={`${styles['mobile-nav']} ${isMobileMenuOpen ? styles['open'] : ''}`}>
         <div className={styles['mobile-nav-content']}>
           {/* Services Accordion */}
-          <div className={`${styles['mobile-accordion']} ${mobileServicesOpen ? styles['mobile-accordion-open'] : ''}`}>
+          <div data-cascade="1" className={`${styles['mobile-accordion']} ${mobileServicesOpen ? styles['mobile-accordion-open'] : ''}`}>
             <button
               className={`${styles['mobile-accordion-header']} ${mobileServicesOpen ? styles['active'] : ''}`}
               onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
@@ -603,7 +618,7 @@ const Navbar = memo(() => {
           </div>
 
           {/* Industries Accordion */}
-          <div className={`${styles['mobile-accordion']} ${mobileIndustriesOpen ? styles['mobile-accordion-open'] : ''}`}>
+          <div data-cascade="2" className={`${styles['mobile-accordion']} ${mobileIndustriesOpen ? styles['mobile-accordion-open'] : ''}`}>
             <button
               className={`${styles['mobile-accordion-header']} ${mobileIndustriesOpen ? styles['active'] : ''}`}
               onClick={() => setMobileIndustriesOpen(!mobileIndustriesOpen)}
@@ -636,13 +651,13 @@ const Navbar = memo(() => {
           </div>
 
           {/* Case Studies Link */}
-          <Link to="/projects" className={styles['mobile-link']} onClick={closeMobileMenu}>
+          <Link data-cascade="3" to="/projects" className={styles['mobile-link']} onClick={closeMobileMenu}>
             <span>Case Studies</span>
             <ArrowRight size={16} />
           </Link>
 
           {/* About Accordion */}
-          <div className={`${styles['mobile-accordion']} ${mobileAboutOpen ? styles['mobile-accordion-open'] : ''}`}>
+          <div data-cascade="4" className={`${styles['mobile-accordion']} ${mobileAboutOpen ? styles['mobile-accordion-open'] : ''}`}>
             <button
               className={`${styles['mobile-accordion-header']} ${mobileAboutOpen ? styles['active'] : ''}`}
               onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
@@ -674,28 +689,7 @@ const Navbar = memo(() => {
             </div>
           </div>
 
-          <div className={styles['mobile-actions-row']}>
-            <button
-              type="button"
-              className={styles['mobile-theme-toggle-btn']}
-              onClick={toggleTheme}
-              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-            >
-              {theme === 'dark' ? (
-                <>
-                  <Sun size={17} />
-                  <span>Switch to Light Mode</span>
-                </>
-              ) : (
-                <>
-                  <Moon size={17} />
-                  <span>Switch to Dark Mode</span>
-                </>
-              )}
-            </button>
-          </div>
-
-          <div className={styles['mobile-cta']}>
+          <div data-cascade="5" className={styles['mobile-cta']}>
             <Button
               text="Strategic Partnerships"
               variant="luxury-liquid"
