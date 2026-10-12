@@ -18,6 +18,11 @@ export function useIndustryPage(slug: string, initialData?: SanityIndustry | nul
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    setData(resolvedInitialData);
+    setLoading(!resolvedInitialData);
+  }, [slug, resolvedInitialData]);
+
+  useEffect(() => {
     let isMounted = true;
     let intervalId: any = null;
 

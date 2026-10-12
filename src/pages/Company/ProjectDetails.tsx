@@ -44,6 +44,12 @@ const ProjectDetails: React.FC = () => {
         return loaderData?.fallbackProject || projectsData.find(project => project.id === id);
     }, [id, loaderData]);
 
+    // Synchronize state immediately when navigating between project case studies
+    useEffect(() => {
+        setSanityProject(loaderData?.sanityProject || null);
+        setIsLoading(!loaderData?.sanityProject);
+    }, [id, loaderData]);
+
     useEffect(() => {
         let isMounted = true;
         if (id && !loaderData?.sanityProject) {

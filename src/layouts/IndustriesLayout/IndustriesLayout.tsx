@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Outlet } from 'react-router'
+import React, { useState, useCallback, useMemo } from 'react'
+import { Outlet, useLocation } from 'react-router'
 import Partners from '../../components/Partners/Partners'
 import IndustryProcess from '../../components/IndustryProcess/IndustryProcess'
 import Technologies from '../../components/Slider/Slider'
@@ -43,22 +43,49 @@ const DEFAULT_DELIVER_MVP_DATA: DeliverMVPProps['data'] = {
 };
 
 const IndustriesLayout: React.FC = () => {
+    const location = useLocation();
+
     const [processTitle, setProcessTitle] = useState<ProcessTitleData>({
         titleMain: "App Development",
         titleAccent: "Process"
     });
     const [deliverMVPData, setDeliverMVPData] = useState<DeliverMVPProps['data'] | null>(null);
 
-    const contextValue: IndustriesContextType = {
-        setProcessTitle,
-        setDeliverMVPData
-    };
+    // Safeguard setters against duplicate renders / infinite loops
+    const setProcessTitleSafe = useCallback((action: React.SetStateAction<ProcessTitleData>) => {
+        setProcessTitle(prev => {
+            const next = typeof action === 'function' ? action(prev) : action;
+            if (
+                prev.titleMain === next.titleMain &&
+                prev.titleAccent === next.titleAccent &&
+                prev.titleEnd === next.titleEnd
+            ) {
+                return prev;
+            }
+            return next;
+        });
+    }, []);
+
+    const setDeliverMVPDataSafe = useCallback((action: React.SetStateAction<DeliverMVPProps['data'] | null>) => {
+        setDeliverMVPData(prev => {
+            const next = typeof action === 'function' ? action(prev) : action;
+            if (JSON.stringify(prev) === JSON.stringify(next)) {
+                return prev;
+            }
+            return next;
+        });
+    }, []);
+
+    const contextValue: IndustriesContextType = useMemo(() => ({
+        setProcessTitle: setProcessTitleSafe,
+        setDeliverMVPData: setDeliverMVPDataSafe
+    }), [setProcessTitleSafe, setDeliverMVPDataSafe]);
 
     const activeDeliverMVP = deliverMVPData || DEFAULT_DELIVER_MVP_DATA;
 
     return (
         <>
-            <Outlet context={contextValue} />
+            <Outlet key={location.pathname} context={contextValue} />
             <Partners />
             <DeliverMVP data={activeDeliverMVP} />
             <Technologies />

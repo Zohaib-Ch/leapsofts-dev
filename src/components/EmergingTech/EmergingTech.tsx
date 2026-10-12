@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, FreeMode } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/free-mode';
 import styles from './emergingTech.module.css';
 
 /* ================= ICON MAPPING ================= */
@@ -39,7 +40,6 @@ export interface EmergingTechProps {
 /* ================= COMPONENT ================= */
 
 const EmergingTech: React.FC<EmergingTechProps> = ({ data }) => {
-
   const getIcon = (type: string) => {
     if (!type) return <img src={iconMap.enterprise} alt="icon" className={styles.icon} />;
     if (type.startsWith('/') || type.startsWith('http')) {
@@ -48,6 +48,15 @@ const EmergingTech: React.FC<EmergingTechProps> = ({ data }) => {
     const iconSrc = iconMap[type.toLowerCase()] || iconMap.enterprise;
     return <img src={iconSrc} alt={type} className={styles.icon} />;
   };
+
+  // Provide seamless infinite buffer slides so Swiper linear flow never hitches
+  const displayItems = useMemo(() => {
+    if (!data?.items || data.items.length === 0) return [];
+    if (data.items.length < 8) {
+      return [...data.items, ...data.items, ...data.items];
+    }
+    return [...data.items, ...data.items];
+  }, [data?.items]);
 
   return (
     <section className={styles.section}>
@@ -64,43 +73,55 @@ const EmergingTech: React.FC<EmergingTechProps> = ({ data }) => {
 
         <div className={styles.swiperContainer}>
           <Swiper
-            modules={[Autoplay]}
+            modules={[Autoplay, FreeMode]}
             spaceBetween={24}
+            slidesPerView="auto"
             centeredSlides={false}
             grabCursor={true}
             loop={true}
-            speed={600}
+            loopAdditionalSlides={4}
+            watchSlidesProgress={true}
+            speed={7000}
             autoplay={{
-              delay: 3500,
+              delay: 0,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
-            breakpoints={{
-              320: { slidesPerView: 1 },
-              640: { slidesPerView: 1.5 },
-              1024: { slidesPerView: 2.5 },
-              1280: { slidesPerView: 3 },
+            freeMode={{
+              enabled: true,
+              momentum: false,
             }}
+            allowTouchMove={true}
             className={styles.swiper}
           >
-            {data.items.map((item, index) => (
-              <SwiperSlide key={index} className={styles.slide}>
-                <div className={styles.card}>
-                  <div className={styles.cardHeader}>
-                    <div className={styles.iconWrapper}>
-                      {getIcon(item.icon)}
+            {displayItems.map((item, index) => {
+              const originalIndex = (index % data.items.length) + 1;
+              return (
+                <SwiperSlide key={index} className={styles.slide}>
+                  <div className={styles.card}>
+                    {/* Holographic Border Beam */}
+                    <div className={styles.cardBorderGlow} />
+
+                    {/* Liquid Glass Shimmer Sheen */}
+                    <div className={styles.cardShimmer} />
+
+                    <div className={styles.cardHeader}>
+                      <div className={styles.iconWrapper}>
+                        {getIcon(item.icon)}
+                      </div>
+                      <span className={styles.stepBadge}>
+                        {String(originalIndex).padStart(2, '0')}
+                      </span>
                     </div>
-                    <span className={styles.stepBadge}>
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
+
+                    <div className={styles.cardContent}>
+                      <h3 className={styles.cardTitle}>{item.title}</h3>
+                      <p className={styles.cardDesc}>{item.description}</p>
+                    </div>
                   </div>
-                  <div className={styles.cardContent}>
-                    <h3 className={styles.cardTitle}>{item.title}</h3>
-                    <p className={styles.cardDesc}>{item.description}</p>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </div>
       </div>
