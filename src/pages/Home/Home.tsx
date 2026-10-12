@@ -290,6 +290,7 @@ const Home = (props: { loaderData?: any }) => {
           titleAccent={sanityData?.aboutUs?.titleAccent}
           descriptionText={sanityData?.aboutUs?.descriptionText}
           imageUrl={sanityData?.aboutUs?.imageUrl}
+          imageUrlLight={sanityData?.aboutUs?.imageLightUrl}
         />
       </div>
       <div id="figures">
@@ -307,6 +308,7 @@ const Home = (props: { loaderData?: any }) => {
           buttonText={sanityData?.strategy?.buttonText || "Claim Strategy Session"}
           buttonPath={sanityData?.strategy?.buttonPath || "#contact"}
           imageUrl={sanityData?.strategy?.imageUrl || "/streamline.webp"}
+          imageUrlLight={sanityData?.strategy?.imageLightUrl}
         />
         <IndustrySlider />
         <Slider />

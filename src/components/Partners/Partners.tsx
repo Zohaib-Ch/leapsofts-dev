@@ -1,7 +1,4 @@
 import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
-import 'swiper/css';
 import styles from './Partners.module.css';
 
 export interface PartnersProps {
@@ -57,10 +54,17 @@ const Partners: React.FC<PartnersProps> = ({
     'ipmd-logo.png',
     'harris-paints.png',
     'JBreeden.png',
-    'knife.jpg',
+    'knife.png',
     'newDark.avif',
     'Instrat.png'
   ];
+
+  const getLogoWrapperClass = (partner: string) => {
+    if (partner.includes('osorio')) return `${styles.logo} ${styles.logoOsorio}`;
+    if (partner.includes('knife')) return `${styles.logo} ${styles.logoKnife}`;
+    if (partner.includes('Instrat')) return `${styles.logo} ${styles.logoInstrat}`;
+    return styles.logo;
+  };
 
   return (
     <section ref={sectionRef} className={`${styles.sectionWrapper} ${isVisible ? styles.revealed : ''}`}>
@@ -82,48 +86,34 @@ const Partners: React.FC<PartnersProps> = ({
 
         <div className={styles["partner-list"]}>
           <div className={styles["slider"]}>
-            <Swiper
-              modules={[Autoplay]}
-              slidesPerView={2}
-              spaceBetween={30}
-              loop={true}
-              speed={3000}
-              autoplay={{
-                delay: 0,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: false,
-              }}
-              breakpoints={{
-                480: {
-                  slidesPerView: 3,
-                  spaceBetween: 40,
-                },
-                768: {
-                  slidesPerView: 4,
-                  spaceBetween: 50,
-                },
-                1024: {
-                  slidesPerView: 5,
-                  spaceBetween: 60,
-                },
-                1280: {
-                  slidesPerView: 6,
-                  spaceBetween: 70,
-                },
-              }}
-              className={styles["swiper"]}
-            >
-              {logoFiles.map((partner, index) => (
-                <SwiperSlide key={`${partner}-${index}`} className={styles["slide"]}>
-                  <div className={styles["logo"]}>
+            <div className={styles["marqueeTrack"]}>
+              {/* Primary Group */}
+              <div className={styles["marqueeGroup"]}>
+                {logoFiles.map((partner, index) => (
+                  <div key={`partner-a-${index}`} className={getLogoWrapperClass(partner)}>
                     <img
                       src={"/partner-logos/" + partner}
                       alt={partner.split('.')[0]}
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+                ))}
+              </div>
+              {/* Dual Duplicate Group for Seamless 120fps Loop */}
+              <div className={styles["marqueeGroup"]} aria-hidden="true">
+                {logoFiles.map((partner, index) => (
+                  <div key={`partner-b-${index}`} className={getLogoWrapperClass(partner)}>
+                    <img
+                      src={"/partner-logos/" + partner}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

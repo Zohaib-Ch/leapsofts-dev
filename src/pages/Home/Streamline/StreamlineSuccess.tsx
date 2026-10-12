@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './streamline.module.css';
 import Button from '../../../components/Button/Button';
+import { useTheme } from '../../../context/ThemeContext';
 
 export interface StreamlineSuccessProps {
     label?: string;
@@ -12,6 +13,7 @@ export interface StreamlineSuccessProps {
     buttonText?: string;
     buttonPath?: string;
     imageUrl?: string;
+    imageUrlLight?: string;
 }
 
 const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({
@@ -23,8 +25,14 @@ const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({
     description2 = "",
     buttonText = "Claim Strategy Session",
     buttonPath = "#contact",
-    imageUrl = "/streamline.webp"
+    imageUrl = "/streamline.webp",
+    imageUrlLight
 }) => {
+    const { theme } = useTheme();
+    const darkImage = imageUrl || "/streamline.webp";
+    const lightImage = imageUrlLight || darkImage;
+    const finalImage = theme === 'light' ? lightImage : darkImage;
+
     const [isVisible, setIsVisible] = useState(false);
     const [spotlightPos, setSpotlightPos] = useState({ x: 50, y: 50 });
     const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
@@ -282,7 +290,7 @@ const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({
                         </div>
 
                         <img
-                            src={imageUrl}
+                            src={finalImage}
                             alt="Strategy Session Dashboard"
                             className={styles.dashboardImage}
                             loading="lazy"

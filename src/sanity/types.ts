@@ -60,6 +60,7 @@ export interface SanityAboutUs {
   titleAccent?: string;
   descriptionText?: string;
   imageUrl?: string;
+  imageLightUrl?: string;
   stats?: SanityAboutStat[];
 }
 
@@ -71,6 +72,7 @@ export interface SanityStrategy {
   descriptionText?: string;
   description2Text?: string;
   imageUrl?: string;
+  imageLightUrl?: string;
   buttonText?: string;
   buttonPath?: string;
 }
