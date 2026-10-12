@@ -1,6 +1,7 @@
 import styles from './about.module.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { parseFormattedText, parseEmphasisText } from '../../../utils/textParser';
+import { useTheme } from '../../../context/ThemeContext';
 
 export interface AboutProps {
     label?: string;
@@ -8,6 +9,7 @@ export interface AboutProps {
     titleAccent?: string;
     descriptionText?: string;
     imageUrl?: string;
+    imageUrlLight?: string;
 }
 
 const About: React.FC<AboutProps> = ({
@@ -15,7 +17,8 @@ const About: React.FC<AboutProps> = ({
     headline = "Engineered for <em>execution</em>. Scale without friction.",
     titleAccent,
     descriptionText,
-    imageUrl
+    imageUrl,
+    imageUrlLight
 }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [spotlightPos, setSpotlightPos] = useState({ x: 50, y: 50 });
@@ -73,7 +76,10 @@ const About: React.FC<AboutProps> = ({
         setSpotlightPos({ x: 50, y: 50 });
     };
 
-    const finalImage = imageUrl || "/leapsofts.webp";
+    const { theme } = useTheme();
+    const darkImage = imageUrl || "/leapsofts.webp";
+    const lightImage = imageUrlLight || darkImage;
+    const finalImage = theme === 'light' ? lightImage : darkImage;
     const descSegments = parseFormattedText(descriptionText || defaultAboutDescription);
 
     return (

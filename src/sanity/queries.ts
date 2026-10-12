@@ -28,6 +28,7 @@ export const HOME_PAGE_QUERY = `*[_type == "homePage"] | order(_updatedAt desc)[
     titleAccent,
     descriptionText,
     "imageUrl": image.asset->url,
+    "imageLightUrl": imageLight.asset->url,
     stats
   },
   strategy {
@@ -38,6 +39,7 @@ export const HOME_PAGE_QUERY = `*[_type == "homePage"] | order(_updatedAt desc)[
     descriptionText,
     description2Text,
     "imageUrl": image.asset->url,
+    "imageLightUrl": imageLight.asset->url,
     buttonText,
     buttonPath
   },

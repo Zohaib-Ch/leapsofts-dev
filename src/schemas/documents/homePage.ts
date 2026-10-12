@@ -81,9 +81,16 @@ export const homePageSchema = defineType({
         defineField({ name: 'descriptionText', title: 'Description Text', type: 'text' }),
         defineField({
           name: 'image',
-          title: 'Section Image',
+          title: 'Section Image (Dark Mode Default)',
           type: 'image',
           options: { hotspot: true },
+        }),
+        defineField({
+          name: 'imageLight',
+          title: 'Section Image (Light Mode)',
+          type: 'image',
+          options: { hotspot: true },
+          description: 'Light-mode specific illustration or 3D render. Falls back to dark image if not set.',
         }),
         defineField({
           name: 'stats',
@@ -127,9 +134,16 @@ export const homePageSchema = defineType({
         defineField({ name: 'description2Text', title: 'Secondary Description', type: 'text' }),
         defineField({
           name: 'image',
-          title: 'Section Image',
+          title: 'Section Image (Dark Mode Default)',
           type: 'image',
           options: { hotspot: true },
+        }),
+        defineField({
+          name: 'imageLight',
+          title: 'Section Image (Light Mode)',
+          type: 'image',
+          options: { hotspot: true },
+          description: 'Light-mode specific illustration or 3D render. Falls back to dark image if not set.',
         }),
         defineField({ name: 'buttonText', title: 'Button Text', type: 'string' }),
         defineField({ name: 'buttonPath', title: 'Button Target Path', type: 'string' }),

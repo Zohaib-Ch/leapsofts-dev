@@ -603,24 +603,26 @@
 }
 
 :global([data-theme="light"]) .visual {
+    background: #ffffff;
     border: 1px solid rgba(147, 51, 234, 0.18);
     box-shadow: 
-        0 20px 45px rgba(107, 33, 168, 0.12),
+        0 20px 45px rgba(107, 33, 168, 0.1),
         0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
 :global([data-theme="light"]) .visual:hover {
     box-shadow: 
-        0 30px 60px rgba(107, 33, 168, 0.18),
-        0 0 30px rgba(217, 70, 239, 0.15);
+        0 30px 60px rgba(107, 33, 168, 0.15),
+        0 0 30px rgba(217, 70, 239, 0.12);
 }
 
 :global([data-theme="light"]) .floatingChipTop,
 :global([data-theme="light"]) .floatingChipBottom {
-    background: rgba(255, 255, 255, 0.88);
-    border: 1px solid rgba(147, 51, 234, 0.25);
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(147, 51, 234, 0.2);
     color: #0f172a;
-    box-shadow: 0 8px 24px rgba(107, 33, 168, 0.15);
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
 }
 
 :global([data-theme="light"]) .spotlightOverlay {
