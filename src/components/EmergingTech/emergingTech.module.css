@@ -9,18 +9,32 @@
 
 .bgGlow {
     position: absolute;
-    top: 20%;
+    top: 25%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, rgba(255, 121, 23, 0.04) 50%, transparent 70%);
-    filter: blur(80px);
+    transform: translate3d(-50%, -50%, 0);
+    width: 800px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.12) 0%, rgba(255, 121, 23, 0.06) 45%, transparent 70%);
+    filter: blur(90px);
     pointer-events: none;
+    contain: strict;
+    will-change: transform, opacity;
+    animation: floatGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes floatGlow {
+    0% {
+        transform: translate3d(-50%, -50%, 0) scale(0.95);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate3d(-50%, -50%, 0) scale(1.05);
+        opacity: 1;
+    }
 }
 
 .container {
-    max-width: 1320px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
     position: relative;
@@ -29,7 +43,7 @@
 
 /* Header */
 .header {
-    margin-bottom: 60px;
+    margin-bottom: 50px;
 }
 
 .label {
@@ -67,112 +81,223 @@
     max-width: 720px;
 }
 
-/* Swiper Container */
+/* Swiper Marquee Container with GPU-accelerated Horizon Fade */
 .swiperContainer {
     width: 100%;
     position: relative;
+    overflow: hidden;
+}
+
+.swiperContainer::before,
+.swiperContainer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 64px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.swiperContainer::before {
+    left: 0;
+    background: linear-gradient(to right, #050001 0%, transparent 100%);
+}
+
+.swiperContainer::after {
+    right: 0;
+    background: linear-gradient(to left, #050001 0%, transparent 100%);
 }
 
 .swiper {
-    padding: 16px 4px 32px 4px;
+    padding: 24px 8px 36px 8px;
     overflow: visible;
 }
 
-.slide {
-    height: auto;
-    display: flex;
+/* Hardware-accelerated linear continuous glide */
+.swiper :global(.swiper-wrapper) {
+    transition-timing-function: linear !important;
+    will-change: transform;
 }
 
-/* Glassmorphic Card Styling */
+.slide {
+    width: 380px !important;
+    height: auto;
+    display: flex;
+    flex-shrink: 0;
+}
+
+/* =========================================================================
+   HOLOGRAPHIC AURORA & LIQUID SHIMMER CARD (120FPS GPU COMPOSITED)
+   ========================================================================= */
+
 .card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    padding: 32px;
+    position: relative;
+    width: 100%;
+    min-height: 290px;
+    border-radius: 24px;
+    padding: 32px 28px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 100%;
-    min-height: 280px;
-    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-    position: relative;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+    background: radial-gradient(circle at 10% 10%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 90% 90%, rgba(255, 121, 23, 0.05) 0%, transparent 50%),
+                linear-gradient(165deg, rgba(22, 11, 30, 0.96) 0%, rgba(8, 4, 12, 0.98) 100%);
+    box-shadow: 0 12px 32px -6px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:active {
+    cursor: grabbing;
 }
 
 .card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(236, 72, 153, 0.35);
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 16px 36px rgba(236, 72, 153, 0.12);
+    transform: translate3d(0, -8px, 0);
+    box-shadow: 0 24px 50px -10px rgba(236, 72, 153, 0.28),
+                0 8px 24px -4px rgba(255, 121, 23, 0.18),
+                inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
+/* 1px Razor-Sharp Holographic Gradient Border with Zero-Paint Opacity Crossfade */
+.cardBorderGlow {
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    padding: 1px;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.35) 0%, rgba(255, 121, 23, 0.2) 40%, rgba(168, 85, 247, 0.35) 75%, rgba(255, 255, 255, 0.08) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+.cardBorderGlow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #ec4899 0%, #FF7917 50%, #a855f7 100%);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity;
+}
+
+.card:hover .cardBorderGlow::after {
+    opacity: 1;
+}
+
+/* 45-Degree Liquid Glass Shimmer Sheen (100% GPU Transform) */
+.cardShimmer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        105deg,
+        transparent 20%,
+        rgba(255, 255, 255, 0.05) 45%,
+        rgba(255, 255, 255, 0.18) 50%,
+        rgba(255, 255, 255, 0.05) 55%,
+        transparent 80%
+    );
+    pointer-events: none;
+    transform: translate3d(-150%, 0, 0) skewX(-15deg);
+    will-change: transform;
+    transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover .cardShimmer {
+    transform: translate3d(150%, 0, 0) skewX(-15deg);
+}
+
+/* Card Header */
 .cardHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 24px;
+    position: relative;
+    z-index: 2;
 }
 
 .iconWrapper {
-    width: 56px;
-    height: 56px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(255, 121, 23, 0.12));
-    border: 1px solid rgba(236, 72, 153, 0.25);
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.18), rgba(255, 121, 23, 0.14));
+    border: 1px solid rgba(236, 72, 153, 0.35);
+    box-shadow: 0 8px 20px -4px rgba(236, 72, 153, 0.25);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .card:hover .iconWrapper {
-    transform: scale(1.05);
-    border-color: rgba(236, 72, 153, 0.5);
+    transform: translate3d(0, 0, 0) scale(1.08) rotate(3deg);
+    border-color: rgba(236, 72, 153, 0.6);
+    box-shadow: 0 10px 24px -2px rgba(236, 72, 153, 0.35);
 }
 
 .icon {
     width: 28px;
     height: 28px;
     object-fit: contain;
-    filter: drop-shadow(0 2px 4px rgba(236, 72, 153, 0.3));
+    filter: drop-shadow(0 2px 6px rgba(236, 72, 153, 0.35));
 }
 
 .stepBadge {
     font-family: var(--font-mono, monospace);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.25);
+    padding: 5px 13px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.45);
     letter-spacing: 1px;
-    transition: color 0.3s ease;
+    transition: color 0.35s ease, background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 .card:hover .stepBadge {
     color: var(--color-orange, #FF7917);
+    background: rgba(255, 121, 23, 0.12);
+    border-color: rgba(255, 121, 23, 0.4);
+    box-shadow: 0 0 16px rgba(255, 121, 23, 0.25);
 }
 
+/* Card Content */
 .cardContent {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    position: relative;
+    z-index: 2;
 }
 
 .cardTitle {
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 700;
     color: white;
     font-family: 'DM Sans', sans-serif;
     line-height: 1.3;
+    letter-spacing: -0.01em;
 }
 
 .cardDesc {
-    font-size: 14px;
+    font-size: 14.5px;
     line-height: 1.65;
     color: #9ca3af;
 }
 
-/* Responsive Breakpoints */
+/* Responsive */
 @media (max-width: 1024px) {
     .container {
         padding: 0 1.5rem;
@@ -186,9 +311,13 @@
         margin-bottom: 40px;
     }
 
+    .slide {
+        width: 340px !important;
+    }
+
     .card {
-        padding: 24px;
-        min-height: 260px;
+        padding: 26px 22px;
+        min-height: 270px;
     }
 }
 
@@ -205,25 +334,35 @@
         font-size: 15px;
     }
 
+    .slide {
+        width: 310px !important;
+    }
+
     .card {
-        padding: 24px;
-        min-height: 240px;
+        padding: 24px 20px;
+        min-height: 250px;
     }
 
     .iconWrapper {
-        width: 48px;
-        height: 48px;
+        width: 50px;
+        height: 50px;
     }
 
     .icon {
         width: 24px;
         height: 24px;
     }
+
+    .swiperContainer::before,
+    .swiperContainer::after {
+        width: 32px;
+    }
 }
 
 /* =========================================================================
-   LIGHT THEME OVERRIDES FOR EMERGING TECH
+   LIGHT THEME OVERRIDES (120FPS GPU COMPOSITED)
    ========================================================================= */
+
 :global([data-theme="light"]) .section {
     background: linear-gradient(180deg, #ffffff 0%, #faf8fd 50%, #f6f3fa 100%);
     color: #0f172a;
@@ -231,9 +370,16 @@
 }
 
 :global([data-theme="light"]) .bgGlow {
-    background: radial-gradient(circle at center, rgba(147, 51, 234, 0.07) 0%, rgba(249, 115, 22, 0.035) 45%, transparent 70%);
-    filter: none !important;
-    transform: translate(-50%, -50%) translateZ(0);
+    background: radial-gradient(circle at center, rgba(147, 51, 234, 0.08) 0%, rgba(249, 115, 22, 0.04) 45%, transparent 70%);
+    filter: blur(80px);
+}
+
+:global([data-theme="light"]) .swiperContainer::before {
+    background: linear-gradient(to right, #ffffff 0%, transparent 100%);
+}
+
+:global([data-theme="light"]) .swiperContainer::after {
+    background: linear-gradient(to left, #ffffff 0%, transparent 100%);
 }
 
 :global([data-theme="light"]) .title {
@@ -249,30 +395,63 @@
 }
 
 :global([data-theme="light"]) .card {
-    background: #ffffff;
-    border: 1px solid rgba(147, 51, 234, 0.12);
-    box-shadow: 0 10px 30px -10px rgba(107, 33, 168, 0.08);
+    background: radial-gradient(circle at 10% 10%, rgba(147, 51, 234, 0.05) 0%, transparent 60%),
+                radial-gradient(circle at 90% 90%, rgba(249, 115, 22, 0.03) 0%, transparent 60%),
+                linear-gradient(170deg, #ffffff 0%, #faf8fd 60%, #f5f0fa 100%);
+    box-shadow: 0 10px 30px -6px rgba(107, 33, 168, 0.08),
+                0 2px 8px rgba(0, 0, 0, 0.02),
+                inset 0 1px 0 #ffffff;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
 }
 
 :global([data-theme="light"]) .card:hover {
-    background: #ffffff;
-    border-color: rgba(147, 51, 234, 0.35);
-    box-shadow: 0 20px 45px -10px rgba(107, 33, 168, 0.16);
+    box-shadow: 0 24px 50px -10px rgba(124, 58, 237, 0.2),
+                0 8px 20px -4px rgba(249, 115, 22, 0.1),
+                inset 0 1px 0 #ffffff;
+}
+
+:global([data-theme="light"]) .cardBorderGlow {
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.22) 0%, rgba(249, 115, 22, 0.16) 40%, rgba(168, 85, 247, 0.22) 75%, rgba(0, 0, 0, 0.04) 100%);
+}
+
+:global([data-theme="light"]) .cardBorderGlow::after {
+    background: linear-gradient(135deg, #7c3aed 0%, #FF7917 50%, #c084fc 100%);
+}
+
+:global([data-theme="light"]) .cardShimmer {
+    background: linear-gradient(
+        105deg,
+        transparent 20%,
+        rgba(255, 255, 255, 0.45) 45%,
+        rgba(255, 255, 255, 0.9) 50%,
+        rgba(255, 255, 255, 0.45) 55%,
+        transparent 80%
+    );
 }
 
 :global([data-theme="light"]) .iconWrapper {
-    background: linear-gradient(135deg, rgba(147, 51, 234, 0.1), rgba(249, 115, 22, 0.1));
-    border: 1px solid rgba(147, 51, 234, 0.2);
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.12), rgba(249, 115, 22, 0.1));
+    border: 1px solid rgba(147, 51, 234, 0.24);
+    box-shadow: 0 6px 16px -4px rgba(124, 58, 237, 0.15);
+}
+
+:global([data-theme="light"]) .card:hover .iconWrapper {
+    border-color: rgba(147, 51, 234, 0.5);
+    box-shadow: 0 8px 20px -2px rgba(124, 58, 237, 0.25);
 }
 
 :global([data-theme="light"]) .stepBadge {
-    color: #94a3b8;
+    background: rgba(147, 51, 234, 0.06);
+    border: 1px solid rgba(147, 51, 234, 0.16);
+    color: #7c3aed;
 }
 
 :global([data-theme="light"]) .card:hover .stepBadge {
-    color: var(--color-orange);
+    color: var(--color-orange, #FF7917);
+    background: rgba(255, 121, 23, 0.12);
+    border-color: rgba(255, 121, 23, 0.35);
+    box-shadow: 0 0 14px rgba(255, 121, 23, 0.2);
 }
 
 :global([data-theme="light"]) .cardTitle {

@@ -96,6 +96,12 @@ const BlogDetail: React.FC = () => {
     return blogsData.find((b) => b.slug === slug);
   }, [slug]);
 
+  // Synchronize state immediately when navigating between blog posts
+  useEffect(() => {
+    setSanityPost(loaderData?.sanityData || null);
+    setIsLoading(!loaderData?.sanityData);
+  }, [slug, loaderData]);
+
   // Load Post data from Sanity
   useEffect(() => {
     window.scrollTo(0, 0);
