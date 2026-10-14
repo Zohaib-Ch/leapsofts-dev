@@ -275,7 +275,8 @@ const CloudEngineering: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || 'Cloud-Native',
         titleEnd: data.serviceOverview.titleEnd || 'Infrastructures',
         description: data.serviceOverview.description || 'At Leapsofts, we customize and engineer resilient cloud infrastructures designed to scale systems automatically and deliver high-performance throughput. By authoring custom Terraform blueprints, containerizing applications with Docker and Kubernetes (EKS/GKE), configuring elastic auto-scaling groups, and orchestrating distributed microservices, we help enterprises migrate from legacy on-premises servers to secure cloud environments with zero operational downtime.',
-        imagePath: data.serviceOverview.imageUrl || "/streamline.webp"
+        imagePath: data.serviceOverview.imageUrl || "/streamline.webp",
+        imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : null;
 
@@ -285,6 +286,7 @@ const CloudEngineering: React.FC = () => {
         number: slide.number || '< 01 >',
         title: slide.title || '',
         image: slide.imageUrl || "/streamline.webp",
+        imageLight: slide.imageLightUrl,
         items: slide.items || []
       }))
     : null;
@@ -354,6 +356,7 @@ const CloudEngineering: React.FC = () => {
           titleEnd={activeOverviewData.titleEnd}
           description={activeOverviewData.description}
           imagePath={activeOverviewData.imagePath}
+          imagePathLight={activeOverviewData.imagePathLight}
         />
       )}
       {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
@@ -375,6 +378,7 @@ const CloudEngineering: React.FC = () => {
         buttonText={data?.strategyCTA?.buttonText || "Claim Cloud Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
         imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrlLight={data?.strategyCTA?.imageLightUrl}
       />
       {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
         <DeliverMVP data={activeDeliverMVPData} />

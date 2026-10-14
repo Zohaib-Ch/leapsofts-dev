@@ -589,6 +589,34 @@
   gap: 30px;
 }
 
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.cardHeaderTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.3;
+}
+
+.cardHeaderIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-orange);
+  flex-shrink: 0;
+}
+
+.cardDesc {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
 .hubList {
   display: flex;
   flex-direction: column;
@@ -1098,9 +1126,22 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
+  .reasonsGrid,
+  .industryGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 36px;
+  }
   .valuesGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+  }
+  .techGrid {
+    gap: 18px;
+    margin-top: 36px;
+  }
+  .techCategoryCard {
+    padding: 1.75rem 1.5rem;
   }
   .leadershipGrid {
     grid-template-columns: 1fr;
@@ -1108,15 +1149,27 @@
   .globalGrid {
     grid-template-columns: 1fr;
   }
+  .faqList {
+    margin-top: 36px;
+    gap: 14px;
+  }
+  .faqQuestion {
+    padding: 20px 24px;
+    font-size: 17px;
+  }
+  .faqAnswer {
+    padding: 0 24px 20px;
+    font-size: 15px;
+  }
 }
 
 /* Tablet & Mobile (768px) */
 @media (max-width: 768px) {
   .section {
-    padding: 65px 16px;
+    padding: 60px 16px;
   }
   .sectionHeader {
-    margin-bottom: 40px;
+    margin-bottom: 36px;
   }
   .hero {
     padding: 105px 16px 50px;
@@ -1130,18 +1183,55 @@
     margin-bottom: 35px;
   }
   .title {
-    font-size: 32px;
+    font-size: 30px;
+    line-height: 1.25;
   }
   .subtitle {
     font-size: 15px;
   }
   .glassCard {
-    padding: 1.75rem 1.25rem;
+    padding: 1.5rem 1.25rem;
     border-radius: 16px;
   }
   .metricsGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+  }
+  .reasonsGrid,
+  .industryGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .reasonCard {
+    padding: 1.5rem 1.25rem;
+  }
+  .reasonHeader {
+    margin-bottom: 14px;
+  }
+  .reasonIcon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+  .reasonIcon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .reasonStat {
+    font-size: 11px;
+    padding: 3px 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .reasonTitle {
+    font-size: 18px;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .reasonDesc {
+    font-size: 14px;
+    line-height: 1.55;
   }
   .metricCard {
     padding: 20px 12px;
@@ -1182,10 +1272,75 @@
   .ctaSub {
     font-size: 15px;
   }
+  .techGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .techCategoryCard {
+    padding: 1.5rem 1.25rem;
+    border-radius: 16px;
+  }
+  .techCategoryTitle {
+    font-size: 17px;
+    margin-bottom: 12px;
+  }
+  .techCategoryTitle svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  .techPills {
+    gap: 7px;
+  }
+  .techPill {
+    font-size: 12.5px;
+    padding: 5px 12px;
+  }
+  .faqList {
+    margin-top: 28px;
+    gap: 12px;
+  }
+  .faqItem {
+    border-radius: 16px;
+  }
+  .faqQuestion {
+    padding: 18px 20px;
+    font-size: 16px;
+    gap: 12px;
+  }
+  .faqAnswer {
+    padding: 0 20px 18px;
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+  .cardHeaderTitle {
+    font-size: 18px;
+  }
+  .cardDesc {
+    font-size: 14px;
+    margin-bottom: 1rem;
+  }
+  .hubList {
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+  .hubName {
+    font-size: 16.5px;
+  }
+  .hubDesc {
+    font-size: 14px;
+  }
 }
 
 /* Small Mobile Devices (480px and below) */
 @media (max-width: 480px) {
+  .section {
+    padding: 45px 14px;
+  }
+  .sectionHeader {
+    margin-bottom: 26px;
+  }
   .hero {
     padding: 85px 12px 36px;
   }
@@ -1194,13 +1349,58 @@
     line-height: 1.2;
   }
   .title {
-    font-size: 26px;
-    line-height: 1.25;
+    font-size: clamp(1.45rem, 6.2vw, 1.85rem);
+    line-height: 1.22;
+  }
+  .subtitle {
+    font-size: clamp(0.85rem, 3.8vw, 0.95rem);
+    line-height: 1.5;
   }
   .label {
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 1.5px;
+    margin-bottom: 10px;
+  }
+  .reasonsGrid,
+  .industryGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 22px;
+  }
+  .reasonCard {
+    padding: 1.25rem 1rem;
+    border-radius: 14px;
+  }
+  .reasonHeader {
     margin-bottom: 12px;
+    gap: 8px;
+  }
+  .reasonIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+  .reasonIcon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .reasonStat {
+    font-size: 10.5px;
+    padding: 3px 8px;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .reasonTitle {
+    font-size: 16.5px;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .reasonDesc {
+    font-size: 13.5px;
+    line-height: 1.5;
   }
   .metricsGrid {
     grid-template-columns: 1fr;
@@ -1239,6 +1439,250 @@
   }
   .ctaTitle {
     font-size: 22px;
+  }
+  .techGrid {
+    gap: 12px;
+    margin-top: 22px;
+  }
+  .techCategoryCard {
+    padding: 1.25rem 1rem;
+    border-radius: 14px;
+  }
+  .techCategoryTitle {
+    font-size: 16px;
+    gap: 8px;
+    margin-bottom: 10px;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+  .techCategoryTitle svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+  }
+  .techPills {
+    gap: 6px;
+  }
+  .techPill {
+    font-size: 11.5px;
+    padding: 4px 10px;
+    border-radius: 14px;
+  }
+  .faqList {
+    margin-top: 22px;
+    gap: 10px;
+  }
+  .faqItem {
+    border-radius: 14px;
+  }
+  .faqQuestion {
+    padding: 15px 16px;
+    font-size: 15px;
+    gap: 10px;
+    line-height: 1.35;
+  }
+  .faqQuestion svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  .faqAnswer {
+    padding: 0 16px 15px;
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+  .glassCard {
+    padding: 1.25rem 1rem;
+    border-radius: 14px;
+  }
+  .cardHeader {
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .cardHeaderTitle {
+    font-size: 17px;
+  }
+  .cardHeaderIcon {
+    width: 20px;
+    height: 20px;
+  }
+  .cardDesc {
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .hubList {
+    gap: 0.9rem;
+    margin-top: 1rem;
+  }
+  .hubItem {
+    gap: 0.85rem;
+  }
+  .hubIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+  }
+  .hubIcon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .hubName {
+    font-size: 16px;
+    margin-bottom: 2px;
+  }
+  .hubDesc {
+    font-size: 13.5px;
+    line-height: 1.45;
+  }
+  .complianceBadges {
+    gap: 10px;
+    margin-top: 1.25rem;
+  }
+  .complianceItem {
+    padding: 0.9rem 0.85rem;
+    border-radius: 12px;
+  }
+  .complianceTitle {
+    font-size: 15px;
+  }
+  .complianceSubtitle {
+    font-size: 12px;
+  }
+}
+
+/* Ultra-Small Mobile Devices (360px and 320px screens) */
+@media (max-width: 360px) {
+  .section {
+    padding: 36px 10px;
+  }
+  .title {
+    font-size: 1.35rem;
+    line-height: 1.22;
+  }
+  .reasonCard {
+    padding: 1.1rem 0.85rem;
+  }
+  .reasonIcon {
+    width: 36px;
+    height: 36px;
+  }
+  .reasonIcon svg {
+    width: 16px;
+    height: 16px;
+  }
+  .reasonStat {
+    font-size: 9.5px;
+    padding: 2px 7px;
+  }
+  .reasonTitle {
+    font-size: 15.5px;
+  }
+  .reasonDesc {
+    font-size: 13px;
+  }
+  .techGrid {
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .techCategoryCard {
+    padding: 1rem 0.85rem;
+    border-radius: 12px;
+  }
+  .techCategoryTitle {
+    font-size: 15px;
+    gap: 7px;
+    margin-bottom: 9px;
+  }
+  .techCategoryTitle svg {
+    width: 16px;
+    height: 16px;
+  }
+  .techPills {
+    gap: 5px;
+  }
+  .techPill {
+    font-size: 11px;
+    padding: 3.5px 8.5px;
+    border-radius: 12px;
+  }
+  .faqList {
+    margin-top: 18px;
+    gap: 9px;
+  }
+  .faqItem {
+    border-radius: 12px;
+  }
+  .faqQuestion {
+    padding: 13px 12px;
+    font-size: 14px;
+    gap: 8px;
+    line-height: 1.3;
+  }
+  .faqQuestion svg {
+    width: 16px;
+    height: 16px;
+  }
+  .faqAnswer {
+    padding: 0 12px 13px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .glassCard {
+    padding: 1.1rem 0.85rem;
+    border-radius: 12px;
+  }
+  .cardHeader {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .cardHeaderTitle {
+    font-size: 16px;
+  }
+  .cardHeaderIcon {
+    width: 19px;
+    height: 19px;
+  }
+  .cardDesc {
+    font-size: 13px;
+    line-height: 1.45;
+    margin-bottom: 0.85rem;
+  }
+  .hubList {
+    gap: 0.8rem;
+    margin-top: 0.9rem;
+  }
+  .hubItem {
+    gap: 0.75rem;
+  }
+  .hubIcon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+  }
+  .hubIcon svg {
+    width: 16px;
+    height: 16px;
+  }
+  .hubName {
+    font-size: 15px;
+  }
+  .hubDesc {
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+  .complianceBadges {
+    gap: 8px;
+    margin-top: 1rem;
+  }
+  .complianceItem {
+    padding: 0.75rem 0.75rem;
+    border-radius: 10px;
+  }
+  .complianceTitle {
+    font-size: 14px;
+  }
+  .complianceSubtitle {
+    font-size: 11.5px;
   }
 }
 
@@ -1423,6 +1867,14 @@
 :global([data-theme="light"]) .executiveCard:hover .executiveSkillPill {
   border-color: rgba(147, 51, 234, 0.28);
   background: #f1edf8;
+}
+
+:global([data-theme="light"]) .cardHeaderTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .cardDesc {
+  color: #475569;
 }
 
 :global([data-theme="light"]) .hubIcon {

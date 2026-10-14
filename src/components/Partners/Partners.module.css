@@ -351,13 +351,13 @@
 }
 
 :global([data-theme="light"]) .partner-list {
-  background: linear-gradient(135deg, #e6ecf5 0%, #dee7f2 35%, #e2e1f9 70%, #ede9fe 100%);
-  border: 1px solid rgba(147, 51, 234, 0.18);
+  background: linear-gradient(135deg, #1e0b36 0%, #3b1464 35%, #4c1d95 70%, #2e0854 100%);
+  border: 1px solid rgba(168, 85, 247, 0.35);
   border-radius: 24px;
   box-shadow: 
-    0 16px 36px -8px rgba(99, 102, 241, 0.12), 
-    0 4px 12px rgba(0, 0, 0, 0.04), 
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    0 20px 48px -12px rgba(76, 29, 149, 0.35), 
+    0 4px 14px rgba(0, 0, 0, 0.08), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 :global([data-theme="light"]) .slider {
@@ -371,19 +371,19 @@
 }
 
 :global([data-theme="light"]) .logo img {
-  filter: drop-shadow(0 2px 4px rgba(15, 23, 42, 0.12));
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
   opacity: 0.95;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, filter 0.25s ease;
 }
 
 :global([data-theme="light"]) .logo:hover img {
   opacity: 1;
-  filter: drop-shadow(0 4px 10px rgba(15, 23, 42, 0.2));
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
   transform: scale(1.08);
 }
 
 :global([data-theme="light"]) .logoKnife img {
-  filter: drop-shadow(0 2px 4px rgba(15, 23, 42, 0.12));
+  filter: brightness(0) invert(1) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
 }
 
 :global([data-theme="light"]) .logoOsorio:hover img {
@@ -392,16 +392,16 @@
 
 :global([data-theme="light"]) .logoKnife:hover img {
   transform: scale(1.42) !important;
-  filter: drop-shadow(0 4px 10px rgba(15, 23, 42, 0.2));
+  filter: brightness(0) invert(1) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
 }
 
 :global([data-theme="light"]) .logoInstrat img {
-  filter: drop-shadow(0 2px 4px rgba(15, 23, 42, 0.12));
+  filter: brightness(0) invert(1) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
 }
 
 :global([data-theme="light"]) .logoInstrat:hover img {
   transform: scale(1.08);
-  filter: drop-shadow(0 4px 10px rgba(15, 23, 42, 0.2));
+  filter: brightness(0) invert(1) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -304,7 +304,8 @@ const AppReengineering: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
         titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
         description: data.serviceOverview.description || serviceOverviewData.description,
-        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath,
+        imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : serviceOverviewData;
 
@@ -381,6 +382,7 @@ const AppReengineering: React.FC = () => {
         titleEnd={activeOverviewData.titleEnd}
         description={activeOverviewData.description}
         imagePath={activeOverviewData.imagePath}
+          imagePathLight={activeOverviewData.imagePathLight}
       />
       )}
       {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
@@ -393,6 +395,7 @@ const AppReengineering: React.FC = () => {
         titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrlLight={data?.strategyCTA?.imageLightUrl}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Core Revamp Skills'}

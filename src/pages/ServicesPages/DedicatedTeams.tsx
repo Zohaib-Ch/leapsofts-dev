@@ -316,7 +316,8 @@ const DedicatedTeams: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
         titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
         description: data.serviceOverview.description || serviceOverviewData.description,
-        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath,
+        imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : serviceOverviewData;
 
@@ -326,6 +327,7 @@ const DedicatedTeams: React.FC = () => {
         number: slide.number || '< 01 >',
         title: slide.title || '',
         image: slide.imageUrl || "/streamline.webp",
+        imageLight: slide.imageLightUrl,
         items: slide.items || []
       }))
     : capabilitiesData;
@@ -369,6 +371,7 @@ const DedicatedTeams: React.FC = () => {
         titleEnd={activeOverviewData?.titleEnd || serviceOverviewData.titleEnd}
         description={activeOverviewData?.description || serviceOverviewData.description}
         imagePath={activeOverviewData?.imagePath || serviceOverviewData.imagePath}
+        imagePathLight={activeOverviewData?.imagePathLight || activeOverviewData?.imagePath}
       />
       )}
       {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
@@ -390,6 +393,7 @@ const DedicatedTeams: React.FC = () => {
         buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
         imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrlLight={data?.strategyCTA?.imageLightUrl}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Expert Engineering Pods'}

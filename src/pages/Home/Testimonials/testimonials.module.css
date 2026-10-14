@@ -461,17 +461,24 @@
 
     .spinnerWrapper {
         width: 100%;
-        max-width: 380px;
-        height: 380px;
-        margin-top: 1.5rem;
+        max-width: 360px;
+        height: 360px;
+        margin-top: 1.25rem;
     }
 
     .neonCircle,
     .neonCircleGlow {
         width: 100%;
         height: 100%;
-        max-width: 380px;
-        max-height: 380px;
+        max-width: 360px;
+        max-height: 360px;
+    }
+
+    .neonOuterRing {
+        top: -14px;
+        left: -14px;
+        right: -14px;
+        bottom: -14px;
     }
 
     .navButton {
@@ -500,16 +507,182 @@
 
 @media (max-width: 480px) {
     .testimonialsSection {
-        padding: 3rem 1rem;
+        padding: 3rem 12px;
+        overflow: hidden;
+    }
+
+    .header {
+        margin-bottom: 1.25rem;
+    }
+
+    .title {
+        font-size: clamp(1.6rem, 5.5vw, 1.95rem);
+        margin-bottom: 8px;
+    }
+
+    .subtitle {
+        font-size: 13.5px;
+        line-height: 1.5;
     }
 
     .spinnerWrapper {
-        height: 330px;
-        max-width: 330px;
+        width: 100%;
+        max-width: 310px;
+        height: 310px;
+    }
+
+    .neonCircle,
+    .neonCircleGlow {
+        max-width: 310px;
+        max-height: 310px;
+    }
+
+    .neonOuterRing {
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+    }
+
+    .testimonialContent {
+        padding: 1.6rem 1.25rem;
+    }
+
+    .starRatingRow {
+        margin-bottom: 0.65rem;
+        gap: 7px;
+    }
+
+    .starIcon {
+        width: 14px;
+        height: 14px;
+    }
+
+    .verifiedTag {
+        font-size: 10px;
+        padding: 2px 7px;
+    }
+
+    .quoteText {
+        font-size: 0.95rem;
+        line-height: 1.35;
+        margin-bottom: 0.55rem;
     }
 
     .bodyText {
+        font-size: 0.82rem;
+        line-height: 1.45;
+        display: -webkit-box;
         -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-bottom: 0.75rem;
+    }
+
+    .authorAvatar {
+        width: 34px;
+        height: 34px;
+        font-size: 14px;
+    }
+
+    .authorName {
+        font-size: 0.9rem;
+    }
+
+    .authorRole {
+        font-size: 0.78rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .testimonialsSection {
+        padding: 2.25rem 8px;
+    }
+
+    .header {
+        margin-bottom: 1rem;
+    }
+
+    .sectionLabel {
+        font-size: 11px;
+        letter-spacing: 1.2px;
+    }
+
+    .title {
+        font-size: clamp(1.4rem, 5.2vw, 1.65rem);
+    }
+
+    .subtitle {
+        font-size: 12.5px;
+        line-height: 1.45;
+    }
+
+    .spinnerWrapper {
+        max-width: 275px;
+        height: 275px;
+        margin-top: 1rem;
+    }
+
+    .neonCircle,
+    .neonCircleGlow {
+        max-width: 275px;
+        max-height: 275px;
+    }
+
+    .neonOuterRing {
+        top: -8px;
+        left: -8px;
+        right: -8px;
+        bottom: -8px;
+    }
+
+    .testimonialContent {
+        padding: 1.25rem 0.85rem;
+    }
+
+    .starRatingRow {
+        margin-bottom: 0.45rem;
+        gap: 5px;
+    }
+
+    .starIcon {
+        width: 12px;
+        height: 12px;
+    }
+
+    .verifiedTag {
+        font-size: 9px;
+        padding: 2px 6px;
+    }
+
+    .quoteText {
+        font-size: 0.88rem;
+        line-height: 1.3;
+        margin-bottom: 0.4rem;
+    }
+
+    .bodyText {
+        font-size: 0.76rem;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-bottom: 0.55rem;
+    }
+
+    .authorAvatar {
+        width: 30px;
+        height: 30px;
+        font-size: 13px;
+    }
+
+    .authorName {
+        font-size: 0.82rem;
+    }
+
+    .authorRole {
+        font-size: 0.72rem;
     }
 }
 

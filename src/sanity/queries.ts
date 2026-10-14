@@ -20,7 +20,16 @@ const SEO_FRAGMENT = `seo {
 
 // GROQ Query strings
 export const HOME_PAGE_QUERY = `*[_type == "homePage"] | order(_updatedAt desc)[0]{
-  hero,
+  hero {
+    ...,
+    "imageUrl": image.asset->url,
+    "imageLightUrl": imageLight.asset->url,
+    slides[] {
+      ...,
+      "imageUrl": image.asset->url,
+      "imageLightUrl": imageLight.asset->url
+    }
+  },
   coreCapabilities,
   aboutUs {
     label,
@@ -161,7 +170,8 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && (slug.current == $
     titleAccent,
     titleEnd,
     description,
-    "imageUrl": coalesce(image.asset->url, imageUrl)
+    "imageUrl": coalesce(image.asset->url, imageUrl),
+    "imageLightUrl": coalesce(imageLight.asset->url, imageLightUrl)
   },
   capabilitiesSection {
     title,
@@ -171,6 +181,7 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && (slug.current == $
       number,
       title,
       "imageUrl": coalesce(image.asset->url, imageUrl),
+      "imageLightUrl": coalesce(imageLight.asset->url, imageLightUrl),
       items
     }
   },
@@ -204,7 +215,8 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && (slug.current == $
     descriptionText,
     buttonText,
     buttonPath,
-    "imageUrl": coalesce(image.asset->url, imageUrl)
+    "imageUrl": coalesce(image.asset->url, imageUrl),
+    "imageLightUrl": coalesce(imageLight.asset->url, imageLightUrl)
   },
   serviceFeatures {
     title,
@@ -220,6 +232,7 @@ export const SERVICE_BY_SLUG_QUERY = `*[_type == "service" && (slug.current == $
     titleMain,
     description,
     "imageUrl": coalesce(image.asset->url, imageUrl),
+    "imageLightUrl": coalesce(imageLight.asset->url, imageLightUrl),
     items[] {
       title,
       description,

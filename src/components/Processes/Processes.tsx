@@ -18,6 +18,13 @@ export interface ProcessPhase {
 
 const CardContent: React.FC<{ phase: ProcessPhase }> = ({ phase }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = 0;
+        }
+    }, [phase.id]);
 
     return (
         <div
@@ -39,7 +46,7 @@ const CardContent: React.FC<{ phase: ProcessPhase }> = ({ phase }) => {
                 <span className={styles.phaseLabel}>{phase.phase}</span>
             </motion.div>
 
-            <div className={styles.cardMainArea}>
+            <div ref={scrollRef} className={styles.cardMainArea}>
                 <AnimatePresence mode="popLayout">
                     {!isHovered && (
                         <motion.div
@@ -194,8 +201,8 @@ const Processes: React.FC<ProcessPhaseProps> = ({ title, phaseLabels, processPha
                             {[3, 2, 1, 0].map((phaseIndex, stackIndex) => {
                                 const isActive = phaseIndex === activePhase;
                                 const tileImage = isActive
-                                    ? (isLight ? "/shapes/tile-light-active.svg" : "/shapes/tile-dark-purple-gradient.svg")
-                                    : (isLight ? "/shapes/tile-light.svg" : "/shapes/tile-black.svg");
+                                    ? (isLight ? "/shapes/tile-light-active.svg?v=darkstyle" : "/shapes/tile-dark-purple-gradient.svg")
+                                    : (isLight ? "/shapes/tile-light.svg?v=darkstyle" : "/shapes/tile-black.svg");
 
                                 // Vertical position: Phase 4 at bottom (stackIndex 0), Phase 1 at top (stackIndex 3)
                                 const verticalOffset = stackIndex * 60;

@@ -9,7 +9,7 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import Testimonials from './Testimonials/Testimonials';
 import BlogSection from '../../components/BlogSection/BlogSection';
 import ContactForm from '../../components/ContactForm/ContactForm';
-import IntroComponent from '../../components/IntroComponent/IntroComponent';
+import HeroSlider from '../../components/HeroSlider/HeroSlider';
 import Figures from './Figures/Figures';
 import IndustrySlider from '../../components/IndustrySlider/IndustrySlider';
 import style from './home.module.css';
@@ -249,7 +249,37 @@ const Home = (props: { loaderData?: any }) => {
           "addressRegion": "Dubai"
         },
         "areaServed": ["Global", "United Arab Emirates", "United States", "Saudi Arabia", "United Kingdom"],
-        "description": "Enterprise-grade custom software development, cloud infrastructure architecture, mobile application engineering, and AI solution integrations."
+        "description": "Enterprise-grade custom software development, cloud infrastructure architecture, mobile application engineering, and AI solution integrations.",
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Enterprise Software & Engineering Solutions",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Custom Enterprise Software Development",
+                "description": "Architect high-concurrency microservices, resilient APIs, and custom software platforms with 100% intellectual property handover."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Accelerated MVP Launch Pods",
+                "description": "Deploy dedicated senior agile engineering pods that deliver production-ready MVPs in 3 to 5 months with guaranteed milestone SLAs."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Zero-Downtime Cloud Migration & Autonomous AI",
+                "description": "Modernize legacy systems on AWS and Azure, automate CI/CD pipelines, and orchestrate autonomous enterprise AI agents with SOC2 compliance."
+              }
+            }
+          ]
+        }
       }
     ]
   };
@@ -257,21 +287,20 @@ const Home = (props: { loaderData?: any }) => {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }} />
-      <IntroComponent
-        title={title}
-        title2={title2}
-        description={subtitle}
-        buttonText={sanityData?.hero?.primaryCtaText || "Schedule a Strategy Session"}
-        onButtonClick={() => {
-          const path = sanityData?.hero?.primaryCtaPath || '#contact';
-          if (path.startsWith('#')) {
-            const elem = document.getElementById(path.replace('#', ''));
-            if (elem) elem.scrollIntoView({ behavior: 'smooth' });
-          } else {
-            window.location.href = path;
-          }
-        }}
-      />
+      <div id="intro">
+        <HeroSlider
+          cmsHero={sanityData?.hero}
+          onButtonClick={(slide) => {
+            const path = slide?.buttonPath || sanityData?.hero?.primaryCtaPath || '#contact';
+            if (path.startsWith('#')) {
+              const elem = document.getElementById(path.replace('#', ''));
+              if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+            } else {
+              window.location.href = path;
+            }
+          }}
+        />
+      </div>
 
       <div id="services">
         <Services

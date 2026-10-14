@@ -5,18 +5,77 @@ export const homePageSchema = defineType({
   title: 'Home Page',
   type: 'document',
   fields: [
-    // 1. Hero Section
+    // 1. Hero Showcase Slider Section
     defineField({
       name: 'hero',
-      title: 'Hero Section',
+      title: 'Hero Showcase Slider',
       type: 'object',
       fields: [
-        defineField({ name: 'badgeText', title: 'Badge Text', type: 'string' }),
-        defineField({ name: 'title', title: 'Primary Headline (H1)', type: 'string' }),
-        defineField({ name: 'title2', title: 'Sub Headline / Catchphrase', type: 'string' }),
-        defineField({ name: 'subtitle', title: 'Subtitle / Description', type: 'text' }),
-        defineField({ name: 'primaryCtaText', title: 'Primary CTA Button Label', type: 'string' }),
-        defineField({ name: 'primaryCtaPath', title: 'Primary CTA Path', type: 'string' }),
+        defineField({
+          name: 'autoPlayInterval',
+          title: 'Auto-Play Interval (Milliseconds)',
+          type: 'number',
+          initialValue: 5000,
+          description: 'Duration each slide stays active before auto-advancing (default: 5000ms / 5 seconds).',
+        }),
+        defineField({
+          name: 'slides',
+          title: 'Hero Slides',
+          type: 'array',
+          of: [{ type: 'heroSlide' }],
+          description: 'Add, reorder, or customize hero slides. If empty, the website automatically falls back to default engineered slides.',
+        }),
+        // Legacy single-slide fallback fields (preserved for zero-downtime backwards compatibility)
+        defineField({
+          name: 'badgeText',
+          title: 'Legacy Badge Text (Fallback)',
+          type: 'string',
+          hidden: ({ parent }) => Boolean(parent?.slides && parent.slides.length > 0),
+        }),
+        defineField({
+          name: 'title',
+          title: 'Legacy Primary Headline (Fallback)',
+          type: 'string',
+          hidden: ({ parent }) => Boolean(parent?.slides && parent.slides.length > 0),
+        }),
+        defineField({
+          name: 'title2',
+          title: 'Legacy Sub Headline / Accent (Fallback)',
+          type: 'string',
+          hidden: ({ parent }) => Boolean(parent?.slides && parent.slides.length > 0),
+        }),
+        defineField({
+          name: 'subtitle',
+          title: 'Legacy Subtitle / Description (Fallback)',
+          type: 'text',
+          hidden: ({ parent }) => Boolean(parent?.slides && parent.slides.length > 0),
+        }),
+        defineField({
+          name: 'primaryCtaText',
+          title: 'Legacy CTA Button Label (Fallback)',
+          type: 'string',
+          hidden: ({ parent }) => Boolean(parent?.slides && parent.slides.length > 0),
+        }),
+        defineField({
+          name: 'primaryCtaPath',
+          title: 'Legacy CTA Path (Fallback)',
+          type: 'string',
+          hidden: ({ parent }) => Boolean(parent?.slides && parent.slides.length > 0),
+        }),
+        defineField({
+          name: 'image',
+          title: 'Legacy Hero Background Image - Dark Mode (Fallback)',
+          type: 'image',
+          options: { hotspot: true },
+          hidden: ({ parent }) => Boolean(parent?.slides && parent.slides.length > 0),
+        }),
+        defineField({
+          name: 'imageLight',
+          title: 'Legacy Hero Background Image - Light Mode (Fallback)',
+          type: 'image',
+          options: { hotspot: true },
+          hidden: ({ parent }) => Boolean(parent?.slides && parent.slides.length > 0),
+        }),
       ],
     }),
 

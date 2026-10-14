@@ -162,6 +162,7 @@
     }
 
     .mobileTabs {
+        --tab-indicator-offset: 5px;
         display: flex;
         position: relative;
         background: rgba(255, 255, 255, 0.05);
@@ -243,18 +244,153 @@
     }
 }
 
-@media (max-width: 480px) {
-    .title {
-        font-size: 32px;
+@media (max-width: 768px) {
+    .section {
+        padding: 60px 0;
     }
 
-    .description {
-        font-size: 16px;
+    .container {
+        padding: 0 20px;
+    }
+
+    .header {
+        margin-bottom: 36px;
+    }
+
+    .title {
+        font-size: 36px;
+        margin-bottom: 20px;
     }
 
     .tabButton {
+        font-size: 13px;
+        padding: 12px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section {
+        padding: 48px 0;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    .header {
+        margin-bottom: 28px;
+    }
+
+    .label {
         font-size: 12px;
-        padding: 12px;
+        margin-bottom: 14px;
+        letter-spacing: 1.5px;
+    }
+
+    .title {
+        font-size: 28px;
+        line-height: 1.2;
+        margin-bottom: 16px;
+    }
+
+    .description {
+        font-size: 15px;
+        line-height: 1.55;
+    }
+
+    .mobileTabs {
+        --tab-indicator-offset: 4px;
+        padding: 4px;
+        margin-bottom: 24px;
+    }
+
+    .tabIndicator {
+        top: 4px;
+        bottom: 4px;
+        width: calc(50% - 4px);
+    }
+
+    .tabButton {
+        font-size: 11.5px;
+        padding: 10px 6px;
+        letter-spacing: 0.5px;
+        line-height: 1.25;
+    }
+
+    .mobileColumn {
+        gap: 14px;
+        padding: 0 2px;
+    }
+
+    .mobileCard {
+        padding: 16px 14px;
+        border-radius: 12px;
+    }
+
+    .mobileFeatureTitle {
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+    }
+
+    .mobileFeatureValue {
+        font-size: 14px;
+        line-height: 1.45;
+    }
+}
+
+@media (max-width: 360px) {
+    .section {
+        padding: 40px 0;
+    }
+
+    .container {
+        padding: 0 12px;
+    }
+
+    .header {
+        margin-bottom: 24px;
+    }
+
+    .label {
+        font-size: 11px;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+
+    .title {
+        font-size: 23px;
+        margin-bottom: 14px;
+    }
+
+    .description {
+        font-size: 13.5px;
+        line-height: 1.45;
+    }
+
+    .tabButton {
+        font-size: 10.5px;
+        padding: 8px 4px;
+        letter-spacing: 0.2px;
+    }
+
+    .mobileColumn {
+        gap: 12px;
+    }
+
+    .mobileCard {
+        padding: 13px 10px;
+        border-radius: 10px;
+    }
+
+    .mobileFeatureTitle {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .mobileFeatureValue {
+        font-size: 13px;
+        line-height: 1.4;
     }
 }
 

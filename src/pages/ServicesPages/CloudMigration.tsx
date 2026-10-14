@@ -348,7 +348,8 @@ const CloudMigration: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || "Cloud Migration ",
         titleEnd: data.serviceOverview.titleEnd || "& Enterprise Relocation",
         description: data.serviceOverview.description || "At Leapsofts, we specialize in planning and executing high-fidelity cloud migration strategies that transition legacy physical servers, virtual machines, and monolithic databases to auto-scaling AWS, Azure, or GCP cloud environments. By leveraging automated migration tools (AWS MGN, Azure Migrate), live database sync channels (AWS DMS), and secure Landing Zone architectures, we relocate enterprise software with zero business disruption and optimal FinOps performance.",
-        imagePath: data.serviceOverview.imageUrl || "/streamline.webp"
+        imagePath: data.serviceOverview.imageUrl || "/streamline.webp",
+        imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : null;
 
@@ -358,6 +359,7 @@ const CloudMigration: React.FC = () => {
         number: slide.number || '< 01 >',
         title: slide.title || '',
         image: slide.imageUrl || "/streamline.webp",
+        imageLight: slide.imageLightUrl,
         items: slide.items || []
       }))
     : capabilitiesSlides;
@@ -401,6 +403,7 @@ const CloudMigration: React.FC = () => {
         titleEnd={activeOverviewData?.titleEnd || "& Enterprise Relocation"}
         description={activeOverviewData?.description || "At Leapsofts, we specialize in planning and executing high-fidelity cloud migration strategies that transition legacy physical servers, virtual machines, and monolithic databases to auto-scaling AWS, Azure, or GCP cloud environments. By leveraging automated migration tools (AWS MGN, Azure Migrate), live database sync channels (AWS DMS), and secure Landing Zone architectures, we relocate enterprise software with zero business disruption and optimal FinOps performance."}
         imagePath={activeOverviewData?.imagePath || "/streamline.webp"}
+        imagePathLight={activeOverviewData?.imagePathLight || activeOverviewData?.imagePath}
       />
       )}
       {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
@@ -422,6 +425,7 @@ const CloudMigration: React.FC = () => {
         buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
         imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrlLight={data?.strategyCTA?.imageLightUrl}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'The 7 Rs Cloud Migration Framework'}

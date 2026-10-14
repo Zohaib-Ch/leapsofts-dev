@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './ServiceOverview.module.css'
 import { useContactModal } from '../../context/ContactModalContext';
+import { useTheme } from '../../context/ThemeContext';
 
 interface ServiceOverviewProps {
     label?: string;
@@ -9,6 +10,7 @@ interface ServiceOverviewProps {
     titleEnd?: string;
     description?: string;
     imagePath: string;
+    imagePathLight?: string;
 }
 
 const ServiceOverview: React.FC<ServiceOverviewProps> = ({
@@ -17,9 +19,15 @@ const ServiceOverview: React.FC<ServiceOverviewProps> = ({
     titleAccent,
     titleEnd,
     description,
-    imagePath
+    imagePath,
+    imagePathLight
 }) => {
-     const { openContactModal } = useContactModal();
+    const { openContactModal } = useContactModal();
+    const { theme } = useTheme();
+
+    const darkImage = imagePath;
+    const lightImage = imagePathLight || darkImage;
+    const finalImagePath = theme === 'light' ? lightImage : darkImage;
 
     const handleClick = () => {
         openContactModal();
@@ -45,7 +53,7 @@ const ServiceOverview: React.FC<ServiceOverviewProps> = ({
                     </div>
                 </div>
                 <div className={styles.contentRight}>
-                    <img src={imagePath} alt={`${titleMain || ''} ${titleAccent || ''} ${titleEnd || ''} - Leapsofts`.trim() || "Leapsofts Enterprise Service Overview"} />
+                    <img src={finalImagePath} alt={`${titleMain || ''} ${titleAccent || ''} ${titleEnd || ''} - Leapsofts`.trim() || "Leapsofts Enterprise Service Overview"} />
                     <img src="/industryicons/arrow-with-plume-pink.svg" alt="" className={styles.arrowAccent} />
                 </div>
             </div>

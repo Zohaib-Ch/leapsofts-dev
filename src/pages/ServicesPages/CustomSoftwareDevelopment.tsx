@@ -338,6 +338,7 @@ function CustomSoftwareDevelopment() {
         number: slide.number || '< 01 >',
         title: slide.title || '',
         image: slide.imageUrl || "/streamline.webp",
+        imageLight: slide.imageLightUrl,
         items: slide.items || []
       }))
     : capabilitiesSlidesDefault;
@@ -416,6 +417,7 @@ function CustomSoftwareDevelopment() {
         buttonText={strategyCTA?.buttonText || "Schedule Architectural Consultation"}
         buttonPath={strategyCTA?.buttonPath || "/contact"}
         imageUrl={strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrlLight={strategyCTA?.imageLightUrl}
       />
       {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
         <DeliverMVP data={activeDeliverMVPData} />

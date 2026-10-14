@@ -301,7 +301,8 @@ const IdeationWorkshop: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
         titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
         description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
-        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined),
+        imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
 
@@ -311,6 +312,7 @@ const IdeationWorkshop: React.FC = () => {
         number: slide.number || '< 01 >',
         title: slide.title || '',
         image: slide.imageUrl || "/streamline.webp",
+        imageLight: slide.imageLightUrl,
         items: slide.items || []
       }))
     : null;
@@ -351,6 +353,7 @@ const IdeationWorkshop: React.FC = () => {
           titleEnd={activeOverviewData.titleEnd}
           description={activeOverviewData.description}
           imagePath={activeOverviewData.imagePath}
+          imagePathLight={activeOverviewData.imagePathLight}
         />
       )}
       {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
@@ -368,6 +371,7 @@ const IdeationWorkshop: React.FC = () => {
         buttonText={strategyCTA?.buttonText}
         buttonPath={strategyCTA?.buttonPath}
         imageUrl={strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrlLight={strategyCTA?.imageLightUrl}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Expert Services'}

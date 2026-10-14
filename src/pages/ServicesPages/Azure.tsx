@@ -312,7 +312,8 @@ const Azure: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
         titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
         description: data.serviceOverview.description || serviceOverviewData.description,
-        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath,
+        imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : serviceOverviewData;
 
@@ -322,6 +323,7 @@ const Azure: React.FC = () => {
         number: slide.number || '< 01 >',
         title: slide.title || '',
         image: slide.imageUrl || "/streamline.webp",
+        imageLight: slide.imageLightUrl,
         items: slide.items || []
       }))
     : capabilitiesSlides;
@@ -399,6 +401,7 @@ const Azure: React.FC = () => {
           titleEnd={activeOverviewData.titleEnd}
           description={activeOverviewData.description}
           imagePath={activeOverviewData.imagePath}
+          imagePathLight={activeOverviewData.imagePathLight}
         />
       )}
       {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
@@ -420,6 +423,7 @@ const Azure: React.FC = () => {
         buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
         imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrlLight={data?.strategyCTA?.imageLightUrl}
       />
       {((data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0) || serviceFeaturesData.length > 0) && (
         <ServiceFeatures

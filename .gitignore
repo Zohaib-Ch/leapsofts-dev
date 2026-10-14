@@ -42,6 +42,7 @@ src/components/SEOHead/
 # Generated WebP & Blog images
 public/projectImagesWebp/
 public/blogImages/
+public/backgrounds/hero-slide-*
 
 #Scratch Folder
 scratch

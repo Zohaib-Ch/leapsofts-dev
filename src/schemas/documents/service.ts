@@ -133,8 +133,16 @@ export const serviceSchema = defineType({
         defineField({ name: 'titleAccent', title: 'Title Accent (Colored)', type: 'string' }),
         defineField({ name: 'titleEnd', title: 'Title End', type: 'string' }),
         defineField({ name: 'description', title: 'Overview Description', type: 'text' }),
-        defineField({ name: 'image', title: 'Section Image', type: 'image', options: { hotspot: true } }),
-        defineField({ name: 'imageUrl', title: 'Section Image URL', type: 'string' }),
+        defineField({ name: 'image', title: 'Section Image (Dark Mode Default)', type: 'image', options: { hotspot: true } }),
+        defineField({
+          name: 'imageLight',
+          title: 'Section Image (Light Mode)',
+          type: 'image',
+          options: { hotspot: true },
+          description: 'Light-mode specific illustration or 3D render. Falls back to dark image if not set.'
+        }),
+        defineField({ name: 'imageUrl', title: 'Section Image URL (Fallback)', type: 'string' }),
+        defineField({ name: 'imageLightUrl', title: 'Light Mode Image URL (Fallback)', type: 'string' }),
       ],
     }),
 
@@ -162,8 +170,16 @@ export const serviceSchema = defineType({
                 defineField({ name: 'id', title: 'Slide ID', type: 'string' }),
                 defineField({ name: 'number', title: 'Index Code (e.g. < 01 >)', type: 'string' }),
                 defineField({ name: 'title', title: 'Slide Title', type: 'string' }),
-                defineField({ name: 'image', title: 'Slide Image', type: 'image' }),
-                defineField({ name: 'imageUrl', title: 'Slide Image URL', type: 'string' }),
+                defineField({ name: 'image', title: 'Slide Image (Dark Mode Default)', type: 'image', options: { hotspot: true } }),
+                defineField({
+                  name: 'imageLight',
+                  title: 'Slide Image (Light Mode)',
+                  type: 'image',
+                  options: { hotspot: true },
+                  description: 'Light-mode specific illustration or 3D render for this capability slide.'
+                }),
+                defineField({ name: 'imageUrl', title: 'Slide Image URL (Fallback)', type: 'string' }),
+                defineField({ name: 'imageLightUrl', title: 'Light Mode Slide Image URL (Fallback)', type: 'string' }),
                 defineField({
                   name: 'items',
                   title: 'Capability Bullet Points',
@@ -287,8 +303,16 @@ export const serviceSchema = defineType({
         defineField({ name: 'descriptionText', title: 'Description Text', type: 'text' }),
         defineField({ name: 'buttonText', title: 'Button Text', type: 'string' }),
         defineField({ name: 'buttonPath', title: 'Button Path / Link (e.g. #contact)', type: 'string' }),
-        defineField({ name: 'image', title: 'CTA Image', type: 'image', options: { hotspot: true } }),
-        defineField({ name: 'imageUrl', title: 'CTA Image URL', type: 'string' }),
+        defineField({ name: 'image', title: 'CTA Image (Dark Mode Default)', type: 'image', options: { hotspot: true } }),
+        defineField({
+          name: 'imageLight',
+          title: 'CTA Image (Light Mode)',
+          type: 'image',
+          options: { hotspot: true },
+          description: 'Light-mode specific illustration or 3D render. Falls back to dark image if not set.'
+        }),
+        defineField({ name: 'imageUrl', title: 'CTA Image URL (Fallback)', type: 'string' }),
+        defineField({ name: 'imageLightUrl', title: 'Light Mode CTA Image URL (Fallback)', type: 'string' }),
       ],
     }),
 
@@ -361,8 +385,16 @@ export const serviceSchema = defineType({
         defineField({ name: 'titleAccent', title: 'Title Accent', type: 'string' }),
         defineField({ name: 'titleMain', title: 'Title Main', type: 'string' }),
         defineField({ name: 'description', title: 'Section Description', type: 'text' }),
-        defineField({ name: 'image', title: 'Section Image Asset', type: 'image', options: { hotspot: true } }),
-        defineField({ name: 'imageUrl', title: 'Section Image URL', type: 'string' }),
+        defineField({ name: 'image', title: 'Section Image Asset (Dark Mode Default)', type: 'image', options: { hotspot: true } }),
+        defineField({
+          name: 'imageLight',
+          title: 'Section Image Asset (Light Mode)',
+          type: 'image',
+          options: { hotspot: true },
+          description: 'Light-mode specific illustration or 3D render. Falls back to dark image if not set.'
+        }),
+        defineField({ name: 'imageUrl', title: 'Section Image URL (Fallback)', type: 'string' }),
+        defineField({ name: 'imageLightUrl', title: 'Light Mode Section Image URL (Fallback)', type: 'string' }),
         defineField({
           name: 'items',
           title: 'Technology / Service Items',

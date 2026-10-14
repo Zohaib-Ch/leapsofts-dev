@@ -315,7 +315,8 @@ const QualityAssurance: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || "Validation & ",
         titleEnd: data.serviceOverview.titleEnd || "Security",
         description: data.serviceOverview.description || "At Leapsofts, we establish strict software validation layers that identify system vulnerabilities and logical errors long before production deployment. By combining automated regression suites, localized API integration mocks, and intensive cloud-native load testing setups, we ensure your applications achieve absolute performance reliability, robust SOC2 compliance, and optimal core web vitals.",
-        imagePath: data.serviceOverview.imageUrl || "/streamline.webp"
+        imagePath: data.serviceOverview.imageUrl || "/streamline.webp",
+        imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : null;
 
@@ -358,13 +359,19 @@ const QualityAssurance: React.FC = () => {
       }
     : deliverMVPData;
 
-  const activeProcessPhases = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
-    ? data.processes.processPhases
-    : (typeof processesData !== 'undefined' ? processesData : []);
+  const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
+    ? data.processes.processPhases.map((phase, index) => ({
+        id: phase.id ?? (index + 1),
+        phase: phase.phase || PHASE ,
+        title: phase.title || '',
+        description: phase.description || '',
+        features: phase.features || []
+      }))
+    : processesData;
 
   const activePhaseLabels = (data?.processes?.phaseLabels && data.processes.phaseLabels.length > 0)
     ? data.processes.phaseLabels
-    : (typeof phaseLabelsDefault !== 'undefined' ? phaseLabelsDefault : (typeof phaseLabels !== 'undefined' ? phaseLabels : []));
+    : phaseLabelsDefault;
   const activeServiceFeaturesItems: ServiceFeatureItem[] = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
     ? data.serviceFeatures.items.map(item => ({
         icon: item.icon || '/industryicons/sphere.svg',
@@ -391,6 +398,7 @@ const QualityAssurance: React.FC = () => {
                 titleEnd={activeOverviewData?.titleEnd || "Security"}
                 description={activeOverviewData?.description || "At Leapsofts, we establish strict software validation layers that identify system vulnerabilities and logical errors long before production deployment. By combining automated regression suites, localized API integration mocks, and intensive cloud-native load testing setups, we ensure your applications achieve absolute performance reliability, robust SOC2 compliance, and optimal core web vitals."}
                 imagePath={activeOverviewData?.imagePath || "/streamline.webp"}
+                imagePathLight={activeOverviewData?.imagePathLight}
             />
             )}
             {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
@@ -405,6 +413,7 @@ const QualityAssurance: React.FC = () => {
                 buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
                 buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
                 imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrlLight={data?.strategyCTA?.imageLightUrl}
             />
             <ServiceFeatures
                 title={data?.serviceFeatures?.title || 'Our QA Services'}
