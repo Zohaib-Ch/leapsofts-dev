@@ -1,0 +1,899 @@
+/* =========================================================================
+   CINEMATIC BACKGROUND IMAGE HERO SLIDER
+   Clean, Modern, Ultra-Smooth Transitions & High-Impact Typography
+   ========================================================================= */
+
+.heroStage {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background-color: #08060c;
+    color: #ffffff;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.heroStage.isLoaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================================================================
+   1. BACKGROUND IMAGE STACK WITH NORMAL HEIGHT & ZERO ZOOM
+   ========================================================================= */
+.backgroundStack {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 100%;
+    max-height: 650px;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    mask-image: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(0, 0, 0, 0.4) 3%,
+        black 10%,
+        black 90%,
+        rgba(0, 0, 0, 0.4) 97%,
+        transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(0, 0, 0, 0.4) 3%,
+        black 10%,
+        black 90%,
+        rgba(0, 0, 0, 0.4) 97%,
+        transparent 100%
+    );
+}
+
+.backgroundImageWrapper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.backgroundImageWrapper.bgActive {
+    opacity: 1;
+    z-index: 2;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.backgroundImageWrapper.bgActive .backgroundImage {
+    animation: imageDepthIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.backgroundImageWrapper.bgInactive {
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.backgroundImageWrapper.bgInactive .backgroundImage {
+    transform: scale(1) translateX(0);
+}
+
+@keyframes imageDepthIn {
+    0% {
+        opacity: 0.2;
+        transform: scale(0.97) translateX(16px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateX(0);
+    }
+}
+
+.backgroundImage {
+    width: 100%;
+    height: 100%;
+    max-height: 650px;
+    object-fit: contain;
+    object-position: right center;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    user-select: none;
+    display: block;
+}
+
+/* Interactive Ambient Particle Canvas Layer (Matches IntroComponent) */
+.particleWrapper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    mix-blend-mode: screen;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.isLoaded .particleWrapper {
+    opacity: 0.85;
+}
+
+:global([data-theme="light"]) .particleWrapper {
+    mix-blend-mode: normal;
+}
+
+:global([data-theme="light"]) .isLoaded .particleWrapper {
+    opacity: 0.55;
+}
+
+/* =========================================================================
+   2. CONTRAST-PRESERVING GRADIENT SCRIMS & TOP/BOTTOM EDGE BLUR
+   ========================================================================= */
+/* Horizontal Scrim: Guarantees 100% text readability on the left while leaving the right 100% crystal clear */
+.scrimHorizontal {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background: linear-gradient(
+        90deg,
+        #08060c 0%,
+        #08060c 35%,
+        rgba(8, 6, 12, 0.85) 48%,
+        rgba(8, 6, 12, 0) 62%,
+        transparent 100%
+    );
+}
+
+/* Upper Edge Soft Blur & Fade */
+.edgeBlurTop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    z-index: 4;
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        #08060c 0%,
+        rgba(8, 6, 12, 0.85) 35%,
+        rgba(8, 6, 12, 0.3) 70%,
+        transparent 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    mask-image: linear-gradient(180deg, black 0%, black 40%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, black 0%, black 40%, transparent 100%);
+}
+
+/* Bottom Edge Soft Blur & Fade */
+.edgeBlurBottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    z-index: 4;
+    pointer-events: none;
+    background: linear-gradient(
+        0deg,
+        #08060c 0%,
+        rgba(8, 6, 12, 0.85) 35%,
+        rgba(8, 6, 12, 0.3) 70%,
+        transparent 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    mask-image: linear-gradient(0deg, black 0%, black 40%, transparent 100%);
+    -webkit-mask-image: linear-gradient(0deg, black 0%, black 40%, transparent 100%);
+}
+
+/* =========================================================================
+   3. FOREGROUND CONTENT CONTAINER & TYPOGRAPHY
+   ========================================================================= */
+.mainContainer {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 7.5rem 1.5rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: calc(100vh - 4rem);
+}
+
+.contentWrapper {
+    max-width: 760px;
+    padding-left: clamp(2rem, 5vw, 4.5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+/* Clean Subheading Eyebrow with Vibrant Gradient Text */
+.taglineEyebrow {
+    display: inline-block;
+    margin: 0 0 0.85rem;
+    font-size: clamp(0.78rem, 1.1vw, 0.92rem);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 45%, #fdba74 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 16px rgba(249, 115, 22, 0.35));
+    animation: kineticSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.01s both;
+}
+
+/* Headline with Choreographed Entrance */
+.masterTitle {
+    font-size: clamp(2.1rem, 3.6vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1.14;
+    letter-spacing: -0.035em;
+    color: #ffffff;
+    margin-bottom: 1.1rem;
+    text-wrap: balance;
+    animation: kineticSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+
+.gradientAccent {
+    background: linear-gradient(135deg, #f97316 0%, #ff7b00 45%, #ea580c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 28px rgba(249, 115, 22, 0.45));
+}
+
+/* Subtitle */
+.masterSubtitle {
+    font-size: clamp(0.96rem, 1.2vw, 1.08rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.82);
+    margin-bottom: 1.75rem;
+    font-weight: 400;
+    max-width: 630px;
+    animation: kineticSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.14s both;
+}
+
+/* Metrics Row with Ethereal Liquid Gradient Shimmer Borders */
+.metricsRow {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+    max-width: 660px;
+    margin-bottom: 1.75rem;
+    padding: 1.05rem 0;
+    animation: kineticSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
+}
+
+/* Ethereal Upper & Lower Shimmer Borders (Top & Bottom Lines Only) */
+.metricsRow::before,
+.metricsRow::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.08) 12%,
+        rgba(249, 115, 22, 0.35) 28%,
+        #f97316 48%,
+        #ffedd5 50%,
+        #f97316 52%,
+        rgba(249, 115, 22, 0.35) 72%,
+        rgba(255, 255, 255, 0.08) 88%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    pointer-events: none;
+    filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.45));
+    transition: filter 0.3s ease;
+}
+
+.metricsRow::before {
+    top: 0;
+    animation: liquidBorderShimmer 6s linear infinite;
+}
+
+.metricsRow::after {
+    bottom: 0;
+    animation: liquidBorderShimmer 6s linear infinite;
+    animation-delay: -3s;
+}
+
+.metricsRow:hover::before,
+.metricsRow:hover::after {
+    filter: drop-shadow(0 0 10px rgba(249, 115, 22, 0.7));
+}
+
+@keyframes liquidBorderShimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.metricCard {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    animation: kineticCardPop 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.metricCard:nth-child(1) {
+    animation-delay: 0.25s;
+}
+
+.metricCard:nth-child(2) {
+    animation-delay: 0.32s;
+}
+
+.metricCard:nth-child(3) {
+    animation-delay: 0.39s;
+}
+
+.metricCardValue {
+    font-size: clamp(0.92rem, 1.15vw, 1.08rem);
+    font-weight: 800;
+    color: #ffffff;
+    font-family: var(--font-mono);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: -0.025em;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+.metricCardLabel {
+    font-size: clamp(0.66rem, 0.78vw, 0.72rem);
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: 0.01em;
+    line-height: 1.35;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+/* CTA Row */
+.ctaRow {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 1.6rem;
+    animation: kineticSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.44s both;
+}
+
+/* Micro Trust Badges Row */
+.trustBadgesRow {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    animation: kineticSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.50s both;
+}
+
+.trustBadgeItem {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.76rem;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.trustIcon {
+    color: #f97316;
+}
+
+@keyframes kineticSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(22px);
+        filter: blur(5px);
+    }
+    65% {
+        filter: blur(0px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+    }
+}
+
+@keyframes kineticCardPop {
+    0% {
+        opacity: 0;
+        transform: translateY(14px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================================================================
+   4. MINIMALIST SLIDE CONTROLS BAR
+   ========================================================================= */
+.controlsBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-top: 1.5rem;
+    z-index: 12;
+}
+
+/* Numeric Counter */
+.slideCounter {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    font-family: var(--font-mono);
+}
+
+.currentNum {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #f97316;
+}
+
+.counterDivider {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.totalNum {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Interactive Indicator Pills */
+.indicatorsList {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.indicatorPill {
+    background: transparent;
+    border: none;
+    padding: 8px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.indicatorTrack {
+    position: relative;
+    display: block;
+    width: 32px;
+    height: 4px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.35s ease,
+                box-shadow 0.35s ease;
+}
+
+.indicatorPill:hover .indicatorTrack {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.indicatorActive .indicatorTrack {
+    width: 58px;
+    background: rgba(249, 115, 22, 0.25);
+    box-shadow: 0 0 14px rgba(249, 115, 22, 0.35);
+}
+
+.indicatorProgressFill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 0%;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, #ea580c 0%, #f97316 65%, #ff9838 100%);
+    box-shadow: 0 0 10px rgba(249, 115, 22, 0.85);
+    animation-name: fillProgress;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fillProgress {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+/* Prev / Next Glassmorphic Arrow Buttons */
+.arrowControls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.arrowButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.25s ease;
+}
+
+.arrowButton:hover {
+    background: rgba(249, 115, 22, 0.2);
+    border-color: rgba(249, 115, 22, 0.5);
+    color: #f97316;
+    transform: scale(1.06);
+}
+
+.arrowButton:active {
+    transform: scale(0.96);
+}
+
+/* =========================================================================
+   5. LIGHT THEME OVERRIDES (CRISP LUXURY FROSTED SCRIMS)
+   ========================================================================= */
+:global([data-theme="light"]) .heroStage {
+    background-color: #fbfbfd;
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .scrimHorizontal {
+    background: linear-gradient(
+        90deg,
+        #fbfbfd 0%,
+        #fbfbfd 35%,
+        rgba(251, 251, 253, 0.85) 48%,
+        rgba(251, 251, 253, 0) 62%,
+        transparent 100%
+    );
+}
+
+:global([data-theme="light"]) .edgeBlurTop {
+    background: linear-gradient(
+        180deg,
+        #fbfbfd 0%,
+        rgba(251, 251, 253, 0.85) 35%,
+        rgba(251, 251, 253, 0.3) 70%,
+        transparent 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+:global([data-theme="light"]) .edgeBlurBottom {
+    background: linear-gradient(
+        0deg,
+        #fbfbfd 0%,
+        rgba(251, 251, 253, 0.85) 35%,
+        rgba(251, 251, 253, 0.3) 70%,
+        transparent 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+:global([data-theme="light"]) .taglineEyebrow {
+    background: linear-gradient(135deg, #ea580c 0%, #f97316 55%, #c2410c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: none;
+}
+
+:global([data-theme="light"]) .masterTitle {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .gradientAccent {
+    background: linear-gradient(135deg, #ea580c 0%, #ff6b00 50%, #f97316 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: none;
+}
+
+:global([data-theme="light"]) .masterSubtitle {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .metricsRow::before,
+:global([data-theme="light"]) .metricsRow::after {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(15, 23, 42, 0.06) 12%,
+        rgba(234, 88, 12, 0.3) 28%,
+        #ea580c 48%,
+        #ffedd5 50%,
+        #ea580c 52%,
+        rgba(234, 88, 12, 0.3) 72%,
+        rgba(15, 23, 42, 0.06) 88%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    filter: drop-shadow(0 1px 3px rgba(234, 88, 12, 0.25));
+}
+
+:global([data-theme="light"]) .metricCardValue {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .metricCardLabel {
+    color: #64748b;
+}
+
+:global([data-theme="light"]) .trustBadgeItem {
+    color: #475569;
+}
+
+:global([data-theme="light"]) .counterDivider {
+    color: rgba(15, 23, 42, 0.35);
+}
+
+:global([data-theme="light"]) .totalNum {
+    color: rgba(15, 23, 42, 0.5);
+}
+
+:global([data-theme="light"]) .indicatorTrack {
+    background: rgba(15, 23, 42, 0.14);
+}
+
+:global([data-theme="light"]) .indicatorPill:hover .indicatorTrack {
+    background: rgba(15, 23, 42, 0.28);
+}
+
+:global([data-theme="light"]) .indicatorActive .indicatorTrack {
+    background: rgba(249, 115, 22, 0.2);
+    box-shadow: 0 0 12px rgba(249, 115, 22, 0.25);
+}
+
+:global([data-theme="light"]) .indicatorProgressFill {
+    background: linear-gradient(90deg, #ea580c 0%, #f97316 100%);
+    box-shadow: 0 0 8px rgba(249, 115, 22, 0.5);
+}
+
+:global([data-theme="light"]) .arrowButton {
+    background: rgba(15, 23, 42, 0.05);
+    border-color: rgba(15, 23, 42, 0.12);
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .arrowButton:hover {
+    background: rgba(249, 115, 22, 0.15);
+    border-color: rgba(249, 115, 22, 0.4);
+    color: #ea580c;
+}
+
+/* =========================================================================
+   6. RESPONSIVE BREAKPOINTS
+   ========================================================================= */
+@media (max-width: 1024px) {
+    .contentWrapper {
+        max-width: 90%;
+        padding-left: 1.5rem;
+    }
+
+    .masterTitle {
+        font-size: clamp(1.95rem, 4.2vw, 2.75rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .heroStage {
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+
+    /* Vertical Contrast Scrim on Mobile */
+    .scrimHorizontal {
+        background: linear-gradient(
+            180deg,
+            rgba(8, 6, 12, 0.95) 0%,
+            rgba(8, 6, 12, 0.78) 35%,
+            rgba(8, 6, 12, 0.92) 75%,
+            #08060c 100%
+        );
+    }
+
+    .backgroundStack {
+        top: 32%;
+        max-height: 320px;
+        opacity: 0.25;
+    }
+
+    .backgroundImage {
+        object-position: center;
+    }
+
+    .mainContainer {
+        padding: 5.5rem 1rem 2rem;
+        min-height: calc(100vh - 2rem);
+        min-height: calc(100dvh - 2rem);
+    }
+
+    .contentWrapper {
+        max-width: 100%;
+        padding-left: 0.25rem;
+    }
+
+    .taglineEyebrow {
+        font-size: clamp(0.70rem, 2.6vw, 0.80rem);
+        letter-spacing: 0.11em;
+        margin-bottom: 0.55rem;
+    }
+
+    .masterTitle {
+        font-size: clamp(1.58rem, 6.2vw, 1.95rem);
+        line-height: 1.15;
+        letter-spacing: -0.025em;
+        margin-bottom: 0.85rem;
+    }
+
+    .masterSubtitle {
+        font-size: clamp(0.88rem, 2.8vw, 0.94rem);
+        line-height: 1.55;
+        margin-bottom: 1.35rem;
+    }
+
+    .metricsRow {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        padding: 0.85rem 0;
+        margin-bottom: 1.35rem;
+    }
+
+    .metricCard {
+        padding: 0 4px;
+        min-width: 0;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .metricCard:last-child {
+        border-right: none;
+    }
+
+    .metricCardValue {
+        font-size: clamp(0.78rem, 2.5vw, 0.94rem);
+        letter-spacing: -0.03em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .metricCardLabel {
+        font-size: clamp(0.58rem, 1.8vw, 0.65rem);
+        line-height: 1.25;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .ctaRow {
+        margin-bottom: 1.4rem;
+        gap: 12px;
+    }
+
+    .trustBadgesRow {
+        gap: 8px 14px;
+    }
+
+    .trustBadgeItem {
+        font-size: 0.72rem;
+        gap: 5px;
+    }
+
+    .controlsBar {
+        padding-top: 0.85rem;
+    }
+
+    .indicatorPill {
+        padding: 10px 4px;
+    }
+
+    .indicatorTrack {
+        width: 22px;
+        height: 3px;
+    }
+
+    .indicatorActive .indicatorTrack {
+        width: 44px;
+    }
+
+    .arrowButton {
+        width: 36px;
+        height: 36px;
+    }
+
+    :global([data-theme="light"]) .scrimHorizontal {
+        background: linear-gradient(
+            180deg,
+            rgba(251, 251, 253, 0.96) 0%,
+            rgba(251, 251, 253, 0.82) 35%,
+            rgba(251, 251, 253, 0.95) 75%,
+            #fbfbfd 100%
+        );
+    }
+
+    :global([data-theme="light"]) .metricCard {
+        border-right-color: rgba(15, 23, 42, 0.08);
+    }
+}
+
+@media (max-width: 480px) {
+    .mainContainer {
+        padding: 5rem 0.85rem 1.5rem;
+    }
+
+    .contentWrapper {
+        padding-left: 0;
+    }
+
+    .ctaRow {
+        width: 100%;
+        margin-bottom: 1.35rem;
+    }
+
+    .ctaRow > * {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .metricCard {
+        padding: 0 2px;
+    }
+
+    .metricCardValue {
+        font-size: clamp(0.72rem, 2.7vw, 0.84rem);
+        letter-spacing: -0.035em;
+    }
+
+    .metricCardLabel {
+        font-size: clamp(0.54rem, 1.7vw, 0.60rem);
+        line-height: 1.2;
+    }
+}

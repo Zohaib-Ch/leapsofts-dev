@@ -296,7 +296,8 @@ const DevOps: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || "Operational Agility ",
         titleEnd: data.serviceOverview.titleEnd || "with DevOps",
         description: data.serviceOverview.description || "At Leapsofts, we specialize in building highly resilient, secure DevOps environments designed to accelerate release cycles and eliminate build errors. By writing reusable Terraform modules, containerizing application nodes, and setting up automated testing check gates, our engineers transition development teams into high-velocity continuous deployment setups with maximum uptime.",
-        imagePath: data.serviceOverview.imageUrl || "/streamline.webp"
+        imagePath: data.serviceOverview.imageUrl || "/streamline.webp",
+        imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : null;
 
@@ -306,6 +307,7 @@ const DevOps: React.FC = () => {
         number: slide.number || '< 01 >',
         title: slide.title || '',
         image: slide.imageUrl || "/streamline.webp",
+        imageLight: slide.imageLightUrl,
         items: slide.items || []
       }))
     : null;
@@ -340,6 +342,7 @@ const DevOps: React.FC = () => {
                 titleEnd={activeOverviewData?.titleEnd || "with DevOps"}
                 description={activeOverviewData?.description || "At Leapsofts, we specialize in building highly resilient, secure DevOps environments designed to accelerate release cycles and eliminate build errors. By writing reusable Terraform modules, containerizing application nodes, and setting up automated testing check gates, our engineers transition development teams into high-velocity continuous deployment setups with maximum uptime."}
                 imagePath={activeOverviewData?.imagePath || "/streamline.webp"}
+        imagePathLight={activeOverviewData?.imagePathLight || activeOverviewData?.imagePath}
             />
             )}
             {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
@@ -357,6 +360,7 @@ const DevOps: React.FC = () => {
                 buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
                 buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
                 imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrlLight={data?.strategyCTA?.imageLightUrl}
             />
             {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
               <DeliverMVP data={activeDeliverMVPData} />

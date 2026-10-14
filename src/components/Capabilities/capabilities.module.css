@@ -17,7 +17,7 @@
 
 /* Header Grid */
 .header {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .title {
@@ -54,14 +54,16 @@
 .slideContent {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: flex-start;
+    gap: 70px;
+    align-items: center;
 }
 
 /* Left Side: Visual */
 .visualWrapper {
     position: relative;
     width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
     aspect-ratio: 1;
     z-index: 3;
     display: flex;
@@ -70,15 +72,32 @@
     transform: translateZ(0);
 }
 
+.visualWrapper::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.22) 0%, rgba(249, 115, 22, 0.1) 45%, transparent 70%);
+    filter: blur(50px);
+    z-index: 1;
+    pointer-events: none;
+}
+
 .mainImage {
     width: 100%;
     height: auto;
     object-fit: contain;
     animation: float 6s ease-in-out infinite;
     max-width: 600px;
-    border-radius: 20px;
+    border-radius: 0;
     transform: translateZ(0);
     will-change: transform;
+    position: relative;
+    z-index: 2;
 }
 
 /* Right Side: Text Content */
@@ -263,7 +282,7 @@
    LIGHT THEME OVERRIDES FOR CAPABILITIES SECTION
    ========================================================================= */
 :global([data-theme="light"]) .section {
-    background: linear-gradient(180deg, #ffffff 0%, #faf8fd 50%, #f6f3fa 100%);
+    background: #ffffff;
     color: #0f172a;
 }
 
@@ -279,6 +298,35 @@
     color: #334155;
 }
 
+:global([data-theme="light"]) .visualWrapper {
+    position: relative;
+}
+
+:global([data-theme="light"]) .visualWrapper::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    height: 85%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.16) 0%, rgba(249, 115, 22, 0.08) 45%, transparent 70%);
+    filter: blur(45px);
+    z-index: 1;
+    pointer-events: none;
+}
+
+:global([data-theme="light"]) .mainImage {
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    filter: none;
+    position: relative;
+    z-index: 2;
+}
+
 :global([data-theme="light"]) .slideTitle {
     color: #0f172a;
 }
@@ -289,10 +337,6 @@
 
 :global([data-theme="light"]) .itemName {
     color: var(--color-orange);
-}
-
-:global([data-theme="light"]) .mainImage {
-    filter: drop-shadow(0 20px 45px rgba(107, 33, 168, 0.12));
 }
 
 :global([data-theme="light"]) .navBtn {

@@ -65,9 +65,11 @@ const InfoGrid: React.FC<InfoGridProps> = ({ data }) => {
                     </div>
                 )}
 
-                <div className={styles.grid}>
+                <div className={`${styles.grid} ${data.items.length === 4 ? styles.gridFour : ''}`}>
                     {data.items.map((item, index) => (
                         <div key={index} className={styles.card}>
+                            <div className={styles.cardAura} aria-hidden="true" />
+                            <div className={styles.cardBorderGlow} aria-hidden="true" />
                             <div className={styles.iconWrapper}>
                                 {renderIcon(item.icon, index)}
                             </div>

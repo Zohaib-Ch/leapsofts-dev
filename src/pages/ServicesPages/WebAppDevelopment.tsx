@@ -309,7 +309,8 @@ const WebAppDevelopment: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
         titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
         description: data.serviceOverview.description || serviceOverviewData.description,
-        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath,
+        imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : serviceOverviewData;
 
@@ -421,6 +422,7 @@ const WebAppDevelopment: React.FC = () => {
         number: slide.number || '< 01 >',
         title: slide.title || '',
         image: slide.imageUrl || defaultFallbackImage,
+        imageLight: slide.imageLightUrl,
         items: slide.items || []
       }))
     : defaultCapabilitiesSlides;
@@ -441,6 +443,7 @@ const WebAppDevelopment: React.FC = () => {
         titleEnd={activeOverviewData.titleEnd}
         description={activeOverviewData.description}
         imagePath={activeOverviewData.imagePath}
+          imagePathLight={activeOverviewData.imagePathLight}
       />
       )}
       <Capabilities
@@ -460,6 +463,7 @@ const WebAppDevelopment: React.FC = () => {
         buttonText={strategyCTA?.buttonText}
         buttonPath={strategyCTA?.buttonPath}
         imageUrl={strategyCTA?.imageUrl || defaultFallbackImage}
+        imageUrlLight={strategyCTA?.imageLightUrl}
       />
       {data?.comparisonTable && (
         <ComparisonTable data={data.comparisonTable} />

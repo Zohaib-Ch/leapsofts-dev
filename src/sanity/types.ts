@@ -12,13 +12,47 @@ export interface SanitySEO {
   structuredDataType?: string;
 }
 
+export interface SanityHeroMetric {
+  value: string;
+  label: string;
+}
+
+export interface SanityHeroTrustBadge {
+  icon: 'shield' | 'zap' | 'lock' | 'cloud' | 'cpu' | 'sparkles';
+  text: string;
+}
+
+export interface SanityHeroSlide {
+  id?: string;
+  number?: string;
+  tagline?: string;
+  titleMain: string;
+  titleAccent: string;
+  titleEnd?: string;
+  description: string;
+  buttonText: string;
+  buttonPath?: string;
+  image?: any;
+  imageUrl?: string;
+  backgroundAlt?: string;
+  imageLight?: any;
+  imageLightUrl?: string;
+  backgroundAltLight?: string;
+  metrics?: SanityHeroMetric[];
+  trustBadges?: SanityHeroTrustBadge[];
+}
+
 export interface SanityHero {
+  autoPlayInterval?: number;
+  slides?: SanityHeroSlide[];
   badgeText?: string;
   title?: string;
   title2?: string;
   subtitle?: string;
   primaryCtaText?: string;
   primaryCtaPath?: string;
+  imageUrl?: string;
+  imageLightUrl?: string;
 }
 
 export interface SanityServiceSubItem {
@@ -337,6 +371,7 @@ export interface SanityService {
     titleEnd?: string;
     description?: string;
     imageUrl?: string;
+    imageLightUrl?: string;
   };
   capabilitiesSection?: {
     title?: string;
@@ -346,6 +381,7 @@ export interface SanityService {
       number?: string;
       title?: string;
       imageUrl?: string;
+      imageLightUrl?: string;
       items?: { name: string; description: string }[];
     }[];
   };
@@ -373,6 +409,7 @@ export interface SanityService {
     buttonText?: string;
     buttonPath?: string;
     imageUrl?: string;
+    imageLightUrl?: string;
   };
   serviceFeatures?: {
     title?: string;
@@ -384,6 +421,8 @@ export interface SanityService {
     titleAccent?: string;
     titleMain?: string;
     description?: string;
+    imageUrl?: string;
+    imageLightUrl?: string;
     items?: { icon?: string; title: string; description: string }[];
   };
   deliverMVP?: {

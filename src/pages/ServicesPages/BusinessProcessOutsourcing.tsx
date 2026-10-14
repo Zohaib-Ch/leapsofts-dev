@@ -305,9 +305,10 @@ const BusinessProcessOutsourcing: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
         titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
         description: data.serviceOverview.description || serviceOverviewData.description,
-        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath,
+        imagePathLight: data?.serviceOverview?.imageLightUrl
       }
-    : serviceOverviewData;
+    : { ...serviceOverviewData, imagePathLight: undefined as string | undefined };
 
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
@@ -363,7 +364,11 @@ const BusinessProcessOutsourcing: React.FC = () => {
     : phaseLabelsDefault;
 
   const activeServiceFeatures = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
-    ? data.serviceFeatures.items
+    ? data.serviceFeatures.items.map(item => ({
+        icon: item.icon || '/industryicons/sphere.svg',
+        title: item.title,
+        description: item.description
+      }))
     : serviceFeaturesData;
 
   const strategyCTA = data?.strategyCTA;
@@ -384,6 +389,7 @@ const BusinessProcessOutsourcing: React.FC = () => {
           titleEnd={activeOverviewData.titleEnd}
           description={activeOverviewData.description}
           imagePath={activeOverviewData.imagePath}
+          imagePathLight={activeOverviewData.imagePathLight}
         />
       )}
       {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
@@ -398,6 +404,7 @@ const BusinessProcessOutsourcing: React.FC = () => {
         buttonText={strategyCTA?.buttonText || "Claim BPO Strategy Session"}
         buttonPath={strategyCTA?.buttonPath || "#contact"}
         imageUrl={strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrlLight={strategyCTA?.imageLightUrl}
       />
       {((data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0) || activeServiceFeatures.length > 0) && (
         <ServiceFeatures

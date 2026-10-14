@@ -345,7 +345,8 @@ const DataGovernance: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
         titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
         description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
-        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined),
+        imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
 
@@ -355,6 +356,7 @@ const DataGovernance: React.FC = () => {
         number: slide.number || '< 01 >',
         title: slide.title || '',
         image: slide.imageUrl || "/streamline.webp",
+        imageLight: slide.imageLightUrl,
         items: slide.items || []
       }))
     : null;
@@ -392,6 +394,7 @@ const DataGovernance: React.FC = () => {
         titleEnd={activeOverviewData?.titleEnd || "Environments"}
         description={activeOverviewData?.description || "At Leapsofts, we customize and engineer resilient Data Governance frameworks designed to convert fragmented corporate databases into a single, highly audited source of truth."}
         imagePath={activeOverviewData?.imagePath || "/streamline.webp"}
+        imagePathLight={activeOverviewData?.imagePathLight || activeOverviewData?.imagePath}
       />
       )}
       {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
@@ -409,6 +412,7 @@ const DataGovernance: React.FC = () => {
         buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
         imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrlLight={data?.strategyCTA?.imageLightUrl}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Expert Data Governance Capabilities'}

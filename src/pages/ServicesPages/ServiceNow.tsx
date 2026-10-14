@@ -324,7 +324,8 @@ const ServiceNow: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
         titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
         description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
-        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined)
+        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined),
+        imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
 
@@ -366,6 +367,7 @@ const ServiceNow: React.FC = () => {
         titleEnd={activeOverviewData?.titleEnd || "Workflows"}
         description={activeOverviewData?.description || "At Leapsofts, we customize and engineer highly optimized ServiceNow environments designed to connect disparate organizational silos into cohesive digital workflows."}
         imagePath={activeOverviewData?.imagePath || "/streamline.webp"}
+        imagePathLight={activeOverviewData?.imagePathLight || activeOverviewData?.imagePath}
       />
       )}
       {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
@@ -380,6 +382,7 @@ const ServiceNow: React.FC = () => {
         buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
         imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrlLight={data?.strategyCTA?.imageLightUrl}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Expert ServiceNow Capabilities & Services'}

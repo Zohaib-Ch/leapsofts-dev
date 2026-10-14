@@ -24,6 +24,11 @@ const Sidebar = memo(() => {
     const [activeSection, setActiveSection] = useState(items[items.length - 1].id);
 
     const scrollToSection = useCallback((id: string) => {
+        if (id === 'intro') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setActiveSection('intro');
+            return;
+        }
         const element = document.getElementById(id);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
@@ -38,6 +43,15 @@ const Sidebar = memo(() => {
     }, [hash, scrollToSection]);
 
     useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY < 120) {
+                setActiveSection('intro');
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+
         // High-performance IntersectionObserver with 0 layout thrashing
         const observerOptions = {
             root: null,
@@ -46,11 +60,20 @@ const Sidebar = memo(() => {
         };
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    setActiveSection(entry.target.id);
-                }
-            });
+            if (window.scrollY < 120) {
+                setActiveSection('intro');
+                return;
+            }
+
+            const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+            if (visibleEntries.length > 0) {
+                const best = visibleEntries.reduce((closest, curr) => {
+                    return Math.abs(curr.boundingClientRect.top) < Math.abs(closest.boundingClientRect.top)
+                        ? curr
+                        : closest;
+                });
+                setActiveSection(best.target.id);
+            }
         }, observerOptions);
 
         items.forEach((item) => {
@@ -61,6 +84,7 @@ const Sidebar = memo(() => {
         });
 
         return () => {
+            window.removeEventListener('scroll', handleScroll);
             observer.disconnect();
         };
     }, [items]);

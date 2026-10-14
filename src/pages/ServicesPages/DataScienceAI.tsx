@@ -368,7 +368,8 @@ const DataScienceAI: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || "Enterprise Data ",
         titleEnd: data.serviceOverview.titleEnd || "into Real-Time Intelligence",
         description: data.serviceOverview.description || "At Leapsofts, we bridge the gap between academic AI research and reliable, scalable production systems. By building secure data pipelines inside modern lakehouses (Databricks, Snowflake), training custom deep learning models for NLP and computer vision, and establishing robust MLOps governance gates, we empower enterprises to forecast market trends, automate document analysis, and deploy high-performance generative AI systems with complete algorithmic transparency.",
-        imagePath: data.serviceOverview.imageUrl || "/streamline.webp"
+        imagePath: data.serviceOverview.imageUrl || "/streamline.webp",
+        imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : null;
 
@@ -378,6 +379,7 @@ const DataScienceAI: React.FC = () => {
         number: slide.number || '< 01 >',
         title: slide.title || '',
         image: slide.imageUrl || "/streamline.webp",
+        imageLight: slide.imageLightUrl,
         items: slide.items || []
       }))
     : null;
@@ -421,6 +423,7 @@ const DataScienceAI: React.FC = () => {
         titleEnd={activeOverviewData?.titleEnd || "into Real-Time Intelligence"}
         description={activeOverviewData?.description || "At Leapsofts, we bridge the gap between academic AI research and reliable, scalable production systems. By building secure data pipelines inside modern lakehouses (Databricks, Snowflake), training custom deep learning models for NLP and computer vision, and establishing robust MLOps governance gates, we empower enterprises to forecast market trends, automate document analysis, and deploy high-performance generative AI systems with complete algorithmic transparency."}
         imagePath={activeOverviewData?.imagePath || "/streamline.webp"}
+        imagePathLight={activeOverviewData?.imagePathLight || activeOverviewData?.imagePath}
       />
       )}
       {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
@@ -438,6 +441,7 @@ const DataScienceAI: React.FC = () => {
         buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
         imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrlLight={data?.strategyCTA?.imageLightUrl}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Core AI Capabilities'}

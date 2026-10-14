@@ -5,6 +5,7 @@ import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import styles from './capabilities.module.css';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
 
 export interface CapabilityItem {
     name: string;
@@ -16,34 +17,68 @@ export interface CapabilitySlide {
     number: string;
     title: string;
     items: CapabilityItem[];
-    image?: string; // Optional override image
+    image?: string; // Optional override image (Dark mode default)
+    imageLight?: string; // Optional override image (Light mode)
 }
 
 interface CapabilitiesProps {
     title: string;
     description?: string;
     slides: CapabilitySlide[];
-    defaultImage?: string; // Fallback image for all slides
+    defaultImage?: string; // Fallback image for all slides (Dark mode default)
+    defaultImageLight?: string; // Fallback image for all slides (Light mode)
 }
 
 const Capabilities: React.FC<CapabilitiesProps> = ({
     title,
     // description,
     slides,
-    defaultImage
+    defaultImage,
+    defaultImageLight
 }) => {
+    const { theme } = useTheme();
     const swiperRef = useRef<SwiperType | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
 
+    // Auto-chunk slides so no slide ever has more than 3 items, splitting remaining items into new slides
+    const processedSlides: CapabilitySlide[] = React.useMemo(() => {
+        if (!slides || slides.length === 0) return [];
+        const result: CapabilitySlide[] = [];
+        let counter = 1;
+
+        slides.forEach((slide) => {
+            const items = slide.items || [];
+            if (items.length <= 3) {
+                result.push({
+                    ...slide,
+                    number: `< ${String(counter++).padStart(2, '0')} >`
+                });
+            } else {
+                for (let i = 0; i < items.length; i += 3) {
+                    const chunk = items.slice(i, i + 3);
+                    const partIndex = Math.floor(i / 3) + 1;
+                    result.push({
+                        ...slide,
+                        id: `${slide.id || 'slide'}-p${partIndex}`,
+                        number: `< ${String(counter++).padStart(2, '0')} >`,
+                        items: chunk
+                    });
+                }
+            }
+        });
+
+        return result;
+    }, [slides]);
+
     const handlePrev = () => {
         if (swiperRef.current) {
-            swiperRef.current.slideToLoop((activeIndex - 1 + slides.length) % slides.length);
+            swiperRef.current.slideToLoop((activeIndex - 1 + processedSlides.length) % processedSlides.length);
         }
     };
 
     const handleNext = () => {
         if (swiperRef.current) {
-            swiperRef.current.slideToLoop((activeIndex + 1) % slides.length);
+            swiperRef.current.slideToLoop((activeIndex + 1) % processedSlides.length);
         }
     };
 
@@ -83,17 +118,22 @@ const Capabilities: React.FC<CapabilitiesProps> = ({
                         }}
                         className={styles.swiper}
                     >
-                        {slides.map((slide, index) => (
-                            <SwiperSlide key={slide.id || index}>
-                                <div className={styles.slideContent}>
-                                    {/* Left Visual */}
-                                    <div className={styles.visualWrapper}>
-                                        <img
-                                            src={slide.image || defaultImage}
-                                            alt={slide.title}
-                                            className={styles.mainImage}
-                                        />
-                                    </div>
+                        {processedSlides.map((slide, index) => {
+                            const darkSlideImg = slide.image || defaultImage;
+                            const lightSlideImg = slide.imageLight || defaultImageLight || darkSlideImg;
+                            const finalSlideImg = theme === 'light' ? lightSlideImg : darkSlideImg;
+
+                            return (
+                                <SwiperSlide key={slide.id || index}>
+                                    <div className={styles.slideContent}>
+                                        {/* Left Visual */}
+                                        <div className={styles.visualWrapper}>
+                                            <img
+                                                src={finalSlideImg}
+                                                alt={slide.title}
+                                                className={styles.mainImage}
+                                            />
+                                        </div>
 
                                     {/* Right Content */}
                                     <div className={styles.textContent}>
@@ -120,7 +160,8 @@ const Capabilities: React.FC<CapabilitiesProps> = ({
                                     </div>
                                 </div>
                             </SwiperSlide>
-                        ))}
+                        );
+                    })}
                     </Swiper>
 
                     {/* Custom Navigation */}
@@ -129,7 +170,7 @@ const Capabilities: React.FC<CapabilitiesProps> = ({
                             <ChevronLeft size={24} />
                         </button>
                         <div className={styles.pagination}>
-                            {slides.map((_, index) => (
+                            {processedSlides.map((_, index) => (
                                 <div
                                     key={index}
                                     className={`${styles.dot} ${activeIndex === index ? styles.active : ''}`}

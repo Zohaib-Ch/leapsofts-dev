@@ -864,11 +864,11 @@ const About: React.FC = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
           >
-            <div className="flex items-center gap-3 mb-4">
-              <Globe className="w-6 h-6 text-orange-500" style={{ color: 'var(--color-orange)' }} />
-              <h3 className="text-xl font-bold text-white">Regional Engineering Hubs</h3>
+            <div className={styles.cardHeader}>
+              <Globe className={styles.cardHeaderIcon} />
+              <h3 className={styles.cardHeaderTitle}>Regional Engineering Hubs</h3>
             </div>
-            <p className={styles.subtitle} style={{ textAlign: 'left', margin: '0 0 1rem 0' }}>
+            <p className={styles.cardDesc}>
               Our dual-hub delivery model ensures continuous round-the-clock software development and immediate client support.
             </p>
             <div className={styles.hubList}>
@@ -916,11 +916,11 @@ const About: React.FC = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
           >
-            <div className="flex items-center gap-3 mb-4">
-              <Award className="w-6 h-6" style={{ color: 'var(--color-orange)' }} />
-              <h3 className="text-xl font-bold text-white">Enterprise Standards</h3>
+            <div className={styles.cardHeader}>
+              <Award className={styles.cardHeaderIcon} />
+              <h3 className={styles.cardHeaderTitle}>Enterprise Standards</h3>
             </div>
-            <p className={styles.subtitle} style={{ textAlign: 'left', margin: '0 0 1rem 0' }}>
+            <p className={styles.cardDesc}>
               Rigorous security protocols ensuring seamless audits and risk-free cloud deployments.
             </p>
             <div className={styles.complianceBadges}>

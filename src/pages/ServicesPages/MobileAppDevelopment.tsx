@@ -379,7 +379,8 @@ const MobileAppDevelopment: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || 'iOS & Android',
         titleEnd: data.serviceOverview.titleEnd || 'Mobile Applications',
         description: data.serviceOverview.description || 'At Leapsofts, as a full-service mobile app development company, we design and engineer custom mobile applications that bridge corporate cloud backends, real-time databases, and device sensors. By managing full-cycle app development—from Swift and Kotlin native coding to React Native and Flutter cross-platform frameworks, offline-first data sync, and automated App Store releases—we deliver secure, responsive mobile solutions that drive user retention.',
-        imagePath: data.serviceOverview.imageUrl || "/streamline.webp"
+        imagePath: data.serviceOverview.imageUrl || "/streamline.webp",
+        imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : null;
 
@@ -389,6 +390,7 @@ const MobileAppDevelopment: React.FC = () => {
         number: slide.number || '< 01 >',
         title: slide.title || '',
         image: slide.imageUrl || "/streamline.webp",
+        imageLight: slide.imageLightUrl,
         items: slide.items || []
       }))
     : mobileAppSlides;
@@ -471,6 +473,7 @@ const MobileAppDevelopment: React.FC = () => {
           titleEnd={activeOverviewData?.titleEnd || 'Mobile Applications'}
           description={activeOverviewData?.description || 'At Leapsofts, as a full-service mobile app development company, we design and engineer custom mobile applications that bridge corporate cloud backends, real-time databases, and device sensors. By managing full-cycle app development—from Swift and Kotlin native coding to React Native and Flutter cross-platform frameworks, offline-first data sync, and automated App Store releases—we deliver secure, responsive mobile solutions that drive user retention.'}
           imagePath={activeOverviewData?.imagePath || phonesImg}
+        imagePathLight={activeOverviewData?.imagePathLight || activeOverviewData?.imagePath}
         />
       )}
       {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
@@ -490,6 +493,7 @@ const MobileAppDevelopment: React.FC = () => {
         titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         imageUrl={data?.strategyCTA?.imageUrl || phonesImg}
+        imageUrlLight={data?.strategyCTA?.imageLightUrl}
       />
       {data?.comparisonTable && (
         <ComparisonTable data={data.comparisonTable} />

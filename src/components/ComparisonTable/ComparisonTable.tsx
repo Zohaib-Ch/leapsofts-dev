@@ -106,7 +106,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ data }) => {
             </button>
             <div
               className={styles.tabIndicator}
-              style={{ left: activeTab === 'custom' ? '0' : '50%' }}
+              style={{ left: activeTab === 'custom' ? 'var(--tab-indicator-offset, 5px)' : '50%' }}
             />
           </div>
 
