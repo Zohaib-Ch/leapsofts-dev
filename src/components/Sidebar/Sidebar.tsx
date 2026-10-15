@@ -43,9 +43,18 @@ const Sidebar = memo(() => {
     }, [hash, scrollToSection]);
 
     useEffect(() => {
+        let isTicking = false;
+        let rafId: number | null = null;
+
         const handleScroll = () => {
-            if (window.scrollY < 120) {
-                setActiveSection('intro');
+            if (!isTicking) {
+                isTicking = true;
+                rafId = requestAnimationFrame(() => {
+                    if (window.scrollY < 120) {
+                        setActiveSection('intro');
+                    }
+                    isTicking = false;
+                });
             }
         };
 
@@ -85,6 +94,7 @@ const Sidebar = memo(() => {
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
+            if (rafId) cancelAnimationFrame(rafId);
             observer.disconnect();
         };
     }, [items]);

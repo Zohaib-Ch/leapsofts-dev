@@ -9,7 +9,9 @@
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transform: translateZ(0);
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    contain: layout style;
 }
 
 .nav-container {
@@ -27,6 +29,7 @@
     box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.18);
     border-radius: 9999px;
     transition: background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    transform: translate3d(0, 0, 0);
 }
 
 .nav-logo {

@@ -34,10 +34,9 @@ const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({
     const finalImage = theme === 'light' ? lightImage : darkImage;
 
     const [isVisible, setIsVisible] = useState(false);
-    const [spotlightPos, setSpotlightPos] = useState({ x: 50, y: 50 });
-    const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
     const sectionRef = useRef<HTMLElement>(null);
     const visualRef = useRef<HTMLDivElement>(null);
+    const rectRef = useRef<DOMRect | null>(null);
     const rafRef = useRef<number | null>(null);
 
     const defaultDescription = [
@@ -74,30 +73,43 @@ const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({
         };
     }, []);
 
+    const handleMouseEnter = () => {
+        if (visualRef.current) {
+            rectRef.current = visualRef.current.getBoundingClientRect();
+        }
+    };
+
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!visualRef.current) return;
-        if (rafRef.current) cancelAnimationFrame(rafRef.current);
-
-        const rect = visualRef.current.getBoundingClientRect();
+        if (!rectRef.current) {
+            rectRef.current = visualRef.current.getBoundingClientRect();
+        }
         const clientX = e.clientX;
         const clientY = e.clientY;
 
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
         rafRef.current = requestAnimationFrame(() => {
-            const x = ((clientX - rect.left) / rect.width) * 100;
-            const y = ((clientY - rect.top) / rect.height) * 100;
-            setSpotlightPos({ x, y });
-
-            // Smooth lightweight 3D Tilt (Max 6deg, no lag)
+            const rect = rectRef.current;
+            if (!rect || !visualRef.current) return;
+            const x = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+            const y = Math.max(0, Math.min(100, ((clientY - rect.top) / rect.height) * 100));
             const rotateY = ((x - 50) / 50) * 6;
             const rotateX = ((50 - y) / 50) * 6;
-            setTilt({ rotateX, rotateY });
+
+            visualRef.current.style.setProperty('--spotlight-x', `${x}%`);
+            visualRef.current.style.setProperty('--spotlight-y', `${y}%`);
+            visualRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });
     };
 
     const handleMouseLeave = () => {
         if (rafRef.current) cancelAnimationFrame(rafRef.current);
-        setTilt({ rotateX: 0, rotateY: 0 });
-        setSpotlightPos({ x: 50, y: 50 });
+        rectRef.current = null;
+        if (visualRef.current) {
+            visualRef.current.style.setProperty('--spotlight-x', '50%');
+            visualRef.current.style.setProperty('--spotlight-y', '50%');
+            visualRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        }
     };
 
     const handleButtonClick = () => {
@@ -266,13 +278,14 @@ const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({
                     <div
                         ref={visualRef}
                         className={styles.visual}
+                        onMouseEnter={handleMouseEnter}
                         onMouseMove={handleMouseMove}
                         onMouseLeave={handleMouseLeave}
                         style={{
-                            '--spotlight-x': `${spotlightPos.x}%`,
-                            '--spotlight-y': `${spotlightPos.y}%`,
+                            '--spotlight-x': '50%',
+                            '--spotlight-y': '50%',
                             '--spotlight-size': '220px',
-                            transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
+                            transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg)',
                         } as React.CSSProperties}
                     >
                         {/* Glowing Glass Outer Border */}
