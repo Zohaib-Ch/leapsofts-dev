@@ -107,11 +107,11 @@
 
 /* Award-Winning Main Heading */
 .title {
-    font-size: clamp(2.4rem, 4.3vw, 3.85rem);
+    font-size: clamp(2.1rem, 3.2vw, 3.15rem);
     font-weight: 700;
-    line-height: 1.12;
-    letter-spacing: -0.025em;
-    margin-bottom: 1.25rem;
+    line-height: 1.15;
+    letter-spacing: -0.022em;
+    margin-bottom: 1.15rem;
     color: #ffffff;
     text-wrap: balance;
     opacity: 0;
@@ -184,7 +184,7 @@
 }
 
 .title2Text {
-    font-size: 1.05rem;
+    font-size: 0.96rem;
     font-weight: 500;
     line-height: 1.45;
     color: rgba(255, 255, 255, 0.92);
@@ -197,7 +197,7 @@
 }
 
 .heroSubtitle {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     line-height: 1.4;
     color: #ff9d54;
@@ -217,7 +217,7 @@
 }
 
 .subtitle {
-    font-size: 16.5px;
+    font-size: 15.5px;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.78);
     margin-bottom: 2rem;
@@ -379,8 +379,8 @@
     }
 
     .title {
-        font-size: clamp(2rem, 6.5vw, 2.65rem);
-        line-height: 1.18;
+        font-size: clamp(1.75rem, 5vw, 2.2rem);
+        line-height: 1.2;
         margin-bottom: 1.15rem;
     }
 
@@ -390,14 +390,14 @@
     }
 
     .heroSubtitle {
-        font-size: 17px;
+        font-size: 15.5px;
         line-height: 1.35;
         margin-top: -0.25rem;
         margin-bottom: 1rem;
     }
 
     .subtitle {
-        font-size: 15px;
+        font-size: 14px;
         line-height: 1.55;
         margin-bottom: 1.75rem;
     }
@@ -419,23 +419,23 @@
     }
 
     .title {
-        font-size: 25px;
+        font-size: 22px;
         line-height: 1.22;
         margin-bottom: 1rem;
     }
 
     .title2Text {
-        font-size: 0.92rem;
+        font-size: 0.85rem;
     }
 
     .heroSubtitle {
-        font-size: 15.5px;
+        font-size: 14px;
         line-height: 1.35;
         margin-bottom: 0.85rem;
     }
 
     .subtitle {
-        font-size: 14px;
+        font-size: 13px;
         line-height: 1.5;
         margin-bottom: 1.5rem;
     }
@@ -458,12 +458,12 @@
     }
 
     .title {
-        font-size: 22px;
+        font-size: 20px;
         line-height: 1.2;
     }
 
     .subtitle {
-        font-size: 13.5px;
+        font-size: 12.5px;
         line-height: 1.45;
     }
 }
