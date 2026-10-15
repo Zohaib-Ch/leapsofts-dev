@@ -17,9 +17,62 @@
     right: 15%;
     width: 40%;
     height: 60%;
-    background: radial-gradient(circle, rgba(255, 71, 229, 0.35) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 71, 229, 0.25) 0%, transparent 70%);
     transform: translateZ(0);
     pointer-events: none;
+    z-index: 1;
+}
+
+/* Ambient Soft Orbital Arc Vector Backdrop */
+.orbitalBackdrop {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.orbitalSvg {
+    position: absolute;
+    right: -4%;
+    top: 50%;
+    transform: translateY(-46%);
+    width: 100%;
+    height: 100%;
+    max-width: 1150px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.ambientGlowPurple {
+    position: absolute;
+    right: 14%;
+    top: 36%;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(147, 51, 234, 0.26) 0%, transparent 70%);
+    filter: blur(55px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.ambientGlowOrange {
+    position: absolute;
+    right: 28%;
+    bottom: 15%;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 107, 0, 0.18) 0%, transparent 70%);
+    filter: blur(50px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.title {
+    position: relative;
+    z-index: 2;
 }
 
 .title h3 {
@@ -35,7 +88,10 @@
 .content {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 80px;
+    position: relative;
+    z-index: 2;
 }
 
 .contentLeft {
@@ -75,7 +131,6 @@
     color: var(--color-orange);
     font-weight: 600;
     text-decoration: none;
-    /* border-bottom: 1.5px solid var(--color-orange); */
     cursor: pointer;
     transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     padding-bottom: 2px;
@@ -87,42 +142,159 @@
     color: var(--color-primary-light);
 }
 
+/* Right Column Visual Container */
 .contentRight {
     flex: 1;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    perspective: 1000px;
 }
 
-.contentRight img {
-    width: 600px;
-    max-width: 900px;
-    height: auto;
-    z-index: 2;
-    filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.5));
-    transition: transform 0.5s ease;
+/* 3D Perspective Glass Card */
+.visual {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 520px;
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.75),
+        0 0 35px rgba(147, 51, 234, 0.18);
+    transition: box-shadow 0.3s ease;
+    will-change: transform;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transform: translateZ(0);
+    background: rgba(15, 7, 26, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
-.arrowAccent {
+.visual:hover {
+    box-shadow: 
+        0 35px 65px -15px rgba(0, 0, 0, 0.85),
+        0 0 50px rgba(217, 70, 239, 0.28);
+}
+
+/* Glowing Glass Outer Border */
+.glassBorderGlow {
     position: absolute;
-    bottom: -15px;
-    right: 5%;
-    width: 50px !important;
-    height: auto !important;
-    z-index: 3;
+    inset: 0;
+    border-radius: 28px;
+    border: 1.5px solid transparent;
+    background: linear-gradient(135deg, rgba(217, 70, 239, 0.4) 0%, transparent 50%, rgba(255, 107, 0, 0.35) 100%) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
     pointer-events: none;
-    filter: drop-shadow(0 4px 15px rgba(217, 70, 239, 0.5));
+    z-index: 4;
 }
 
-.contentRight:hover img {
-    transform: scale(1.02) translateY(-10px);
+/* Core Service Image */
+.serviceImage {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateZ(0);
+}
+
+.visual:hover .serviceImage {
+    transform: scale(1.035);
+}
+
+/* Specular Lighting & Depth Overlays */
+.spotlightOverlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle var(--spotlight-size, 240px) at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+            transparent 0%,
+            rgba(5, 0, 1, 0.45) 100%);
+    z-index: 2;
+}
+
+.spotlightLens {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle var(--spotlight-size, 240px) at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+            rgba(255, 107, 0, 0.16) 0%,
+            transparent 100%);
+    z-index: 3;
+    opacity: 0.85;
+}
+
+/* Floating Micro-Chips */
+.floatingChipTop {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 7, 26, 0.82);
+    border: 1px solid rgba(217, 70, 239, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 7px 14px;
+    border-radius: 100px;
+    font-family: var(--font-mono, monospace);
+    font-size: 12px;
+    font-weight: 500;
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+    animation: floatSlow 4s ease-in-out infinite alternate;
+}
+
+.floatingChipBottom {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(15, 7, 26, 0.82);
+    border: 1px solid rgba(255, 107, 0, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 7px 14px;
+    border-radius: 100px;
+    font-family: var(--font-mono, monospace);
+    font-size: 12px;
+    font-weight: 500;
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+    animation: floatSlow 4s ease-in-out infinite alternate-reverse;
+}
+
+.chipPulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #10b981;
+    box-shadow: 0 0 8px #10b981;
+}
+
+@keyframes floatSlow {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-5px);
+    }
 }
 
 /* Media Queries for Responsiveness */
 @media screen and (max-width: 1300px) {
-    .contentRight img {
-        width: 450px;
+    .visual {
+        max-width: 460px;
     }
 }
 
@@ -130,8 +302,6 @@
     .content {
         gap: 40px;
     }
-
-
 }
 
 @media (max-width: 992px) {
@@ -146,26 +316,109 @@
 
     .contentRight {
         width: 100%;
-        margin-top: 40px;
+        margin-top: 30px;
     }
 
-    .contentRight img {
-        width: 80%;
-        max-width: 100%;
+    .visual {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    .orbitalSvg {
+        right: 50%;
+        transform: translate(50%, -46%);
+        max-width: 750px;
     }
 }
 
 @media (max-width: 768px) {
     .container {
-        padding: 80px 24px;
+        padding: 70px 24px;
     }
 
     .contentLeftTitle h2 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
 
     .contentLeftDescription {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
+    }
+
+    .visual {
+        max-width: 390px;
+        border-radius: 22px;
+    }
+
+    .glassBorderGlow {
+        border-radius: 22px;
+    }
+
+    .floatingChipTop,
+    .floatingChipBottom {
+        padding: 5px 11px;
+        font-size: 11px;
+    }
+
+    .floatingChipTop {
+        top: 14px;
+        left: 14px;
+    }
+
+    .floatingChipBottom {
+        bottom: 14px;
+        right: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 50px 16px;
+    }
+
+    .visual {
+        max-width: 320px;
+        border-radius: 18px;
+    }
+
+    .glassBorderGlow {
+        border-radius: 18px;
+    }
+
+    .floatingChipTop,
+    .floatingChipBottom {
+        padding: 4px 9px;
+        font-size: 10.5px;
+    }
+
+    .floatingChipTop {
+        top: 10px;
+        left: 10px;
+    }
+
+    .floatingChipBottom {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .container {
+        padding: 40px 12px;
+    }
+
+    .visual {
+        max-width: 270px;
+        border-radius: 14px;
+    }
+
+    .glassBorderGlow {
+        border-radius: 14px;
+    }
+
+    .floatingChipTop,
+    .floatingChipBottom {
+        padding: 3.5px 8px;
+        font-size: 9.5px;
     }
 }
 
@@ -182,6 +435,18 @@
     background: radial-gradient(circle at center, rgba(147, 51, 234, 0.08) 0%, rgba(249, 115, 22, 0.04) 40%, transparent 70%);
     filter: none !important;
     transform: translateZ(0);
+}
+
+:global([data-theme="light"]) .orbitalSvg {
+    opacity: 0.18;
+}
+
+:global([data-theme="light"]) .ambientGlowPurple {
+    background: radial-gradient(circle at center, rgba(147, 51, 234, 0.07) 0%, rgba(217, 70, 239, 0.02) 50%, transparent 75%);
+}
+
+:global([data-theme="light"]) .ambientGlowOrange {
+    background: radial-gradient(circle at center, rgba(255, 107, 0, 0.05) 0%, rgba(251, 146, 60, 0.02) 50%, transparent 75%);
 }
 
 :global([data-theme="light"]) .contentLeftTitle h2 {
@@ -208,6 +473,46 @@
     color: #7c3aed;
 }
 
-:global([data-theme="light"]) .contentRight img {
-    filter: drop-shadow(0 20px 45px rgba(107, 33, 168, 0.12));
+:global([data-theme="light"]) .visual {
+    background: #ffffff;
+    border: 1px solid rgba(147, 51, 234, 0.18);
+    box-shadow: 
+        0 20px 45px rgba(107, 33, 168, 0.1),
+        0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .visual:hover {
+    box-shadow: 
+        0 30px 60px rgba(107, 33, 168, 0.16),
+        0 0 30px rgba(217, 70, 239, 0.12);
+}
+
+:global([data-theme="light"]) .glassBorderGlow {
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.3) 0%, transparent 50%, rgba(255, 107, 0, 0.25) 100%) border-box;
+}
+
+:global([data-theme="light"]) .floatingChipTop,
+:global([data-theme="light"]) .floatingChipBottom {
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(147, 51, 234, 0.2);
+    color: #0f172a;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+:global([data-theme="light"]) .spotlightOverlay,
+:global([data-theme="light"]) .spotlightLens {
+    display: none;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .visual {
+        transform: none !important;
+        transition: none !important;
+    }
+    .floatingChipTop,
+    .floatingChipBottom {
+        animation: none !important;
+    }
 }

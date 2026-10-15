@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, EffectFade } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
@@ -29,11 +29,116 @@ interface CapabilitiesProps {
     defaultImageLight?: string; // Fallback image for all slides (Light mode)
 }
 
+/**
+ * 3D Perspective Glass Card with Mouse-Tracking Specular Spotlight & Floating Badges
+ */
+const CapabilityVisualCard: React.FC<{
+    src: string;
+    alt: string;
+    slideNumber?: string;
+}> = ({ src, alt, slideNumber }) => {
+    const cardRef = useRef<HTMLDivElement>(null);
+    const rectRef = useRef<DOMRect | null>(null);
+    const rafRef = useRef<number | null>(null);
+
+    useEffect(() => {
+        return () => {
+            if (rafRef.current) {
+                cancelAnimationFrame(rafRef.current);
+            }
+        };
+    }, []);
+
+    const handleMouseEnter = () => {
+        if (cardRef.current) {
+            rectRef.current = cardRef.current.getBoundingClientRect();
+        }
+    };
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!cardRef.current) return;
+        if (!rectRef.current) {
+            rectRef.current = cardRef.current.getBoundingClientRect();
+        }
+        const clientX = e.clientX;
+        const clientY = e.clientY;
+
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        rafRef.current = requestAnimationFrame(() => {
+            const rect = rectRef.current;
+            if (!rect || !cardRef.current) return;
+            const x = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+            const y = Math.max(0, Math.min(100, ((clientY - rect.top) / rect.height) * 100));
+            const rotateY = ((x - 50) / 50) * 5;
+            const rotateX = ((50 - y) / 50) * 5;
+
+            cardRef.current.style.setProperty('--spotlight-x', `${x}%`);
+            cardRef.current.style.setProperty('--spotlight-y', `${y}%`);
+            cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+    };
+
+    const handleMouseLeave = () => {
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        rectRef.current = null;
+        if (cardRef.current) {
+            cardRef.current.style.setProperty('--spotlight-x', '50%');
+            cardRef.current.style.setProperty('--spotlight-y', '50%');
+            cardRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        }
+    };
+
+    return (
+        <div className={styles.visualContainer}>
+            <div
+                ref={cardRef}
+                className={styles.visualCard}
+                onMouseEnter={handleMouseEnter}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                style={{
+                    '--spotlight-x': '50%',
+                    '--spotlight-y': '50%',
+                    '--spotlight-size': '240px',
+                    transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg)',
+                } as React.CSSProperties}
+            >
+                {/* Glowing Glass Outer Border */}
+                <div className={styles.glassBorderGlow} aria-hidden="true" />
+
+                {/* Floating Micro-Chip Top Left */}
+                <div className={styles.floatingChipTop} aria-hidden="true">
+                    <span className={styles.chipPulse} />
+                    <span>Enterprise Architecture</span>
+                </div>
+
+                {/* Floating Micro-Chip Bottom Right: Slide Number Badge */}
+                {slideNumber && (
+                    <div className={styles.floatingChipBottom} aria-hidden="true">
+                        <span>{slideNumber}</span>
+                    </div>
+                )}
+
+                {/* Main Slide Image */}
+                <img
+                    src={src}
+                    alt={alt}
+                    className={styles.mainImage}
+                    loading="lazy"
+                />
+
+                {/* Specular Lighting & Depth Overlays */}
+                <div className={styles.spotlightOverlay} aria-hidden="true" />
+                <div className={styles.spotlightLens} aria-hidden="true" />
+            </div>
+        </div>
+    );
+};
+
 const Capabilities: React.FC<CapabilitiesProps> = ({
     title,
-    // description,
     slides,
-    defaultImage,
+    defaultImage = "/streamline.webp",
     defaultImageLight
 }) => {
     const { theme } = useTheme();
@@ -89,6 +194,48 @@ const Capabilities: React.FC<CapabilitiesProps> = ({
 
     return (
         <section className={styles.section}>
+            {/* Ambient Soft Orbital Arc Vector Backdrop */}
+            <div className={styles.orbitalBackdrop} aria-hidden="true">
+                <div className={styles.ambientGlowPurple} />
+                <div className={styles.ambientGlowOrange} />
+                <svg
+                    className={styles.orbitalSvg}
+                    viewBox="0 0 1440 800"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="xMidYMid slice"
+                >
+                    <defs>
+                        <linearGradient id="capOrbitPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#9333ea" stopOpacity="0.4" />
+                            <stop offset="50%" stopColor="#c084fc" stopOpacity="0.15" />
+                            <stop offset="100%" stopColor="#ff6b00" stopOpacity="0.3" />
+                        </linearGradient>
+                        <linearGradient id="capOrbitOrange" x1="100%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#ff6b00" stopOpacity="0.4" />
+                            <stop offset="60%" stopColor="#fb923c" stopOpacity="0.15" />
+                            <stop offset="100%" stopColor="#a855f7" stopOpacity="0.25" />
+                        </linearGradient>
+                    </defs>
+
+                    {/* Concentric Soft Orbital Arcs framing the left visual card area */}
+                    <ellipse cx="360" cy="400" rx="360" ry="280" stroke="url(#capOrbitPurple)" strokeWidth="1" strokeDasharray="6 8" opacity="0.5" />
+                    <ellipse cx="360" cy="400" rx="500" ry="370" stroke="url(#capOrbitOrange)" strokeWidth="1" opacity="0.3" />
+
+                    {/* Celestial Tech Constellation Dots */}
+                    <circle cx="360" cy="120" r="3" fill="#ff6b00" opacity="0.65" />
+                    <circle cx="580" cy="230" r="2.5" fill="#c084fc" opacity="0.6" />
+                    <circle cx="210" cy="580" r="3" fill="#ff6b00" opacity="0.55" />
+                    <circle cx="680" cy="490" r="2.5" fill="#38bdf8" opacity="0.45" />
+
+                    {/* Clean Tech Corner Crosshair */}
+                    <g opacity="0.3" stroke="#ffffff" strokeWidth="1">
+                        <line x1="80" y1="680" x2="100" y2="680" />
+                        <line x1="90" y1="670" x2="90" y2="690" />
+                    </g>
+                </svg>
+            </div>
+
             <div className={styles.container}>
                 <div className={styles.header}>
                     <h2 className={styles.title}>
@@ -113,7 +260,6 @@ const Capabilities: React.FC<CapabilitiesProps> = ({
                             swiperRef.current = swiper;
                         }}
                         onSlideChange={(swiper) => {
-                            // Use realIndex for loop mode to get the actual slide index
                             setActiveIndex(swiper.realIndex);
                         }}
                         className={styles.swiper}
@@ -126,69 +272,85 @@ const Capabilities: React.FC<CapabilitiesProps> = ({
                             return (
                                 <SwiperSlide key={slide.id || index}>
                                     <div className={styles.slideContent}>
-                                        {/* Left Visual */}
+                                        {/* Left Visual: 3D Perspective Glass Card */}
                                         <div className={styles.visualWrapper}>
-                                            <img
+                                            <CapabilityVisualCard
                                                 src={finalSlideImg}
                                                 alt={slide.title}
-                                                className={styles.mainImage}
+                                                slideNumber={slide.number}
                                             />
                                         </div>
 
-                                    {/* Right Content */}
-                                    <div className={styles.textContent}>
-                                        <span className={styles.slideNumber}>{slide.number}</span>
-                                        <h3 className={styles.slideTitle}>{slide.title}</h3>
+                                        {/* Right Content */}
+                                        <div className={styles.textContent}>
+                                            <div className={styles.badgeWrapper}>
+                                                <span className={styles.livePulseDot} aria-hidden="true" />
+                                                <span className={styles.slideNumber}>{slide.number}</span>
+                                            </div>
 
-                                        <div className={styles.capabilitiesList}>
-                                            {slide.items.map((item, i) => (
-                                                <div key={i} className={styles.capabilityItem}>
-                                                    {/* Pink Chevron Icon */}
-                                                    <svg className={styles.arrowIcon} viewBox="0 0 10 16">
-                                                        <path d="M2.5 8L0 5.5L1.5 4L5.5 8L1.5 12L0 10.5L2.5 8Z" />
-                                                        <path d="M6.5 8L4 5.5L5.5 4L9.5 8L5.5 12L4 10.5L6.5 8Z" />
-                                                    </svg>
+                                            <h3 className={styles.slideTitle}>{slide.title}</h3>
 
-                                                    <div className={styles.itemContent}>
-                                                        <p className={styles.itemText}>
-                                                            <span className={styles.itemName}>{item.name}:</span> {item.description}
-                                                        </p>
+                                            <div className={styles.capabilitiesList}>
+                                                {slide.items.map((item, i) => (
+                                                    <div key={i} className={styles.capabilityItem}>
+                                                        {/* Refined Squircle Icon Badge */}
+                                                        <div className={styles.iconWrapper} aria-hidden="true">
+                                                            <svg className={styles.arrowIcon} viewBox="0 0 16 16" fill="none">
+                                                                <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                                                            </svg>
+                                                        </div>
+
+                                                        <div className={styles.itemContent}>
+                                                            <p className={styles.itemText}>
+                                                                <span className={styles.itemName}>{item.name}:</span> {item.description}
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ))}
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </SwiperSlide>
-                        );
-                    })}
+                                </SwiperSlide>
+                            );
+                        })}
                     </Swiper>
 
-                    {/* Custom Navigation */}
+                    {/* Modern Glass Pill Navigation Controls */}
                     <div className={styles.navigationWrapper}>
-                        <button className={styles.navBtn} onClick={handlePrev}>
-                            <ChevronLeft size={24} />
-                        </button>
-                        <div className={styles.pagination}>
-                            {processedSlides.map((_, index) => (
-                                <div
-                                    key={index}
-                                    className={`${styles.dot} ${activeIndex === index ? styles.active : ''}`}
-                                    onClick={() => {
-                                        if (swiperRef.current) {
-                                            // Use slideToLoop for proper loop navigation
-                                            swiperRef.current.slideToLoop(index);
-                                        }
-                                    }}
-                                />
-                            ))}
-                        </div>
-                        <button className={styles.navBtn} onClick={handleNext}>
-                            <ChevronRight size={24} />
-                        </button>
-                    </div>
+                        <div className={styles.navPill}>
+                            <button
+                                className={styles.navBtn}
+                                onClick={handlePrev}
+                                aria-label="Previous capability slide"
+                            >
+                                <ChevronLeft size={20} />
+                            </button>
 
-                    {/* Custom Pagination */}
+                            <div className={styles.pagination}>
+                                {processedSlides.map((_, index) => (
+                                    <button
+                                        key={index}
+                                        type="button"
+                                        aria-label={`Go to slide ${index + 1}`}
+                                        className={`${styles.dot} ${activeIndex === index ? styles.active : ''}`}
+                                        onClick={() => {
+                                            if (swiperRef.current) {
+                                                swiperRef.current.slideToLoop(index);
+                                            }
+                                        }}
+                                    />
+                                ))}
+                            </div>
+
+                            <button
+                                className={styles.navBtn}
+                                onClick={handleNext}
+                                aria-label="Next capability slide"
+                            >
+                                <ChevronRight size={20} />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
