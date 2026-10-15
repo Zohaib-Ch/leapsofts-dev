@@ -1,21 +1,76 @@
 import React from 'react';
 import styles from './figures.module.css';
 import AnimatedCounter from '../../../components/AnimatedCounter/AnimatedCounter';
-
-const highlightsData = [
-    { number: 21, suffix: '', text: 'years of engineering dependable, high-impact digital products' },
-    { number: 250, suffix: '+', text: 'software specialists ready to scale your product vision with precision' },
-    { number: 5, suffix: '', text: 'strategic offices globally, led by our UAE headquarters to support international scale' },
-    { number: 150, suffix: '+', text: 'products launched across Fortune 200 enterprises and hyper-growth startups' },
-    { number: 94, suffix: '%', text: 'client retention powered by sustained technical execution and clear communication' },
-    { number: 3, suffix: '', text: 'months average timeline to deploy a fully-functional, market-ready MVP' },
-];
+import { Award, Users, Globe2, Rocket, TrendingUp, Zap } from 'lucide-react';
 
 export interface StatItem {
     number: number;
     suffix?: string;
+    title?: string;
+    tag?: string;
     text: string;
+    icon?: React.ComponentType<{ size?: number | string; strokeWidth?: number | string; className?: string }>;
 }
+
+const highlightsData: StatItem[] = [
+    {
+        number: 21,
+        suffix: '',
+        title: 'Decades of Engineering',
+        tag: 'EXPERIENCE',
+        text: 'Years of engineering dependable, high-impact digital products for global tech leaders.',
+        icon: Award,
+    },
+    {
+        number: 250,
+        suffix: '+',
+        title: 'Senior Tech Specialists',
+        tag: 'GLOBAL TALENT',
+        text: 'Dedicated software specialists ready to scale your product vision with precision.',
+        icon: Users,
+    },
+    {
+        number: 5,
+        suffix: '',
+        title: 'Global Delivery Hubs',
+        tag: 'WORLDWIDE HQ',
+        text: 'Strategic offices globally, led by our UAE headquarters to support international scale.',
+        icon: Globe2,
+    },
+    {
+        number: 150,
+        suffix: '+',
+        title: 'Enterprise Launches',
+        tag: 'DEPLOYMENTS',
+        text: 'Products launched across Fortune 200 enterprises and hyper-growth venture startups.',
+        icon: Rocket,
+    },
+    {
+        number: 94,
+        suffix: '%',
+        title: 'Client Retention Rate',
+        tag: 'RETENTION',
+        text: 'Client retention powered by sustained technical execution and clear communication.',
+        icon: TrendingUp,
+    },
+    {
+        number: 3,
+        suffix: '',
+        title: 'Months MVP Velocity',
+        tag: 'MVP VELOCITY',
+        text: 'Average timeline to deploy a fully-functional, secure, market-ready MVP.',
+        icon: Zap,
+    },
+];
+
+const defaultFallbacks = [
+    { title: 'Decades of Engineering', tag: 'EXPERIENCE', icon: Award },
+    { title: 'Senior Tech Specialists', tag: 'GLOBAL TALENT', icon: Users },
+    { title: 'Global Delivery Hubs', tag: 'WORLDWIDE HQ', icon: Globe2 },
+    { title: 'Enterprise Launches', tag: 'DEPLOYMENTS', icon: Rocket },
+    { title: 'Client Retention Rate', tag: 'RETENTION', icon: TrendingUp },
+    { title: 'Months MVP Velocity', tag: 'MVP VELOCITY', icon: Zap },
+];
 
 export interface FiguresProps {
     stats?: StatItem[];
@@ -146,23 +201,41 @@ const Figures: React.FC<FiguresProps> = ({ stats: sanityStats }) => {
             <div className={styles.container}>
                 <div className={styles.highlights}>
                     {activeStats.map((item, index) => {
+                        const fallback = defaultFallbacks[index % defaultFallbacks.length];
+                        const IconComponent = item.icon || fallback.icon;
+                        const rawTag = item.tag || fallback.tag;
+                        const cleanTag = rawTag.replace(/^\d+\s*[·•-]\s*/, '');
+                        const cardTitle = item.title || fallback.title;
                         const indexLabel = String(index + 1).padStart(2, '0');
+
                         return (
                             <div key={index} className={styles.statCard}>
                                 <div className={styles.glassCard}>
                                     {/* Subtle Ambient Corner Glow */}
                                     <div className={styles.cardCornerGlow} aria-hidden="true" />
 
-                                    {/* Ghost Index Number Watermark */}
-                                    <span className={styles.cardWatermark} aria-hidden="true">
-                                        {indexLabel}
-                                    </span>
+                                    {/* Card Header: Squircle Icon + Category Label & Monospace Index */}
+                                    <div className={styles.cardHeaderRow}>
+                                        <div className={styles.cardBadge}>
+                                            <div className={styles.iconBox}>
+                                                <IconComponent size={15} strokeWidth={2.3} />
+                                            </div>
+                                            <span className={styles.badgeTag}>{cleanTag}</span>
+                                        </div>
+                                        <span className={styles.indexNumber}>#{indexLabel}</span>
+                                    </div>
 
-                                    {/* Card Foreground Content */}
-                                    <div className={styles.cardContent}>
+                                    {/* Metric Display Row with Kinetic Gradient Typography */}
+                                    <div className={styles.metricRow}>
                                         <span className={styles.statNumber}>
-                                            <AnimatedCounter value={item.number} />{item.suffix}
+                                            <AnimatedCounter value={item.number} />
                                         </span>
+                                        {item.suffix && <span className={styles.statSuffix}>{item.suffix}</span>}
+                                    </div>
+
+                                    {/* Structured Text Content */}
+                                    <div className={styles.textContent}>
+                                        <h3 className={styles.metricTitle}>{cardTitle}</h3>
                                         <p className={styles.statText}>{item.text}</p>
                                     </div>
                                 </div>
@@ -176,3 +249,4 @@ const Figures: React.FC<FiguresProps> = ({ stats: sanityStats }) => {
 };
 
 export default Figures;
+
