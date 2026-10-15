@@ -144,7 +144,8 @@ const serviceOverviewData = {
   titleAccent: "Salesforce CRM ",
   titleEnd: "Solutions",
   description: "At Leapsofts, as a certified Salesforce development company, we engineer custom Salesforce environments that transform raw sales data into automated growth pipelines. By coding optimized Apex controllers, designing responsive Lightning Web Components (LWC), and orchestrating MuleSoft and REST/SOAP API integrations with external ERPs, we deliver tailored Sales Cloud, Service Cloud, and AppExchange solutions.",
-  imagePath: "/streamline.webp"
+  imagePath: "/streamline.webp",
+  imagePathLight: undefined as string | undefined
 };
 
 const infoGridData: InfoGridProps['data'] = {
@@ -391,15 +392,15 @@ const Salesforce: React.FC = () => {
 
   const activeOverviewData = (data?.serviceOverview)
     ? {
-        label: data.serviceOverview.label || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.label : ''),
-        titleMain: data.serviceOverview.titleMain || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleMain : ''),
-        titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
-        titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
-        description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
-        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined),
+        label: data.serviceOverview.label || serviceOverviewData.label,
+        titleMain: data.serviceOverview.titleMain || serviceOverviewData.titleMain,
+        titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
+        titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
+        description: data.serviceOverview.description || serviceOverviewData.description,
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath,
         imagePathLight: data?.serviceOverview?.imageLightUrl
       }
-    : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
+    : serviceOverviewData;
 
   const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
     ? data.capabilitiesSection.slides.map(slide => ({
@@ -451,7 +452,7 @@ const Salesforce: React.FC = () => {
         titleEnd={activeOverviewData?.titleEnd || "Solutions"}
         description={activeOverviewData?.description || "At Leapsofts, as a certified Salesforce development company, we engineer custom Salesforce environments that transform raw sales data into automated growth pipelines."}
         imagePath={activeOverviewData?.imagePath || "/streamline.webp"}
-        imagePathLight={activeOverviewData?.imagePathLight || activeOverviewData?.imagePath}
+        imagePathLight={activeOverviewData?.imagePathLight}
       />
       )}
       {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
@@ -460,6 +461,7 @@ const Salesforce: React.FC = () => {
         description={data?.capabilitiesSection?.description || "We provide 360-degree Salesforce services to transform your business operations."}
         slides={activeCapabilitiesSlides}
         defaultImage="/streamline.webp"
+        defaultImageLight="/streamline.webp"
       />
       )}
       {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (

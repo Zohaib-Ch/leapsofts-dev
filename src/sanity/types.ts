@@ -387,6 +387,7 @@ export interface SanityService {
   };
   infoGrid?: {
     label?: string;
+    title?: string;
     titleAccent?: string;
     titleMain?: string;
     description?: string;

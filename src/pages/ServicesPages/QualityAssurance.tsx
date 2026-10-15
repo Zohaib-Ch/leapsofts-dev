@@ -238,6 +238,16 @@ const serviceFeaturesData: ServiceFeatureItem[] = [
     }
 ];
 
+const serviceOverviewData = {
+    label: "QUALITY ENGINEERING",
+    titleMain: "Continuous ",
+    titleAccent: "Validation & ",
+    titleEnd: "Security",
+    description: "At Leapsofts, we establish strict software validation layers that identify system vulnerabilities and logical errors long before production deployment. By combining automated regression suites, localized API integration mocks, and intensive cloud-native load testing setups, we ensure your applications achieve absolute performance reliability, robust SOC2 compliance, and optimal core web vitals.",
+    imagePath: "/streamline.webp",
+    imagePathLight: undefined as string | undefined
+};
+
 const deliverMVPData = {
     label: "QA EXCELLENCE",
     title: "Our Commitment to Deliver Your Verification in",
@@ -310,15 +320,15 @@ const QualityAssurance: React.FC = () => {
 
   const activeOverviewData = (data?.serviceOverview)
     ? {
-        label: data.serviceOverview.label || "QUALITY ENGINEERING",
-        titleMain: data.serviceOverview.titleMain || "Continuous ",
-        titleAccent: data.serviceOverview.titleAccent || "Validation & ",
-        titleEnd: data.serviceOverview.titleEnd || "Security",
-        description: data.serviceOverview.description || "At Leapsofts, we establish strict software validation layers that identify system vulnerabilities and logical errors long before production deployment. By combining automated regression suites, localized API integration mocks, and intensive cloud-native load testing setups, we ensure your applications achieve absolute performance reliability, robust SOC2 compliance, and optimal core web vitals.",
-        imagePath: data.serviceOverview.imageUrl || "/streamline.webp",
+        label: data.serviceOverview.label || serviceOverviewData.label,
+        titleMain: data.serviceOverview.titleMain || serviceOverviewData.titleMain,
+        titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
+        titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
+        description: data.serviceOverview.description || serviceOverviewData.description,
+        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath,
         imagePathLight: data?.serviceOverview?.imageLightUrl
       }
-    : null;
+    : serviceOverviewData;
 
   const activeInfoGridData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
@@ -362,7 +372,7 @@ const QualityAssurance: React.FC = () => {
   const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
     ? data.processes.processPhases.map((phase, index) => ({
         id: phase.id ?? (index + 1),
-        phase: phase.phase || PHASE ,
+        phase: phase.phase || `PHASE ${index + 1}`,
         title: phase.title || '',
         description: phase.description || '',
         features: phase.features || []
@@ -413,7 +423,7 @@ const QualityAssurance: React.FC = () => {
                 buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
                 buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
                 imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
-        imageUrlLight={data?.strategyCTA?.imageLightUrl}
+                imageUrlLight={data?.strategyCTA?.imageLightUrl}
             />
             <ServiceFeatures
                 title={data?.serviceFeatures?.title || 'Our QA Services'}
