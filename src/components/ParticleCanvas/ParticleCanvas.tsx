@@ -46,10 +46,13 @@ const ParticleCanvas: React.FC = () => {
             isActive: false,
         };
 
-        // Determine particle count based on canvas area (~80 for 1200x800)
+        // Determine particle count based on canvas area (~75 for desktop, ultralight on mobile)
         const getParticleCount = (w: number, h: number) => {
+            if (w < 768) {
+                return 18; // Lightweight for 120FPS mobile performance
+            }
             const area = (w * h) / (800 * 800);
-            return Math.min(90, Math.max(35, Math.floor(65 * area)));
+            return Math.min(75, Math.max(30, Math.floor(55 * area)));
         };
 
         let particles: Particle[] = [];
@@ -134,11 +137,32 @@ const ParticleCanvas: React.FC = () => {
         parentSection.addEventListener('click', handleClick as EventListener);
 
         // Pause animation loop when out of viewport
+        let lastTime = performance.now();
+
+        const startLoop = () => {
+            if (!animationFrameId) {
+                lastTime = performance.now();
+                animationFrameId = requestAnimationFrame(render);
+            }
+        };
+
+        const stopLoop = () => {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = 0;
+            }
+        };
+
         const intersectionObserver = new IntersectionObserver(
             ([entry]) => {
-                isVisible = entry.isIntersecting;
-                if (isVisible) {
-                    lastTime = performance.now();
+                const nowVisible = entry.isIntersecting;
+                if (nowVisible !== isVisible) {
+                    isVisible = nowVisible;
+                    if (isVisible) {
+                        startLoop();
+                    } else {
+                        stopLoop();
+                    }
                 }
             },
             { threshold: 0.05 }
@@ -146,67 +170,68 @@ const ParticleCanvas: React.FC = () => {
         intersectionObserver.observe(container);
 
         // Main Animation Loop
-        let lastTime = performance.now();
-
         const render = (time: number) => {
+            if (!isVisible) {
+                animationFrameId = 0;
+                return;
+            }
+
             const dt = Math.min((time - lastTime) / 1000, 0.1);
             lastTime = time;
 
-            if (isVisible) {
-                ctx.clearRect(0, 0, width, height);
+            ctx.clearRect(0, 0, width, height);
 
-                // Update and Draw Particles
-                for (let i = 0; i < particles.length; i++) {
-                    const p = particles[i];
+            // Update and Draw Particles
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
 
-                    // Movement
-                    p.x += p.vx * dt * 60;
-                    p.y += p.vy * dt * 60;
+                // Movement
+                p.x += p.vx * dt * 60;
+                p.y += p.vy * dt * 60;
 
-                    // Boundary collision / wrap
-                    if (p.x < -10) p.x = width + 10;
-                    else if (p.x > width + 10) p.x = -10;
-                    if (p.y < -10) p.y = height + 10;
-                    else if (p.y > height + 10) p.y = -10;
+                // Boundary collision / wrap
+                if (p.x < -10) p.x = width + 10;
+                else if (p.x > width + 10) p.x = -10;
+                if (p.y < -10) p.y = height + 10;
+                else if (p.y > height + 10) p.y = -10;
 
-                    // Mouse Repulse Effect (from particlesjs-config)
-                    if (mouse.isActive) {
-                        const dx = p.x - mouse.x;
-                        const dy = p.y - mouse.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
+                // Mouse Repulse Effect (from particlesjs-config)
+                if (mouse.isActive) {
+                    const dx = p.x - mouse.x;
+                    const dy = p.y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
 
-                        if (dist < REPULSE_DISTANCE && dist > 0) {
-                            const force = (1 - dist / REPULSE_DISTANCE) * REPULSE_STRENGTH;
-                            const fx = (dx / dist) * force * 7;
-                            const fy = (dy / dist) * force * 7;
+                    if (dist < REPULSE_DISTANCE && dist > 0) {
+                        const force = (1 - dist / REPULSE_DISTANCE) * REPULSE_STRENGTH;
+                        const fx = (dx / dist) * force * 7;
+                        const fy = (dy / dist) * force * 7;
 
-                            p.x += fx;
-                            p.y += fy;
-                        }
+                        p.x += fx;
+                        p.y += fy;
                     }
+                }
 
-                    // Draw Node
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = p.color;
-                    ctx.fill();
+                // Draw Node
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
 
-                    // Connect Interconnecting Lines (line_linked)
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const p2 = particles[j];
-                        const dx = p.x - p2.x;
-                        const dy = p.y - p2.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
+                // Connect Interconnecting Lines (line_linked)
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
 
-                        if (dist < LINK_DISTANCE) {
-                            const alpha = (1 - dist / LINK_DISTANCE) * 0.22;
-                            ctx.beginPath();
-                            ctx.moveTo(p.x, p.y);
-                            ctx.lineTo(p2.x, p2.y);
-                            ctx.strokeStyle = `rgba(${LINE_COLOR_BASE}, ${alpha})`;
-                            ctx.lineWidth = 0.9;
-                            ctx.stroke();
-                        }
+                    if (dist < LINK_DISTANCE) {
+                        const alpha = (1 - dist / LINK_DISTANCE) * 0.22;
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(${LINE_COLOR_BASE}, ${alpha})`;
+                        ctx.lineWidth = 0.9;
+                        ctx.stroke();
                     }
                 }
             }
@@ -214,10 +239,10 @@ const ParticleCanvas: React.FC = () => {
             animationFrameId = requestAnimationFrame(render);
         };
 
-        animationFrameId = requestAnimationFrame(render);
+        startLoop();
 
         return () => {
-            cancelAnimationFrame(animationFrameId);
+            stopLoop();
             resizeObserver.disconnect();
             intersectionObserver.disconnect();
             parentSection.removeEventListener('mousemove', handleMouseMove as EventListener);

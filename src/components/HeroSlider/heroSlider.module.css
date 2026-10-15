@@ -68,36 +68,39 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    transform: translate3d(0, 0, 0);
+    will-change: opacity;
+    backface-visibility: hidden;
 }
 
 .backgroundImageWrapper.bgActive {
     opacity: 1;
     z-index: 2;
-    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .backgroundImageWrapper.bgActive .backgroundImage {
-    animation: imageDepthIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: imageDepthIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .backgroundImageWrapper.bgInactive {
     opacity: 0;
     z-index: 1;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.45s ease-in-out;
 }
 
 .backgroundImageWrapper.bgInactive .backgroundImage {
-    transform: scale(1) translateX(0);
+    transform: translate3d(0, 0, 0) scale(1);
 }
 
 @keyframes imageDepthIn {
     0% {
-        opacity: 0.2;
-        transform: scale(0.97) translateX(16px);
+        opacity: 0.3;
+        transform: translate3d(12px, 0, 0) scale(0.985);
     }
     100% {
         opacity: 1;
-        transform: scale(1) translateX(0);
+        transform: translate3d(0, 0, 0) scale(1);
     }
 }
 
@@ -107,10 +110,11 @@
     max-height: 650px;
     object-fit: contain;
     object-position: right center;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
     user-select: none;
     display: block;
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
 }
 
 /* Interactive Ambient Particle Canvas Layer (Matches IntroComponent) */
@@ -169,14 +173,10 @@
     background: linear-gradient(
         180deg,
         #08060c 0%,
-        rgba(8, 6, 12, 0.85) 35%,
-        rgba(8, 6, 12, 0.3) 70%,
+        rgba(8, 6, 12, 0.9) 35%,
+        rgba(8, 6, 12, 0.4) 70%,
         transparent 100%
     );
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    mask-image: linear-gradient(180deg, black 0%, black 40%, transparent 100%);
-    -webkit-mask-image: linear-gradient(180deg, black 0%, black 40%, transparent 100%);
 }
 
 /* Bottom Edge Soft Blur & Fade */
@@ -191,14 +191,10 @@
     background: linear-gradient(
         0deg,
         #08060c 0%,
-        rgba(8, 6, 12, 0.85) 35%,
-        rgba(8, 6, 12, 0.3) 70%,
+        rgba(8, 6, 12, 0.9) 35%,
+        rgba(8, 6, 12, 0.4) 70%,
         transparent 100%
     );
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    mask-image: linear-gradient(0deg, black 0%, black 40%, transparent 100%);
-    -webkit-mask-image: linear-gradient(0deg, black 0%, black 40%, transparent 100%);
 }
 
 /* =========================================================================
@@ -226,6 +222,8 @@
     text-align: left;
     margin-top: auto;
     margin-bottom: auto;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
 }
 
 /* Clean Subheading Eyebrow with Vibrant Gradient Text */
@@ -241,7 +239,10 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     filter: drop-shadow(0 0 16px rgba(249, 115, 22, 0.35));
-    animation: kineticSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.01s both;
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    animation: kineticSlideUp 0.46s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* Headline with Choreographed Entrance */
@@ -253,7 +254,10 @@
     color: #ffffff;
     margin-bottom: 1.1rem;
     text-wrap: balance;
-    animation: kineticSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    animation: kineticSlideUp 0.48s cubic-bezier(0.16, 1, 0.3, 1) 0.03s both;
 }
 
 .gradientAccent {
@@ -272,7 +276,10 @@
     margin-bottom: 1.75rem;
     font-weight: 400;
     max-width: 630px;
-    animation: kineticSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.14s both;
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    animation: kineticSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.06s both;
 }
 
 /* Metrics Row with Ethereal Liquid Gradient Shimmer Borders */
@@ -285,7 +292,10 @@
     max-width: 660px;
     margin-bottom: 1.75rem;
     padding: 1.05rem 0;
-    animation: kineticSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    animation: kineticSlideUp 0.52s cubic-bezier(0.16, 1, 0.3, 1) 0.09s both;
 }
 
 /* Ethereal Upper & Lower Shimmer Borders (Top & Bottom Lines Only) */
@@ -417,16 +427,11 @@
 @keyframes kineticSlideUp {
     0% {
         opacity: 0;
-        transform: translateY(22px);
-        filter: blur(5px);
-    }
-    65% {
-        filter: blur(0px);
+        transform: translate3d(0, 14px, 0);
     }
     100% {
         opacity: 1;
-        transform: translateY(0);
-        filter: blur(0px);
+        transform: translate3d(0, 0, 0);
     }
 }
 
@@ -749,8 +754,18 @@
         object-position: center;
     }
 
+    .backgroundImageWrapper.bgActive .backgroundImage {
+        animation: none !important;
+        transform: translate3d(0, 0, 0) !important;
+    }
+
+    .taglineEyebrow,
+    .gradientAccent {
+        filter: none !important;
+    }
+
     .mainContainer {
-        padding: 5.5rem 1rem 2rem;
+        padding: 5.25rem 1rem 1.5rem;
         min-height: calc(100vh - 2rem);
         min-height: calc(100dvh - 2rem);
     }
@@ -758,6 +773,8 @@
     .contentWrapper {
         max-width: 100%;
         padding-left: 0.25rem;
+        margin-top: 0.25rem;
+        margin-bottom: 0;
     }
 
     .taglineEyebrow {
@@ -828,6 +845,7 @@
     }
 
     .controlsBar {
+        margin-top: auto;
         padding-top: 0.85rem;
     }
 
@@ -866,11 +884,13 @@
 
 @media (max-width: 480px) {
     .mainContainer {
-        padding: 5rem 0.85rem 1.5rem;
+        padding: 4.85rem 0.85rem 1.25rem;
     }
 
     .contentWrapper {
         padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
     }
 
     .ctaRow {
@@ -895,5 +915,11 @@
     .metricCardLabel {
         font-size: clamp(0.54rem, 1.7vw, 0.60rem);
         line-height: 1.2;
+    }
+}
+
+@media (max-width: 360px) {
+    .mainContainer {
+        padding: 4.5rem 0.75rem 1rem;
     }
 }

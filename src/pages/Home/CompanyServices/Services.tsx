@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router';
 import styles from './service.module.css';
 
 interface ServiceData {
@@ -180,14 +181,19 @@ const Services: React.FC<ServicesProps> = ({
                                     <p className={styles.description}>{service.description}</p>
                                     <div className={styles.subServices}>
                                         {service.items?.map((item, i) => (
-                                            <div key={i} className={styles.subServiceItem} onClick={() => window.location.href = item.path}>
+                                            <Link
+                                                key={i}
+                                                to={item.path}
+                                                className={styles.subServiceItem}
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
                                                 <span className={styles.arrowIcon}>
                                                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M4 2L8 6L4 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                                     </svg>
                                                 </span>
                                                 {item.name}
-                                            </div>
+                                            </Link>
                                         ))}
                                     </div>
                                 </div>

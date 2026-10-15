@@ -44,21 +44,21 @@
 }
 
 .slider :global(.swiper-slide):nth-child(even) .hexagonWrapper {
-    transform: translateY(40px);
+    transform: translate3d(0, 40px, 0);
 }
 
 .slider :global(.swiper-slide):nth-child(odd) .hexagonWrapper {
-    transform: translateY(-40px);
+    transform: translate3d(0, -40px, 0);
 }
 
 .hexagonWrapper {
     width: 250px;
-    /* Increased size */
     height: 200px;
-    /* Adjusted aspect ratio for the new shape */
     position: relative;
     filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
-    transition: background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    will-change: transform;
+    backface-visibility: hidden;
+    transition: filter 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     flex-shrink: 0;
     cursor: pointer;
 }
@@ -76,11 +76,11 @@
 
 /* Hover effects with stagger compensation */
 .slider :global(.swiper-slide):nth-child(even):hover .hexagonWrapper {
-    transform: translateY(40px) scale(1.1);
+    transform: translate3d(0, 40px, 0) scale(1.08);
 }
 
 .slider :global(.swiper-slide):nth-child(odd):hover .hexagonWrapper {
-    transform: translateY(-40px) scale(1.1);
+    transform: translate3d(0, -40px, 0) scale(1.08);
 }
 
 /* The 'Border' Layer - Gradient Background */
@@ -94,7 +94,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, opacity 0.5s ease, box-shadow 0.5s ease, transform 0.5s ease;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
     border: 1px solid var(--border-color);
     position: relative;
     z-index: 1;

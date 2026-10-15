@@ -65,6 +65,7 @@
 }
 
 .tilesContainer {
+    --tile-offset: 60px;
     position: relative;
     width: 100%;
     height: 600px;
@@ -334,6 +335,7 @@
 
 .featureItem {
     position: relative;
+    cursor: pointer;
 }
 
 .featureHeader {
@@ -354,7 +356,14 @@
     font-weight: 800;
     flex-shrink: 0;
     font-size: 13px;
-    margin-top: 2px;
+    margin-top: 3px;
+    display: inline-block;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+}
+
+.iconExpanded {
+    transform: rotate(90deg);
+    color: #ffaa40;
 }
 
 .featureDescription {
@@ -519,105 +528,216 @@
 
 @media screen and (max-width: 1024px) {
     .container {
-        padding: 0 30px 0 30px;
+        padding: 0 30px;
     }
 }
 
 @media (max-width: 768px) {
     .processes {
         padding: 60px 0;
+        min-height: auto;
     }
 
     .container {
-        padding: 0 1.5rem 0 30px;
+        padding: 0 24px;
     }
 
     .sectionTitle {
-        font-size: 20px;
-        margin-bottom: 40px;
+        font-size: 18px;
+        margin-bottom: 32px;
+        text-align: center;
     }
 
     .tilesContainer {
-        height: 350px;
+        --tile-offset: 36px;
+        height: 320px;
+        max-width: 360px;
+        margin: 0 auto;
     }
 
     .tileStack {
-        margin-bottom: 0;
-        margin-top: 100px;
+        margin-top: 36px;
+        margin-bottom: 32px;
+        padding-top: 0;
     }
 
     .tile {
-        width: 90%;
+        width: 100%;
+    }
+
+    .activeTile .tileInner {
+        transform: translate(24px, 12px);
+    }
+
+    .tile:not(.activeTile):hover .tileInner {
+        transform: translate(16px, 8px);
+    }
+
+    .cardsWrapper {
+        min-height: auto;
     }
 
     .cardContent {
-        padding: 28px;
+        padding: 24px 20px;
     }
 
     .cardTitle {
-        font-size: 1.6rem;
+        font-size: 1.55rem;
         max-width: 100%;
-        margin-bottom: 30px;
-    }
-
-    .featureItem {
-        font-size: 0.9rem;
-        margin-bottom: 14px;
+        margin-bottom: 8px;
     }
 
     .bottomNav {
-        /* flex-wrap: wrap;
-        gap: 20px;
-        justify-content: center;
-        margin-top: 50px; */
         display: none;
     }
+}
 
-    .navLabel {
-        font-size: 0.6rem;
+@media (max-width: 600px) {
+    .cardsContainer {
+        flex-direction: column;
+        border-radius: 16px;
+    }
+
+    .cardsWrapper {
+        border-radius: 0 0 16px 16px;
+        min-height: 360px;
+    }
+
+    .phaseTabs {
+        order: -1;
+        flex-direction: row;
+        width: 100%;
+        height: 44px;
+        border-radius: 16px 16px 0 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .phaseTab {
+        flex: 1;
+        padding: 10px 4px;
+        border-radius: 0;
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .phaseTab:first-child {
+        border-top-left-radius: 16px;
+    }
+
+    .phaseTab:last-child {
+        border-top-right-radius: 16px;
+    }
+
+    .tabText {
+        writing-mode: horizontal-tb;
+        transform: none;
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+    }
+
+    .activeTab {
+        border-bottom: 2px solid var(--color-orange);
+    }
+
+    :global([data-theme="light"]) .phaseTabs {
+        border-left: none;
+        border-bottom: 1px solid rgba(147, 51, 234, 0.12);
+        border-radius: 16px 16px 0 0;
+    }
+
+    :global([data-theme="light"]) .cardsWrapper {
+        border-radius: 0 0 16px 16px;
+    }
+
+    :global([data-theme="light"]) .activeTab {
+        border-left: none !important;
+        border-bottom: 2px solid #a855f7 !important;
     }
 }
 
 @media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .sectionTitle {
+        margin-bottom: 28px;
+    }
+
+    .tileStack {
+        margin-top: 40px;
+        margin-bottom: 24px;
+    }
+
+    .tilesContainer {
+        --tile-offset: 28px;
+        height: 270px;
+        max-width: 280px;
+    }
+
     .activeTileLabel {
-        font-size: 10px;
+        font-size: 11px;
     }
 
-    .phaseTabs {
-        width: 28px;
-    }
-
-    .tabText {
-        font-size: 0.5rem;
+    .cardContent {
+        padding: 20px 16px;
     }
 
     .phaseLabel {
-        font-size: 0.6rem;
+        font-size: 0.75rem;
+        margin-bottom: 8px;
     }
 
     .cardTitle {
-        font-size: 1.35rem;
+        font-size: 1.3rem;
     }
 
-    .cardDescription {
-        font-size: 12px;
+    .phaseDescription {
+        font-size: 0.85rem;
     }
 
-}
-
-@media (max-width: 400px) {
     .featureTitleText {
-        font-size: 14px;
+        font-size: 14.5px;
     }
+
     .descriptionText {
-        font-size: 10px;
-        margin: 4px 0 8px 0;
+        font-size: 12.5px;
     }
 }
 
-@media (max-width: 335px) {
-    .activeCardTitle {
-        font-size: 9px;
+@media (max-width: 360px) {
+    .container {
+        padding: 0 12px;
+    }
+
+    .sectionTitle {
+        margin-bottom: 24px;
+    }
+
+    .tileStack {
+        margin-top: 44px;
+        margin-bottom: 20px;
+    }
+
+    .tilesContainer {
+        --tile-offset: 24px;
+        height: 250px;
+        max-width: 250px;
+    }
+
+    .cardContent {
+        padding: 16px 12px;
+    }
+
+    .cardTitle {
+        font-size: 1.15rem;
+    }
+
+    .tabText {
+        font-size: 0.58rem;
+        letter-spacing: 0.05em;
     }
 }
 

@@ -21,10 +21,10 @@ const About: React.FC<AboutProps> = ({
     imageUrlLight
 }) => {
     const [isVisible, setIsVisible] = useState(false);
-    const [spotlightPos, setSpotlightPos] = useState({ x: 50, y: 50 });
-    const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
     const sectionRef = useRef<HTMLElement>(null);
     const visualRef = useRef<HTMLDivElement>(null);
+    const rectRef = useRef<DOMRect | null>(null);
+    const rafRef = useRef<number | null>(null);
 
     const defaultAboutDescription = [
         { text: "At Leapsofts, we engineer and deliver fully-realized ", bold: false },
@@ -54,26 +54,49 @@ const About: React.FC<AboutProps> = ({
             if (sectionRef.current) {
                 observer.unobserve(sectionRef.current);
             }
+            if (rafRef.current) {
+                cancelAnimationFrame(rafRef.current);
+            }
         };
     }, []);
 
-    const handleMouseMove = (e: React.MouseEvent) => {
+    const handleMouseEnter = () => {
         if (visualRef.current) {
-            const rect = visualRef.current.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / rect.width) * 100;
-            const y = ((e.clientY - rect.top) / rect.height) * 100;
-            setSpotlightPos({ x, y });
-
-            // 3D Perspective Tilt calculation
-            const rotateY = ((x - 50) / 50) * 8; // Max 8deg tilt
-            const rotateX = ((50 - y) / 50) * 8;
-            setTilt({ rotateX, rotateY });
+            rectRef.current = visualRef.current.getBoundingClientRect();
         }
     };
 
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!visualRef.current) return;
+        if (!rectRef.current) {
+            rectRef.current = visualRef.current.getBoundingClientRect();
+        }
+        const clientX = e.clientX;
+        const clientY = e.clientY;
+
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        rafRef.current = requestAnimationFrame(() => {
+            const rect = rectRef.current;
+            if (!rect || !visualRef.current) return;
+            const x = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+            const y = Math.max(0, Math.min(100, ((clientY - rect.top) / rect.height) * 100));
+            const rotateY = ((x - 50) / 50) * 8;
+            const rotateX = ((50 - y) / 50) * 8;
+
+            visualRef.current.style.setProperty('--spotlight-x', `${x}%`);
+            visualRef.current.style.setProperty('--spotlight-y', `${y}%`);
+            visualRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+    };
+
     const handleMouseLeave = () => {
-        setTilt({ rotateX: 0, rotateY: 0 });
-        setSpotlightPos({ x: 50, y: 50 });
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        rectRef.current = null;
+        if (visualRef.current) {
+            visualRef.current.style.setProperty('--spotlight-x', '50%');
+            visualRef.current.style.setProperty('--spotlight-y', '50%');
+            visualRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        }
     };
 
     const { theme } = useTheme();
@@ -128,13 +151,14 @@ const About: React.FC<AboutProps> = ({
                         <div
                             ref={visualRef}
                             className={styles.visual}
+                            onMouseEnter={handleMouseEnter}
                             onMouseMove={handleMouseMove}
                             onMouseLeave={handleMouseLeave}
                             style={{
-                                '--spotlight-x': `${spotlightPos.x}%`,
-                                '--spotlight-y': `${spotlightPos.y}%`,
+                                '--spotlight-x': '50%',
+                                '--spotlight-y': '50%',
                                 '--spotlight-size': '220px',
-                                transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
+                                transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg)',
                             } as React.CSSProperties}
                         >
                             {/* Glass Border Glow */}
