@@ -19,7 +19,8 @@ const serviceOverviewData = {
   titleAccent: "Headless Store",
   titleEnd: "Systems",
   description: "At Leapsofts, we customize and engineer robust Shopify Plus architectures designed to unlock measurable commerce success. By configuring custom theme layers, designing decoupled frontends using Shopify's Hydrogen framework, and building robust API connections to sync ERPs, inventory records, and payment systems, we help major retail brands achieve rapid loading speeds, superior mobile layouts, and seamless checkout operations.",
-  imagePath: "/streamline.webp"
+  imagePath: "/streamline.webp",
+  imagePathLight: undefined as string | undefined
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
@@ -297,7 +298,7 @@ const Shopify: React.FC = () => {
         label: data.infoGrid.label || (typeof infoGridData !== 'undefined' ? infoGridData.label : ''),
         titleMain: data?.infoGrid?.titleMain,
         titleAccent: data?.infoGrid?.titleAccent,
-        title: data?.infoGrid?.title || (data?.infoGrid?.titleMain || data?.infoGrid?.titleAccent ? undefined : (typeof infoGridData !== 'undefined' ? infoGridData.title : '')),
+        title: (data?.infoGrid as any)?.title || (data?.infoGrid?.titleMain || data?.infoGrid?.titleAccent ? undefined : (typeof infoGridData !== 'undefined' ? infoGridData.title : '')),
         description: data.infoGrid.description || (typeof infoGridData !== 'undefined' ? infoGridData.description : ''),
         items: data.infoGrid.items.map((item, index) => ({
           icon: String(index + 1).padStart(2, '0'),
@@ -365,8 +366,12 @@ const Shopify: React.FC = () => {
     ? data.processes.phaseLabels
     : phaseLabelsDefault;
 
-  const activeServiceFeatures = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
-    ? data.serviceFeatures.items
+  const activeServiceFeatures: ServiceFeatureItem[] = (data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0)
+    ? data.serviceFeatures.items.map(item => ({
+        icon: item.icon || '/industryicons/sphere.svg',
+        title: item.title,
+        description: item.description
+      }))
     : serviceFeaturesData;
 
   const strategyCTA = data?.strategyCTA;
@@ -386,7 +391,7 @@ const Shopify: React.FC = () => {
           titleAccent={activeOverviewData.titleAccent}
           titleEnd={activeOverviewData.titleEnd}
           description={activeOverviewData.description}
-          imagePath={activeOverviewData.imagePath}
+          imagePath={activeOverviewData.imagePath || "/streamline.webp"}
           imagePathLight={activeOverviewData.imagePathLight}
         />
       )}

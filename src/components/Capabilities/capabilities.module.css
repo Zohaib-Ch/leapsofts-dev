@@ -133,7 +133,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 36px;
+    padding: 0;
     box-shadow: 
         0 25px 50px -12px rgba(0, 0, 0, 0.75),
         0 0 35px rgba(147, 51, 234, 0.18);
@@ -231,11 +231,10 @@
 }
 
 .mainImage {
-    max-width: 90%;
-    max-height: 90%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
     transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     transform: translateZ(0);
     position: relative;
@@ -497,7 +496,7 @@
 
     .visualCard {
         max-width: 360px;
-        padding: 24px;
+        padding: 0;
         border-radius: 22px;
     }
 
@@ -537,7 +536,7 @@
 
     .visualCard {
         max-width: 300px;
-        padding: 16px;
+        padding: 0;
         border-radius: 18px;
     }
 

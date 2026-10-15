@@ -19,7 +19,8 @@ const serviceOverviewData = {
   titleAccent: "Enterprise ",
   titleEnd: "Workflows",
   description: "At Leapsofts, we customize and engineer highly optimized ServiceNow environments designed to connect disparate organizational silos into cohesive digital workflows. By designing customized Scoped Applications, writing optimized, secure Business Rules and Client Scripts, and configuring robust integration hubs via secure REST APIs and MID Server architectures, we help major organizations automate service delivery, enforce strict security compliance, and achieve full operational transparency.",
-  imagePath: "/streamline.webp"
+  imagePath: "/streamline.webp",
+  imagePathLight: undefined as string | undefined
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
@@ -367,7 +368,7 @@ const ServiceNow: React.FC = () => {
         titleEnd={activeOverviewData?.titleEnd || "Workflows"}
         description={activeOverviewData?.description || "At Leapsofts, we customize and engineer highly optimized ServiceNow environments designed to connect disparate organizational silos into cohesive digital workflows."}
         imagePath={activeOverviewData?.imagePath || "/streamline.webp"}
-        imagePathLight={activeOverviewData?.imagePathLight || activeOverviewData?.imagePath}
+        imagePathLight={activeOverviewData?.imagePathLight}
       />
       )}
       {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
