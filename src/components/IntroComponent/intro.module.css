@@ -333,20 +333,25 @@
 
 @media (max-width: 1024px) {
     .intro {
-        padding-top: calc(135px + env(safe-area-inset-top, 0px));
-        padding-bottom: 4rem;
+        padding-top: calc(96px + env(safe-area-inset-top, 0px));
+        padding-bottom: 3.5rem;
     }
 
     .container {
-        padding: 0.75rem 1.5rem 0 30px;
+        padding: 0 1.5rem 0 30px;
         gap: 1.5rem;
     }
 }
 
 @media (max-width: 992px) {
+    .intro {
+        align-items: flex-start;
+        min-height: auto;
+    }
+
     .container {
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
     }
 
     .visualCol {
@@ -360,14 +365,14 @@
 
 @media (max-width: 768px) {
     .intro {
-        min-height: 100dvh;
+        min-height: auto;
         height: auto;
-        padding-top: calc(130px + env(safe-area-inset-top, 0px));
-        padding-bottom: 4rem;
+        padding-top: calc(88px + env(safe-area-inset-top, 0px));
+        padding-bottom: 3.5rem;
     }
 
     .container {
-        padding: 0.5rem 1.25rem 0;
+        padding: 0 1.25rem;
     }
 
     .content {
@@ -414,8 +419,8 @@
 
 @media (max-width: 480px) {
     .intro {
-        padding-top: calc(125px + env(safe-area-inset-top, 0px));
-        padding-bottom: 3.5rem;
+        padding-top: calc(84px + env(safe-area-inset-top, 0px));
+        padding-bottom: 3rem;
     }
 
     .title {
@@ -453,8 +458,8 @@
 
 @media (max-width: 375px) {
     .intro {
-        padding-top: calc(105px + env(safe-area-inset-top, 0px));
-        padding-bottom: 3rem;
+        padding-top: calc(80px + env(safe-area-inset-top, 0px));
+        padding-bottom: 2.5rem;
     }
 
     .title {
