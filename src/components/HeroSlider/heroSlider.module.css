@@ -729,8 +729,11 @@
 
 @media (max-width: 768px) {
     .heroStage {
-        min-height: 100vh;
-        min-height: 100dvh;
+        min-height: auto;
+    }
+
+    .edgeBlurBottom {
+        display: none;
     }
 
     /* Vertical Contrast Scrim on Mobile */
@@ -765,9 +768,9 @@
     }
 
     .mainContainer {
-        padding: 5.25rem 1rem 1.5rem;
-        min-height: calc(100vh - 2rem);
-        min-height: calc(100dvh - 2rem);
+        padding: 5.5rem 1.25rem 2rem;
+        min-height: auto;
+        justify-content: flex-start;
     }
 
     .contentWrapper {
@@ -845,8 +848,8 @@
     }
 
     .controlsBar {
-        margin-top: auto;
-        padding-top: 0.85rem;
+        margin-top: 1.5rem;
+        padding-top: 0;
     }
 
     .indicatorPill {
@@ -884,7 +887,8 @@
 
 @media (max-width: 480px) {
     .mainContainer {
-        padding: 4.85rem 0.85rem 1.25rem;
+        padding: 5.25rem 1rem 1.75rem;
+        min-height: auto;
     }
 
     .contentWrapper {
@@ -920,6 +924,7 @@
 
 @media (max-width: 360px) {
     .mainContainer {
-        padding: 4.5rem 0.75rem 1rem;
+        padding: 5rem 0.75rem 1.5rem;
+        min-height: auto;
     }
 }
