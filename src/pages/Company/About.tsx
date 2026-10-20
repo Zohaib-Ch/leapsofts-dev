@@ -1,5 +1,5 @@
 import { buildPageMeta } from '../../utils/seoHelper';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLoaderData, Link } from 'react-router';
 import styles from './About.module.css';
 import { motion, type Variants } from 'framer-motion';
@@ -219,6 +219,7 @@ const About: React.FC = () => {
   const { openContactModal } = useContactModal();
 
   const sanityData: SanityAboutPage = sanityAbout || loaderData?.sanityData || DEFAULT_ABOUT_PAGE_DATA;
+  const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     getSanityAboutPage('aboutPage').then((data) => {
@@ -227,6 +228,94 @@ const About: React.FC = () => {
     getSanityTeamMembers().then((data) => {
       if (data) setSanityTeam(data);
     });
+  }, []);
+
+  // High-Performance 120fps Cursor Reactive Sheen (Cached bounds, idle settling, IntersectionObserver)
+  useEffect(() => {
+    const heroEl = heroRef.current;
+    if (!heroEl) return;
+
+    let rafId: number | null = null;
+    let isRunning = false;
+    let rect: DOMRect | null = null;
+    let targetX = 50;
+    let targetY = 35;
+    let currentX = 50;
+    let currentY = 35;
+
+    const updateRect = () => {
+      if (heroEl) {
+        rect = heroEl.getBoundingClientRect();
+      }
+    };
+
+    const startLoop = () => {
+      if (!isRunning) {
+        isRunning = true;
+        rafId = requestAnimationFrame(updateSheen);
+      }
+    };
+
+    const updateSheen = () => {
+      const dx = targetX - currentX;
+      const dy = targetY - currentY;
+      currentX += dx * 0.12;
+      currentY += dy * 0.12;
+
+      heroEl.style.setProperty('--mouse-x', `${currentX.toFixed(1)}%`);
+      heroEl.style.setProperty('--mouse-y', `${currentY.toFixed(1)}%`);
+
+      // Idle settling: pause RAF when lerp reaches near-rest
+      if (Math.abs(dx) > 0.08 || Math.abs(dy) > 0.08) {
+        rafId = requestAnimationFrame(updateSheen);
+      } else {
+        isRunning = false;
+        rafId = null;
+      }
+    };
+
+    const handlePointerMove = (e: PointerEvent) => {
+      if (!rect) updateRect();
+      if (!rect || !rect.width || !rect.height) return;
+      targetX = ((e.clientX - rect.left) / rect.width) * 100;
+      targetY = ((e.clientY - rect.top) / rect.height) * 100;
+      startLoop();
+    };
+
+    const handlePointerLeave = () => {
+      targetX = 50;
+      targetY = 50;
+      startLoop();
+    };
+
+    // IntersectionObserver to sleep when hero is offscreen during scrolling
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          if (rafId) cancelAnimationFrame(rafId);
+          isRunning = false;
+          rafId = null;
+        } else {
+          updateRect();
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(heroEl);
+    heroEl.addEventListener('pointerenter', updateRect, { passive: true });
+    heroEl.addEventListener('pointermove', handlePointerMove, { passive: true });
+    heroEl.addEventListener('pointerleave', handlePointerLeave, { passive: true });
+    window.addEventListener('resize', updateRect, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      heroEl.removeEventListener('pointerenter', updateRect);
+      heroEl.removeEventListener('pointermove', handlePointerMove);
+      heroEl.removeEventListener('pointerleave', handlePointerLeave);
+      window.removeEventListener('resize', updateRect);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const activeTimelineEvents = React.useMemo(() => {
@@ -353,80 +442,133 @@ const About: React.FC = () => {
         <span className={styles.breadcrumbCurrent}>About Us</span>
       </nav>
 
-      {/* Chapter 1: Hero & Vision Narrative */}
-      <section className={styles.hero}>
-        <div className={styles.heroGlow} />
+      {/* Chapter 1: Haute-Tech Luxury Hero & Vision Narrative */}
+      <section ref={heroRef} className={styles.hero}>
+        <div className={styles.filmGrain} />
+        <div className={styles.heroAura} />
+        <div className={styles.heroGridLines} />
+
         <div className={styles.heroContent}>
+          {/* Live Telemetry Pill */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            className={styles.telemetryPillWrapper}
+            initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className={styles.label}>{sanityData?.hero?.label || 'ABOUT LEAPSOFTS'}</span>
-            <h1 className={styles.heroTitle}>
+            <div className={styles.telemetryPill}>
+              <span className={styles.pulseBeacon}>
+                <span className={styles.pulseRing} />
+                <span className={styles.pulseCore} />
+              </span>
+              <span className={styles.telemetryLabel}>
+                {sanityData?.hero?.label || 'SYSTEMS OPERATIONAL • GLOBAL ENGINEERING PODS ACTIVE'}
+              </span>
+              <span className={styles.telemetryDivider}>|</span>
+              <span className={styles.telemetryHubs}>DUBAI &bull; US</span>
+            </div>
+          </motion.div>
+
+          {/* Kinetic Masked Typography */}
+          <div className={styles.heroTitleWrapper}>
+            <motion.h1
+              className={styles.heroTitle}
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            >
               {renderFormattedTitle({
                 title: sanityData?.hero?.title,
                 titleMain: (sanityData?.hero as any)?.titleMain,
                 titleAccent: (sanityData?.hero as any)?.titleAccent,
                 titleEnd: (sanityData?.hero as any)?.titleEnd,
                 defaultAccentPhrase: 'Enterprise Velocity',
-                defaultTitle: <>Architecting <em>Enterprise Velocity</em> Through Engineering Rigor</>,
+                defaultTitle: (
+                  <>
+                    <span className={styles.titleLine}>ARCHITECTING</span>
+                    <span className={styles.titleLineAccent}>
+                      <em>Enterprise Velocity</em>
+                    </span>
+                    <span className={styles.titleLineEnd}>THROUGH RIGOROUS ENGINEERING</span>
+                  </>
+                ),
               })}
-            </h1>
-            <p className={styles.heroSub}>
-              {sanityData?.hero?.subtitle || 'Leapsofts is an enterprise software engineering company delivering custom cloud architectures, autonomous AI solutions, and dedicated agile engineering pods for scaling platforms globally.'}
-            </p>
-          </motion.div>
+            </motion.h1>
+          </div>
 
-          <motion.div
-            className={styles.metricsGrid}
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
+          {/* Refined Subtitle */}
+          <motion.p
+            className={styles.heroSub}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           >
-            {sanityData?.hero?.metrics && sanityData.hero.metrics.length > 0 ? (
-              sanityData.hero.metrics.map((m, idx) => (
-                <motion.div key={idx} className={styles.metricCard} variants={cardChildVariant}>
-                  <div className={styles.metricValue}>{m.value}</div>
-                  <div className={styles.metricLabel}>{m.label}</div>
-                  {m.sub && <div className={styles.metricSub}>{m.sub}</div>}
-                </motion.div>
-              ))
-            ) : (
-              <>
-                <motion.div className={styles.metricCard} variants={cardChildVariant}>
-                  <div className={styles.metricValue}>
-                    <AnimatedCounter value={100} />+
-                  </div>
-                  <div className={styles.metricLabel}>Production Deployments</div>
-                  <div className={styles.metricSub}>Engineered to Enterprise Scale</div>
-                </motion.div>
+            {sanityData?.hero?.subtitle ||
+              'Leapsofts is an enterprise software engineering company delivering custom cloud architectures, autonomous AI solutions, and dedicated agile engineering pods for scaling platforms globally.'}
+          </motion.p>
 
-                <motion.div className={styles.metricCard} variants={cardChildVariant}>
-                  <div className={styles.metricValue}>
-                    <AnimatedCounter value={98} />%
-                  </div>
-                  <div className={styles.metricLabel}>Client Retention Rate</div>
-                  <div className={styles.metricSub}>Sustained Technical Execution</div>
-                </motion.div>
+          {/* Architectural Monolith Metric Console */}
+          <motion.div
+            className={styles.monolithConsole}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.28 }}
+          >
+            <div className={styles.consoleSheen} />
 
-                <motion.div className={styles.metricCard} variants={cardChildVariant}>
-                  <div className={styles.metricValue}>
-                    3-5 <span className={styles.metricUnit}>Mo</span>
+            <div className={styles.consoleGrid}>
+              {sanityData?.hero?.metrics && sanityData.hero.metrics.length > 0 ? (
+                sanityData.hero.metrics.map((m, idx) => (
+                  <div key={idx} className={styles.consoleQuadrant}>
+                    <div className={styles.quadrantAccent} />
+                    <div className={styles.metricValue}>{m.value}</div>
+                    <div className={styles.metricLabel}>{m.label}</div>
+                    {m.sub && <div className={styles.metricSub}>{m.sub}</div>}
                   </div>
-                  <div className={styles.metricLabel}>Average MVP Launch</div>
-                  <div className={styles.metricSub}>Accelerated Time-to-Market</div>
-                </motion.div>
+                ))
+              ) : (
+                <>
+                  <div className={styles.consoleQuadrant}>
+                    <div className={styles.quadrantAccent} />
+                    <div className={styles.metricValue}>
+                      <AnimatedCounter value={100} />
+                      <span className={styles.metricPlus}>+</span>
+                    </div>
+                    <div className={styles.metricLabel}>Deployments Shipped</div>
+                    <div className={styles.metricSub}>Enterprise Production Scale</div>
+                  </div>
 
-                <motion.div className={styles.metricCard} variants={cardChildVariant}>
-                  <div className={styles.metricValue}>
-                    <AnimatedCounter value={2} /> <span className={styles.metricUnit}>Hubs</span>
+                  <div className={styles.consoleQuadrant}>
+                    <div className={styles.quadrantAccent} />
+                    <div className={styles.metricValue}>
+                      <AnimatedCounter value={98} />
+                      <span className={styles.metricUnit}>%</span>
+                    </div>
+                    <div className={styles.metricLabel}>Client Retention</div>
+                    <div className={styles.metricSub}>Sustained Technical Rigor</div>
                   </div>
-                  <div className={styles.metricLabel}>Dubai & USA Operations</div>
-                  <div className={styles.metricSub}>24/7 Global Delivery</div>
-                </motion.div>
-              </>
-            )}
+
+                  <div className={styles.consoleQuadrant}>
+                    <div className={styles.quadrantAccent} />
+                    <div className={styles.metricValue}>
+                      3-5 <span className={styles.metricUnit}>Mo</span>
+                    </div>
+                    <div className={styles.metricLabel}>MVP Velocity</div>
+                    <div className={styles.metricSub}>Concept-to-Market Launch</div>
+                  </div>
+
+                  <div className={styles.consoleQuadrant}>
+                    <div className={styles.quadrantAccent} />
+                    <div className={styles.metricValue}>
+                      <AnimatedCounter value={2} />{' '}
+                      <span className={styles.metricUnit}>Hubs</span>
+                    </div>
+                    <div className={styles.metricLabel}>Dubai & US Operations</div>
+                    <div className={styles.metricSub}>24/7 Follow-The-Sun Agility</div>
+                  </div>
+                </>
+              )}
+            </div>
           </motion.div>
         </div>
       </section>

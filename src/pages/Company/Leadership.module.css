@@ -53,61 +53,376 @@
   line-height: 1.6;
 }
 
-/* Hero Section */
+/* ==========================================================================
+   Chapter 1: Haute-Tech Luxury Hero & Telemetry Console (Zero-Jank 120fps)
+   ========================================================================== */
+
 .hero {
-  padding: 95px 20px 60px;
+  padding: 130px 24px 80px;
   text-align: center;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #050001 0%, #28033d 60%, #050001 100%);
+  background: radial-gradient(circle at 50% 0%, #170729 0%, #08020b 45%, #030005 100%);
+  color: var(--text-primary);
+  contain: paint;
 }
 
-.heroGlow {
+.filmGrain {
   position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 700px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(255, 121, 23, 0.15) 0%, rgba(198, 60, 146, 0.08) 50%, transparent 70%);
-  filter: blur(80px);
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  contain: strict;
+}
+
+.heroAura {
+  position: absolute;
+  inset: 0;
   pointer-events: none;
   z-index: 0;
+  background: radial-gradient(
+    850px circle at 50% 25%,
+    rgba(255, 121, 23, 0.12) 0%,
+    rgba(168, 85, 247, 0.09) 35%,
+    transparent 70%
+  );
+  contain: strict;
+}
+
+.heroGridLines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.18;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+  contain: strict;
 }
 
 .heroContent {
   position: relative;
-  z-index: 1;
-  max-width: 1100px;
+  z-index: 2;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.heroTitle {
-  font-size: 56px;
+/* 1. Live Engineering Telemetry Pill */
+.telemetryPillWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+.telemetryPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 22px;
+  background: linear-gradient(135deg, rgba(28, 16, 42, 0.88) 0%, rgba(14, 8, 24, 0.94) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 10px 30px -4px rgba(0, 0, 0, 0.6),
+    0 0 20px -4px rgba(255, 121, 23, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.telemetryPill:hover {
+  border-color: rgba(255, 121, 23, 0.55);
+  box-shadow: 
+    0 12px 35px -4px rgba(255, 121, 23, 0.22),
+    0 0 30px -4px rgba(168, 85, 247, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transform: translate3d(0, -2px, 0);
+}
+
+.pulseBeacon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 9px;
+  height: 9px;
+}
+
+.pulseRing {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #10b981;
+  opacity: 0.75;
+  animation: pulseBeacon 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.pulseCore {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 10px #10b981;
+}
+
+@keyframes pulseBeacon {
+  0% { transform: scale(0.95); opacity: 0.85; }
+  70% { transform: scale(2.4); opacity: 0; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+.telemetryLabel {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.08em;
+}
+
+.telemetryDivider {
+  color: rgba(255, 255, 255, 0.25);
+  font-weight: 300;
+}
+
+.telemetryHubs {
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  background: linear-gradient(135deg, #ff7917 0%, #f43f5e 45%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.telemetryHubs::after {
+  content: '→';
+  -webkit-text-fill-color: initial;
+  color: #ff7917;
+  font-size: 13px;
   font-weight: 700;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+  display: inline-block;
+}
+
+.telemetryPill:hover .telemetryHubs::after {
+  transform: translateX(3px);
+  color: #f43f5e;
+}
+
+/* 2. Kinetic Masked Typography */
+.heroTitleWrapper {
+  max-width: 1100px;
+  margin: 0 auto 26px;
+  position: relative;
+  z-index: 2;
+}
+
+.heroTitle {
+  font-size: clamp(38px, 5.2vw, 68px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
   color: #ffffff;
-  line-height: 1.1;
-  margin-bottom: 24px;
+  margin: 0;
+  text-wrap: balance;
   word-break: break-word;
 }
 
-.heroTitle em {
+.titleLine {
+  display: block;
+  font-family: var(--font-sans);
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.titleLineAccent {
+  display: block;
+  margin: 6px 0;
+}
+
+.heroTitle em,
+.titleLineAccent em,
+.title em,
+.sectionTitle em {
+  font-family: "Cinzel", "Playfair Display", Georgia, serif;
   font-style: italic;
-  font-family: serif;
-  color: var(--color-orange);
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #ffd199 35%, #ff7917 80%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  padding: 0 4px;
+  filter: drop-shadow(0 0 35px rgba(255, 121, 23, 0.35));
 }
 
+.titleLineEnd {
+  display: block;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 0.86em;
+  letter-spacing: -0.025em;
+}
+
+/* 3. Refined Luxury Subtitle */
 .heroSub {
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.6;
-  margin-bottom: 50px;
-  max-width: 850px;
-  margin-left: auto;
-  margin-right: auto;
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.68;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 780px;
+  margin: 0 auto 56px;
+  font-weight: 400;
+  position: relative;
+  z-index: 2;
+  letter-spacing: -0.01em;
 }
 
-/* Ribbon Highlights Grid */
+/* 4. Architectural Monolith Ribbon Console */
+.monolithConsole {
+  position: relative;
+  z-index: 2;
+  max-width: 1140px;
+  margin: 0 auto;
+  background: linear-gradient(145deg, rgba(22, 14, 34, 0.82) 0%, rgba(12, 7, 18, 0.92) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transform: translateZ(0);
+  contain: layout style;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.monolithConsole:hover {
+  border-color: rgba(255, 121, 23, 0.28);
+  box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.85), 0 0 30px -5px rgba(255, 121, 23, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.consoleSheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    550px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 121, 23, 0.14) 0%,
+    transparent 70%
+  );
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+.consoleGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  z-index: 2;
+}
+
+.consoleQuadrant {
+  position: relative;
+  padding: 44px 24px;
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.consoleQuadrant::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(255, 121, 23, 0.08) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.consoleQuadrant:last-child {
+  border-right: none;
+}
+
+.consoleQuadrant:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.consoleQuadrant:hover::before {
+  opacity: 1;
+}
+
+.consoleQuadrant:hover .ribbonIcon {
+  transform: translateY(-2px) scale(1.04);
+  border-color: rgba(255, 121, 23, 0.55);
+  box-shadow: 0 8px 22px -4px rgba(255, 121, 23, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.quadrantAccent {
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-orange, #ff7917), rgba(168, 85, 247, 0.8), transparent);
+  opacity: 0;
+  transform: scaleX(0.35);
+  transform-origin: center;
+  transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.consoleQuadrant:hover .quadrantAccent {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+@media (max-width: 1024px) {
+  .consoleGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .consoleQuadrant:nth-child(2) {
+    border-right: none;
+  }
+  .consoleQuadrant:nth-child(1),
+  .consoleQuadrant:nth-child(2) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+}
+
+@media (max-width: 640px) {
+  .consoleGrid {
+    grid-template-columns: 1fr;
+  }
+  .consoleQuadrant {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 24px 16px;
+  }
+  .consoleQuadrant:last-child {
+    border-bottom: none;
+  }
+}
+
+/* Ribbon Highlights Grid (Legacy fallback) */
 .ribbonGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -177,20 +492,20 @@
 }
 
 .ribbonIcon {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, rgba(255, 121, 23, 0.18) 0%, rgba(168, 85, 247, 0.12) 100%);
-  border: 1px solid rgba(255, 121, 23, 0.35);
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-orange);
-  margin-bottom: 14px;
-  box-shadow: 0 4px 14px rgba(255, 121, 23, 0.15);
+  color: var(--color-orange, #ff7917);
+  margin-bottom: 18px;
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.14);
   will-change: transform;
   transform: translate3d(0, 0, 0);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   z-index: 2;
 }
@@ -201,19 +516,31 @@
 }
 
 .ribbonTitle {
-  font-size: 16px;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 6px;
+  font-family: var(--font-sans);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  margin-bottom: 8px;
   position: relative;
   z-index: 2;
+  background: linear-gradient(135deg, #ffffff 15%, #ffd199 42%, #ff7917 75%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  filter: drop-shadow(0 4px 18px rgba(255, 121, 23, 0.22));
 }
 
 .ribbonDesc {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.55);
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
   position: relative;
   z-index: 2;
+  max-width: 220px;
 }
 
 /* CEO Spotlight Section */
@@ -671,36 +998,18 @@
   z-index: 2;
 }
 
-/* Breadcrumb Navigation */
+/* Breadcrumb Navigation (Visually hidden for pristine hero aesthetics, preserved in DOM for AI crawlers & assistive tech) */
 .breadcrumbs {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 100px 20px 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.5);
-  font-family: var(--font-sans);
-}
-
-.breadcrumbs a {
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.breadcrumbs a:hover {
-  color: var(--color-orange);
-}
-
-.breadcrumbSeparator {
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.breadcrumbCurrent {
-  color: var(--color-orange);
-  font-weight: 500;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  pointer-events: none;
 }
 
 /* Service Links Grid */
@@ -1033,14 +1342,64 @@
 
 @media (max-width: 480px) {
   .hero {
-    padding: 90px 12px 35px;
+    padding: 85px 12px 36px;
+  }
+  .telemetryPillWrapper {
+    margin-bottom: 20px;
+  }
+  .telemetryPill {
+    padding: 6px 14px;
+    gap: 3px 10px;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    max-width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 9999px;
+  }
+  .telemetryLabel {
+    font-size: 9.5px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .telemetryDivider {
+    display: none;
+  }
+  .telemetryHubs {
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .heroTitle {
-    font-size: 26px;
-    line-height: 1.25;
+    font-size: 28px;
+    line-height: 1.2;
   }
   .heroSub {
     font-size: 14px;
+    margin-bottom: 25px;
+  }
+  .consoleGrid {
+    grid-template-columns: 1fr;
+  }
+  .consoleQuadrant {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 24px 14px;
+  }
+  .consoleQuadrant:last-child {
+    border-bottom: none;
+  }
+  .ribbonTitle {
+    font-size: 24px;
+    margin-bottom: 6px;
+  }
+  .ribbonIcon {
+    width: 46px;
+    height: 46px;
+    margin-bottom: 14px;
+    border-radius: 14px;
   }
   .label {
     font-size: 12px;
@@ -1130,8 +1489,81 @@
   .section {
     padding: 36px 10px;
   }
+  .hero {
+    padding: 72px 10px 28px;
+  }
+  .telemetryPillWrapper {
+    margin-bottom: 16px;
+  }
+  .telemetryPill {
+    padding: 5px 12px;
+    gap: 2px 8px;
+    font-size: 9px;
+    max-width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 9999px;
+  }
+  .pulseBeacon {
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+  }
+  .pulseCore {
+    width: 5px;
+    height: 5px;
+  }
+  .telemetryLabel {
+    font-size: 8.5px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .telemetryDivider {
+    display: none;
+  }
+  .telemetryHubs {
+    font-size: 8.5px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .telemetryHubs::after {
+    font-size: 10.5px;
+  }
   .heroTitle {
-    font-size: 22px;
+    font-size: 21px;
+    line-height: 1.18;
+    margin-bottom: 14px;
+  }
+  .heroSub {
+    font-size: 12.5px;
+    line-height: 1.5;
+    margin-bottom: 22px;
+  }
+  .monolithConsole {
+    border-radius: 16px;
+  }
+  .consoleQuadrant {
+    padding: 18px 10px;
+  }
+  .ribbonTitle {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  .ribbonDesc {
+    font-size: 12px;
+    line-height: 1.35;
+  }
+  .ribbonIcon {
+    width: 38px;
+    height: 38px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+  }
+  .ribbonIcon svg {
+    width: 18px;
+    height: 18px;
   }
   .title {
     font-size: 20px;
@@ -1233,7 +1665,78 @@
 }
 
 :global([data-theme="light"]) .hero {
-  background: linear-gradient(180deg, #f8fafc 0%, #f3e8ff 50%, #ffffff 100%);
+  background: radial-gradient(circle at 50% 0%, #fbf8ff 0%, #f4eff9 50%, #eae2f3 100%);
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .filmGrain {
+  opacity: 0.02;
+  contain: strict;
+}
+
+:global([data-theme="light"]) .heroAura {
+  background: radial-gradient(
+    850px circle at 50% 25%,
+    rgba(234, 88, 12, 0.08) 0%,
+    rgba(147, 51, 234, 0.05) 35%,
+    transparent 70%
+  );
+  contain: strict;
+}
+
+:global([data-theme="light"]) .heroGridLines {
+  opacity: 0.12;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+}
+
+:global([data-theme="light"]) .telemetryPill {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(250, 247, 255, 0.92) 100%);
+  border: 1px solid rgba(255, 121, 23, 0.28);
+  box-shadow: 
+    0 6px 24px -2px rgba(255, 121, 23, 0.12),
+    0 2px 8px rgba(147, 51, 234, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+:global([data-theme="light"]) .telemetryPill:hover {
+  border-color: rgba(255, 121, 23, 0.6);
+  box-shadow: 
+    0 10px 30px -2px rgba(255, 121, 23, 0.22),
+    0 0 25px -4px rgba(168, 85, 247, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+:global([data-theme="light"]) .telemetryLabel {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+:global([data-theme="light"]) .telemetryDivider {
+  color: rgba(147, 51, 234, 0.25);
+}
+
+:global([data-theme="light"]) .telemetryHubs {
+  background: linear-gradient(135deg, #ea580c 0%, #e11d48 45%, #9333ea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global([data-theme="light"]) .telemetryHubs::after {
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .telemetryPill:hover .telemetryHubs::after {
+  color: #e11d48;
+}
+
+:global([data-theme="light"]) .titleLine {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .titleLineEnd {
+  color: #1e293b;
 }
 
 :global([data-theme="light"]) .heroGlow {
@@ -1250,8 +1753,18 @@
 }
 
 :global([data-theme="light"]) .heroTitle em,
-:global([data-theme="light"]) .title em {
-  color: #ea580c;
+:global([data-theme="light"]) .titleLineAccent em,
+:global([data-theme="light"]) .title em,
+:global([data-theme="light"]) .sectionTitle em {
+  font-family: "Cinzel", "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ea580c 0%, #e11d48 45%, #9333ea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  padding: 0 4px;
+  filter: drop-shadow(0 2px 14px rgba(234, 88, 12, 0.2));
 }
 
 :global([data-theme="light"]) .heroSub,
@@ -1259,37 +1772,77 @@
   color: #475569;
 }
 
-/* Ribbon Cards - Light */
-:global([data-theme="light"]) .ribbonCard {
-  background: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%);
-  border: 1px solid rgba(147, 51, 234, 0.12);
-  box-shadow: 0 8px 24px -6px rgba(147, 51, 234, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+:global([data-theme="light"]) .monolithConsole {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.96) 0%, rgba(250, 247, 255, 0.98) 100%);
+  border-color: rgba(147, 51, 234, 0.16);
+  box-shadow: 
+    0 25px 65px -15px rgba(107, 33, 168, 0.12),
+    0 4px 20px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
-:global([data-theme="light"]) .ribbonCard::before {
-  background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.6), rgba(147, 51, 234, 0.5), transparent);
-  opacity: 0.4;
+:global([data-theme="light"]) .monolithConsole:hover {
+  border-color: rgba(255, 121, 23, 0.35);
+  box-shadow: 
+    0 30px 75px -15px rgba(107, 33, 168, 0.16),
+    0 0 25px -5px rgba(255, 121, 23, 0.12);
 }
 
-:global([data-theme="light"]) .ribbonCard::after {
-  background: radial-gradient(400px circle at 50% 0%, rgba(234, 88, 12, 0.06), transparent 70%);
+:global([data-theme="light"]) .consoleSheen {
+  background: radial-gradient(
+    550px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 121, 23, 0.09) 0%,
+    transparent 70%
+  );
 }
 
-:global([data-theme="light"]) .ribbonCard:hover {
-  background: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%);
-  border-color: rgba(234, 88, 12, 0.4);
-  box-shadow: 0 20px 40px -10px rgba(147, 51, 234, 0.14), 0 4px 14px rgba(234, 88, 12, 0.1);
+:global([data-theme="light"]) .consoleQuadrant {
+  border-right-color: rgba(147, 51, 234, 0.12);
+}
+
+:global([data-theme="light"]) .consoleQuadrant::before {
+  background: radial-gradient(circle at 50% 25%, rgba(255, 121, 23, 0.07) 0%, rgba(147, 51, 234, 0.04) 50%, transparent 75%);
+}
+
+:global([data-theme="light"]) .consoleQuadrant:hover {
+  background: rgba(147, 51, 234, 0.015);
+}
+
+:global([data-theme="light"]) .consoleQuadrant:hover .ribbonIcon {
+  border-color: rgba(255, 121, 23, 0.6);
+  box-shadow: 0 8px 24px -4px rgba(255, 121, 23, 0.25), inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+:global([data-theme="light"]) .quadrantAccent {
+  background: linear-gradient(90deg, transparent, var(--color-orange, #ff7917), rgba(168, 85, 247, 0.8), transparent);
+}
+
+@media (max-width: 1024px) {
+  :global([data-theme="light"]) .consoleQuadrant:nth-child(1),
+  :global([data-theme="light"]) .consoleQuadrant:nth-child(2) {
+    border-bottom-color: rgba(147, 51, 234, 0.12);
+  }
+}
+
+@media (max-width: 640px) {
+  :global([data-theme="light"]) .consoleQuadrant {
+    border-bottom-color: rgba(147, 51, 234, 0.12) !important;
+  }
 }
 
 :global([data-theme="light"]) .ribbonIcon {
-  background: linear-gradient(135deg, rgba(234, 88, 12, 0.12) 0%, rgba(147, 51, 234, 0.08) 100%);
-  border: 1px solid rgba(234, 88, 12, 0.28);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 245, 255, 0.92) 100%);
+  border: 1px solid rgba(255, 121, 23, 0.28);
   color: #ea580c;
-  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.1);
+  box-shadow: 0 4px 14px -2px rgba(255, 121, 23, 0.12), inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 :global([data-theme="light"]) .ribbonTitle {
-  color: #0f172a;
+  background: linear-gradient(135deg, #ea580c 0%, #e11d48 48%, #9333ea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  filter: drop-shadow(0 3px 12px rgba(234, 88, 12, 0.16));
 }
 
 :global([data-theme="light"]) .ribbonDesc {

@@ -1,5 +1,5 @@
 import { buildPageMeta } from '../../utils/seoHelper';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useLoaderData, Link } from 'react-router';
 import styles from './Leadership.module.css';
 import { motion } from 'framer-motion';
@@ -178,6 +178,7 @@ const Leadership: React.FC = () => {
   const { openContactModal } = useContactModal();
   const [sanityAbout, setSanityAbout] = React.useState<SanityAboutPage | null>(null);
   const [sanityTeam, setSanityTeam] = React.useState<SanityTeamMember[] | null>(null);
+  const heroRef = useRef<HTMLElement>(null);
 
   const sanityData: SanityAboutPage = sanityAbout || loaderData?.sanityData || DEFAULT_LEADERSHIP_PAGE_DATA;
   const pageData = (sanityData as any) || DEFAULT_LEADERSHIP_PAGE_DATA;
@@ -202,6 +203,94 @@ const Leadership: React.FC = () => {
     getSanityTeamMembers().then((data) => {
       if (data) setSanityTeam(data);
     });
+  }, []);
+
+  // High-Performance 120fps Cursor Reactive Sheen (Cached bounds, idle settling, IntersectionObserver)
+  useEffect(() => {
+    const heroEl = heroRef.current;
+    if (!heroEl) return;
+
+    let rafId: number | null = null;
+    let isRunning = false;
+    let rect: DOMRect | null = null;
+    let targetX = 50;
+    let targetY = 35;
+    let currentX = 50;
+    let currentY = 35;
+
+    const updateRect = () => {
+      if (heroEl) {
+        rect = heroEl.getBoundingClientRect();
+      }
+    };
+
+    const startLoop = () => {
+      if (!isRunning) {
+        isRunning = true;
+        rafId = requestAnimationFrame(updateSheen);
+      }
+    };
+
+    const updateSheen = () => {
+      const dx = targetX - currentX;
+      const dy = targetY - currentY;
+      currentX += dx * 0.12;
+      currentY += dy * 0.12;
+
+      heroEl.style.setProperty('--mouse-x', `${currentX.toFixed(1)}%`);
+      heroEl.style.setProperty('--mouse-y', `${currentY.toFixed(1)}%`);
+
+      // Idle settling: pause RAF when lerp reaches near-rest
+      if (Math.abs(dx) > 0.08 || Math.abs(dy) > 0.08) {
+        rafId = requestAnimationFrame(updateSheen);
+      } else {
+        isRunning = false;
+        rafId = null;
+      }
+    };
+
+    const handlePointerMove = (e: PointerEvent) => {
+      if (!rect) updateRect();
+      if (!rect || !rect.width || !rect.height) return;
+      targetX = ((e.clientX - rect.left) / rect.width) * 100;
+      targetY = ((e.clientY - rect.top) / rect.height) * 100;
+      startLoop();
+    };
+
+    const handlePointerLeave = () => {
+      targetX = 50;
+      targetY = 50;
+      startLoop();
+    };
+
+    // IntersectionObserver to sleep when hero is offscreen during scrolling
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          if (rafId) cancelAnimationFrame(rafId);
+          isRunning = false;
+          rafId = null;
+        } else {
+          updateRect();
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(heroEl);
+    heroEl.addEventListener('pointerenter', updateRect, { passive: true });
+    heroEl.addEventListener('pointermove', handlePointerMove, { passive: true });
+    heroEl.addEventListener('pointerleave', handlePointerLeave, { passive: true });
+    window.addEventListener('resize', updateRect, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      heroEl.removeEventListener('pointerenter', updateRect);
+      heroEl.removeEventListener('pointermove', handlePointerMove);
+      heroEl.removeEventListener('pointerleave', handlePointerLeave);
+      window.removeEventListener('resize', updateRect);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const ceoMember = React.useMemo(() => {
@@ -312,46 +401,91 @@ const Leadership: React.FC = () => {
         <span className={styles.breadcrumbCurrent}>Engineering Leadership</span>
       </nav>
 
-      {/* Chapter 1: Hero Section */}
-      <section className={styles.hero}>
-        <div className={styles.heroGlow} />
+      {/* Chapter 1: Haute-Tech Luxury Hero & Leadership Narrative */}
+      <section ref={heroRef} className={styles.hero}>
+        <div className={styles.filmGrain} />
+        <div className={styles.heroAura} />
+        <div className={styles.heroGridLines} />
+
         <div className={styles.heroContent}>
+          {/* Live Telemetry Pill */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            className={styles.telemetryPillWrapper}
+            initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className={styles.label}>{pageData.hero?.label || 'EXECUTIVE LEADERSHIP'}</span>
-            <h1 className={styles.heroTitle}>
+            <div className={styles.telemetryPill}>
+              <span className={styles.pulseBeacon}>
+                <span className={styles.pulseRing} />
+                <span className={styles.pulseCore} />
+              </span>
+              <span className={styles.telemetryLabel}>
+                {pageData.hero?.label || 'EXECUTIVE LEADERSHIP • 100% TECH-LED'}
+              </span>
+              <span className={styles.telemetryDivider}>|</span>
+              <span className={styles.telemetryHubs}>FOUNDERS & ARCHITECTS</span>
+            </div>
+          </motion.div>
+
+          {/* Kinetic Masked Headline */}
+          <div className={styles.heroTitleWrapper}>
+            <motion.h1
+              className={styles.heroTitle}
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            >
               {renderFormattedTitle({
                 title: pageData.hero?.title,
                 defaultAccentPhrase: 'Founders & Architects',
-                defaultTitle: <>Led by <em>Founders & Architects</em>, Not Sales Reps</>,
+                defaultTitle: (
+                  <>
+                    <span className={styles.titleLine}>LED DIRECTLY BY</span>
+                    <span className={styles.titleLineAccent}>
+                      <em>Founders & Architects</em>
+                    </span>
+                    <span className={styles.titleLineEnd}>NOT COMMODITY SALES REPS</span>
+                  </>
+                ),
               })}
-            </h1>
-            <p className={styles.heroSub}>
-              {pageData.hero?.subtitle || 'Direct strategic partnerships with global CTOs, software architects, and domain experts who have engineered over 100+ mission-critical custom enterprise systems.'}
-            </p>
-          </motion.div>
+            </motion.h1>
+          </div>
 
-          <motion.div
-            className={styles.ribbonGrid}
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
+          <motion.p
+            className={styles.heroSub}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           >
-            {(pageData.hero?.metrics || ribbonData).map((item: any, idx: number) => (
-              <motion.div key={idx} className={styles.ribbonCard} variants={cardChildVariant}>
-                <div className={styles.ribbonIcon}>
-                  {idx === 0 && <Users className="w-5 h-5" />}
-                  {idx === 1 && <Award className="w-5 h-5" />}
-                  {idx === 2 && <Rocket className="w-5 h-5" />}
-                  {idx === 3 && <ShieldCheck className="w-5 h-5" />}
+            {pageData.hero?.subtitle ||
+              'Direct strategic partnerships with global CTOs, software architects, and domain experts who have engineered over 100+ mission-critical custom enterprise systems.'}
+          </motion.p>
+
+          {/* Architectural Monolith Ribbon Console */}
+          <motion.div
+            className={styles.monolithConsole}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.28 }}
+          >
+            <div className={styles.consoleSheen} />
+
+            <div className={styles.consoleGrid}>
+              {(pageData.hero?.metrics || ribbonData).map((item: any, idx: number) => (
+                <div key={idx} className={styles.consoleQuadrant}>
+                  <div className={styles.quadrantAccent} />
+                  <div className={styles.ribbonIcon}>
+                    {idx === 0 && <Users className="w-5 h-5" />}
+                    {idx === 1 && <Award className="w-5 h-5" />}
+                    {idx === 2 && <Rocket className="w-5 h-5" />}
+                    {idx === 3 && <ShieldCheck className="w-5 h-5" />}
+                  </div>
+                  <div className={styles.ribbonTitle}>{item.value || item.title}</div>
+                  <div className={styles.ribbonDesc}>{item.label || item.desc}</div>
                 </div>
-                <div className={styles.ribbonTitle}>{item.value || item.title}</div>
-                <div className={styles.ribbonDesc}>{item.label || item.desc}</div>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
