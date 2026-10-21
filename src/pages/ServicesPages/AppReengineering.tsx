@@ -13,13 +13,19 @@ import { parseFormattedText } from '../../utils/textParser';
 
 import { useServicePage } from '../../hooks/useServicePage';
 
+const defaultDarkIllustration = "https://cdn.sanity.io/images/egqy3ztp/production/2609482dcc4be344915adf0edee55b5ccfb49e35-1200x896.webp";
+const defaultLightIllustration = "https://cdn.sanity.io/images/egqy3ztp/production/6f541ad5f6d6d23d5fc1c62fcf986e8d67694caa-1024x1024.webp";
+const defaultCtaDarkIllustration = "https://cdn.sanity.io/images/egqy3ztp/production/18be4fed2305c0de15f0e996d8f40b3880105a54-1024x1024.webp";
+const defaultCtaLightIllustration = "https://cdn.sanity.io/images/egqy3ztp/production/a779a5c1f5474141f47b913886e0d5fa6399ab22-1024x1024.webp";
+
 const serviceOverviewData = {
   label: "RE-ENGINEERING",
   titleMain: "Modernize Your",
   titleAccent: "Legacy",
   titleEnd: "Systems",
   description: "At Leapsofts, we engineer systematic modernization strategies that safeguard your business logic while upgrading your operational capacity. By auditing existing code, refactoring relational database models, and migrating legacy services to containerized AWS, Azure, or GCP environments, we help organizations transition from costly, high-risk systems to secure, agile, and modular platforms that support modern growth.",
-  imagePath: "/streamline.webp"
+  imagePath: defaultDarkIllustration,
+  imagePathLight: defaultLightIllustration
 };
 
 const ourServicesData: EmergingTechProps['data'] = {
@@ -297,6 +303,20 @@ const AppReengineering: React.FC = () => {
     ? parseFormattedText(data.hero.introText)
     : introDescription;
 
+  const resolveOverviewImage = (url?: string) => {
+    if (!url || url.includes('2609482dcc4be344915adf0edee55b5c72459f4')) {
+      return defaultDarkIllustration;
+    }
+    return url;
+  };
+
+  const resolveCtaImage = (url?: string) => {
+    if (!url || url.includes('18be4fed2305c0de15f0e996d8f40b3c1e9aa6a3')) {
+      return defaultCtaDarkIllustration;
+    }
+    return url;
+  };
+
   const activeOverviewData = (data?.serviceOverview)
     ? {
         label: data.serviceOverview.label || serviceOverviewData.label,
@@ -304,8 +324,8 @@ const AppReengineering: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
         titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
         description: data.serviceOverview.description || serviceOverviewData.description,
-        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath,
-        imagePathLight: data?.serviceOverview?.imageLightUrl
+        imagePath: resolveOverviewImage(data.serviceOverview.imageUrl),
+        imagePathLight: data?.serviceOverview?.imageLightUrl || defaultLightIllustration
       }
     : serviceOverviewData;
 
@@ -394,8 +414,8 @@ const AppReengineering: React.FC = () => {
         titleAccent={data?.strategyCTA?.titleAccent || "modernization"}
         titleEnd={data?.strategyCTA?.titleEnd || " roadmap."}
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
-        imageUrlLight={data?.strategyCTA?.imageLightUrl}
+        imageUrl={resolveCtaImage(data?.strategyCTA?.imageUrl)}
+        imageUrlLight={data?.strategyCTA?.imageLightUrl || defaultCtaLightIllustration}
       />
       <ServiceFeatures
         title={data?.serviceFeatures?.title || 'Core Revamp Skills'}

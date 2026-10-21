@@ -575,7 +575,7 @@ const About: React.FC = () => {
 
       {/* Section 2: Why Enterprises Partner with Leapsofts (Differentiators) */}
       {whyChooseUsData && (
-        <section className={styles.section}>
+        <section className={`${styles.section} ${styles.postHeroSection}`}>
           <motion.div
             className={styles.sectionHeader}
             variants={headerVariant}

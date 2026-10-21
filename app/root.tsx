@@ -70,6 +70,34 @@ const globalSchema = {
 const themeInitScript = `
   (function() {
     try {
+      var functionalAllowed = true;
+      var cookieMatch = document.cookie.match(/(?:^|;\\s*)leapsofts_consent=([^;]*)/);
+      if (cookieMatch) {
+        try {
+          var parsed = JSON.parse(decodeURIComponent(cookieMatch[1]));
+          if (parsed && parsed.functional === false) {
+            functionalAllowed = false;
+          }
+        } catch (e) {}
+      }
+      if (functionalAllowed) {
+        try {
+          var storedConsent = localStorage.getItem('leapsofts_cookie_consent');
+          if (storedConsent) {
+            var parsedStorage = JSON.parse(storedConsent);
+            if (parsedStorage && parsedStorage.functional === false) {
+              functionalAllowed = false;
+            }
+          }
+        } catch (e) {}
+      }
+
+      if (!functionalAllowed) {
+        try { localStorage.removeItem('leapsofts-theme'); } catch (e) {}
+        document.documentElement.setAttribute('data-theme', 'light');
+        return;
+      }
+
       var saved = localStorage.getItem('leapsofts-theme');
       var theme = saved || 'light';
       document.documentElement.setAttribute('data-theme', theme);

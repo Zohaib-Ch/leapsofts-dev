@@ -260,7 +260,7 @@ export default function PaidMediaPerformance() {
               {service.primaryCTA}
               <ArrowRight size={16} />
             </Link>
-            <a href="#capabilities" className={styles['secondary-btn']}>
+            <a href="#campaign-case-studies" className={styles['secondary-btn']}>
               {service.secondaryCTA}
             </a>
           </div>
@@ -353,6 +353,91 @@ export default function PaidMediaPerformance() {
               </motion.div>
             );
           })}
+        </motion.div>
+      </section>
+
+      {/* Campaign Case Studies Section */}
+      <section id="campaign-case-studies" className={styles['section']}>
+        <motion.div
+          className={styles['section-header']}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.05 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className={styles['section-tag']}>Real Performance Data</div>
+          <h2 className={styles['section-title']}>Performance Campaign Case Studies</h2>
+          <p className={styles['section-subtitle']}>
+            Explore how our data-driven media architecture lowered customer acquisition costs and drove predictable ROI for high-growth tech companies.
+          </p>
+        </motion.div>
+
+        <motion.div
+          className={styles['case-studies-grid']}
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.05 }}
+        >
+          {[
+            {
+              industry: 'Enterprise Cloud SaaS',
+              channels: ['LinkedIn Ads', 'Google Search', 'IP Retargeting'],
+              title: 'Scaling Enterprise Pipeline While Slashing CAC by 43%',
+              challenge: 'Client faced escalating Google search CPCs ($420/MQL) and low pipeline velocity with high drop-off rates on demo bookings.',
+              stats: [
+                { value: '4.2x', label: 'Verified ROAS' },
+                { value: '-43%', label: 'Blended CAC' },
+                { value: '$1.8M', label: 'Q1 Pipeline' },
+                { value: '< 24hr', label: 'Lead-to-Demo' }
+              ]
+            },
+            {
+              industry: 'Fintech & Payments',
+              channels: ['Meta CAPI', 'LinkedIn InMail', 'Programmatic'],
+              title: 'Acquiring Regulated Financial Leaders at 3.8x Return',
+              challenge: 'Needed strict compliance targeting for CFOs and Treasury directors, with end-to-end attribution bypassing browser ad blockers.',
+              stats: [
+                { value: '+185%', label: 'SQL Growth' },
+                { value: '3.8x', label: 'Return on Spend' },
+                { value: '100%', label: 'CAPI Match Rate' },
+                { value: '22 Days', label: 'Sales Cycle' }
+              ]
+            },
+            {
+              industry: 'AI & Automation Platform',
+              channels: ['YouTube Ads', 'Google Performance Max', 'Clearbit'],
+              title: 'Rapid Market Penetration with Full-Funnel ABM Ads',
+              challenge: 'Cold audience skepticism and long technical evaluation phases created stalled sales cycles and high ad churn.',
+              stats: [
+                { value: '5.1x', label: 'Pipeline Value' },
+                { value: '-62%', label: 'Cost Per Demo' },
+                { value: '31.4%', label: 'MQL-to-SQL' },
+                { value: '88.5%', label: 'ICP Accuracy' }
+              ]
+            }
+          ].map((caseStudy, idx) => (
+            <motion.div key={idx} className={styles['case-study-card']} variants={cardVariant}>
+              <div className={styles['case-top-meta']}>
+                <span className={styles['case-industry-tag']}>{caseStudy.industry}</span>
+                <div className={styles['case-channel-pills']}>
+                  {caseStudy.channels.slice(0, 2).map((ch, ci) => (
+                    <span key={ci} className={styles['case-pill']}>{ch}</span>
+                  ))}
+                </div>
+              </div>
+              <h3 className={styles['case-title']}>{caseStudy.title}</h3>
+              <p className={styles['case-challenge']}>{caseStudy.challenge}</p>
+              <div className={styles['case-results-box']}>
+                {caseStudy.stats.map((st, si) => (
+                  <div key={si} className={styles['case-stat-item']}>
+                    <div className={styles['case-stat-number']}>{st.value}</div>
+                    <div className={styles['case-stat-label']}>{st.label}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </section>
 

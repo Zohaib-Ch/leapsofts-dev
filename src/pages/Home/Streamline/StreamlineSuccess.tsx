@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './streamline.module.css';
 import Button from '../../../components/Button/Button';
 import { useTheme } from '../../../context/ThemeContext';
+import { useContactModal } from '../../../context/ContactModalContext';
 
 export interface StreamlineSuccessProps {
     label?: string;
@@ -29,9 +30,15 @@ const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({
     imageUrlLight
 }) => {
     const { theme } = useTheme();
+    const { openContactModal } = useContactModal();
     const darkImage = imageUrl || "/streamline.webp";
     const lightImage = imageUrlLight || darkImage;
     const finalImage = theme === 'light' ? lightImage : darkImage;
+
+    const cleanTitleMain = (titleMain || "Map your ")
+        .replace(/\btest\b/gi, '')
+        .replace(/\s+/g, ' ')
+        .trim();
 
     const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
@@ -113,10 +120,18 @@ const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({
     };
 
     const handleButtonClick = () => {
+        if (!buttonPath || buttonPath === '#contact' || buttonPath === '#') {
+            openContactModal();
+            return;
+        }
         if (buttonPath.startsWith('#')) {
             const id = buttonPath.replace('#', '');
             const elem = document.getElementById(id);
-            if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+            if (elem) {
+                elem.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                openContactModal();
+            }
         } else {
             window.location.href = buttonPath;
         }
@@ -186,7 +201,7 @@ const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({
 
                     {/* High-Impact Kinetic Gradient Headline */}
                     <h2 className={styles.title}>
-                        {titleMain?.trim()}{' '}
+                        {cleanTitleMain}{' '}
                         <span className={styles.gradientAccent}>{titleAccent?.trim()}</span>{' '}
                         {titleEnd?.trim()}
                     </h2>

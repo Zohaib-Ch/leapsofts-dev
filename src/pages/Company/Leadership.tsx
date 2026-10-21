@@ -491,7 +491,7 @@ const Leadership: React.FC = () => {
       </section>
 
       {/* Chapter 2: Featured CEO Spotlight (Huzaifa Rasheed) */}
-      <section className={styles.section}>
+      <section className={`${styles.section} ${styles.postHeroSection}`}>
         <motion.div
           className={styles.sectionHeader}
           variants={headerVariant}

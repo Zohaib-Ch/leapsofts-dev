@@ -129,4 +129,21 @@ export function saveConsent(preferences: CookiePreferences): void {
   } catch (error) {
     console.warn('Failed to save consent in localStorage:', error);
   }
+
+  // Purge theme preference if functional storage was rejected
+  if (!preferences.functional) {
+    try {
+      localStorage.removeItem('leapsofts-theme');
+    } catch {
+      // Ignore
+    }
+  }
+
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(
+      new CustomEvent('functional-consent-changed', {
+        detail: Boolean(preferences.functional),
+      })
+    );
+  }
 }
