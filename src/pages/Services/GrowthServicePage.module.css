@@ -922,3 +922,308 @@
 :global([data-theme="light"]) .cta-subtitle {
   color: #475569;
 }
+
+/* ==========================================================================
+   Sample Outreach Cadences Section (#sample-cadences)
+   ========================================================================== */
+.cadences-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.cadence-step-card {
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 1.75rem 2rem;
+  backdrop-filter: blur(12px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: grid;
+  grid-template-columns: 140px 1fr 200px;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.cadence-step-card:hover {
+  background: rgba(15, 23, 42, 0.85);
+  border-color: rgba(255, 107, 0, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5);
+}
+
+.cadence-time-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.cadence-day-badge {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--color-orange, #ff6b00);
+  background: rgba(255, 107, 0, 0.12);
+  border: 1px solid rgba(255, 107, 0, 0.25);
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cadence-channel {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.cadence-content-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cadence-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.cadence-desc {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.55;
+}
+
+.cadence-sample-box {
+  background: rgba(0, 0, 0, 0.35);
+  border-left: 3px solid var(--color-orange, #ff6b00);
+  padding: 0.6rem 0.9rem;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-style: italic;
+  margin-top: 0.35rem;
+}
+
+.cadence-metric-col {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: right;
+}
+
+.cadence-metric-val {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-orange, #ff6b00);
+}
+
+.cadence-metric-lbl {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 900px) {
+  .cadence-step-card {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .cadence-metric-col {
+    text-align: left;
+  }
+}
+
+/* Light Theme for Cadences */
+:global([data-theme="light"]) .cadence-step-card {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .cadence-step-card:hover {
+  background: #faf5ff;
+  border-color: rgba(255, 107, 0, 0.35);
+  box-shadow: 0 14px 30px rgba(255, 107, 0, 0.08);
+}
+
+:global([data-theme="light"]) .cadence-channel {
+  color: #64748b;
+}
+
+:global([data-theme="light"]) .cadence-title {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .cadence-desc {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .cadence-sample-box {
+  background: rgba(255, 107, 0, 0.06);
+  color: #1e293b;
+}
+
+:global([data-theme="light"]) .cadence-metric-col {
+  background: #f8fafc;
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .cadence-metric-lbl {
+  color: #64748b;
+}
+
+/* ==========================================================================
+   Campaign Case Studies Section (#campaign-case-studies)
+   ========================================================================== */
+.case-studies-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.case-study-card {
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.case-study-card:hover {
+  background: rgba(15, 23, 42, 0.85);
+  border-color: rgba(255, 107, 0, 0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+}
+
+.case-top-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.case-industry-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-orange, #ff6b00);
+}
+
+.case-channel-pills {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.case-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+}
+
+.case-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.35;
+}
+
+.case-challenge {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.55;
+}
+
+.case-results-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1.1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.case-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.case-stat-number {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-orange, #ff6b00);
+  line-height: 1.1;
+}
+
+.case-stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 1024px) {
+  .case-studies-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Light Theme for Case Studies */
+:global([data-theme="light"]) .case-study-card {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .case-study-card:hover {
+  background: #faf5ff;
+  border-color: rgba(255, 107, 0, 0.35);
+  box-shadow: 0 14px 30px rgba(255, 107, 0, 0.08);
+}
+
+:global([data-theme="light"]) .case-pill {
+  color: #64748b;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+:global([data-theme="light"]) .case-title {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .case-challenge {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .case-results-box {
+  background: #f8fafc;
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .case-stat-label {
+  color: #64748b;
+}

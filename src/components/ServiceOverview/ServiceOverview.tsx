@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styles from './ServiceOverview.module.css';
 import { useContactModal } from '../../context/ContactModalContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -32,6 +32,12 @@ const ServiceOverview: React.FC<ServiceOverviewProps> = ({
     const darkImage = imagePath;
     const lightImage = imagePathLight || darkImage;
     const finalImagePath = theme === 'light' ? lightImage : darkImage;
+
+    const [imgSrc, setImgSrc] = useState<string>(finalImagePath);
+
+    useEffect(() => {
+        setImgSrc(finalImagePath);
+    }, [finalImagePath]);
 
     const visualRef = useRef<HTMLDivElement>(null);
     const rectRef = useRef<DOMRect | null>(null);
@@ -183,10 +189,15 @@ const ServiceOverview: React.FC<ServiceOverviewProps> = ({
 
                         {/* Core Service Image */}
                         <img
-                            src={finalImagePath}
+                            src={imgSrc || "/streamline.webp"}
                             alt={`${titleMain || ''} ${titleAccent || ''} ${titleEnd || ''} - Leapsofts`.trim() || "Leapsofts Enterprise Service Overview"}
                             className={styles.serviceImage}
                             loading="lazy"
+                            onError={() => {
+                                if (imgSrc !== '/streamline.webp') {
+                                    setImgSrc('/streamline.webp');
+                                }
+                            }}
                         />
 
                         {/* Specular Spotlight Lens & Dark Depth Vignette */}

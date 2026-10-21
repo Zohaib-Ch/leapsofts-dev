@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { getStoredConsent } from '../utils/cookieConsent';
 
 type Theme = 'dark' | 'light';
 
@@ -17,23 +18,62 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Read from localStorage or html attribute set by root script
-    const currentAttr = document.documentElement.getAttribute('data-theme') as Theme;
-    const stored = localStorage.getItem(THEME_STORAGE_KEY) as Theme;
-    const initialTheme: Theme = stored || currentAttr || 'light';
+    const consent = getStoredConsent();
+    const canUseStorage = !consent.hasAnswered || consent.preferences.functional;
 
-    setThemeState(initialTheme);
-    document.documentElement.setAttribute('data-theme', initialTheme);
+    if (consent.hasAnswered && !consent.preferences.functional) {
+      try {
+        localStorage.removeItem(THEME_STORAGE_KEY);
+      } catch {
+        // Ignore
+      }
+      setThemeState('light');
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      const currentAttr = document.documentElement.getAttribute('data-theme') as Theme;
+      const stored = canUseStorage ? (localStorage.getItem(THEME_STORAGE_KEY) as Theme) : null;
+      const initialTheme: Theme = stored || currentAttr || 'light';
+
+      setThemeState(initialTheme);
+      document.documentElement.setAttribute('data-theme', initialTheme);
+    }
     setMounted(true);
+
+    const handleConsentChange = (e: Event) => {
+      const customEvent = e as CustomEvent<boolean>;
+      if (!customEvent.detail) {
+        // Functional preferences rejected
+        try {
+          localStorage.removeItem(THEME_STORAGE_KEY);
+        } catch {
+          // Ignore
+        }
+        setThemeState('light');
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    };
+
+    window.addEventListener('functional-consent-changed', handleConsentChange);
+    return () => window.removeEventListener('functional-consent-changed', handleConsentChange);
   }, []);
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
-    try {
-      localStorage.setItem(THEME_STORAGE_KEY, newTheme);
-    } catch {
-      // Ignore localStorage errors in private browsing
+    const consent = getStoredConsent();
+    const canUseStorage = !consent.hasAnswered || consent.preferences.functional;
+    if (canUseStorage) {
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+      } catch {
+        // Ignore localStorage errors in private browsing
+      }
+    } else {
+      try {
+        localStorage.removeItem(THEME_STORAGE_KEY);
+      } catch {
+        // Ignore
+      }
     }
   };
 

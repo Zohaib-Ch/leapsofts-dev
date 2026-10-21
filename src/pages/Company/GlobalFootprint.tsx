@@ -487,7 +487,7 @@ const GlobalFootprint: React.FC = () => {
       </section>
 
       {/* Chapter 2: Regional Delivery Centers */}
-      <section className={styles.section}>
+      <section className={`${styles.section} ${styles.postHeroSection}`}>
         <motion.div
           className={styles.sectionHeader}
           variants={headerVariant}

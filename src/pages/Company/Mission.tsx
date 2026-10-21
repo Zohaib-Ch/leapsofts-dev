@@ -476,7 +476,7 @@ const Mission: React.FC = () => {
       </section>
 
       {/* Chapter 2: Purpose & Philosophy */}
-      <section className={styles.section}>
+      <section className={`${styles.section} ${styles.postHeroSection}`}>
         <motion.div
           className={styles.sectionHeader}
           variants={headerVariant}

@@ -260,7 +260,7 @@ export default function OutboundDemandGen() {
               {service.primaryCTA}
               <ArrowRight size={16} />
             </Link>
-            <a href="#capabilities" className={styles['secondary-btn']}>
+            <a href="#sample-cadences" className={styles['secondary-btn']}>
               {service.secondaryCTA}
             </a>
           </div>
@@ -353,6 +353,99 @@ export default function OutboundDemandGen() {
               </motion.div>
             );
           })}
+        </motion.div>
+      </section>
+
+      {/* Sample Outreach Cadences Section */}
+      <section id="sample-cadences" className={styles['section']}>
+        <motion.div
+          className={styles['section-header']}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.05 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className={styles['section-tag']}>Battle-Tested Playbooks</div>
+          <h2 className={styles['section-title']}>Sample Multi-Touch Outreach Cadences</h2>
+          <p className={styles['section-subtitle']}>
+            Explore our synchronized 14-day omnichannel cadence that converts high-value enterprise accounts without burning your domain reputation.
+          </p>
+        </motion.div>
+
+        <motion.div
+          className={styles['cadences-container']}
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.05 }}
+        >
+          {[
+            {
+              day: 'Day 1',
+              channel: 'Email (Triggered)',
+              title: 'Executive Pain Trigger & Hypothesis',
+              desc: 'Targeted cold email crafted around verified buying signals (recent funding, executive hires, or tech stack shifts).',
+              sampleSnippet: '"Saw your team is modernizing infrastructure post-Series B. We mapped out how similar engineering orgs cut compute waste by 38%..."',
+              metricValue: '48.2%',
+              metricLabel: 'Open Rate'
+            },
+            {
+              day: 'Day 3',
+              channel: 'LinkedIn + InMail',
+              title: 'Profile Interaction & Soft Connection',
+              desc: 'Dedicated SDR visits key buying committee profiles, follows relevant company updates, and sends personalized connection context.',
+              sampleSnippet: '"Hi [First Name], noticed your recent talk on cloud resilience—sent a quick email with benchmarking notes on enterprise uptime..."',
+              metricValue: '34.5%',
+              metricLabel: 'Acceptance Rate'
+            },
+            {
+              day: 'Day 6',
+              channel: 'Personalized Video / Loom',
+              title: 'Custom Technical Teardown Asset',
+              desc: 'Asynchronous 60-second video walkthrough or annotated architecture teardown delivered straight to prospect inbox.',
+              sampleSnippet: '"Recorded a quick 45s breakdown of your public API response latency vs tier-1 industry standards. Link attached..."',
+              metricValue: '28.4%',
+              metricLabel: 'Play-Through Rate'
+            },
+            {
+              day: 'Day 10',
+              channel: 'Phone + Direct Dial',
+              title: 'Discovery Follow-Up & Qualification',
+              desc: 'Trained technical SDR places a direct dial call to executive mobile, referencing prior email and video touchpoints with sub-5-minute brevity.',
+              sampleSnippet: '"Hi [First Name], calling briefly about the latency benchmark I emailed on Thursday. Did you get a chance to review the 3 findings?"',
+              metricValue: '18.7%',
+              metricLabel: 'Conversation Rate'
+            },
+            {
+              day: 'Day 14',
+              channel: 'Email (Permission)',
+              title: 'Value-Add Breakup & Quarterly Permission',
+              desc: 'Low-friction breakup touchpoint granting prospect full control while sharing a quarterly industry roadmap report.',
+              sampleSnippet: '"Assuming this isn\'t top of mind right now. Leaving our Q3 Enterprise Modernization Benchmarks here if helpful down the line."',
+              metricValue: '12.1%',
+              metricLabel: 'Meeting Booked Rate'
+            }
+          ].map((cadence, idx) => (
+            <motion.div key={idx} className={styles['cadence-step-card']} variants={cardVariant}>
+              <div className={styles['cadence-time-col']}>
+                <span className={styles['cadence-day-badge']}>{cadence.day}</span>
+                <span className={styles['cadence-channel']}>
+                  <Mail size={13} /> {cadence.channel}
+                </span>
+              </div>
+              <div className={styles['cadence-content-col']}>
+                <h3 className={styles['cadence-title']}>{cadence.title}</h3>
+                <p className={styles['cadence-desc']}>{cadence.desc}</p>
+                <div className={styles['cadence-sample-box']}>
+                  {cadence.sampleSnippet}
+                </div>
+              </div>
+              <div className={styles['cadence-metric-col']}>
+                <div className={styles['cadence-metric-val']}>{cadence.metricValue}</div>
+                <div className={styles['cadence-metric-lbl']}>{cadence.metricLabel}</div>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </section>
 

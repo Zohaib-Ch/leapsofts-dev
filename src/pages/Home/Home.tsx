@@ -329,7 +329,7 @@ const Home = (props: { loaderData?: any }) => {
       <div id="projects">
         <StreamlineSuccess
           label={sanityData?.strategy?.label || "COMPLIMENTARY STRATEGY SESSION"}
-          titleMain={sanityData?.strategy?.titleMain || "Map your "}
+          titleMain={(sanityData?.strategy?.titleMain || "Map your ").replace(/\btest\b/gi, '').replace(/\s+/g, ' ').trim() + " "}
           titleAccent={sanityData?.strategy?.titleAccent || "technical"}
           titleEnd={sanityData?.strategy?.titleEnd || " roadmap."}
           description={sanityData?.strategy?.descriptionText || streamlineDescription}
