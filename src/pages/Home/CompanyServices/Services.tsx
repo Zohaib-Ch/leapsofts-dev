@@ -122,7 +122,13 @@ const Services: React.FC<ServicesProps> = ({
         if (!hasPillar05) {
             list.push(defaultServices[4]);
         }
-        return list;
+        return list.map(service => ({
+            ...service,
+            items: service.items?.map(item => ({
+                ...item,
+                path: item.path === '/services/servicenow' ? '/services/service-now' : item.path
+            }))
+        }));
     }, [sanityServices]);
 
     const [activeIndex, setActiveIndex] = useState(0);
