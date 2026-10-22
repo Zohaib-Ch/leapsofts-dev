@@ -15,6 +15,8 @@ import {
   Globe,
   ArrowRight,
   Server,
+  ListOrdered,
+  ChevronDown,
 } from 'lucide-react';
 
 export function meta() {
@@ -97,6 +99,7 @@ const CookiesPolicy: React.FC = () => {
   const lastUpdated = 'October 2026';
   const { openSettings } = useCookieConsent();
   const [activeId, setActiveId] = useState<string>('section-overview');
+  const [mobileTocOpen, setMobileTocOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScrollSpy = () => {
@@ -157,6 +160,7 @@ const CookiesPolicy: React.FC = () => {
       const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: 'smooth' });
       setActiveId(id);
+      setMobileTocOpen(false);
     }
   };
 
@@ -254,6 +258,44 @@ const CookiesPolicy: React.FC = () => {
               <p className={styles.guaranteeDesc}>{item.desc}</p>
             </div>
           ))}
+        </div>
+
+        {/* ==========================================================================
+            Mobile Table of Contents Accordion
+            ========================================================================== */}
+        <div className={styles.mobileTocWrapper}>
+          <button
+            type="button"
+            className={styles.mobileTocTrigger}
+            onClick={() => setMobileTocOpen(!mobileTocOpen)}
+            aria-expanded={mobileTocOpen}
+            aria-label="Table of contents navigation"
+          >
+            <div className={styles.mobileTocTriggerLeft}>
+              <ListOrdered size={16} className={styles.mobileTocIcon} />
+              <span className={styles.mobileTocLabel}>
+                Section: <strong className={styles.mobileTocActiveText}>{tableOfContents.find(t => t.id === activeId)?.label || 'Overview'}</strong>
+              </span>
+            </div>
+            <ChevronDown size={16} className={`${styles.mobileTocChevron} ${mobileTocOpen ? styles.rotated : ''}`} />
+          </button>
+          {mobileTocOpen && (
+            <div className={styles.mobileTocDropdown}>
+              <ul className={styles.mobileTocList}>
+                {tableOfContents.map((section) => (
+                  <li key={section.id}>
+                    <a
+                      href={`#${section.id}`}
+                      onClick={(e) => handleScrollTo(e, section.id)}
+                      className={`${styles.mobileTocLink} ${activeId === section.id ? styles.mobileTocLinkActive : ''}`}
+                    >
+                      {section.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
         {/* ==========================================================================
@@ -367,6 +409,9 @@ const CookiesPolicy: React.FC = () => {
               <p className={styles.bodyText}>
                 The following table provides an exhaustive, audited list of cookies and local storage tokens utilized across our web application:
               </p>
+              <div className={styles.tableScrollHint}>
+                <span>← Scroll horizontally to view full inventory →</span>
+              </div>
               <div className={styles.tableWrapper}>
                 <table className={styles.dataTable}>
                   <thead>

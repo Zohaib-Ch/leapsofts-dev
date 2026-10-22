@@ -226,16 +226,19 @@ const Automotive: React.FC = () => {
 
   const processTitleMain = data?.processHeader?.titleMain || "Automotive Product Development";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
+  const processDescription = data?.processHeader?.description || 
+    "As part of Leapsofts’s commitment to advancing connected mobility and next-generation vehicular engineering, the following depiction of a typical project lifecycle highlights our agile methodology for automotive software development. From ISO 26262 ASIL-compliant firmware pipelines and secure OTA update architectures to CAN-bus telemetry and EV fleet management platforms, our end-to-end development process delivers mission-critical automotive software on time, on budget, and on point—every time.";
 
   useEffect(() => {
     setProcessTitle({
       titleMain: processTitleMain,
-      titleAccent: processTitleAccent
+      titleAccent: processTitleAccent,
+      description: processDescription
     });
     if (setDeliverMVPData) {
       setDeliverMVPData(activeDeliverMVPData);
     }
-  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, processDescription, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items

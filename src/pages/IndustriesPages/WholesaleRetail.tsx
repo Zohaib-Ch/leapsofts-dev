@@ -222,16 +222,19 @@ const WholesaleRetail: React.FC = () => {
 
   const processTitleMain = data?.processHeader?.titleMain || "E-Commerce Software Engineering";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
+  const processDescription = data?.processHeader?.description || 
+    "As part of Leapsofts’s commitment to omni-channel commerce velocity and automated retail inventory synchronization, the following depiction of a typical project lifecycle highlights our agile methodology for retail and wholesale software engineering. From sub-second headless commerce architectures and multi-location ERP/POS integrations to automated warehouse fulfillment and personalized recommendation engines, our end-to-end development process delivers high-converting retail software on time, on budget, and on point—every time.";
 
   useEffect(() => {
     setProcessTitle({
       titleMain: processTitleMain,
-      titleAccent: processTitleAccent
+      titleAccent: processTitleAccent,
+      description: processDescription
     });
     if (setDeliverMVPData) {
       setDeliverMVPData(activeDeliverMVPData);
     }
-  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, processDescription, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items

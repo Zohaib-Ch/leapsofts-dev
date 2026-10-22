@@ -224,16 +224,19 @@ const Finance: React.FC = () => {
 
   const processTitleMain = data?.processHeader?.titleMain || "Fintech Software Development";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
+  const processDescription = data?.processHeader?.description || 
+    "As part of Leapsofts’s commitment to institutional financial security and algorithmic transactional velocity, the following depiction of a typical project lifecycle highlights our agile methodology for FinTech software development. From PCI-DSS Level 1 compliant payment gateways and sub-millisecond trade matching engines to Open Banking APIs and biometric KYC verification, our end-to-end development process delivers enterprise-grade banking and financial software on time, on budget, and on point—every time.";
 
   useEffect(() => {
     setProcessTitle({
       titleMain: processTitleMain,
-      titleAccent: processTitleAccent
+      titleAccent: processTitleAccent,
+      description: processDescription
     });
     if (setDeliverMVPData) {
       setDeliverMVPData(activeDeliverMVPData);
     }
-  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, processDescription, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items

@@ -223,16 +223,19 @@ const Compliance: React.FC = () => {
 
   const processTitleMain = data?.processHeader?.titleMain || "Compliance Product Development";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
+  const processDescription = data?.processHeader?.description || 
+    "As part of Leapsofts’s commitment to de-risking regulatory exposure and automating institutional governance, the following depiction of a typical project lifecycle highlights our agile methodology for RegTech and compliance software engineering. From immutable WORM audit logs and automated SOC 2/ISO 27001 continuous monitoring to automated KYC/AML screening and GDPR data-retention topologies, our end-to-end development process delivers audit-ready compliance software on time, on budget, and on point—every time.";
 
   useEffect(() => {
     setProcessTitle({
       titleMain: processTitleMain,
-      titleAccent: processTitleAccent
+      titleAccent: processTitleAccent,
+      description: processDescription
     });
     if (setDeliverMVPData) {
       setDeliverMVPData(activeDeliverMVPData);
     }
-  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, processDescription, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items

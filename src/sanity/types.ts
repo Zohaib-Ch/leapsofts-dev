@@ -495,6 +495,7 @@ export interface SanityIndustry {
   processHeader?: {
     titleMain?: string;
     titleAccent?: string;
+    description?: string;
   };
   deliverMVP?: {
     label?: string;

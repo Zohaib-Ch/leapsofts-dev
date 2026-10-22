@@ -223,16 +223,19 @@ const Education: React.FC = () => {
 
   const processTitleMain = data?.processHeader?.titleMain || "EdTech Product Development";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
+  const processDescription = data?.processHeader?.description || 
+    "As part of Leapsofts’s commitment to transforming digital pedagogy and modern institutional learning, the following depiction of a typical project lifecycle highlights our agile methodology for EdTech and custom LMS product development. From SCORM, xAPI, and LTI 1.3 compliance to AI-driven personalized adaptive learning paths, real-time proctoring, and scalable virtual classrooms, our end-to-end development process delivers engaging, enterprise-grade educational software on time, on budget, and on point—every time.";
 
   useEffect(() => {
     setProcessTitle({
       titleMain: processTitleMain,
-      titleAccent: processTitleAccent
+      titleAccent: processTitleAccent,
+      description: processDescription
     });
     if (setDeliverMVPData) {
       setDeliverMVPData(activeDeliverMVPData);
     }
-  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, processDescription, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items
