@@ -99,9 +99,12 @@ interface IndustryProcessProps {
     titleMain: string;
     titleAccent?: string;
     titleEnd?: string;
+    description?: string;
 }
 
-const IndustryProcess: React.FC<IndustryProcessProps> = ({ titleMain, titleAccent = "Process", titleEnd }) => {
+const DEFAULT_PROCESS_DESCRIPTION = "As part of Leapsofts’s commitment to accelerating enterprise digital transformation and rapid time-to-market, the following depiction of a typical project lifecycle highlights our agile engineering methodology. Our end-to-end development process is engineered to deliver custom, production-grade software on time, on budget, and on point—every time.";
+
+const IndustryProcess: React.FC<IndustryProcessProps> = ({ titleMain, titleAccent = "Process", titleEnd, description }) => {
     const [activeStep, setActiveStep] = useState<ProcessStep | null>(null);
 
     return (
@@ -120,7 +123,7 @@ const IndustryProcess: React.FC<IndustryProcessProps> = ({ titleMain, titleAccen
                         {titleEnd}
                     </h2>
                     <p className={styles.chartDescription}>
-                        As part of Leapsofts’s commitment to delivering an MVP within 6 to 12 months, the following depiction of a typical project lifecycle highlights Leapsofts’s streamlined approach to healthcare product development. Our end-to-end development process is designed to deliver custom healthcare software on time, on budget, and on point—every time.
+                        {description || DEFAULT_PROCESS_DESCRIPTION}
                     </p>
                 </motion.div>
 

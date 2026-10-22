@@ -223,16 +223,19 @@ const Startups: React.FC = () => {
 
   const processTitleMain = data?.processHeader?.titleMain || "High-Velocity MVP Engineering";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
+  const processDescription = data?.processHeader?.description || 
+    "As part of Leapsofts’s commitment to startup velocity, product-market validation, and capital efficiency, the following depiction of a typical project lifecycle highlights our high-velocity MVP engineering framework. From rapid user journey prototyping and cloud-native serverless foundations to CI/CD automated test coverage and investor-ready technical documentation, our end-to-end development process delivers scalable startup software in 3 to 5 months on time, on budget, and on point—every time.";
 
   useEffect(() => {
     setProcessTitle({
       titleMain: processTitleMain,
-      titleAccent: processTitleAccent
+      titleAccent: processTitleAccent,
+      description: processDescription
     });
     if (setDeliverMVPData) {
       setDeliverMVPData(activeDeliverMVPData);
     }
-  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, processDescription, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items

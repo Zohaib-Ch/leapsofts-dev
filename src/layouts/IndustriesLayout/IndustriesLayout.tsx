@@ -10,6 +10,7 @@ export interface ProcessTitleData {
     titleMain: string;
     titleAccent?: string;
     titleEnd?: string;
+    description?: string;
 }
 
 export interface IndustriesContextType {
@@ -58,7 +59,8 @@ const IndustriesLayout: React.FC = () => {
             if (
                 prev.titleMain === next.titleMain &&
                 prev.titleAccent === next.titleAccent &&
-                prev.titleEnd === next.titleEnd
+                prev.titleEnd === next.titleEnd &&
+                prev.description === next.description
             ) {
                 return prev;
             }
@@ -93,6 +95,7 @@ const IndustriesLayout: React.FC = () => {
                 titleMain={processTitle.titleMain}
                 titleAccent={processTitle.titleAccent}
                 titleEnd={processTitle.titleEnd}
+                description={processTitle.description}
             />
             <ContactForm />
         </>

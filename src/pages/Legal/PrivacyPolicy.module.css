@@ -8,6 +8,8 @@
   background: var(--bg-dark);
   color: var(--text-primary);
   position: relative;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 [data-theme="light"] .pageContainer {
@@ -17,7 +19,10 @@
 
 .innerWrap {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 /* ==========================================================================
@@ -138,9 +143,12 @@
    ========================================================================== */
 .guaranteesGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
   margin-bottom: 56px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .guaranteeCard {
@@ -152,6 +160,10 @@
   flex-direction: column;
   gap: 10px;
   transition: transform var(--transition-fast), border-color var(--transition-fast);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .guaranteeCard:hover {
@@ -208,24 +220,27 @@
    ========================================================================== */
 .layout {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 280px minmax(0, 1fr);
   gap: 48px;
   align-items: flex-start;
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 /* Sticky TOC */
 .sidebar {
   position: -webkit-sticky;
   position: sticky;
-  top: 105px;
+  top: 120px;
   align-self: flex-start;
   z-index: 20;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 20px;
-  max-height: calc(100vh - 130px);
+  max-height: calc(100vh - 140px);
   overflow-y: auto;
   scrollbar-width: thin;
 }
@@ -301,6 +316,9 @@
   display: flex;
   flex-direction: column;
   gap: 36px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .sectionCard {
@@ -310,6 +328,11 @@
   padding: 36px 40px;
   scroll-margin-top: 110px;
   transition: border-color var(--transition-fast);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 [data-theme="light"] .sectionCard {
@@ -434,13 +457,24 @@
 /* Table */
 .tableWrapper {
   overflow-x: auto;
-  margin: 24px 0;
+  -webkit-overflow-scrolling: touch;
+  margin: 20px 0;
   border-radius: 12px;
   border: 1px solid var(--border-color);
+  scrollbar-width: thin;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.tableScrollHint {
+  display: none;
 }
 
 .dataTable {
   width: 100%;
+  min-width: 600px;
   border-collapse: collapse;
   font-size: 0.88rem;
   text-align: left;
@@ -452,6 +486,7 @@
   font-weight: 600;
   padding: 14px 18px;
   border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
 }
 
 [data-theme="light"] .dataTable th {
@@ -465,6 +500,8 @@
   color: var(--text-secondary);
   border-bottom: 1px solid var(--border-color);
   line-height: 1.5;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 [data-theme="light"] .dataTable td {
@@ -474,6 +511,145 @@
 
 .dataTable tr:last-child td {
   border-bottom: none;
+}
+
+/* ==========================================================================
+   Mobile Table of Contents Accordion
+   ========================================================================== */
+.mobileTocWrapper {
+  display: none;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.mobileTocTrigger {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.88rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transition: all var(--transition-fast);
+}
+
+[data-theme="light"] .mobileTocTrigger {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #0f172a;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.mobileTocTriggerLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  min-width: 0;
+  flex: 1;
+}
+
+.mobileTocIcon {
+  color: var(--color-primary-light);
+  flex-shrink: 0;
+}
+
+[data-theme="light"] .mobileTocIcon {
+  color: var(--color-primary);
+}
+
+.mobileTocLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.86rem;
+  min-width: 0;
+}
+
+.mobileTocActiveText {
+  color: var(--color-primary-light);
+}
+
+[data-theme="light"] .mobileTocActiveText {
+  color: var(--color-primary);
+}
+
+.mobileTocChevron {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
+.mobileTocDropdown {
+  margin-top: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 10px;
+  max-height: 320px;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  scrollbar-width: thin;
+}
+
+[data-theme="light"] .mobileTocDropdown {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.mobileTocList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobileTocLink {
+  display: block;
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 9px 12px;
+  border-radius: 8px;
+  transition: all var(--transition-fast);
+}
+
+.mobileTocLink:hover,
+.mobileTocLinkActive {
+  color: var(--color-primary-light) !important;
+  background: rgba(124, 58, 237, 0.12);
+  font-weight: 600;
+}
+
+[data-theme="light"] .mobileTocLink {
+  color: #475569;
+}
+
+[data-theme="light"] .mobileTocLink:hover,
+[data-theme="light"] .mobileTocLinkActive {
+  color: var(--color-primary) !important;
+  background: rgba(107, 33, 168, 0.08);
 }
 
 /* Contact CTA Card */
@@ -538,47 +714,294 @@
 }
 
 /* ==========================================================================
-   Responsive Breakpoints
+   Responsive Breakpoints - Small Screens Optimization
    ========================================================================== */
 @media (max-width: 1024px) {
   .guaranteesGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 36px;
+    width: 100%;
+    max-width: 100%;
   }
 
   .layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    width: 100%;
+    max-width: 100%;
   }
 
   .sidebar {
     display: none;
   }
+
+  .mobileTocWrapper {
+    display: block;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 80px;
+    z-index: 30;
+    margin-bottom: 28px;
+  }
 }
 
 @media (max-width: 768px) {
   .pageContainer {
-    padding: 100px 16px 60px;
+    padding: 95px 16px 50px;
+    overflow-x: clip;
   }
 
   .title {
-    font-size: 2.2rem;
+    font-size: 2.1rem;
+    margin-bottom: 14px;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .metaStrip {
+    gap: 8px;
+    padding-top: 14px;
+  }
+
+  .metaChip {
+    font-size: 0.78rem;
+    padding: 5px 10px;
   }
 
   .guaranteesGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    margin-bottom: 32px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .guaranteeCard {
+    padding: 16px 18px;
+    border-radius: 14px;
   }
 
   .sectionCard {
-    padding: 24px 22px;
+    padding: 24px 18px;
     border-radius: 16px;
+    scroll-margin-top: 90px;
+  }
+
+  .sectionHeader {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .sectionTitle {
+    font-size: 1.25rem;
+  }
+
+  .sectionNum {
+    font-size: 0.78rem;
+    padding: 3px 8px;
+  }
+
+  .tableScrollHint {
+    display: block;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    margin: 14px 0 6px;
+    text-align: center;
+    font-style: italic;
+  }
+
+  [data-theme="light"] .tableScrollHint {
+    color: #64748b;
+  }
+
+  .dataTable th,
+  .dataTable td {
+    padding: 11px 13px;
+    font-size: 0.82rem;
   }
 
   .contactCtaCard {
     flex-direction: column;
     align-items: stretch;
-    padding: 28px 24px;
+    padding: 24px 20px;
+    gap: 18px;
   }
 
   .ctaBtn {
     justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageContainer {
+    padding: 85px 12px 40px;
+  }
+
+  .breadcrumb {
+    font-size: 0.78rem;
+    gap: 6px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    margin-bottom: 14px;
+  }
+
+  .title {
+    font-size: 1.7rem;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+
+  .metaStrip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .metaChip {
+    width: 100%;
+    font-size: 0.75rem;
+    padding: 6px 10px;
+  }
+
+  .guaranteeCard {
+    padding: 14px 14px;
+    border-radius: 12px;
+    gap: 6px;
+  }
+
+  .guaranteeIcon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .guaranteeTitle {
+    font-size: 0.88rem;
+  }
+
+  .guaranteeDesc {
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .mobileTocTrigger {
+    padding: 11px 14px;
+    font-size: 0.82rem;
+  }
+
+  .mobileTocDropdown {
+    max-height: 280px;
+    padding: 6px;
+  }
+
+  .mobileTocLink {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+
+  .sectionCard {
+    padding: 18px 14px;
+    border-radius: 14px;
+  }
+
+  .sectionHeader {
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .sectionTitle {
+    font-size: 1.12rem;
+    line-height: 1.35;
+  }
+
+  .bodyText {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin-bottom: 14px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .bulletList {
+    margin: 10px 0 14px 16px;
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .bulletList li {
+    margin-bottom: 6px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .calloutBox {
+    padding: 12px 14px;
+    margin: 16px 0;
+    border-left-width: 3px;
+  }
+
+  .calloutTitle {
+    font-size: 0.86rem;
+  }
+
+  .calloutText {
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .dataTable th,
+  .dataTable td {
+    padding: 9px 10px;
+    font-size: 0.78rem;
+  }
+
+  .contactCtaCard {
+    padding: 20px 16px;
+    border-radius: 14px;
+  }
+
+  .ctaTextGroup h3 {
+    font-size: 1.15rem;
+  }
+
+  .ctaTextGroup p {
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+
+  .ctaBtn {
+    padding: 11px 18px;
+    font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .pageContainer {
+    padding: 80px 10px 36px;
+  }
+
+  .title {
+    font-size: 1.55rem;
+  }
+
+  .sectionCard {
+    padding: 16px 12px;
   }
 }

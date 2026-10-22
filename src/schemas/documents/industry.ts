@@ -183,6 +183,7 @@ export const industrySchema = defineType({
       fields: [
         defineField({ name: 'titleMain', title: 'Process Title Main', type: 'string' }),
         defineField({ name: 'titleAccent', title: 'Process Title Accent', type: 'string' }),
+        defineField({ name: 'description', title: 'Process Description', type: 'text' }),
       ],
     }),
 

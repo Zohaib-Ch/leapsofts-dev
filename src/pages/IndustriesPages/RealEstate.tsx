@@ -223,16 +223,19 @@ const RealEstate: React.FC = () => {
 
   const processTitleMain = data?.processHeader?.titleMain || "PropTech Software Engineering";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
+  const processDescription = data?.processHeader?.description || 
+    "As part of Leapsofts’s commitment to modernizing commercial and residential real estate ecosystems, the following depiction of a typical project lifecycle highlights our agile methodology for PropTech software development. From RESO Web API MLS syndication and automated lease generation to digital tenant payment portals and IoT smart building energy analytics, our end-to-end development process delivers scalable real estate software on time, on budget, and on point—every time.";
 
   useEffect(() => {
     setProcessTitle({
       titleMain: processTitleMain,
-      titleAccent: processTitleAccent
+      titleAccent: processTitleAccent,
+      description: processDescription
     });
     if (setDeliverMVPData) {
       setDeliverMVPData(activeDeliverMVPData);
     }
-  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, processDescription, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items

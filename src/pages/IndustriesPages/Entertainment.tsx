@@ -223,16 +223,19 @@ const Entertainment: React.FC = () => {
 
   const processTitleMain = data?.processHeader?.titleMain || "Media & Entertainment Engineering";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
+  const processDescription = data?.processHeader?.description || 
+    "As part of Leapsofts’s commitment to engineering high-concurrency digital media experiences, the following depiction of a typical project lifecycle highlights our agile methodology for entertainment software development. From sub-second 4K HLS/DASH video delivery pipelines and multi-DRM content protection to server-side ad insertion (SSAI) and interactive community features, our end-to-end development process delivers high-throughput streaming platforms on time, on budget, and on point—every time.";
 
   useEffect(() => {
     setProcessTitle({
       titleMain: processTitleMain,
-      titleAccent: processTitleAccent
+      titleAccent: processTitleAccent,
+      description: processDescription
     });
     if (setDeliverMVPData) {
       setDeliverMVPData(activeDeliverMVPData);
     }
-  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, processDescription, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items

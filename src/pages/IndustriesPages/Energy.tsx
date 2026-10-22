@@ -223,16 +223,19 @@ const Energy: React.FC = () => {
 
   const processTitleMain = data?.processHeader?.titleMain || "Energy Software Engineering";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
+  const processDescription = data?.processHeader?.description || 
+    "As part of Leapsofts’s commitment to accelerating clean energy transitions and grid reliability, the following depiction of a typical project lifecycle highlights our agile methodology for CleanTech product engineering. From SCADA protocol ingestion and real-time IoT telemetry pipelines to automated carbon accounting and NERC CIP cybersecurity compliance, our end-to-end development process delivers resilient, production-ready energy software on time, on budget, and on point—every time.";
 
   useEffect(() => {
     setProcessTitle({
       titleMain: processTitleMain,
-      titleAccent: processTitleAccent
+      titleAccent: processTitleAccent,
+      description: processDescription
     });
     if (setDeliverMVPData) {
       setDeliverMVPData(activeDeliverMVPData);
     }
-  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, processDescription, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items

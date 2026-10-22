@@ -223,16 +223,19 @@ const MidSizedBusinesses: React.FC = () => {
 
   const processTitleMain = data?.processHeader?.titleMain || "Enterprise Application Engineering";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
+  const processDescription = data?.processHeader?.description || 
+    "As part of Leapsofts’s commitment to eliminating per-seat SaaS bloat and automating mid-market operational workflows, the following depiction of a typical project lifecycle highlights our agile methodology for enterprise application modernization. From legacy database migration and modular microservices architecture to bespoke ERP/CRM workflows and automated business intelligence dashboards, our end-to-end development process delivers high-ROI enterprise software on time, on budget, and on point—every time.";
 
   useEffect(() => {
     setProcessTitle({
       titleMain: processTitleMain,
-      titleAccent: processTitleAccent
+      titleAccent: processTitleAccent,
+      description: processDescription
     });
     if (setDeliverMVPData) {
       setDeliverMVPData(activeDeliverMVPData);
     }
-  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, processDescription, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items

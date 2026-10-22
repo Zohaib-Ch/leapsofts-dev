@@ -5,14 +5,17 @@
   color: #ffffff;
   position: relative;
   overflow-x: clip;
+  padding-top: 105px;
 }
 
 .breadcrumbBar {
   background: rgba(255, 255, 255, 0.02);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 16px 24px;
+  padding: 14px 24px;
   position: relative;
   z-index: 10;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .breadcrumbContainer {
@@ -25,12 +28,19 @@
   font-size: 13px;
   white-space: nowrap;
   overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.breadcrumbContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .breadcrumbLink {
   color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
   transition: color 0.2s ease;
+  flex-shrink: 0;
 }
 
 .breadcrumbLink:hover {
@@ -39,6 +49,7 @@
 
 .breadcrumbSeparator {
   color: rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
 }
 
 .breadcrumbCurrent {
@@ -46,6 +57,7 @@
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .progressBar {
@@ -62,7 +74,9 @@
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 130px 24px 100px;
+  padding: 36px 24px 100px;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 /* Header Section */
@@ -266,9 +280,11 @@
 /* Article Main Grid Layout */
 .articleGrid {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 280px minmax(0, 1fr);
   gap: 48px;
   align-items: start;
+  width: 100%;
+  min-width: 0;
 }
 
 /* Sidebar ToC */
@@ -372,11 +388,18 @@
 .contentArea {
   max-width: 820px;
   width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .sectionBlock {
   margin-bottom: 48px;
   scroll-margin-top: 120px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .sectionHeading {
@@ -388,6 +411,8 @@
   letter-spacing: -0.01em;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   padding-bottom: 12px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .paragraph {
@@ -395,6 +420,8 @@
   line-height: 1.8;
   color: #e2e8f0;
   margin-bottom: 20px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .paragraph strong {
@@ -410,6 +437,10 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: #0b0b12;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .codeHeader {
@@ -419,6 +450,10 @@
   padding: 12px 20px;
   background: rgba(255, 255, 255, 0.04);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .codeFilename {
@@ -429,6 +464,11 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
 }
 
 .copyCodeBtn {
@@ -442,6 +482,8 @@
   padding: 4px 12px;
   border-radius: 6px;
   cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
@@ -455,10 +497,21 @@
   padding: 20px;
   margin: 0;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
   font-size: 0.92rem;
   line-height: 1.65;
   color: #f1f5f9;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: block;
+}
+
+.codePre code {
+  display: block;
+  min-width: fit-content;
+  white-space: pre;
 }
 
 /* Key Takeaways Box */
@@ -469,6 +522,11 @@
   background: linear-gradient(135deg, rgba(255, 121, 23, 0.1), rgba(198, 60, 146, 0.1));
   border: 1px solid rgba(255, 121, 23, 0.3);
   box-shadow: 0 8px 24px rgba(255, 121, 23, 0.08);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .takeawayHeader {
@@ -498,6 +556,9 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .bulletItem {
@@ -507,6 +568,12 @@
   font-size: 1.05rem;
   color: #e2e8f0;
   line-height: 1.6;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
 }
 
 .bulletIcon {
@@ -767,8 +834,10 @@
 /* Responsive Styles */
 @media (max-width: 1024px) {
   .articleGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 32px;
+    width: 100%;
+    min-width: 0;
   }
 
   .sidebar {
@@ -776,6 +845,7 @@
     margin-bottom: 32px;
     max-height: none;
     width: 100%;
+    min-width: 0;
   }
 
   .coverContainer {
@@ -784,55 +854,81 @@
 
   .relatedGrid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }
 
 @media (max-width: 768px) {
+  .blogDetailWrapper {
+    padding-top: 86px;
+  }
+
+  .breadcrumbBar {
+    padding: 10px 16px;
+  }
+
   .container {
-    padding: 100px 16px 60px;
+    padding: 24px 16px 50px;
   }
 
   .topNav {
     flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .articleTitle {
-    font-size: 1.8rem;
-    margin-bottom: 14px;
-  }
-
-  .articleSubtitle {
-    font-size: 1rem;
+    gap: 10px;
     margin-bottom: 24px;
   }
 
+  .articleTitle {
+    font-size: 1.75rem;
+    margin-bottom: 12px;
+    line-height: 1.25;
+  }
+
+  .articleSubtitle {
+    font-size: 0.98rem;
+    margin-bottom: 20px;
+    line-height: 1.55;
+  }
+
   .coverContainer {
-    height: 260px;
+    height: 250px;
     border-radius: 16px;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
   }
 
   .metaBar {
     width: 100%;
-    border-radius: 20px;
+    border-radius: 18px;
     flex-direction: column;
     gap: 12px;
-    padding: 16px;
+    padding: 14px;
+    box-sizing: border-box;
   }
 
   .metaDivider {
     display: none;
   }
 
+  .metaDetails {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    font-size: 0.82rem;
+  }
+
+  .sectionBlock {
+    margin-bottom: 36px;
+    scroll-margin-top: 100px;
+  }
+
   .sectionHeading {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     padding-bottom: 8px;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
+    line-height: 1.3;
   }
 
   .paragraph {
-    font-size: 0.98rem;
+    font-size: 0.95rem;
     line-height: 1.7;
     margin-bottom: 16px;
   }
@@ -842,9 +938,14 @@
     border-radius: 12px;
   }
 
+  .codeHeader {
+    padding: 10px 14px;
+  }
+
   .codePre {
     padding: 14px;
     font-size: 0.82rem;
+    line-height: 1.6;
   }
 
   .keyTakeawayBox {
@@ -853,80 +954,442 @@
     border-radius: 14px;
   }
 
+  .takeawayHeader {
+    font-size: 0.92rem;
+  }
+
+  .takeawayText {
+    font-size: 0.95rem;
+  }
+
   .quoteBlock {
-    padding: 16px 20px;
+    padding: 16px 18px;
     font-size: 1rem;
     margin: 24px 0;
   }
 
+  .relatedSolutionsSection {
+    padding: 24px 16px;
+    border-radius: 16px;
+    margin: 36px 0;
+  }
+
+  .relatedSolutionsHeading {
+    font-size: 1.15rem;
+  }
+
+  .relatedSolutionsSub {
+    font-size: 0.88rem;
+    margin-bottom: 18px;
+  }
+
+  .solutionsGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .solutionCard {
+    padding: 16px 14px;
+  }
+
+  .relatedContainer {
+    margin-top: 48px;
+    padding-top: 36px;
+  }
+
+  .relatedHeading {
+    font-size: 1.45rem;
+    margin-bottom: 20px;
+  }
+
   .relatedGrid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .ctaBanner {
-    padding: 32px 20px;
+    padding: 32px 18px;
     border-radius: 20px;
+    margin-bottom: 48px;
   }
 
   .ctaHeading {
-    font-size: 1.5rem;
+    font-size: 1.45rem;
+  }
+
+  .ctaDescription {
+    font-size: 0.92rem;
+    margin-bottom: 24px;
   }
 
   .authorSpotlight {
     flex-direction: column;
     text-align: center;
-    padding: 24px 18px;
-    gap: 16px;
+    padding: 24px 16px;
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .solutionsGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 }
 
 @media (max-width: 480px) {
+  .blogDetailWrapper {
+    padding-top: 84px;
+  }
+
+  .breadcrumbBar {
+    padding: 8px 12px;
+  }
+
+  .breadcrumbContainer {
+    font-size: 11px;
+    gap: 6px;
+  }
+
   .container {
-    padding: 90px 12px 40px;
+    padding: 18px 12px 36px;
+  }
+
+  .topNav {
+    margin-bottom: 18px;
+  }
+
+  .backBtn {
+    font-size: 0.8rem;
+    padding: 5px 12px;
+    gap: 6px;
+  }
+
+  .categoryBadge {
+    font-size: 0.72rem;
+    padding: 4px 10px;
+  }
+
+  .headerContent {
+    margin-bottom: 24px;
   }
 
   .articleTitle {
-    font-size: 1.5rem;
+    font-size: 1.45rem;
+    line-height: 1.22;
+    margin-bottom: 10px;
+    word-break: break-word;
+  }
+
+  .articleSubtitle {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .metaBar {
+    padding: 12px;
+    border-radius: 14px;
+    gap: 10px;
+  }
+
+  .authorAvatar {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+
+  .authorName {
+    font-size: 0.88rem;
+  }
+
+  .authorRole {
+    font-size: 0.74rem;
+  }
+
+  .metaDetails {
+    font-size: 0.76rem;
+    gap: 8px;
   }
 
   .coverContainer {
-    height: 210px;
-    border-radius: 14px;
-    margin-bottom: 28px;
+    height: 190px;
+    border-radius: 12px;
+    margin-bottom: 24px;
   }
 
   .tocCard {
-    padding: 18px 16px;
-    border-radius: 16px;
+    padding: 16px 12px;
+    border-radius: 14px;
+  }
+
+  .tocTitle {
+    font-size: 0.75rem;
+    margin-bottom: 12px;
+  }
+
+  .tocLink {
+    font-size: 0.82rem;
+    padding: 5px 10px;
   }
 
   .sidebarCtaCard {
-    padding: 18px 16px;
-    border-radius: 16px;
+    padding: 16px 12px;
+    border-radius: 14px;
+  }
+
+  .sidebarCtaTitle {
+    font-size: 0.92rem;
+  }
+
+  .sidebarCtaDesc {
+    font-size: 0.78rem;
+    margin-bottom: 12px;
+  }
+
+  .sectionBlock {
+    margin-bottom: 28px;
+    scroll-margin-top: 90px;
+  }
+
+  .sectionHeading {
+    font-size: 1.25rem;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    line-height: 1.28;
+  }
+
+  .paragraph {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .codeBlockContainer {
+    margin: 16px 0;
+    border-radius: 10px;
   }
 
   .codeHeader {
-    padding: 10px 14px;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .codeFilename {
+    font-size: 0.76rem;
   }
 
   .copyCodeBtn {
     padding: 3px 8px;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
+  }
+
+  .codePre {
+    padding: 12px;
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+
+  .keyTakeawayBox {
+    padding: 14px 12px;
+    margin: 18px 0;
+    border-radius: 12px;
+  }
+
+  .takeawayHeader {
+    font-size: 0.82rem;
+  }
+
+  .takeawayText {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .bulletList {
+    margin: 16px 0;
+    gap: 10px;
   }
 
   .bulletItem {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    gap: 8px;
+  }
+
+  .quoteBlock {
+    padding: 12px 14px;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin: 18px 0;
+  }
+
+  .relatedSolutionsSection {
+    padding: 16px 12px;
+    border-radius: 14px;
+    margin: 28px 0;
+  }
+
+  .relatedSolutionsHeading {
+    font-size: 1rem;
+    gap: 6px;
+  }
+
+  .relatedSolutionsSub {
+    font-size: 0.8rem;
+    margin-bottom: 14px;
+  }
+
+  .solutionCard {
+    padding: 14px 12px;
+    border-radius: 12px;
+  }
+
+  .solutionTitle {
+    font-size: 0.92rem;
+  }
+
+  .solutionDesc {
+    font-size: 0.78rem;
+    margin-bottom: 8px;
+  }
+
+  .solutionAction {
+    font-size: 0.78rem;
+  }
+
+  .tagsRow {
+    margin: 28px 0;
+    padding-top: 16px;
+    gap: 6px;
+  }
+
+  .tagLabel {
+    font-size: 0.78rem;
   }
 
   .tagPill {
-    font-size: 0.78rem;
-    padding: 4px 10px;
+    font-size: 0.72rem;
+    padding: 3px 8px;
+  }
+
+  .authorSpotlight {
+    padding: 16px 12px;
+    border-radius: 14px;
+    gap: 12px;
+    margin-bottom: 32px;
   }
 
   .spotlightAvatar {
-    width: 60px;
-    height: 60px;
+    width: 52px;
+    height: 52px;
+    font-size: 1.1rem;
+  }
+
+  .spotlightTitle {
+    font-size: 1rem;
+  }
+
+  .spotlightRole {
+    font-size: 0.78rem;
+  }
+
+  .spotlightBio {
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .ctaBanner {
+    padding: 24px 14px;
+    border-radius: 16px;
+    margin-bottom: 36px;
+  }
+
+  .ctaHeading {
     font-size: 1.25rem;
+    line-height: 1.25;
+  }
+
+  .ctaDescription {
+    font-size: 0.84rem;
+    line-height: 1.5;
+    margin-bottom: 18px;
+  }
+
+  .relatedContainer {
+    margin-top: 36px;
+    padding-top: 24px;
+  }
+
+  .relatedHeading {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+  }
+
+  .relatedCardBody {
+    padding: 14px;
+  }
+
+  .relatedCardTitle {
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 16px 10px 32px;
+  }
+
+  .articleTitle {
+    font-size: 1.35rem;
+  }
+
+  .articleSubtitle {
+    font-size: 0.84rem;
+  }
+
+  .sectionHeading {
+    font-size: 1.15rem;
+  }
+
+  .paragraph {
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .codeHeader {
+    padding: 6px 10px;
+  }
+
+  .codeFilename {
+    font-size: 0.72rem;
+  }
+
+  .copyCodeBtn {
+    padding: 2px 6px;
+    font-size: 0.68rem;
+  }
+
+  .codePre {
+    padding: 10px 8px;
+    font-size: 0.74rem;
+  }
+
+  .keyTakeawayBox {
+    padding: 12px 10px;
+  }
+
+  .quoteBlock {
+    padding: 10px 12px;
+    font-size: 0.86rem;
+  }
+
+  .ctaHeading {
+    font-size: 1.15rem;
+  }
+
+  .ctaDescription {
+    font-size: 0.8rem;
   }
 }
 

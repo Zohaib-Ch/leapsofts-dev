@@ -223,16 +223,19 @@ const Construction: React.FC = () => {
 
   const processTitleMain = data?.processHeader?.titleMain || "Construction Product Development";
   const processTitleAccent = data?.processHeader?.titleAccent || "Process";
+  const processDescription = data?.processHeader?.description || 
+    "As part of Leapsofts’s commitment to streamlining jobsite productivity and capital project execution, the following depiction of a typical project lifecycle highlights our agile methodology for ConTech product development. From BIM 3D model cloud streaming and offline-first field inspection mobile apps to automated subcontractor progress tracking and ERP budget reconciliations, our end-to-end development process delivers robust construction software on time, on budget, and on point—every time.";
 
   useEffect(() => {
     setProcessTitle({
       titleMain: processTitleMain,
-      titleAccent: processTitleAccent
+      titleAccent: processTitleAccent,
+      description: processDescription
     });
     if (setDeliverMVPData) {
       setDeliverMVPData(activeDeliverMVPData);
     }
-  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, activeDeliverMVPData]);
+  }, [setProcessTitle, setDeliverMVPData, processTitleMain, processTitleAccent, processDescription, activeDeliverMVPData]);
 
   const activeRelatedServices = (data?.relatedServices?.items && data.relatedServices.items.length > 0)
     ? data.relatedServices.items
