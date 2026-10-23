@@ -20,6 +20,8 @@ import ServiceOverview from '../../components/ServiceOverview/ServiceOverview';
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
 
+const defaultFallbackImage = "/streamline.webp";
+
 const defaultItems: ServiceFeatureItem[] = [
   {
     icon: '/industryicons/sphere.svg',
@@ -110,7 +112,7 @@ const capabilitiesSlides: CapabilitySlide[] = [
     id: 'rehost',
     number: '< 01 >',
     title: 'Workload Rehosting & Replatforming',
-    image: "/streamline.webp",
+    image: defaultFallbackImage,
     items: [
       {
         name: 'Lift-and-Shift Migrations',
@@ -130,7 +132,7 @@ const capabilitiesSlides: CapabilitySlide[] = [
     id: 'relocation',
     number: '< 02 >',
     title: 'Zero-Downtime Data Relocation',
-    image: "/streamline.webp",
+    image: defaultFallbackImage,
     items: [
       {
         name: 'Database Migration Services',
@@ -150,7 +152,7 @@ const capabilitiesSlides: CapabilitySlide[] = [
     id: 'hybrid',
     number: '< 03 >',
     title: 'Hybrid Cloud Integration',
-    image: "/streamline.webp",
+    image: defaultFallbackImage,
     items: [
       {
         name: 'Dedicated Express Interconnects',
@@ -348,7 +350,7 @@ const CloudMigration: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || "Cloud Migration ",
         titleEnd: data.serviceOverview.titleEnd || "& Enterprise Relocation",
         description: data.serviceOverview.description || "At Leapsofts, we specialize in planning and executing high-fidelity cloud migration strategies that transition legacy physical servers, virtual machines, and monolithic databases to auto-scaling AWS, Azure, or GCP cloud environments. By leveraging automated migration tools (AWS MGN, Azure Migrate), live database sync channels (AWS DMS), and secure Landing Zone architectures, we relocate enterprise software with zero business disruption and optimal FinOps performance.",
-        imagePath: data.serviceOverview.imageUrl || "/streamline.webp",
+        imagePath: data.serviceOverview.imageUrl || defaultFallbackImage,
         imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : null;
@@ -358,7 +360,7 @@ const CloudMigration: React.FC = () => {
         id: slide.id || 'slide',
         number: slide.number || '< 01 >',
         title: slide.title || '',
-        image: slide.imageUrl || "/streamline.webp",
+        image: slide.imageUrl || defaultFallbackImage,
         imageLight: slide.imageLightUrl,
         items: slide.items || []
       }))
@@ -402,15 +404,15 @@ const CloudMigration: React.FC = () => {
         titleAccent={activeOverviewData?.titleAccent || "Cloud Migration "}
         titleEnd={activeOverviewData?.titleEnd || "& Enterprise Relocation"}
         description={activeOverviewData?.description || "At Leapsofts, we specialize in planning and executing high-fidelity cloud migration strategies that transition legacy physical servers, virtual machines, and monolithic databases to auto-scaling AWS, Azure, or GCP cloud environments. By leveraging automated migration tools (AWS MGN, Azure Migrate), live database sync channels (AWS DMS), and secure Landing Zone architectures, we relocate enterprise software with zero business disruption and optimal FinOps performance."}
-        imagePath={activeOverviewData?.imagePath || "/streamline.webp"}
-        imagePathLight={activeOverviewData?.imagePathLight || activeOverviewData?.imagePath}
+        imagePath={activeOverviewData?.imagePath || defaultFallbackImage}
+        imagePathLight={activeOverviewData?.imagePathLight}
       />
       )}
       {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
         <Capabilities
         title={data?.capabilitiesSection?.title || "Cloud Migration Capabilities"}
         slides={activeCapabilitiesSlides}
-        defaultImage="/streamline.webp"
+        defaultImage={defaultFallbackImage}
       />
       )}
       {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
@@ -424,7 +426,7 @@ const CloudMigration: React.FC = () => {
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrl={data?.strategyCTA?.imageUrl || defaultFallbackImage}
         imageUrlLight={data?.strategyCTA?.imageLightUrl}
       />
       <ServiceFeatures
