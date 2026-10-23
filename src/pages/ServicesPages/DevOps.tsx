@@ -15,6 +15,71 @@ import { parseFormattedText } from '../../utils/textParser';
 import Capabilities from '../../components/Capabilities/Capabilities';
 
 
+const defaultFallbackImage = "/streamline.webp";
+
+const capabilitiesSlidesDefault = [
+  {
+    id: 'cicd_gitops',
+    number: '< 01 >',
+    title: 'Automated CI/CD Pipelines & GitOps Delivery',
+    image: defaultFallbackImage,
+    items: [
+      {
+        name: 'Multi-Stage Build & Test Gates',
+        description: 'Configuring automated unit testing, linting checks, and SAST vulnerability scans inside GitHub Actions and GitLab CI runners.'
+      },
+      {
+        name: 'ArgoCD GitOps Continuous Rollouts',
+        description: 'Enforcing declarative GitOps release pipelines with automated drift detection and zero-downtime rolling upgrades.'
+      },
+      {
+        name: 'Immutable Docker Container Packaging',
+        description: 'Building minimal, hardened multi-stage Docker container images with signed provenance and vulnerability sweeps.'
+      }
+    ]
+  },
+  {
+    id: 'kubernetes_orchestration',
+    number: '< 02 >',
+    title: 'Kubernetes Container Orchestration & Microservices',
+    image: defaultFallbackImage,
+    items: [
+      {
+        name: 'Managed EKS, AKS & GKE Clusters',
+        description: 'Deploying high-availability Kubernetes production nodes across multi-availability zones with automated failover.'
+      },
+      {
+        name: 'Horizontal Pod Autoscaling (HPA)',
+        description: 'Configuring dynamic CPU/memory autoscaling and Karpenter node provisioning to handle massive traffic surges.'
+      },
+      {
+        name: 'Service Mesh & Ingress Routing',
+        description: 'Deploying Istio service mesh, mTLS mutual authentication, and fine-grained traffic routing between microservices.'
+      }
+    ]
+  },
+  {
+    id: 'iac_telemetry',
+    number: '< 03 >',
+    title: 'Infrastructure as Code & Full-Stack Telemetry',
+    image: defaultFallbackImage,
+    items: [
+      {
+        name: 'Modular Terraform & Pulumi IaC',
+        description: 'Writing version-controlled, reusable Infrastructure as Code modules for reproducible multi-region cloud VPC environments.'
+      },
+      {
+        name: 'Prometheus & Grafana Observability',
+        description: 'Deploying real-time metric collection, custom query dashboards, and distributed tracing across microservices.'
+      },
+      {
+        name: 'Automated PagerDuty & Slack Alerting',
+        description: 'Establishing proactive incident response channels with automated alerting thresholds and runbook links.'
+      }
+    ]
+  }
+];
+
 const servicesData: EmergingTechProps['data'] = {
     label: "DEVOPS SERVICES & AUTOMATION CAPABILITIES",
     titleAccent: "DevOps Solutions & ",
@@ -296,7 +361,7 @@ const DevOps: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || "Operational Agility ",
         titleEnd: data.serviceOverview.titleEnd || "with DevOps",
         description: data.serviceOverview.description || "At Leapsofts, we specialize in building highly resilient, secure DevOps environments designed to accelerate release cycles and eliminate build errors. By writing reusable Terraform modules, containerizing application nodes, and setting up automated testing check gates, our engineers transition development teams into high-velocity continuous deployment setups with maximum uptime.",
-        imagePath: data.serviceOverview.imageUrl || "/streamline.webp",
+        imagePath: data.serviceOverview.imageUrl || defaultFallbackImage,
         imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : null;
@@ -306,11 +371,10 @@ const DevOps: React.FC = () => {
         id: slide.id || 'slide',
         number: slide.number || '< 01 >',
         title: slide.title || '',
-        image: slide.imageUrl || "/streamline.webp",
+        image: slide.imageUrl || defaultFallbackImage,
         imageLight: slide.imageLightUrl,
         items: slide.items || []
-      }))
-    : null;
+      })): capabilitiesSlidesDefault;
 
   const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
     ? data.processes.processPhases.map((phase, index) => ({
@@ -341,12 +405,12 @@ const DevOps: React.FC = () => {
                 titleAccent={activeOverviewData?.titleAccent || "Operational Agility "}
                 titleEnd={activeOverviewData?.titleEnd || "with DevOps"}
                 description={activeOverviewData?.description || "At Leapsofts, we specialize in building highly resilient, secure DevOps environments designed to accelerate release cycles and eliminate build errors. By writing reusable Terraform modules, containerizing application nodes, and setting up automated testing check gates, our engineers transition development teams into high-velocity continuous deployment setups with maximum uptime."}
-                imagePath={activeOverviewData?.imagePath || "/streamline.webp"}
-        imagePathLight={activeOverviewData?.imagePathLight || activeOverviewData?.imagePath}
+                imagePath={activeOverviewData?.imagePath || defaultFallbackImage}
+        imagePathLight={activeOverviewData?.imagePathLight}
             />
             )}
             {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
-              <Capabilities title={data?.capabilitiesSection?.title || "DevOps & Automation Capabilities"} slides={activeCapabilitiesSlides} defaultImage="/streamline.webp" />
+              <Capabilities title={data?.capabilitiesSection?.title || "DevOps & Automation Capabilities"} slides={activeCapabilitiesSlides} defaultImage={defaultFallbackImage} />
             )}
             {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
               <InfoGrid data={activeInfoGridData} />
@@ -359,7 +423,7 @@ const DevOps: React.FC = () => {
                 description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
                 buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
                 buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-                imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
+                imageUrl={data?.strategyCTA?.imageUrl || defaultFallbackImage}
         imageUrlLight={data?.strategyCTA?.imageLightUrl}
             />
             {activeDeliverMVPData && activeDeliverMVPData.items && activeDeliverMVPData.items.length > 0 && (
