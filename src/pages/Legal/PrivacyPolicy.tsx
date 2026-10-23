@@ -97,6 +97,27 @@ const PrivacyPolicy: React.FC = () => {
   const effectiveDate = 'October 2026';
   const [activeId, setActiveId] = useState<string>('section-scope');
   const [mobileTocOpen, setMobileTocOpen] = useState<boolean>(false);
+  const mobileTocRef = React.useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!mobileTocOpen) return;
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (mobileTocRef.current && !mobileTocRef.current.contains(e.target as Node)) {
+        setMobileTocOpen(false);
+      }
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileTocOpen(false);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [mobileTocOpen]);
 
   useEffect(() => {
     const handleScrollSpy = () => {
@@ -153,7 +174,7 @@ const PrivacyPolicy: React.FC = () => {
     e.preventDefault();
     const el = document.getElementById(id);
     if (el) {
-      const yOffset = -110;
+      const yOffset = window.innerWidth <= 1024 ? -145 : -110;
       const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: 'smooth' });
       setActiveId(id);
@@ -243,7 +264,7 @@ const PrivacyPolicy: React.FC = () => {
         {/* ==========================================================================
             Mobile Table of Contents Accordion
             ========================================================================== */}
-        <div className={styles.mobileTocWrapper}>
+        <div className={styles.mobileTocWrapper} ref={mobileTocRef}>
           <button
             type="button"
             className={styles.mobileTocTrigger}
@@ -402,7 +423,7 @@ const PrivacyPolicy: React.FC = () => {
               <ul className={styles.bulletList}>
                 <li>Delivering high-velocity technical scoping, architecture proposals, and MVP project timelines.</li>
                 <li>Conducting confidential engineering review calls with Senior Technical Leads and CTO advisors.</li>
-                <li>Maintaining continuous continuous-integration (CI/CD) pipelines, staging preview environments, and client portals.</li>
+                <li>Maintaining continuous-integration (CI/CD) pipelines, staging preview environments, and client portals.</li>
                 <li>Protecting our digital assets against unauthorized intrusion, credential stuffing, and bot scraping.</li>
                 <li>Complying with statutory accounting, tax reporting, and corporate governance rules.</li>
               </ul>

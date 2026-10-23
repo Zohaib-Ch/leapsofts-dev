@@ -100,8 +100,8 @@ const serviceFeaturesData: ServiceFeatureItem[] = [
 const deliverMVPData = {
   label: "STRATEGY EXCELLENCE",
   title: "Our Commitment to Deliver Your Strategic Product Roadmap in",
-  accentText: "3-5 months?",
-  description: "Leapsofts is a premier software product engineering and strategic consultation partner. By combining fully integrated automated tooling, certified technical scoping experts, and dedicated agile engineering pods, we define, blueprint, and deliver launch-ready software products within an accelerated 3 to 5 month timeline—on time, every time.",
+  accentText: "2-3 weeks",
+  description: "Leapsofts is a premier software product engineering and strategic consultation partner. By combining fully integrated automated tooling, certified technical scoping experts, and dedicated agile engineering pods, we define, blueprint, and deliver launch-ready strategic product roadmaps within an accelerated 2 to 3 week timeline—on time, every time.",
   items: [
     {
       title: "Analytical Market Fit.",

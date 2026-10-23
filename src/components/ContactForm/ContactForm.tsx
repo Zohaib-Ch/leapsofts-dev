@@ -445,14 +445,21 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false, isEmbedded 
                     {submitError && (
                         <div style={{
                             marginTop: '1rem',
-                            padding: '0.75rem 1rem',
+                            padding: '0.85rem 1.1rem',
                             background: 'rgba(239, 68, 68, 0.15)',
                             border: '1px solid rgba(239, 68, 68, 0.4)',
                             borderRadius: '8px',
                             color: '#fca5a5',
-                            fontSize: '0.875rem'
+                            fontSize: '0.875rem',
+                            lineHeight: 1.5
                         }}>
-                            {submitError}
+                            {submitError}{' '}
+                            <a
+                                href="mailto:contact@leapsofts.com"
+                                style={{ color: '#ffffff', textDecoration: 'underline', fontWeight: 600 }}
+                            >
+                                contact@leapsofts.com
+                            </a>
                         </div>
                     )}
 

@@ -50,6 +50,18 @@
     padding-top: 10px;
 }
 
+@media (max-width: 1024px) {
+    .pagePadding {
+        padding-top: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pagePadding {
+        padding-top: 85px;
+    }
+}
+
 /* Specific styling for the sticky contact form variant */
 .stickyForm {
     background: rgba(30, 41, 59, 0.4);

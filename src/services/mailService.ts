@@ -24,9 +24,14 @@ export const sendMail = async (body: mailBody): Promise<MailResponse> => {
         return { success: true, data: response.data };
     } catch (error: any) {
         console.error('Mail delivery failed:', error);
+        const serverError = error.response?.data?.message || error.response?.data?.error;
+        const isTechnical = !serverError || typeof serverError !== 'string' || /status code|500|network|internal/i.test(serverError);
+        
         return {
             success: false,
-            error: error.response?.data?.message || error.message || 'Unable to send message. Please try again later or reach out to contact@leapsofts.com directly.'
+            error: isTechnical
+                ? 'We are temporarily unable to process your inquiry through our automated gateway. Please reach out to contact@leapsofts.com directly, and our team will get back to you promptly.'
+                : serverError
         };
     }
 };

@@ -293,8 +293,8 @@ const Home = (props: { loaderData?: any }) => {
           onButtonClick={(slide) => {
             const path = slide?.buttonPath || sanityData?.hero?.primaryCtaPath || '#contact';
             if (path.startsWith('#')) {
-              const elem = document.getElementById(path.replace('#', ''));
-              if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+              const targetId = path.replace('#', '');
+              smoothScrollToAnchor(targetId);
             } else {
               window.location.href = path;
             }
@@ -372,18 +372,42 @@ const Home = (props: { loaderData?: any }) => {
   );
 };
 
+const smoothScrollToAnchor = (targetId: string) => {
+  const elem = document.getElementById(targetId);
+  if (!elem) return;
+
+  const getTargetPos = () => Math.max(0, elem.getBoundingClientRect().top + window.pageYOffset - 90);
+
+  // Initial smooth scroll
+  window.scrollTo({ top: getTargetPos(), behavior: 'smooth' });
+
+  // On tall dynamic pages, intermediate components (sliders, lazy content) expand during scroll.
+  // Re-check and adjust scroll position at key intervals so viewport lands exactly on target.
+  const delays = [400, 900, 1500, 2400];
+  delays.forEach((delay) => {
+    setTimeout(() => {
+      const targetElem = document.getElementById(targetId);
+      if (!targetElem) return;
+      const rect = targetElem.getBoundingClientRect();
+      if (Math.abs(rect.top - 90) > 60) {
+        window.scrollTo({
+          top: Math.max(0, rect.top + window.pageYOffset - 90),
+          behavior: 'smooth'
+        });
+      }
+    }, delay);
+  });
+};
+
 const HashScroll = () => {
   const { hash } = useLocation();
 
   useEffect(() => {
     if (hash) {
       const id = hash.replace('#', '');
-      const element = document.getElementById(id);
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-      }
+      setTimeout(() => {
+        smoothScrollToAnchor(id);
+      }, 150);
     }
   }, [hash]);
 

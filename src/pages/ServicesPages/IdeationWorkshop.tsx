@@ -101,8 +101,8 @@ const serviceFeaturesData: ServiceFeatureItem[] = [
 const deliverMVPData = {
   label: "IDEATION EXCELLENCE",
   title: "Our Commitment to Deliver Your Discovery Blueprint in",
-  accentText: "3-5 months?",
-  description: "Leapsofts is an elite product ideation and agile discovery workshop partner. By combining fully integrated automated tooling, certified design thinking experts, and dedicated software architects, we define, validate, and blueprint launch-ready software concepts within an accelerated 3 to 5 month timeline—on time, every time.",
+  accentText: "1-2 weeks",
+  description: "Leapsofts is an elite product ideation and agile discovery workshop partner. By combining fully integrated automated tooling, certified design thinking experts, and dedicated software architects, we define, validate, and deliver comprehensive discovery blueprints and actionable roadmaps within a focused 1 to 2 week timeline—on time, every time.",
   items: [
     {
       title: "Empathy Sprints.",

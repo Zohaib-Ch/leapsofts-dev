@@ -17,7 +17,7 @@ interface FAQsProps {
 }
 
 const FAQs: React.FC<FAQsProps> = ({
-    title = "FAQ's",
+    title = "FAQs",
     subtitle,
     faqs: propFaqs,
     items
