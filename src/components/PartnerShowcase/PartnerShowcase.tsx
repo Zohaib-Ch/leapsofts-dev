@@ -80,6 +80,56 @@ const PartnerShowcase: React.FC<PartnerShowcaseProps> = ({ projects, activeProje
     );
 };
 
+const INDUSTRY_PATH_MAP: Record<string, string> = {
+    'project-industry-0': '/industries/automotive',
+    'project-industry-2': '/industries/healthcare',
+    'project-industry-4': '/industries/construction',
+    'project-industry-5': '/industries/energy',
+    'project-industry-6': '/industries/compliance',
+    'project-industry-7': '/industries/startups',
+    'project-industry-8': '/industries/edtech',
+    'project-industry-9': '/industries/compliance',
+    'project-industry-10': '/industries/finance',
+    'project-industry-11': '/industries/transportation',
+    'project-industry-12': '/industries/wholesale-retail',
+    'project-industry-13': '/services/data-science-ai',
+    'automotive': '/industries/automotive',
+    'healthcare': '/industries/healthcare',
+    'construction': '/industries/construction',
+    'energy': '/industries/energy',
+    'compliance': '/industries/compliance',
+    'startups': '/industries/startups',
+    'edtech': '/industries/edtech',
+    'education': '/industries/edtech',
+    'forensics': '/industries/compliance',
+    'finance': '/industries/finance',
+    'fintech': '/industries/finance',
+    'transportation': '/industries/transportation',
+    'wholesale-retail': '/industries/wholesale-retail',
+    'wholesale and retail': '/industries/wholesale-retail',
+    'ai & automation': '/services/data-science-ai',
+    'ai-automation': '/services/data-science-ai',
+};
+
+const resolveIndustryPath = (name?: string, id?: string): string => {
+    const cleanId = (id || '').toLowerCase().trim();
+    if (INDUSTRY_PATH_MAP[cleanId]) return INDUSTRY_PATH_MAP[cleanId];
+    const cleanName = (name || '').toLowerCase().trim();
+    if (INDUSTRY_PATH_MAP[cleanName]) return INDUSTRY_PATH_MAP[cleanName];
+    if (cleanName.includes('auto')) return '/industries/automotive';
+    if (cleanName.includes('health')) return '/industries/healthcare';
+    if (cleanName.includes('compliance') || cleanName.includes('forensic')) return '/industries/compliance';
+    if (cleanName.includes('finance') || cleanName.includes('fintech')) return '/industries/finance';
+    if (cleanName.includes('edtech') || cleanName.includes('education')) return '/industries/edtech';
+    if (cleanName.includes('construction')) return '/industries/construction';
+    if (cleanName.includes('energy')) return '/industries/energy';
+    if (cleanName.includes('startup')) return '/industries/startups';
+    if (cleanName.includes('transport')) return '/industries/transportation';
+    if (cleanName.includes('wholesale') || cleanName.includes('retail')) return '/industries/wholesale-retail';
+    if (cleanName.includes('ai') || cleanName.includes('automation')) return '/services/data-science-ai';
+    return '/industries/automotive';
+};
+
 const ShowcaseItem: React.FC<{ data: PartnerData }> = ({ data }) => {
     const swiperSlide = useSwiperSlide();
     const navigate = useNavigate();
@@ -192,7 +242,19 @@ const ShowcaseItem: React.FC<{ data: PartnerData }> = ({ data }) => {
                     </div>
 
                     <div className={styles.cardContent}>
-                        <motion.div className={styles.brandHeader} custom={1} animate={animateState} initial="hidden" variants={dropVariants}>
+                        <motion.div
+                            className={styles.brandHeader}
+                            custom={1}
+                            animate={animateState}
+                            initial="hidden"
+                            variants={dropVariants}
+                            onClick={() => {
+                                const path = resolveIndustryPath(data.brand?.name, data.id);
+                                if (path) navigate(path);
+                            }}
+                            style={{ cursor: 'pointer' }}
+                            title={`Explore ${data.brand?.name || 'Industry'} solutions`}
+                        >
                             {data.brand?.logo && <img src={data.brand.logo} alt={data.brand.name || 'Brand'} className={styles.brandIcon} />}
                             <h2 className={styles.brandTitle}>{data.brand?.name}</h2>
                         </motion.div>

@@ -1023,7 +1023,7 @@ export const projectsData: ProjectData[] = [
             ]
         }
     },
-    {
+    {   
         type: 'project',
         id: 'pinoyaya',
         brand: {

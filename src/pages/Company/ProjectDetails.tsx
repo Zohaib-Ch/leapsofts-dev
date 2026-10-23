@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { useParams, useLoaderData } from 'react-router';
+import { useParams, useLoaderData, redirect, useNavigate } from 'react-router';
 import { projectsData } from '../../data/projectsData';
 import ImpactShowcase from '../../components/ImpactShowcase/ImpactShowcase';
 import ExecutiveSummary from '../../components/ExecutiveSummary/ExecutiveSummary';
@@ -11,15 +11,105 @@ import type { SanityCaseStudy } from '../../sanity/types';
 import { buildPageMeta } from '../../utils/seoHelper';
 import styles from './ProjectDetails.module.css';
 
+const INDUSTRY_REDIRECTS: Record<string, string> = {
+    'project-industry-0': '/industries/automotive',
+    'project-industry-2': '/industries/healthcare',
+    'project-industry-4': '/industries/construction',
+    'project-industry-5': '/industries/energy',
+    'project-industry-6': '/industries/compliance',
+    'project-industry-7': '/industries/startups',
+    'project-industry-8': '/industries/edtech',
+    'project-industry-9': '/industries/compliance',
+    'project-industry-10': '/industries/finance',
+    'project-industry-11': '/industries/transportation',
+    'project-industry-12': '/industries/wholesale-retail',
+    'project-industry-13': '/services/data-science-ai',
+    'automotive': '/industries/automotive',
+    'healthcare': '/industries/healthcare',
+    'construction': '/industries/construction',
+    'energy': '/industries/energy',
+    'compliance': '/industries/compliance',
+    'startups': '/industries/startups',
+    'edtech': '/industries/edtech',
+    'education': '/industries/edtech',
+    'forensics': '/industries/compliance',
+    'finance': '/industries/finance',
+    'fintech': '/industries/finance',
+    'transportation': '/industries/transportation',
+    'wholesale-retail': '/industries/wholesale-retail',
+    'wholesale-and-retail': '/industries/wholesale-retail',
+    'ai-automation': '/services/data-science-ai',
+    'ai-and-automation': '/services/data-science-ai',
+};
+
+const resolveIndustryRedirect = (id: string): string | null => {
+    const cleanId = id.toLowerCase().trim();
+    if (INDUSTRY_REDIRECTS[cleanId]) return INDUSTRY_REDIRECTS[cleanId];
+
+    const industryInProjects = projectsData.find(
+        p => p.type === 'industry' && (
+            p.id.toLowerCase() === cleanId ||
+            p.brand?.name?.toLowerCase().replace(/\s+/g, '-') === cleanId ||
+            p.brand?.name?.toLowerCase().trim() === cleanId
+        )
+    );
+
+    if (industryInProjects) {
+        if (INDUSTRY_REDIRECTS[industryInProjects.id.toLowerCase()]) {
+            return INDUSTRY_REDIRECTS[industryInProjects.id.toLowerCase()];
+        }
+        const name = industryInProjects.brand?.name?.toLowerCase() || '';
+        if (name.includes('auto')) return '/industries/automotive';
+        if (name.includes('health')) return '/industries/healthcare';
+        if (name.includes('compliance') || name.includes('forensic')) return '/industries/compliance';
+        if (name.includes('finance') || name.includes('fintech')) return '/industries/finance';
+        if (name.includes('edtech') || name.includes('education')) return '/industries/edtech';
+        if (name.includes('construction')) return '/industries/construction';
+        if (name.includes('energy')) return '/industries/energy';
+        if (name.includes('startup')) return '/industries/startups';
+        if (name.includes('transport')) return '/industries/transportation';
+        if (name.includes('wholesale') || name.includes('retail')) return '/industries/wholesale-retail';
+        if (name.includes('ai') || name.includes('automation')) return '/services/data-science-ai';
+        return '/projects';
+    }
+
+    return null;
+};
+
 export async function loader({ params }: { params: { id?: string } }) {
     if (!params.id) return { sanityProject: null, fallbackProject: null };
+
+    // 1. If an industry route/ID was requested at /projects/:id, redirect to the proper industry page
+    const industryRedirectPath = resolveIndustryRedirect(params.id);
+    if (industryRedirectPath) {
+        return redirect(industryRedirectPath);
+    }
+
     const sanityProject = await getSanityCaseStudyById(params.id).catch(() => null);
-    const fallbackProject = projectsData.find(project => project.id === params.id) || null;
-    return { sanityProject, fallbackProject };
+
+    // If Sanity returned a case study document that is an industry portfolio, redirect
+    if (sanityProject && sanityProject.type === 'industry') {
+        const targetPath = resolveIndustryRedirect(sanityProject.slug || sanityProject.id || '') || '/projects';
+        return redirect(targetPath);
+    }
+
+    // 2. Fallback project MUST be of type 'project' (never an industry)
+    const fallbackProject = projectsData.find(project =>
+        project.type === 'project' && (
+            project.id === params.id ||
+            project.brand?.name?.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '') === params.id.toLowerCase()
+        )
+    ) || null;
+
+    return {
+        sanityProject: sanityProject?.type === 'project' ? sanityProject : null,
+        fallbackProject
+    };
 }
 
 export function meta({ data, params }: { data?: any; params?: any }) {
-    const project = data?.sanityProject || data?.fallbackProject;
+    const project = (data?.sanityProject?.type === 'project' ? data.sanityProject : null) ||
+                    (data?.fallbackProject?.type === 'project' ? data.fallbackProject : null);
     const title = project?.impact?.title || project?.title || 'Case Study Details';
     const description = typeof project?.summary === 'string'
         ? project.summary
@@ -37,16 +127,36 @@ export function meta({ data, params }: { data?: any; params?: any }) {
 const ProjectDetails: React.FC = () => {
     const loaderData = useLoaderData<typeof loader>();
     const { id } = useParams<{ id: string }>();
-    const [sanityProject, setSanityProject] = useState<SanityCaseStudy | null>(loaderData?.sanityProject || null);
+    const navigate = useNavigate();
+    const [sanityProject, setSanityProject] = useState<SanityCaseStudy | null>(
+        loaderData?.sanityProject?.type === 'project' ? loaderData.sanityProject : null
+    );
     const [isLoading, setIsLoading] = useState<boolean>(!loaderData);
 
+    // Client-side safeguard against directly loaded industry routes
+    useEffect(() => {
+        if (id) {
+            const redirectPath = resolveIndustryRedirect(id);
+            if (redirectPath) {
+                navigate(redirectPath, { replace: true });
+            }
+        }
+    }, [id, navigate]);
+
     const projectData = useMemo(() => {
-        return loaderData?.fallbackProject || projectsData.find(project => project.id === id);
+        const lp = loaderData?.fallbackProject;
+        if (lp && lp.type === 'project') return lp;
+        return projectsData.find(project =>
+            project.type === 'project' && (
+                project.id === id ||
+                project.brand?.name?.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '') === (id || '').toLowerCase()
+            )
+        ) || null;
     }, [id, loaderData]);
 
     // Synchronize state immediately when navigating between project case studies
     useEffect(() => {
-        setSanityProject(loaderData?.sanityProject || null);
+        setSanityProject(loaderData?.sanityProject?.type === 'project' ? loaderData.sanityProject : null);
         setIsLoading(!loaderData?.sanityProject);
     }, [id, loaderData]);
 
@@ -57,7 +167,17 @@ const ProjectDetails: React.FC = () => {
             getSanityCaseStudyById(id)
                 .then((data) => {
                     if (isMounted) {
-                        if (data) setSanityProject(data);
+                        if (data) {
+                            if (data.type === 'industry') {
+                                const redirectPath = resolveIndustryRedirect(data.slug || data.id || id);
+                                if (redirectPath) {
+                                    navigate(redirectPath, { replace: true });
+                                    return;
+                                }
+                            } else {
+                                setSanityProject(data);
+                            }
+                        }
                         setIsLoading(false);
                     }
                 })
@@ -70,7 +190,7 @@ const ProjectDetails: React.FC = () => {
         return () => {
             isMounted = false;
         };
-    }, [id, loaderData]);
+    }, [id, loaderData, navigate]);
 
     if (isLoading && !projectData) {
         return (
@@ -220,10 +340,12 @@ const ProjectDetails: React.FC = () => {
                         details={executiveSummaryData.details}
                     />
 
-                    <TechStack
-                        title={techStackData.title}
-                        items={techStackData.items}
-                    />
+                    {techStackData.items && techStackData.items.length > 0 && techStackData.items.some(i => i.techs && i.techs.length > 0) && (
+                        <TechStack
+                            title={techStackData.title}
+                            items={techStackData.items}
+                        />
+                    )}
                 </div>
 
                 <div className={styles.rightColumn}>

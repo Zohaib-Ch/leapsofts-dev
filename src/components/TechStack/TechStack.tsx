@@ -20,6 +20,11 @@ interface TechStackProps {
 }
 
 const TechStack: React.FC<TechStackProps> = ({ title, items }) => {
+    const hasTechs = Array.isArray(items) && items.some(item => Array.isArray(item.techs) && item.techs.length > 0);
+    if (!hasTechs) {
+        return null;
+    }
+
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {

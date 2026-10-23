@@ -68,36 +68,48 @@ const ImpactShowcase: React.FC<ImpactShowcaseProps> = ({
                         {title}
                     </motion.h2>
 
-                    <div className={styles.deliverablesWrapper}>
-                        <motion.p className={styles.resultsLabel} variants={itemVariants}>
-                            Major Deliverables
-                        </motion.p>
+                    {(() => {
+                        const validDeliverables = (deliverables || []).filter(item => {
+                            const text = typeof item === 'string'
+                                ? item.trim()
+                                : (item?.name || item?.title || item?.label || '').trim();
+                            return Boolean(text);
+                        });
 
-                        <div className={styles.deliverablesGrid}>
-                            {deliverables.map((item, index) => {
-                                const text = typeof item === 'string'
-                                    ? item
-                                    : (item?.name || item?.title || item?.label || '');
-                                if (!text) return null;
-                                return (
-                                    <motion.div
-                                        key={index}
-                                        className={styles.deliverableCard}
-                                        variants={itemVariants}
-                                        whileHover={{ y: -4 }}
-                                    >
-                                        <div className={styles.deliverableContent}>
-                                            <div className={styles.deliverableIndicator}>
-                                                <ArrowRight size={16} />
-                                            </div>
-                                            <span className={styles.deliverableText}>{text}</span>
-                                        </div>
-                                        <div className={styles.cardGlow} />
-                                    </motion.div>
-                                );
-                            })}
-                        </div>
-                    </div>
+                        if (validDeliverables.length === 0) return null;
+
+                        return (
+                            <div className={styles.deliverablesWrapper}>
+                                <motion.p className={styles.resultsLabel} variants={itemVariants}>
+                                    Major Deliverables
+                                </motion.p>
+
+                                <div className={styles.deliverablesGrid}>
+                                    {validDeliverables.map((item, index) => {
+                                        const text = typeof item === 'string'
+                                            ? item
+                                            : (item?.name || item?.title || item?.label || '');
+                                        return (
+                                            <motion.div
+                                                key={index}
+                                                className={styles.deliverableCard}
+                                                variants={itemVariants}
+                                                whileHover={{ y: -4 }}
+                                            >
+                                                <div className={styles.deliverableContent}>
+                                                    <div className={styles.deliverableIndicator}>
+                                                        <ArrowRight size={16} />
+                                                    </div>
+                                                    <span className={styles.deliverableText}>{text}</span>
+                                                </div>
+                                                <div className={styles.cardGlow} />
+                                            </motion.div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        );
+                    })()}
                 </motion.div>
 
                 {/* Right Column */}
