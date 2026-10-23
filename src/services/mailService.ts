@@ -30,7 +30,7 @@ export const sendMail = async (body: mailBody): Promise<MailResponse> => {
         return {
             success: false,
             error: isTechnical
-                ? 'We are temporarily unable to process your inquiry through our automated gateway. Please reach out to contact@leapsofts.com directly, and our team will get back to you promptly.'
+                ? 'We are temporarily unable to process your inquiry through our automated gateway. Please reach out to us directly at'
                 : serverError
         };
     }

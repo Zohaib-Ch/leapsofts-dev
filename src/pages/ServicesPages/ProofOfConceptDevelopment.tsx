@@ -147,8 +147,8 @@ const serviceFeaturesData: ServiceFeatureItem[] = [
 const deliverMVPData = {
   label: "POC EXCELLENCE",
   title: "Our Commitment to Deliver Your Feasibility Demonstrator in",
-  accentText: "3-5 months?",
-  description: "Leapsofts is an elite technical feasibility and Proof of Concept development partner. By combining fully integrated automated tooling, certified systems engineers, and dedicated product strategists, we scoping, code, and deliver functional validation sandboxes within an accelerated 3 to 5 month timeline—on time, every time.",
+  accentText: "2-4 Weeks",
+  description: "Leapsofts is an elite technical feasibility and Proof of Concept development partner. By combining fully integrated automated tooling, certified systems engineers, and dedicated product strategists, we scope, engineer, and deliver functional validation sandboxes within an accelerated 2 to 4 week timeline—on time, every time.",
   items: [
     {
       title: "Rapid Sandbox Setups.",

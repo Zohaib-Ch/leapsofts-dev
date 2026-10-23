@@ -172,13 +172,13 @@ const PrivacyPolicy: React.FC = () => {
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
+    setMobileTocOpen(false);
+    setActiveId(id);
     const el = document.getElementById(id);
     if (el) {
-      const yOffset = window.innerWidth <= 1024 ? -145 : -110;
+      const yOffset = window.innerWidth <= 768 ? -165 : window.innerWidth <= 1024 ? -150 : -110;
       const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-      setActiveId(id);
-      setMobileTocOpen(false);
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
     }
   };
 

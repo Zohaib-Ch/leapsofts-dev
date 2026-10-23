@@ -51,38 +51,12 @@ export const MetaSEO: React.FC<MetaSEOProps> = ({
     }
   }, [title]);
 
-  return (
-    <>
-      {/* Title & Standard Meta Tags */}
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      <meta name="keywords" content={keywords} />
-      {seo?.noIndex && <meta name="robots" content="noindex, nofollow" />}
-      <link rel="canonical" href={canonicalUrl} />
-
-      {/* Open Graph Tags */}
-      <meta property="og:site_name" content="Leapsofts" />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:type" content="website" />
-      {ogImage && <meta property="og:image" content={ogImage} />}
-
-      {/* Twitter Cards */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      {ogImage && <meta name="twitter:image" content={ogImage} />}
-
-      {/* Structured Data (JSON-LD) */}
-      {schema && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      )}
-    </>
-  );
+  return schema ? (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  ) : null;
 };
 
 export default MetaSEO;

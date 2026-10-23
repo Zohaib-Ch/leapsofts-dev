@@ -91,8 +91,14 @@ const ContactForm: React.FC<ContactFormProps> = ({ isSticky = false, isEmbedded 
                 }
                 break;
             case "phone":
-                if (!value) {
+                if (!value || (typeof value === "string" && value.trim() === "")) {
                     return "This field is required";
+                }
+                if (typeof value === "string") {
+                    const cleaned = value.replace(/[\s\-\(\)\+]/g, "");
+                    if (/[a-zA-Z]/.test(value) || !/^\d{7,15}$/.test(cleaned)) {
+                        return "Please enter a valid phone number";
+                    }
                 }
                 break;
             case "company":

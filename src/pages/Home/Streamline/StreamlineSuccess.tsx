@@ -31,8 +31,15 @@ const StreamlineSuccess: React.FC<StreamlineSuccessProps> = ({
 }) => {
     const { theme } = useTheme();
     const { openContactModal } = useContactModal();
-    const darkImage = imageUrl || "/streamline.webp";
-    const lightImage = imageUrlLight || darkImage;
+    const optimizeImage = (url?: string) => {
+        if (!url) return "/streamline.webp";
+        if (url.includes("streamline.png")) {
+            return url.replace("streamline.png", "streamline.webp");
+        }
+        return url;
+    };
+    const darkImage = optimizeImage(imageUrl);
+    const lightImage = optimizeImage(imageUrlLight || darkImage);
     const finalImage = theme === 'light' ? lightImage : darkImage;
 
     const cleanTitleMain = (titleMain || "Map your ")
