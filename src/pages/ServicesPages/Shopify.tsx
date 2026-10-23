@@ -126,7 +126,7 @@ const serviceFeaturesData: ServiceFeatureItem[] = [
 const deliverMVPData = {
   label: "SHOPIFY EXCELLENCE",
   title: "Our Commitment to Deliver Your Commerce Setup in",
-  accentText: "3-5 months?",
+  accentText: "3-5 months",
   description: "Leapsofts is an elite custom e-commerce engineering partner. By combining fully integrated CI/CD, certified Shopify developers, and dedicated agile pods, we implement and deploy enterprise-ready Shopify storefronts within an accelerated 3 to 5 month timeline—on time, every time.",
   items: [
     {

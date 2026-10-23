@@ -10,6 +10,13 @@ export function meta() {
   ];
 }
 
+export async function loader() {
+  return new Response("Not Found", {
+    status: 404,
+    statusText: "Not Found",
+  });
+}
+
 const Error: React.FC = () => {
     const navigate = useNavigate();
 

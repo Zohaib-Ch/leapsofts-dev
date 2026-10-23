@@ -298,12 +298,19 @@ const HeroSlider: React.FC<HeroSliderProps> = ({
                 {slides.map((slide, idx) => {
                     const isActive = idx === currentSlide;
                     const isLight = theme === 'light';
-                    const currentBg = isLight && slide.backgroundImageLight
+                    const rawBg = isLight && slide.backgroundImageLight
                         ? slide.backgroundImageLight
                         : slide.backgroundImage;
                     const currentAlt = isLight && slide.backgroundAltLight
                         ? slide.backgroundAltLight
                         : slide.backgroundAlt;
+
+                    const isSanity = rawBg.includes('cdn.sanity.io');
+                    const separator = rawBg.includes('?') ? '&' : '?';
+                    const currentBg = isSanity ? `${rawBg}${separator}auto=format&fit=max&w=1200&q=80` : rawBg;
+                    const srcSet = isSanity
+                        ? `${rawBg}${separator}auto=format&fit=max&w=640&q=80 640w, ${rawBg}${separator}auto=format&fit=max&w=1024&q=80 1024w, ${rawBg}${separator}auto=format&fit=max&w=1376&q=80 1376w`
+                        : undefined;
 
                     return (
                         <div
@@ -312,6 +319,8 @@ const HeroSlider: React.FC<HeroSliderProps> = ({
                         >
                             <img
                                 src={currentBg}
+                                srcSet={srcSet}
+                                sizes="100vw"
                                 alt={currentAlt}
                                 className={styles.backgroundImage}
                                 loading={idx === 0 ? 'eager' : 'lazy'}

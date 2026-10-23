@@ -48,7 +48,8 @@ export function meta({ data }: { data?: any }) {
     { name: "twitter:title", content: title },
     { name: "twitter:description", content: description },
     { name: "twitter:image", content: ogImage },
-    { tagName: "link", rel: "canonical", href: canonicalUrl }
+    { tagName: "link", rel: "canonical", href: canonicalUrl },
+    { tagName: "link", rel: "preload", as: "image", href: "https://cdn.sanity.io/images/egqy3ztp/production/300a88c669f0a4b78f69b76ce9f0443debaa18e3-1376x768.jpg?auto=format&fit=max&w=1200&q=80", fetchpriority: "high" }
   ];
 }
 

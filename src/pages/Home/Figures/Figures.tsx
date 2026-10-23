@@ -16,7 +16,7 @@ const highlightsData: StatItem[] = [
     {
         number: 21,
         suffix: '',
-        title: 'Decades of Engineering',
+        title: 'Years of Engineering',
         tag: 'EXPERIENCE',
         text: 'Years of engineering dependable, high-impact digital products for global tech leaders.',
         icon: Award,
@@ -64,7 +64,7 @@ const highlightsData: StatItem[] = [
 ];
 
 const defaultFallbacks = [
-    { title: 'Decades of Engineering', tag: 'EXPERIENCE', icon: Award },
+    { title: 'Years of Engineering', tag: 'EXPERIENCE', icon: Award },
     { title: 'Senior Tech Specialists', tag: 'GLOBAL TALENT', icon: Users },
     { title: 'Global Delivery Hubs', tag: 'WORLDWIDE HQ', icon: Globe2 },
     { title: 'Enterprise Launches', tag: 'DEPLOYMENTS', icon: Rocket },
