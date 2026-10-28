@@ -12,7 +12,72 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import FAQs from '../../components/FAQs/FAQs';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
-import Capabilities from '../../components/Capabilities/Capabilities';
+import Capabilities, { type CapabilitySlide } from '../../components/Capabilities/Capabilities';
+
+const defaultFallbackImage = "/streamline.webp";
+
+const capabilitiesSlidesDefault: CapabilitySlide[] = [
+  {
+    id: 'monolithic-decoupling',
+    number: '< 01 >',
+    title: 'Monolithic Decoupling & Microservices Architecture',
+    image: defaultFallbackImage,
+    items: [
+      {
+        name: 'Strangler Fig Migration Framework',
+        description: 'Systematically intercepting legacy mainframe routes via API gateways and extracting discrete business functions into agile containerized microservices.'
+      },
+      {
+        name: 'Zero-Downtime Canary cutovers',
+        description: 'Deploying modern Kubernetes container pods alongside legacy systems with automated traffic-shifting canary releases to prevent service disruption.'
+      },
+      {
+        name: 'Clean Codebase Architecture',
+        description: 'Eliminating brittle spaghetti code, circular dependencies, and undocumented routines with type-safe TypeScript and Go services.'
+      }
+    ]
+  },
+  {
+    id: 'unified-data-lakes',
+    number: '< 02 >',
+    title: 'Unified Enterprise Data Lakes & Analytics',
+    image: defaultFallbackImage,
+    items: [
+      {
+        name: 'Snowflake & BigQuery Data Consolidation',
+        description: 'Aggregating disconnected CRM, ERP, and operational database silos into a centralized, highly scalable cloud data lake.'
+      },
+      {
+        name: 'Continuous ELT & CDC Data Streaming',
+        description: 'Building automated Change Data Capture (CDC) replication pipelines to ingest high-frequency transactional data with zero delay.'
+      },
+      {
+        name: 'Predictive Corporate Intelligence',
+        description: 'Embedding machine learning scoring models, automated anomaly detection, and real-time executive BI reporting directly into operational workflows.'
+      }
+    ]
+  },
+  {
+    id: 'process-automation-grid',
+    number: '< 03 >',
+    title: 'Intelligent Process Automation & API Grid',
+    image: defaultFallbackImage,
+    items: [
+      {
+        name: 'Event-Driven Kafka & GraphQL Message Bus',
+        description: 'Connecting fragmented enterprise applications into a resilient, decoupled event mesh with sub-millisecond data synchronization.'
+      },
+      {
+        name: 'Autonomous Serverless Automation Bots',
+        description: 'Implementing intelligent process automation (IPA) bots to handle repetitive cross-departmental data validation, approvals, and onboarding.'
+      },
+      {
+        name: 'Omnichannel API Gateway Integration',
+        description: 'Powering unified transaction flows across web storefronts, mobile platforms, enterprise ERPs, and partner APIs through high-security gateway shields.'
+      }
+    ]
+  }
+];
 
 
 const serviceOverviewData = {
@@ -21,7 +86,7 @@ const serviceOverviewData = {
   titleAccent: "Digital Evolution",
   titleEnd: "Roadmaps",
   description: "At Leapsofts, we guide mid-market and enterprise organizations through structural digital evolution campaigns, transforming legacy dependencies into modern growth assets. Our solutions architects evaluate code-level technical debt, plan monolithic-to-microservices migrations, and build secure, data-driven cloud systems that meet strict operational metrics and security certifications.",
-  imagePath: "/streamline.webp"
+  imagePath: defaultFallbackImage
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
@@ -307,7 +372,7 @@ const DigitalEvolution: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleAccent : ''),
         titleEnd: data.serviceOverview.titleEnd || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.titleEnd : ''),
         description: data.serviceOverview.description || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.description : ''),
-        imagePath: data.serviceOverview.imageUrl || (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData.imagePath : undefined),
+        imagePath: data.serviceOverview.imageUrl || defaultFallbackImage,
         imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : (typeof serviceOverviewData !== 'undefined' ? serviceOverviewData : null);
@@ -317,11 +382,11 @@ const DigitalEvolution: React.FC = () => {
         id: slide.id || 'slide',
         number: slide.number || '< 01 >',
         title: slide.title || '',
-        image: slide.imageUrl || "/streamline.webp",
+        image: slide.imageUrl || defaultFallbackImage,
         imageLight: slide.imageLightUrl,
         items: slide.items || []
       }))
-    : null;
+    : capabilitiesSlidesDefault;
 
   const activeProcessPhases: ProcessPhase[] = (data?.processes?.processPhases && data.processes.processPhases.length > 0)
     ? data.processes.processPhases.map((phase, index) => ({
@@ -358,12 +423,12 @@ const DigitalEvolution: React.FC = () => {
           titleAccent={activeOverviewData.titleAccent}
           titleEnd={activeOverviewData.titleEnd}
           description={activeOverviewData.description}
-          imagePath={activeOverviewData.imagePath}
+          imagePath={activeOverviewData.imagePath || defaultFallbackImage}
           imagePathLight={activeOverviewData.imagePathLight}
         />
       )}
       {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
-        <Capabilities title={data?.capabilitiesSection?.title || "Digital Evolution Capabilities"} slides={activeCapabilitiesSlides} defaultImage="/streamline.webp" />
+        <Capabilities title={data?.capabilitiesSection?.title || "Digital Evolution Capabilities"} slides={activeCapabilitiesSlides} defaultImage={defaultFallbackImage} />
       )}
       {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
         <InfoGrid data={activeInfoGridData} />
@@ -376,7 +441,7 @@ const DigitalEvolution: React.FC = () => {
         description={strategyCTA?.descriptionText ? [{ text: strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         buttonText={strategyCTA?.buttonText}
         buttonPath={strategyCTA?.buttonPath}
-        imageUrl={strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrl={strategyCTA?.imageUrl || defaultFallbackImage}
         imageUrlLight={strategyCTA?.imageLightUrl}
       />
       <ServiceFeatures

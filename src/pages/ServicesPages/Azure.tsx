@@ -13,12 +13,14 @@ import Processes, { type ProcessPhase } from '../../components/Processes/Process
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
 import { parseFormattedText } from '../../utils/textParser';
+const defaultFallbackImage = "/streamline.webp";
+
 const capabilitiesSlides: CapabilitySlide[] = [
   {
     id: 'azure-data-ai',
     number: '< 01 >',
     title: 'Azure Data & Enterprise Analytics',
-    image: "/streamline.webp",
+    image: defaultFallbackImage,
     items: [
       {
         name: 'Azure Databricks Spark Engine',
@@ -42,7 +44,7 @@ const capabilitiesSlides: CapabilitySlide[] = [
     id: 'azure-platform-security',
     number: '< 02 >',
     title: 'Azure Identity & Security Hardening',
-    image: "/streamline.webp",
+    image: defaultFallbackImage,
     items: [
       {
         name: 'Microsoft Entra ID Directories',
@@ -61,6 +63,26 @@ const capabilitiesSlides: CapabilitySlide[] = [
         description: 'Enforcing corporate governance rules, automated resource limits, and real-time environment isolation metrics.'
       }
     ]
+  },
+  {
+    id: 'azure-aks-hybrid',
+    number: '< 03 >',
+    title: 'Azure Kubernetes (AKS) & Hybrid Azure Arc',
+    image: defaultFallbackImage,
+    items: [
+      {
+        name: 'Managed Azure Kubernetes Service (AKS)',
+        description: 'Deploying mission-critical containerized microservices with automated node scaling, private cluster endpoints, and Entra Workload Identity.'
+      },
+      {
+        name: 'Azure Arc Hybrid Infrastructure Bridge',
+        description: 'Unifying governance and security posture across on-premises datacenters, multi-cloud clusters, and edge appliances through a single Azure control plane.'
+      },
+      {
+        name: 'ExpressRoute & Transit Virtual Networks',
+        description: 'Configuring dedicated private hybrid network circuits with sub-10ms latency and high-throughput Hub-Spoke VNet peering topology.'
+      }
+    ]
   }
 ];
 
@@ -70,7 +92,7 @@ const serviceOverviewData = {
   titleAccent: "Hybrid Azure ",
   titleEnd: "Environments",
   description: "At Leapsofts, we help modern enterprises maximize their infrastructure efficiency, automate software releases, and optimize operating costs on Microsoft Azure. Our Microsoft-certified engineers develop modular Azure Bicep blueprints, deploy containerized microservices via Azure Kubernetes Service (AKS), and design robust data repositories that satisfy strict SOC2, HIPAA, and GDPR compliance rules.",
-  imagePath: "/streamline.webp"
+  imagePath: defaultFallbackImage
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
@@ -312,7 +334,7 @@ const Azure: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
         titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
         description: data.serviceOverview.description || serviceOverviewData.description,
-        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath,
+        imagePath: data.serviceOverview.imageUrl || defaultFallbackImage,
         imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : serviceOverviewData;
@@ -322,7 +344,7 @@ const Azure: React.FC = () => {
         id: slide.id || 'slide',
         number: slide.number || '< 01 >',
         title: slide.title || '',
-        image: slide.imageUrl || "/streamline.webp",
+        image: slide.imageUrl || defaultFallbackImage,
         imageLight: slide.imageLightUrl,
         items: slide.items || []
       }))
@@ -400,7 +422,7 @@ const Azure: React.FC = () => {
           titleAccent={activeOverviewData.titleAccent}
           titleEnd={activeOverviewData.titleEnd}
           description={activeOverviewData.description}
-          imagePath={activeOverviewData.imagePath}
+          imagePath={activeOverviewData.imagePath || defaultFallbackImage}
           imagePathLight={activeOverviewData.imagePathLight}
         />
       )}
@@ -408,7 +430,7 @@ const Azure: React.FC = () => {
         <Capabilities
           slides={activeCapabilitiesSlides}
           title={data?.capabilitiesSection?.title || "Our Azure Capabilities"}
-          defaultImage="/streamline.webp"
+          defaultImage={defaultFallbackImage}
         />
       )}
       {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
@@ -422,7 +444,7 @@ const Azure: React.FC = () => {
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrl={data?.strategyCTA?.imageUrl || defaultFallbackImage}
         imageUrlLight={data?.strategyCTA?.imageLightUrl}
       />
       {((data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0) || serviceFeaturesData.length > 0) && (
