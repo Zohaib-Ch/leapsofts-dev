@@ -10,14 +10,80 @@ import DeliverMVP from '../../components/DeliverMVP/DeliverMVP';
 import Processes, { type ProcessPhase } from '../../components/Processes/Processes';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import FAQs from '../../components/FAQs/FAQs';
+import Capabilities, { type CapabilitySlide } from '../../components/Capabilities/Capabilities';
 import { parseFormattedText } from '../../utils/textParser';
+
+const defaultFallbackImage = "/streamline.webp";
+
+const capabilitiesSlidesDefault: CapabilitySlide[] = [
+  {
+    id: 'aws-serverless',
+    number: '< 01 >',
+    title: 'Serverless Architecture & Event-Driven Pipelines',
+    image: defaultFallbackImage,
+    items: [
+      {
+        name: 'AWS Lambda & Step Functions Orchestration',
+        description: 'Building microsecond-latency event routers, automated asynchronous worker workflows, and auto-scaling serverless APIs.'
+      },
+      {
+        name: 'Amazon EventBridge & SQS Message Meshes',
+        description: 'Decoupling distributed microservices with enterprise event buses, dead-letter queues, and guaranteed FIFO message sequencing.'
+      },
+      {
+        name: 'AWS API Gateway & CloudFront Acceleration',
+        description: 'Fronting serverless backends with global edge caching, SSL/TLS offloading, web application firewalls (WAF), and token-based rate limiting.'
+      }
+    ]
+  },
+  {
+    id: 'aws-eks-containers',
+    number: '< 02 >',
+    title: 'Amazon EKS Kubernetes & Container Orchestration',
+    image: defaultFallbackImage,
+    items: [
+      {
+        name: 'Managed Amazon EKS Cluster Management',
+        description: 'Provisioning multi-AZ control planes, automated zero-downtime node group upgrades, and spot-instance compute optimization.'
+      },
+      {
+        name: 'Karpenter High-Speed Auto-Scaling',
+        description: 'Triggering just-in-time compute provisioning that responds to fluctuating production traffic spikes in seconds.'
+      },
+      {
+        name: 'AWS App Mesh & Container Security',
+        description: 'Enforcing mTLS service-to-service communication, IAM Roles for Service Accounts (IRSA), and automated vulnerability container scans.'
+      }
+    ]
+  },
+  {
+    id: 'aws-databases',
+    number: '< 03 >',
+    title: 'Multi-Region Aurora & DynamoDB Resiliency',
+    image: defaultFallbackImage,
+    items: [
+      {
+        name: 'Amazon Aurora Global Multi-Region Replicas',
+        description: 'Deploying high-concurrency PostgreSQL/MySQL storage engines with sub-second replication latency across worldwide regions.'
+      },
+      {
+        name: 'DynamoDB Global Tables & In-Memory DAX',
+        description: 'Building active-active multi-region NoSQL datastores with sub-millisecond response times for mission-critical digital experiences.'
+      },
+      {
+        name: 'Automated Continuous Backups & Point-In-Time Recovery',
+        description: 'Enforcing automated snapshot schedules, continuous transaction log retention, and verified disaster recovery runbooks.'
+      }
+    ]
+  }
+];
 const serviceOverviewData = {
   label: "AWS CLOUD ARCHITECTURE",
   titleMain: "Orchestrating Highly Secure ",
   titleAccent: "Enterprise AWS ",
   titleEnd: "Environments",
   description: "At Leapsofts, we help modern enterprises maximize their infrastructure performance, scale computing capacity automatically, and reduce resource costs on Amazon Web Services. Our AWS-certified solutions architects construct custom AWS CDK blueprints, deploy high-availability Kubernetes systems via Amazon EKS, and build fault-tolerant databases that meet strict SOC2 and HIPAA compliance requirements.",
-  imagePath: "/streamline.webp"
+  imagePath: defaultFallbackImage
 };
 
 const emergingTechData: EmergingTechProps['data'] = {
@@ -259,10 +325,21 @@ const AWS: React.FC = () => {
         titleAccent: data.serviceOverview.titleAccent || serviceOverviewData.titleAccent,
         titleEnd: data.serviceOverview.titleEnd || serviceOverviewData.titleEnd,
         description: data.serviceOverview.description || serviceOverviewData.description,
-        imagePath: data.serviceOverview.imageUrl || serviceOverviewData.imagePath,
+        imagePath: data.serviceOverview.imageUrl || defaultFallbackImage,
         imagePathLight: data?.serviceOverview?.imageLightUrl
       }
     : serviceOverviewData;
+
+  const activeCapabilitiesSlides = (data?.capabilitiesSection?.slides && data.capabilitiesSection.slides.length > 0)
+    ? data.capabilitiesSection.slides.map(slide => ({
+        id: slide.id || 'slide',
+        number: slide.number || '< 01 >',
+        title: slide.title || '',
+        image: slide.imageUrl || defaultFallbackImage,
+        imageLight: slide.imageLightUrl,
+        items: slide.items || []
+      }))
+    : capabilitiesSlidesDefault;
 
   const activeServicesData = (data?.infoGrid && data.infoGrid.items?.length)
     ? {
@@ -341,8 +418,15 @@ const AWS: React.FC = () => {
           titleAccent={activeOverviewData.titleAccent}
           titleEnd={activeOverviewData.titleEnd}
           description={activeOverviewData.description}
-          imagePath={activeOverviewData.imagePath}
+          imagePath={activeOverviewData.imagePath || defaultFallbackImage}
           imagePathLight={activeOverviewData.imagePathLight}
+        />
+      )}
+      {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
+        <Capabilities
+          slides={activeCapabilitiesSlides}
+          title={data?.capabilitiesSection?.title || "AWS Cloud Capabilities"}
+          defaultImage={defaultFallbackImage}
         />
       )}
       {activeServicesData && activeServicesData.items && activeServicesData.items.length > 0 && (
@@ -356,7 +440,7 @@ const AWS: React.FC = () => {
         description={data?.strategyCTA?.descriptionText ? [{ text: data.strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         buttonText={data?.strategyCTA?.buttonText || "Claim Strategy Session"}
         buttonPath={data?.strategyCTA?.buttonPath || "#contact"}
-        imageUrl={data?.strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrl={data?.strategyCTA?.imageUrl || defaultFallbackImage}
         imageUrlLight={data?.strategyCTA?.imageLightUrl}
       />
       {((data?.serviceFeatures?.items && data.serviceFeatures.items.length > 0) || serviceFeaturesData.length > 0) && (

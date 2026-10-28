@@ -13,6 +13,8 @@ import FAQs from '../../components/FAQs/FAQs';
 import RelatedServices from '../../components/RelatedServices/RelatedServices';
 import Capabilities from '../../components/Capabilities/Capabilities';
 
+const defaultFallbackImage = "/streamline.webp";
+
 
 const serviceOverviewData = {
   label: "FIXED PRICE PARTNERSHIP",
@@ -20,7 +22,7 @@ const serviceOverviewData = {
   titleAccent: "Fixed-Price",
   titleEnd: "Software Delivery",
   description: "At Leapsofts, we offer a highly structured fixed-price engagement model designed for well-defined software projects, ensuring complete transparency across every milestone. Our business analysts and cloud architects document every application flow, catalog technical dependencies, and commit to clear delivery dates, allowing you to manage investments with absolute certainty.",
-  imagePath: "/streamline.webp"
+  imagePath: defaultFallbackImage
 };
 
 const ourServicesData: EmergingTechProps['data'] = {
@@ -357,12 +359,12 @@ const FixedPrice: React.FC = () => {
           titleAccent={activeOverviewData.titleAccent}
           titleEnd={activeOverviewData.titleEnd}
           description={activeOverviewData.description}
-          imagePath={activeOverviewData.imagePath}
+          imagePath={activeOverviewData.imagePath || defaultFallbackImage}
           imagePathLight={activeOverviewData.imagePathLight}
         />
       )}
       {activeCapabilitiesSlides && activeCapabilitiesSlides.length > 0 && (
-        <Capabilities title={data?.capabilitiesSection?.title || "Fixed Price Capabilities"} slides={activeCapabilitiesSlides} defaultImage="/streamline.webp" />
+        <Capabilities title={data?.capabilitiesSection?.title || "Fixed Price Capabilities"} slides={activeCapabilitiesSlides} defaultImage={defaultFallbackImage} />
       )}
       {activeInfoGridData && activeInfoGridData.items && activeInfoGridData.items.length > 0 && (
         <InfoGrid data={activeInfoGridData} />
@@ -375,7 +377,7 @@ const FixedPrice: React.FC = () => {
         description={strategyCTA?.descriptionText ? [{ text: strategyCTA.descriptionText, bold: false }] : streamlineDescription}
         buttonText={strategyCTA?.buttonText}
         buttonPath={strategyCTA?.buttonPath}
-        imageUrl={strategyCTA?.imageUrl || "/streamline.webp"}
+        imageUrl={strategyCTA?.imageUrl || defaultFallbackImage}
         imageUrlLight={strategyCTA?.imageLightUrl}
       />
       <ServiceFeatures
