@@ -1,0 +1,393 @@
+/* =========================================================================
+   Growth Hero Metrics - Modern, Soft & Premium 90FPS CSS
+   ========================================================================= */
+
+.metrics-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+/* Soft Ambient Background Mesh Glow */
+.ambient-mesh-glow {
+  position: absolute;
+  inset: -12% -10% -12% -10%;
+  border-radius: 32px;
+  background: radial-gradient(
+    circle at 65% 45%,
+    rgba(255, 107, 0, 0.15) 0%,
+    rgba(244, 63, 94, 0.08) 45%,
+    transparent 72%
+  );
+  filter: blur(48px);
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Grid Layout */
+.metrics-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.15rem;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+
+/* Base Metric Card */
+.metric-card {
+  position: relative;
+  border-radius: 20px;
+  padding: 1.55rem 1.45rem 1.45rem;
+  overflow: hidden;
+  isolation: isolate;
+  contain: layout paint;
+  will-change: transform;
+  transform: translateZ(0);
+  cursor: default;
+
+  /* Default Dark Mode Glass */
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.72) 0%,
+    rgba(10, 15, 26, 0.85) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.35),
+    0 12px 36px -8px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
+  transition: border-color 0.25s ease;
+}
+
+/* 90fps GPU Hover Glow Trick (Zero Paint / Reflow on hover) */
+.metric-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 3;
+  box-shadow:
+    0 20px 48px -8px rgba(0, 0, 0, 0.7),
+    0 0 28px rgba(255, 107, 0, 0.22),
+    0 0 0 1.5px rgba(255, 107, 0, 0.45);
+}
+
+.metric-card:hover::after {
+  opacity: 1;
+}
+
+/* Interactive Spotlight Overlay */
+.spotlight-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 107, 0, 0.08),
+    transparent 65%
+  );
+  opacity: 0.85;
+  mix-blend-mode: soft-light;
+}
+
+/* Card Top: Micro-Pills */
+.card-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 0.75rem;
+  height: 28px;
+}
+
+.icon-pill {
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 107, 0, 0.12);
+  border: 1px solid rgba(255, 107, 0, 0.25);
+  color: #ff8533;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.metric-card:hover .icon-pill {
+  transform: scale(1.08);
+  background: rgba(255, 107, 0, 0.18);
+  color: #ff944d;
+}
+
+.icon-graphic {
+  display: block;
+}
+
+/* Live Beacon Indicator */
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.22rem 0.6rem;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.32);
+  color: #10b981;
+}
+
+.pulse-beacon {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  display: inline-flex;
+}
+
+.pulse-ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: #10b981;
+  opacity: 0.75;
+  animation: beaconPulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.pulse-dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+@keyframes beaconPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.live-text {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+/* Metric Value Display */
+.metric-value-container {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+  min-height: 2.6rem;
+  display: flex;
+  align-items: baseline;
+}
+
+.metric-num-group {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0;
+}
+
+.metric-prefix {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #ff7a1a;
+  letter-spacing: -0.02em;
+}
+
+.metric-num {
+  font-size: 2.5rem;
+  font-weight: 850;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  background: linear-gradient(135deg, #ff6b00 0%, #ff8533 45%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.metric-suffix {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ff7a1a;
+  margin-left: 0.08rem;
+}
+
+.word-suffix {
+  margin-left: 0.28rem;
+}
+
+.metric-text-val {
+  font-size: 2.15rem;
+  font-weight: 850;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  background: linear-gradient(135deg, #ff6b00 0%, #ff8533 45%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Label & Description */
+.metric-label {
+  position: relative;
+  z-index: 2;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin-bottom: 0.35rem;
+}
+
+.metric-desc {
+  position: relative;
+  z-index: 2;
+  font-size: 0.81rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* =========================================================================
+   Light Mode Overrides (Luxury Soft Milk Glass)
+   ========================================================================= */
+
+:global([data-theme="light"]) .ambient-mesh-glow {
+  background: radial-gradient(
+    circle at 65% 45%,
+    rgba(255, 107, 0, 0.16) 0%,
+    rgba(255, 154, 77, 0.1) 40%,
+    transparent 70%
+  );
+  filter: blur(52px);
+  opacity: 0.85;
+}
+
+:global([data-theme="light"]) .metric-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.86) 0%,
+    rgba(255, 255, 255, 0.68) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.03),
+    0 8px 24px -4px rgba(255, 107, 0, 0.07),
+    0 16px 36px -8px rgba(15, 23, 42, 0.05),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.02);
+}
+
+:global([data-theme="light"]) .metric-card::after {
+  box-shadow:
+    0 20px 44px -10px rgba(255, 107, 0, 0.2),
+    0 8px 16px -4px rgba(15, 23, 42, 0.06),
+    0 0 0 1.5px rgba(255, 107, 0, 0.38);
+}
+
+:global([data-theme="light"]) .spotlight-overlay {
+  background: radial-gradient(
+    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 107, 0, 0.12),
+    transparent 65%
+  );
+  opacity: 0.9;
+}
+
+:global([data-theme="light"]) .icon-pill {
+  background: rgba(255, 107, 0, 0.08);
+  border-color: rgba(255, 107, 0, 0.22);
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .metric-card:hover .icon-pill {
+  background: rgba(255, 107, 0, 0.14);
+  color: #c2410c;
+}
+
+:global([data-theme="light"]) .live-pill {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.28);
+  color: #059669;
+}
+
+:global([data-theme="light"]) .metric-prefix,
+:global([data-theme="light"]) .metric-suffix {
+  color: #ea580c;
+}
+
+:global([data-theme="light"]) .metric-label {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .metric-desc {
+  color: #64748b;
+}
+
+/* =========================================================================
+   Responsive Design
+   ========================================================================= */
+
+@media (max-width: 992px) {
+  .metrics-wrapper {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .metric-card {
+    padding: 1.25rem 1.15rem;
+    border-radius: 16px;
+  }
+
+  .metric-num {
+    font-size: 2.15rem;
+  }
+
+  .metric-text-val {
+    font-size: 1.85rem;
+  }
+
+  .metric-value-container {
+    min-height: auto;
+    margin-bottom: 0.35rem;
+  }
+
+  .card-top {
+    margin-bottom: 0.45rem;
+    height: 24px;
+  }
+
+  .icon-pill {
+    width: 24px;
+    height: 24px;
+  }
+}
