@@ -30,10 +30,12 @@ import {
   ArrowRight,
   ChevronRight,
   ShieldCheck,
-  Sparkles
+  Sparkles,
+  CheckCircle2
 } from 'lucide-react';
 
 import { useServicePage } from '../../hooks/useServicePage';
+import GrowthHeroMetrics from '../../components/GrowthHeroMetrics/GrowthHeroMetrics';
 
 const ICON_MAP: Record<string, any> = {
   PhoneCall,
@@ -263,23 +265,27 @@ export default function GrowthServicePage() {
               <span>{service.secondaryCTA}</span>
             </a>
           </div>
+
+          <div className={styles['hero-trust-bar']}>
+            <div className={styles['trust-item']}>
+              <CheckCircle2 size={13} className={styles['trust-icon']} />
+              <span>Dedicated Pod Architecture</span>
+            </div>
+            <span className={styles['trust-dot']}>•</span>
+            <div className={styles['trust-item']}>
+              <CheckCircle2 size={13} className={styles['trust-icon']} />
+              <span>SLA Performance Backed</span>
+            </div>
+            <span className={styles['trust-dot']}>•</span>
+            <div className={styles['trust-item']}>
+              <CheckCircle2 size={13} className={styles['trust-icon']} />
+              <span>Zero Long-Term Lock-In</span>
+            </div>
+          </div>
         </motion.div>
 
         {/* Hero Metrics */}
-        <motion.div
-          className={styles['metrics-grid']}
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-        >
-          {service.metrics.map((metric, idx) => (
-            <motion.div key={idx} className={styles['metric-card']} variants={cardVariant}>
-              <div className={styles['metric-value']}>{metric.value}</div>
-              <div className={styles['metric-label']}>{metric.label}</div>
-              <div className={styles['metric-desc']}>{metric.description}</div>
-            </motion.div>
-          ))}
-        </motion.div>
+        <GrowthHeroMetrics metrics={service.metrics} />
       </section>
 
       {/* Strategic Positioning Banner (Scroll Reveal) */}

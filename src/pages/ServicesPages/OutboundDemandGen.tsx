@@ -15,11 +15,13 @@ import {
   ArrowRight,
   ChevronRight,
   ShieldCheck,
-  Sparkles
+  Sparkles,
+  CheckCircle2
 } from 'lucide-react';
 import { useServicePage } from '../../hooks/useServicePage';
 import { getSanityServiceBySlug } from '../../sanity/queries';
 import { buildPageMeta, buildServiceSchema } from '../../utils/seoHelper';
+import GrowthHeroMetrics from '../../components/GrowthHeroMetrics/GrowthHeroMetrics';
 
 const SLUG = 'outbound-demand-gen';
 const FALLBACK_DATA: GrowthServicePillar = GROWTH_SERVICES_DATA[SLUG]!;
@@ -264,23 +266,27 @@ export default function OutboundDemandGen() {
               {service.secondaryCTA}
             </a>
           </div>
+
+          <div className={styles['hero-trust-bar']}>
+            <div className={styles['trust-item']}>
+              <CheckCircle2 size={13} className={styles['trust-icon']} />
+              <span>Dedicated Pod Architecture</span>
+            </div>
+            <span className={styles['trust-dot']}>•</span>
+            <div className={styles['trust-item']}>
+              <CheckCircle2 size={13} className={styles['trust-icon']} />
+              <span>SLA Performance Backed</span>
+            </div>
+            <span className={styles['trust-dot']}>•</span>
+            <div className={styles['trust-item']}>
+              <CheckCircle2 size={13} className={styles['trust-icon']} />
+              <span>Zero Long-Term Lock-In</span>
+            </div>
+          </div>
         </motion.div>
 
         {/* Hero Metrics Box */}
-        <motion.div
-          className={styles['metrics-grid']}
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-        >
-          {service.metrics.map((m, idx) => (
-            <motion.div key={idx} className={styles['metric-card']} variants={cardVariant}>
-              <div className={styles['metric-value']}>{m.value}</div>
-              <div className={styles['metric-label']}>{m.label}</div>
-              <div className={styles['metric-desc']}>{m.description}</div>
-            </motion.div>
-          ))}
-        </motion.div>
+        <GrowthHeroMetrics metrics={service.metrics} />
       </section>
 
       {/* Strategic Positioning Banner */}
