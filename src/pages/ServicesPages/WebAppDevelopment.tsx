@@ -59,7 +59,7 @@ const emergingTechData: EmergingTechProps['data'] = {
     {
       icon: 'mobile' as const,
       title: 'Core Web Vitals & Speed Performance Tuning',
-      description: 'Optimizing Largest Contentful Paint (LCP), Interaction to Next Paint (INP), and Cumulative Layout Shift (CLS) to guarantee top Google search performance.'
+      description: 'Optimizing Largest Contentful Paint (LCP), Interaction to Next Paint (INP), and Cumulative Layout Shift (CLS) to maximize Google search visibility and deliver sub-second response times.'
     },
     {
       icon: 'legacy' as const,

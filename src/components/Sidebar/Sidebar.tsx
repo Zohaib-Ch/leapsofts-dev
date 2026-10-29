@@ -14,11 +14,7 @@ const navItems = [
 
 const Sidebar = memo(() => {
     const { pathname, hash } = useLocation();
-
-    // Only show sidebar navigation on the Home page
-    if (pathname !== '/') {
-        return null;
-    }
+    const isHome = pathname === '/';
 
     const items = navItems;
     const [activeSection, setActiveSection] = useState(items[items.length - 1].id);
@@ -37,12 +33,14 @@ const Sidebar = memo(() => {
     }, []);
 
     useEffect(() => {
+        if (!isHome) return;
         if (hash === '#contact') {
             scrollToSection('contact');
         }
-    }, [hash, scrollToSection]);
+    }, [hash, scrollToSection, isHome]);
 
     useEffect(() => {
+        if (!isHome) return;
         let isTicking = false;
         let rafId: number | null = null;
 
@@ -97,7 +95,11 @@ const Sidebar = memo(() => {
             if (rafId) cancelAnimationFrame(rafId);
             observer.disconnect();
         };
-    }, [items]);
+    }, [items, isHome]);
+
+    if (!isHome) {
+        return null;
+    }
 
     return (
         <aside className={styles.sidebar}>

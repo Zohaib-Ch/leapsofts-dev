@@ -239,9 +239,17 @@ const ParticleCanvas: React.FC = () => {
             animationFrameId = requestAnimationFrame(render);
         };
 
-        startLoop();
+        let startTimeout: any;
+        if (typeof window !== 'undefined' && window.innerWidth < 768) {
+            startTimeout = setTimeout(() => {
+                if (isVisible) startLoop();
+            }, 800);
+        } else {
+            startLoop();
+        }
 
         return () => {
+            clearTimeout(startTimeout);
             stopLoop();
             resizeObserver.disconnect();
             intersectionObserver.disconnect();

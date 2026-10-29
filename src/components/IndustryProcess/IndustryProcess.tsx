@@ -127,6 +127,10 @@ const IndustryProcess: React.FC<IndustryProcessProps> = ({ titleMain, titleAccen
                     </p>
                 </motion.div>
 
+                <div className={styles.mobileSwipeHint}>
+                    <span>← Scroll timeline →</span>
+                </div>
+
                 <div className={styles.chartWrapper}>
                     <div className={styles.chartContainer}>
                         {/* Categories */}
@@ -154,6 +158,7 @@ const IndustryProcess: React.FC<IndustryProcessProps> = ({ titleMain, titleAccen
                                 style={{ gridArea: step.gridArea }}
                                 onMouseEnter={() => setActiveStep(step)}
                                 onMouseLeave={() => setActiveStep(null)}
+                                onClick={() => setActiveStep(prev => prev?.id === step.id ? null : step)}
                                 initial={{ opacity: 0, scaleX: 0 }}
                                 whileInView={{ opacity: 1, scaleX: 1 }}
                                 viewport={{ once: true }}

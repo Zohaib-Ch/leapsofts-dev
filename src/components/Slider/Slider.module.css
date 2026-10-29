@@ -1,6 +1,6 @@
 .slider {
     background: #050001;
-    padding: 100px 100px 100px 120px;
+    padding: 80px 0;
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -10,6 +10,7 @@
     transform: translate3d(0, 24px, 0);
     will-change: transform, opacity;
     transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    contain: layout paint;
 }
 
 .revealed.slider {
@@ -17,130 +18,117 @@
     transform: translate3d(0, 0, 0);
 }
 
-/* Swiper Container overrides if needed */
-.slider :global(.swiper) {
+/* Marquee Viewport with edge feathering */
+.marqueeViewport {
     width: 100%;
-    padding: 60px 0;
-    /* Space for hover effects */
+    overflow: hidden;
+    padding: 65px 0;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
 }
 
-.slider :global(.swiper-wrapper) {
-    transition-timing-function: linear;
-    /* Force linear for smooth continuous scroll */
-}
-
-/* 
-   Staggered Pattern 
-   We will rely on :nth-child in the swiper-slide 
-   Note: Swiper adds its own classes, but we can target the slide wrapper.
-*/
-.slider :global(.swiper-slide) {
-    width: auto;
-    /* Let content define width */
-    height: auto;
+/* Continuous 120 FPS Compositor Track */
+.marqueeTrack {
     display: flex;
-    justify-content: center;
     align-items: center;
+    gap: 50px;
+    width: max-content;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    animation: marqueeScroll 45s linear infinite;
+    backface-visibility: hidden;
+    perspective: 1000px;
 }
 
-.slider :global(.swiper-slide):nth-child(even) .hexagonWrapper {
-    transform: translate3d(0, 40px, 0);
+/* Pause on hover so user can interact/inspect */
+.slider:hover .marqueeTrack {
+    animation-play-state: paused;
 }
 
-.slider :global(.swiper-slide):nth-child(odd) .hexagonWrapper {
-    transform: translate3d(0, -40px, 0);
+/* Off-Main-Thread GPU Animation */
+@keyframes marqueeScroll {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-50%, 0, 0);
+    }
 }
 
+/* Card Wrapper with hardware acceleration */
 .hexagonWrapper {
     width: 250px;
     height: 200px;
     position: relative;
-    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
     will-change: transform;
     backface-visibility: hidden;
-    transition: filter 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
     flex-shrink: 0;
     cursor: pointer;
 }
 
-.hexagonContent img {
-    width: 170px;
-    height: 100px;
-    object-fit: contain;
+/* Staggered Alternating Rhythm: 1 Down, 1 Up */
+.hexagonWrapper.staggerDown {
+    transform: translate3d(0, 42px, 0);
 }
 
-.hexagonWrapper:hover {
-    filter: drop-shadow(0 20px 30px rgba(112, 41, 134, 0.25));
-    z-index: 10;
+.hexagonWrapper.staggerUp {
+    transform: translate3d(0, -42px, 0);
 }
 
 /* Hover effects with stagger compensation */
-.slider :global(.swiper-slide):nth-child(even):hover .hexagonWrapper {
-    transform: translate3d(0, 40px, 0) scale(1.08);
+.hexagonWrapper.staggerDown:hover {
+    transform: translate3d(0, 42px, 0) scale(1.08);
 }
 
-.slider :global(.swiper-slide):nth-child(odd):hover .hexagonWrapper {
-    transform: translate3d(0, -40px, 0) scale(1.08);
+.hexagonWrapper.staggerUp:hover {
+    transform: translate3d(0, -42px, 0) scale(1.08);
 }
 
-/* The 'Border' Layer - Gradient Background */
+.hexagonWrapper:hover {
+    z-index: 20;
+    filter: drop-shadow(0 16px 28px rgba(112, 41, 134, 0.35));
+}
+
+/* Outer Gradient Border Layer */
 .hexagonBorder {
     width: 100%;
     height: 100%;
-    /* Gradient Border Color - Use theme gradient */
     background: var(--gradient-card);
-    /* New Shape: Flat top/bottom, pointy sides */
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
     display: flex;
     align-items: center;
     justify-content: center;
-    will-change: transform;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-    border: 1px solid var(--border-color);
     position: relative;
     z-index: 1;
-}
-
-/* Add a subtle glow/border effect suitable for the theme */
-.hexagonBorder::before {
-    content: '';
-    position: absolute;
-    inset: 1px;
-    background: var(--bg-dark);
-    /* Inner background to create a border effect */
-    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-    z-index: -1;
-    opacity: 0.8;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 
 .hexagonWrapper:hover .hexagonBorder {
-    background: linear-gradient(135deg, var(--color-orange), var(--color-orange));
+    background: linear-gradient(135deg, var(--color-orange), #9333ea);
     box-shadow: 0 0 30px rgba(112, 41, 134, 0.4);
-    border-color: var(--color-orange);
 }
 
-/* The 'Content' Layer */
+/* Inner Content Card (High performance solid fill instead of heavy backdrop-filter blur) */
 .hexagonContent {
-    width: 98%;
-    height: 98%;
-    background: var(--bg-card);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    /* Match the border clip path */
+    width: calc(100% - 2.5px);
+    height: calc(100% - 2.5px);
+    background: #0d0614;
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
     position: relative;
     overflow: hidden;
     box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
+    transform: translateZ(0);
 }
 
-/* Shimmer Animation */
+/* Hover-Only Shimmer (Zero idle GPU cost) */
 .hexagonContent::after {
     content: '';
     position: absolute;
@@ -151,149 +139,65 @@
     background: linear-gradient(to bottom right,
             transparent,
             transparent,
-            rgba(255, 255, 255, 0.2),
+            rgba(255, 255, 255, 0.15),
             transparent,
             transparent);
-    transform: rotate(45deg) translateY(-100%);
-    animation: shimmer 6s infinite;
+    transform: rotate(45deg) translateY(-200%);
+    opacity: 0;
+    pointer-events: none;
 }
 
 .hexagonWrapper:hover .hexagonContent::after {
-    animation-play-state: paused;
+    opacity: 1;
+    animation: shimmerHover 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes shimmer {
+@keyframes shimmerHover {
     0% {
         transform: rotate(45deg) translateY(-200%);
     }
-
-    10%,
     100% {
         transform: rotate(45deg) translateY(200%);
     }
 }
 
-.title {
-    font-size: 1.1rem;
-    /* Slightly larger */
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
-    transition: color 0.3s ease;
-    z-index: 2;
-    letter-spacing: 0.5px;
+.hexagonContent img {
+    width: 170px;
+    height: 100px;
+    object-fit: contain;
 }
 
 .icon {
-    font-size: 8rem;
-    /* Larger icon */
     width: 64px;
-    /* Ensure explicit width if using imgs */
     height: 64px;
     object-fit: contain;
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 2;
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
-}
-
-.hexagonWrapper:hover .title {
-    color: white;
-    font-weight: 600;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.25));
 }
 
 .hexagonWrapper:hover .icon {
     transform: scale(1.1);
 }
 
-
-@media (max-width: 1024px) {
-    .slider {
-        padding: 60px 1.5rem 60px 30px;
-    }
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .slider {
-        padding: 60px 1.5rem 60px 30px;
-    }
-
-    .hexagonWrapper {
-        width: 160px;
-        height: 128px;
-    }
-
-    .hexagonContent img{
-        width: 100px;
-        height: 64px;
-        object-fit: contain;
-    }
-
-    .title {
-        font-size: 0.9rem;
-    }
-
-    /* Reduce stagger on mobile */
-    .slider :global(.swiper-slide):nth-child(even) .hexagonWrapper {
-        transform: translateY(20px);
-    }
-
-    .slider :global(.swiper-slide):nth-child(odd) .hexagonWrapper {
-        transform: translateY(-20px);
-    }
-
-    .slider :global(.swiper-slide):nth-child(even):hover .hexagonWrapper {
-        transform: translateY(20px) scale(1.1);
-    }
-
-    .slider :global(.swiper-slide):nth-child(odd):hover .hexagonWrapper {
-        transform: translateY(-20px) scale(1.1);
-    }
-}
-
 /* =========================================================================
-   LIGHT THEME OVERRIDES FOR HEXAGONAL SLIDER (90+ FPS ZERO LAG)
+   LIGHT THEME OVERRIDES (120 FPS ZERO LAG)
    ========================================================================= */
 :global([data-theme="light"]) .slider {
     background: linear-gradient(180deg, #f8fafc 0%, #faf5ff 50%, #f8fafc 100%);
-    contain: layout style;
-}
-
-:global([data-theme="light"]) .hexagonWrapper {
-    filter: drop-shadow(0 6px 16px rgba(15, 23, 42, 0.06)) drop-shadow(0 1px 3px rgba(147, 51, 234, 0.08));
-    transform: translateZ(0);
-    will-change: transform;
 }
 
 :global([data-theme="light"]) .hexagonBorder {
     background: linear-gradient(135deg, rgba(147, 51, 234, 0.35) 0%, rgba(249, 115, 22, 0.3) 100%);
-    border: none;
-}
-
-:global([data-theme="light"]) .hexagonBorder::before {
-    display: none;
 }
 
 :global([data-theme="light"]) .hexagonContent {
-    width: 97%;
-    height: 97%;
     background: #ffffff;
     box-shadow: inset 0 0 12px rgba(147, 51, 234, 0.03);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-}
-
-:global([data-theme="light"]) .hexagonContent::after {
-    display: none; /* Disable 19 continuous shimmer DOM paint cycles */
 }
 
 :global([data-theme="light"]) .icon {
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
-}
-
-:global([data-theme="light"]) .title {
-    color: #1e293b;
-    font-weight: 600;
 }
 
 :global([data-theme="light"]) .hexagonWrapper:hover {
@@ -309,9 +213,94 @@
     background: #ffffff;
 }
 
-:global([data-theme="light"]) .hexagonWrapper:hover .title {
-    color: var(--color-orange);
-    text-shadow: none;
+/* =========================================================================
+   RESPONSIVE DESIGN (PRESERVING EXACT MOBILE BREAKPOINTS)
+   ========================================================================= */
+@media (max-width: 1024px) {
+    .slider {
+        padding: 50px 0;
+    }
+    .marqueeTrack {
+        gap: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .slider {
+        padding: 35px 0;
+    }
+
+    .marqueeViewport {
+        padding: 40px 0;
+    }
+
+    .marqueeTrack {
+        gap: 28px;
+        animation-duration: 35s; /* Balanced speed for mobile screens */
+    }
+
+    .hexagonWrapper {
+        width: 160px;
+        height: 128px;
+    }
+
+    .hexagonContent img {
+        width: 100px;
+        height: 64px;
+    }
+
+    .hexagonWrapper.staggerDown {
+        transform: translate3d(0, 22px, 0);
+    }
+
+    .hexagonWrapper.staggerUp {
+        transform: translate3d(0, -22px, 0);
+    }
+
+    .hexagonWrapper.staggerDown:hover {
+        transform: translate3d(0, 22px, 0) scale(1.08);
+    }
+
+    .hexagonWrapper.staggerUp:hover {
+        transform: translate3d(0, -22px, 0) scale(1.08);
+    }
+}
+
+@media (max-width: 480px) {
+    .marqueeViewport {
+        padding: 35px 0;
+    }
+
+    .marqueeTrack {
+        gap: 20px;
+        animation-duration: 28s;
+    }
+
+    .hexagonWrapper {
+        width: 140px;
+        height: 112px;
+    }
+
+    .hexagonContent img {
+        width: 80px;
+        height: 52px;
+    }
+
+    .hexagonWrapper.staggerDown {
+        transform: translate3d(0, 16px, 0);
+    }
+
+    .hexagonWrapper.staggerUp {
+        transform: translate3d(0, -16px, 0);
+    }
+
+    .hexagonWrapper.staggerDown:hover {
+        transform: translate3d(0, 16px, 0) scale(1.08);
+    }
+
+    .hexagonWrapper.staggerUp:hover {
+        transform: translate3d(0, -16px, 0) scale(1.08);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -320,4 +309,8 @@
         transform: none !important;
         transition: none !important;
     }
-}
+
+    .marqueeTrack {
+        animation: none !important;
+    }
+}

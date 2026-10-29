@@ -13,9 +13,8 @@
     align-items: center;
     background-color: #08060c;
     color: #ffffff;
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .heroStage.isLoaded {

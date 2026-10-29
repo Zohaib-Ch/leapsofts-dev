@@ -1,7 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, FreeMode } from 'swiper/modules';
-import 'swiper/css';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import styles from './Slider.module.css';
 
 const technologies = [
@@ -51,37 +48,41 @@ const Slider: React.FC = () => {
         };
     }, []);
 
+    // Duplicate list once to form a seamless, mathematically infinite 120 FPS marquee loop
+    const marqueeItems = useMemo(() => [...technologies, ...technologies], []);
+
     return (
-        <section ref={sectionRef} className={`${styles.slider} ${isVisible ? styles.revealed : ''}`}>
-            <Swiper
-                modules={[Autoplay, FreeMode]}
-                spaceBetween={50}
-                slidesPerView={'auto'}
-                loop={true}
-                speed={3000} // Slow and smooth transition
-                autoplay={{
-                    delay: 0,
-                    disableOnInteraction: false, // Continue autoplay after interaction
-                    pauseOnMouseEnter: true // Pause on hover if desired (optional, removing for "continuous" feel usually, but user might want it to inspect. CSS handles hover stop usually)
-                }}
-                freeMode={true} // Enables momentum dragging
-                allowTouchMove={true} // Explicitly enable dragging
-                grabCursor={true}
-                className={styles.swiperContainer}
-            >
-                {technologies.map((tech, index) => (
-                    <SwiperSlide key={index}>
-                        <div className={styles.hexagonWrapper}>
-                            <div className={styles.hexagonBorder}>
-                                <div className={styles.hexagonContent}>
-                                    <img src={tech.icon} alt={tech.name} className={styles.icon} />
-                                    {/* <span className={styles.title}>{tech.name}</span> */}
+        <section
+            ref={sectionRef}
+            className={`${styles.slider} ${isVisible ? styles.revealed : ''}`}
+            aria-label="Technologies We Master"
+        >
+            <div className={styles.marqueeViewport}>
+                <div className={styles.marqueeTrack}>
+                    {marqueeItems.map((tech, index) => {
+                        const isEven = index % 2 === 0;
+                        return (
+                            <div
+                                key={`${tech.name}-${index}`}
+                                className={`${styles.hexagonWrapper} ${isEven ? styles.staggerDown : styles.staggerUp}`}
+                            >
+                                <div className={styles.hexagonBorder}>
+                                    <div className={styles.hexagonContent}>
+                                        <img
+                                            src={tech.icon}
+                                            alt={tech.name}
+                                            className={styles.icon}
+                                            loading="lazy"
+                                            width="64"
+                                            height="64"
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+                        );
+                    })}
+                </div>
+            </div>
         </section>
     );
 };

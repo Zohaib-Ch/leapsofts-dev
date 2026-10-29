@@ -375,6 +375,14 @@
         padding: 50px 16px;
     }
 
+    .contentLeftTitle h2 {
+        font-size: clamp(1.5rem, 5.5vw, 1.85rem);
+    }
+
+    .contentLeftDescription {
+        font-size: 14.5px;
+    }
+
     .visual {
         max-width: 320px;
         border-radius: 18px;
@@ -404,6 +412,14 @@
 @media (max-width: 360px) {
     .container {
         padding: 40px 12px;
+    }
+
+    .contentLeftTitle h2 {
+        font-size: 1.5rem;
+    }
+
+    .contentLeftDescription {
+        font-size: 13.5px;
     }
 
     .visual {

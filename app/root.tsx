@@ -18,7 +18,12 @@ import { CookieConsentProvider } from "../src/context/CookieConsentContext";
 import CookieBanner from "../src/components/CookieBanner/CookieBanner";
 import ScrollToTop from "../src/components/ScrollToTop/ScrollToTop";
 
+const GOOGLE_FONTS_URL =
+  "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Dancing+Script:wght@700&family=Inter:wght@400;500;600;700;800&display=swap";
+
 export const links: LinksFunction = () => [
+  { rel: "icon", type: "image/png", href: "/logo/Leap-soft-01.png" },
+  { rel: "apple-touch-icon", href: "/logo/Leap-soft-01.png" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",
@@ -26,8 +31,13 @@ export const links: LinksFunction = () => [
     crossOrigin: "anonymous",
   },
   {
+    rel: "preload",
+    as: "style",
+    href: GOOGLE_FONTS_URL,
+  },
+  {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Dancing+Script:wght@700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap",
+    href: GOOGLE_FONTS_URL,
   },
 ];
 

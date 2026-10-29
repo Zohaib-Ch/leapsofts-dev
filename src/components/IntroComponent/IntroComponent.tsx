@@ -104,14 +104,7 @@ const IntroComponent: React.FC<IntroComponentProps> = ({
     const { theme } = useTheme();
     const isDark = theme === 'dark';
     const { openContactModal } = useContactModal();
-    const [isLoaded, setIsLoaded] = React.useState(false);
-
-    React.useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsLoaded(true);
-        }, 40);
-        return () => clearTimeout(timer);
-    }, []);
+    const [isLoaded, setIsLoaded] = React.useState(true);
 
     const handleClick = () => {
         openContactModal();

@@ -240,6 +240,39 @@
     }
 }
 
+@media (max-width: 480px) {
+    .commitmentSection {
+        padding: 48px 0;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    .sectionSubtitle {
+        font-size: 12px;
+        letter-spacing: 1.2px;
+    }
+
+    .sectionTitle {
+        font-size: clamp(1.5rem, 5.5vw, 1.85rem);
+    }
+
+    .card {
+        padding: 22px 18px;
+        border-radius: 16px;
+    }
+
+    .cardTitle {
+        font-size: 1.25rem;
+        margin-bottom: 14px;
+    }
+
+    .cardDescription {
+        font-size: 14px;
+    }
+}
+
 /* =========================================================================
    LIGHT THEME OVERRIDES FOR COMMITMENT SECTION
    ========================================================================= */

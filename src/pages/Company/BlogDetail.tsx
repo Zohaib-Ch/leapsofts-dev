@@ -21,26 +21,70 @@ import styles from './BlogDetail.module.css';
 import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityBlogBySlug } from '../../sanity/queries';
 import type { SanityBlog } from '../../sanity/types';
-
+import ErrorPage from '../ErrorPage/Error';
 import { buildPageMeta } from '../../utils/seoHelper';
 
 export async function loader({ params }: { params: { slug?: string } }) {
-  if (!params.slug) return { sanityData: null };
-  const sanityData = await getSanityBlogBySlug(params.slug);
-  return { sanityData };
+  if (!params.slug) {
+    throw new Response("Not Found", { status: 404, statusText: "Not Found" });
+  }
+
+  let sanityData: SanityBlog | null = null;
+  try {
+    sanityData = await getSanityBlogBySlug(params.slug);
+  } catch (err) {
+    console.warn("Sanity fetch failed in BlogDetail loader:", err);
+  }
+
+  const localPost = blogsData.find((b) => b.slug === params.slug) || null;
+
+  if (!sanityData && !localPost) {
+    throw new Response("Article Not Found", { status: 404, statusText: "Not Found" });
+  }
+
+  return { sanityData, localPost };
 }
 
 export function meta({ data, params }: { data?: any; params?: any }) {
   const sanityData = data?.sanityData;
+  const localPost = data?.localPost;
   const slug = params?.slug || '';
+
+  const rawTitle = sanityData?.seo?.metaTitle || sanityData?.title || localPost?.title || "Engineering Insights";
+  const title = rawTitle.includes("Leapsofts") ? rawTitle : `${rawTitle} | Leapsofts Engineering Insights`;
+  const description =
+    sanityData?.seo?.metaDescription ||
+    sanityData?.excerpt ||
+    sanityData?.subtitle ||
+    localPost?.excerpt ||
+    localPost?.subtitle ||
+    "Read technical insights and enterprise engineering strategies from Leapsofts.";
+
+  const keywords = sanityData?.seo?.keywords
+    ? (Array.isArray(sanityData.seo.keywords) ? sanityData.seo.keywords.join(', ') : sanityData.seo.keywords)
+    : (Array.isArray(localPost?.tags) ? localPost.tags.join(', ') : "software engineering, tech blog, leapsofts insights");
+
+  const ogImage =
+    sanityData?.seo?.ogImageUrl ||
+    sanityData?.coverImageUrl ||
+    (localPost?.coverImage
+      ? (localPost.coverImage.startsWith('http')
+          ? localPost.coverImage
+          : `https://www.leapsofts.com${localPost.coverImage}`)
+      : 'https://www.leapsofts.com/logo/Leap-soft-01.png');
+
   return buildPageMeta({
     sanityData,
-    defaultTitle: sanityData?.title || "Engineering Insights | Leapsofts Blog",
-    defaultDescription: sanityData?.excerpt || "Read technical insights and enterprise engineering strategies from Leapsofts.",
-    defaultKeywords: "software engineering, tech blog, leapsofts insights",
+    defaultTitle: title,
+    defaultDescription: description,
+    defaultKeywords: keywords,
     canonicalUrl: `https://www.leapsofts.com/blog/${slug}`,
-    defaultOgImage: sanityData?.coverImageUrl,
+    defaultOgImage: ogImage,
   });
+}
+
+export function ErrorBoundary() {
+  return <ErrorPage />;
 }
 
 function renderParagraphWithLinks(text: string): React.ReactNode {
@@ -70,6 +114,12 @@ function renderParagraphWithLinks(text: string): React.ReactNode {
   return parts.length > 0 ? parts : text;
 }
 
+function toIsoDate(dateStr?: string, fallback = '2026-09-12T00:00:00+00:00'): string {
+  if (!dateStr) return fallback;
+  const parsed = Date.parse(dateStr);
+  return isNaN(parsed) ? fallback : new Date(parsed).toISOString();
+}
+
 const fadeInVariant = {
   hidden: { opacity: 0, y: 25 },
   visible: {
@@ -93,8 +143,8 @@ const BlogDetail: React.FC = () => {
   const [copiedLink, setCopiedLink] = useState(false);
 
   const localPost = useMemo(() => {
-    return blogsData.find((b) => b.slug === slug);
-  }, [slug]);
+    return loaderData?.localPost || blogsData.find((b) => b.slug === slug);
+  }, [slug, loaderData]);
 
   // Synchronize state immediately when navigating between blog posts
   useEffect(() => {
@@ -102,12 +152,12 @@ const BlogDetail: React.FC = () => {
     setIsLoading(!loaderData?.sanityData);
   }, [slug, loaderData]);
 
-  // Load Post data from Sanity
+  // Load Post data from Sanity only if not provided by loader
   useEffect(() => {
     window.scrollTo(0, 0);
     let isMounted = true;
-    if (slug) {
-      if (!loaderData?.sanityData) setIsLoading(true);
+    if (slug && !loaderData?.sanityData) {
+      setIsLoading(true);
       getSanityBlogBySlug(slug)
         .then((data) => {
           if (isMounted) {
@@ -280,8 +330,8 @@ const BlogDetail: React.FC = () => {
                   ? post.coverImage
                   : `https://www.leapsofts.com${post.coverImage}`,
               ],
-              datePublished: '2026-09-12T00:00:00+00:00',
-              dateModified: '2026-10-05T00:00:00+00:00',
+              datePublished: toIsoDate(sanityPost?.publishedAt || post.publishedDate),
+              dateModified: toIsoDate(sanityPost?._updatedAt || sanityPost?.publishedAt || post.publishedDate),
               inLanguage: 'en-US',
               author: {
                 '@type': 'Person',
@@ -289,10 +339,6 @@ const BlogDetail: React.FC = () => {
                 jobTitle: post.author.role,
                 description: post.author.bio,
                 url: 'https://www.leapsofts.com/about',
-                sameAs: [
-                  'https://www.linkedin.com/company/leapsofts',
-                  'https://www.leapsofts.com/about',
-                ],
                 worksFor: {
                   '@type': 'Organization',
                   name: 'Leapsofts',
@@ -305,7 +351,7 @@ const BlogDetail: React.FC = () => {
                 url: 'https://www.leapsofts.com',
                 logo: {
                   '@type': 'ImageObject',
-                  url: 'https://www.leapsofts.com/favicon.png',
+                  url: 'https://www.leapsofts.com/logo/Leap-soft-01.png',
                 },
               },
               mainEntityOfPage: {

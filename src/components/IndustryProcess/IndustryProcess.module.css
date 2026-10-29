@@ -186,6 +186,40 @@
     line-height: 1.5;
 }
 
+.mobileSwipeHint {
+    display: none;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--color-orange);
+    text-align: right;
+    margin-bottom: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .mobileSwipeHint {
+        display: block;
+    }
+
+    .titleSection {
+        margin-bottom: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .chartTitle {
+        font-size: clamp(1.45rem, 5.5vw, 1.8rem);
+    }
+
+    .chartDescription {
+        font-size: 0.9rem;
+    }
+
+    .titleSection {
+        margin-bottom: 2rem;
+    }
+}
+
 /* =========================================================================
    LIGHT THEME OVERRIDES FOR INDUSTRY PROCESS (GANTT TIMELINE)
    ========================================================================= */

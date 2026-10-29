@@ -534,6 +534,15 @@
         padding: 0 1rem;
     }
 
+    .title {
+        font-size: clamp(1.65rem, 5.5vw, 1.95rem);
+    }
+
+    .slideTitle {
+        font-size: clamp(1.35rem, 4.5vw, 1.6rem);
+        margin-bottom: 18px;
+    }
+
     .visualCard {
         max-width: 300px;
         padding: 0;

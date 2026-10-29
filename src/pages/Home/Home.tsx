@@ -49,7 +49,15 @@ export function meta({ data }: { data?: any }) {
     { name: "twitter:description", content: description },
     { name: "twitter:image", content: ogImage },
     { tagName: "link", rel: "canonical", href: canonicalUrl },
-    { tagName: "link", rel: "preload", as: "image", href: "https://cdn.sanity.io/images/egqy3ztp/production/300a88c669f0a4b78f69b76ce9f0443debaa18e3-1376x768.jpg?auto=format&fit=max&w=1200&q=80", fetchpriority: "high" }
+    {
+      tagName: "link",
+      rel: "preload",
+      as: "image",
+      href: "https://cdn.sanity.io/images/egqy3ztp/production/300a88c669f0a4b78f69b76ce9f0443debaa18e3-1376x768.jpg?auto=format&fit=max&w=1200&q=80",
+      imageSrcSet: "https://cdn.sanity.io/images/egqy3ztp/production/300a88c669f0a4b78f69b76ce9f0443debaa18e3-1376x768.jpg?auto=format&fit=max&w=640&q=80 640w, https://cdn.sanity.io/images/egqy3ztp/production/300a88c669f0a4b78f69b76ce9f0443debaa18e3-1376x768.jpg?auto=format&fit=max&w=1024&q=80 1024w, https://cdn.sanity.io/images/egqy3ztp/production/300a88c669f0a4b78f69b76ce9f0443debaa18e3-1376x768.jpg?auto=format&fit=max&w=1376&q=80 1376w",
+      imageSizes: "100vw",
+      fetchpriority: "high"
+    }
   ];
 }
 
@@ -60,13 +68,18 @@ const Home = (props: { loaderData?: any }) => {
   const [blogsList, setBlogsList] = useState<any>(initialData?.blogs || null);
 
   useEffect(() => {
-    getSanityHomePage().then((data) => {
-      if (data) setSanityHome(data);
-    });
-    getSanityBlogs().then((blogs) => {
-      if (blogs && blogs.length > 0) setBlogsList(blogs);
-    });
-  }, []);
+    // Only fetch client-side if loaderData wasn't available
+    if (!initialData?.sanityData) {
+      getSanityHomePage().then((data) => {
+        if (data) setSanityHome(data);
+      });
+    }
+    if (!initialData?.blogs || initialData.blogs.length === 0) {
+      getSanityBlogs().then((blogs) => {
+        if (blogs && blogs.length > 0) setBlogsList(blogs);
+      });
+    }
+  }, [initialData]);
 
   const sanityData = sanityHome || initialData?.sanityData;
   const blogs = blogsList || initialData?.blogs;

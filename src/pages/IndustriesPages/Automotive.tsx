@@ -60,7 +60,7 @@ const automotiveSolutionsData: EmergingTechProps['data'] = {
     {
       icon: 'saas',
       title: 'High-Telemetry Fleet Tracker',
-      description: "Plotting real-time coordinate positions, generating predictive fuel consumption curves, and aggregating cabin cameras telemetry for driver fatigue alert alerts."
+      description: "Plotting real-time coordinate positions, generating predictive fuel consumption curves, and aggregating cabin cameras telemetry for driver fatigue alerts."
     },
     {
       icon: 'product',

@@ -211,8 +211,52 @@
         padding: 0 1.5rem;
     }
 
+    .title {
+        font-size: clamp(1.75rem, 6vw, 2.2rem);
+    }
+
+    .description {
+        font-size: 0.95rem;
+    }
+
     .itemsGrid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .section {
+        padding: 48px 0;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    .title {
+        font-size: clamp(1.5rem, 5.5vw, 1.85rem);
+    }
+
+    .description {
+        font-size: 0.925rem;
+    }
+
+    .item {
+        padding: 1.25rem 1rem;
+        border-radius: 16px;
+    }
+
+    .itemTitle {
+        font-size: 1.05rem;
+    }
+
+    .itemDescription {
+        font-size: 0.875rem;
+    }
+
+    .dropdown {
+        margin-top: 2rem;
+        padding-top: 2rem;
     }
 }
 
