@@ -3,7 +3,7 @@ import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
-import IntroComponent from '../../components/IntroComponent/IntroComponent';
+import IndustryHero from '../../components/IndustryHero/IndustryHero';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
@@ -260,7 +260,13 @@ const Compliance: React.FC = () => {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
-      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <IndustryHero
+        title={activeTitle}
+        subtitle={activeSubtitle}
+        introDescription={activeIntroDescription}
+        industryKey="compliance"
+        badgeText={data?.badgeText}
+      />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
         label={data?.strategyCTA?.label || "STREAMLINE YOUR SUCCESS"}

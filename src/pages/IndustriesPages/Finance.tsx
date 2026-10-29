@@ -3,7 +3,7 @@ import { useIndustryPage } from '../../hooks/useIndustryPage';
 import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router';
 import { type IndustriesContextType } from '../../layouts/IndustriesLayout/IndustriesLayout';
-import IntroComponent from '../../components/IntroComponent/IntroComponent';
+import IndustryHero from '../../components/IndustryHero/IndustryHero';
 import StreamlineSuccess from '../Home/Streamline/StreamlineSuccess';
 import EmergingTech, { type EmergingTechProps } from '../../components/EmergingTech/EmergingTech';
 import CommitmentSection, { type CommitmentSectionProps } from '../../components/CommitmentSection/CommitmentSection';
@@ -261,7 +261,13 @@ const Finance: React.FC = () => {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
-      <IntroComponent title={activeTitle} description={activeSubtitle} introDescription={activeIntroDescription} />
+      <IndustryHero
+        title={activeTitle}
+        subtitle={activeSubtitle}
+        introDescription={activeIntroDescription}
+        industryKey="finance"
+        badgeText={data?.badgeText}
+      />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
         label={data?.strategyCTA?.label || "COMPLIMENTARY STRATEGY SESSION"}

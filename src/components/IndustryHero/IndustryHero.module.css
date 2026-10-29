@@ -1,0 +1,781 @@
+/* =========================================================================
+   INDUSTRY HERO: THE COMMAND TOPOLOGY (120 FPS ZERO-LAG ARCHITECTURE)
+   ========================================================================= */
+
+.heroSection {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: auto;
+    display: flex;
+    align-items: center;
+    background: #05000c;
+    overflow: hidden;
+    padding-top: calc(100px + env(safe-area-inset-top, 0px));
+    padding-bottom: 5rem;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+    contain: layout style;
+}
+
+/* 120 FPS Ambient Backdrop: No heavy video, zero GPU decode lag */
+.backdropCanvas {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.ambientRadialAura {
+    position: absolute;
+    top: -15%;
+    right: 5%;
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, rgba(147, 51, 234, 0.16) 0%, rgba(147, 51, 234, 0.08) 32%, rgba(249, 115, 22, 0.03) 55%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translateZ(0);
+}
+
+.ambientLeftAura {
+    position: absolute;
+    bottom: -10%;
+    left: -5%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(147, 51, 234, 0.05) 36%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translateZ(0);
+}
+
+/* Subtle Isometric Cyber Grid (Single-Pass Composited) */
+.isometricGrid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.6;
+    pointer-events: none;
+    transform: translateZ(0);
+    contain: strict;
+}
+
+
+
+/* Main Container: 2-Column Responsive Layout */
+.container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    /* content padding + sidebar space (matches IntroComponent and HeroSlider) */
+    padding: 1.5rem 3rem 0 120px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2.5rem;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+/* Left Column: Command & Value Proposition */
+.leftCol {
+    position: relative;
+    flex: 1;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    text-align: left;
+    contain: layout style;
+}
+
+.title {
+    font-size: clamp(2.1rem, 3.2vw, 3.15rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.022em;
+    margin-bottom: 1.15rem;
+    color: #ffffff;
+    text-wrap: balance;
+}
+
+.gradientAccent {
+    background: linear-gradient(135deg, #c084fc 0%, #f97316 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline;
+}
+
+.heroSubtitle {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #ff9d54;
+    margin-top: -0.25rem;
+    margin-bottom: 1.15rem;
+    letter-spacing: -0.01em;
+}
+
+.descriptionBox {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.78);
+    margin-bottom: 2rem;
+    max-width: 700px;
+}
+
+.boldTag {
+    font-weight: 600;
+    color: #ffffff;
+    background: transparent;
+    padding: 0;
+    border: none;
+}
+
+.actionsRow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+
+
+/* Micro Verification Trust Badges */
+.trustRibbon {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.trustItem {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #94a3b8;
+}
+
+.trustIcon {
+    color: #a855f7;
+}
+
+.trustDivider {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.75rem;
+}
+
+/* =========================================================================
+   RIGHT COLUMN: CASCADING STAIRCASE ARCHITECTURE (120 FPS ZERO-LAG)
+   ========================================================================= */
+
+.rightCol {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.staircaseStage {
+    position: relative;
+    width: 100%;
+    max-width: 580px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Floating Staircase Node Cards (120 FPS Zero-Lag) */
+.stairNode {
+    position: relative;
+    width: 86%;
+    max-width: 440px;
+    padding: 16px 20px;
+    background: #0d0716;
+    border: 1px solid rgba(147, 51, 234, 0.32);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(147, 51, 234, 0.08);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+    cursor: default;
+    z-index: 2;
+    transform: translateZ(0);
+    contain: layout paint style;
+}
+
+.stairNode:hover {
+    transform: translateY(-4px);
+    border-color: rgba(147, 51, 234, 0.6);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 28px rgba(147, 51, 234, 0.22);
+}
+
+/* Stair Steps Horizontal Offsets (Cascading Alignment) */
+.stairStep1 {
+    align-self: flex-start;
+    margin-left: 0;
+}
+
+.stairStep2 {
+    align-self: center;
+    margin: 0 auto;
+}
+
+.stairStep3 {
+    align-self: flex-end;
+    margin-right: 0;
+}
+
+/* Node Header: Step Number & Live Status Pill */
+.stairHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.stepBadge {
+    font-size: 0.7rem;
+    font-family: monospace;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #c084fc;
+    text-transform: uppercase;
+}
+
+.nodePill {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 2.5px 9px;
+    border-radius: 9999px;
+    font-family: monospace;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+}
+
+.pillTier1 {
+    background: rgba(249, 115, 22, 0.12);
+    color: #fb923c;
+    border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.pillTier2 {
+    background: rgba(168, 85, 247, 0.12);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.pillTier3 {
+    background: rgba(56, 189, 248, 0.12);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+/* Node Body */
+.nodeBody {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.nodeIconBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.nodeTier1 { background: linear-gradient(135deg, #f97316, #ea580c); color: #ffffff; box-shadow: 0 4px 14px rgba(249, 115, 22, 0.35); }
+.nodeTier2 { background: linear-gradient(135deg, #a855f7, #7e22ce); color: #ffffff; box-shadow: 0 4px 14px rgba(168, 85, 247, 0.35); }
+.nodeTier3 { background: linear-gradient(135deg, #0284c7, #0369a1); color: #ffffff; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35); }
+
+.nodeInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.nodeTierLabel {
+    font-size: 0.68rem;
+    font-family: monospace;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.nodeName {
+    font-size: 0.94rem;
+    font-weight: 700;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Stepped L-Shaped Conduit Connectors (120 FPS Composited) */
+.stairConduit {
+    position: relative;
+    height: 34px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    z-index: 1;
+    margin: -4px 0;
+    contain: strict;
+    transform: translateZ(0);
+}
+
+.conduitSvg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.conduitTrack {
+    stroke: rgba(147, 51, 234, 0.22);
+    stroke-width: 2px;
+    stroke-dasharray: 4 4;
+}
+
+.conduitPulse1 {
+    stroke: url(#stairLaserGrad1);
+    stroke-width: 2.5px;
+    stroke-dasharray: 30 110;
+    animation: laserStepFlow 2s linear infinite;
+    will-change: stroke-dashoffset;
+}
+
+.conduitPulse2 {
+    stroke: url(#stairLaserGrad2);
+    stroke-width: 2.5px;
+    stroke-dasharray: 30 110;
+    animation: laserStepFlow 2s linear infinite;
+    animation-delay: 1s;
+    will-change: stroke-dashoffset;
+}
+
+@keyframes laserStepFlow {
+    0% { stroke-dashoffset: 140; }
+    100% { stroke-dashoffset: -40; }
+}
+
+.desktopConduit {
+    display: block;
+}
+
+.mobileConduit {
+    display: none;
+}
+
+@keyframes laserVerticalFlow {
+    0% { stroke-dashoffset: 72; }
+    100% { stroke-dashoffset: -18; }
+}
+
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES (CRISP ENTERPRISE SLATE)
+   ========================================================================= */
+:global([data-theme="light"]) .heroSection {
+    background: linear-gradient(180deg, #f8fafc 0%, #faf5ff 50%, #f8fafc 100%);
+}
+
+:global([data-theme="light"]) .isometricGrid {
+    background-image: 
+        linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+}
+
+:global([data-theme="light"]) .title {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .heroSubtitle {
+    color: #475569;
+}
+
+:global([data-theme="light"]) .descriptionBox {
+    color: #334155;
+}
+
+:global([data-theme="light"]) .boldTag {
+    color: #0f172a;
+    background: rgba(147, 51, 234, 0.08);
+    border-color: rgba(147, 51, 234, 0.18);
+}
+
+:global([data-theme="light"]) .trustRibbon {
+    border-top-color: rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .trustItem {
+    color: #475569;
+}
+
+:global([data-theme="light"]) .stairNode {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06), 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+:global([data-theme="light"]) .stairNode:hover {
+    background: #ffffff;
+    border-color: rgba(147, 51, 234, 0.4);
+    box-shadow: 0 16px 35px rgba(15, 23, 42, 0.1), 0 0 20px rgba(147, 51, 234, 0.12);
+}
+
+:global([data-theme="light"]) .stepBadge {
+    color: #7e22ce;
+}
+
+:global([data-theme="light"]) .nodeName {
+    color: #0f172a;
+}
+
+:global([data-theme="light"]) .nodeTierLabel {
+    color: #64748b;
+}
+
+:global([data-theme="light"]) .conduitTrack {
+    stroke: rgba(147, 51, 234, 0.28);
+}
+
+/* =========================================================================
+   RESPONSIVE DESIGN (MATCHING INTROCOMPONENT & HEROSLIDER BREAKPOINTS)
+   ========================================================================= */
+@media (max-width: 1200px) {
+    .container {
+        padding: 1rem 2rem 0 80px;
+        gap: 2rem;
+    }
+
+    .title {
+        font-size: clamp(2rem, 3vw, 2.75rem);
+    }
+
+    .stairNode {
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .heroSection {
+        padding-top: calc(96px + env(safe-area-inset-top, 0px));
+        padding-bottom: 3.5rem;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+        padding: 0 1.5rem 0 30px;
+        gap: 2.25rem;
+    }
+
+    .leftCol {
+        max-width: 100%;
+    }
+
+    .rightCol,
+    .staircaseStage {
+        max-width: 520px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 992px) {
+    .heroSection {
+        align-items: flex-start;
+        min-height: auto;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 0 1.5rem;
+        gap: 2.5rem;
+    }
+
+    .leftCol {
+        max-width: 100%;
+    }
+
+    .rightCol,
+    .staircaseStage {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .heroSection {
+        min-height: auto;
+        height: auto;
+        padding-top: calc(88px + env(safe-area-inset-top, 0px));
+        padding-bottom: 3rem;
+    }
+
+    .container {
+        padding: 0 1.25rem;
+        gap: 2rem;
+    }
+
+    .leftCol {
+        text-align: center;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .title {
+        font-size: clamp(1.65rem, 5vw, 2.1rem);
+        line-height: 1.2;
+        margin-bottom: 0.85rem;
+    }
+
+    .heroSubtitle {
+        font-size: 15px;
+        line-height: 1.35;
+        margin-top: -0.2rem;
+        margin-bottom: 0.85rem;
+    }
+
+    .descriptionBox {
+        font-size: 13.5px;
+        line-height: 1.55;
+        margin-bottom: 1.5rem;
+    }
+
+    .actionsRow {
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .trustRibbon {
+        justify-content: center;
+        gap: 8px 12px;
+        padding-top: 16px;
+    }
+
+    .trustItem {
+        font-size: 0.78rem;
+        gap: 5px;
+    }
+
+    /* Option A: Compact Vertical Pipeline on Mobile */
+    .rightCol {
+        width: 100%;
+        max-width: 440px;
+        margin: 0 auto;
+    }
+
+    .staircaseStage {
+        width: 100%;
+        max-width: 440px;
+        margin: 0 auto;
+        align-items: center;
+    }
+
+    .desktopConduit {
+        display: none;
+    }
+
+    .mobileConduit {
+        display: block;
+    }
+
+    .mobileConduit .conduitPulse1 {
+        stroke-dasharray: 18 54;
+        animation: laserVerticalFlow 1.6s linear infinite;
+    }
+
+    .mobileConduit .conduitPulse2 {
+        stroke-dasharray: 18 54;
+        animation: laserVerticalFlow 1.6s linear infinite;
+        animation-delay: 0.8s;
+    }
+
+    .stairNode {
+        width: 100%;
+        max-width: 440px;
+        align-self: center;
+        margin: 0 auto;
+        padding: 12px 16px;
+        border-radius: 12px;
+    }
+
+    .stairStep1,
+    .stairStep2,
+    .stairStep3 {
+        align-self: center;
+        margin: 0 auto;
+    }
+
+    .stairConduit {
+        height: 20px;
+        margin: -2px 0;
+    }
+
+    .stepBadge {
+        font-size: 0.68rem;
+        letter-spacing: 0.6px;
+    }
+
+    .nodePill {
+        font-size: 0.66rem;
+        padding: 2px 7px;
+    }
+
+    .nodeIconBox {
+        width: 36px;
+        height: 36px;
+        border-radius: 9px;
+    }
+
+    .nodeTierLabel {
+        font-size: 0.64rem;
+        margin-bottom: 1px;
+    }
+
+    .nodeName {
+        font-size: 0.88rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .heroSection {
+        padding-top: calc(84px + env(safe-area-inset-top, 0px));
+        padding-bottom: 2.25rem;
+    }
+
+    .container {
+        padding: 0 1rem;
+        gap: 1.5rem;
+    }
+
+    .title {
+        font-size: clamp(1.4rem, 5.8vw, 1.75rem);
+        line-height: 1.22;
+        margin-bottom: 0.75rem;
+    }
+
+    .heroSubtitle {
+        font-size: 13.5px;
+        line-height: 1.35;
+        margin-bottom: 0.7rem;
+    }
+
+    .descriptionBox {
+        font-size: 12.5px;
+        line-height: 1.5;
+        margin-bottom: 1.25rem;
+    }
+
+    .actionsRow {
+        margin-bottom: 1.25rem;
+    }
+
+    .trustRibbon {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px 10px;
+        padding-top: 14px;
+    }
+
+    .trustDivider {
+        display: none;
+    }
+
+    .trustItem {
+        font-size: 0.74rem;
+        gap: 4px;
+    }
+
+    /* Dense Mobile Pipeline Cards */
+    .staircaseStage {
+        max-width: 100%;
+    }
+
+    .stairNode {
+        padding: 10px 13px;
+        border-radius: 10px;
+    }
+
+    .stairHeader {
+        margin-bottom: 7px;
+    }
+
+    .stepBadge {
+        font-size: 0.62rem;
+        letter-spacing: 0.5px;
+    }
+
+    .nodePill {
+        font-size: 0.6rem;
+        padding: 2px 6px;
+    }
+
+    .nodeIconBox {
+        width: 32px;
+        height: 32px;
+        border-radius: 7px;
+    }
+
+    .nodeTierLabel {
+        font-size: 0.6rem;
+    }
+
+    .nodeName {
+        font-size: 0.82rem;
+    }
+
+    .stairConduit {
+        height: 16px;
+        margin: -1px 0;
+    }
+}
+
+@media (max-width: 375px) {
+    .heroSection {
+        padding-top: calc(78px + env(safe-area-inset-top, 0px));
+        padding-bottom: 2rem;
+    }
+
+    .container {
+        padding: 0 0.85rem;
+        gap: 1.25rem;
+    }
+
+    .title {
+        font-size: clamp(1.25rem, 5.5vw, 1.45rem);
+        line-height: 1.2;
+    }
+
+    .descriptionBox {
+        font-size: 12px;
+        line-height: 1.45;
+    }
+
+    .nodeName {
+        font-size: 0.78rem;
+    }
+}
