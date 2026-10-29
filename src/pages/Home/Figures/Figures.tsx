@@ -46,7 +46,7 @@ const highlightsData: StatItem[] = [
         icon: Rocket,
     },
     {
-        number: 94,
+        number: 98,
         suffix: '%',
         title: 'Client Retention Rate',
         tag: 'RETENTION',

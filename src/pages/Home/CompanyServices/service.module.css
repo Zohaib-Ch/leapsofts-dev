@@ -37,7 +37,7 @@
     }
 
     .container {
-        padding: 0 1.5rem 0 0px;
+        padding: 0 1.25rem;
     }
 }
 
@@ -376,6 +376,14 @@
 }
 
 @media (max-width: 480px) {
+    .title {
+        font-size: clamp(1.5rem, 5.5vw, 1.75rem);
+    }
+
+    .card {
+        padding: 20px 16px;
+    }
+
     .cardTitleExpanded {
         font-size: 24px;
     }

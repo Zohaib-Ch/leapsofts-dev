@@ -114,21 +114,17 @@
     margin-bottom: 1.15rem;
     color: #ffffff;
     text-wrap: balance;
-    opacity: 0;
-    transform: translate3d(0, 24px, 0);
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-    will-change: transform, opacity, filter;
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
-                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
-                filter 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: none;
+    -webkit-filter: none;
 }
 
 .isLoaded .title {
     opacity: 1;
     transform: translate3d(0, 0, 0);
-    filter: blur(0);
-    -webkit-filter: blur(0);
+    filter: none;
+    -webkit-filter: none;
 }
 
 /* Radiant Multi-Tone Gradient Accent */
@@ -204,11 +200,8 @@
     margin-top: -0.25rem;
     margin-bottom: 1.15rem;
     letter-spacing: -0.01em;
-    opacity: 0;
-    transform: translate3d(0, 18px, 0);
-    will-change: transform, opacity;
-    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.32s,
-                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.32s;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
 }
 
 .isLoaded .heroSubtitle {
@@ -222,11 +215,8 @@
     color: rgba(255, 255, 255, 0.78);
     margin-bottom: 2rem;
     max-width: 700px;
-    opacity: 0;
-    transform: translate3d(0, 18px, 0);
-    will-change: transform, opacity;
-    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.42s,
-                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.42s;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
 }
 
 .isLoaded .subtitle {
@@ -243,11 +233,8 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    opacity: 0;
-    transform: translate3d(0, 16px, 0) scale(0.97);
-    will-change: transform, opacity;
-    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.52s,
-                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.52s;
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
 }
 
 .isLoaded .ctaWrapper {
@@ -264,11 +251,8 @@
     margin-top: 1.75rem;
     padding-top: 1.25rem;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-    opacity: 0;
-    transform: translate3d(0, 14px, 0);
-    will-change: transform, opacity;
-    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.62s,
-                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.62s;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
 }
 
 .isLoaded .trustRow {
@@ -493,13 +477,11 @@
     z-index: 3;
     margin-right: 30px;
     transform: translate3d(5px, 0, 0) scale(0.95);
-    opacity: 0;
-    filter: blur(6px);
-    -webkit-filter: blur(6px);
-    will-change: transform, opacity, filter;
-    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.3s,
-                transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.3s,
-                filter 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+    opacity: 1;
+    filter: none;
+    -webkit-filter: none;
+    will-change: transform;
+    transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
 }
 
 :global([data-theme="light"]) .isLoaded .visualCol {

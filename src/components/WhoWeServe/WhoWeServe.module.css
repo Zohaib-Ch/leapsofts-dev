@@ -327,3 +327,18 @@
         font-size: 1.2rem;
     }
 }
+
+@media (max-width: 480px) {
+    .title {
+        font-size: clamp(1.5rem, 5.5vw, 1.85rem);
+    }
+
+    .subtitle {
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+    }
+
+    .pillarCard {
+        padding: 1.25rem 1rem;
+    }
+}

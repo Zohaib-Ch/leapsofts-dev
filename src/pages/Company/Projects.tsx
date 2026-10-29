@@ -39,13 +39,17 @@ const Projects: React.FC = () => {
   const showcaseRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    getSanityCaseStudies().then((data) => {
-      if (data && data.length > 0) setSanityProjects(data);
-    });
-    getSanityCaseStudiesPage().then((data) => {
-      if (data) setSanityPage(data);
-    });
-  }, []);
+    if (!loaderData?.sanityProjects || loaderData.sanityProjects.length === 0) {
+      getSanityCaseStudies().then((data) => {
+        if (data && data.length > 0) setSanityProjects(data);
+      });
+    }
+    if (!loaderData?.sanityData) {
+      getSanityCaseStudiesPage().then((data) => {
+        if (data) setSanityPage(data);
+      });
+    }
+  }, [loaderData]);
 
   const industryProjects = React.useMemo(() => {
     const fallbackProjects = projectsData.filter(project => project.type === 'industry');

@@ -203,15 +203,9 @@ const HeroSlider: React.FC<HeroSliderProps> = ({
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(false);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(true);
 
     const touchStartX = useRef<number | null>(null);
-
-    // Initial mount transition
-    useEffect(() => {
-        const timer = setTimeout(() => setIsLoaded(true), 60);
-        return () => clearTimeout(timer);
-    }, []);
 
     const goToSlide = useCallback((index: number) => {
         if (isTransitioning || index === currentSlide) return;

@@ -205,6 +205,55 @@
     }
 }
 
+@media (max-width: 480px) {
+    .section {
+        padding: 48px 0;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    .header {
+        margin-bottom: 28px;
+    }
+
+    .subtitle {
+        font-size: 12px;
+        letter-spacing: 1.2px;
+    }
+
+    .title {
+        font-size: clamp(1.5rem, 5.5vw, 1.85rem);
+    }
+
+    .description {
+        font-size: 14px;
+    }
+
+    .card {
+        padding: 22px 18px;
+        border-radius: 16px;
+    }
+
+    .cardContent {
+        gap: 20px;
+    }
+
+    .icon {
+        width: 52px;
+        height: 52px;
+    }
+
+    .itemTitle {
+        font-size: 1.15rem;
+    }
+
+    .itemDescription {
+        font-size: 14px;
+    }
+}
+
 /* =========================================================================
    LIGHT THEME OVERRIDES FOR SERVICE FEATURES
    ========================================================================= */

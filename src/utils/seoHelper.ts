@@ -130,8 +130,7 @@ export interface IndustrySchemaOptions {
 
 /**
  * Generates structured data for industry-specific pages.
- * Uses ProfessionalService (more accurate than Service) + BreadcrumbList + optional FAQPage.
- * Industry pages should NOT use the generic Service @type — this fixes the schema mismatch.
+ * Uses Service + BreadcrumbList + optional FAQPage according to Schema.org standards.
  */
 export function buildIndustrySchema({
   name,
@@ -142,9 +141,10 @@ export function buildIndustrySchema({
 }: IndustrySchemaOptions) {
   const graph: any[] = [
     {
-      '@type': 'ProfessionalService',
+      '@type': 'Service',
       '@id': `${canonicalUrl}#service`,
       'name': name,
+      'serviceType': industryName,
       'provider': {
         '@type': 'Organization',
         'name': 'Leapsofts',

@@ -353,7 +353,7 @@ const CookiesPolicy: React.FC = () => {
                   <strong>Session Cookies:</strong> Temporary tokens stored in memory that expire immediately upon closing your browser window.
                 </li>
                 <li>
-                  <strong>Persistent Cookies:</strong> Remain stored on your device until their designated expiration date (up to a maximum of 12 months) or until you manually clear your browser cache.
+                  <strong>Persistent Cookies:</strong> Remain stored on your device until their designated expiration date (up to a maximum of 14 months) or until you manually clear your browser cache.
                 </li>
               </ul>
             </section>

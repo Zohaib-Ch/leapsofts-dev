@@ -116,6 +116,14 @@
 }
 
 @media (max-width: 640px) {
+    .title {
+        font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+    }
+
+    .tag {
+        font-size: 0.85rem;
+    }
+
     .item {
         padding: 1.25rem;
         gap: 1rem;
