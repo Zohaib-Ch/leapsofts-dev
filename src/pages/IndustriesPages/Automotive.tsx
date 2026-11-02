@@ -269,6 +269,7 @@ const Automotive: React.FC = () => {
         introDescription={activeIntroDescription}
         industryKey="automotive"
         badgeText={data?.badgeText}
+        architectureSteps={data?.hero?.architectureSteps}
       />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

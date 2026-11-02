@@ -266,6 +266,7 @@ const Construction: React.FC = () => {
         introDescription={activeIntroDescription}
         industryKey="construction"
         badgeText={data?.badgeText}
+        architectureSteps={data?.hero?.architectureSteps}
       />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

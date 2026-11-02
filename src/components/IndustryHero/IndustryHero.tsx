@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   ShieldCheck,
   Zap,
@@ -27,6 +27,32 @@ import styles from './IndustryHero.module.css';
 import Button from '../Button/Button';
 import { useContactModal } from '../../context/ContactModalContext';
 import { parseFormattedText, type FormattedSegment } from '../../utils/textParser';
+import type { SanityHeroArchitectureSteps } from '../../sanity/types';
+
+const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+  radio: Radio,
+  lock: Lock,
+  car: Car,
+  heartpulse: HeartPulse,
+  shieldcheck: ShieldCheck,
+  activity: Activity,
+  landmark: Landmark,
+  database: Database,
+  filecheck: FileCheck,
+  network: Network,
+  building2: Building2,
+  hardhat: HardHat,
+  layers: Layers,
+  cpu: Cpu,
+  flame: Flame,
+  zap: Zap,
+  truck: Truck,
+  graduationcap: GraduationCap,
+  rocket: Rocket,
+  shoppingbag: ShoppingBag,
+  film: Film,
+  briefcase: Briefcase,
+};
 
 export interface IndustryHeroProps {
   title: string;
@@ -39,32 +65,36 @@ export interface IndustryHeroProps {
   badgeText?: string;
   secondaryButtonText?: string;
   secondaryButtonTarget?: string;
+  architectureSteps?: SanityHeroArchitectureSteps;
 }
 
 interface DomainConfig {
   sectorTag: string;
-  protocolStatus: string;
+  protocolStatus?: string;
   tier1: {
+    badge?: string;
     label: string;
     title: string;
     status: string;
     icon: React.ComponentType<{ size?: number; className?: string }>;
   };
   tier2: {
+    badge?: string;
     label: string;
     title: string;
     status: string;
     icon: React.ComponentType<{ size?: number; className?: string }>;
   };
   tier3: {
+    badge?: string;
     label: string;
     title: string;
     status: string;
     icon: React.ComponentType<{ size?: number; className?: string }>;
   };
-  metric1: { value: string; label: string };
-  metric2: { value: string; label: string };
-  metric3: { value: string; label: string };
+  metric1?: { value?: string; label?: string };
+  metric2?: { value?: string; label?: string };
+  metric3?: { value?: string; label?: string };
   trustBadges: string[];
 }
 
@@ -436,6 +466,7 @@ const IndustryHero: React.FC<IndustryHeroProps> = ({
   badgeText,
   secondaryButtonText = 'Explore Architecture',
   secondaryButtonTarget = '#process',
+  architectureSteps,
 }) => {
   const { openContactModal } = useContactModal();
 
@@ -445,7 +476,45 @@ const IndustryHero: React.FC<IndustryHeroProps> = ({
   };
 
   const cleanKey = (industryKey || '').toLowerCase().trim();
-  const domain = DOMAIN_REGISTRY[cleanKey] || DEFAULT_CONFIG;
+
+  const domain = useMemo(() => {
+    const fallback = DOMAIN_REGISTRY[cleanKey] || DEFAULT_CONFIG;
+    if (!architectureSteps) return fallback;
+
+    const resolveIcon = (iconName?: string, defaultIcon?: any) => {
+      if (!iconName) return defaultIcon;
+      const clean = iconName.toLowerCase().replace(/[^a-z0-9]/g, '');
+      return ICON_MAP[clean] || ICON_MAP[iconName] || defaultIcon;
+    };
+
+    return {
+      sectorTag: architectureSteps.sectorTag || fallback.sectorTag,
+      tier1: {
+        badge: architectureSteps.step1?.badge || 'STEP 01 // INGESTION',
+        label: architectureSteps.step1?.label || fallback.tier1.label,
+        title: architectureSteps.step1?.title || fallback.tier1.title,
+        status: architectureSteps.step1?.status || fallback.tier1.status,
+        icon: resolveIcon(architectureSteps.step1?.icon, fallback.tier1.icon),
+      },
+      tier2: {
+        badge: architectureSteps.step2?.badge || 'STEP 02 // SECURITY VAULT',
+        label: architectureSteps.step2?.label || fallback.tier2.label,
+        title: architectureSteps.step2?.title || fallback.tier2.title,
+        status: architectureSteps.step2?.status || fallback.tier2.status,
+        icon: resolveIcon(architectureSteps.step2?.icon, fallback.tier2.icon),
+      },
+      tier3: {
+        badge: architectureSteps.step3?.badge || 'STEP 03 // AUTONOMOUS CORE',
+        label: architectureSteps.step3?.label || fallback.tier3.label,
+        title: architectureSteps.step3?.title || fallback.tier3.title,
+        status: architectureSteps.step3?.status || fallback.tier3.status,
+        icon: resolveIcon(architectureSteps.step3?.icon, fallback.tier3.icon),
+      },
+      trustBadges: (architectureSteps.trustBadges && architectureSteps.trustBadges.length > 0)
+        ? architectureSteps.trustBadges
+        : fallback.trustBadges,
+    };
+  }, [cleanKey, architectureSteps]);
 
   const hasIntroDesc = Boolean(introDescription && introDescription.length > 0);
   const activeSubtitle =
@@ -519,7 +588,7 @@ const IndustryHero: React.FC<IndustryHeroProps> = ({
         </div>
 
         {/* Right Column: Cascading Staircase Architecture */}
-        <div className={styles.rightCol} aria-hidden="true">
+        <div className={styles.rightCol} aria-label="Architecture Tiers and Deployment Steps">
           <div className={styles.staircaseStage}>
             {/* SVG Gradient Defs for Stepping Laser Pulses */}
             <svg width="0" height="0" style={{ position: 'absolute' }}>
@@ -540,7 +609,7 @@ const IndustryHero: React.FC<IndustryHeroProps> = ({
             {/* Step 1 Node (Top-Left) */}
             <div className={`${styles.stairNode} ${styles.stairStep1}`}>
               <div className={styles.stairHeader}>
-                <span className={styles.stepBadge}>STEP 01 // INGESTION</span>
+                <span className={styles.stepBadge}>{domain.tier1.badge || 'STEP 01 // INGESTION'}</span>
                 <span className={`${styles.nodePill} ${styles.pillTier1}`}>{domain.tier1.status}</span>
               </div>
               <div className={styles.nodeBody}>
@@ -569,7 +638,7 @@ const IndustryHero: React.FC<IndustryHeroProps> = ({
             {/* Step 2 Node (Center) */}
             <div className={`${styles.stairNode} ${styles.stairStep2}`}>
               <div className={styles.stairHeader}>
-                <span className={styles.stepBadge}>STEP 02 // SECURITY VAULT</span>
+                <span className={styles.stepBadge}>{domain.tier2.badge || 'STEP 02 // SECURITY VAULT'}</span>
                 <span className={`${styles.nodePill} ${styles.pillTier2}`}>{domain.tier2.status}</span>
               </div>
               <div className={styles.nodeBody}>
@@ -598,7 +667,7 @@ const IndustryHero: React.FC<IndustryHeroProps> = ({
             {/* Step 3 Node (Bottom-Right) */}
             <div className={`${styles.stairNode} ${styles.stairStep3}`}>
               <div className={styles.stairHeader}>
-                <span className={styles.stepBadge}>STEP 03 // INTELLIGENCE</span>
+                <span className={styles.stepBadge}>{domain.tier3.badge || 'STEP 03 // INTELLIGENCE'}</span>
                 <span className={`${styles.nodePill} ${styles.pillTier3}`}>{domain.tier3.status}</span>
               </div>
               <div className={styles.nodeBody}>

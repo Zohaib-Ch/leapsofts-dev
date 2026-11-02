@@ -266,6 +266,7 @@ const Startups: React.FC = () => {
         introDescription={activeIntroDescription}
         industryKey="startups"
         badgeText={data?.badgeText}
+        architectureSteps={data?.hero?.architectureSteps}
       />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
