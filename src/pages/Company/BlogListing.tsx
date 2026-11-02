@@ -5,25 +5,26 @@ import { Link, useLoaderData } from 'react-router';
 import { Search, Clock, Calendar, ArrowRight, Sparkles } from 'lucide-react';
 import { blogsData, DEFAULT_BLOG_FALLBACK_IMAGE } from '../../data/blogsData';
 import Button from '../../components/Button/Button';
-import MetaSEO from '../../components/SEO/MetaSEO';
-import { getSanityBlogs } from '../../sanity/queries';
-import type { SanityBlog } from '../../sanity/types';
+import { getSanityBlogs, getSanityBlogPage } from '../../sanity/queries';
+import type { SanityBlog, SanityBlogPage } from '../../sanity/types';
 import { sendMail } from '../../services/mailService';
 import { buildPageMeta } from '../../utils/seoHelper';
 
 export async function loader() {
-  const sanityData = await getSanityBlogs();
-  return { sanityData };
+  const [sanityData, blogPage] = await Promise.all([
+    getSanityBlogs().catch(() => null),
+    getSanityBlogPage().catch(() => null),
+  ]);
+  return { sanityData, blogPage };
 }
 
 export function meta({ data }: { data?: any }) {
-  const sanityData = data?.sanityData;
-  const firstBlogSeo = Array.isArray(sanityData) ? sanityData[0]?.seo : null;
+  const blogPage = data?.blogPage;
   return buildPageMeta({
-    sanityData: { seo: firstBlogSeo },
+    sanityData: blogPage,
     defaultTitle: "Engineering Insights & Software Development Blog | Leapsofts",
-    defaultDescription: "Expert articles on custom software development, cloud engineering, AI/ML, and digital transformation from the Leapsofts engineering team.",
-    defaultKeywords: "software development blog, engineering insights, cloud architecture articles, AI development articles",
+    defaultDescription: "Expert engineering insights, enterprise cloud architecture blueprints, production LLM pipelines, and modern software development best practices from Leapsofts.",
+    defaultKeywords: "software development blog, engineering insights, cloud architecture articles, AI development articles, microservices",
     canonicalUrl: "https://www.leapsofts.com/blog",
   });
 }
@@ -150,13 +151,6 @@ const BlogListing: React.FC = () => {
 
   return (
     <div className={styles.blogListingPage}>
-      <MetaSEO
-        defaultTitle="Engineering Insights & Software Development Blog | Leapsofts"
-        defaultDescription="Read technical articles on enterprise AI pipelines, cloud microservices, zero-trust cloud security, and agile pod topologies from Leapsofts lead architects."
-        defaultKeywords="software development blog, enterprise AI articles, cloud architecture blog, zero trust security blueprints, leapsofts engineering insights"
-        canonicalUrl="https://www.leapsofts.com/blog"
-      />
-
       {/* JSON-LD Structured Data for Googlebot Crawling */}
       <script
         type="application/ld+json"

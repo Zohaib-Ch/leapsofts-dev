@@ -40,6 +40,8 @@ export function buildPageMeta({
     { property: 'og:title', content: title },
     { property: 'og:description', content: description },
     { property: 'og:image', content: ogImage },
+    { property: 'og:image:width', content: '1200' },
+    { property: 'og:image:height', content: '630' },
     { property: 'og:url', content: canonical },
     { property: 'og:type', content: 'website' },
     { property: 'og:site_name', content: 'Leapsofts' },
@@ -49,6 +51,7 @@ export function buildPageMeta({
     { name: 'twitter:title', content: title },
     { name: 'twitter:description', content: description },
     { name: 'twitter:image', content: twitterImage },
+    { name: 'twitter:image:alt', content: title },
     { tagName: 'link', rel: 'canonical', href: canonical },
   ];
 }
@@ -72,17 +75,22 @@ export function buildServiceSchema({
   const graph: any[] = [
     {
       '@type': 'Service',
+      '@id': `${canonicalUrl}#service`,
       'name': name,
+      'serviceType': name,
       'provider': {
         '@type': 'Organization',
         'name': 'Leapsofts',
         'url': 'https://www.leapsofts.com',
+        '@id': 'https://www.leapsofts.com/#organization',
       },
-      'serviceType': name,
+      'areaServed': ['United Arab Emirates', 'United States', 'United Kingdom', 'Saudi Arabia', 'Global'],
       'description': description,
+      'url': canonicalUrl,
     },
     {
       '@type': 'BreadcrumbList',
+      '@id': `${canonicalUrl}#breadcrumb`,
       'itemListElement': [
         {
           '@type': 'ListItem',
@@ -93,6 +101,12 @@ export function buildServiceSchema({
         {
           '@type': 'ListItem',
           'position': 2,
+          'name': 'Services',
+          'item': 'https://www.leapsofts.com/#services',
+        },
+        {
+          '@type': 'ListItem',
+          'position': 3,
           'name': name,
           'item': canonicalUrl,
         },
@@ -103,6 +117,7 @@ export function buildServiceSchema({
   if (Array.isArray(faqs) && faqs.length > 0) {
     graph.push({
       '@type': 'FAQPage',
+      '@id': `${canonicalUrl}#faq`,
       'mainEntity': faqs.map((faq) => ({
         '@type': 'Question',
         'name': faq.question,
@@ -158,6 +173,7 @@ export function buildIndustrySchema({
     },
     {
       '@type': 'BreadcrumbList',
+      '@id': `${canonicalUrl}#breadcrumb`,
       'itemListElement': [
         {
           '@type': 'ListItem',
@@ -184,6 +200,7 @@ export function buildIndustrySchema({
   if (Array.isArray(faqs) && faqs.length > 0) {
     graph.push({
       '@type': 'FAQPage',
+      '@id': `${canonicalUrl}#faq`,
       'mainEntity': faqs.map((faq) => ({
         '@type': 'Question',
         'name': faq.question,

@@ -9,16 +9,8 @@ import { type InfoGridProps } from '../../components/InfoGrid/InfoGrid';
 import ContactForm from '../../components/ContactForm/ContactForm';
 import Processes from '../../components/Processes/Processes';
 import { type ProcessPhase } from '../../components/Processes/Processes';
-import { getSanityAboutPage } from '../../sanity/queries';
-
-export async function loader() {
-  const sanityData = await getSanityAboutPage('aboutPage');
-  return { sanityData };
-}
-
-export function meta({ data }: { data?: any }) {
+export function meta() {
   return buildPageMeta({
-    sanityData: data?.sanityData,
     defaultTitle: "Strategic Technology Partnerships | Leapsofts",
     defaultDescription: "Leapsofts partners with global technology leaders to deliver cutting-edge software solutions. Explore our strategic partnerships and certified alliances.",
     defaultKeywords: "technology partnerships, software development partners, certified technology partner, strategic technology alliances",

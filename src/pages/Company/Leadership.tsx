@@ -18,7 +18,6 @@ import {
 } from 'lucide-react';
 import Button from '../../components/Button/Button';
 import { useContactModal } from '../../context/ContactModalContext';
-import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityAboutPage, getSanityTeamMembers } from '../../sanity/queries';
 import type { SanityAboutPage, SanityTeamMember } from '../../sanity/types';
 import { DEFAULT_LEADERSHIP_PAGE_DATA } from '../../data/companyFallback';
@@ -380,11 +379,6 @@ const Leadership: React.FC = () => {
 
   return (
     <div className={styles.leadershipPage}>
-      <MetaSEO
-        seo={sanityData?.seo}
-        defaultTitle="Executive Engineering Leadership | CEO Huzaifa Rasheed | Leapsofts"
-        defaultDescription="Meet the executive leaders, AI researchers, and cloud architects behind Leapsofts. Led by CEO & Co-Founder Huzaifa Rasheed, building custom enterprise software solutions."
-      />
 
       {/* JSON-LD Schemas */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />

@@ -17,9 +17,9 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import ContactForm from '../../components/ContactForm/ContactForm';
-import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityContactPage } from '../../sanity/queries';
 import type { SanityContactPage } from '../../sanity/types';
+import { renderFormattedTitle } from '../../utils/titleFormatter';
 export async function loader() {
   const sanityData = await getSanityContactPage();
   return { sanityData };
@@ -142,6 +142,9 @@ const Contact: React.FC = () => {
 
   const sanityData: SanityContactPage | null = sanityContact || loaderData?.sanityData || null;
 
+  const defaultTitle = <>Let's Build Your <em>Next Enterprise System</em></>;
+  const defaultSubtitle = "Have an enterprise software initiative, AI project, or product re-engineering roadmap? Book a free 30-minute enterprise software strategy session directly with our lead architects and executive team.";
+
   const toggleFaq = (index: number) => {
     setOpenFaqIndex((prev) => (prev === index ? null : index));
   };
@@ -173,11 +176,6 @@ const contactSchema = {
   return (
     <div className={styles.contactPage}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }} />
-      <MetaSEO
-        seo={sanityData?.seo}
-        defaultTitle="Contact Us | Custom Software & AI Engineering Consultation | Leapsofts"
-        defaultDescription="Get in touch with Leapsofts software architects to schedule a technical strategy session, request a project quote, or discuss custom software development."
-      />
       {/* Chapter 1: Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
@@ -189,10 +187,14 @@ const contactSchema = {
           >
             <span className={styles.label}>START A CONVERSATION</span>
             <h1 className={styles.heroTitle}>
-              Let's Build Your <em>Next Enterprise System</em>
+              {renderFormattedTitle({
+                title: sanityData?.hero?.title,
+                defaultTitle,
+                defaultAccentPhrase: "Next Enterprise System",
+              })}
             </h1>
             <p className={styles.heroSub}>
-              Have an enterprise software initiative, AI project, or product re-engineering roadmap? Book a free 30-minute enterprise software strategy session directly with our lead architects and executive team.
+              {sanityData?.hero?.subtitle || defaultSubtitle}
             </p>
           </motion.div>
 

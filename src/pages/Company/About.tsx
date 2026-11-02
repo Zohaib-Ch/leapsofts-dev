@@ -28,7 +28,6 @@ import {
 import Button from '../../components/Button/Button';
 import AnimatedCounter from '../../components/AnimatedCounter/AnimatedCounter';
 import { useContactModal } from '../../context/ContactModalContext';
-import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityAboutPage, getSanityTeamMembers } from '../../sanity/queries';
 import type { SanityAboutPage, SanityTeamMember } from '../../sanity/types';
 import { DEFAULT_ABOUT_PAGE_DATA } from '../../data/companyFallback';
@@ -409,11 +408,6 @@ const About: React.FC = () => {
 
   return (
     <div className={styles.aboutPage}>
-      <MetaSEO
-        seo={sanityData?.seo}
-        defaultTitle="About Leapsofts | Enterprise Software Engineering Company | Dubai & US"
-        defaultDescription="Discover Leapsofts, an enterprise software engineering company delivering custom cloud architectures, AI solutions, and dedicated agile pods with 250+ engineers globally."
-      />
 
       {/* JSON-LD Rich Snippet Schemas for Googlebot Crawling */}
       <script

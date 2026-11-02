@@ -44,6 +44,17 @@ export const blogSchema = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'publishedAt',
+      title: 'Published Date & Time (ISO Datetime for SEO & Google Indexing)',
+      type: 'datetime',
+      options: {
+        dateFormat: 'YYYY-MM-DD',
+        timeFormat: 'HH:mm',
+      },
+      initialValue: () => new Date().toISOString(),
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'publishedDate',
       title: 'Published Date Display String (e.g. September 12, 2026)',
       type: 'string',

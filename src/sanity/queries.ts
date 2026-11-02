@@ -4,11 +4,13 @@ import type {
   SanityAboutPage,
   SanityContactPage,
   SanityCaseStudiesPage,
+  SanityBlogPage,
   SanityService,
   SanityIndustry,
   SanityCaseStudy,
   SanityBlog,
   SanityTeamMember,
+  SanitySiteSettings,
 } from './types';
 
 // GROQ Query fragments
@@ -141,6 +143,25 @@ export const CASE_STUDIES_PAGE_QUERY = `*[_type == "caseStudiesPage" && (_id == 
   hero,
   cta,
   ${SEO_FRAGMENT}
+}`;
+
+export const BLOG_PAGE_QUERY = `*[_type == "blogPage" && (_id == "blogPage" || _id == "drafts.blogPage")] | order(_updatedAt desc)[0]{
+  hero,
+  newsletter,
+  ${SEO_FRAGMENT}
+}`;
+
+export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings" && (_id == "siteSettings" || _id == "drafts.siteSettings")] | order(_updatedAt desc)[0]{
+  _id,
+  siteTitle,
+  "defaultOgImageUrl": defaultOgImage.asset->url,
+  contactEmail,
+  contactPhone,
+  socialLinks[] {
+    _key,
+    platform,
+    url
+  }
 }`;
 
 export const ALL_SERVICES_QUERY = `*[_type == "service"]{
@@ -689,3 +710,22 @@ export async function getSanityCaseStudiesPage(): Promise<SanityCaseStudiesPage 
     return null;
   }
 }
+
+export async function getSanityBlogPage(): Promise<SanityBlogPage | null> {
+  try {
+    const res = await client.fetch(BLOG_PAGE_QUERY);
+    return res || null;
+  } catch (e) {
+    return null;
+  }
+}
+
+export async function getSanitySiteSettings(): Promise<SanitySiteSettings | null> {
+  try {
+    const res = await client.fetch(SITE_SETTINGS_QUERY);
+    return res || null;
+  } catch (e) {
+    return null;
+  }
+}
+

@@ -5,6 +5,8 @@ import {
   Scripts,
   ScrollRestoration,
   useLocation,
+  useLoaderData,
+  useRouteLoaderData,
 } from "react-router";
 import type { LinksFunction } from "react-router";
 import { Analytics } from "@vercel/analytics/react";
@@ -13,6 +15,8 @@ import Navbar from "../src/components/Navbar/Navbar";
 import Footer from "../src/components/Footer/Footer";
 import ContactModal from "../src/components/ContactModal/ContactModal";
 import { ContactModalProvider } from "../src/context/ContactModalContext";
+import { getSanitySiteSettings } from "../src/sanity/queries";
+import type { SanitySiteSettings } from "../src/sanity/types";
 import { ThemeProvider } from "../src/context/ThemeContext";
 import { CookieConsentProvider } from "../src/context/CookieConsentContext";
 import CookieBanner from "../src/components/CookieBanner/CookieBanner";
@@ -22,6 +26,7 @@ const GOOGLE_FONTS_URL =
   "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Dancing+Script:wght@700&family=Inter:wght@400;500;600;700;800&display=swap";
 
 export const links: LinksFunction = () => [
+  { rel: "icon", href: "/favicon.ico" },
   { rel: "icon", type: "image/png", href: "/logo/Leap-soft-01.png" },
   { rel: "apple-touch-icon", href: "/logo/Leap-soft-01.png" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -118,12 +123,39 @@ const themeInitScript = `
 `;
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const rootData = useRouteLoaderData<{ siteSettings?: SanitySiteSettings | null }>("root");
+  const siteSettings = rootData?.siteSettings;
+  const activeEmail = siteSettings?.contactEmail || "contact@leapsofts.com";
+  const activePhone = siteSettings?.contactPhone || "+971 56 830 9734";
+  const activeSocials = (siteSettings?.socialLinks && siteSettings.socialLinks.length > 0)
+    ? siteSettings.socialLinks.map((s) => s.url)
+    : [
+        "https://www.linkedin.com/company/leapsofts",
+        "https://twitter.com/leapsofts",
+        "https://github.com/leapsofts",
+      ];
+
+  const dynamicGlobalSchema = {
+    ...globalSchema,
+    "@graph": [
+      {
+        ...globalSchema["@graph"][0],
+        sameAs: activeSocials,
+        contactPoint: {
+          ...globalSchema["@graph"][0].contactPoint,
+          email: activeEmail,
+          telephone: activePhone,
+        },
+      },
+      globalSchema["@graph"][1],
+    ],
+  };
+
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         {/* Theme color for mobile browsers */}
         <meta name="theme-color" content="#ffffff" />
         {/* Publisher / author for E-E-A-T */}
@@ -135,7 +167,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(globalSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(dynamicGlobalSchema) }}
         />
       </head>
       <body>
@@ -147,8 +179,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+export async function loader() {
+  const siteSettings = await getSanitySiteSettings();
+  return { siteSettings };
+}
+
 export default function App() {
   const location = useLocation();
+  const loaderData = useLoaderData<typeof loader>();
   const isStudio = location.pathname.startsWith("/studio");
 
   return (
@@ -163,7 +201,7 @@ export default function App() {
             </main>
             {!isStudio && <ContactModal />}
             {!isStudio && <CookieBanner />}
-            {!isStudio && <Footer />}
+            {!isStudio && <Footer siteSettings={loaderData?.siteSettings} />}
             {!isStudio && <Analytics />}
           </div>
         </ContactModalProvider>
