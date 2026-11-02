@@ -266,6 +266,7 @@ const RealEstate: React.FC = () => {
         introDescription={activeIntroDescription}
         industryKey="real-estate"
         badgeText={data?.badgeText}
+        architectureSteps={data?.hero?.architectureSteps}
       />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

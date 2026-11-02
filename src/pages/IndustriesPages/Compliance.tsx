@@ -266,6 +266,7 @@ const Compliance: React.FC = () => {
         introDescription={activeIntroDescription}
         industryKey="compliance"
         badgeText={data?.badgeText}
+        architectureSteps={data?.hero?.architectureSteps}
       />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

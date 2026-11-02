@@ -266,6 +266,7 @@ const Energy: React.FC = () => {
         introDescription={activeIntroDescription}
         industryKey="energy"
         badgeText={data?.badgeText}
+        architectureSteps={data?.hero?.architectureSteps}
       />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

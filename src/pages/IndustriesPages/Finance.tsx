@@ -267,6 +267,7 @@ const Finance: React.FC = () => {
         introDescription={activeIntroDescription}
         industryKey="finance"
         badgeText={data?.badgeText}
+        architectureSteps={data?.hero?.architectureSteps}
       />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

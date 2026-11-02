@@ -52,6 +52,60 @@ export const industrySchema = defineType({
         defineField({ name: 'title', title: 'Hero Main Title', type: 'string' }),
         defineField({ name: 'subtitle', title: 'Hero Subtitle', type: 'string' }),
         defineField({ name: 'introText', title: 'Intro Paragraph', type: 'text' }),
+        defineField({
+          name: 'architectureSteps',
+          title: 'Hero Architecture Cascading Staircase (Step 1, Step 2, Step 3)',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'sectorTag',
+              title: 'Sector Header Tag (e.g. CONNECTED CARS & MOBILITY SYSTEMS)',
+              type: 'string',
+            }),
+            defineField({
+              name: 'step1',
+              title: 'Step 01 Node (Ingestion / Edge Layer)',
+              type: 'object',
+              fields: [
+                defineField({ name: 'badge', title: 'Step Badge (e.g. STEP 01 // INGESTION)', type: 'string' }),
+                defineField({ name: 'label', title: 'Tier Label (e.g. Edge & Ingestion)', type: 'string' }),
+                defineField({ name: 'title', title: 'Node Name (e.g. CAN-Bus & OBD-II Telematics Ingestion)', type: 'string' }),
+                defineField({ name: 'status', title: 'Status Pill (e.g. Active Telemetry)', type: 'string' }),
+                defineField({ name: 'icon', title: 'Icon Name (e.g. radio, lock, car)', type: 'string' }),
+              ],
+            }),
+            defineField({
+              name: 'step2',
+              title: 'Step 02 Node (Security & Vault Layer)',
+              type: 'object',
+              fields: [
+                defineField({ name: 'badge', title: 'Step Badge (e.g. STEP 02 // SECURITY VAULT)', type: 'string' }),
+                defineField({ name: 'label', title: 'Tier Label (e.g. Security & Firmware Vault)', type: 'string' }),
+                defineField({ name: 'title', title: 'Node Name (e.g. Cryptographic HSM Over-The-Air (OTA) Vault)', type: 'string' }),
+                defineField({ name: 'status', title: 'Status Pill (e.g. ISO 26262 ASIL-D)', type: 'string' }),
+                defineField({ name: 'icon', title: 'Icon Name (e.g. lock, shield, layers)', type: 'string' }),
+              ],
+            }),
+            defineField({
+              name: 'step3',
+              title: 'Step 03 Node (Autonomous Core / Intelligence Layer)',
+              type: 'object',
+              fields: [
+                defineField({ name: 'badge', title: 'Step Badge (e.g. STEP 03 // AUTONOMOUS CORE)', type: 'string' }),
+                defineField({ name: 'label', title: 'Tier Label (e.g. Autonomous Core)', type: 'string' }),
+                defineField({ name: 'title', title: 'Node Name (e.g. V2X Cloud Gateway & Fleet Telemetry AI)', type: 'string' }),
+                defineField({ name: 'status', title: 'Status Pill (e.g. Sub-15ms Sync)', type: 'string' }),
+                defineField({ name: 'icon', title: 'Icon Name (e.g. car, database, zap)', type: 'string' }),
+              ],
+            }),
+            defineField({
+              name: 'trustBadges',
+              title: 'Trust & Compliance Badges',
+              type: 'array',
+              of: [{ type: 'string' }],
+            }),
+          ],
+        }),
       ],
     }),
 

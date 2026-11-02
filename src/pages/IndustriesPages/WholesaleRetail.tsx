@@ -265,6 +265,7 @@ const WholesaleRetail: React.FC = () => {
         introDescription={activeIntroDescription}
         industryKey="wholesale-retail"
         badgeText={data?.badgeText}
+        architectureSteps={data?.hero?.architectureSteps}
       />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

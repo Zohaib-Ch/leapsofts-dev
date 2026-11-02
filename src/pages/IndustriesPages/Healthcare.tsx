@@ -271,6 +271,7 @@ const Healthcare: React.FC = () => {
         introDescription={activeIntroDescription}
         industryKey="healthcare"
         badgeText={data?.badgeText}
+        architectureSteps={data?.hero?.architectureSteps}
       />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

@@ -265,6 +265,7 @@ const Transportation: React.FC = () => {
         introDescription={activeIntroDescription}
         industryKey="transportation"
         badgeText={data?.badgeText}
+        architectureSteps={data?.hero?.architectureSteps}
       />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

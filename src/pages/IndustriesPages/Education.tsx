@@ -266,6 +266,7 @@ const Education: React.FC = () => {
         introDescription={activeIntroDescription}
         industryKey="education"
         badgeText={data?.badgeText}
+        architectureSteps={data?.hero?.architectureSteps}
       />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess

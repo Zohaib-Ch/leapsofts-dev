@@ -463,6 +463,7 @@ export interface SanityIndustry {
     title?: string;
     subtitle?: string;
     introText?: string;
+    architectureSteps?: SanityHeroArchitectureSteps;
   };
   commitmentSection?: {
     subtitle?: string;
@@ -661,4 +662,21 @@ export interface SanitySiteSettings {
   contactPhone?: string;
   socialLinks?: SanitySocialLink[];
 }
+
+export interface SanityArchitectureStepNode {
+  badge?: string;
+  label?: string;
+  title?: string;
+  status?: string;
+  icon?: string;
+}
+
+export interface SanityHeroArchitectureSteps {
+  sectorTag?: string;
+  step1?: SanityArchitectureStepNode;
+  step2?: SanityArchitectureStepNode;
+  step3?: SanityArchitectureStepNode;
+  trustBadges?: string[];
+}
+
 

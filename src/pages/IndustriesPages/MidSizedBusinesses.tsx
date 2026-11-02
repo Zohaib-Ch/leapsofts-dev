@@ -266,6 +266,7 @@ const MidSizedBusinesses: React.FC = () => {
         introDescription={activeIntroDescription}
         industryKey="mid-sized-businesses"
         badgeText={data?.badgeText}
+        architectureSteps={data?.hero?.architectureSteps}
       />
       <CommitmentSection data={activeCommitmentData} />
       <StreamlineSuccess
