@@ -8,7 +8,6 @@ import Partners from '../../components/Partners/Partners';
 import IndustrySlider from '../../components/IndustrySlider/IndustrySlider';
 import ContactForm from '../../components/ContactForm/ContactForm';
 import { projectsData } from '../../data/projectsData';
-import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityCaseStudies } from '../../sanity/queries';
 import type { SanityCaseStudy } from '../../sanity/types';
 import { getSanityCaseStudiesPage } from '../../sanity/queries';
@@ -137,12 +136,43 @@ const Projects: React.FC = () => {
     }
   };
 
+  const projectsSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": "https://www.leapsofts.com/projects#webpage",
+        "url": "https://www.leapsofts.com/projects",
+        "name": "Software Development Case Studies & Enterprise Portfolio | Leapsofts",
+        "description": "Explore Leapsofts' software engineering case studies, enterprise cloud platforms, AI workflows, and high-velocity MVP launches across global industries.",
+        "isPartOf": {
+          "@id": "https://www.leapsofts.com/#website"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.leapsofts.com/projects#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.leapsofts.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Case Studies",
+            "item": "https://www.leapsofts.com/projects"
+          }
+        ]
+      }
+    ]
+  };
+
   return (
     <>
-      <MetaSEO
-        defaultTitle="Enterprise Case Studies & Production Portfolio | Leapsofts"
-        defaultDescription="Explore detailed project case studies demonstrating how Leapsofts combines domain expertise, robust engineering architectures, and production-ready custom software."
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(projectsSchema) }} />
       <div id="projects-hero-section">
         <IntroComponent
           title={sanityPage?.hero?.title || "Enterprise Software Case Studies"}

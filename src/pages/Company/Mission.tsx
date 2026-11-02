@@ -5,7 +5,6 @@ import styles from './Mission.module.css';
 import { motion } from 'framer-motion';
 import { useContactModal } from '../../context/ContactModalContext';
 import Button from '../../components/Button/Button';
-import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityAboutPage } from '../../sanity/queries';
 import type { SanityAboutPage } from '../../sanity/types';
 import { renderFormattedTitle } from '../../utils/titleFormatter';
@@ -365,11 +364,6 @@ const Mission: React.FC = () => {
 
   return (
     <div className={styles.missionPage}>
-      <MetaSEO
-        seo={sanityData?.seo}
-        defaultTitle="Our Mission & Engineering Creed | Leapsofts | Dubai & US"
-        defaultDescription="Explore Leapsofts' mission to deliver zero-tech-debt software engineering, AI-augmented development velocity, and transparent agile pods for global platforms."
-      />
 
       {/* JSON-LD Schemas */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />

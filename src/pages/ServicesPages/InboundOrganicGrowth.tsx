@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react';
 import { Link, useLoaderData } from 'react-router';
-import MetaSEO from '../../components/SEO/MetaSEO';
 import { GROWTH_SERVICES_DATA, type GrowthServicePillar } from '../../data/growthServicesData';
 import styles from '../Services/GrowthServicePage.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -160,58 +159,6 @@ export default function InboundOrganicGrowth() {
 
   const currentCanonicalUrl = `https://www.leapsofts.com/services/${SLUG}`;
 
-  const jsonLd = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Service',
-      'name': service.title,
-      'description': service.seo.description,
-      'provider': {
-        '@type': 'Organization',
-        'name': 'Leapsofts',
-        'url': 'https://www.leapsofts.com'
-      },
-      'serviceType': service.badgeText,
-      'areaServed': 'Global'
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      'itemListElement': [
-        {
-          '@type': 'ListItem',
-          'position': 1,
-          'name': 'Home',
-          'item': 'https://www.leapsofts.com'
-        },
-        {
-          '@type': 'ListItem',
-          'position': 2,
-          'name': 'Services',
-          'item': 'https://www.leapsofts.com/#services'
-        },
-        {
-          '@type': 'ListItem',
-          'position': 3,
-          'name': service.title,
-          'item': currentCanonicalUrl
-        }
-      ]
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      'mainEntity': service.faqs.map((faq) => ({
-        '@type': 'Question',
-        'name': faq.question,
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': faq.answer
-        }
-      }))
-    }
-  ];
-
   const schemaData = buildServiceSchema({
     name: service.title,
     description: service.seo.description,
@@ -222,13 +169,6 @@ export default function InboundOrganicGrowth() {
   return (
     <div className={styles['page-container']}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
-      <MetaSEO
-        defaultTitle={service.seo.title}
-        defaultDescription={service.seo.description}
-        defaultKeywords={service.seo.keywords.join(', ')}
-        canonicalUrl={currentCanonicalUrl}
-        schema={jsonLd}
-      />
 
       {/* Breadcrumbs */}
       <div className={styles['breadcrumb-bar']}>

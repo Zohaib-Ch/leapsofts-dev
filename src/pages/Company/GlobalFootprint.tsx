@@ -5,7 +5,6 @@ import styles from './GlobalFootprint.module.css';
 import { motion } from 'framer-motion';
 import { useContactModal } from '../../context/ContactModalContext';
 import Button from '../../components/Button/Button';
-import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityAboutPage } from '../../sanity/queries';
 import type { SanityAboutPage } from '../../sanity/types';
 import { renderFormattedTitle } from '../../utils/titleFormatter';
@@ -376,11 +375,6 @@ const GlobalFootprint: React.FC = () => {
 
   return (
     <div className={styles.globalPage}>
-      <MetaSEO
-        seo={sanityPage?.seo}
-        defaultTitle="Global Offices & Security Compliance | ISO, HIPAA, SOC2 | Leapsofts"
-        defaultDescription="Leapsofts operates global delivery hubs in Dubai and the USA with ISO 27001, HIPAA, SOC 2, and GDPR security compliance readiness for enterprise software."
-      />
 
       {/* JSON-LD Schemas */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />

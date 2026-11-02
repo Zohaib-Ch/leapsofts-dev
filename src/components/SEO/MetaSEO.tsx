@@ -45,11 +45,8 @@ export const MetaSEO: React.FC<MetaSEOProps> = ({
   const canonicalUrl = seo?.canonicalUrl || propCanonicalUrl || currentUrl;
   const ogImage = seo?.ogImage ? urlFor(seo.ogImage) : (defaultOgImage || DEFAULT_OG_IMAGE);
 
-  useEffect(() => {
-    if (typeof document !== 'undefined' && title) {
-      document.title = title;
-    }
-  }, [title]);
+  // In React Router SSR, page titles are strictly managed via route meta() exports.
+  // We do not mutate document.title in useEffect to avoid clobbering SSR-rendered titles on the client.
 
   return schema ? (
     <script

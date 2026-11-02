@@ -614,3 +614,51 @@ export interface SanityTeamMember {
   github?: string;
   twitter?: string;
 }
+
+export interface SanityBlogPage {
+  _id?: string;
+  hero?: {
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    description?: string;
+  };
+  newsletter?: {
+    heading?: string;
+    description?: string;
+    buttonText?: string;
+  };
+  seo?: SanitySEO;
+}
+
+export interface SanityCaseStudiesPage {
+  _id?: string;
+  hero?: {
+    title?: string;
+    title2?: string;
+    description?: string;
+    introDescription?: { text: string; bold?: boolean }[];
+  };
+  cta?: {
+    buttonText?: string;
+    buttonPath?: string;
+  };
+  seo?: SanitySEO;
+}
+
+export interface SanitySocialLink {
+  _key?: string;
+  platform: string;
+  url: string;
+}
+
+export interface SanitySiteSettings {
+  _id?: string;
+  siteTitle?: string;
+  defaultOgImage?: any;
+  defaultOgImageUrl?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  socialLinks?: SanitySocialLink[];
+}
+

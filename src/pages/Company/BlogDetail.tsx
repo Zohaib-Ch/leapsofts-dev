@@ -18,7 +18,6 @@ import { blogsData, type BlogPost, DEFAULT_BLOG_FALLBACK_IMAGE } from '../../dat
 import { useContactModal } from '../../context/ContactModalContext';
 import Button from '../../components/Button/Button';
 import styles from './BlogDetail.module.css';
-import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityBlogBySlug } from '../../sanity/queries';
 import type { SanityBlog } from '../../sanity/types';
 import ErrorPage from '../ErrorPage/Error';
@@ -282,14 +281,6 @@ const BlogDetail: React.FC = () => {
 
   return (
     <div className={styles.blogDetailWrapper}>
-      <MetaSEO
-        seo={sanityPost?.seo}
-        defaultTitle={`${post.title} | Leapsofts Engineering Insights`}
-        defaultDescription={post.subtitle || post.excerpt}
-        defaultKeywords={(Array.isArray(post.tags) ? post.tags.join(', ') : (post.tags || '')) + ', software engineering, leapsofts architecture'}
-        canonicalUrl={`https://www.leapsofts.com/blog/${post.slug}`}
-        defaultOgImage={post.coverImage}
-      />
 
       {/* JSON-LD Structured Data (BlogPosting & BreadcrumbList) with full E-E-A-T */}
       <script

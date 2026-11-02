@@ -5,7 +5,6 @@ import ImpactShowcase from '../../components/ImpactShowcase/ImpactShowcase';
 import ExecutiveSummary from '../../components/ExecutiveSummary/ExecutiveSummary';
 import TechStack from '../../components/TechStack/TechStack';
 import ContactForm from '../../components/ContactForm/ContactForm';
-import MetaSEO from '../../components/SEO/MetaSEO';
 import { getSanityCaseStudyById } from '../../sanity/queries';
 import type { SanityCaseStudy } from '../../sanity/types';
 import { buildPageMeta } from '../../utils/seoHelper';
@@ -110,6 +109,14 @@ export async function loader({ params }: { params: { id?: string } }) {
 export function meta({ data, params }: { data?: any; params?: any }) {
     const project = (data?.sanityProject?.type === 'project' ? data.sanityProject : null) ||
                     (data?.fallbackProject?.type === 'project' ? data.fallbackProject : null);
+
+    if (!project) {
+        return [
+            { title: "Case Study Not Found | Leapsofts" },
+            { name: "robots", content: "noindex, nofollow" },
+        ];
+    }
+
     const title = project?.impact?.title || project?.title || 'Case Study Details';
     const description = typeof project?.summary === 'string'
         ? project.summary
@@ -203,7 +210,6 @@ const ProjectDetails: React.FC = () => {
     if (!isLoading && !projectData && !sanityProject) {
         return (
             <div className={styles.notFound}>
-                <MetaSEO defaultTitle="Project Not Found | Leapsofts" noIndex={true} />
                 <h2>Project Not Found</h2>
                 <p>The project you are looking for does not exist.</p>
             </div>
@@ -322,11 +328,6 @@ const ProjectDetails: React.FC = () => {
     return (
         <div className={styles.pagePadding}>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }} />
-            <MetaSEO
-                seo={sanityProject?.seo}
-                defaultTitle={`${title} | Case Study | Leapsofts`}
-                defaultDescription={summaryText}
-            />
             <ImpactShowcase
                 title={impactData.title}
                 images={impactData.images}

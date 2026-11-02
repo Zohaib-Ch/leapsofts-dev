@@ -1,22 +1,50 @@
-import { Link } from 'react-router';
+import { Link, useRouteLoaderData } from 'react-router';
 import { useTheme } from '../../context/ThemeContext';
 import { useCookieConsent } from '../../context/CookieConsentContext';
 import styles from './Footer.module.css';
-import { Linkedin } from 'lucide-react';
+import { Linkedin, Twitter, Github } from 'lucide-react';
+import type { SanitySiteSettings } from '../../sanity/types';
 
-const Footer = () => {
+interface FooterProps {
+  siteSettings?: SanitySiteSettings | null;
+}
+
+const Footer: React.FC<FooterProps> = ({ siteSettings: propsSettings }) => {
+  const rootData = useRouteLoaderData<{ siteSettings?: SanitySiteSettings | null }>("root");
+  const siteSettings = propsSettings || rootData?.siteSettings;
   const currentYear = new Date().getFullYear();
   const { theme } = useTheme();
   const { openSettings } = useCookieConsent();
   const footerLogo = theme === 'light' ? '/logo/Leap-soft-01.png' : '/logo/Leap-soft-w.png';
 
+  const primaryPhone = siteSettings?.contactPhone || '+971 56 830 9734';
+  const primaryEmail = siteSettings?.contactEmail || 'contact@leapsofts.com';
+  const socialLinks = siteSettings?.socialLinks && siteSettings.socialLinks.length > 0
+    ? siteSettings.socialLinks
+    : [
+        { platform: 'LinkedIn', url: 'https://www.linkedin.com/company/leapsofts/' },
+        { platform: 'Twitter', url: 'https://twitter.com/leapsofts' },
+        { platform: 'GitHub', url: 'https://github.com/leapsofts' },
+      ];
+
+  const getSocialIcon = (platform: string) => {
+    const p = platform.toLowerCase();
+    if (p.includes('linkedin')) return <Linkedin size={20} />;
+    if (p.includes('twitter') || p.includes('x')) return <Twitter size={20} />;
+    if (p.includes('github')) return <Github size={20} />;
+    return null;
+  };
+
   const footerLinks = {
     services: [
       { name: 'Custom Software Development', path: '/services/custom-software-development' },
+      { name: 'Mobile App Development', path: '/services/mobile-app-development' },
+      { name: 'Web App Development', path: '/services/web-app-development' },
       { name: 'Data Science & AI', path: '/services/data-science-ai' },
       { name: 'Cloud Engineering', path: '/services/cloud-engineering' },
-      { name: 'Dedicated Teams', path: '/services/dedicated-teams' },
-      { name: 'Product Development Strategy', path: '/services/product-development-strategy' },
+      { name: 'DevOps & CI/CD', path: '/services/devops' },
+      { name: 'Cyber Security', path: '/services/cyber-security' },
+      { name: 'Dedicated Engineering Teams', path: '/services/dedicated-teams' },
     ],
     company: [
       { name: 'Case Studies', path: '/projects' },
@@ -61,7 +89,7 @@ const Footer = () => {
                 <h5 className={styles["contact-label"]}>Call</h5>
                 <div className={styles["call-grid"]}>
                   <div className={styles["call-item"]}>
-                    <p className={styles["contact-detail"]}>+971 56 830 9734</p>
+                    <p className={styles["contact-detail"]}>{primaryPhone}</p>
                     <p className={styles["contact-sub-detail"]}>Mon-Fri from 9am to 5pm GST</p>
                   </div>
                   <div className={styles["call-item"]}>
@@ -74,8 +102,8 @@ const Footer = () => {
               <div className={styles["contact-section"]}>
                 <h5 className={styles["contact-label"]}>Email</h5>
                 <div className={styles["email-group"]}>
-                  <a href="mailto:contact@leapsofts.com" className={styles["contact-email"]}>
-                    contact@leapsofts.com
+                  <a href={`mailto:${primaryEmail}`} className={styles["contact-email"]}>
+                    {primaryEmail}
                   </a>
                 </div>
               </div>
@@ -136,15 +164,21 @@ const Footer = () => {
             </div>
           </div>
           <div className={styles["social-links"]}>
-            <a
-              href="https://www.linkedin.com/company/leapsofts/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles["social-link"]}
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={20} />
-            </a>
+            {socialLinks.map((item, idx) => {
+              const icon = getSocialIcon(item.platform);
+              return (
+                <a
+                  key={item._key || idx}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles["social-link"]}
+                  aria-label={item.platform}
+                >
+                  {icon || item.platform}
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>

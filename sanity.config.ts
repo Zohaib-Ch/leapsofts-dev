@@ -31,6 +31,9 @@ export default defineConfig({
                       .title('Case Studies Page Settings')
                       .child(S.document().schemaType('caseStudiesPage').documentId('caseStudiesPage')),
                     S.listItem()
+                      .title('Blog Page Settings (/blog)')
+                      .child(S.document().schemaType('blogPage').documentId('blogPage')),
+                    S.listItem()
                       .title('Contact Us Page')
                       .child(S.document().schemaType('contactPage').documentId('contactPage')),
                   ])

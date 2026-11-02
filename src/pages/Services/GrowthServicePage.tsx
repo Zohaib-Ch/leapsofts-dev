@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react';
 import { useParams, useLocation, Link, Navigate } from 'react-router';
-import MetaSEO from '../../components/SEO/MetaSEO';
 import { GROWTH_SERVICES_DATA } from '../../data/growthServicesData';
 import styles from './GrowthServicePage.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -222,13 +221,7 @@ export default function GrowthServicePage() {
 
   return (
     <div className={styles['page-container']}>
-      <MetaSEO
-        defaultTitle={service.seo.title}
-        defaultDescription={service.seo.description}
-        defaultKeywords={service.seo.keywords.join(', ')}
-        canonicalUrl={currentCanonicalUrl}
-        schema={jsonLd}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* Breadcrumbs */}
       <div className={styles['breadcrumb-bar']}>

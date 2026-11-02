@@ -5,6 +5,7 @@ import { homePageSchema } from './documents/homePage';
 import { aboutPageSchema } from './documents/aboutPage';
 import { contactPageSchema } from './documents/contactPage';
 import { caseStudiesPageSchema } from './documents/caseStudiesPage';
+import { blogPageSchema } from './documents/blogPage';
 import { serviceSchema } from './documents/service';
 import { industrySchema } from './documents/industry';
 import { caseStudySchema } from './documents/caseStudy';
@@ -23,6 +24,7 @@ export const schemaTypes = [
   aboutPageSchema,
   contactPageSchema,
   caseStudiesPageSchema,
+  blogPageSchema,
   serviceSchema,
   industrySchema,
   caseStudySchema,
