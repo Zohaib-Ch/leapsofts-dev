@@ -154,8 +154,8 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Software Development for Mid-Sized Businesses & Enterprises | Leapsofts",
-    defaultDescription: "Leapsofts engineers custom software for mid-sized businesses & mid-market companies — enterprise ERP integration, legacy app re-engineering, paperless mobile apps & BI analytics.",
+    defaultTitle: "Software Development for Mid-Sized Businesses | Leapsofts",
+    defaultDescription: "Leapsofts builds custom software for mid-sized businesses: enterprise ERP integration, legacy app re-engineering, paperless mobile apps, and BI analytics.",
     defaultKeywords: "software development for mid-sized businesses, mid-market custom software development, enterprise application development, custom business process automation, legacy software modernization, mid-sized enterprise erp crm development, custom workflow automation software, database migration services, internal tool development, proprietary enterprise software, cloud modernization for mid-market, zero license fee custom software",
     canonicalUrl: "https://www.leapsofts.com/industries/mid-sized-businesses",
   });

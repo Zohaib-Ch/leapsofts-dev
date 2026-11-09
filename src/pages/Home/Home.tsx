@@ -25,17 +25,21 @@ export async function loader() {
 
 export function meta({ data }: { data?: any }) {
   const sanityData = data?.sanityData;
-  const title = sanityData?.seo?.metaTitle || "Enterprise Custom Software Development Company | Leapsofts";
-  const description = sanityData?.seo?.metaDescription || "Leapsofts engineers enterprise-grade custom software, cloud platforms & AI solutions. Launch your MVP in 3-5 months with zero compromise on scalability. Schedule a free strategy session today.";
-  const keywords = sanityData?.seo?.keywords || "custom software development company, enterprise software engineering, cloud architecture, AI solutions, web app development, MVP development, dedicated development team";
-  const canonicalUrl = sanityData?.seo?.canonicalUrl || "https://www.leapsofts.com/";
-  const ogImage = sanityData?.seo?.ogImage || "https://www.leapsofts.com/logo/Leap-soft-01.png";
+  const seo = sanityData?.seo;
+  const title = seo?.metaTitle || "Enterprise Custom Software Development Company | Leapsofts";
+  const description = seo?.metaDescription || "Leapsofts engineers enterprise-grade custom software, cloud platforms & AI solutions. Launch your MVP in 3-5 months with zero compromise on scalability. Schedule a free strategy session today.";
+  const keywords = Array.isArray(seo?.keywords) && seo.keywords.length > 0
+    ? seo.keywords.join(', ')
+    : (typeof seo?.keywords === 'string' && seo.keywords ? seo.keywords : "custom software development company, enterprise software engineering, cloud architecture, AI solutions, web app development, MVP development, dedicated development team");
+  const canonicalUrl = seo?.canonicalUrl || "https://www.leapsofts.com/";
+  const ogImage = seo?.ogImageUrl || (typeof seo?.ogImage === 'string' ? seo.ogImage : "https://www.leapsofts.com/logo/Leap-soft-01.png");
+  const twitterImage = seo?.twitterImageUrl || ogImage;
 
   return [
     { title },
     { name: "description", content: description },
     { name: "keywords", content: keywords },
-    { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
+    { name: "robots", content: seo?.noIndex ? "noindex, nofollow" : (seo?.robots || "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1") },
     { property: "og:title", content: title },
     { property: "og:description", content: description },
     { property: "og:image", content: ogImage },
@@ -47,7 +51,7 @@ export function meta({ data }: { data?: any }) {
     { name: "twitter:site", content: "@leapsofts" },
     { name: "twitter:title", content: title },
     { name: "twitter:description", content: description },
-    { name: "twitter:image", content: ogImage },
+    { name: "twitter:image", content: twitterImage },
     { tagName: "link", rel: "canonical", href: canonicalUrl },
     {
       tagName: "link",

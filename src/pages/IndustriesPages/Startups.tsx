@@ -154,8 +154,8 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Software Development for Startups & Rapid MVP Delivery | Leapsofts",
-    defaultDescription: "Launch your startup MVP in 3-5 months with Leapsofts. Custom software engineering, CTO-as-a-Service, serverless architecture & pitch-ready demos for founders.",
+    defaultTitle: "Software Development for Startups & MVPs | Leapsofts",
+    defaultDescription: "Launch your startup MVP in 3-5 months with Leapsofts: custom software engineering, CTO-as-a-Service, serverless architecture, and pitch-ready demos.",
     defaultKeywords: "software development for startups, startup mvp development company, rapid mvp development services, mvp developers for startups, saas startup engineering, cto as a service for startups, seed stage mvp development, startup software product development, agile mvp delivery 3 to 5 months, startup cloud architecture, fractional cto consulting, venture backed startup software development, stripe billing saas multi-tenant architecture",
     canonicalUrl: "https://www.leapsofts.com/industries/startups",
   });

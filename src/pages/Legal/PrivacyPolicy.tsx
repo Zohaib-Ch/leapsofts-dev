@@ -20,7 +20,7 @@ import {
 export function meta() {
   return buildPageMeta({
     defaultTitle: "Privacy Policy & Enterprise Data Protection Standards | Leapsofts",
-    defaultDescription: "Read the official Privacy Policy of Leapsofts Enterprise Software LLC. Learn how we safeguard your data, enforce 100% client IP protection, and comply with GDPR, CCPA, and ISO 27001 standards.",
+    defaultDescription: "Read the official Privacy Policy of Leapsofts. Learn how we safeguard data, guarantee 100% client IP protection, and comply with GDPR, CCPA, and ISO 27001.",
     defaultKeywords: "Leapsofts privacy policy, enterprise data protection, GDPR compliance software company, CCPA CPRA privacy rights, client IP ownership, zero trust data security, software engineering confidentiality NDA Dubai US",
     canonicalUrl: "https://www.leapsofts.com/privacy-policy",
   });

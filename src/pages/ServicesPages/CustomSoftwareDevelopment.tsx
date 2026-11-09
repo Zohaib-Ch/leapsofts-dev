@@ -308,7 +308,7 @@ export function meta({ data }: { data?: Record<string, unknown> }) {
   return buildPageMeta({
     sanityData: (data as any)?.sanityData,
     defaultTitle: "Enterprise Custom Software Development Services | Leapsofts",
-    defaultDescription: "Leapsofts delivers enterprise custom software development services tailored for scalability, security, and performance. 100% IP handover, cloud-native architecture, and 3-5 month MVP delivery. Request a free strategy session.",
+    defaultDescription: "Leapsofts delivers enterprise custom software development services: 100% IP handover, cloud-native microservices, and rapid 3-5 month production MVP delivery.",
     defaultKeywords: "custom software development services, enterprise software development company, bespoke software development, enterprise application development, software development company, custom enterprise software, microservices software architecture, legacy software modernization",
     canonicalUrl: "https://www.leapsofts.com/services/custom-software-development",
   });

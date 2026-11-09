@@ -418,7 +418,7 @@ export const ALL_CASE_STUDIES_QUERY = `*[_type == "caseStudy"]{
   solution,
   results,
   testimonialQuote,
-  seo
+  ${SEO_FRAGMENT}
 }`;
 
 export const CASE_STUDY_BY_ID_QUERY = `*[_type == "caseStudy" && (id == $id || slug.current == $id || _id == $id || _id == "caseStudy-" + $id || _id == "drafts.caseStudy-" + $id)] | order(_updatedAt desc)[0]{
@@ -468,7 +468,7 @@ export const CASE_STUDY_BY_ID_QUERY = `*[_type == "caseStudy" && (id == $id || s
   solution,
   results,
   testimonialQuote,
-  seo
+  ${SEO_FRAGMENT}
 }`;
 
 export const ALL_BLOGS_QUERY = `*[_type == "blog"] | order(_createdAt desc){
@@ -518,7 +518,7 @@ export const ALL_BLOGS_QUERY = `*[_type == "blog"] | order(_createdAt desc){
   "coverImageUrl": coalesce(coverImage.asset->url, coverImageUrl),
   content,
   body,
-  seo
+  ${SEO_FRAGMENT}
 }`;
 
 export const BLOG_BY_SLUG_QUERY = `*[_type == "blog" && (slug.current == $slug || _id == $slug || _id == "drafts." + $slug || _id == "blog-" + $slug || _id == "drafts.blog-" + $slug)] | order(_updatedAt desc)[0]{
@@ -568,7 +568,7 @@ export const BLOG_BY_SLUG_QUERY = `*[_type == "blog" && (slug.current == $slug |
   "coverImageUrl": coalesce(coverImage.asset->url, coverImageUrl),
   content,
   body,
-  seo
+  ${SEO_FRAGMENT}
 }`;
 
 // Fetch helper functions with silent failover to null if network / dataset not initialized

@@ -22,7 +22,7 @@ import {
 export function meta() {
   return buildPageMeta({
     defaultTitle: "Cookies Policy & Tracking Transparency | Leapsofts",
-    defaultDescription: "Understand how Leapsofts deploys cookies, local storage, and privacy-first web telemetry. Explore our complete cookie inventory and customize your preferences anytime.",
+    defaultDescription: "Learn how Leapsofts uses cookies, local storage, and privacy-first web telemetry. Review our full cookie inventory and customize your preferences anytime.",
     defaultKeywords: "Leapsofts cookies policy, cookie consent GDPR, ePrivacy Directive cookies, website cookie inventory, cookie preferences manager, anonymous telemetry analytics",
     canonicalUrl: "https://www.leapsofts.com/cookies-policy",
   });

@@ -304,8 +304,8 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Microsoft Azure Services & Development | Azure Consulting | Leapsofts",
-    defaultDescription: "Certified Microsoft Azure development company offering hybrid cloud architecture, AKS Kubernetes, Bicep IaC, and Azure OpenAI solutions. Talk to our Azure architects.",
+    defaultTitle: "Microsoft Azure Cloud Development & Consulting | Leapsofts",
+    defaultDescription: "Certified Microsoft Azure development company offering hybrid cloud architecture, AKS Kubernetes, Bicep IaC, and Azure OpenAI enterprise solutions.",
     defaultKeywords: "Azure development company, Microsoft Azure services, Azure cloud consulting, Azure migration services, Azure Kubernetes Service AKS, Azure Bicep IaC",
     canonicalUrl: "https://www.leapsofts.com/services/azure",
   });
