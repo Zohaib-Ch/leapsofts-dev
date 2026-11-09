@@ -32,8 +32,8 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Global Offices & Security Compliance | ISO, HIPAA, SOC2 | Leapsofts",
-    defaultDescription: "Leapsofts operates global delivery hubs in Dubai and the USA with ISO 27001, HIPAA, SOC 2, and GDPR security compliance readiness for enterprise software.",
+    defaultTitle: "Global Offices & Security Compliance | ISO, HIPAA | Leapsofts",
+    defaultDescription: "Leapsofts operates global delivery hubs in Dubai and the USA with ISO 27001, HIPAA, SOC 2, and GDPR security compliance for enterprise software platforms.",
     defaultKeywords: "Leapsofts global offices, Dubai HQ software company, US software delivery hub, HIPAA SOC2 compliant software agency, ISO 27001 cloud engineering",
     canonicalUrl: "https://www.leapsofts.com/about/global-footprint",
   });

@@ -28,8 +28,8 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Contact Leapsofts | Get a Free Software Strategy Consultation",
-    defaultDescription: "Ready to accelerate your product roadmap? Contact Leapsofts today for a free custom software architecture, cloud engineering, and MVP strategy consultation with our lead software architects.",
+    defaultTitle: "Contact Leapsofts | Free Software Strategy Consultation",
+    defaultDescription: "Contact Leapsofts today for a free custom software architecture, cloud engineering, and MVP strategy consultation with our lead enterprise software architects.",
     defaultKeywords: "contact Leapsofts, software development consultation, hire software developers, software development company contact",
     canonicalUrl: "https://www.leapsofts.com/contact",
   });

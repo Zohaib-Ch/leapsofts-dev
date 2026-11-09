@@ -30,8 +30,8 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Executive Engineering Leadership | CEO Huzaifa Rasheed | Leapsofts",
-    defaultDescription: "Meet the executive leaders, AI researchers, and cloud architects behind Leapsofts. Led by CEO & Co-Founder Huzaifa Rasheed, building custom enterprise software solutions.",
+    defaultTitle: "Engineering Leadership | CEO Huzaifa Rasheed | Leapsofts",
+    defaultDescription: "Meet the executive leaders, AI researchers, and cloud architects behind Leapsofts, led by CEO Huzaifa Rasheed building scalable enterprise software solutions.",
     defaultKeywords: "Leapsofts leadership, Huzaifa Rasheed, enterprise tech leadership, executive software engineers",
     canonicalUrl: "https://www.leapsofts.com/about/leadership",
   });

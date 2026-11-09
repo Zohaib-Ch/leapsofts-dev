@@ -154,7 +154,7 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Media & Entertainment Software Development | Streaming & DRM | Leapsofts",
+    defaultTitle: "Entertainment & Media Software Development | Leapsofts",
     defaultDescription: "Leapsofts engineers custom media & entertainment software, low-latency 4K HLS/DASH streaming platforms, Widevine DRM security, and server-side ad insertion (SSAI).",
     defaultKeywords: "entertainment software development, media software development company, video streaming platform development, 4k hls dash streaming software, multi drm security widevine fairplay, server side ad insertion ssai, ott video app development, webrtc live streaming platform, video on demand vod software, digital asset management dam for media, interactive live broadcast software, audio streaming app development",
     canonicalUrl: "https://www.leapsofts.com/industries/entertainment",

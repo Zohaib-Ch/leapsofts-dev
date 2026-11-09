@@ -1,6 +1,13 @@
 import { Studio } from 'sanity';
 import config from '../../../sanity.config';
 
+export function meta() {
+  return [
+    { title: "Leapsofts Content Studio" },
+    { name: "robots", content: "noindex, nofollow" },
+  ];
+}
+
 export default function StudioPage() {
   return (
     <div style={{ height: '100vh', width: '100vw', margin: 0, padding: 0, overflow: 'hidden' }}>

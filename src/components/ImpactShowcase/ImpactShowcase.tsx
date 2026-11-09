@@ -64,9 +64,9 @@ const ImpactShowcase: React.FC<ImpactShowcaseProps> = ({
                         <span>Project Impact & Success</span>
                     </motion.div>
 
-                    <motion.h2 className={styles.title} variants={itemVariants}>
+                    <motion.h1 className={styles.title} variants={itemVariants}>
                         {title}
-                    </motion.h2>
+                    </motion.h1>
 
                     {(() => {
                         const validDeliverables = (deliverables || []).filter(item => {

@@ -153,8 +153,8 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Transportation Software Development & Logistics Solutions | Leapsofts",
-    defaultDescription: "Leapsofts engineers custom transportation software, fleet telematics platforms, custom TMS solutions, IoT cold-chain tracking, and automated carrier payout gateways.",
+    defaultTitle: "Transportation & Logistics Software Solutions | Leapsofts",
+    defaultDescription: "Leapsofts engineers custom transportation software, fleet telematics platforms, custom TMS solutions, IoT cold-chain tracking, and carrier payout gateways.",
     defaultKeywords: "transportation software development, logistics software development company, custom tms software development, fleet telematics management software, fmcsa eld compliance software, freight broker dispatch software, gps tracking logistics mobile app, vehicle routing optimization algorithm, cold chain iot temperature monitoring, cross dock warehouse management, carrier payout billing automation, supply chain visibility platform",
     canonicalUrl: "https://www.leapsofts.com/industries/transportation",
   });

@@ -160,8 +160,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="theme-color" content="#ffffff" />
         {/* Publisher / author for E-E-A-T */}
         <meta name="author" content="Leapsofts Engineering" />
-        <link rel="alternate" hrefLang="en" href="https://www.leapsofts.com/" />
-        <link rel="alternate" hrefLang="x-default" href="https://www.leapsofts.com/" />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <Meta />
         <Links />

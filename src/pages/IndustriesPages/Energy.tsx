@@ -154,7 +154,7 @@ export async function loader() {
 export function meta({ data }: { data?: any }) {
   return buildPageMeta({
     sanityData: data?.sanityData,
-    defaultTitle: "Energy & Utilities Software Development | Smart Grid & IoT | Leapsofts",
+    defaultTitle: "Energy & Utilities Software Development & IoT | Leapsofts",
     defaultDescription: "Leapsofts engineers custom energy software, smart grid automation platforms, SCADA IoT telemetry engines, and renewable energy management systems.",
     defaultKeywords: "energy software development, cleantech software development company, smart grid software development, scada modbus dnp3 integration, nerc cip cybersecurity compliance, renewable energy monitoring software, battery energy storage system bess software, derms distributed energy resource management, solar wind farm telemetry platform, utility billing smart metering ami, carbon accounting esg software",
     canonicalUrl: "https://www.leapsofts.com/industries/energy",
